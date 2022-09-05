@@ -79,6 +79,8 @@ export class ColonyNetwork {
       );
     }
 
+    const colony = new Colony(this, colonyClient);
+
     const extensions: SupportedExtensions = {};
 
     // NOTE: Create an individual try-catch block for every extension
@@ -86,15 +88,14 @@ export class ColonyNetwork {
       const votingReputationClient = await getVotingReputationClient(
         colonyClient,
       );
-      extensions.motions = new VotingReputation(
-        colonyClient,
-        votingReputationClient,
-      );
+      extensions.motions = new VotingReputation(colony, votingReputationClient);
     } catch (e) {
       // Ignore error here. Extension just won't be available.
     }
 
-    return new Colony(this, colonyClient, extensions);
+    colony.installExtensions(extensions);
+
+    return colony;
   }
 
   /**

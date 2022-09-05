@@ -9,12 +9,15 @@
 - [ColonyRole](enums/ColonyRole.md)
 - [Extension](enums/Extension.md)
 - [Id](enums/Id.md)
+- [Vote](enums/Vote.md)
 
 ## Classes
 
 - [Colony](classes/Colony.md)
 - [ColonyEventManager](classes/ColonyEventManager.md)
 - [ColonyNetwork](classes/ColonyNetwork.md)
+- [MotionCreator](classes/MotionCreator.md)
+- [VotingReputation](classes/VotingReputation.md)
 
 ## Interfaces
 
@@ -84,6 +87,32 @@ Extract event args from a contract receipt
 | :------ | :------ |
 | `eventName` | `string` |
 | `receipt` | `ContractReceipt` |
+
+#### Returns
+
+`undefined` \| `T`
+
+___
+
+### extractEventFromLogs
+
+▸ **extractEventFromLogs**<`T`\>(`eventName`, `receipt`, `iface`): `undefined` \| `T`
+
+Manually extract an event from logs (e.g. if emitting contract is a different one than the calling contract)
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `T` |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `eventName` | `string` |
+| `receipt` | `ContractReceipt` |
+| `iface` | `Interface` |
 
 #### Returns
 

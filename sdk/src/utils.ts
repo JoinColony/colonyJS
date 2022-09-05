@@ -1,6 +1,7 @@
 import { BigNumberish, ContractReceipt, utils } from 'ethers';
 import type { Log } from '@ethersproject/abstract-provider';
 import type { JsonRpcProvider } from '@ethersproject/providers';
+import type { Interface } from '@ethersproject/abi';
 
 import { Ethers6Filter, Ethers6FilterByBlockHash } from './types';
 
@@ -13,6 +14,29 @@ export const extractEvent = <T>(
     const event = receipt.events.find((ev) => ev.event === eventName);
     if (event?.args) {
       return event.args as ReadonlyArray<unknown> & T;
+    }
+  }
+  return undefined;
+};
+
+/** Manually extract an event from logs (e.g. if emitting contract is a different one than the calling contract) */
+export const extractEventFromLogs = <T>(
+  eventName: string,
+  receipt: ContractReceipt,
+  iface: Interface,
+): T | undefined => {
+  if (!receipt.events || !receipt.events.length) {
+    return undefined;
+  }
+  for (let i = 0; i < receipt.events.length; i += 1) {
+    try {
+      return iface.decodeEventLog(
+        eventName,
+        receipt.events[i].data,
+        receipt.events[i].topics,
+      ) as ReadonlyArray<unknown> & T;
+    } catch (e) {
+      // ignore
     }
   }
   return undefined;

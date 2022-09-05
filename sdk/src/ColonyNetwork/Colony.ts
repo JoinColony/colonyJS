@@ -17,6 +17,7 @@ import {
 } from '@colony/colony-js/extras';
 import type {
   BigNumberish,
+  BytesLike,
   ContractReceipt,
   ContractTransaction,
 } from 'ethers';
@@ -47,6 +48,13 @@ export class Colony {
 
   colonyNetwork: ColonyNetwork;
 
+  /**
+   * An instance of the Colony's native token
+   *
+   * Currently only Tokens deployed via Colony are supported (no external, imported tokens) in Colony SDK. All other kinds will throw an error
+   */
+  colonyToken: ColonyToken;
+
   ext: SupportedExtensions;
 
   version: number;
@@ -65,13 +73,13 @@ export class Colony {
   constructor(
     colonyNetwork: ColonyNetwork,
     colonyClient: SupportedColonyClient,
-    extensions: SupportedExtensions,
   ) {
     this.colonyClient = colonyClient;
+    this.colonyNetwork = colonyNetwork;
+    this.colonyToken = new ColonyToken(this);
     this.signerOrProvider = colonyClient.signer || colonyClient.provider;
     this.address = colonyClient.address;
-    this.ext = extensions;
-    this.colonyNetwork = colonyNetwork;
+    this.ext = {};
     this.version = colonyClient.clientVersion;
   }
 
@@ -111,15 +119,12 @@ export class Colony {
   }
 
   /**
-   * Get a new instance of a Colony's native Token
+   * Installs colony extensions that can be instantiated in the callback function
    *
-   * @remarks
-   * Currently only Tokens deployed via Colony are supported (no external, imported tokens) in Colony SDK. All other kinds will throw an error
-   *
-   * @returns A [[ColonyNetwork.ColonyToken]] abstaction instance
+   * @internal
    */
-  getToken(): ColonyToken {
-    return new ColonyToken(this.colonyClient);
+  installExtensions(extensions: SupportedExtensions) {
+    this.ext = extensions;
   }
 
   /**
@@ -426,5 +431,50 @@ export class Colony {
    */
   async getReputationAcrossTeams(userAddress: string) {
     return this.colonyClient.getReputationAcrossDomains(userAddress);
+  }
+
+  /**
+   * Execute an arbitrary transaction in the name of the Colony
+   *
+   * This method can execute a transaction on any Ethereum Smart Contract with the Colony address as the sender. The action needs to be encoded function data (see https://docs.ethers.io/v5/api/utils/abi/interface/#Interface--encoding). We provide some common interfaces for you to make it even easier.
+   *
+   * @example Mint an NFT from a Colony
+   * ```typescript
+   * import { ERC721 } from '@colony/sdk';
+   *
+   * // Mint a NFT for address 0xb794f5ea0ba39494ce839613fffba74279579268
+   * const encodedAction = ERC721.encodeFunctionData(
+   *  'mintTo',
+   *  '0xb794f5ea0ba39494ce839613fffba74279579268',
+   * );
+   *
+   * // Immediately executing async function
+   * (async function() {
+   *   await colony.makeArbitraryTransaction(
+   *      // NFT contract address
+   *      '0x06012c8cf97BEaD5deAe237070F9587f8E7A266d',
+   *      // encoded transaction from above
+   *      encodedAction
+   *   );
+   * })();
+   * ```
+   *
+   * @param target Address of the contract to execute a method on
+   * @param action Encoded action to execute
+   * @returns A tupel of event data and contract receipt
+   *
+   * **No event data**
+   */
+  async makeArbitraryTransaction(target: string, action: BytesLike) {
+    const tx = await this.colonyClient.makeArbitraryTransactions(
+      [target],
+      [action],
+      false,
+    );
+    const receipt = await tx.wait();
+
+    const data = {};
+
+    return [data, receipt] as [typeof data, typeof receipt];
   }
 }

@@ -127,8 +127,7 @@ buttonConnect.addEventListener('click', async () => {
     const cc = await getColony(inputAddress.value, signer);
     colony = cc;
     const funding = await getColonyFunding();
-    const token = cc.getToken();
-    const tokenSymbol = await token.symbol();
+    const tokenSymbol = await cc.colonyToken.symbol();
     speak(`
             Connected to Colony with address: ${colonyAddress}.
             Colony version: ${cc.version}.

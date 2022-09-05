@@ -1,4 +1,4 @@
-import type { BigNumberish } from 'ethers';
+import type { BigNumberish, BytesLike } from 'ethers';
 
 import {
   Id,
@@ -11,11 +11,10 @@ import {
 
 import { MotionCreatedEventObject } from '@colony/colony-js/extras';
 
-import type { SupportedColonyMethods } from './Colony';
+import type { Colony, SupportedColonyMethods } from './Colony';
 
 import { ParametersFrom2 } from '../types';
 import { extractEvent } from '../utils';
-import { SupportedColonyClient } from './Colony';
 import { SupportedVotingReputationClient } from './VotingReputation';
 
 /**
@@ -26,15 +25,15 @@ import { SupportedVotingReputationClient } from './VotingReputation';
  *
  */
 export class MotionCreator {
-  private colonyClient: SupportedColonyClient;
+  private colony: Colony;
 
   private votingReputationClient: SupportedVotingReputationClient;
 
   constructor(
-    colonyClient: SupportedColonyClient,
+    colony: Colony,
     votingReputationClient: SupportedVotingReputationClient,
   ) {
-    this.colonyClient = colonyClient;
+    this.colony = colony;
     this.votingReputationClient = votingReputationClient;
   }
 
@@ -45,14 +44,15 @@ export class MotionCreator {
     motionDomain: BigNumberish,
     args: ParametersFrom2<SupportedColonyMethods[F]>,
   ) {
+    const colonyClient = this.colony.getInternalColonyClient();
     const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
-      this.colonyClient,
+      colonyClient,
       actionDomain,
       actionRole,
       this.votingReputationClient.address,
     );
 
-    const encodedAction = this.colonyClient.interface.encodeFunctionData(
+    const encodedAction = colonyClient.interface.encodeFunctionData(
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore I don't think this can be typed properly here
       signature,
@@ -87,6 +87,7 @@ export class MotionCreator {
    * @returns A tupel: `[eventData, ContractReceipt]`
    *
    * **Motion event data**
+   *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
    * | `motionId` | BigNumber | ID of the motion created |
@@ -144,6 +145,7 @@ export class MotionCreator {
    * @returns A tupel of event data and contract receipt
    *
    * **Motion event data**
+   *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
    * | `motionId` | BigNumber | ID of the motion created |
@@ -156,21 +158,21 @@ export class MotionCreator {
     teamId?: BigNumberish,
     tokenAddress?: string,
   ) {
+    const colonyClient = this.colony.getInternalColonyClient();
     const setTeamId = teamId || Id.RootDomain;
-    const setTokenAddress =
-      tokenAddress || this.colonyClient.tokenClient.address;
+    const setTokenAddress = tokenAddress || colonyClient.tokenClient.address;
 
-    const oneTxClient = await this.colonyClient.getExtensionClient(
+    const oneTxClient = await colonyClient.getExtensionClient(
       Extension.OneTxPayment,
     );
 
     const [extensionPDID, extensionCSI] = await getExtensionPermissionProofs(
-      this.colonyClient,
+      colonyClient,
       setTeamId,
       oneTxClient.address,
     );
     const [userPDID, userCSI] = await getExtensionPermissionProofs(
-      this.colonyClient,
+      colonyClient,
       setTeamId,
     );
 
@@ -212,8 +214,6 @@ export class MotionCreator {
    *
    * After sending funds to and claiming funds for your Colony they will land in a special team, the root team. If you want to make payments from other teams (in order to award reputation in that team) you have to move the funds there first. Use this method to do so.
    *
-   * @remarks Requires the `Funding` permission in the root team. As soon as teams can be nested, this requires the `Funding` permission in a team that is a parent of both teams in which funds are moved.
-   *
    * @example
    * ```typescript
    * import { Tokens } from '@colony/sdk';
@@ -236,6 +236,7 @@ export class MotionCreator {
    * @returns A tupel of event data and contract receipt
    *
    * **Motion event data**
+   *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
    * | `motionId` | BigNumber | ID of the motion created |
@@ -250,21 +251,19 @@ export class MotionCreator {
   ) {
     const parentTeam = Id.RootDomain;
     const setFromTeam = fromTeam || Id.RootDomain;
-    const setTokenAddress =
-      tokenAddress || this.colonyClient.tokenClient.address;
+    const colonyClient = this.colony.getInternalColonyClient();
+    const setTokenAddress = tokenAddress || colonyClient.tokenClient.address;
 
-    const { fundingPotId: fromPot } = await this.colonyClient.getDomain(
-      setFromTeam,
-    );
-    const { fundingPotId: toPot } = await this.colonyClient.getDomain(toTeam);
+    const { fundingPotId: fromPot } = await colonyClient.getDomain(setFromTeam);
+    const { fundingPotId: toPot } = await colonyClient.getDomain(toTeam);
 
     const fromChildSkillIndex = await getChildIndex(
-      this.colonyClient,
+      colonyClient,
       parentTeam,
       setFromTeam,
     );
     const toChildSkillIndex = await getChildIndex(
-      this.colonyClient,
+      colonyClient,
       parentTeam,
       toTeam,
     );
@@ -285,5 +284,69 @@ export class MotionCreator {
         setTokenAddress,
       ],
     );
+  }
+
+  /**
+   * Create a motion to create an arbitrary transaction in the name of the Colony
+   *
+   * For more information about the resulting action, see [[Colony.makeArbitraryTransaction]].
+   *
+   * This method can execute a transaction on any Ethereum Smart Contract with the Colony address as the sender. The action needs to be encoded function data (see https://docs.ethers.io/v5/api/utils/abi/interface/#Interface--encoding). We provide some common interfaces for you to make it even easier.
+   *
+   * @example Create a motion to mint an NFT from a Colony
+   * ```typescript
+   * import { ERC721 } from '@colony/sdk';
+   *
+   * // Mint a NFT for address 0xb794f5ea0ba39494ce839613fffba74279579268
+   * const encodedAction = ERC721.encodeFunctionData(
+   *  'mintTo',
+   *  '0xb794f5ea0ba39494ce839613fffba74279579268',
+   * );
+   *
+   * // Immediately executing async function
+   * (async function() {
+   *   await colony.ext.motions.create.makeArbitraryTransaction(
+   *      // NFT contract address
+   *      '0x06012c8cf97BEaD5deAe237070F9587f8E7A266d',
+   *      // encoded transaction from above
+   *      encodedAction
+   *   );
+   * })();
+   * ```
+   *
+   * @param target Address of the contract to execute a method on
+   * @param action Encoded action to execute
+   * @returns A tupel of event data and contract receipt
+   *
+   * **Motion event data**
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `motionId` | BigNumber | ID of the motion created |
+   * | `creator` | string | Address of the motion's creator |
+   * | `domainId` | BigNumber | Team ID of the motion |
+   */
+  async makeArbitraryTransaction(target: string, action: BytesLike) {
+    const encodedAction = this.colony
+      .getInternalColonyClient()
+      .interface.encodeFunctionData('makeArbitraryTransactions', [
+        [target],
+        [action],
+        false,
+      ]) as string;
+
+    const tx = await this.votingReputationClient.createMotionWithProofs(
+      Id.RootDomain,
+      '0x0',
+      encodedAction,
+    );
+
+    const receipt = await tx.wait();
+
+    const data = {
+      ...extractEvent<MotionCreatedEventObject>('MotionCreated', receipt),
+    };
+
+    return [data, receipt] as [typeof data, typeof receipt];
   }
 }

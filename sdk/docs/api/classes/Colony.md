@@ -14,6 +14,22 @@ ___
 
 ___
 
+### colonyToken
+
+• **colonyToken**: `ColonyToken`
+
+An instance of the Colony's native token
+
+Currently only Tokens deployed via Colony are supported (no external, imported tokens) in Colony SDK. All other kinds will throw an error
+
+___
+
+### ext
+
+• **ext**: `SupportedExtensions`
+
+___
+
 ### version
 
 • **version**: `number`
@@ -33,7 +49,7 @@ If this is not an option, Colony SDK might throw errors at certain points. Usage
 
 ▸ **claimFunds**(`tokenAddress?`): `Promise`<[{ `fee?`: `BigNumber` ; `payoutRemainder?`: `BigNumber` ; `token?`: `string`  }, `ContractReceipt`]\>
 
-Claim outstanding Colony funds.
+Claim outstanding Colony funds
 
 Anyone can call this function. Claims funds _for_ the Colony that have been sent to the Colony's contract address or minted funds of the Colony's native token. This function _has_ to be called in order for the funds to appear in the Colony's treasury. You can provide a token address for the token to be claimed. Otherwise it will claim the outstanding funds of the Colony's native token
 
@@ -185,21 +201,75 @@ An array of objects containing the following
 
 ___
 
-### getToken
+### getTeam
 
-▸ **getToken**(): `ColonyToken`
+▸ **getTeam**(`teamId`): `Promise`<`DomainStructOutput`\>
 
-Get a new instance of a Colony's native Token
+Gets the team for `teamId`
 
 **`Remarks`**
 
-Currently only Tokens deployed via Colony are supported (no external, imported tokens) in Colony SDK. All other kinds will throw an error
+Will throw if teamId does not exist
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `teamId` | `BigNumberish` | The teamId to get the team information for FIXME: get the type somehow |
 
 #### Returns
 
-`ColonyToken`
+`Promise`<`DomainStructOutput`\>
 
-A ColonyNetwork.ColonyToken abstaction instance
+A Team object
+
+___
+
+### makeArbitraryTransaction
+
+▸ **makeArbitraryTransaction**(`target`, `action`): `Promise`<[{}, `ContractReceipt`]\>
+
+Execute an arbitrary transaction in the name of the Colony
+
+This method can execute a transaction on any Ethereum Smart Contract with the Colony address as the sender. The action needs to be encoded function data (see https://docs.ethers.io/v5/api/utils/abi/interface/#Interface--encoding). We provide some common interfaces for you to make it even easier.
+
+**`Example`**
+
+Mint an NFT from a Colony
+```typescript
+import { ERC721 } from '@colony/sdk';
+
+// Mint a NFT for address 0xb794f5ea0ba39494ce839613fffba74279579268
+const encodedAction = ERC721.encodeFunctionData(
+ 'mintTo',
+ '0xb794f5ea0ba39494ce839613fffba74279579268',
+);
+
+// Immediately executing async function
+(async function() {
+  await colony.makeArbitraryTransaction(
+     // NFT contract address
+     '0x06012c8cf97BEaD5deAe237070F9587f8E7A266d',
+     // encoded transaction from above
+     encodedAction
+  );
+})();
+```
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `target` | `string` | Address of the contract to execute a method on |
+| `action` | `BytesLike` | Encoded action to execute |
+
+#### Returns
+
+`Promise`<[{}, `ContractReceipt`]\>
+
+A tupel of event data and contract receipt
+
+**No event data**
 
 ___
 
@@ -223,7 +293,7 @@ import { Tokens, w } from '@colony/sdk';
 // Immediately executing async function
 (async function() {
   // Move 10 of the native token from team 2 to team 3
-  await colony.moveFunds(
+  await colony.moveFundsToTeam(
      w`10`,
      2,
      3,
@@ -233,12 +303,12 @@ import { Tokens, w } from '@colony/sdk';
 
 #### Parameters
 
-| Name | Type | Default value | Description |
-| :------ | :------ | :------ | :------ |
-| `amount` | `BigNumberish` | `undefined` | Amount to transfer between the teams |
-| `toTeam` | `BigNumberish` | `undefined` | The team to transfer the funds to |
-| `fromTeam` | `BigNumberish` | `Id.RootDomain` | The team to transfer the funds from. Default is the Root team |
-| `tokenAddress` | `string` | `undefined` | The address of the token to be transferred. Default is the Colony's native token |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `amount` | `BigNumberish` | Amount to transfer between the teams |
+| `toTeam` | `BigNumberish` | The team to transfer the funds to |
+| `fromTeam?` | `BigNumberish` | The team to transfer the funds from. Default is the Root team |
+| `tokenAddress?` | `string` | The address of the token to be transferred. Default is the Colony's native token |
 
 #### Returns
 
@@ -287,12 +357,12 @@ import { Id, Tokens, w } from '@colony/sdk';
 
 #### Parameters
 
-| Name | Type | Default value | Description |
-| :------ | :------ | :------ | :------ |
-| `recipient` | `string` | `undefined` | Wallet address of account to send the funds to (also awarded reputation when sending the native token) |
-| `amount` | `BigNumberish` | `undefined` | Amount to pay in wei |
-| `teamId` | `BigNumberish` | `Id.RootDomain` | The team to use to send the funds from. Has to have funding of at least the amount you need to send. See [Colony.moveFundsToTeam](Colony.md#movefundstoteam). Defaults to the Colony's root team |
-| `tokenAddress` | `string` | `undefined` | The address of the token to make the payment in. Default is the Colony's native token |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `recipient` | `string` | Wallet address of account to send the funds to (also awarded reputation when sending the native token) |
+| `amount` | `BigNumberish` | Amount to pay in wei |
+| `teamId?` | `BigNumberish` | The team to use to send the funds from. Has to have funding of at least the amount you need to send. See [Colony.moveFundsToTeam](Colony.md#movefundstoteam). Defaults to the Colony's root team |
+| `tokenAddress?` | `string` | The address of the token to make the payment in. Default is the Colony's native token |
 
 #### Returns
 
@@ -307,28 +377,3 @@ A tupel of event data and contract receipt
 | `agent` | string | The address that is responsible for triggering this event |
 | `fundamentalId` | BigNumber | The newly added payment id |
 | `nPayouts` | BigNumber | Number of payouts in total |
-
-___
-
-### returnTxData
-
-▸ **returnTxData**<`D`, `E`\>(`data`, `metadataEvent`, `receipt`): `Promise`<[`D`, `ContractReceipt`, () => `Promise`<`MetadataValue`<`E`\>\>] \| [`D`, `ContractReceipt`]\>
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `D` | extends `Object` |
-| `E` | extends ``"Annotation(address,bytes32,string)"`` \| ``"ColonyMetadata(address,string)"`` \| ``"DomainMetadata(address,uint256,string)"`` |
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `data` | `D` |
-| `metadataEvent` | `E` |
-| `receipt` | `ContractReceipt` |
-
-#### Returns
-
-`Promise`<[`D`, `ContractReceipt`, () => `Promise`<`MetadataValue`<`E`\>\>] \| [`D`, `ContractReceipt`]\>
