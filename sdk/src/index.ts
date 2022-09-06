@@ -1,4 +1,4 @@
-export { Tokens } from '@colony/colony-js';
+export { MotionState, Tokens } from '@colony/colony-js';
 
 export {
   ColonyNetwork,

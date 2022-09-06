@@ -226,6 +226,54 @@ A Motion object
 
 ___
 
+### getMotionState
+
+▸ **getMotionState**(`motionId`): `Promise`<`number`\>
+
+Get the motion state as a number
+
+Will be one of the following:
+
+- `Staking` (= 1)
+- `Submit` (= 2)
+- `Reveal` (= 3)
+- `Closed` (= 4)
+- `Finalizable` (= 5)
+- `Finalized` (= 6)
+- `Failed` (= 7)
+
+**`Example`**
+
+You can show the state as a string like so
+```typescript
+import { MotionState } from '@colony/sdk';
+
+// Immediately executing async function
+(async function() {
+  // Get state of Motion `1`
+  const state = await colony.ext.motions.getMotionState(1);
+  const stateStr = MotionState[state]; // `Staking` (or another of the above)
+})();
+```
+
+**`Remarks`**
+
+Will throw if motionId does not exist
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `motionId` | `BigNumberish` | The motionId to get the state for |
+
+#### Returns
+
+`Promise`<`number`\>
+
+The motion state
+
+___
+
 ### getRemainingStakes
 
 ▸ **getRemainingStakes**(`motionId`): `Promise`<{ `remainingToFullyNayStaked`: `BigNumber` ; `remainingToFullyYayStaked`: `BigNumber`  }\>

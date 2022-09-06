@@ -9,6 +9,7 @@
 - [ColonyRole](enums/ColonyRole.md)
 - [Extension](enums/Extension.md)
 - [Id](enums/Id.md)
+- [MotionState](enums/MotionState.md)
 - [Vote](enums/Vote.md)
 
 ## Classes

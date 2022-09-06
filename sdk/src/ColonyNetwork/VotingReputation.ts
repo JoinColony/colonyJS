@@ -237,6 +237,45 @@ export class VotingReputation {
   }
 
   /**
+   * Get the motion state as a number
+   *
+   * Will be one of the following:
+   *
+   * - `Staking` (= 1)
+   * - `Submit` (= 2)
+   * - `Reveal` (= 3)
+   * - `Closed` (= 4)
+   * - `Finalizable` (= 5)
+   * - `Finalized` (= 6)
+   * - `Failed` (= 7)
+   *
+   * @example You can show the state as a string like so
+   * ```typescript
+   * import { MotionState } from '@colony/sdk';
+   *
+   * // Immediately executing async function
+   * (async function() {
+   *   // Get state of Motion `1`
+   *   const state = await colony.ext.motions.getMotionState(1);
+   *   const stateStr = MotionState[state]; // `Staking` (or another of the above)
+   * })();
+   * ```
+   *
+   * @remarks Will throw if motionId does not exist
+   *
+   * @param motionId The motionId to get the state for
+   *
+   * @returns The motion state
+   */
+  async getMotionState(motionId: BigNumberish) {
+    const motionCount = await this.votingReputationClient.getMotionCount();
+    if (motionCount.lt(motionId)) {
+      throw new Error(`Motion with id ${motionId} does not exist`);
+    }
+    return this.votingReputationClient.getMotionState(motionId);
+  }
+
+  /**
    * Get the minimum stake that has to be supplied for a motion and a certain vote (NOT for activation)
    *
    * @remarks To get the missing amount for activation, call [[getMotionStakes]]
@@ -410,6 +449,17 @@ export class VotingReputation {
    */
   async stakeMotion(motionId: BigNumberish, vote: Vote, amount: BigNumberish) {
     const userAddress = await this.signer.getAddress();
+
+    const motionState = await this.votingReputationClient.getMotionState(
+      motionId,
+    );
+
+    if (motionState !== MotionState.Staking) {
+      throw new Error(
+        `Motion cannot be staked. It's currently in "${MotionState[motionState]}" state`,
+      );
+    }
+
     const motion = await this.getMotion(motionId);
 
     const deposited = await this.colony.colonyToken.getUserDeposit(userAddress);
@@ -484,9 +534,10 @@ export class VotingReputation {
       motionId,
     );
 
-    // TODO: we might want to improve this error message by giving the exact reason
     if (motionState !== MotionState.Submit) {
-      throw new Error('Motion cannot be voted on at this time');
+      throw new Error(
+        `Motion cannot be voted on at this time. It's currently in "${MotionState[motionState]}" state`,
+      );
     }
 
     const colonyClient = this.colony.getInternalColonyClient();
@@ -544,9 +595,10 @@ export class VotingReputation {
       motionId,
     );
 
-    // TODO: we might want to improve this error message by giving the exact reason
     if (motionState !== MotionState.Reveal) {
-      throw new Error('Motion cannot be revealed at this time');
+      throw new Error(
+        `Motion cannot be revealed at this time. It's currently in "${MotionState[motionState]}" state`,
+      );
     }
 
     const colonyClient = this.colony.getInternalColonyClient();
@@ -620,9 +672,10 @@ export class VotingReputation {
       motionId,
     );
 
-    // TODO: we might want to improve this error message by giving the exact reason
     if (motionState !== MotionState.Finalizable) {
-      throw new Error('Motion is not finalizable (yet)');
+      throw new Error(
+        `Motion cannot be finalized. It's currently in "${MotionState[motionState]}" state`,
+      );
     }
 
     const tx = await this.votingReputationClient.finalizeMotion(motionId);
