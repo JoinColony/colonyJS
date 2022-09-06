@@ -2,7 +2,7 @@
   "name": "Colony SDK",
   "entryPoints": ["./src/index.ts"],
   "tsconfig": "./tsconfig.json",
-  "out": "docs/reference/api",
+  "out": "docs/api",
   "excludeInternal": true,
   "excludePrivate": true,
   "excludeProtected": true,
