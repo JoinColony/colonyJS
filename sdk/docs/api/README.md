@@ -17,6 +17,7 @@
 - [Colony](classes/Colony.md)
 - [ColonyEventManager](classes/ColonyEventManager.md)
 - [ColonyNetwork](classes/ColonyNetwork.md)
+- [ColonyToken](classes/ColonyToken.md)
 - [MotionCreator](classes/MotionCreator.md)
 - [VotingReputation](classes/VotingReputation.md)
 

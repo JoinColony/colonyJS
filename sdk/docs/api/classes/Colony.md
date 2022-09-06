@@ -16,7 +16,7 @@ ___
 
 ### colonyToken
 
-• **colonyToken**: `ColonyToken`
+• **colonyToken**: [`ColonyToken`](ColonyToken.md)
 
 An instance of the Colony's native token
 

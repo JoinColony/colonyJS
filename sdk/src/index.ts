@@ -3,6 +3,7 @@ export { MotionState, Tokens } from '@colony/colony-js';
 export {
   ColonyNetwork,
   Colony,
+  ColonyToken,
   MotionCreator,
   VotingReputation,
   Vote,
