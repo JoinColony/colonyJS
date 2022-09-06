@@ -1,6 +1,14 @@
 import { BigNumber, BigNumberish, providers, utils, Wallet } from 'ethers';
 
-import { Colony, ColonyNetwork, toEth, toWei, Vote, w } from '../../../src';
+import {
+  Colony,
+  ColonyNetwork,
+  MotionState,
+  toEth,
+  toWei,
+  Vote,
+  w,
+} from '../../../src';
 import {
   setupOneTxPaymentExtension,
   setupVotingReputationExtension,
@@ -43,10 +51,10 @@ const installVotingReputation = async () => {
   await metaColony.colonyToken.mint(w`500`);
   // Claim the CLNY for the MetaColony (important!)
   await metaColony.claimFunds();
-  // Pay 50 CLNY each to two addresses that we want to use for the motion
+  // Pay some CLNY each to two addresses (we are going to use the first for staking)
   // This will also give these addresses reputation in the ROOT team
-  await metaColony.pay('0xb77D57F4959eAfA0339424b83FcFaf9c15407461', w`50`);
-  await metaColony.pay('0x9df24e73f40b2a911eb254a8825103723e13209c', w`50`);
+  await metaColony.pay('0xb77D57F4959eAfA0339424b83FcFaf9c15407461', w`100`);
+  await metaColony.pay('0x9df24e73f40b2a911eb254a8825103723e13209c', w`20`);
 };
 
 const createPaymentMotion = async (amount: string): Promise<BigNumber> => {
@@ -77,8 +85,11 @@ const getMotion = async (motionId: BigNumberish) => {
     motionId,
   );
 
+  const motionState = await metaColony.ext.motions.getMotionState(motionId);
+
   return {
     ...motion,
+    motionState: MotionState[motionState],
     remainingStakes,
   };
 };
@@ -102,10 +113,27 @@ const stakeNay = async (amount: BigNumber) => {
   await metaColony.ext.motions?.stakeMotion(currentMotion, Vote.Nay, amount);
 };
 
+const voteYay = async () => {
+  await metaColony.ext.motions?.submitVote(currentMotion, Vote.Yay);
+};
+
+const voteNay = async () => {
+  await metaColony.ext.motions?.submitVote(currentMotion, Vote.Nay);
+};
+
+const revealVote = async () => {
+  await jumpIntoTheFuture(7 * 60);
+  await metaColony.ext.motions?.revealVote(currentMotion);
+};
+
+const finalize = async () => {
+  await jumpIntoTheFuture(7 * 60);
+  await metaColony.ext.motions?.finalizeMotion(currentMotion);
+};
+
 // We're using Ganache's evm_increaseTime and evm_mine methods to first increase the block time artificially by one hour and then force a block to mine. This will trigger the local reputation oracle/miner to award the pending reputation.
-const jumpIntoTheFuture = async () => {
-  await provider.send('evm_increaseTime', [3600]);
-  await provider.send('evm_mine', []);
+const jumpIntoTheFuture = async (seconds: number) => {
+  await provider.send('evm_increaseTime', [seconds]);
   await provider.send('evm_mine', []);
 };
 
@@ -126,6 +154,10 @@ const buttonGetMotion = document.querySelector('#button_get_motion');
 const buttonJump = document.querySelector('#button_jump');
 const buttonStakeYay = document.querySelector('#button_stake_yay');
 const buttonStakeNay = document.querySelector('#button_stake_nay');
+const buttonVoteYay = document.querySelector('#button_vote_yay');
+const buttonVoteNay = document.querySelector('#button_vote_nay');
+const buttonReveal = document.querySelector('#button_reveal');
+const buttonFinalize = document.querySelector('#button_finalize');
 
 const errElm: HTMLParagraphElement | null = document.querySelector('#error');
 const resultElm: HTMLParagraphElement | null =
@@ -145,7 +177,11 @@ if (
   !buttonGetMotion ||
   !buttonJump ||
   !buttonStakeYay ||
-  !buttonStakeNay
+  !buttonStakeNay ||
+  !buttonVoteYay ||
+  !buttonVoteNay ||
+  !buttonReveal ||
+  !buttonFinalize
 ) {
   throw new Error('Could not find all required HTML elements');
 }
@@ -229,14 +265,14 @@ buttonGetMotion.addEventListener('click', async () => {
   const motionId = inputMotionId.value;
   speak('Processing...');
   try {
-    const { domainId, altTarget, action, remainingStakes } = await getMotion(
-      motionId,
-    );
+    const { domainId, altTarget, action, motionState, remainingStakes } =
+      await getMotion(motionId);
 
     const values = {
       domainId: domainId.toString(),
       altTarget,
       action,
+      motionState,
       remainingYayStakes: toEth(remainingStakes.remainingToFullyYayStaked),
       remainingNayStakes: toEth(remainingStakes.remainingToFullyNayStaked),
     };
@@ -248,7 +284,7 @@ buttonGetMotion.addEventListener('click', async () => {
 });
 
 buttonJump.addEventListener('click', async () => {
-  await jumpIntoTheFuture();
+  await jumpIntoTheFuture(3600);
   speak('Whooo that was a hell of a ride. Welcome to the future');
 });
 
@@ -294,4 +330,90 @@ buttonStakeNay.addEventListener('click', async () => {
     return;
   }
   speak('Staked! Feel free to refresh the motion to see the new values');
+});
+
+buttonVoteYay.addEventListener('click', async () => {
+  kalm();
+  if (!currentMotion) {
+    panik(
+      new Error(
+        'Please get a motion first (in the previous step) to stake for',
+      ),
+    );
+    return;
+  }
+  speak('Processing...');
+  try {
+    await voteYay();
+  } catch (e) {
+    panik(e as Error);
+    speak('');
+    return;
+  }
+  speak('Voted yay!');
+});
+
+buttonVoteNay.addEventListener('click', async () => {
+  kalm();
+  if (!currentMotion) {
+    panik(
+      new Error(
+        'Please get a motion first (in the previous step) to stake for',
+      ),
+    );
+    return;
+  }
+  speak('Processing...');
+  try {
+    await voteNay();
+  } catch (e) {
+    panik(e as Error);
+    speak('');
+    return;
+  }
+  speak('Voted nay!');
+});
+
+buttonReveal.addEventListener('click', async () => {
+  kalm();
+  if (!currentMotion) {
+    panik(
+      new Error(
+        'Please get a motion first (in the previous step) to stake for',
+      ),
+    );
+    return;
+  }
+  speak('Processing...');
+  try {
+    await revealVote();
+  } catch (e) {
+    panik(e as Error);
+    speak('');
+    return;
+  }
+  speak('Vote successfully revealed!');
+});
+
+buttonFinalize.addEventListener('click', async () => {
+  kalm();
+  if (!currentMotion) {
+    panik(
+      new Error(
+        'Please get a motion first (in the previous step) to stake for',
+      ),
+    );
+    return;
+  }
+  speak('Processing...');
+  try {
+    await finalize();
+  } catch (e) {
+    panik(e as Error);
+    speak('');
+    return;
+  }
+  speak(
+    `Motion was successfully finailzed. The action was executed and rewards are paid out`,
+  );
 });

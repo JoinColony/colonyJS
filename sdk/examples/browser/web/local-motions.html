@@ -31,10 +31,17 @@
   <input type="text" id="motion_id" placeholder="Motion ID" />
   <button type="button" id="button_get_motion">Get motion</button>
   <p>You will see the domainId in which the motion was created, the altTarget (which is the OneTxPayment extension in this case, as we want to execute the `pay` function on it), the encoded action and the stakes remaining for activation.</p>
-  <p><b>7) Okay, now we're ready to stake</b> Feel free to stake any amount, then get the motion again and see how it goes up :)</p>
+  <p><b>7) Okay, now we're ready to stake.</b> Feel free to stake any amount, then get the motion again and see how it goes up :)</p>
   <input type="number" required max="20" id="stake_amount" placeholder="Stake amount" />
   <button type="button" id="button_stake_yay">Stake for Yay</button>
   <button type="button" id="button_stake_nay">Stake for Nay</button>
+  <p><b>8) We can also simulate voting.</b> For that, we activate both sides by staking the required amount on both sides from a single address. That usually won't happen in the wild (except if someone wants to force voting for some reason). Stake on both sides and then get the motion data to see if <tt>remainingYayStakes</tt> and <tt>remainingNayStakes</tt> are both <tt>0.0</tt></p>
+  <button type="button" id="button_vote_yay">Vote for Yay</button>
+  <button type="button" id="button_vote_nay">Vote for Nay</button>
+  <p><b>9) Reveal the vote</b> After the voting phase is over (<i style="color:red">you will need to wait ~6 minutes</i> - we are forwarding time again for that), the votes can be revealed. Only if a vote is revealed it is counted and the voting reward is paid out</p>
+  <button type="button" id="button_reveal">Reveal vote</button>
+  <p><b>10) If the motion was successful, we can finalize it.</b> In our example we can only finalize it if we wait long enough (~6min - the time is forwarded again when you press the button) after staking was only activated for Yay or if we voted for Yay.</p>
+  <button type="button" id="button_finalize">Finalize</button>
   <p style="color:red" id="error"></p>
   <p style="color:blue" id="result"></p>
   <script src="local-motions.js"></script>
