@@ -1774,7 +1774,7 @@ ___
 
 ### getDomain
 
-▸ **getDomain**(`_id`, `overrides?`): `Promise`<[`DomainStructOutput`](../modules/ColonyDataTypes.md#domainstructoutput)\>
+▸ **getDomain**(`_id`, `overrides?`): `Promise`<`DomainStructOutput`\>
 
 Get a domain by id.
 
@@ -1787,7 +1787,7 @@ Get a domain by id.
 
 #### Returns
 
-`Promise`<[`DomainStructOutput`](../modules/ColonyDataTypes.md#domainstructoutput)\>
+`Promise`<`DomainStructOutput`\>
 
 #### Inherited from
 
@@ -1842,7 +1842,7 @@ ___
 
 ### getExpenditure
 
-▸ **getExpenditure**(`_id`, `overrides?`): `Promise`<[`ExpenditureStructOutput`](../modules/ColonyDataTypes.md#expenditurestructoutput)\>
+▸ **getExpenditure**(`_id`, `overrides?`): `Promise`<`ExpenditureStructOutput`\>
 
 Returns an existing expenditure.
 
@@ -1855,7 +1855,7 @@ Returns an existing expenditure.
 
 #### Returns
 
-`Promise`<[`ExpenditureStructOutput`](../modules/ColonyDataTypes.md#expenditurestructoutput)\>
+`Promise`<`ExpenditureStructOutput`\>
 
 #### Inherited from
 
@@ -1887,7 +1887,7 @@ ___
 
 ### getExpenditureSlot
 
-▸ **getExpenditureSlot**(`_id`, `_slot`, `overrides?`): `Promise`<[`ExpenditureSlotStructOutput`](../modules/ColonyDataTypes.md#expenditureslotstructoutput)\>
+▸ **getExpenditureSlot**(`_id`, `_slot`, `overrides?`): `Promise`<`ExpenditureSlotStructOutput`\>
 
 Returns an existing expenditure slot.
 
@@ -1901,7 +1901,7 @@ Returns an existing expenditure slot.
 
 #### Returns
 
-`Promise`<[`ExpenditureSlotStructOutput`](../modules/ColonyDataTypes.md#expenditureslotstructoutput)\>
+`Promise`<`ExpenditureSlotStructOutput`\>
 
 #### Inherited from
 
@@ -2156,7 +2156,7 @@ ___
 
 ### getPayment
 
-▸ **getPayment**(`_id`, `overrides?`): `Promise`<[`PaymentStructOutput`](../modules/ColonyDataTypes.md#paymentstructoutput)\>
+▸ **getPayment**(`_id`, `overrides?`): `Promise`<`PaymentStructOutput`\>
 
 Returns an exiting payment.
 
@@ -2169,7 +2169,7 @@ Returns an exiting payment.
 
 #### Returns
 
-`Promise`<[`PaymentStructOutput`](../modules/ColonyDataTypes.md#paymentstructoutput)\>
+`Promise`<`PaymentStructOutput`\>
 
 #### Inherited from
 
@@ -2308,7 +2308,7 @@ ___
 
 ### getRewardPayoutInfo
 
-▸ **getRewardPayoutInfo**(`_payoutId`, `overrides?`): `Promise`<[`RewardPayoutCycleStructOutput`](../modules/ColonyDataTypes.md#rewardpayoutcyclestructoutput)\>
+▸ **getRewardPayoutInfo**(`_payoutId`, `overrides?`): `Promise`<`RewardPayoutCycleStructOutput`\>
 
 Get useful information about specific reward payout.
 
@@ -2321,7 +2321,7 @@ Get useful information about specific reward payout.
 
 #### Returns
 
-`Promise`<[`RewardPayoutCycleStructOutput`](../modules/ColonyDataTypes.md#rewardpayoutcyclestructoutput)\>
+`Promise`<`RewardPayoutCycleStructOutput`\>
 
 #### Inherited from
 
@@ -2446,7 +2446,7 @@ ___
 
 ### getTaskRole
 
-▸ **getTaskRole**(`_id`, `_role`, `overrides?`): `Promise`<[`RoleStructOutput`](../modules/ColonyDataTypes.md#rolestructoutput)\>
+▸ **getTaskRole**(`_id`, `_role`, `overrides?`): `Promise`<`RoleStructOutput`\>
 
 Get the `Role` properties back for role `_role` in task `_id`.
 
@@ -2460,7 +2460,7 @@ Get the `Role` properties back for role `_role` in task `_id`.
 
 #### Returns
 
-`Promise`<[`RoleStructOutput`](../modules/ColonyDataTypes.md#rolestructoutput)\>
+`Promise`<`RoleStructOutput`\>
 
 #### Inherited from
 

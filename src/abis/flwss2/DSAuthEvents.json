@@ -1,0 +1,42 @@
+{
+    "contractName": "DSAuthEvents",
+    "abi": [
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "authority",
+                    "type": "address"
+                }
+            ],
+            "name": "LogSetAuthority",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                }
+            ],
+            "name": "LogSetOwner",
+            "type": "event"
+        }
+    ],
+    "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea2646970667358221220119b0cec1730e9d6e9c2cd05c89b1f4a28c8a15f67ca9a24ed41572a1615317164736f6c634300080a0033",
+    "devdoc": {
+        "kind": "dev",
+        "methods": {},
+        "version": 1
+    },
+    "userdoc": {
+        "kind": "user",
+        "methods": {},
+        "version": 1
+    }
+}

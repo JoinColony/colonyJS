@@ -3,22 +3,22 @@ import type { VotingReputation as VotingReputation1 } from './1';
 import type { VotingReputation as VotingReputation2 } from './2';
 import type { VotingReputation as VotingReputation3 } from './3';
 import type { VotingReputation as VotingReputation4 } from './4';
+import type { VotingReputation as VotingReputation5 } from './5';
+import type { VotingReputation as VotingReputation6 } from './6';
 
-// Always adjust to the latest factory
-import { VotingReputation } from './4/VotingReputation';
-
-export { VotingReputation__factory as VotingReputationFactory } from './4/factories/VotingReputation__factory';
+export { VotingReputation__factory as VotingReputationFactory } from './6/factories/VotingReputation__factory';
 
 export type VotingReputationV1 = VotingReputation1;
 export type VotingReputationV2 = VotingReputation2;
 export type VotingReputationV3 = VotingReputation3;
 export type VotingReputationV4 = VotingReputation4;
+export type VotingReputationV5 = VotingReputation5;
+export type VotingReputationV6 = VotingReputation6;
 
 export type AnyVotingReputation =
   | VotingReputation1
   | VotingReputation2
   | VotingReputation3
-  | VotingReputation4;
-
-// Also export useful types
-export type Motion = VotingReputation.MotionStructOutput;
+  | VotingReputation4
+  | VotingReputation5
+  | VotingReputation6;

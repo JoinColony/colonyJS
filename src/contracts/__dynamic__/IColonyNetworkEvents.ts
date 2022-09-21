@@ -219,11 +219,6 @@ export interface ReputationMiningCycleComplete_bytes32_uint256_EventObject {
   hash: string;
   nNodes: BigNumber;
 }
-
-export interface ReputationMiningCycleComplete_bytes32_uint256_EventObject {
-  hash: string;
-  nLeaves: BigNumber;
-}
 export type ReputationMiningCycleComplete_bytes32_uint256_Event = TypedEvent<
   [string, BigNumber],
   ReputationMiningCycleComplete_bytes32_uint256_EventObject
@@ -232,16 +227,14 @@ export type ReputationMiningCycleComplete_bytes32_uint256_Event = TypedEvent<
 export type ReputationMiningCycleComplete_bytes32_uint256_EventFilter =
   TypedEventFilter<ReputationMiningCycleComplete_bytes32_uint256_Event>;
 
-export interface ReputationRootHashSet_bytes32_uint256_address_array_uint256_EventObject {
-  newHash: string;
-  newNNodes: BigNumber;
-  stakers: string[];
-  reward: BigNumber;
+export interface ReputationMiningCycleComplete_bytes32_uint256_EventObject {
+  hash: string;
+  nLeaves: BigNumber;
 }
 
 export interface ReputationRootHashSet_bytes32_uint256_address_array_uint256_EventObject {
   newHash: string;
-  newNLeaves: BigNumber;
+  newNNodes: BigNumber;
   stakers: string[];
   reward: BigNumber;
 }
@@ -253,6 +246,13 @@ export type ReputationRootHashSet_bytes32_uint256_address_array_uint256_Event =
 
 export type ReputationRootHashSet_bytes32_uint256_address_array_uint256_EventFilter =
   TypedEventFilter<ReputationRootHashSet_bytes32_uint256_address_array_uint256_Event>;
+
+export interface ReputationRootHashSet_bytes32_uint256_address_array_uint256_EventObject {
+  newHash: string;
+  newNLeaves: BigNumber;
+  stakers: string[];
+  reward: BigNumber;
+}
 
 export interface UserLabelRegisteredEventObject {
   user: string;

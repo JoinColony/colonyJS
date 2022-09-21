@@ -11,8 +11,6 @@ import type { IColony as IColony9 } from './9';
 
 // Always adjust to the latest Colony version
 export { IColony__factory as IColonyFactory } from './9/factories/IColony__factory';
-// TODO: If these change around a lot we might need to solve the versioning issue here
-export { ColonyDataTypes } from './9/IColony';
 
 export type IColonyV1 = IColony1;
 export type IColonyV2 = IColony2;
