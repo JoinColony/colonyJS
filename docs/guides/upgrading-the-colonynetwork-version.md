@@ -23,21 +23,21 @@ cd vendor/colonyNetwork
 git checkout flwss
 ```
 
-Update all git submodules and install all dependencies (see also [this guide](https://colony.gitbook.io/colony-network/quick-start) and make sure you have [`yarn`](https://yarnpkg.com/) version `1.x` installed globally):
+Update all git submodules and install all dependencies (see also [this guide](https://colony.gitbook.io/colony-network/quick-start)):
 
 ```bash
 git submodule update --recursive
-yarn
+npm ci
 ```
 
 Prepare the token submodule (and delete any existing build artifacts):
 
 ```bash
 cd lib/colonyToken
-yarn # again, make sure you're running the correct node version (with nvm)
+npm ci # again, make sure you're running the correct node version (with nvm)
 rm -rf build/contracts/*.json # to remove any prior builds
 git reset --hard # to recover the pinned (checked in) contracts
-yarn truffle compile
+npx truffle compile
 ```
 
 You will need Docker installed and running to compile the contracts. It is however possible to disable Docker for the builds, see [here](https://colony.gitbook.io/colony-network/quick-start) for more information.
@@ -46,7 +46,7 @@ Then back in the `vendor/colonyNetwork` submodule:
 
 ```bash
 rm -rf build/contracts/*.json # to remove any prior builds
-yarn truffle compile
+npx truffle compile
 ```
 
 Now we should have all the necessary contract ABIs ready. Next we extract those using a helper script within ColonyJS. Execute the following script. For the tag name use the tag checked out in the `colonyNetwork` directory (here `flwss`):

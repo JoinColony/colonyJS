@@ -1,0 +1,39 @@
+{
+    "contractName": "TransferTest",
+    "abi": [
+        {
+            "inputs": [],
+            "stateMutability": "payable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address payable",
+                    "name": "target",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "fireTransfer",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ],
+    "bytecode": "0x608060405260c8806100126000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c8063a6d2d10214602d575b600080fd5b605660048036036040811015604157600080fd5b506001600160a01b0381351690602001356058565b005b6040516001600160a01b0383169082156108fc029083906000818181858888f19350505050158015608d573d6000803e3d6000fd5b50505056fea2646970667358221220d9a81eb45c1ca5cb2179f374828339e0c18099cf7c78aaabacac59d32ec5fb7664736f6c63430007030033",
+    "devdoc": {
+        "kind": "dev",
+        "methods": {},
+        "version": 1
+    },
+    "userdoc": {
+        "kind": "user",
+        "methods": {},
+        "version": 1
+    }
+}

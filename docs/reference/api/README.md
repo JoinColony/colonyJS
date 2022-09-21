@@ -2,7 +2,6 @@
 
 ## Namespaces
 
-- [ColonyDataTypes](modules/ColonyDataTypes.md)
 - [Tokens](modules/Tokens.md)
 
 ## Enumerations
@@ -49,6 +48,8 @@
 - [VotingReputationClientV2](interfaces/VotingReputationClientV2.md)
 - [VotingReputationClientV3](interfaces/VotingReputationClientV3.md)
 - [VotingReputationClientV4](interfaces/VotingReputationClientV4.md)
+- [VotingReputationClientV5](interfaces/VotingReputationClientV5.md)
+- [VotingReputationClientV6](interfaces/VotingReputationClientV6.md)
 - [WhitelistClientV1](interfaces/WhitelistClientV1.md)
 - [WhitelistClientV2](interfaces/WhitelistClientV2.md)
 
@@ -74,7 +75,7 @@ ___
 
 ### AnyVotingReputationClient
 
-Ƭ **AnyVotingReputationClient**: [`VotingReputationClientV1`](interfaces/VotingReputationClientV1.md) \| [`VotingReputationClientV2`](interfaces/VotingReputationClientV2.md) \| [`VotingReputationClientV3`](interfaces/VotingReputationClientV3.md) \| [`VotingReputationClientV4`](interfaces/VotingReputationClientV4.md)
+Ƭ **AnyVotingReputationClient**: [`VotingReputationClientV1`](interfaces/VotingReputationClientV1.md) \| [`VotingReputationClientV2`](interfaces/VotingReputationClientV2.md) \| [`VotingReputationClientV3`](interfaces/VotingReputationClientV3.md) \| [`VotingReputationClientV4`](interfaces/VotingReputationClientV4.md) \| [`VotingReputationClientV5`](interfaces/VotingReputationClientV5.md) \| [`VotingReputationClientV6`](interfaces/VotingReputationClientV6.md)
 
 ___
 
@@ -122,12 +123,6 @@ ___
 ### ExtensionClient
 
 Ƭ **ExtensionClient**: [`AnyCoinMachineClient`](README.md#anycoinmachineclient) \| [`AnyOneTxPaymentClient`](README.md#anyonetxpaymentclient) \| [`AnyVotingReputationClient`](README.md#anyvotingreputationclient) \| [`AnyWhitelistClient`](README.md#anywhitelistclient)
-
-___
-
-### Motion
-
-Ƭ **Motion**: `VotingReputation.MotionStructOutput`
 
 ___
 

@@ -1,0 +1,119 @@
+{
+    "contractName": "Lockable",
+    "abi": [
+        {
+            "inputs": [],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "authority",
+                    "type": "address"
+                }
+            ],
+            "name": "LogSetAuthority",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                }
+            ],
+            "name": "LogSetOwner",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "authority",
+            "outputs": [
+                {
+                    "internalType": "contract DSAuthority",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "locked",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract DSAuthority",
+                    "name": "authority_",
+                    "type": "address"
+                }
+            ],
+            "name": "setAuthority",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "owner_",
+                    "type": "address"
+                }
+            ],
+            "name": "setOwner",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "unlock",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ],
+    "bytecode": "0x608060405234801561001057600080fd5b50600180546001600160a01b031916339081179091556040517fce241d7ca1f669fee44b6fc00b8eba2df3bb514eed0f6f668f8f89096e81ed9490600090a26001805460ff60a01b1916740100000000000000000000000000000000000000001790556103de806100826000396000f3fe608060405234801561001057600080fd5b50600436106100625760003560e01c806313af4035146100675780637a9e5e4b1461007c5780638da5cb5b1461008f578063a69df4b5146100bf578063bf7e214f146100c7578063cf309012146100da575b600080fd5b61007a610075366004610334565b6100fe565b005b61007a61008a366004610334565b610183565b6001546100a2906001600160a01b031681565b6040516001600160a01b0390911681526020015b60405180910390f35b61007a6101fd565b6000546100a2906001600160a01b031681565b6001546100ee90600160a01b900460ff1681565b60405190151581526020016100b6565b610114336000356001600160e01b03191661023e565b6101395760405162461bcd60e51b815260040161013090610358565b60405180910390fd5b600180546001600160a01b0319166001600160a01b0383169081179091556040517fce241d7ca1f669fee44b6fc00b8eba2df3bb514eed0f6f668f8f89096e81ed9490600090a250565b610199336000356001600160e01b03191661023e565b6101b55760405162461bcd60e51b815260040161013090610358565b600080546001600160a01b0319166001600160a01b038316908117825560405190917f1abebea81bfa2637f28358c371278fb15ede7ea8dd28d2e03b112ff6d936ada491a250565b610213336000356001600160e01b03191661023e565b61022f5760405162461bcd60e51b815260040161013090610358565b6001805460ff60a01b19169055565b60006001600160a01b03831630141561025957506001610316565b6001546001600160a01b038481169116141561027757506001610316565b6000546001600160a01b031661028f57506000610316565b60005460405163b700961360e01b81526001600160a01b0385811660048301523060248301526001600160e01b0319851660448301529091169063b700961390606401602060405180830381865afa1580156102ef573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906103139190610386565b90505b92915050565b6001600160a01b038116811461033157600080fd5b50565b60006020828403121561034657600080fd5b81356103518161031c565b9392505050565b602080825260149082015273191ccb585d5d1a0b5d5b985d5d1a1bdc9a5e995960621b604082015260600190565b60006020828403121561039857600080fd5b8151801515811461035157600080fdfea264697066735822122048f883e51ac1d4f985413159faa7ba0ea3456357aa59b51bd8843eba3767a46d64736f6c634300080a0033",
+    "devdoc": {
+        "kind": "dev",
+        "methods": {},
+        "version": 1
+    },
+    "userdoc": {
+        "kind": "user",
+        "methods": {},
+        "version": 1
+    }
+}

@@ -42,7 +42,9 @@ const RELEASE_MAP = {
     dlwss: 2,
     elwss: 3,
     flwss: 4,
-    latest: 5,
+    flwss2: 5,
+    flwss3: 6,
+    latest: 7,
   },
   [Extension.Whitelist]: {
     elwss: 1,

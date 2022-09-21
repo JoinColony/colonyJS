@@ -2,6 +2,10 @@ import { providers, constants } from 'ethers';
 // eslint-disable-next-line camelcase
 import { TokenERC20__factory, TokenERC721__factory } from '../contracts';
 
+// Export useful types (for Colony SDK, always the latest version)
+export type { ColonyDataTypes } from '../contracts/IColony/9/IColony';
+export type { VotingReputationDataTypes } from '../contracts/VotingReputation/6/VotingReputation';
+
 const { AddressZero } = constants;
 
 export * from '../contracts';

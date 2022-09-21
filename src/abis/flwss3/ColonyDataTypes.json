@@ -1,0 +1,1797 @@
+{
+    "contractName": "ColonyDataTypes",
+    "abi": [
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "txHash",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "metadata",
+                    "type": "string"
+                }
+            ],
+            "name": "Annotation",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "skillId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "int256",
+                    "name": "amount",
+                    "type": "int256"
+                }
+            ],
+            "name": "ArbitraryReputationUpdate",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address[]",
+                    "name": "users",
+                    "type": "address[]"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "int256[]",
+                    "name": "amounts",
+                    "type": "int256[]"
+                }
+            ],
+            "name": "ColonyBootstrapped",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "fee",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "payoutRemainder",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ColonyFundsClaimed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "fromPot",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "toPot",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                }
+            ],
+            "name": "ColonyFundsMovedBetweenFundingPots",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "colonyNetwork",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                }
+            ],
+            "name": "ColonyInitialised",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "metadata",
+                    "type": "string"
+                }
+            ],
+            "name": "ColonyMetadata",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "metadata",
+                    "type": "string"
+                }
+            ],
+            "name": "ColonyMetadataDelta",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "rewardInverse",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ColonyRewardInverseSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "domainId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint8",
+                    "name": "role",
+                    "type": "uint8"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "setTo",
+                    "type": "bool"
+                }
+            ],
+            "name": "ColonyRoleSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "oldVersion",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "newVersion",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ColonyUpgraded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "domainId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "DomainAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "domainId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "deprecated",
+                    "type": "bool"
+                }
+            ],
+            "name": "DomainDeprecated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "domainId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "metadata",
+                    "type": "string"
+                }
+            ],
+            "name": "DomainMetadata",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "expenditureId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ExpenditureAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "expenditureId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ExpenditureCancelled",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "expenditureId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "slot",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "claimDelay",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ExpenditureClaimDelaySet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "expenditureId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ExpenditureFinalized",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "globalClaimDelay",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ExpenditureGlobalClaimDelaySet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "expenditureId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ExpenditureLocked",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "expenditureId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "metadata",
+                    "type": "string"
+                }
+            ],
+            "name": "ExpenditureMetadataSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "expenditureId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "slot",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "int256",
+                    "name": "payoutModifier",
+                    "type": "int256"
+                }
+            ],
+            "name": "ExpenditurePayoutModifierSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "expenditureId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "slot",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ExpenditurePayoutSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "expenditureId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "slot",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "recipient",
+                    "type": "address"
+                }
+            ],
+            "name": "ExpenditureRecipientSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "expenditureId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "slot",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "skillId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ExpenditureSkillSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "expenditureId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                }
+            ],
+            "name": "ExpenditureTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "fundingPotId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "FundingPotAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "localSkillId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "LocalSkillAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "localSkillId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "deprecated",
+                    "type": "bool"
+                }
+            ],
+            "name": "LocalSkillDeprecated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "paymentId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "PaymentAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "paymentId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "PaymentFinalized",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "paymentId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "PaymentPayoutSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "paymentId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "recipient",
+                    "type": "address"
+                }
+            ],
+            "name": "PaymentRecipientSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "paymentId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "skillId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "PaymentSkillSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "fundingPotId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "PayoutClaimed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "rewardPayoutId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "fee",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "rewardRemainder",
+                    "type": "uint256"
+                }
+            ],
+            "name": "RewardPayoutClaimed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "rewardPayoutId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "RewardPayoutCycleEnded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "rewardPayoutId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "RewardPayoutCycleStarted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "taskId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TaskAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "taskId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "specificationHash",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "TaskBriefSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "taskId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TaskCanceled",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address[]",
+                    "name": "reviewerAddresses",
+                    "type": "address[]"
+                }
+            ],
+            "name": "TaskChangedViaSignatures",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "taskId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TaskCompleted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "taskId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "deliverableHash",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "TaskDeliverableSubmitted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "taskId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "dueDate",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TaskDueDateSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "taskId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TaskFinalized",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "taskId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "enum ColonyDataTypes.TaskRole",
+                    "name": "role",
+                    "type": "uint8"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TaskPayoutSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "taskId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "enum ColonyDataTypes.TaskRole",
+                    "name": "role",
+                    "type": "uint8"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "name": "TaskRoleUserSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "taskId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "skillId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TaskSkillSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "taskId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "enum ColonyDataTypes.TaskRole",
+                    "name": "role",
+                    "type": "uint8"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint8",
+                    "name": "rating",
+                    "type": "uint8"
+                }
+            ],
+            "name": "TaskWorkRatingRevealed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                }
+            ],
+            "name": "TokenUnlocked",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TokensBurned",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "who",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TokensMinted",
+            "type": "event"
+        }
+    ],
+    "bytecode": "0x",
+    "devdoc": {
+        "events": {
+            "Annotation(address,bytes32,string)": {
+                "params": {
+                    "agent": "Agent emitting the annotation",
+                    "metadata": "IPFS hash of the metadata",
+                    "txHash": "Hash of transaction being annotated (0x0 for current tx)"
+                }
+            },
+            "ArbitraryReputationUpdate(address,address,uint256,int256)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "amount": "The (maximum) amount the address is having its reputation changed by",
+                    "skillId": "The id of the skill the user is having their reputation changed in",
+                    "user": "The address that is having its reputation changed"
+                }
+            },
+            "ColonyBootstrapped(address,address[],int256[])": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "amounts": "Amounts of reputation/tokens for every address",
+                    "users": "Array of address bootstraped with reputation"
+                }
+            },
+            "ColonyFundsClaimed(address,address,uint256,uint256)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "fee": "The fee deducted for rewards",
+                    "payoutRemainder": "The remaining funds moved to the top-level domain pot",
+                    "token": "The token address"
+                }
+            },
+            "ColonyFundsMovedBetweenFundingPots(address,uint256,uint256,uint256,address)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "amount": "The amount that was transferred",
+                    "fromPot": "The source funding pot",
+                    "toPot": "The targer funding pot",
+                    "token": "The token address being transferred"
+                }
+            },
+            "ColonyInitialised(address,address,address)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "colonyNetwork": "The Colony Network address",
+                    "token": "The Colony Token address"
+                }
+            },
+            "ColonyMetadata(address,string)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "metadata": "IPFS hash of the metadata"
+                }
+            },
+            "ColonyMetadataDelta(address,string)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "metadata": "IPFS hash of the delta"
+                }
+            },
+            "ColonyRewardInverseSet(address,uint256)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "rewardInverse": "The reward inverse value"
+                }
+            },
+            "ColonyRoleSet(address,address,uint256,uint8,bool)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "domainId": "The domainId of the role",
+                    "role": "The role being granted/revoked",
+                    "setTo": "A boolean representing the action -- granted (`true`) or revoked (`false`)",
+                    "user": "The address of the user being affected"
+                }
+            },
+            "ColonyUpgraded(address,uint256,uint256)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "newVersion": "The new colony version upgraded to",
+                    "oldVersion": "The previous colony version"
+                }
+            },
+            "DomainAdded(address,uint256)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "domainId": "Id of the newly-created Domain"
+                }
+            },
+            "DomainDeprecated(address,uint256,bool)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "deprecated": "Whether or not the domain is deprecated",
+                    "domainId": "Id of the domain"
+                }
+            },
+            "DomainMetadata(address,uint256,string)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "domainId": "Id of the newly-created Domain",
+                    "metadata": "IPFS hash of the metadata"
+                }
+            },
+            "ExpenditureAdded(address,uint256)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "expenditureId": "The newly added expenditure id"
+                }
+            },
+            "ExpenditureCancelled(address,uint256)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "expenditureId": "Id of the cancelled expenditure"
+                }
+            },
+            "ExpenditureClaimDelaySet(address,uint256,uint256,uint256)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "claimDelay": "Additional amount of time to hold the funds",
+                    "expenditureId": "Id of the expenditure",
+                    "slot": "Expenditure slot being changed"
+                }
+            },
+            "ExpenditureFinalized(address,uint256)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "expenditureId": "Id of the finalized expenditure"
+                }
+            },
+            "ExpenditureGlobalClaimDelaySet(address,uint256)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "globalClaimDelay": "The new default global claim delay"
+                }
+            },
+            "ExpenditureLocked(address,uint256)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "expenditureId": "Id of the locked expenditure"
+                }
+            },
+            "ExpenditureMetadataSet(address,uint256,string)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "expenditureId": "Id of the expenditure",
+                    "metadata": "IPFS hash of the metadata"
+                }
+            },
+            "ExpenditurePayoutModifierSet(address,uint256,uint256,int256)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "expenditureId": "Id of the expenditure",
+                    "payoutModifier": "The payout modifier for the slot",
+                    "slot": "Expenditure slot being changed"
+                }
+            },
+            "ExpenditurePayoutSet(address,uint256,uint256,address,uint256)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "amount": "Amount of the payout funding",
+                    "expenditureId": "Id of the expenditure",
+                    "slot": "Expenditure slot of the payout being changed",
+                    "token": "Token of the payout funding"
+                }
+            },
+            "ExpenditureRecipientSet(address,uint256,uint256,address)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "expenditureId": "Id of the expenditure",
+                    "recipient": "Address of the recipient",
+                    "slot": "Expenditure slot of the recipient"
+                }
+            },
+            "ExpenditureSkillSet(address,uint256,uint256,uint256)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "expenditureId": "Id of the expenditure",
+                    "skillId": "Id of the set skill",
+                    "slot": "Slot receiving the skill"
+                }
+            },
+            "ExpenditureTransferred(address,uint256,address)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "expenditureId": "The expenditure id",
+                    "owner": "The new owner of the expenditure"
+                }
+            },
+            "FundingPotAdded(uint256)": {
+                "params": {
+                    "fundingPotId": "Id of the newly-created FundingPot"
+                }
+            },
+            "LocalSkillAdded(address,uint256)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "localSkillId": "Id of the newly-created local skill"
+                }
+            },
+            "LocalSkillDeprecated(address,uint256,bool)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "deprecated": "Deprecation status of the local skill",
+                    "localSkillId": "Id of the newly-created local skill"
+                }
+            },
+            "PaymentAdded(address,uint256)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "paymentId": "The newly added payment id"
+                }
+            },
+            "PaymentFinalized(address,uint256)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "paymentId": "Id of the payment"
+                }
+            },
+            "PaymentPayoutSet(address,uint256,address,uint256)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "amount": "Amount of token to be paid out",
+                    "paymentId": "Id of the payment",
+                    "token": "Token of the payout"
+                }
+            },
+            "PaymentRecipientSet(address,uint256,address)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "paymentId": "Id of the payment",
+                    "recipient": "Address to receive the payout"
+                }
+            },
+            "PaymentSkillSet(address,uint256,uint256)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "paymentId": "Id of the payment",
+                    "skillId": "Token of the payout"
+                }
+            },
+            "PayoutClaimed(address,uint256,address,uint256)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "amount": "Amount of the payout claimed, after network fee was deducted",
+                    "fundingPotId": "Id of the funding pot where payout comes from",
+                    "token": "Token of the payout claim"
+                }
+            },
+            "RewardPayoutClaimed(uint256,address,uint256,uint256)": {
+                "params": {
+                    "fee": "The fee deducted from payout",
+                    "rewardPayoutId": "The reward payout cycle id",
+                    "rewardRemainder": "The remaining reward amount paid out to user",
+                    "user": "The user address who received the reward payout"
+                }
+            },
+            "RewardPayoutCycleEnded(address,uint256)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "rewardPayoutId": "The reward payout cycle id"
+                }
+            },
+            "RewardPayoutCycleStarted(address,uint256)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "rewardPayoutId": "The reward payout cycle id"
+                }
+            },
+            "TaskAdded(address,uint256)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "taskId": "The newly added task id"
+                }
+            },
+            "TaskBriefSet(uint256,bytes32)": {
+                "params": {
+                    "specificationHash": "New specification hash of the task",
+                    "taskId": "Id of the task"
+                }
+            },
+            "TaskCanceled(uint256)": {
+                "params": {
+                    "taskId": "Id of the canceled task"
+                }
+            },
+            "TaskChangedViaSignatures(address[])": {
+                "params": {
+                    "reviewerAddresses": "Array of addresses that signed off this change."
+                }
+            },
+            "TaskCompleted(address,uint256)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "taskId": "The id of the task being completed"
+                }
+            },
+            "TaskDeliverableSubmitted(address,uint256,bytes32)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "deliverableHash": "Hash of the work performed",
+                    "taskId": "Id of the task"
+                }
+            },
+            "TaskDueDateSet(uint256,uint256)": {
+                "params": {
+                    "dueDate": "New due date of the task",
+                    "taskId": "Id of the task"
+                }
+            },
+            "TaskFinalized(address,uint256)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "taskId": "Id of the finalized task"
+                }
+            },
+            "TaskPayoutSet(uint256,uint8,address,uint256)": {
+                "params": {
+                    "amount": "Amount of the payout funding",
+                    "role": "Task role whose payout is being changed",
+                    "taskId": "Id of the task",
+                    "token": "Token of the payout funding"
+                }
+            },
+            "TaskRoleUserSet(uint256,uint8,address)": {
+                "params": {
+                    "role": "Role of the user",
+                    "taskId": "Id of the task",
+                    "user": "User that fulfills the designated role"
+                }
+            },
+            "TaskSkillSet(uint256,uint256)": {
+                "params": {
+                    "skillId": "New skill id of the task",
+                    "taskId": "Id of the task"
+                }
+            },
+            "TaskWorkRatingRevealed(address,uint256,uint8,uint8)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "rating": "Rating the role received",
+                    "role": "Role that got rated",
+                    "taskId": "Id of the task"
+                }
+            },
+            "TokenUnlocked(address)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event"
+                }
+            },
+            "TokensBurned(address,address,uint256)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "token": "the amount of the token being burned"
+                }
+            },
+            "TokensMinted(address,address,uint256)": {
+                "params": {
+                    "agent": "The address that is responsible for triggering this event",
+                    "amount": "The amount of tokens being awarded",
+                    "who": "The address being awarded the tokens"
+                }
+            }
+        },
+        "kind": "dev",
+        "methods": {},
+        "version": 1
+    },
+    "userdoc": {
+        "events": {
+            "Annotation(address,bytes32,string)": {
+                "notice": "Emit a metadata string for a transaction"
+            },
+            "ArbitraryReputationUpdate(address,address,uint256,int256)": {
+                "notice": "Event logged when a manual reputation reward/penalty is made"
+            },
+            "ColonyBootstrapped(address,address[],int256[])": {
+                "notice": "Event logged when Colony is initially bootstrapped"
+            },
+            "ColonyFundsClaimed(address,address,uint256,uint256)": {
+                "notice": "Event logged when colony funds are moved to the top-level domain pot"
+            },
+            "ColonyFundsMovedBetweenFundingPots(address,uint256,uint256,uint256,address)": {
+                "notice": "Event logged when colony funds, either tokens or ether, has been moved between funding pots"
+            },
+            "ColonyInitialised(address,address,address)": {
+                "notice": "Event logged when Colony is initialised"
+            },
+            "ColonyMetadata(address,string)": {
+                "notice": "Event logged when Colony metadata is updated"
+            },
+            "ColonyMetadataDelta(address,string)": {
+                "notice": "Event logged when Colony metadata is updated via a delta"
+            },
+            "ColonyRewardInverseSet(address,uint256)": {
+                "notice": "Event logged when the colony reward inverse is set"
+            },
+            "ColonyRoleSet(address,address,uint256,uint8,bool)": {
+                "notice": "Event logged when a user/domain/role is granted or revoked"
+            },
+            "ColonyUpgraded(address,uint256,uint256)": {
+                "notice": "Event logged when colony is upgraded"
+            },
+            "DomainAdded(address,uint256)": {
+                "notice": "Event logged when a new Domain is added"
+            },
+            "DomainDeprecated(address,uint256,bool)": {
+                "notice": "Event logged when domain metadata is updated"
+            },
+            "DomainMetadata(address,uint256,string)": {
+                "notice": "Event logged when domain metadata is updated"
+            },
+            "ExpenditureAdded(address,uint256)": {
+                "notice": "Event logged when a new expenditure is added"
+            },
+            "ExpenditureCancelled(address,uint256)": {
+                "notice": "Event logged when an expenditure has been cancelled"
+            },
+            "ExpenditureClaimDelaySet(address,uint256,uint256,uint256)": {
+                "notice": "Event logged when an expenditure slot claim delay changes"
+            },
+            "ExpenditureFinalized(address,uint256)": {
+                "notice": "Event logged when an expenditure has been finalized"
+            },
+            "ExpenditureGlobalClaimDelaySet(address,uint256)": {
+                "notice": "Event logged when the default global claim delay is updated"
+            },
+            "ExpenditureLocked(address,uint256)": {
+                "notice": "Event logged when an expenditure has been locked"
+            },
+            "ExpenditureMetadataSet(address,uint256,string)": {
+                "notice": "Event logged when expenditure metadata is set"
+            },
+            "ExpenditurePayoutModifierSet(address,uint256,uint256,int256)": {
+                "notice": "Event logged when an expenditure slot payout modifier changes"
+            },
+            "ExpenditurePayoutSet(address,uint256,uint256,address,uint256)": {
+                "notice": "Event logged when an expenditure payout changes"
+            },
+            "ExpenditureRecipientSet(address,uint256,uint256,address)": {
+                "notice": "Event logged when an expenditure's recipient is set"
+            },
+            "ExpenditureSkillSet(address,uint256,uint256,uint256)": {
+                "notice": "Event logged when an expenditure's skill changes"
+            },
+            "ExpenditureTransferred(address,uint256,address)": {
+                "notice": "Event logged when a new expenditure is transferred"
+            },
+            "FundingPotAdded(uint256)": {
+                "notice": "Event logged when a new FundingPot is added"
+            },
+            "LocalSkillAdded(address,uint256)": {
+                "notice": "Event logged when a new local skill is added"
+            },
+            "LocalSkillDeprecated(address,uint256,bool)": {
+                "notice": "Event logged when a new local skill is added"
+            },
+            "PaymentAdded(address,uint256)": {
+                "notice": "Event logged when a new payment is added"
+            },
+            "PaymentFinalized(address,uint256)": {
+                "notice": "Event logged when a payment is finalised"
+            },
+            "PaymentPayoutSet(address,uint256,address,uint256)": {
+                "notice": "Event logged when a payment has its payout set"
+            },
+            "PaymentRecipientSet(address,uint256,address)": {
+                "notice": "Event logged when a payment has its recipient set"
+            },
+            "PaymentSkillSet(address,uint256,uint256)": {
+                "notice": "Event logged when a payment has its skill set"
+            },
+            "PayoutClaimed(address,uint256,address,uint256)": {
+                "notice": "Event logged when a payout is claimed, either from a Task or Payment"
+            },
+            "RewardPayoutClaimed(uint256,address,uint256,uint256)": {
+                "notice": "Event logged when reward payout is claimed"
+            },
+            "RewardPayoutCycleEnded(address,uint256)": {
+                "notice": "Event logged when the reward payout cycle has ended"
+            },
+            "RewardPayoutCycleStarted(address,uint256)": {
+                "notice": "Event logged when a new reward payout cycle has started"
+            },
+            "TaskAdded(address,uint256)": {
+                "notice": "Event logged when a new task is added"
+            },
+            "TaskBriefSet(uint256,bytes32)": {
+                "notice": "Event logged when a task's specification hash changes"
+            },
+            "TaskCanceled(uint256)": {
+                "notice": "Event logged when a task has been canceled"
+            },
+            "TaskChangedViaSignatures(address[])": {
+                "notice": "Event logged when task data is changed via signed messages by those involved"
+            },
+            "TaskCompleted(address,uint256)": {
+                "notice": "Event logged when a task has been completed. This is either because the dueDate has passed and the manager closed the task, or the worker has submitted the deliverable. In the latter case, TaskDeliverableSubmitted will also be emitted."
+            },
+            "TaskDeliverableSubmitted(address,uint256,bytes32)": {
+                "notice": "Event logged when a deliverable has been submitted for a task"
+            },
+            "TaskDueDateSet(uint256,uint256)": {
+                "notice": "Event logged when a task's due date changes"
+            },
+            "TaskFinalized(address,uint256)": {
+                "notice": "Event logged when a task has been finalized"
+            },
+            "TaskPayoutSet(uint256,uint8,address,uint256)": {
+                "notice": "Event logged when a task payout changes"
+            },
+            "TaskRoleUserSet(uint256,uint8,address)": {
+                "notice": "Event logged when a task's role user changes"
+            },
+            "TaskSkillSet(uint256,uint256)": {
+                "notice": "Event logged when a task's skill changes"
+            },
+            "TaskWorkRatingRevealed(address,uint256,uint8,uint8)": {
+                "notice": "Event logged when the rating of a role was revealed"
+            },
+            "TokenUnlocked(address)": {
+                "notice": "Event emitted when the colony unlocks its native token through the provided function"
+            },
+            "TokensBurned(address,address,uint256)": {
+                "notice": "Event logged when the colony burns tokens"
+            },
+            "TokensMinted(address,address,uint256)": {
+                "notice": "Event logged when tokens are minted"
+            }
+        },
+        "kind": "user",
+        "methods": {},
+        "version": 1
+    }
+}
