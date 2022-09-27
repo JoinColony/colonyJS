@@ -2,6 +2,7 @@ export enum MetadataType {
   Colony = 'colony',
   Domain = 'domain',
   Annotation = 'annotation',
+  decision = 'decision',
   Misc = 'misc',
 }
 
@@ -24,15 +25,20 @@ export interface AnnotationMetadata {
   annotationMsg: string;
 }
 
+export interface DecisionMetadata {
+  title: string;
+  description: string;
+  motionDomainId: number;
+}
+
 export interface MiscMetadata {
   // @TODO - This is not metadata, but check if this should be included somewhere
   // this was created to handle colonyAvatarImage
-  name: string;
-  value: string;
+  [key: string]: string;
 }
 
 export interface Metadata {
   version: number;
   name: MetadataType;
-  data: ColonyMetadata | DomainMetadata | AnnotationMetadata | MiscMetadata;
+  data: ColonyMetadata | DomainMetadata | AnnotationMetadata | DecisionMetadata | MiscMetadata;
 }
