@@ -7,6 +7,7 @@ import {
   MiscMetadata,
   Metadata,
   MetadataType,
+  DecisionMetadata,
 } from './types';
 import { log } from './debug';
 
@@ -61,6 +62,7 @@ const parseEventMetadata = (res: string): Metadata | undefined => {
     }
     case MetadataType.Domain:
     case MetadataType.Annotation:
+    case MetadataType.Decision:
     case MetadataType.Misc:
       return {
         version: validatedRes?.version,
@@ -108,6 +110,13 @@ export const getAnnotationMsgFromResponse = (
 ): string | undefined => {
   const metadata = parseEventMetadata(res)?.data as AnnotationMetadata;
   return metadata.annotationMsg;
+};
+
+// get decision details from ipfs data
+export const getDecisionDetailsFromResponse = (
+  res: string,
+): DecisionMetadata | undefined => {
+  return parseEventMetadata(res)?.data as DecisionMetadata;
 };
 
 /*

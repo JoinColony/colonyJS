@@ -1,6 +1,7 @@
 import {
   AnnotationMetadata,
   ColonyMetadata,
+  DecisionMetadata,
   DomainMetadata,
   MiscMetadata,
   Metadata,
@@ -42,6 +43,18 @@ export const getStringForMetadataAnnotation = (
   const metadata: Metadata = {
     version: METADATA_VERSION,
     name: MetadataType.Annotation,
+    data: metaDataArgs,
+  };
+  return JSON.stringify(metadata);
+};
+
+// get Metadata for Decision type
+export const getStringForMetadataDecision = (
+  metaDataArgs: DecisionMetadata,
+): string => {
+  const metadata: Metadata = {
+    version: METADATA_VERSION,
+    name: MetadataType.Decision,
     data: metaDataArgs,
   };
   return JSON.stringify(metadata);
