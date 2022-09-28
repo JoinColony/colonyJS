@@ -30,6 +30,12 @@ const domainMetadataSchema = yup.object({
   domainPurpose: yup.string(),
 });
 
+const decisionMetadataSchema = yup.object({
+  title: yup.string(),
+  description: yup.string(),
+  motionDomainId: yup.number(),
+});
+
 const annotationMetadataSchema = yup.object({
   annotationMsg: yup.string().required(() => MSG.requiredField),
 });
@@ -47,6 +53,10 @@ export const metadataSchema = yup.object().shape({
     .when('name', {
       is: MetadataType.Domain,
       then: domainMetadataSchema.required(() => MSG.requiredField),
+    })
+    .when('name', {
+      is: MetadataType.Decision,
+      then: decisionMetadataSchema.required(() => MSG.requiredField),
     })
     .when('name', {
       is: MetadataType.Annotation,

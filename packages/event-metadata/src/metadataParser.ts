@@ -62,6 +62,7 @@ const parseEventMetadata = (res: string): Metadata | undefined => {
     }
     case MetadataType.Domain:
     case MetadataType.Annotation:
+    case MetadataType.Decision:
     case MetadataType.Misc:
       return {
         version: validatedRes?.version,
@@ -114,8 +115,9 @@ export const getAnnotationMsgFromResponse = (
 // get decision details from ipfs data
 export const getDecisionDetailsFromResponse = (
   res: string,
-): DecisionMetadata | undefined =>
-  parseEventMetadata(res)?.data as DecisionMetadata;
+): DecisionMetadata | undefined => {
+  return parseEventMetadata(res)?.data as DecisionMetadata;
+};
 
 /*
  * Helper functions:
