@@ -2,7 +2,7 @@ export enum MetadataType {
   Colony = 'colony',
   Domain = 'domain',
   Annotation = 'annotation',
-  decision = 'decision',
+  Decision = 'decision',
   Misc = 'misc',
 }
 
@@ -40,5 +40,10 @@ export interface MiscMetadata {
 export interface Metadata {
   version: number;
   name: MetadataType;
-  data: ColonyMetadata | DomainMetadata | AnnotationMetadata | DecisionMetadata | MiscMetadata;
+  data:
+    | ColonyMetadata
+    | DomainMetadata
+    | AnnotationMetadata
+    | DecisionMetadata
+    | MiscMetadata;
 }

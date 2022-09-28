@@ -54,7 +54,7 @@ export const getStringForMetadataDecision = (
 ): string => {
   const metadata: Metadata = {
     version: METADATA_VERSION,
-    name: MetadataType.Annotation,
+    name: MetadataType.Decision,
     data: metaDataArgs,
   };
   return JSON.stringify(metadata);
