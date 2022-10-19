@@ -3141,6 +3141,7 @@ export class IColony extends Contract {
      * Set many values of an expenditure simultaneously. Can only be called by expenditure owner.
      * @param _claimDelaySlots Array of slots to set claim delays
      * @param _claimDelays Durations of time (in seconds) to delay
+     * @param _id Expenditure identifier
      * @param _payoutModifierSlots Array of slots to set payout modifiers
      * @param _payoutModifiers Values (between +/- WAD) to modify the payout & reputation bonus
      * @param _payoutSlots 2-dimensional array of slots to set payouts
@@ -3171,6 +3172,7 @@ export class IColony extends Contract {
      * Set many values of an expenditure simultaneously. Can only be called by expenditure owner.
      * @param _claimDelaySlots Array of slots to set claim delays
      * @param _claimDelays Durations of time (in seconds) to delay
+     * @param _id Expenditure identifier
      * @param _payoutModifierSlots Array of slots to set payout modifiers
      * @param _payoutModifiers Values (between +/- WAD) to modify the payout & reputation bonus
      * @param _payoutSlots 2-dimensional array of slots to set payouts
@@ -6872,6 +6874,7 @@ export class IColony extends Contract {
    * Set many values of an expenditure simultaneously. Can only be called by expenditure owner.
    * @param _claimDelaySlots Array of slots to set claim delays
    * @param _claimDelays Durations of time (in seconds) to delay
+   * @param _id Expenditure identifier
    * @param _payoutModifierSlots Array of slots to set payout modifiers
    * @param _payoutModifiers Values (between +/- WAD) to modify the payout & reputation bonus
    * @param _payoutSlots 2-dimensional array of slots to set payouts
@@ -6902,6 +6905,7 @@ export class IColony extends Contract {
    * Set many values of an expenditure simultaneously. Can only be called by expenditure owner.
    * @param _claimDelaySlots Array of slots to set claim delays
    * @param _claimDelays Durations of time (in seconds) to delay
+   * @param _id Expenditure identifier
    * @param _payoutModifierSlots Array of slots to set payout modifiers
    * @param _payoutModifiers Values (between +/- WAD) to modify the payout & reputation bonus
    * @param _payoutSlots 2-dimensional array of slots to set payouts
@@ -10852,6 +10856,7 @@ export class IColony extends Contract {
      * Set many values of an expenditure simultaneously. Can only be called by expenditure owner.
      * @param _claimDelaySlots Array of slots to set claim delays
      * @param _claimDelays Durations of time (in seconds) to delay
+     * @param _id Expenditure identifier
      * @param _payoutModifierSlots Array of slots to set payout modifiers
      * @param _payoutModifiers Values (between +/- WAD) to modify the payout & reputation bonus
      * @param _payoutSlots 2-dimensional array of slots to set payouts
@@ -10882,6 +10887,7 @@ export class IColony extends Contract {
      * Set many values of an expenditure simultaneously. Can only be called by expenditure owner.
      * @param _claimDelaySlots Array of slots to set claim delays
      * @param _claimDelays Durations of time (in seconds) to delay
+     * @param _id Expenditure identifier
      * @param _payoutModifierSlots Array of slots to set payout modifiers
      * @param _payoutModifiers Values (between +/- WAD) to modify the payout & reputation bonus
      * @param _payoutSlots 2-dimensional array of slots to set payouts

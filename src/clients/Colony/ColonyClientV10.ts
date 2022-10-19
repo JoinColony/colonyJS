@@ -50,7 +50,7 @@ type ColonyExtensions = Omit<
   ColonyExtensionsV10<IColony>;
 
 export type ColonyClientV10 = ColonyExtensions & {
-  clientVersion: ColonyVersion.FuchsiaLightweightSpaceshipTwo;
+  clientVersion: ColonyVersion.GreenLightweightSpaceship;
   estimate: ExtendedIColony<IColony>['estimate'] & ExtendedEstimateV10;
 };
 
@@ -111,7 +111,7 @@ export default function getColonyClient(
       parseTransaction: customEthersContractInstace.interface.parseTransaction,
     },
   } as ColonyClientV10;
-  colonyClientV10.clientVersion = ColonyVersion.FuchsiaLightweightSpaceshipTwo;
+  colonyClientV10.clientVersion = ColonyVersion.GreenLightweightSpaceship;
 
   addExtensions(colonyClientV10, this);
   addEncodeInterfaces(colonyClientV10);

@@ -266,11 +266,19 @@ export class OneTxPayment extends Contract {
       overrides?: TransactionOverrides
     ): Promise<boolean>;
 
+    /**
+     * Gets the next nonce for a meta-transaction
+     * @param userAddress The user's address
+     */
     getMetatransactionNonce(
       userAddress: string,
       overrides?: TransactionOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Gets the next nonce for a meta-transaction
+     * @param userAddress The user's address
+     */
     "getMetatransactionNonce(address)"(
       userAddress: string,
       overrides?: TransactionOverrides
@@ -330,6 +338,7 @@ export class OneTxPayment extends Contract {
 
     /**
      * Called when deprecating (or undeprecating) the extension
+     * @param _deprecated Indicates whether the extension should be deprecated or undeprecated
      */
     deprecate(
       _deprecated: boolean,
@@ -338,6 +347,7 @@ export class OneTxPayment extends Contract {
 
     /**
      * Called when deprecating (or undeprecating) the extension
+     * @param _deprecated Indicates whether the extension should be deprecated or undeprecated
      */
     "deprecate(bool)"(
       _deprecated: boolean,
@@ -575,11 +585,19 @@ export class OneTxPayment extends Contract {
     overrides?: TransactionOverrides
   ): Promise<boolean>;
 
+  /**
+   * Gets the next nonce for a meta-transaction
+   * @param userAddress The user's address
+   */
   getMetatransactionNonce(
     userAddress: string,
     overrides?: TransactionOverrides
   ): Promise<BigNumber>;
 
+  /**
+   * Gets the next nonce for a meta-transaction
+   * @param userAddress The user's address
+   */
   "getMetatransactionNonce(address)"(
     userAddress: string,
     overrides?: TransactionOverrides
@@ -637,6 +655,7 @@ export class OneTxPayment extends Contract {
 
   /**
    * Called when deprecating (or undeprecating) the extension
+   * @param _deprecated Indicates whether the extension should be deprecated or undeprecated
    */
   deprecate(
     _deprecated: boolean,
@@ -645,6 +664,7 @@ export class OneTxPayment extends Contract {
 
   /**
    * Called when deprecating (or undeprecating) the extension
+   * @param _deprecated Indicates whether the extension should be deprecated or undeprecated
    */
   "deprecate(bool)"(
     _deprecated: boolean,
@@ -900,11 +920,19 @@ export class OneTxPayment extends Contract {
       overrides?: TransactionOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Gets the next nonce for a meta-transaction
+     * @param userAddress The user's address
+     */
     getMetatransactionNonce(
       userAddress: string,
       overrides?: TransactionOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Gets the next nonce for a meta-transaction
+     * @param userAddress The user's address
+     */
     "getMetatransactionNonce(address)"(
       userAddress: string,
       overrides?: TransactionOverrides
@@ -960,6 +988,7 @@ export class OneTxPayment extends Contract {
 
     /**
      * Called when deprecating (or undeprecating) the extension
+     * @param _deprecated Indicates whether the extension should be deprecated or undeprecated
      */
     deprecate(
       _deprecated: boolean,
@@ -968,6 +997,7 @@ export class OneTxPayment extends Contract {
 
     /**
      * Called when deprecating (or undeprecating) the extension
+     * @param _deprecated Indicates whether the extension should be deprecated or undeprecated
      */
     "deprecate(bool)"(
       _deprecated: boolean,

@@ -704,7 +704,7 @@ export class VotingReputation extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * @deprecatedCreate a motion in the root domain
+     * Create a motion in the root domain (DEPRECATED)
      * @param _action A bytes array encoding a function call
      * @param _altTarget The contract to which we send the action (0x0 for the colony)
      * @param _branchMask The branchmask of the proof
@@ -723,7 +723,7 @@ export class VotingReputation extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * @deprecatedCreate a motion in the root domain
+     * Create a motion in the root domain (DEPRECATED)
      * @param _action A bytes array encoding a function call
      * @param _altTarget The contract to which we send the action (0x0 for the colony)
      * @param _branchMask The branchmask of the proof
@@ -742,7 +742,7 @@ export class VotingReputation extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * @deprecatedCreate a motion in any domain
+     * Create a motion in any domain (DEPRECATED)
      * @param _action A bytes array encoding a function call
      * @param _branchMask The branchmask of the proof
      * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
@@ -763,7 +763,7 @@ export class VotingReputation extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * @deprecatedCreate a motion in any domain
+     * Create a motion in any domain (DEPRECATED)
      * @param _action A bytes array encoding a function call
      * @param _branchMask The branchmask of the proof
      * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
@@ -1653,7 +1653,7 @@ export class VotingReputation extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * @deprecatedCreate a motion in the root domain
+   * Create a motion in the root domain (DEPRECATED)
    * @param _action A bytes array encoding a function call
    * @param _altTarget The contract to which we send the action (0x0 for the colony)
    * @param _branchMask The branchmask of the proof
@@ -1672,7 +1672,7 @@ export class VotingReputation extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * @deprecatedCreate a motion in the root domain
+   * Create a motion in the root domain (DEPRECATED)
    * @param _action A bytes array encoding a function call
    * @param _altTarget The contract to which we send the action (0x0 for the colony)
    * @param _branchMask The branchmask of the proof
@@ -1691,7 +1691,7 @@ export class VotingReputation extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * @deprecatedCreate a motion in any domain
+   * Create a motion in any domain (DEPRECATED)
    * @param _action A bytes array encoding a function call
    * @param _branchMask The branchmask of the proof
    * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
@@ -1712,7 +1712,7 @@ export class VotingReputation extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * @deprecatedCreate a motion in any domain
+   * Create a motion in any domain (DEPRECATED)
    * @param _action A bytes array encoding a function call
    * @param _branchMask The branchmask of the proof
    * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
@@ -2655,7 +2655,7 @@ export class VotingReputation extends Contract {
     ): Promise<BigNumber>;
 
     /**
-     * @deprecatedCreate a motion in the root domain
+     * Create a motion in the root domain (DEPRECATED)
      * @param _action A bytes array encoding a function call
      * @param _altTarget The contract to which we send the action (0x0 for the colony)
      * @param _branchMask The branchmask of the proof
@@ -2674,7 +2674,7 @@ export class VotingReputation extends Contract {
     ): Promise<BigNumber>;
 
     /**
-     * @deprecatedCreate a motion in the root domain
+     * Create a motion in the root domain (DEPRECATED)
      * @param _action A bytes array encoding a function call
      * @param _altTarget The contract to which we send the action (0x0 for the colony)
      * @param _branchMask The branchmask of the proof
@@ -2693,7 +2693,7 @@ export class VotingReputation extends Contract {
     ): Promise<BigNumber>;
 
     /**
-     * @deprecatedCreate a motion in any domain
+     * Create a motion in any domain (DEPRECATED)
      * @param _action A bytes array encoding a function call
      * @param _branchMask The branchmask of the proof
      * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
@@ -2714,7 +2714,7 @@ export class VotingReputation extends Contract {
     ): Promise<BigNumber>;
 
     /**
-     * @deprecatedCreate a motion in any domain
+     * Create a motion in any domain (DEPRECATED)
      * @param _action A bytes array encoding a function call
      * @param _branchMask The branchmask of the proof
      * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
