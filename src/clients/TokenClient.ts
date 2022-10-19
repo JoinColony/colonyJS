@@ -3,12 +3,12 @@ import { Provider } from 'ethers/providers';
 import { getAddress, isHexString, parseBytes32String } from 'ethers/utils';
 
 import { ClientType, TokenClientType, tokenAddresses } from '../constants';
-import { MetaTxToken__factory as MetaTxTokenFactory } from '../contracts/colony/9/factories/MetaTxToken__factory';
-import { MetaTxToken } from '../contracts/colony/9/MetaTxToken';
-import { TokenERC20__factory as TokenErc20Factory } from '../contracts/colony/9/factories/TokenERC20__factory';
-import { TokenERC20 as TokenErc20 } from '../contracts/colony/9/TokenERC20';
-import { TokenSAI__factory as TokenSaiFactory } from '../contracts/colony/9/factories/TokenSAI__factory';
-import { TokenSAI as TokenSai } from '../contracts/colony/9/TokenSAI';
+import { MetaTxToken__factory as MetaTxTokenFactory } from '../contracts/colony/10/factories/MetaTxToken__factory';
+import { MetaTxToken } from '../contracts/colony/10/MetaTxToken';
+import { TokenERC20__factory as TokenErc20Factory } from '../contracts/colony/10/factories/TokenERC20__factory';
+import { TokenERC20 as TokenErc20 } from '../contracts/colony/10/TokenERC20';
+import { TokenSAI__factory as TokenSaiFactory } from '../contracts/colony/10/factories/TokenSAI__factory';
+import { TokenSAI as TokenSai } from '../contracts/colony/10/TokenSAI';
 
 const isSai = (address: string): boolean =>
   getAddress(address) === tokenAddresses.SAI;

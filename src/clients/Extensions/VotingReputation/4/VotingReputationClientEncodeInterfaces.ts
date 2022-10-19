@@ -15,7 +15,7 @@ import { VotingReputationClient } from './VotingReputationClient';
 /*
  * Extra client encode interfaces
  */
-export const getOneTxPaymentClientEncodeInterfaces = (
+export const getVotingReputationClientEncodeInterfaces = (
   votingReputationClient: VotingReputationClient,
   colonyClient: ExtendedIColony,
 ): Record<string, (params: any) => Promise<string>> => ({

@@ -10,7 +10,7 @@ import {
   ROOT_DOMAIN_ID,
 } from '../../../constants';
 import { ColonyVersion } from '../../../versions';
-import { ReputationMinerEndpoints } from '../../../types';
+import { ReputationMinerEndpoints, ColonyClient } from '../../../types';
 
 import { IColony as IColonyV1 } from '../../../contracts/1/IColony';
 import { IColony as IColonyV2 } from '../../../contracts/2/IColony';
@@ -21,6 +21,7 @@ import { IColony as IColonyV6 } from '../../../contracts/colony/6/IColony';
 import { IColony as IColonyV7 } from '../../../contracts/colony/7/IColony';
 import { IColony as IColonyV8 } from '../../../contracts/colony/8/IColony';
 import { IColony as IColonyV9 } from '../../../contracts/colony/9/IColony';
+import { IColony as IColonyV10 } from '../../../contracts/colony/10/IColony';
 import { TransactionOverrides } from '../../../contracts/6';
 import { IColonyFactory } from '../../../contracts/4/IColonyFactory';
 
@@ -47,7 +48,8 @@ type AnyIColony =
   | IColonyV6
   | IColonyV7
   | IColonyV8
-  | IColonyV9;
+  | IColonyV9
+  | IColonyV10;
 
 // This is exposed to type the awkward recovery event client which is basically
 // just an IColonyV4
