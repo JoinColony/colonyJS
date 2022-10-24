@@ -111,6 +111,7 @@ export interface IColonyEventsInterface extends utils.Interface {
     "ColonyAdministrationRoleSet(address,bool)": EventFragment;
     "ColonyArchitectureRoleSet(address,bool)": EventFragment;
     "ColonyRootRoleSet(address,bool)": EventFragment;
+    "ExpenditureStateChanged(address,uint256,uint256,bool[],bytes32[],bytes32)": EventFragment;
   };
 
   getEvent(
@@ -290,6 +291,7 @@ export interface IColonyEventsInterface extends utils.Interface {
   ): EventFragment;
   getEvent(nameOrSignatureOrTopic: "ColonyArchitectureRoleSet"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "ColonyRootRoleSet"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "ExpenditureStateChanged"): EventFragment;
 }
 
 export interface ColonyInitialised_address_address_EventObject {
@@ -1388,6 +1390,22 @@ export type ColonyRootRoleSetEvent = TypedEvent<
 export type ColonyRootRoleSetEventFilter =
   TypedEventFilter<ColonyRootRoleSetEvent>;
 
+export interface ExpenditureStateChangedEventObject {
+  agent: string;
+  expenditureId: BigNumber;
+  storageSlot: BigNumber;
+  mask: boolean[];
+  keys: string[];
+  value: string;
+}
+export type ExpenditureStateChangedEvent = TypedEvent<
+  [string, BigNumber, BigNumber, boolean[], string[], string],
+  ExpenditureStateChangedEventObject
+>;
+
+export type ExpenditureStateChangedEventFilter =
+  TypedEventFilter<ExpenditureStateChangedEvent>;
+
 export interface IColonyEvents extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
@@ -2003,6 +2021,23 @@ export interface IColonyEvents extends BaseContract {
       setTo?: null
     ): ColonyRootRoleSetEventFilter;
     ColonyRootRoleSet(user?: null, setTo?: null): ColonyRootRoleSetEventFilter;
+
+    "ExpenditureStateChanged(address,uint256,uint256,bool[],bytes32[],bytes32)"(
+      agent?: null,
+      expenditureId?: BigNumberish | null,
+      storageSlot?: BigNumberish | null,
+      mask?: null,
+      keys?: null,
+      value?: null
+    ): ExpenditureStateChangedEventFilter;
+    ExpenditureStateChanged(
+      agent?: null,
+      expenditureId?: BigNumberish | null,
+      storageSlot?: BigNumberish | null,
+      mask?: null,
+      keys?: null,
+      value?: null
+    ): ExpenditureStateChangedEventFilter;
   };
 
   estimateGas: {};

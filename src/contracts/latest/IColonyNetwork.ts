@@ -134,7 +134,6 @@ export interface IColonyNetworkInterface extends utils.Interface {
     "calculateMinerWeight(uint256,uint256)": FunctionFragment;
     "getColonyVersionResolver(uint256)": FunctionFragment;
     "setReputationRootHash(bytes32,uint256,address[])": FunctionFragment;
-    "setReputationRootHash(bytes32,uint256,address[],uint256)": FunctionFragment;
     "startNextCycle()": FunctionFragment;
     "initialiseReputationMining()": FunctionFragment;
     "getReputationRootHash()": FunctionFragment;
@@ -222,8 +221,7 @@ export interface IColonyNetworkInterface extends utils.Interface {
       | "getReputationMiningCycle"
       | "calculateMinerWeight"
       | "getColonyVersionResolver"
-      | "setReputationRootHash(bytes32,uint256,address[])"
-      | "setReputationRootHash(bytes32,uint256,address[],uint256)"
+      | "setReputationRootHash"
       | "startNextCycle"
       | "initialiseReputationMining"
       | "getReputationRootHash"
@@ -442,12 +440,8 @@ export interface IColonyNetworkInterface extends utils.Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "setReputationRootHash(bytes32,uint256,address[])",
+    functionFragment: "setReputationRootHash",
     values: [BytesLike, BigNumberish, string[]]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setReputationRootHash(bytes32,uint256,address[],uint256)",
-    values: [BytesLike, BigNumberish, string[], BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "startNextCycle",
@@ -765,11 +759,7 @@ export interface IColonyNetworkInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "setReputationRootHash(bytes32,uint256,address[])",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setReputationRootHash(bytes32,uint256,address[],uint256)",
+    functionFragment: "setReputationRootHash",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -1497,12 +1487,12 @@ export interface IColonyNetwork extends BaseContract {
     /**
      * Interface identification is specified in ERC-165.
      * Query if a contract implements an interface
-     * @param interfaceID The interface identifier, as specified in ERC-165
+     * @param _interfaceID The interface identifier, as specified in ERC-165
      */
     supportsInterface(
-      interfaceID: BytesLike,
+      _interfaceID: BytesLike,
       overrides?: CallOverrides
-    ): Promise<[boolean] & { status: boolean }>;
+    ): Promise<[boolean] & { _status: boolean }>;
 
     /**
      * Note that strictly, `_nUpdates` and `_nPreviousUpdates` don't need to be set - they're only used during dispute resolution, which these replacement log entries are never used for. However, for ease of resyncing the client, we have decided to include them for now.
@@ -1539,7 +1529,7 @@ export interface IColonyNetwork extends BaseContract {
       overrides?: CallOverrides
     ): Promise<
       [ColonyNetworkDataTypes.ReputationLogEntryStructOutput] & {
-        reputationLogEntry: ColonyNetworkDataTypes.ReputationLogEntryStructOutput;
+        _reputationLogEntry: ColonyNetworkDataTypes.ReputationLogEntryStructOutput;
       }
     >;
 
@@ -1550,21 +1540,21 @@ export interface IColonyNetwork extends BaseContract {
     getReplacementReputationUpdateLogsExist(
       _reputationMiningCycle: string,
       overrides?: CallOverrides
-    ): Promise<[boolean] & { exists: boolean }>;
+    ): Promise<[boolean] & { _exists: boolean }>;
 
     /**
      * Get the Meta Colony address.
      */
     getMetaColony(
       overrides?: CallOverrides
-    ): Promise<[string] & { colonyAddress: string }>;
+    ): Promise<[string] & { _colonyAddress: string }>;
 
     /**
      * Get the number of colonies in the network.
      */
     getColonyCount(
       overrides?: CallOverrides
-    ): Promise<[BigNumber] & { count: BigNumber }>;
+    ): Promise<[BigNumber] & { _count: BigNumber }>;
 
     /**
      * Check if specific address is a colony created on colony network.
@@ -1573,7 +1563,7 @@ export interface IColonyNetwork extends BaseContract {
     isColony(
       _colony: string,
       overrides?: CallOverrides
-    ): Promise<[boolean] & { addressIsColony: boolean }>;
+    ): Promise<[boolean] & { _addressIsColony: boolean }>;
 
     /**
      * Errors if the parent skill does not exist or if this is called by an unauthorised sender.
@@ -1594,7 +1584,7 @@ export interface IColonyNetwork extends BaseContract {
       overrides?: CallOverrides
     ): Promise<
       [ColonyNetworkDataTypes.SkillStructOutput] & {
-        skill: ColonyNetworkDataTypes.SkillStructOutput;
+        _skill: ColonyNetworkDataTypes.SkillStructOutput;
       }
     >;
 
@@ -1645,14 +1635,14 @@ export interface IColonyNetwork extends BaseContract {
      */
     getSkillCount(
       overrides?: CallOverrides
-    ): Promise<[BigNumber] & { count: BigNumber }>;
+    ): Promise<[BigNumber] & { _count: BigNumber }>;
 
     /**
      * Get the `skillId` of the reputation mining skill. Only set once the metacolony is set up.
      */
     getReputationMiningSkillId(
       overrides?: CallOverrides
-    ): Promise<[BigNumber] & { skillId: BigNumber }>;
+    ): Promise<[BigNumber] & { _skillId: BigNumber }>;
 
     /**
      * Sets the token locking address. This is only set once, and can't be changed afterwards.
@@ -1668,7 +1658,7 @@ export interface IColonyNetwork extends BaseContract {
      */
     getTokenLocking(
       overrides?: CallOverrides
-    ): Promise<[string] & { lockingAddress: string }>;
+    ): Promise<[string] & { _lockingAddress: string }>;
 
     /**
      * Create the Meta Colony, same as a normal colony plus the root skill.
@@ -1767,14 +1757,14 @@ export interface IColonyNetwork extends BaseContract {
     getColony(
       _id: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<[string] & { colonyAddress: string }>;
+    ): Promise<[string] & { _colonyAddress: string }>;
 
     /**
      * Returns the latest Colony contract version. This is the version used to create all new colonies.
      */
     getCurrentColonyVersion(
       overrides?: CallOverrides
-    ): Promise<[BigNumber] & { version: BigNumber }>;
+    ): Promise<[BigNumber] & { _version: BigNumber }>;
 
     /**
      * Get the id of the parent skill at index `_parentSkillIndex` for skill with Id `_skillId`.
@@ -1785,7 +1775,7 @@ export interface IColonyNetwork extends BaseContract {
       _skillId: BigNumberish,
       _parentSkillIndex: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<[BigNumber] & { skillId: BigNumber }>;
+    ): Promise<[BigNumber] & { _parentSkillId: BigNumber }>;
 
     /**
      * Get the id of the child skill at index `_childSkillIndex` for skill with Id `_skillId`.
@@ -1796,7 +1786,7 @@ export interface IColonyNetwork extends BaseContract {
       _skillId: BigNumberish,
       _childSkillIndex: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<[BigNumber] & { skillId: BigNumber }>;
+    ): Promise<[BigNumber] & { _childSkillId: BigNumber }>;
 
     /**
      * Get the address of either the active or inactive reputation mining cycle, based on `active`. The active reputation mining cycle is the one currently under consideration by reputation miners. The inactive reputation cycle is the one with the log that is being appended to.
@@ -1805,7 +1795,7 @@ export interface IColonyNetwork extends BaseContract {
     getReputationMiningCycle(
       _active: boolean,
       overrides?: CallOverrides
-    ): Promise<[string] & { repMiningCycleAddress: string }>;
+    ): Promise<[string] & { _repMiningCycleAddress: string }>;
 
     /**
      * Calculate raw miner weight in WADs.
@@ -1816,7 +1806,7 @@ export interface IColonyNetwork extends BaseContract {
       _timeStaked: BigNumberish,
       _submissonIndex: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<[BigNumber] & { minerWeight: BigNumber }>;
+    ): Promise<[BigNumber] & { _minerWeight: BigNumber }>;
 
     /**
      * Get the `Resolver` address for Colony contract version `_version`.
@@ -1825,33 +1815,18 @@ export interface IColonyNetwork extends BaseContract {
     getColonyVersionResolver(
       _version: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<[string] & { resolverAddress: string }>;
+    ): Promise<[string] & { _resolverAddress: string }>;
 
     /**
      * Set a new Reputation root hash and starts a new mining cycle. Can only be called by the ReputationMiningCycle contract.
-     * @param newHash The reputation root hash
-     * @param newNLeaves The updated leaves count value
-     * @param stakers Array of users who submitted or backed the hash, being accepted here as the new reputation root hash
+     * @param _newHash The reputation root hash
+     * @param _newNLeaves The updated leaves count value
+     * @param _stakers Array of users who submitted or backed the hash, being accepted here as the new reputation root hash
      */
-    "setReputationRootHash(bytes32,uint256,address[])"(
-      newHash: BytesLike,
-      newNLeaves: BigNumberish,
-      stakers: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    /**
-     * This version of setReputationRootHash is deprecated and will be removed in a future release. It transparently calls the new version if it is called (essentially, removing the `reward` parameter.
-     * @param newHash The reputation root hash
-     * @param newNLeaves The updated leaves count value
-     * @param reward Amount of CLNY to be distributed as reward to miners (not used)
-     * @param stakers Array of users who submitted or backed the hash, being accepted here as the new reputation root hash
-     */
-    "setReputationRootHash(bytes32,uint256,address[],uint256)"(
-      newHash: BytesLike,
-      newNLeaves: BigNumberish,
-      stakers: string[],
-      reward: BigNumberish,
+    setReputationRootHash(
+      _newHash: BytesLike,
+      _newNLeaves: BigNumberish,
+      _stakers: string[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -1914,79 +1889,84 @@ export interface IColonyNetwork extends BaseContract {
 
     /**
      * Register a "user.joincolony.eth" label.
-     * @param orbitdb The path of the orbitDB database associated with the user profile
-     * @param username The label to register
+     * @param _orbitdb The path of the orbitDB database associated with the user profile
+     * @param _username The label to register
      */
     registerUserLabel(
-      username: string,
-      orbitdb: string,
+      _username: string,
+      _orbitdb: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Register a "colony.joincolony.eth" label. Can only be called by a Colony.
-     * @param colonyName The label to register.
-     * @param orbitdb The path of the orbitDB database associated with the colony name
+     * @param _colonyName The label to register.
+     * @param _orbitdb The path of the orbitDB database associated with the colony name
      */
     registerColonyLabel(
-      colonyName: string,
-      orbitdb: string,
+      _colonyName: string,
+      _orbitdb: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Update a colony's orbitdb address. Can only be called by a colony with a registered subdomain
-     * @param orbitdb The path of the orbitDB database to be associated with the colony
+     * @param _orbitdb The path of the orbitDB database to be associated with the colony
      */
     updateColonyOrbitDB(
-      orbitdb: string,
+      _orbitdb: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Update a user's orbitdb address. Can only be called by a user with a registered subdomain
-     * @param orbitdb The path of the orbitDB database to be associated with the user
+     * @param _orbitdb The path of the orbitDB database to be associated with the user
      */
     updateUserOrbitDB(
-      orbitdb: string,
+      _orbitdb: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Retrieve the orbitdb address corresponding to a registered account.
-     * @param node The Namehash of the account being queried.
+     * @param _node The Namehash of the account being queried.
      */
     getProfileDBAddress(
-      node: BytesLike,
+      _node: BytesLike,
       overrides?: CallOverrides
-    ): Promise<[string] & { orbitDB: string }>;
+    ): Promise<[string] & { _orbitdb: string }>;
 
     /**
      * Reverse lookup a username from an address.
-     * @param addr The address we wish to find the corresponding ENS domain for (if any)
+     * @param _addr The address we wish to find the corresponding ENS domain for (if any)
      */
     lookupRegisteredENSDomain(
-      addr: string,
+      _addr: string,
       overrides?: CallOverrides
-    ): Promise<[string] & { domain: string }>;
+    ): Promise<[string] & { _domain: string }>;
 
     /**
      * Returns the address the supplied node resolves do, if we are the resolver.
-     * @param node The namehash of the ENS address being requested
+     * @param _node The namehash of the ENS address being requested
      */
-    addr(node: BytesLike, overrides?: CallOverrides): Promise<[string]>;
+    addr(
+      _node: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[string] & { _address: string }>;
 
     /**
      * Returns the address of the ENSRegistrar for the Network.
      */
-    getENSRegistrar(overrides?: CallOverrides): Promise<[string]>;
+    getENSRegistrar(
+      overrides?: CallOverrides
+    ): Promise<[string] & { _address: string }>;
 
     /**
      * Set the resolver to be used by new instances of ReputationMiningCycle.
-     * @param miningResolverAddress The address of the Resolver contract with the functions correctly wired.
+     * @param _miningResolverAddress The address of the Resolver contract with the functions correctly wired.
      */
     setMiningResolver(
-      miningResolverAddress: string,
+      _miningResolverAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -2000,78 +1980,78 @@ export interface IColonyNetwork extends BaseContract {
     /**
      * Can only be called by the MetaColony.The extension version is queried from the resolver itself.
      * Add a new extension resolver to the Extensions repository.
-     * @param extensionId keccak256 hash of the extension name, used as an indentifier
-     * @param resolver The deployed resolver containing the extension contract logic
+     * @param _extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param _resolver The deployed resolver containing the extension contract logic
      */
     addExtensionToNetwork(
-      extensionId: BytesLike,
-      resolver: string,
+      _extensionId: BytesLike,
+      _resolver: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Install an extension in a colony. Can only be called by a Colony.
-     * @param extensionId keccak256 hash of the extension name, used as an indentifier
-     * @param version Version of the extension to install
+     * @param _extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param _version Version of the extension to install
      */
     installExtension(
-      extensionId: BytesLike,
-      version: BigNumberish,
+      _extensionId: BytesLike,
+      _version: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Upgrade an extension in a colony. Can only be called by a Colony.
-     * @param extensionId keccak256 hash of the extension name, used as an indentifier
-     * @param newVersion Version of the extension to upgrade to (must be one greater than current)
+     * @param _extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param _newVersion Version of the extension to upgrade to (must be one greater than current)
      */
     upgradeExtension(
-      extensionId: BytesLike,
-      newVersion: BigNumberish,
+      _extensionId: BytesLike,
+      _newVersion: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Set the deprecation of an extension in a colony. Can only be called by a Colony.
-     * @param deprecated Whether to deprecate the extension or not
-     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param _deprecated Whether to deprecate the extension or not
+     * @param _extensionId keccak256 hash of the extension name, used as an indentifier
      */
     deprecateExtension(
-      extensionId: BytesLike,
-      deprecated: boolean,
+      _extensionId: BytesLike,
+      _deprecated: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Uninstall an extension in a colony. Can only be called by a Colony.
-     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param _extensionId keccak256 hash of the extension name, used as an indentifier
      */
     uninstallExtension(
-      extensionId: BytesLike,
+      _extensionId: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Get an extension's resolver.
-     * @param extensionId keccak256 hash of the extension name, used as an indentifier
-     * @param version Version of the extension
+     * @param _extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param _version Version of the extension
      */
     getExtensionResolver(
-      extensionId: BytesLike,
-      version: BigNumberish,
+      _extensionId: BytesLike,
+      _version: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<[string] & { resolver: string }>;
+    ): Promise<[string] & { _resolver: string }>;
 
     /**
      * Get an extension's installation.
-     * @param colony Address of the colony the extension is installed in
-     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param _colony Address of the colony the extension is installed in
+     * @param _extensionId keccak256 hash of the extension name, used as an indentifier
      */
     getExtensionInstallation(
-      extensionId: BytesLike,
-      colony: string,
+      _extensionId: BytesLike,
+      _colony: string,
       overrides?: CallOverrides
-    ): Promise<[string] & { installation: string }>;
+    ): Promise<[string] & { _installation: string }>;
 
     /**
      * Return 1 / the fee to pay to the network. e.g. if the fee is 1% (or 0.01), return 100.
@@ -2096,7 +2076,7 @@ export interface IColonyNetwork extends BaseContract {
     getPayoutWhitelist(
       _token: string,
       overrides?: CallOverrides
-    ): Promise<[boolean] & { status: boolean }>;
+    ): Promise<[boolean] & { _status: boolean }>;
 
     /**
      * Set a token's status in the payout whitelist
@@ -2187,6 +2167,7 @@ export interface IColonyNetwork extends BaseContract {
     /**
      * Can only be called by the MetaColony.
      * Called to set the total per-cycle reputation reward, which will be split between all miners.
+     * @param _amount The CLNY awarded per mining cycle to the miners
      */
     setReputationMiningCycleReward(
       _amount: BigNumberish,
@@ -2198,7 +2179,7 @@ export interface IColonyNetwork extends BaseContract {
      */
     getReputationMiningCycleReward(
       overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    ): Promise<[BigNumber] & { _amount: BigNumber }>;
 
     /**
      * This is more expensive than deploying a token directly, but is able to be done via a metatransaction
@@ -2217,14 +2198,14 @@ export interface IColonyNetwork extends BaseContract {
     /**
      * This is more expensive than deploying a token directly, but is able to be done via a metatransaction
      * Called to deploy a token authority
+     * @param _allowedToTransfer An array of addresses that are allowed to transfer the token even if it's locked
      * @param _colony The address of the colony in control of the token
      * @param _token The address of the otken
-     * @param allowedToTransfer An array of addresses that are allowed to transfer the token even if it's locked
      */
     deployTokenAuthority(
       _token: string,
       _colony: string,
-      allowedToTransfer: string[],
+      _allowedToTransfer: string[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -2246,7 +2227,7 @@ export interface IColonyNetwork extends BaseContract {
     getMiningDelegator(
       _delegate: string,
       overrides?: CallOverrides
-    ): Promise<[string]>;
+    ): Promise<[string] & { _delegator: string }>;
   };
 
   /**
@@ -2349,10 +2330,10 @@ export interface IColonyNetwork extends BaseContract {
   /**
    * Interface identification is specified in ERC-165.
    * Query if a contract implements an interface
-   * @param interfaceID The interface identifier, as specified in ERC-165
+   * @param _interfaceID The interface identifier, as specified in ERC-165
    */
   supportsInterface(
-    interfaceID: BytesLike,
+    _interfaceID: BytesLike,
     overrides?: CallOverrides
   ): Promise<boolean>;
 
@@ -2655,29 +2636,14 @@ export interface IColonyNetwork extends BaseContract {
 
   /**
    * Set a new Reputation root hash and starts a new mining cycle. Can only be called by the ReputationMiningCycle contract.
-   * @param newHash The reputation root hash
-   * @param newNLeaves The updated leaves count value
-   * @param stakers Array of users who submitted or backed the hash, being accepted here as the new reputation root hash
+   * @param _newHash The reputation root hash
+   * @param _newNLeaves The updated leaves count value
+   * @param _stakers Array of users who submitted or backed the hash, being accepted here as the new reputation root hash
    */
-  "setReputationRootHash(bytes32,uint256,address[])"(
-    newHash: BytesLike,
-    newNLeaves: BigNumberish,
-    stakers: string[],
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  /**
-   * This version of setReputationRootHash is deprecated and will be removed in a future release. It transparently calls the new version if it is called (essentially, removing the `reward` parameter.
-   * @param newHash The reputation root hash
-   * @param newNLeaves The updated leaves count value
-   * @param reward Amount of CLNY to be distributed as reward to miners (not used)
-   * @param stakers Array of users who submitted or backed the hash, being accepted here as the new reputation root hash
-   */
-  "setReputationRootHash(bytes32,uint256,address[],uint256)"(
-    newHash: BytesLike,
-    newNLeaves: BigNumberish,
-    stakers: string[],
-    reward: BigNumberish,
+  setReputationRootHash(
+    _newHash: BytesLike,
+    _newNLeaves: BigNumberish,
+    _stakers: string[],
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -2734,67 +2700,67 @@ export interface IColonyNetwork extends BaseContract {
 
   /**
    * Register a "user.joincolony.eth" label.
-   * @param orbitdb The path of the orbitDB database associated with the user profile
-   * @param username The label to register
+   * @param _orbitdb The path of the orbitDB database associated with the user profile
+   * @param _username The label to register
    */
   registerUserLabel(
-    username: string,
-    orbitdb: string,
+    _username: string,
+    _orbitdb: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Register a "colony.joincolony.eth" label. Can only be called by a Colony.
-   * @param colonyName The label to register.
-   * @param orbitdb The path of the orbitDB database associated with the colony name
+   * @param _colonyName The label to register.
+   * @param _orbitdb The path of the orbitDB database associated with the colony name
    */
   registerColonyLabel(
-    colonyName: string,
-    orbitdb: string,
+    _colonyName: string,
+    _orbitdb: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Update a colony's orbitdb address. Can only be called by a colony with a registered subdomain
-   * @param orbitdb The path of the orbitDB database to be associated with the colony
+   * @param _orbitdb The path of the orbitDB database to be associated with the colony
    */
   updateColonyOrbitDB(
-    orbitdb: string,
+    _orbitdb: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Update a user's orbitdb address. Can only be called by a user with a registered subdomain
-   * @param orbitdb The path of the orbitDB database to be associated with the user
+   * @param _orbitdb The path of the orbitDB database to be associated with the user
    */
   updateUserOrbitDB(
-    orbitdb: string,
+    _orbitdb: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Retrieve the orbitdb address corresponding to a registered account.
-   * @param node The Namehash of the account being queried.
+   * @param _node The Namehash of the account being queried.
    */
   getProfileDBAddress(
-    node: BytesLike,
+    _node: BytesLike,
     overrides?: CallOverrides
   ): Promise<string>;
 
   /**
    * Reverse lookup a username from an address.
-   * @param addr The address we wish to find the corresponding ENS domain for (if any)
+   * @param _addr The address we wish to find the corresponding ENS domain for (if any)
    */
   lookupRegisteredENSDomain(
-    addr: string,
+    _addr: string,
     overrides?: CallOverrides
   ): Promise<string>;
 
   /**
    * Returns the address the supplied node resolves do, if we are the resolver.
-   * @param node The namehash of the ENS address being requested
+   * @param _node The namehash of the ENS address being requested
    */
-  addr(node: BytesLike, overrides?: CallOverrides): Promise<string>;
+  addr(_node: BytesLike, overrides?: CallOverrides): Promise<string>;
 
   /**
    * Returns the address of the ENSRegistrar for the Network.
@@ -2803,10 +2769,10 @@ export interface IColonyNetwork extends BaseContract {
 
   /**
    * Set the resolver to be used by new instances of ReputationMiningCycle.
-   * @param miningResolverAddress The address of the Resolver contract with the functions correctly wired.
+   * @param _miningResolverAddress The address of the Resolver contract with the functions correctly wired.
    */
   setMiningResolver(
-    miningResolverAddress: string,
+    _miningResolverAddress: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -2818,76 +2784,76 @@ export interface IColonyNetwork extends BaseContract {
   /**
    * Can only be called by the MetaColony.The extension version is queried from the resolver itself.
    * Add a new extension resolver to the Extensions repository.
-   * @param extensionId keccak256 hash of the extension name, used as an indentifier
-   * @param resolver The deployed resolver containing the extension contract logic
+   * @param _extensionId keccak256 hash of the extension name, used as an indentifier
+   * @param _resolver The deployed resolver containing the extension contract logic
    */
   addExtensionToNetwork(
-    extensionId: BytesLike,
-    resolver: string,
+    _extensionId: BytesLike,
+    _resolver: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Install an extension in a colony. Can only be called by a Colony.
-   * @param extensionId keccak256 hash of the extension name, used as an indentifier
-   * @param version Version of the extension to install
+   * @param _extensionId keccak256 hash of the extension name, used as an indentifier
+   * @param _version Version of the extension to install
    */
   installExtension(
-    extensionId: BytesLike,
-    version: BigNumberish,
+    _extensionId: BytesLike,
+    _version: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Upgrade an extension in a colony. Can only be called by a Colony.
-   * @param extensionId keccak256 hash of the extension name, used as an indentifier
-   * @param newVersion Version of the extension to upgrade to (must be one greater than current)
+   * @param _extensionId keccak256 hash of the extension name, used as an indentifier
+   * @param _newVersion Version of the extension to upgrade to (must be one greater than current)
    */
   upgradeExtension(
-    extensionId: BytesLike,
-    newVersion: BigNumberish,
+    _extensionId: BytesLike,
+    _newVersion: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Set the deprecation of an extension in a colony. Can only be called by a Colony.
-   * @param deprecated Whether to deprecate the extension or not
-   * @param extensionId keccak256 hash of the extension name, used as an indentifier
+   * @param _deprecated Whether to deprecate the extension or not
+   * @param _extensionId keccak256 hash of the extension name, used as an indentifier
    */
   deprecateExtension(
-    extensionId: BytesLike,
-    deprecated: boolean,
+    _extensionId: BytesLike,
+    _deprecated: boolean,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Uninstall an extension in a colony. Can only be called by a Colony.
-   * @param extensionId keccak256 hash of the extension name, used as an indentifier
+   * @param _extensionId keccak256 hash of the extension name, used as an indentifier
    */
   uninstallExtension(
-    extensionId: BytesLike,
+    _extensionId: BytesLike,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Get an extension's resolver.
-   * @param extensionId keccak256 hash of the extension name, used as an indentifier
-   * @param version Version of the extension
+   * @param _extensionId keccak256 hash of the extension name, used as an indentifier
+   * @param _version Version of the extension
    */
   getExtensionResolver(
-    extensionId: BytesLike,
-    version: BigNumberish,
+    _extensionId: BytesLike,
+    _version: BigNumberish,
     overrides?: CallOverrides
   ): Promise<string>;
 
   /**
    * Get an extension's installation.
-   * @param colony Address of the colony the extension is installed in
-   * @param extensionId keccak256 hash of the extension name, used as an indentifier
+   * @param _colony Address of the colony the extension is installed in
+   * @param _extensionId keccak256 hash of the extension name, used as an indentifier
    */
   getExtensionInstallation(
-    extensionId: BytesLike,
-    colony: string,
+    _extensionId: BytesLike,
+    _colony: string,
     overrides?: CallOverrides
   ): Promise<string>;
 
@@ -2999,6 +2965,7 @@ export interface IColonyNetwork extends BaseContract {
   /**
    * Can only be called by the MetaColony.
    * Called to set the total per-cycle reputation reward, which will be split between all miners.
+   * @param _amount The CLNY awarded per mining cycle to the miners
    */
   setReputationMiningCycleReward(
     _amount: BigNumberish,
@@ -3027,14 +2994,14 @@ export interface IColonyNetwork extends BaseContract {
   /**
    * This is more expensive than deploying a token directly, but is able to be done via a metatransaction
    * Called to deploy a token authority
+   * @param _allowedToTransfer An array of addresses that are allowed to transfer the token even if it's locked
    * @param _colony The address of the colony in control of the token
    * @param _token The address of the otken
-   * @param allowedToTransfer An array of addresses that are allowed to transfer the token even if it's locked
    */
   deployTokenAuthority(
     _token: string,
     _colony: string,
-    allowedToTransfer: string[],
+    _allowedToTransfer: string[],
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -3147,10 +3114,10 @@ export interface IColonyNetwork extends BaseContract {
     /**
      * Interface identification is specified in ERC-165.
      * Query if a contract implements an interface
-     * @param interfaceID The interface identifier, as specified in ERC-165
+     * @param _interfaceID The interface identifier, as specified in ERC-165
      */
     supportsInterface(
-      interfaceID: BytesLike,
+      _interfaceID: BytesLike,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
@@ -3451,29 +3418,14 @@ export interface IColonyNetwork extends BaseContract {
 
     /**
      * Set a new Reputation root hash and starts a new mining cycle. Can only be called by the ReputationMiningCycle contract.
-     * @param newHash The reputation root hash
-     * @param newNLeaves The updated leaves count value
-     * @param stakers Array of users who submitted or backed the hash, being accepted here as the new reputation root hash
+     * @param _newHash The reputation root hash
+     * @param _newNLeaves The updated leaves count value
+     * @param _stakers Array of users who submitted or backed the hash, being accepted here as the new reputation root hash
      */
-    "setReputationRootHash(bytes32,uint256,address[])"(
-      newHash: BytesLike,
-      newNLeaves: BigNumberish,
-      stakers: string[],
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    /**
-     * This version of setReputationRootHash is deprecated and will be removed in a future release. It transparently calls the new version if it is called (essentially, removing the `reward` parameter.
-     * @param newHash The reputation root hash
-     * @param newNLeaves The updated leaves count value
-     * @param reward Amount of CLNY to be distributed as reward to miners (not used)
-     * @param stakers Array of users who submitted or backed the hash, being accepted here as the new reputation root hash
-     */
-    "setReputationRootHash(bytes32,uint256,address[],uint256)"(
-      newHash: BytesLike,
-      newNLeaves: BigNumberish,
-      stakers: string[],
-      reward: BigNumberish,
+    setReputationRootHash(
+      _newHash: BytesLike,
+      _newNLeaves: BigNumberish,
+      _stakers: string[],
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3523,67 +3475,67 @@ export interface IColonyNetwork extends BaseContract {
 
     /**
      * Register a "user.joincolony.eth" label.
-     * @param orbitdb The path of the orbitDB database associated with the user profile
-     * @param username The label to register
+     * @param _orbitdb The path of the orbitDB database associated with the user profile
+     * @param _username The label to register
      */
     registerUserLabel(
-      username: string,
-      orbitdb: string,
+      _username: string,
+      _orbitdb: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
     /**
      * Register a "colony.joincolony.eth" label. Can only be called by a Colony.
-     * @param colonyName The label to register.
-     * @param orbitdb The path of the orbitDB database associated with the colony name
+     * @param _colonyName The label to register.
+     * @param _orbitdb The path of the orbitDB database associated with the colony name
      */
     registerColonyLabel(
-      colonyName: string,
-      orbitdb: string,
+      _colonyName: string,
+      _orbitdb: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
     /**
      * Update a colony's orbitdb address. Can only be called by a colony with a registered subdomain
-     * @param orbitdb The path of the orbitDB database to be associated with the colony
+     * @param _orbitdb The path of the orbitDB database to be associated with the colony
      */
     updateColonyOrbitDB(
-      orbitdb: string,
+      _orbitdb: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
     /**
      * Update a user's orbitdb address. Can only be called by a user with a registered subdomain
-     * @param orbitdb The path of the orbitDB database to be associated with the user
+     * @param _orbitdb The path of the orbitDB database to be associated with the user
      */
     updateUserOrbitDB(
-      orbitdb: string,
+      _orbitdb: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
     /**
      * Retrieve the orbitdb address corresponding to a registered account.
-     * @param node The Namehash of the account being queried.
+     * @param _node The Namehash of the account being queried.
      */
     getProfileDBAddress(
-      node: BytesLike,
+      _node: BytesLike,
       overrides?: CallOverrides
     ): Promise<string>;
 
     /**
      * Reverse lookup a username from an address.
-     * @param addr The address we wish to find the corresponding ENS domain for (if any)
+     * @param _addr The address we wish to find the corresponding ENS domain for (if any)
      */
     lookupRegisteredENSDomain(
-      addr: string,
+      _addr: string,
       overrides?: CallOverrides
     ): Promise<string>;
 
     /**
      * Returns the address the supplied node resolves do, if we are the resolver.
-     * @param node The namehash of the ENS address being requested
+     * @param _node The namehash of the ENS address being requested
      */
-    addr(node: BytesLike, overrides?: CallOverrides): Promise<string>;
+    addr(_node: BytesLike, overrides?: CallOverrides): Promise<string>;
 
     /**
      * Returns the address of the ENSRegistrar for the Network.
@@ -3592,10 +3544,10 @@ export interface IColonyNetwork extends BaseContract {
 
     /**
      * Set the resolver to be used by new instances of ReputationMiningCycle.
-     * @param miningResolverAddress The address of the Resolver contract with the functions correctly wired.
+     * @param _miningResolverAddress The address of the Resolver contract with the functions correctly wired.
      */
     setMiningResolver(
-      miningResolverAddress: string,
+      _miningResolverAddress: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3607,76 +3559,76 @@ export interface IColonyNetwork extends BaseContract {
     /**
      * Can only be called by the MetaColony.The extension version is queried from the resolver itself.
      * Add a new extension resolver to the Extensions repository.
-     * @param extensionId keccak256 hash of the extension name, used as an indentifier
-     * @param resolver The deployed resolver containing the extension contract logic
+     * @param _extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param _resolver The deployed resolver containing the extension contract logic
      */
     addExtensionToNetwork(
-      extensionId: BytesLike,
-      resolver: string,
+      _extensionId: BytesLike,
+      _resolver: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
     /**
      * Install an extension in a colony. Can only be called by a Colony.
-     * @param extensionId keccak256 hash of the extension name, used as an indentifier
-     * @param version Version of the extension to install
+     * @param _extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param _version Version of the extension to install
      */
     installExtension(
-      extensionId: BytesLike,
-      version: BigNumberish,
+      _extensionId: BytesLike,
+      _version: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
     /**
      * Upgrade an extension in a colony. Can only be called by a Colony.
-     * @param extensionId keccak256 hash of the extension name, used as an indentifier
-     * @param newVersion Version of the extension to upgrade to (must be one greater than current)
+     * @param _extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param _newVersion Version of the extension to upgrade to (must be one greater than current)
      */
     upgradeExtension(
-      extensionId: BytesLike,
-      newVersion: BigNumberish,
+      _extensionId: BytesLike,
+      _newVersion: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
     /**
      * Set the deprecation of an extension in a colony. Can only be called by a Colony.
-     * @param deprecated Whether to deprecate the extension or not
-     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param _deprecated Whether to deprecate the extension or not
+     * @param _extensionId keccak256 hash of the extension name, used as an indentifier
      */
     deprecateExtension(
-      extensionId: BytesLike,
-      deprecated: boolean,
+      _extensionId: BytesLike,
+      _deprecated: boolean,
       overrides?: CallOverrides
     ): Promise<void>;
 
     /**
      * Uninstall an extension in a colony. Can only be called by a Colony.
-     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param _extensionId keccak256 hash of the extension name, used as an indentifier
      */
     uninstallExtension(
-      extensionId: BytesLike,
+      _extensionId: BytesLike,
       overrides?: CallOverrides
     ): Promise<void>;
 
     /**
      * Get an extension's resolver.
-     * @param extensionId keccak256 hash of the extension name, used as an indentifier
-     * @param version Version of the extension
+     * @param _extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param _version Version of the extension
      */
     getExtensionResolver(
-      extensionId: BytesLike,
-      version: BigNumberish,
+      _extensionId: BytesLike,
+      _version: BigNumberish,
       overrides?: CallOverrides
     ): Promise<string>;
 
     /**
      * Get an extension's installation.
-     * @param colony Address of the colony the extension is installed in
-     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param _colony Address of the colony the extension is installed in
+     * @param _extensionId keccak256 hash of the extension name, used as an indentifier
      */
     getExtensionInstallation(
-      extensionId: BytesLike,
-      colony: string,
+      _extensionId: BytesLike,
+      _colony: string,
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -3788,6 +3740,7 @@ export interface IColonyNetwork extends BaseContract {
     /**
      * Can only be called by the MetaColony.
      * Called to set the total per-cycle reputation reward, which will be split between all miners.
+     * @param _amount The CLNY awarded per mining cycle to the miners
      */
     setReputationMiningCycleReward(
       _amount: BigNumberish,
@@ -3818,14 +3771,14 @@ export interface IColonyNetwork extends BaseContract {
     /**
      * This is more expensive than deploying a token directly, but is able to be done via a metatransaction
      * Called to deploy a token authority
+     * @param _allowedToTransfer An array of addresses that are allowed to transfer the token even if it's locked
      * @param _colony The address of the colony in control of the token
      * @param _token The address of the otken
-     * @param allowedToTransfer An array of addresses that are allowed to transfer the token even if it's locked
      */
     deployTokenAuthority(
       _token: string,
       _colony: string,
-      allowedToTransfer: string[],
+      _allowedToTransfer: string[],
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -4210,10 +4163,10 @@ export interface IColonyNetwork extends BaseContract {
     /**
      * Interface identification is specified in ERC-165.
      * Query if a contract implements an interface
-     * @param interfaceID The interface identifier, as specified in ERC-165
+     * @param _interfaceID The interface identifier, as specified in ERC-165
      */
     supportsInterface(
-      interfaceID: BytesLike,
+      _interfaceID: BytesLike,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -4516,29 +4469,14 @@ export interface IColonyNetwork extends BaseContract {
 
     /**
      * Set a new Reputation root hash and starts a new mining cycle. Can only be called by the ReputationMiningCycle contract.
-     * @param newHash The reputation root hash
-     * @param newNLeaves The updated leaves count value
-     * @param stakers Array of users who submitted or backed the hash, being accepted here as the new reputation root hash
+     * @param _newHash The reputation root hash
+     * @param _newNLeaves The updated leaves count value
+     * @param _stakers Array of users who submitted or backed the hash, being accepted here as the new reputation root hash
      */
-    "setReputationRootHash(bytes32,uint256,address[])"(
-      newHash: BytesLike,
-      newNLeaves: BigNumberish,
-      stakers: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    /**
-     * This version of setReputationRootHash is deprecated and will be removed in a future release. It transparently calls the new version if it is called (essentially, removing the `reward` parameter.
-     * @param newHash The reputation root hash
-     * @param newNLeaves The updated leaves count value
-     * @param reward Amount of CLNY to be distributed as reward to miners (not used)
-     * @param stakers Array of users who submitted or backed the hash, being accepted here as the new reputation root hash
-     */
-    "setReputationRootHash(bytes32,uint256,address[],uint256)"(
-      newHash: BytesLike,
-      newNLeaves: BigNumberish,
-      stakers: string[],
-      reward: BigNumberish,
+    setReputationRootHash(
+      _newHash: BytesLike,
+      _newNLeaves: BigNumberish,
+      _stakers: string[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -4595,67 +4533,67 @@ export interface IColonyNetwork extends BaseContract {
 
     /**
      * Register a "user.joincolony.eth" label.
-     * @param orbitdb The path of the orbitDB database associated with the user profile
-     * @param username The label to register
+     * @param _orbitdb The path of the orbitDB database associated with the user profile
+     * @param _username The label to register
      */
     registerUserLabel(
-      username: string,
-      orbitdb: string,
+      _username: string,
+      _orbitdb: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     /**
      * Register a "colony.joincolony.eth" label. Can only be called by a Colony.
-     * @param colonyName The label to register.
-     * @param orbitdb The path of the orbitDB database associated with the colony name
+     * @param _colonyName The label to register.
+     * @param _orbitdb The path of the orbitDB database associated with the colony name
      */
     registerColonyLabel(
-      colonyName: string,
-      orbitdb: string,
+      _colonyName: string,
+      _orbitdb: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     /**
      * Update a colony's orbitdb address. Can only be called by a colony with a registered subdomain
-     * @param orbitdb The path of the orbitDB database to be associated with the colony
+     * @param _orbitdb The path of the orbitDB database to be associated with the colony
      */
     updateColonyOrbitDB(
-      orbitdb: string,
+      _orbitdb: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     /**
      * Update a user's orbitdb address. Can only be called by a user with a registered subdomain
-     * @param orbitdb The path of the orbitDB database to be associated with the user
+     * @param _orbitdb The path of the orbitDB database to be associated with the user
      */
     updateUserOrbitDB(
-      orbitdb: string,
+      _orbitdb: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     /**
      * Retrieve the orbitdb address corresponding to a registered account.
-     * @param node The Namehash of the account being queried.
+     * @param _node The Namehash of the account being queried.
      */
     getProfileDBAddress(
-      node: BytesLike,
+      _node: BytesLike,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     /**
      * Reverse lookup a username from an address.
-     * @param addr The address we wish to find the corresponding ENS domain for (if any)
+     * @param _addr The address we wish to find the corresponding ENS domain for (if any)
      */
     lookupRegisteredENSDomain(
-      addr: string,
+      _addr: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     /**
      * Returns the address the supplied node resolves do, if we are the resolver.
-     * @param node The namehash of the ENS address being requested
+     * @param _node The namehash of the ENS address being requested
      */
-    addr(node: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
+    addr(_node: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
 
     /**
      * Returns the address of the ENSRegistrar for the Network.
@@ -4664,10 +4602,10 @@ export interface IColonyNetwork extends BaseContract {
 
     /**
      * Set the resolver to be used by new instances of ReputationMiningCycle.
-     * @param miningResolverAddress The address of the Resolver contract with the functions correctly wired.
+     * @param _miningResolverAddress The address of the Resolver contract with the functions correctly wired.
      */
     setMiningResolver(
-      miningResolverAddress: string,
+      _miningResolverAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -4679,76 +4617,76 @@ export interface IColonyNetwork extends BaseContract {
     /**
      * Can only be called by the MetaColony.The extension version is queried from the resolver itself.
      * Add a new extension resolver to the Extensions repository.
-     * @param extensionId keccak256 hash of the extension name, used as an indentifier
-     * @param resolver The deployed resolver containing the extension contract logic
+     * @param _extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param _resolver The deployed resolver containing the extension contract logic
      */
     addExtensionToNetwork(
-      extensionId: BytesLike,
-      resolver: string,
+      _extensionId: BytesLike,
+      _resolver: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     /**
      * Install an extension in a colony. Can only be called by a Colony.
-     * @param extensionId keccak256 hash of the extension name, used as an indentifier
-     * @param version Version of the extension to install
+     * @param _extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param _version Version of the extension to install
      */
     installExtension(
-      extensionId: BytesLike,
-      version: BigNumberish,
+      _extensionId: BytesLike,
+      _version: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     /**
      * Upgrade an extension in a colony. Can only be called by a Colony.
-     * @param extensionId keccak256 hash of the extension name, used as an indentifier
-     * @param newVersion Version of the extension to upgrade to (must be one greater than current)
+     * @param _extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param _newVersion Version of the extension to upgrade to (must be one greater than current)
      */
     upgradeExtension(
-      extensionId: BytesLike,
-      newVersion: BigNumberish,
+      _extensionId: BytesLike,
+      _newVersion: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     /**
      * Set the deprecation of an extension in a colony. Can only be called by a Colony.
-     * @param deprecated Whether to deprecate the extension or not
-     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param _deprecated Whether to deprecate the extension or not
+     * @param _extensionId keccak256 hash of the extension name, used as an indentifier
      */
     deprecateExtension(
-      extensionId: BytesLike,
-      deprecated: boolean,
+      _extensionId: BytesLike,
+      _deprecated: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     /**
      * Uninstall an extension in a colony. Can only be called by a Colony.
-     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param _extensionId keccak256 hash of the extension name, used as an indentifier
      */
     uninstallExtension(
-      extensionId: BytesLike,
+      _extensionId: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     /**
      * Get an extension's resolver.
-     * @param extensionId keccak256 hash of the extension name, used as an indentifier
-     * @param version Version of the extension
+     * @param _extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param _version Version of the extension
      */
     getExtensionResolver(
-      extensionId: BytesLike,
-      version: BigNumberish,
+      _extensionId: BytesLike,
+      _version: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     /**
      * Get an extension's installation.
-     * @param colony Address of the colony the extension is installed in
-     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param _colony Address of the colony the extension is installed in
+     * @param _extensionId keccak256 hash of the extension name, used as an indentifier
      */
     getExtensionInstallation(
-      extensionId: BytesLike,
-      colony: string,
+      _extensionId: BytesLike,
+      _colony: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -4860,6 +4798,7 @@ export interface IColonyNetwork extends BaseContract {
     /**
      * Can only be called by the MetaColony.
      * Called to set the total per-cycle reputation reward, which will be split between all miners.
+     * @param _amount The CLNY awarded per mining cycle to the miners
      */
     setReputationMiningCycleReward(
       _amount: BigNumberish,
@@ -4890,14 +4829,14 @@ export interface IColonyNetwork extends BaseContract {
     /**
      * This is more expensive than deploying a token directly, but is able to be done via a metatransaction
      * Called to deploy a token authority
+     * @param _allowedToTransfer An array of addresses that are allowed to transfer the token even if it's locked
      * @param _colony The address of the colony in control of the token
      * @param _token The address of the otken
-     * @param allowedToTransfer An array of addresses that are allowed to transfer the token even if it's locked
      */
     deployTokenAuthority(
       _token: string,
       _colony: string,
-      allowedToTransfer: string[],
+      _allowedToTransfer: string[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -5023,10 +4962,10 @@ export interface IColonyNetwork extends BaseContract {
     /**
      * Interface identification is specified in ERC-165.
      * Query if a contract implements an interface
-     * @param interfaceID The interface identifier, as specified in ERC-165
+     * @param _interfaceID The interface identifier, as specified in ERC-165
      */
     supportsInterface(
-      interfaceID: BytesLike,
+      _interfaceID: BytesLike,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -5339,29 +5278,14 @@ export interface IColonyNetwork extends BaseContract {
 
     /**
      * Set a new Reputation root hash and starts a new mining cycle. Can only be called by the ReputationMiningCycle contract.
-     * @param newHash The reputation root hash
-     * @param newNLeaves The updated leaves count value
-     * @param stakers Array of users who submitted or backed the hash, being accepted here as the new reputation root hash
+     * @param _newHash The reputation root hash
+     * @param _newNLeaves The updated leaves count value
+     * @param _stakers Array of users who submitted or backed the hash, being accepted here as the new reputation root hash
      */
-    "setReputationRootHash(bytes32,uint256,address[])"(
-      newHash: BytesLike,
-      newNLeaves: BigNumberish,
-      stakers: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * This version of setReputationRootHash is deprecated and will be removed in a future release. It transparently calls the new version if it is called (essentially, removing the `reward` parameter.
-     * @param newHash The reputation root hash
-     * @param newNLeaves The updated leaves count value
-     * @param reward Amount of CLNY to be distributed as reward to miners (not used)
-     * @param stakers Array of users who submitted or backed the hash, being accepted here as the new reputation root hash
-     */
-    "setReputationRootHash(bytes32,uint256,address[],uint256)"(
-      newHash: BytesLike,
-      newNLeaves: BigNumberish,
-      stakers: string[],
-      reward: BigNumberish,
+    setReputationRootHash(
+      _newHash: BytesLike,
+      _newNLeaves: BigNumberish,
+      _stakers: string[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -5424,68 +5348,68 @@ export interface IColonyNetwork extends BaseContract {
 
     /**
      * Register a "user.joincolony.eth" label.
-     * @param orbitdb The path of the orbitDB database associated with the user profile
-     * @param username The label to register
+     * @param _orbitdb The path of the orbitDB database associated with the user profile
+     * @param _username The label to register
      */
     registerUserLabel(
-      username: string,
-      orbitdb: string,
+      _username: string,
+      _orbitdb: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Register a "colony.joincolony.eth" label. Can only be called by a Colony.
-     * @param colonyName The label to register.
-     * @param orbitdb The path of the orbitDB database associated with the colony name
+     * @param _colonyName The label to register.
+     * @param _orbitdb The path of the orbitDB database associated with the colony name
      */
     registerColonyLabel(
-      colonyName: string,
-      orbitdb: string,
+      _colonyName: string,
+      _orbitdb: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Update a colony's orbitdb address. Can only be called by a colony with a registered subdomain
-     * @param orbitdb The path of the orbitDB database to be associated with the colony
+     * @param _orbitdb The path of the orbitDB database to be associated with the colony
      */
     updateColonyOrbitDB(
-      orbitdb: string,
+      _orbitdb: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Update a user's orbitdb address. Can only be called by a user with a registered subdomain
-     * @param orbitdb The path of the orbitDB database to be associated with the user
+     * @param _orbitdb The path of the orbitDB database to be associated with the user
      */
     updateUserOrbitDB(
-      orbitdb: string,
+      _orbitdb: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Retrieve the orbitdb address corresponding to a registered account.
-     * @param node The Namehash of the account being queried.
+     * @param _node The Namehash of the account being queried.
      */
     getProfileDBAddress(
-      node: BytesLike,
+      _node: BytesLike,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     /**
      * Reverse lookup a username from an address.
-     * @param addr The address we wish to find the corresponding ENS domain for (if any)
+     * @param _addr The address we wish to find the corresponding ENS domain for (if any)
      */
     lookupRegisteredENSDomain(
-      addr: string,
+      _addr: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     /**
      * Returns the address the supplied node resolves do, if we are the resolver.
-     * @param node The namehash of the ENS address being requested
+     * @param _node The namehash of the ENS address being requested
      */
     addr(
-      node: BytesLike,
+      _node: BytesLike,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -5496,10 +5420,10 @@ export interface IColonyNetwork extends BaseContract {
 
     /**
      * Set the resolver to be used by new instances of ReputationMiningCycle.
-     * @param miningResolverAddress The address of the Resolver contract with the functions correctly wired.
+     * @param _miningResolverAddress The address of the Resolver contract with the functions correctly wired.
      */
     setMiningResolver(
-      miningResolverAddress: string,
+      _miningResolverAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -5511,76 +5435,76 @@ export interface IColonyNetwork extends BaseContract {
     /**
      * Can only be called by the MetaColony.The extension version is queried from the resolver itself.
      * Add a new extension resolver to the Extensions repository.
-     * @param extensionId keccak256 hash of the extension name, used as an indentifier
-     * @param resolver The deployed resolver containing the extension contract logic
+     * @param _extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param _resolver The deployed resolver containing the extension contract logic
      */
     addExtensionToNetwork(
-      extensionId: BytesLike,
-      resolver: string,
+      _extensionId: BytesLike,
+      _resolver: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Install an extension in a colony. Can only be called by a Colony.
-     * @param extensionId keccak256 hash of the extension name, used as an indentifier
-     * @param version Version of the extension to install
+     * @param _extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param _version Version of the extension to install
      */
     installExtension(
-      extensionId: BytesLike,
-      version: BigNumberish,
+      _extensionId: BytesLike,
+      _version: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Upgrade an extension in a colony. Can only be called by a Colony.
-     * @param extensionId keccak256 hash of the extension name, used as an indentifier
-     * @param newVersion Version of the extension to upgrade to (must be one greater than current)
+     * @param _extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param _newVersion Version of the extension to upgrade to (must be one greater than current)
      */
     upgradeExtension(
-      extensionId: BytesLike,
-      newVersion: BigNumberish,
+      _extensionId: BytesLike,
+      _newVersion: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Set the deprecation of an extension in a colony. Can only be called by a Colony.
-     * @param deprecated Whether to deprecate the extension or not
-     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param _deprecated Whether to deprecate the extension or not
+     * @param _extensionId keccak256 hash of the extension name, used as an indentifier
      */
     deprecateExtension(
-      extensionId: BytesLike,
-      deprecated: boolean,
+      _extensionId: BytesLike,
+      _deprecated: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Uninstall an extension in a colony. Can only be called by a Colony.
-     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param _extensionId keccak256 hash of the extension name, used as an indentifier
      */
     uninstallExtension(
-      extensionId: BytesLike,
+      _extensionId: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Get an extension's resolver.
-     * @param extensionId keccak256 hash of the extension name, used as an indentifier
-     * @param version Version of the extension
+     * @param _extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param _version Version of the extension
      */
     getExtensionResolver(
-      extensionId: BytesLike,
-      version: BigNumberish,
+      _extensionId: BytesLike,
+      _version: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     /**
      * Get an extension's installation.
-     * @param colony Address of the colony the extension is installed in
-     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param _colony Address of the colony the extension is installed in
+     * @param _extensionId keccak256 hash of the extension name, used as an indentifier
      */
     getExtensionInstallation(
-      extensionId: BytesLike,
-      colony: string,
+      _extensionId: BytesLike,
+      _colony: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -5692,6 +5616,7 @@ export interface IColonyNetwork extends BaseContract {
     /**
      * Can only be called by the MetaColony.
      * Called to set the total per-cycle reputation reward, which will be split between all miners.
+     * @param _amount The CLNY awarded per mining cycle to the miners
      */
     setReputationMiningCycleReward(
       _amount: BigNumberish,
@@ -5722,14 +5647,14 @@ export interface IColonyNetwork extends BaseContract {
     /**
      * This is more expensive than deploying a token directly, but is able to be done via a metatransaction
      * Called to deploy a token authority
+     * @param _allowedToTransfer An array of addresses that are allowed to transfer the token even if it's locked
      * @param _colony The address of the colony in control of the token
      * @param _token The address of the otken
-     * @param allowedToTransfer An array of addresses that are allowed to transfer the token even if it's locked
      */
     deployTokenAuthority(
       _token: string,
       _colony: string,
-      allowedToTransfer: string[],
+      _allowedToTransfer: string[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
