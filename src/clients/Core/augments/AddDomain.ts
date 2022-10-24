@@ -10,6 +10,7 @@ import {
   IColonyV7,
   IColonyV8,
   IColonyV9,
+  IColonyV10,
 } from '../../../contracts/IColony/exports';
 
 import { ColonyRole, TxOverrides } from '../../../types';
@@ -19,7 +20,13 @@ import { AugmentedIColony, getPermissionProofs } from './commonAugments';
 type ValidColonyA = IColonyV1 | IColonyV2 | IColonyV3 | IColonyV4;
 
 // Colonies that support the later (overloaded) methods
-type ValidColonyB = IColonyV5 | IColonyV6 | IColonyV7 | IColonyV8 | IColonyV9;
+type ValidColonyB =
+  | IColonyV5
+  | IColonyV6
+  | IColonyV7
+  | IColonyV8
+  | IColonyV9
+  | IColonyV10;
 
 export interface AddDomainEstimateGasA {
   /**

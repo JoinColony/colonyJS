@@ -21,7 +21,8 @@ const RELEASE_MAP = {
     dlwss: 7,
     elwss3: 8,
     flwss: 9,
-    latest: 10,
+    glwss: 10,
+    latest: 11,
   },
   [Extension.CoinMachine]: {
     clwss: 1,
@@ -29,7 +30,8 @@ const RELEASE_MAP = {
     elwss2: 3,
     elwss3: 4,
     flwss: 5,
-    latest: 6,
+    glwss: 6,
+    latest: 7,
   },
   [Extension.OneTxPayment]: {
     clwss: 1,
@@ -44,7 +46,8 @@ const RELEASE_MAP = {
     flwss: 4,
     flwss2: 5,
     flwss3: 6,
-    latest: 7,
+    glwss: 7,
+    latest: 8,
   },
   [Extension.Whitelist]: {
     elwss: 1,

@@ -8,6 +8,7 @@ import {
   IColonyV7,
   IColonyV8,
   IColonyV9,
+  IColonyV10,
 } from '../../../contracts/IColony/exports';
 import { ColonyRole, TxOverrides } from '../../../types';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
@@ -24,7 +25,8 @@ type ValidColony =
   | IColonyV6
   | IColonyV7
   | IColonyV8
-  | IColonyV9;
+  | IColonyV9
+  | IColonyV10;
 
 export interface AugmentedEstimateV3 {
   /**

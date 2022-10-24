@@ -1,0 +1,290 @@
+{
+    "contractName": "IRecovery",
+    "abi": [
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "name": "RecoveryModeEntered",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "name": "RecoveryModeExitApproved",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "name": "RecoveryModeExited",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "setTo",
+                    "type": "bool"
+                }
+            ],
+            "name": "RecoveryRoleSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "slot",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "fromValue",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "toValue",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "RecoveryStorageSlotSet",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "enterRecoveryMode",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "exitRecoveryMode",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "approveExitRecovery",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "isInRecoveryMode",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "inRecoveryMode",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_user",
+                    "type": "address"
+                }
+            ],
+            "name": "setRecoveryRole",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_user",
+                    "type": "address"
+                }
+            ],
+            "name": "removeRecoveryRole",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "numRecoveryRoles",
+            "outputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "numRoles",
+                    "type": "uint64"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_slot",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "_value",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "setStorageSlotRecovery",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_slot",
+                    "type": "uint256"
+                }
+            ],
+            "name": "checkNotAdditionalProtectedVariable",
+            "outputs": [],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ],
+    "bytecode": "0x",
+    "devdoc": {
+        "kind": "dev",
+        "methods": {
+            "checkNotAdditionalProtectedVariable(uint256)": {
+                "details": "No return value, but should throw if protected.This is external, but is only expected to be called from ContractRecovery; no need toexpose this to any users.",
+                "params": {
+                    "_slot": "The storage slot number to check."
+                }
+            },
+            "isInRecoveryMode()": {
+                "returns": {
+                    "inRecoveryMode": "Return true if recovery mode is active, false otherwise"
+                }
+            },
+            "numRecoveryRoles()": {
+                "returns": {
+                    "numRoles": "Number of users with the recovery role."
+                }
+            },
+            "removeRecoveryRole(address)": {
+                "params": {
+                    "_user": "User we want to remove recovery role from"
+                }
+            },
+            "setRecoveryRole(address)": {
+                "params": {
+                    "_user": "User we want to give a recovery role to"
+                }
+            },
+            "setStorageSlotRecovery(uint256,bytes32)": {
+                "details": "certain critical variables are protected from editing in this function",
+                "params": {
+                    "_slot": "Uint address of storage slot to be updated",
+                    "_value": "word of data to be set"
+                }
+            }
+        },
+        "title": "Recovery interface",
+        "version": 1
+    },
+    "userdoc": {
+        "events": {
+            "RecoveryModeEntered(address)": {
+                "notice": "Event logged when recovery mode is triggered."
+            },
+            "RecoveryModeExitApproved(address)": {
+                "notice": "Event logged when someone with recovery mode signals they are happy with the state and wish to leave recovery mode"
+            },
+            "RecoveryModeExited(address)": {
+                "notice": "Event logged when recovery mode is left"
+            },
+            "RecoveryRoleSet(address,bool)": {
+                "notice": "Event logged when user gets/loses the recovery role."
+            },
+            "RecoveryStorageSlotSet(address,uint256,bytes32,bytes32)": {
+                "notice": "Event logged when in recovery mode a storage slot is set"
+            }
+        },
+        "kind": "user",
+        "methods": {
+            "approveExitRecovery()": {
+                "notice": "Indicate approval to exit recovery mode. Can only be called by user with recovery role."
+            },
+            "checkNotAdditionalProtectedVariable(uint256)": {
+                "notice": "Check whether the supplied slot is a protected variable specific to this contract"
+            },
+            "enterRecoveryMode()": {
+                "notice": "Put colony network mining into recovery mode. Can only be called by user with recovery role."
+            },
+            "exitRecoveryMode()": {
+                "notice": "Exit recovery mode, can be called by anyone if enough whitelist approvals are given."
+            },
+            "isInRecoveryMode()": {
+                "notice": "Is colony network in recovery mode."
+            },
+            "numRecoveryRoles()": {
+                "notice": "Return number of recovery roles."
+            },
+            "removeRecoveryRole(address)": {
+                "notice": "Remove colony recovery role. Can only be called by root role."
+            },
+            "setRecoveryRole(address)": {
+                "notice": "Set new colony recovery role. Can be called by root."
+            },
+            "setStorageSlotRecovery(uint256,bytes32)": {
+                "notice": "Update value of arbitrary storage variable. Can only be called by user with recovery role."
+            }
+        },
+        "notice": "All externally available functions are available here and registered to work with EtherRouter Network contract",
+        "version": 1
+    }
+}

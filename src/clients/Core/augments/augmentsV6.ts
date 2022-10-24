@@ -1,7 +1,7 @@
 import { ContractTransaction, BigNumber, BigNumberish } from 'ethers';
 
 import { ColonyRole, TxOverrides } from '../../../types';
-import { IColonyV9 } from '../../../contracts/IColony/exports';
+import { IColonyV9, IColonyV10 } from '../../../contracts/IColony/exports';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import { AugmentedIColony, getPermissionProofs } from './commonAugments';
 import { ColonyAugmentsV3 } from './augmentsV3';
@@ -12,7 +12,7 @@ import {
   AugmentedEstimateV5,
 } from './augmentsV5';
 
-type ValidColony = IColonyV9;
+type ValidColony = IColonyV9 | IColonyV10;
 
 /*
  * Estimates
@@ -22,7 +22,7 @@ export interface AugmentedEstimateV6 extends AugmentedEstimateV5 {
    * Same as [[deprecateDomain]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _domainId Id of the domain being deprecated
-   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   * @param _deprecated Whether the domain should be deprecated (true) or undeprecated (false)
    */
   deprecateDomainWithProofs(
     _domainId: BigNumberish,
@@ -39,7 +39,7 @@ export type ColonyAugmentsV6<T extends ValidColony> = {
    * Same as [[deprecateDomain]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _domainId Id of the domain being deprecated
-   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   * @param _deprecated Whether the domain should be deprecated (true) or undeprecated (false)
    */
   deprecateDomainWithProofs(
     _domainId: BigNumberish,

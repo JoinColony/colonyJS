@@ -13,6 +13,7 @@ import {
   IColonyV7,
   IColonyV8,
   IColonyV9,
+  IColonyV10,
 } from '../../../contracts/IColony/exports';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import { AugmentedIColony, getPermissionProofs } from './commonAugments';
@@ -31,7 +32,13 @@ import {
 import { getExtensionHash } from '../../../helpers';
 import { colonyRoles2Hex } from '../../../utils';
 
-type ValidColony = IColonyV5 | IColonyV6 | IColonyV7 | IColonyV8 | IColonyV9;
+type ValidColony =
+  | IColonyV5
+  | IColonyV6
+  | IColonyV7
+  | IColonyV8
+  | IColonyV9
+  | IColonyV10;
 
 /*
  * Estimates
