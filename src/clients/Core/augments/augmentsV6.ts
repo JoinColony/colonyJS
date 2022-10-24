@@ -51,7 +51,7 @@ export type ColonyAugmentsV6<T extends ValidColony> = {
 };
 
 type AllAugments = AugmentedIColony<ValidColony> &
-  ColonyAugmentsV5<ValidColony>;
+  ColonyAugmentsV6<ValidColony>;
 
 /*
  * Extension Methods

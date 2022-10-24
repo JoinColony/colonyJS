@@ -12,6 +12,8 @@
 
 - `ColonyAugmentsV6`<`IColony`\>
 
+- `ColonyAugmentsV7`<`IColony`\>
+
 - `AddDomainAugmentsB`<`IColony`\>
 
 - `MoveFundsBetweenPotsAugmentsB`<`IColony`\>
@@ -3912,6 +3914,33 @@ Sets the payout modifiers in given expenditure slots. Can only be called by expe
 #### Inherited from
 
 AugmentedIColony.setExpenditurePayoutModifiers
+
+___
+
+### setExpenditurePayoutWithProofs
+
+▸ **setExpenditurePayoutWithProofs**(`_id`, `_slot`, `_token`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Same as the permissioned overload of setExpenditurePayout, but let colonyJS figure out the permission proofs for you.
+Always prefer this method, except when you have good reason not to.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_id` | `BigNumberish` | Id of the expenditure |
+| `_slot` | `BigNumberish` | Number of the slot |
+| `_token` | `string` | Address of the token, `0x0` value indicates Ether |
+| `_amount` | `BigNumberish` | Payout amount |
+| `overrides?` | `TxOverrides` | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+ColonyAugmentsV7.setExpenditurePayoutWithProofs
 
 ___
 

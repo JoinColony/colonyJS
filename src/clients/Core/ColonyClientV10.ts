@@ -5,11 +5,12 @@ import { AugmentedIColony, AugmentedEstimate } from './augments/commonAugments';
 import { ColonyAugmentsV3 } from './augments/augmentsV3';
 import { ColonyAugmentsV4 } from './augments/augmentsV4';
 import { ColonyAugmentsV5 } from './augments/augmentsV5';
+import { ColonyAugmentsV6 } from './augments/augmentsV6';
 import {
   addAugments,
-  ColonyAugmentsV6,
-  AugmentedEstimateV6,
-} from './augments/augmentsV6';
+  ColonyAugmentsV7,
+  AugmentedEstimateV7,
+} from './augments/augmentsV7';
 import {
   AddDomainAugmentsB,
   AddDomainEstimateGasB,
@@ -24,7 +25,7 @@ import { SignerOrProvider } from '../../types';
 
 interface ColonyClientV10Estimate
   extends AugmentedEstimate<IColony>,
-    AugmentedEstimateV6,
+    AugmentedEstimateV7,
     AddDomainEstimateGasB,
     MoveFundsBetweenPotsEstimateGasB {}
 
@@ -34,6 +35,7 @@ export interface ColonyClientV10
     ColonyAugmentsV4<IColony>,
     ColonyAugmentsV5<IColony>,
     ColonyAugmentsV6<IColony>,
+    ColonyAugmentsV7<IColony>,
     AddDomainAugmentsB<IColony>,
     MoveFundsBetweenPotsAugmentsB<IColony> {
   clientVersion: 10;
