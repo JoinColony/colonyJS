@@ -765,7 +765,7 @@ const _abi = [
     inputs: [
       {
         internalType: "bytes4",
-        name: "interfaceID",
+        name: "_interfaceID",
         type: "bytes4",
       },
     ],
@@ -773,7 +773,7 @@ const _abi = [
     outputs: [
       {
         internalType: "bool",
-        name: "status",
+        name: "_status",
         type: "bool",
       },
     ],
@@ -877,7 +877,7 @@ const _abi = [
           },
         ],
         internalType: "struct ColonyNetworkDataTypes.ReputationLogEntry",
-        name: "reputationLogEntry",
+        name: "_reputationLogEntry",
         type: "tuple",
       },
     ],
@@ -896,7 +896,7 @@ const _abi = [
     outputs: [
       {
         internalType: "bool",
-        name: "exists",
+        name: "_exists",
         type: "bool",
       },
     ],
@@ -909,7 +909,7 @@ const _abi = [
     outputs: [
       {
         internalType: "address payable",
-        name: "colonyAddress",
+        name: "_colonyAddress",
         type: "address",
       },
     ],
@@ -922,7 +922,7 @@ const _abi = [
     outputs: [
       {
         internalType: "uint256",
-        name: "count",
+        name: "_count",
         type: "uint256",
       },
     ],
@@ -941,7 +941,7 @@ const _abi = [
     outputs: [
       {
         internalType: "bool",
-        name: "addressIsColony",
+        name: "_addressIsColony",
         type: "bool",
       },
     ],
@@ -960,7 +960,7 @@ const _abi = [
     outputs: [
       {
         internalType: "uint256",
-        name: "skillId",
+        name: "_skillId",
         type: "uint256",
       },
     ],
@@ -1011,7 +1011,7 @@ const _abi = [
           },
         ],
         internalType: "struct ColonyNetworkDataTypes.Skill",
-        name: "skill",
+        name: "_skill",
         type: "tuple",
       },
     ],
@@ -1048,7 +1048,7 @@ const _abi = [
     outputs: [
       {
         internalType: "bool",
-        name: "changed",
+        name: "_changed",
         type: "bool",
       },
     ],
@@ -1061,7 +1061,7 @@ const _abi = [
     outputs: [
       {
         internalType: "uint256",
-        name: "rootLocalSkillId",
+        name: "_rootLocalSkillId",
         type: "uint256",
       },
     ],
@@ -1097,7 +1097,7 @@ const _abi = [
     outputs: [
       {
         internalType: "uint256",
-        name: "count",
+        name: "_count",
         type: "uint256",
       },
     ],
@@ -1110,7 +1110,7 @@ const _abi = [
     outputs: [
       {
         internalType: "uint256",
-        name: "skillId",
+        name: "_skillId",
         type: "uint256",
       },
     ],
@@ -1136,7 +1136,7 @@ const _abi = [
     outputs: [
       {
         internalType: "address",
-        name: "lockingAddress",
+        name: "_lockingAddress",
         type: "address",
       },
     ],
@@ -1168,7 +1168,7 @@ const _abi = [
     outputs: [
       {
         internalType: "address",
-        name: "colonyAddress",
+        name: "_colonyAddress",
         type: "address",
       },
     ],
@@ -1202,7 +1202,7 @@ const _abi = [
     outputs: [
       {
         internalType: "address",
-        name: "colonyAddress",
+        name: "_colonyAddress",
         type: "address",
       },
     ],
@@ -1231,7 +1231,7 @@ const _abi = [
     outputs: [
       {
         internalType: "address",
-        name: "colonyAddress",
+        name: "_colonyAddress",
         type: "address",
       },
     ],
@@ -1270,7 +1270,7 @@ const _abi = [
     outputs: [
       {
         internalType: "address",
-        name: "colonyAddress",
+        name: "_colonyAddress",
         type: "address",
       },
     ],
@@ -1325,7 +1325,7 @@ const _abi = [
     outputs: [
       {
         internalType: "address",
-        name: "colonyAddress",
+        name: "_colonyAddress",
         type: "address",
       },
     ],
@@ -1338,7 +1338,7 @@ const _abi = [
     outputs: [
       {
         internalType: "uint256",
-        name: "version",
+        name: "_version",
         type: "uint256",
       },
     ],
@@ -1362,7 +1362,7 @@ const _abi = [
     outputs: [
       {
         internalType: "uint256",
-        name: "skillId",
+        name: "_parentSkillId",
         type: "uint256",
       },
     ],
@@ -1386,7 +1386,7 @@ const _abi = [
     outputs: [
       {
         internalType: "uint256",
-        name: "skillId",
+        name: "_childSkillId",
         type: "uint256",
       },
     ],
@@ -1405,7 +1405,7 @@ const _abi = [
     outputs: [
       {
         internalType: "address",
-        name: "repMiningCycleAddress",
+        name: "_repMiningCycleAddress",
         type: "address",
       },
     ],
@@ -1429,7 +1429,7 @@ const _abi = [
     outputs: [
       {
         internalType: "uint256",
-        name: "minerWeight",
+        name: "_minerWeight",
         type: "uint256",
       },
     ],
@@ -1448,7 +1448,7 @@ const _abi = [
     outputs: [
       {
         internalType: "address",
-        name: "resolverAddress",
+        name: "_resolverAddress",
         type: "address",
       },
     ],
@@ -1459,46 +1459,18 @@ const _abi = [
     inputs: [
       {
         internalType: "bytes32",
-        name: "newHash",
+        name: "_newHash",
         type: "bytes32",
       },
       {
         internalType: "uint256",
-        name: "newNLeaves",
+        name: "_newNLeaves",
         type: "uint256",
       },
       {
         internalType: "address[]",
-        name: "stakers",
+        name: "_stakers",
         type: "address[]",
-      },
-    ],
-    name: "setReputationRootHash",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "newHash",
-        type: "bytes32",
-      },
-      {
-        internalType: "uint256",
-        name: "newNLeaves",
-        type: "uint256",
-      },
-      {
-        internalType: "address[]",
-        name: "stakers",
-        type: "address[]",
-      },
-      {
-        internalType: "uint256",
-        name: "reward",
-        type: "uint256",
       },
     ],
     name: "setReputationRootHash",
@@ -1594,12 +1566,12 @@ const _abi = [
     inputs: [
       {
         internalType: "string",
-        name: "username",
+        name: "_username",
         type: "string",
       },
       {
         internalType: "string",
-        name: "orbitdb",
+        name: "_orbitdb",
         type: "string",
       },
     ],
@@ -1612,12 +1584,12 @@ const _abi = [
     inputs: [
       {
         internalType: "string",
-        name: "colonyName",
+        name: "_colonyName",
         type: "string",
       },
       {
         internalType: "string",
-        name: "orbitdb",
+        name: "_orbitdb",
         type: "string",
       },
     ],
@@ -1630,7 +1602,7 @@ const _abi = [
     inputs: [
       {
         internalType: "string",
-        name: "orbitdb",
+        name: "_orbitdb",
         type: "string",
       },
     ],
@@ -1643,7 +1615,7 @@ const _abi = [
     inputs: [
       {
         internalType: "string",
-        name: "orbitdb",
+        name: "_orbitdb",
         type: "string",
       },
     ],
@@ -1656,7 +1628,7 @@ const _abi = [
     inputs: [
       {
         internalType: "bytes32",
-        name: "node",
+        name: "_node",
         type: "bytes32",
       },
     ],
@@ -1664,7 +1636,7 @@ const _abi = [
     outputs: [
       {
         internalType: "string",
-        name: "orbitDB",
+        name: "_orbitdb",
         type: "string",
       },
     ],
@@ -1675,7 +1647,7 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
-        name: "addr",
+        name: "_addr",
         type: "address",
       },
     ],
@@ -1683,7 +1655,7 @@ const _abi = [
     outputs: [
       {
         internalType: "string",
-        name: "domain",
+        name: "_domain",
         type: "string",
       },
     ],
@@ -1694,7 +1666,7 @@ const _abi = [
     inputs: [
       {
         internalType: "bytes32",
-        name: "node",
+        name: "_node",
         type: "bytes32",
       },
     ],
@@ -1702,7 +1674,7 @@ const _abi = [
     outputs: [
       {
         internalType: "address",
-        name: "",
+        name: "_address",
         type: "address",
       },
     ],
@@ -1715,7 +1687,7 @@ const _abi = [
     outputs: [
       {
         internalType: "address",
-        name: "",
+        name: "_address",
         type: "address",
       },
     ],
@@ -1726,7 +1698,7 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
-        name: "miningResolverAddress",
+        name: "_miningResolverAddress",
         type: "address",
       },
     ],
@@ -1752,12 +1724,12 @@ const _abi = [
     inputs: [
       {
         internalType: "bytes32",
-        name: "extensionId",
+        name: "_extensionId",
         type: "bytes32",
       },
       {
         internalType: "address",
-        name: "resolver",
+        name: "_resolver",
         type: "address",
       },
     ],
@@ -1770,12 +1742,12 @@ const _abi = [
     inputs: [
       {
         internalType: "bytes32",
-        name: "extensionId",
+        name: "_extensionId",
         type: "bytes32",
       },
       {
         internalType: "uint256",
-        name: "version",
+        name: "_version",
         type: "uint256",
       },
     ],
@@ -1788,12 +1760,12 @@ const _abi = [
     inputs: [
       {
         internalType: "bytes32",
-        name: "extensionId",
+        name: "_extensionId",
         type: "bytes32",
       },
       {
         internalType: "uint256",
-        name: "newVersion",
+        name: "_newVersion",
         type: "uint256",
       },
     ],
@@ -1806,12 +1778,12 @@ const _abi = [
     inputs: [
       {
         internalType: "bytes32",
-        name: "extensionId",
+        name: "_extensionId",
         type: "bytes32",
       },
       {
         internalType: "bool",
-        name: "deprecated",
+        name: "_deprecated",
         type: "bool",
       },
     ],
@@ -1824,7 +1796,7 @@ const _abi = [
     inputs: [
       {
         internalType: "bytes32",
-        name: "extensionId",
+        name: "_extensionId",
         type: "bytes32",
       },
     ],
@@ -1837,12 +1809,12 @@ const _abi = [
     inputs: [
       {
         internalType: "bytes32",
-        name: "extensionId",
+        name: "_extensionId",
         type: "bytes32",
       },
       {
         internalType: "uint256",
-        name: "version",
+        name: "_version",
         type: "uint256",
       },
     ],
@@ -1850,7 +1822,7 @@ const _abi = [
     outputs: [
       {
         internalType: "address",
-        name: "resolver",
+        name: "_resolver",
         type: "address",
       },
     ],
@@ -1861,12 +1833,12 @@ const _abi = [
     inputs: [
       {
         internalType: "bytes32",
-        name: "extensionId",
+        name: "_extensionId",
         type: "bytes32",
       },
       {
         internalType: "address",
-        name: "colony",
+        name: "_colony",
         type: "address",
       },
     ],
@@ -1874,7 +1846,7 @@ const _abi = [
     outputs: [
       {
         internalType: "address",
-        name: "installation",
+        name: "_installation",
         type: "address",
       },
     ],
@@ -1919,7 +1891,7 @@ const _abi = [
     outputs: [
       {
         internalType: "bool",
-        name: "status",
+        name: "_status",
         type: "bool",
       },
     ],
@@ -2082,7 +2054,7 @@ const _abi = [
     outputs: [
       {
         internalType: "uint256",
-        name: "",
+        name: "_amount",
         type: "uint256",
       },
     ],
@@ -2111,7 +2083,7 @@ const _abi = [
     outputs: [
       {
         internalType: "address",
-        name: "",
+        name: "_token",
         type: "address",
       },
     ],
@@ -2132,7 +2104,7 @@ const _abi = [
       },
       {
         internalType: "address[]",
-        name: "allowedToTransfer",
+        name: "_allowedToTransfer",
         type: "address[]",
       },
     ],
@@ -2140,7 +2112,7 @@ const _abi = [
     outputs: [
       {
         internalType: "address",
-        name: "",
+        name: "_tokenAuthority",
         type: "address",
       },
     ],
@@ -2177,7 +2149,7 @@ const _abi = [
     outputs: [
       {
         internalType: "address",
-        name: "",
+        name: "_delegator",
         type: "address",
       },
     ],

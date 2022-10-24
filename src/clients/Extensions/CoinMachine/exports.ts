@@ -20,9 +20,12 @@ import getCoinMachineClientV4, {
 import getCoinMachineClientV5, {
   CoinMachineClientV5,
 } from './CoinMachineClientV5';
+import getCoinMachineClientV6, {
+  CoinMachineClientV6,
+} from './CoinMachineClientV6';
 
 // This is the latest CoinMachine version + 1. It's for generating types and compatibility maps
-const COIN_MACHINE_VERSION_NEXT = 6;
+const COIN_MACHINE_VERSION_NEXT = 7;
 
 /** @internal */
 export const COIN_MACHINE_VERSION_LATEST = COIN_MACHINE_VERSION_NEXT - 1;
@@ -32,13 +35,15 @@ export { CoinMachineClientV2 } from './CoinMachineClientV2';
 export { CoinMachineClientV3 } from './CoinMachineClientV3';
 export { CoinMachineClientV4 } from './CoinMachineClientV4';
 export { CoinMachineClientV5 } from './CoinMachineClientV5';
+export { CoinMachineClientV6 } from './CoinMachineClientV6';
 
 export type AnyCoinMachineClient =
   | CoinMachineClientV1
   | CoinMachineClientV2
   | CoinMachineClientV3
   | CoinMachineClientV4
-  | CoinMachineClientV5;
+  | CoinMachineClientV5
+  | CoinMachineClientV6;
 
 /** @internal */
 const COIN_MACHINE_VERSIONS = createContractVersionArray(
@@ -57,6 +62,7 @@ export const coinMachineIncompatibilityMap: Record<
   3: [],
   4: [],
   5: [],
+  6: [],
 };
 
 /** @internal */
@@ -76,6 +82,8 @@ export const getCoinMachineClient = (
       return getCoinMachineClientV4(colonyClient, address);
     case 5:
       return getCoinMachineClientV5(colonyClient, address);
+    case 6:
+      return getCoinMachineClientV6(colonyClient, address);
     default:
       return assertExhaustiveSwitch(
         version,

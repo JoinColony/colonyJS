@@ -12,6 +12,9 @@ import {
   VotingReputationV2,
   VotingReputationV3,
   VotingReputationV4,
+  VotingReputationV5,
+  VotingReputationV6,
+  VotingReputationV7,
 } from '../../../../contracts/VotingReputation/exports';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments';
 
@@ -27,7 +30,10 @@ const { AddressZero, MaxUint256 } = constants;
 type ValidVotingReputation =
   | VotingReputationV2
   | VotingReputationV3
-  | VotingReputationV4;
+  | VotingReputationV4
+  | VotingReputationV5
+  | VotingReputationV6
+  | VotingReputationV7;
 
 export interface AugmentedEstimateV2 {
   /**

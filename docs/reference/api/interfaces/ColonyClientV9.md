@@ -1080,7 +1080,7 @@ Always prefer this method, except when you have good reason not to.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `_domainId` | `BigNumberish` | Id of the domain being deprecated |
-| `_deprecated` | `boolean` | - |
+| `_deprecated` | `boolean` | Whether the domain should be deprecated (true) or undeprecated (false) |
 | `overrides?` | `TxOverrides` | - |
 
 #### Returns

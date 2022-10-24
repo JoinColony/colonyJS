@@ -1861,6 +1861,49 @@ const _abi = [
     name: "ColonyRootRoleSet",
     type: "event",
   },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "expenditureId",
+        type: "uint256",
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "storageSlot",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "bool[]",
+        name: "mask",
+        type: "bool[]",
+      },
+      {
+        indexed: false,
+        internalType: "bytes32[]",
+        name: "keys",
+        type: "bytes32[]",
+      },
+      {
+        indexed: false,
+        internalType: "bytes32",
+        name: "value",
+        type: "bytes32",
+      },
+    ],
+    name: "ExpenditureStateChanged",
+    type: "event",
+  },
 ];
 
 export class IColonyEvents__factory {
