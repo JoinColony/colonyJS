@@ -22,7 +22,7 @@ beforeAll(async () => {
     if (ganache.stdout && ganache.stderr) {
       ganache.stderr.on('data', (err) => reject(new Error(err)));
       ganache.stdout.on('data', (data) => {
-        if (data.toString().includes('ganache-cli')) {
+        if (data.toString().includes('8545')) {
           resolve(data);
         }
       });
