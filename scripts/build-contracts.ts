@@ -33,6 +33,11 @@ const RELEASE_MAP = {
     glwss: 6,
     latest: 7,
   },
+  [Extension.IVotingReputation]: {
+    flwss3: 6,
+    glwss: 7,
+    latest: 8,
+  },
   [Extension.OneTxPayment]: {
     clwss: 1,
     dlwss: 2,
@@ -45,9 +50,6 @@ const RELEASE_MAP = {
     elwss: 3,
     flwss: 4,
     flwss2: 5,
-    flwss3: 6,
-    glwss: 7,
-    latest: 8,
   },
   [Extension.Whitelist]: {
     elwss: 1,
@@ -60,6 +62,7 @@ const RELEASE_MAP = {
 const VERSIONED_CONTRACTS = [
   Core.IColony,
   Extension.CoinMachine,
+  Extension.IVotingReputation,
   Extension.OneTxPayment,
   Extension.VotingReputation,
   Extension.Whitelist,

@@ -2,9 +2,9 @@
 
 ## Hierarchy
 
-- `AugmentedVotingReputation`<`VotingReputation`\>
+- `AugmentedVotingReputation`<`IVotingReputation`\>
 
-- `AugmentsV2`<`VotingReputation`\>
+- `AugmentsV2`<`IVotingReputation`\>
 
   ↳ **`VotingReputationClientV7`**
 
@@ -66,27 +66,26 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `authority` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `claimMisalignedReward` | (`_motionId`: `BigNumberish`, `_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_staker`: `string`, `_vote`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `claimReward` | (`_motionId`: `BigNumberish`, `_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_staker`: `string`, `_vote`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `createClaimDelayAction` | (`action`: `BytesLike`, `value`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `createClaimDelayAction` | (`_action`: `BytesLike`, `_value`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `createDomainMotion` | (`_domainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_action`: `BytesLike`, `_key`: `BytesLike`, `_value`: `BytesLike`, `_branchMask`: `BigNumberish`, `_siblings`: `BytesLike`[], `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `createMotion` | (`_domainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_altTarget`: `string`, `_action`: `BytesLike`, `_key`: `BytesLike`, `_value`: `BytesLike`, `_branchMask`: `BigNumberish`, `_siblings`: `BytesLike`[], `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `createRootMotion` | (`_altTarget`: `string`, `_action`: `BytesLike`, `_key`: `BytesLike`, `_value`: `BytesLike`, `_branchMask`: `BigNumberish`, `_siblings`: `BytesLike`[], `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `deprecate` | (`_deprecated`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `escalateMotion` | (`_motionId`: `BigNumberish`, `_newDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_key`: `BytesLike`, `_value`: `BytesLike`, `_branchMask`: `BigNumberish`, `_siblings`: `BytesLike`[], `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `executeMetaTransaction` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `executeMetaTransaction` | (`userAddress`: `string`, `payload`: `BytesLike`, `sigR`: `BytesLike`, `sigS`: `BytesLike`, `sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `failingExecutionAllowed` | (`_motionId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 | `finalizeMotion` | (`_motionId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `finishUpgrade` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `getCapabilityRoles` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `getChainId` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 | `getEscalationPeriod` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getExpenditureMotionCount` | (`_structHash`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getExpenditurePastVote` | (`_actionHash`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getMaxVoteFraction` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getMetatransactionNonce` | (`_userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getMetatransactionNonce` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getMotion` | (`_motionId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`MotionStructOutput`\> |
 | `getMotionCount` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getMotionState` | (`_motionId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`number`\> |
@@ -103,14 +102,10 @@ ___
 | `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `initialise` | (`_totalStakeFraction`: `BigNumberish`, `_voterRewardFraction`: `BigNumberish`, `_userMinStakeFraction`: `BigNumberish`, `_maxVoteFraction`: `BigNumberish`, `_stakePeriod`: `BigNumberish`, `_submitPeriod`: `BigNumberish`, `_revealPeriod`: `BigNumberish`, `_escalationPeriod`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `install` | (`_colony`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `revealVote` | (`_motionId`: `BigNumberish`, `_salt`: `BytesLike`, `_vote`: `BigNumberish`, `_key`: `BytesLike`, `_value`: `BytesLike`, `_branchMask`: `BigNumberish`, `_siblings`: `BytesLike`[], `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setAuthority` | (`authority_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setOwner` | (`owner_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `stakeMotion` | (`_motionId`: `BigNumberish`, `_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_vote`: `BigNumberish`, `_amount`: `BigNumberish`, `_key`: `BytesLike`, `_value`: `BytesLike`, `_branchMask`: `BigNumberish`, `_siblings`: `BytesLike`[], `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `submitVote` | (`_motionId`: `BigNumberish`, `_voteSecret`: `BytesLike`, `_key`: `BytesLike`, `_value`: `BytesLike`, `_branchMask`: `BigNumberish`, `_siblings`: `BytesLike`[], `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `uninstall` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `verify` | (`_owner`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 | `version` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 
 #### Inherited from
@@ -179,14 +174,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `ExtensionInitialised` | () => `ExtensionInitialisedEventFilter` |
-| `ExtensionInitialised()` | () => `ExtensionInitialisedEventFilter` |
-| `LogSetAuthority` | (`authority?`: ``null`` \| `string`) => `LogSetAuthorityEventFilter` |
-| `LogSetAuthority(address)` | (`authority?`: ``null`` \| `string`) => `LogSetAuthorityEventFilter` |
-| `LogSetOwner` | (`owner?`: ``null`` \| `string`) => `LogSetOwnerEventFilter` |
-| `LogSetOwner(address)` | (`owner?`: ``null`` \| `string`) => `LogSetOwnerEventFilter` |
-| `MetaTransactionExecuted` | (`user?`: ``null``, `relayerAddress?`: ``null``, `functionSignature?`: ``null``) => `MetaTransactionExecutedEventFilter` |
-| `MetaTransactionExecuted(address,address,bytes)` | (`user?`: ``null``, `relayerAddress?`: ``null``, `functionSignature?`: ``null``) => `MetaTransactionExecutedEventFilter` |
+| `MetaTransactionExecuted` | (`userAddress?`: ``null``, `relayerAddress?`: ``null``, `payload?`: ``null``) => `MetaTransactionExecutedEventFilter` |
+| `MetaTransactionExecuted(address,address,bytes)` | (`userAddress?`: ``null``, `relayerAddress?`: ``null``, `payload?`: ``null``) => `MetaTransactionExecutedEventFilter` |
 | `MotionCreated` | (`motionId?`: ``null`` \| `BigNumberish`, `creator?`: ``null``, `domainId?`: ``null`` \| `BigNumberish`) => `MotionCreatedEventFilter` |
 | `MotionCreated(uint256,address,uint256)` | (`motionId?`: ``null`` \| `BigNumberish`, `creator?`: ``null``, `domainId?`: ``null`` \| `BigNumberish`) => `MotionCreatedEventFilter` |
 | `MotionEscalated` | (`motionId?`: ``null`` \| `BigNumberish`, `escalator?`: ``null``, `domainId?`: ``null`` \| `BigNumberish`, `newDomainId?`: ``null`` \| `BigNumberish`) => `MotionEscalatedEventFilter` |
@@ -218,27 +207,26 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `authority` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
+| `claimMisalignedReward` | (`_motionId`: `BigNumberish`, `_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_staker`: `string`, `_vote`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `claimReward` | (`_motionId`: `BigNumberish`, `_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_staker`: `string`, `_vote`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `createClaimDelayAction` | (`action`: `BytesLike`, `value`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `createClaimDelayAction` | (`_action`: `BytesLike`, `_value`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `createDomainMotion` | (`_domainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_action`: `BytesLike`, `_key`: `BytesLike`, `_value`: `BytesLike`, `_branchMask`: `BigNumberish`, `_siblings`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `createMotion` | (`_domainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_altTarget`: `string`, `_action`: `BytesLike`, `_key`: `BytesLike`, `_value`: `BytesLike`, `_branchMask`: `BigNumberish`, `_siblings`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `createRootMotion` | (`_altTarget`: `string`, `_action`: `BytesLike`, `_key`: `BytesLike`, `_value`: `BytesLike`, `_branchMask`: `BigNumberish`, `_siblings`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `deprecate` | (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `escalateMotion` | (`_motionId`: `BigNumberish`, `_newDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_key`: `BytesLike`, `_value`: `BytesLike`, `_branchMask`: `BigNumberish`, `_siblings`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `executeMetaTransaction` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `executeMetaTransaction` | (`userAddress`: `string`, `payload`: `BytesLike`, `sigR`: `BytesLike`, `sigS`: `BytesLike`, `sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `failingExecutionAllowed` | (`_motionId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`] & { `_allowed`: `boolean`  }\> |
 | `finalizeMotion` | (`_motionId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `finishUpgrade` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `getCapabilityRoles` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `getChainId` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
 | `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
 | `getEscalationPeriod` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_period`: `BigNumber`  }\> |
 | `getExpenditureMotionCount` | (`_structHash`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_count`: `BigNumber`  }\> |
 | `getExpenditurePastVote` | (`_actionHash`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_vote`: `BigNumber`  }\> |
 | `getMaxVoteFraction` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_fraction`: `BigNumber`  }\> |
-| `getMetatransactionNonce` | (`_userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_nonce`: `BigNumber`  }\> |
+| `getMetatransactionNonce` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
 | `getMotion` | (`_motionId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`MotionStructOutput`] & { `_motion`: `MotionStructOutput`  }\> |
 | `getMotionCount` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_count`: `BigNumber`  }\> |
 | `getMotionState` | (`_motionId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`number`] & { `_motionState`: `number`  }\> |
@@ -252,18 +240,14 @@ ___
 | `getVoterReward` | (`_motionId`: `BigNumberish`, `_voterRep`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_reward`: `BigNumber`  }\> |
 | `getVoterRewardFraction` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_fraction`: `BigNumber`  }\> |
 | `getVoterRewardRange` | (`_motionId`: `BigNumberish`, `_voterRep`: `BigNumberish`, `_voterAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`, `BigNumber`] & { `_rewardMax`: `BigNumber` ; `_rewardMin`: `BigNumber`  }\> |
-| `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_identifier`: `string`  }\> |
+| `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `initialise` | (`_totalStakeFraction`: `BigNumberish`, `_voterRewardFraction`: `BigNumberish`, `_userMinStakeFraction`: `BigNumberish`, `_maxVoteFraction`: `BigNumberish`, `_stakePeriod`: `BigNumberish`, `_submitPeriod`: `BigNumberish`, `_revealPeriod`: `BigNumberish`, `_escalationPeriod`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `install` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `owner` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `revealVote` | (`_motionId`: `BigNumberish`, `_salt`: `BytesLike`, `_vote`: `BigNumberish`, `_key`: `BytesLike`, `_value`: `BytesLike`, `_branchMask`: `BigNumberish`, `_siblings`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `setAuthority` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `setOwner` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `stakeMotion` | (`_motionId`: `BigNumberish`, `_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_vote`: `BigNumberish`, `_amount`: `BigNumberish`, `_key`: `BytesLike`, `_value`: `BytesLike`, `_branchMask`: `BigNumberish`, `_siblings`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `submitVote` | (`_motionId`: `BigNumberish`, `_voteSecret`: `BytesLike`, `_key`: `BytesLike`, `_value`: `BytesLike`, `_branchMask`: `BigNumberish`, `_siblings`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `uninstall` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `verify` | (`_owner`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
-| `version` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_version`: `BigNumber`  }\> |
+| `version` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
 
 #### Inherited from
 
@@ -273,7 +257,7 @@ ___
 
 ### interface
 
-• **interface**: `VotingReputationInterface`
+• **interface**: `IVotingReputationInterface`
 
 #### Inherited from
 
@@ -319,27 +303,26 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `authority` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `claimMisalignedReward` | (`_motionId`: `BigNumberish`, `_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_staker`: `string`, `_vote`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `claimReward` | (`_motionId`: `BigNumberish`, `_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_staker`: `string`, `_vote`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `createClaimDelayAction` | (`action`: `BytesLike`, `value`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `createClaimDelayAction` | (`_action`: `BytesLike`, `_value`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `createDomainMotion` | (`_domainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_action`: `BytesLike`, `_key`: `BytesLike`, `_value`: `BytesLike`, `_branchMask`: `BigNumberish`, `_siblings`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `createMotion` | (`_domainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_altTarget`: `string`, `_action`: `BytesLike`, `_key`: `BytesLike`, `_value`: `BytesLike`, `_branchMask`: `BigNumberish`, `_siblings`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `createRootMotion` | (`_altTarget`: `string`, `_action`: `BytesLike`, `_key`: `BytesLike`, `_value`: `BytesLike`, `_branchMask`: `BigNumberish`, `_siblings`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `deprecate` | (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `escalateMotion` | (`_motionId`: `BigNumberish`, `_newDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_key`: `BytesLike`, `_value`: `BytesLike`, `_branchMask`: `BigNumberish`, `_siblings`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `executeMetaTransaction` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `executeMetaTransaction` | (`userAddress`: `string`, `payload`: `BytesLike`, `sigR`: `BytesLike`, `sigS`: `BytesLike`, `sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `failingExecutionAllowed` | (`_motionId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `finalizeMotion` | (`_motionId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `finishUpgrade` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `getCapabilityRoles` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getChainId` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getEscalationPeriod` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getExpenditureMotionCount` | (`_structHash`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getExpenditurePastVote` | (`_actionHash`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getMaxVoteFraction` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getMetatransactionNonce` | (`_userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getMetatransactionNonce` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getMotion` | (`_motionId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getMotionCount` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getMotionState` | (`_motionId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
@@ -356,14 +339,10 @@ ___
 | `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `initialise` | (`_totalStakeFraction`: `BigNumberish`, `_voterRewardFraction`: `BigNumberish`, `_userMinStakeFraction`: `BigNumberish`, `_maxVoteFraction`: `BigNumberish`, `_stakePeriod`: `BigNumberish`, `_submitPeriod`: `BigNumberish`, `_revealPeriod`: `BigNumberish`, `_escalationPeriod`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `install` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `revealVote` | (`_motionId`: `BigNumberish`, `_salt`: `BytesLike`, `_vote`: `BigNumberish`, `_key`: `BytesLike`, `_value`: `BytesLike`, `_branchMask`: `BigNumberish`, `_siblings`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `setAuthority` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `setOwner` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `stakeMotion` | (`_motionId`: `BigNumberish`, `_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_vote`: `BigNumberish`, `_amount`: `BigNumberish`, `_key`: `BytesLike`, `_value`: `BytesLike`, `_branchMask`: `BigNumberish`, `_siblings`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `submitVote` | (`_motionId`: `BigNumberish`, `_voteSecret`: `BytesLike`, `_key`: `BytesLike`, `_value`: `BytesLike`, `_branchMask`: `BigNumberish`, `_siblings`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `uninstall` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `verify` | (`_owner`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `version` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 
 #### Inherited from
@@ -508,23 +487,30 @@ AugmentedVotingReputation.attach
 
 ___
 
-### authority
+### claimMisalignedReward
 
-▸ **authority**(`overrides?`): `Promise`<`string`\>
+▸ **claimMisalignedReward**(`_motionId`, `_permissionDomainId`, `_childSkillIndex`, `_staker`, `_vote`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Claim the staker's reward from a motion that was created with v4 of the extension, and is now missing and cannot be interacted with via the normal claim function.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_motionId` | `BigNumberish` | The id of the motion |
+| `_permissionDomainId` | `BigNumberish` | The domain where the extension has the arbitration permission |
+| `_childSkillIndex` | `BigNumberish` | For the domain in which the motion is occurring |
+| `_staker` | `string` | The staker whose reward is being claimed |
+| `_vote` | `BigNumberish` | The side being supported (0 = NAY, 1 = YAY) |
+| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedVotingReputation.authority
+AugmentedVotingReputation.claimMisalignedReward
 
 ___
 
@@ -532,16 +518,18 @@ ___
 
 ▸ **claimReward**(`_motionId`, `_permissionDomainId`, `_childSkillIndex`, `_staker`, `_vote`, `overrides?`): `Promise`<`ContractTransaction`\>
 
+Claim the staker's reward
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_motionId` | `BigNumberish` |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_staker` | `string` |
-| `_vote` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_motionId` | `BigNumberish` | The id of the motion |
+| `_permissionDomainId` | `BigNumberish` | The domain where the extension has the arbitration permission |
+| `_childSkillIndex` | `BigNumberish` | For the domain in which the motion is occurring |
+| `_staker` | `string` | The staker whose reward is being claimed |
+| `_vote` | `BigNumberish` | The side being supported (0 = NAY, 1 = YAY) |
+| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
 
 #### Returns
 
@@ -601,15 +589,18 @@ ___
 
 ### createClaimDelayAction
 
-▸ **createClaimDelayAction**(`action`, `value`, `overrides?`): `Promise`<`ContractTransaction`\>
+▸ **createClaimDelayAction**(`_action`, `_value`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Not expected to be used directly, could be made private in the future
+Create the action that should be taken based on the passed action to appropriately set the claim window of an expenditure from starting.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `action` | `BytesLike` |
-| `value` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_action` | `BytesLike` | The action being voted on |
+| `_value` | `BigNumberish` | The value to set the claim delay to |
+| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
 
 #### Returns
 
@@ -625,18 +616,20 @@ ___
 
 ▸ **createDomainMotion**(`_domainId`, `_childSkillIndex`, `_action`, `_key`, `_value`, `_branchMask`, `_siblings`, `overrides?`): `Promise`<`ContractTransaction`\>
 
+Create a motion in any domain (DEPRECATED)
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_domainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_action` | `BytesLike` |
-| `_key` | `BytesLike` |
-| `_value` | `BytesLike` |
-| `_branchMask` | `BigNumberish` |
-| `_siblings` | `BytesLike`[] |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_domainId` | `BigNumberish` | The domain where we vote on the motion |
+| `_childSkillIndex` | `BigNumberish` | The childSkillIndex pointing to the domain of the action |
+| `_action` | `BytesLike` | A bytes array encoding a function call |
+| `_key` | `BytesLike` | Reputation tree key for the domain |
+| `_value` | `BytesLike` | Reputation tree value for the domain |
+| `_branchMask` | `BigNumberish` | The branchmask of the proof |
+| `_siblings` | `BytesLike`[] | The siblings of the proof |
+| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
 
 #### Returns
 
@@ -677,19 +670,21 @@ ___
 
 ▸ **createMotion**(`_domainId`, `_childSkillIndex`, `_altTarget`, `_action`, `_key`, `_value`, `_branchMask`, `_siblings`, `overrides?`): `Promise`<`ContractTransaction`\>
 
+Create a motion
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_domainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_altTarget` | `string` |
-| `_action` | `BytesLike` |
-| `_key` | `BytesLike` |
-| `_value` | `BytesLike` |
-| `_branchMask` | `BigNumberish` |
-| `_siblings` | `BytesLike`[] |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_domainId` | `BigNumberish` | The domain where we vote on the motion |
+| `_childSkillIndex` | `BigNumberish` | The childSkillIndex pointing to the domain of the action |
+| `_altTarget` | `string` | The contract to which we send the action (0x0 for the colony) |
+| `_action` | `BytesLike` | A bytes array encoding a function call |
+| `_key` | `BytesLike` | Reputation tree key for the root domain |
+| `_value` | `BytesLike` | Reputation tree value for the root domain |
+| `_branchMask` | `BigNumberish` | The branchmask of the proof |
+| `_siblings` | `BytesLike`[] | The siblings of the proof |
+| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
 
 #### Returns
 
@@ -731,17 +726,19 @@ ___
 
 ▸ **createRootMotion**(`_altTarget`, `_action`, `_key`, `_value`, `_branchMask`, `_siblings`, `overrides?`): `Promise`<`ContractTransaction`\>
 
+Create a motion in the root domain (DEPRECATED)
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_altTarget` | `string` |
-| `_action` | `BytesLike` |
-| `_key` | `BytesLike` |
-| `_value` | `BytesLike` |
-| `_branchMask` | `BigNumberish` |
-| `_siblings` | `BytesLike`[] |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_altTarget` | `string` | The contract to which we send the action (0x0 for the colony) |
+| `_action` | `BytesLike` | A bytes array encoding a function call |
+| `_key` | `BytesLike` | Reputation tree key for the root domain |
+| `_value` | `BytesLike` | Reputation tree value for the root domain |
+| `_branchMask` | `BigNumberish` | The branchmask of the proof |
+| `_siblings` | `BytesLike`[] | The siblings of the proof |
+| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
 
 #### Returns
 
@@ -813,18 +810,20 @@ ___
 
 ▸ **escalateMotion**(`_motionId`, `_newDomainId`, `_childSkillIndex`, `_key`, `_value`, `_branchMask`, `_siblings`, `overrides?`): `Promise`<`ContractTransaction`\>
 
+Escalate a motion to a higher domain
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_motionId` | `BigNumberish` |
-| `_newDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_key` | `BytesLike` |
-| `_value` | `BytesLike` |
-| `_branchMask` | `BigNumberish` |
-| `_siblings` | `BytesLike`[] |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_motionId` | `BigNumberish` | The id of the motion |
+| `_newDomainId` | `BigNumberish` | The desired domain of escalation |
+| `_childSkillIndex` | `BigNumberish` | For the current domain, relative to the escalated domain |
+| `_key` | `BytesLike` | Reputation tree key for the new domain |
+| `_value` | `BytesLike` | Reputation tree value for the new domain |
+| `_branchMask` | `BigNumberish` | The branchmask of the proof |
+| `_siblings` | `BytesLike`[] | The siblings of the proof |
+| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
 
 #### Returns
 
@@ -863,19 +862,19 @@ ___
 
 ### executeMetaTransaction
 
-▸ **executeMetaTransaction**(`_user`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
+▸ **executeMetaTransaction**(`userAddress`, `payload`, `sigR`, `sigS`, `sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
+Executes a metatransaction targeting this contract
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_user` | `string` | Address of user trying to do meta transaction |
-| `_payload` | `BytesLike` | Function call to make via meta transaction |
-| `_sigR` | `BytesLike` | R part of the signature |
-| `_sigS` | `BytesLike` | S part of the signature |
-| `_sigV` | `BigNumberish` | V part of the signature |
+| `userAddress` | `string` | The address of the user that signed the metatransaction |
+| `payload` | `BytesLike` | The transaction data that will be executed if signature valid |
+| `sigR` | `BytesLike` | The 'r' part of the signature |
+| `sigS` | `BytesLike` | The 's' part of the signature |
+| `sigV` | `BigNumberish` | The 'v' part of the signature |
 | `overrides?` | `PayableOverrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
 
 #### Returns
@@ -892,12 +891,15 @@ ___
 
 ▸ **failingExecutionAllowed**(`_motionId`, `overrides?`): `Promise`<`boolean`\>
 
+We are only expecting this to be called from finalize motion in the contracts. It is marked as external only so that the frontend can use it.
+Return whether a motion, assuming it's in the finalizable state, is allowed to finalize without the call executing successfully.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_motionId` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_motionId` | `BigNumberish` | The id of the motion |
+| `overrides?` | `CallOverrides` | - |
 
 #### Returns
 
@@ -933,12 +935,14 @@ ___
 
 ▸ **finalizeMotion**(`_motionId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
+Finalized a motion, executing its action if appropriate
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_motionId` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_motionId` | `BigNumberish` | The id of the motion to finalize |
+| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
 
 #### Returns
 
@@ -991,26 +995,6 @@ AugmentedVotingReputation.getCapabilityRoles
 
 ___
 
-### getChainId
-
-▸ **getChainId**(`overrides?`): `Promise`<`BigNumber`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
-
-#### Returns
-
-`Promise`<`BigNumber`\>
-
-#### Inherited from
-
-AugmentedVotingReputation.getChainId
-
-___
-
 ### getColony
 
 ▸ **getColony**(`overrides?`): `Promise`<`string`\>
@@ -1055,6 +1039,8 @@ ___
 
 ▸ **getEscalationPeriod**(`overrides?`): `Promise`<`BigNumber`\>
 
+Get the escalation period
+
 #### Parameters
 
 | Name | Type |
@@ -1075,12 +1061,14 @@ ___
 
 ▸ **getExpenditureMotionCount**(`_structHash`, `overrides?`): `Promise`<`BigNumber`\>
 
+Get the number of ongoing motions for a single expenditure / expenditure slot
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_structHash` | `BytesLike` |
-| `overrides?` | `CallOverrides` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_structHash` | `BytesLike` | The hash of the expenditureId or expenditureId*expenditureSlot |
+| `overrides?` | `CallOverrides` | - |
 
 #### Returns
 
@@ -1096,12 +1084,14 @@ ___
 
 ▸ **getExpenditurePastVote**(`_actionHash`, `overrides?`): `Promise`<`BigNumber`\>
 
+Get the largest past vote on a single expenditure variable
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_actionHash` | `BytesLike` |
-| `overrides?` | `CallOverrides` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_actionHash` | `BytesLike` | The hash of the particular expenditure action |
+| `overrides?` | `CallOverrides` | - |
 
 #### Returns
 
@@ -1116,6 +1106,8 @@ ___
 ### getMaxVoteFraction
 
 ▸ **getMaxVoteFraction**(`overrides?`): `Promise`<`BigNumber`\>
+
+Get the max vote fraction
 
 #### Parameters
 
@@ -1135,14 +1127,16 @@ ___
 
 ### getMetatransactionNonce
 
-▸ **getMetatransactionNonce**(`_userAddress`, `overrides?`): `Promise`<`BigNumber`\>
+▸ **getMetatransactionNonce**(`userAddress`, `overrides?`): `Promise`<`BigNumber`\>
+
+Gets the next metatransaction nonce for user that should be used targeting this contract
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_userAddress` | `string` |
-| `overrides?` | `CallOverrides` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `userAddress` | `string` | The address of the user that will sign the metatransaction |
+| `overrides?` | `CallOverrides` | - |
 
 #### Returns
 
@@ -1158,12 +1152,14 @@ ___
 
 ▸ **getMotion**(`_motionId`, `overrides?`): `Promise`<`MotionStructOutput`\>
 
+Get the data for a single motion
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_motionId` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_motionId` | `BigNumberish` | The id of the motion |
+| `overrides?` | `CallOverrides` | - |
 
 #### Returns
 
@@ -1178,6 +1174,8 @@ ___
 ### getMotionCount
 
 ▸ **getMotionCount**(`overrides?`): `Promise`<`BigNumber`\>
+
+Get the total motion count
 
 #### Parameters
 
@@ -1199,12 +1197,14 @@ ___
 
 ▸ **getMotionState**(`_motionId`, `overrides?`): `Promise`<`number`\>
 
+Get the current state of the motion
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_motionId` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_motionId` | `BigNumberish` | The id of the motion |
+| `overrides?` | `CallOverrides` | - |
 
 #### Returns
 
@@ -1219,6 +1219,8 @@ ___
 ### getRevealPeriod
 
 ▸ **getRevealPeriod**(`overrides?`): `Promise`<`BigNumber`\>
+
+Get the reveal period
 
 #### Parameters
 
@@ -1240,14 +1242,16 @@ ___
 
 ▸ **getStake**(`_motionId`, `_staker`, `_vote`, `overrides?`): `Promise`<`BigNumber`\>
 
+Get a user's stake on a motion
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_motionId` | `BigNumberish` |
-| `_staker` | `string` |
-| `_vote` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_motionId` | `BigNumberish` | The id of the motion |
+| `_staker` | `string` | The staker address |
+| `_vote` | `BigNumberish` | The side being supported (0 = NAY, 1 = YAY) |
+| `overrides?` | `CallOverrides` | - |
 
 #### Returns
 
@@ -1262,6 +1266,8 @@ ___
 ### getStakePeriod
 
 ▸ **getStakePeriod**(`overrides?`): `Promise`<`BigNumber`\>
+
+Get the stake period
 
 #### Parameters
 
@@ -1283,14 +1289,16 @@ ___
 
 ▸ **getStakerReward**(`_motionId`, `_staker`, `_vote`, `overrides?`): `Promise`<[`BigNumber`, `BigNumber`] & { `_penalty`: `BigNumber` ; `_reward`: `BigNumber`  }\>
 
+Get the staker reward
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_motionId` | `BigNumberish` |
-| `_staker` | `string` |
-| `_vote` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_motionId` | `BigNumberish` | The id of the motion |
+| `_staker` | `string` | The staker's address |
+| `_vote` | `BigNumberish` | The vote (0 = NAY, 1 = YAY) |
+| `overrides?` | `CallOverrides` | - |
 
 #### Returns
 
@@ -1305,6 +1313,8 @@ ___
 ### getSubmitPeriod
 
 ▸ **getSubmitPeriod**(`overrides?`): `Promise`<`BigNumber`\>
+
+Get the submit period
 
 #### Parameters
 
@@ -1326,6 +1336,8 @@ ___
 
 ▸ **getTotalStakeFraction**(`overrides?`): `Promise`<`BigNumber`\>
 
+Get the total stake fraction
+
 #### Parameters
 
 | Name | Type |
@@ -1345,6 +1357,8 @@ ___
 ### getUserMinStakeFraction
 
 ▸ **getUserMinStakeFraction**(`overrides?`): `Promise`<`BigNumber`\>
+
+Get the user min stake fraction
 
 #### Parameters
 
@@ -1366,13 +1380,15 @@ ___
 
 ▸ **getVoterReward**(`_motionId`, `_voterRep`, `overrides?`): `Promise`<`BigNumber`\>
 
+Get the voter reward NB This function will only return a meaningful value if in the reveal state. Prior to the reveal state, getVoterRewardRange should be used.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_motionId` | `BigNumberish` |
-| `_voterRep` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_motionId` | `BigNumberish` | The id of the motion |
+| `_voterRep` | `BigNumberish` | The reputation the voter has in the domain |
+| `overrides?` | `CallOverrides` | - |
 
 #### Returns
 
@@ -1387,6 +1403,8 @@ ___
 ### getVoterRewardFraction
 
 ▸ **getVoterRewardFraction**(`overrides?`): `Promise`<`BigNumber`\>
+
+Get the voter reward fraction
 
 #### Parameters
 
@@ -1408,14 +1426,16 @@ ___
 
 ▸ **getVoterRewardRange**(`_motionId`, `_voterRep`, `_voterAddress`, `overrides?`): `Promise`<[`BigNumber`, `BigNumber`] & { `_rewardMax`: `BigNumber` ; `_rewardMin`: `BigNumber`  }\>
 
+Get the range of potential rewards for a voter on a specific motion, intended to be used when the motion is in the reveal state. Once a motion is in the reveal state the reward is known, and getVoterRewardRange should be used.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_motionId` | `BigNumberish` |
-| `_voterRep` | `BigNumberish` |
-| `_voterAddress` | `string` |
-| `overrides?` | `CallOverrides` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_motionId` | `BigNumberish` | The id of the motion |
+| `_voterRep` | `BigNumberish` | The reputation the voter has in the domain |
+| `_voterAddress` | `string` | The address the user will be voting as |
+| `overrides?` | `CallOverrides` | - |
 
 #### Returns
 
@@ -1451,19 +1471,21 @@ ___
 
 ▸ **initialise**(`_totalStakeFraction`, `_voterRewardFraction`, `_userMinStakeFraction`, `_maxVoteFraction`, `_stakePeriod`, `_submitPeriod`, `_revealPeriod`, `_escalationPeriod`, `overrides?`): `Promise`<`ContractTransaction`\>
 
+Initialise the extension
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_totalStakeFraction` | `BigNumberish` |
-| `_voterRewardFraction` | `BigNumberish` |
-| `_userMinStakeFraction` | `BigNumberish` |
-| `_maxVoteFraction` | `BigNumberish` |
-| `_stakePeriod` | `BigNumberish` |
-| `_submitPeriod` | `BigNumberish` |
-| `_revealPeriod` | `BigNumberish` |
-| `_escalationPeriod` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_totalStakeFraction` | `BigNumberish` | The fraction of the domain's reputation we need to stake |
+| `_voterRewardFraction` | `BigNumberish` | The fraction of the total stake paid out to voters as rewards |
+| `_userMinStakeFraction` | `BigNumberish` | The minimum per-user stake as fraction of total stake |
+| `_maxVoteFraction` | `BigNumberish` | The fraction of the domain's reputation which must submit for quick-end |
+| `_stakePeriod` | `BigNumberish` | The length of the staking period in seconds |
+| `_submitPeriod` | `BigNumberish` | The length of the submit period in seconds |
+| `_revealPeriod` | `BigNumberish` | The length of the reveal period in seconds |
+| `_escalationPeriod` | `BigNumberish` | The length of the escalation period in seconds |
+| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
 
 #### Returns
 
@@ -1558,26 +1580,6 @@ AugmentedVotingReputation.listeners
 
 ___
 
-### owner
-
-▸ **owner**(`overrides?`): `Promise`<`string`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
-
-#### Returns
-
-`Promise`<`string`\>
-
-#### Inherited from
-
-AugmentedVotingReputation.owner
-
-___
-
 ### queryFilter
 
 ▸ **queryFilter**<`TEvent`\>(`event`, `fromBlockOrBlockhash?`, `toBlock?`): `Promise`<`TEvent`[]\>
@@ -1652,18 +1654,20 @@ ___
 
 ▸ **revealVote**(`_motionId`, `_salt`, `_vote`, `_key`, `_value`, `_branchMask`, `_siblings`, `overrides?`): `Promise`<`ContractTransaction`\>
 
+Reveal a vote secret for a motion
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_motionId` | `BigNumberish` |
-| `_salt` | `BytesLike` |
-| `_vote` | `BigNumberish` |
-| `_key` | `BytesLike` |
-| `_value` | `BytesLike` |
-| `_branchMask` | `BigNumberish` |
-| `_siblings` | `BytesLike`[] |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_motionId` | `BigNumberish` | The id of the motion |
+| `_salt` | `BytesLike` | The salt used to hash the vote |
+| `_vote` | `BigNumberish` | The side being supported (0 = NAY, 1 = YAY) |
+| `_key` | `BytesLike` | Reputation tree key for the staker/domain |
+| `_value` | `BytesLike` | Reputation tree value for the staker/domain |
+| `_branchMask` | `BigNumberish` | The branchmask of the proof |
+| `_siblings` | `BytesLike`[] | The siblings of the proof |
+| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
 
 #### Returns
 
@@ -1675,66 +1679,26 @@ AugmentedVotingReputation.revealVote
 
 ___
 
-### setAuthority
-
-▸ **setAuthority**(`authority_`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `authority_` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedVotingReputation.setAuthority
-
-___
-
-### setOwner
-
-▸ **setOwner**(`owner_`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `owner_` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedVotingReputation.setOwner
-
-___
-
 ### stakeMotion
 
 ▸ **stakeMotion**(`_motionId`, `_permissionDomainId`, `_childSkillIndex`, `_vote`, `_amount`, `_key`, `_value`, `_branchMask`, `_siblings`, `overrides?`): `Promise`<`ContractTransaction`\>
 
+Stake on a motion
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_motionId` | `BigNumberish` |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_vote` | `BigNumberish` |
-| `_amount` | `BigNumberish` |
-| `_key` | `BytesLike` |
-| `_value` | `BytesLike` |
-| `_branchMask` | `BigNumberish` |
-| `_siblings` | `BytesLike`[] |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_motionId` | `BigNumberish` | The id of the motion |
+| `_permissionDomainId` | `BigNumberish` | The domain where the extension has the arbitration permission |
+| `_childSkillIndex` | `BigNumberish` | For the domain in which the motion is occurring |
+| `_vote` | `BigNumberish` | The side being supported (0 = NAY, 1 = YAY) |
+| `_amount` | `BigNumberish` | The amount of tokens being staked |
+| `_key` | `BytesLike` | Reputation tree key for the staker/domain |
+| `_value` | `BytesLike` | Reputation tree value for the staker/domain |
+| `_branchMask` | `BigNumberish` | The branchmask of the proof |
+| `_siblings` | `BytesLike`[] | The siblings of the proof |
+| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
 
 #### Returns
 
@@ -1776,17 +1740,19 @@ ___
 
 ▸ **submitVote**(`_motionId`, `_voteSecret`, `_key`, `_value`, `_branchMask`, `_siblings`, `overrides?`): `Promise`<`ContractTransaction`\>
 
+Submit a vote secret for a motion
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_motionId` | `BigNumberish` |
-| `_voteSecret` | `BytesLike` |
-| `_key` | `BytesLike` |
-| `_value` | `BytesLike` |
-| `_branchMask` | `BigNumberish` |
-| `_siblings` | `BytesLike`[] |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_motionId` | `BigNumberish` | The id of the motion |
+| `_voteSecret` | `BytesLike` | The hashed vote secret |
+| `_key` | `BytesLike` | Reputation tree key for the staker/domain |
+| `_value` | `BytesLike` | Reputation tree value for the staker/domain |
+| `_branchMask` | `BigNumberish` | The branchmask of the proof |
+| `_siblings` | `BytesLike`[] | The siblings of the proof |
+| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
 
 #### Returns
 
@@ -1815,33 +1781,6 @@ ___
 #### Inherited from
 
 AugmentedVotingReputation.uninstall
-
-___
-
-### verify
-
-▸ **verify**(`_owner`, `_nonce`, `_chainId`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`boolean`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `_owner` | `string` |
-| `_nonce` | `BigNumberish` |
-| `_chainId` | `BigNumberish` |
-| `_payload` | `BytesLike` |
-| `_sigR` | `BytesLike` |
-| `_sigS` | `BytesLike` |
-| `_sigV` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
-
-#### Returns
-
-`Promise`<`boolean`\>
-
-#### Inherited from
-
-AugmentedVotingReputation.verify
 
 ___
 

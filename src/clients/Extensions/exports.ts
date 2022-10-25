@@ -45,6 +45,8 @@ export * from './Whitelist/exports';
 /** Extension contract names */
 export enum Extension {
   CoinMachine = 'CoinMachine',
+  // The VotingReputation contract was refactored in flwss3 to also be an interface (akin to IColony)
+  IVotingReputation = 'IVotingReputation',
   OneTxPayment = 'OneTxPayment',
   VotingReputation = 'VotingReputation',
   Whitelist = 'Whitelist',
@@ -52,6 +54,7 @@ export enum Extension {
 
 export const ExtensionVersions = {
   [Extension.CoinMachine]: COIN_MACHINE_VERSION_LATEST,
+  [Extension.IVotingReputation]: VOTING_REPUTATION_VERSION_LATEST,
   [Extension.OneTxPayment]: ONE_TX_PAYMENT_VERSION_LATEST,
   [Extension.VotingReputation]: VOTING_REPUTATION_VERSION_LATEST,
   [Extension.Whitelist]: WHITELIST_VERSION_LATEST,
@@ -91,6 +94,13 @@ export const isExtensionCompatible = (
         coinMachineIncompatibilityMap[extensionVersion as CoinMachineVersion];
       return !!map && !map.includes(colonyVersion);
     }
+    case Extension.IVotingReputation: {
+      const map =
+        votingReputationIncompatibilityMap[
+          extensionVersion as VotingReputationVersion
+        ];
+      return !!map && !map.includes(colonyVersion);
+    }
     case Extension.OneTxPayment: {
       const map =
         oneTxPaymentIncompatibilityMap[extensionVersion as OneTxPaymentVersion];
@@ -119,6 +129,7 @@ export const isExtensionCompatible = (
 /** @internal */
 export type GetExtensionClientReturns = {
   [Extension.CoinMachine]: AnyCoinMachineClient;
+  [Extension.IVotingReputation]: AnyVotingReputationClient;
   [Extension.OneTxPayment]: AnyOneTxPaymentClient;
   [Extension.VotingReputation]: AnyVotingReputationClient;
   [Extension.Whitelist]: AnyWhitelistClient;
@@ -152,6 +163,10 @@ export async function getExtensionClient(
     case Extension.CoinMachine: {
       const version = versionBN.toNumber() as CoinMachineVersion;
       return getCoinMachineClient(this, address, version);
+    }
+    case Extension.IVotingReputation: {
+      const version = versionBN.toNumber() as VotingReputationVersion;
+      return getVotingReputationClient(this, address, version);
     }
     case Extension.OneTxPayment: {
       const version = versionBN.toNumber() as OneTxPaymentVersion;

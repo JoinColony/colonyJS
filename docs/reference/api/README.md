@@ -171,6 +171,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `CoinMachine` | `number` |
+| `IVotingReputation` | `number` |
 | `OneTxPayment` | `number` |
 | `VotingReputation` | `number` |
 | `Whitelist` | `number` |

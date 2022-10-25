@@ -4,6 +4,7 @@
 export type { CoinMachineEvents } from "./CoinMachineEvents";
 export type { IColonyEvents } from "./IColonyEvents";
 export type { IColonyNetworkEvents } from "./IColonyNetworkEvents";
+export type { IVotingReputationEvents } from "./IVotingReputationEvents";
 export type { OneTxPaymentEvents } from "./OneTxPaymentEvents";
 export type { VotingReputationEvents } from "./VotingReputationEvents";
 export type { WhitelistEvents } from "./WhitelistEvents";
