@@ -79,7 +79,7 @@ async function setExpenditurePayoutWithProofs(
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
     domainId,
-    ColonyRole.Architecture,
+    ColonyRole.Arbitration,
   );
   return this[
     'setExpenditurePayout(uint256,uint256,uint256,uint256,address,uint256)'
@@ -110,7 +110,7 @@ async function estimateSetExpenditurePayoutWithProofs(
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
     domainId,
-    ColonyRole.Architecture,
+    ColonyRole.Arbitration,
   );
   return this.estimateGas[
     'setExpenditurePayout(uint256,uint256,uint256,uint256,address,uint256)'

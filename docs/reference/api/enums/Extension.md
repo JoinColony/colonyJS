@@ -10,6 +10,12 @@ Extension contract names
 
 ___
 
+### IVotingReputation
+
+• **IVotingReputation** = ``"IVotingReputation"``
+
+___
+
 ### OneTxPayment
 
 • **OneTxPayment** = ``"OneTxPayment"``

@@ -78,26 +78,20 @@ export declare namespace VotingReputationDataTypes {
   };
 }
 
-export interface VotingReputationInterface extends utils.Interface {
+export interface IVotingReputationInterface extends utils.Interface {
   functions: {
-    "authority()": FunctionFragment;
+    "deprecate(bool)": FunctionFragment;
     "executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)": FunctionFragment;
+    "finishUpgrade()": FunctionFragment;
     "getCapabilityRoles(bytes4)": FunctionFragment;
-    "getChainId()": FunctionFragment;
     "getColony()": FunctionFragment;
     "getDeprecated()": FunctionFragment;
-    "owner()": FunctionFragment;
-    "setAuthority(address)": FunctionFragment;
-    "setOwner(address)": FunctionFragment;
-    "verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)": FunctionFragment;
     "getMetatransactionNonce(address)": FunctionFragment;
     "identifier()": FunctionFragment;
-    "version()": FunctionFragment;
     "install(address)": FunctionFragment;
-    "initialise(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256)": FunctionFragment;
-    "finishUpgrade()": FunctionFragment;
-    "deprecate(bool)": FunctionFragment;
     "uninstall()": FunctionFragment;
+    "version()": FunctionFragment;
+    "initialise(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256)": FunctionFragment;
     "createMotion(uint256,uint256,address,bytes,bytes,bytes,uint256,bytes32[])": FunctionFragment;
     "createRootMotion(address,bytes,bytes,bytes,uint256,bytes32[])": FunctionFragment;
     "createDomainMotion(uint256,uint256,bytes,bytes,bytes,uint256,bytes32[])": FunctionFragment;
@@ -126,28 +120,23 @@ export interface VotingReputationInterface extends utils.Interface {
     "getVoterRewardRange(uint256,uint256,address)": FunctionFragment;
     "getStakerReward(uint256,address,uint256)": FunctionFragment;
     "createClaimDelayAction(bytes,uint256)": FunctionFragment;
+    "claimMisalignedReward(uint256,uint256,uint256,address,uint256)": FunctionFragment;
   };
 
   getFunction(
     nameOrSignatureOrTopic:
-      | "authority"
+      | "deprecate"
       | "executeMetaTransaction"
+      | "finishUpgrade"
       | "getCapabilityRoles"
-      | "getChainId"
       | "getColony"
       | "getDeprecated"
-      | "owner"
-      | "setAuthority"
-      | "setOwner"
-      | "verify"
       | "getMetatransactionNonce"
       | "identifier"
-      | "version"
       | "install"
-      | "initialise"
-      | "finishUpgrade"
-      | "deprecate"
       | "uninstall"
+      | "version"
+      | "initialise"
       | "createMotion"
       | "createRootMotion"
       | "createDomainMotion"
@@ -176,43 +165,26 @@ export interface VotingReputationInterface extends utils.Interface {
       | "getVoterRewardRange"
       | "getStakerReward"
       | "createClaimDelayAction"
+      | "claimMisalignedReward"
   ): FunctionFragment;
 
-  encodeFunctionData(functionFragment: "authority", values?: undefined): string;
+  encodeFunctionData(functionFragment: "deprecate", values: [boolean]): string;
   encodeFunctionData(
     functionFragment: "executeMetaTransaction",
     values: [string, BytesLike, BytesLike, BytesLike, BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "getCapabilityRoles",
-    values: [BytesLike]
+    functionFragment: "finishUpgrade",
+    values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "getChainId",
-    values?: undefined
+    functionFragment: "getCapabilityRoles",
+    values: [BytesLike]
   ): string;
   encodeFunctionData(functionFragment: "getColony", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "getDeprecated",
     values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "setAuthority",
-    values: [string]
-  ): string;
-  encodeFunctionData(functionFragment: "setOwner", values: [string]): string;
-  encodeFunctionData(
-    functionFragment: "verify",
-    values: [
-      string,
-      BigNumberish,
-      BigNumberish,
-      BytesLike,
-      BytesLike,
-      BytesLike,
-      BigNumberish
-    ]
   ): string;
   encodeFunctionData(
     functionFragment: "getMetatransactionNonce",
@@ -222,8 +194,9 @@ export interface VotingReputationInterface extends utils.Interface {
     functionFragment: "identifier",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "version", values?: undefined): string;
   encodeFunctionData(functionFragment: "install", values: [string]): string;
+  encodeFunctionData(functionFragment: "uninstall", values?: undefined): string;
+  encodeFunctionData(functionFragment: "version", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "initialise",
     values: [
@@ -237,12 +210,6 @@ export interface VotingReputationInterface extends utils.Interface {
       BigNumberish
     ]
   ): string;
-  encodeFunctionData(
-    functionFragment: "finishUpgrade",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "deprecate", values: [boolean]): string;
-  encodeFunctionData(functionFragment: "uninstall", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "createMotion",
     values: [
@@ -405,43 +372,38 @@ export interface VotingReputationInterface extends utils.Interface {
     functionFragment: "createClaimDelayAction",
     values: [BytesLike, BigNumberish]
   ): string;
+  encodeFunctionData(
+    functionFragment: "claimMisalignedReward",
+    values: [BigNumberish, BigNumberish, BigNumberish, string, BigNumberish]
+  ): string;
 
-  decodeFunctionResult(functionFragment: "authority", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "deprecate", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "executeMetaTransaction",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "finishUpgrade",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "getCapabilityRoles",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "getChainId", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getColony", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getDeprecated",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "setAuthority",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "setOwner", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "verify", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getMetatransactionNonce",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "identifier", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "version", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "install", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "initialise", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "finishUpgrade",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "deprecate", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "uninstall", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "version", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "initialise", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "createMotion",
     data: BytesLike
@@ -542,11 +504,12 @@ export interface VotingReputationInterface extends utils.Interface {
     functionFragment: "createClaimDelayAction",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "claimMisalignedReward",
+    data: BytesLike
+  ): Result;
 
   events: {
-    "ExtensionInitialised()": EventFragment;
-    "LogSetAuthority(address)": EventFragment;
-    "LogSetOwner(address)": EventFragment;
     "MetaTransactionExecuted(address,address,bytes)": EventFragment;
     "MotionCreated(uint256,address,uint256)": EventFragment;
     "MotionEscalated(uint256,address,uint256,uint256)": EventFragment;
@@ -558,9 +521,6 @@ export interface VotingReputationInterface extends utils.Interface {
     "MotionVoteSubmitted(uint256,address)": EventFragment;
   };
 
-  getEvent(nameOrSignatureOrTopic: "ExtensionInitialised"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "LogSetAuthority"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "LogSetOwner"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "MetaTransactionExecuted"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "MotionCreated"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "MotionEscalated"): EventFragment;
@@ -572,36 +532,10 @@ export interface VotingReputationInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "MotionVoteSubmitted"): EventFragment;
 }
 
-export interface ExtensionInitialisedEventObject {}
-export type ExtensionInitialisedEvent = TypedEvent<
-  [],
-  ExtensionInitialisedEventObject
->;
-
-export type ExtensionInitialisedEventFilter =
-  TypedEventFilter<ExtensionInitialisedEvent>;
-
-export interface LogSetAuthorityEventObject {
-  authority: string;
-}
-export type LogSetAuthorityEvent = TypedEvent<
-  [string],
-  LogSetAuthorityEventObject
->;
-
-export type LogSetAuthorityEventFilter = TypedEventFilter<LogSetAuthorityEvent>;
-
-export interface LogSetOwnerEventObject {
-  owner: string;
-}
-export type LogSetOwnerEvent = TypedEvent<[string], LogSetOwnerEventObject>;
-
-export type LogSetOwnerEventFilter = TypedEventFilter<LogSetOwnerEvent>;
-
 export interface MetaTransactionExecutedEventObject {
-  user: string;
+  userAddress: string;
   relayerAddress: string;
-  functionSignature: string;
+  payload: string;
 }
 export type MetaTransactionExecutedEvent = TypedEvent<
   [string, string, string],
@@ -711,12 +645,12 @@ export type MotionVoteSubmittedEvent = TypedEvent<
 export type MotionVoteSubmittedEventFilter =
   TypedEventFilter<MotionVoteSubmittedEvent>;
 
-export interface VotingReputation extends BaseContract {
+export interface IVotingReputation extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: VotingReputationInterface;
+  interface: IVotingReputationInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
@@ -738,23 +672,30 @@ export interface VotingReputation extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    authority(overrides?: CallOverrides): Promise<[string]>;
+    deprecate(
+      _deprecated: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
     /**
-     * Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
-     * @param _payload Function call to make via meta transaction
-     * @param _sigR R part of the signature
-     * @param _sigS S part of the signature
-     * @param _sigV V part of the signature
-     * @param _user Address of user trying to do meta transaction
+     * Executes a metatransaction targeting this contract
+     * @param payload The transaction data that will be executed if signature valid
+     * @param sigR The 'r' part of the signature
+     * @param sigS The 's' part of the signature
+     * @param sigV The 'v' part of the signature
+     * @param userAddress The address of the user that signed the metatransaction
      */
     executeMetaTransaction(
-      _user: string,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
+      userAddress: string,
+      payload: BytesLike,
+      sigR: BytesLike,
+      sigS: BytesLike,
+      sigV: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    finishUpgrade(
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     getCapabilityRoles(
@@ -762,58 +703,31 @@ export interface VotingReputation extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string]>;
 
-    getChainId(overrides?: CallOverrides): Promise<[BigNumber]>;
-
     getColony(overrides?: CallOverrides): Promise<[string]>;
 
     getDeprecated(overrides?: CallOverrides): Promise<[boolean]>;
 
-    owner(overrides?: CallOverrides): Promise<[string]>;
-
-    setAuthority(
-      authority_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    setOwner(
-      owner_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    verify(
-      _owner: string,
-      _nonce: BigNumberish,
-      _chainId: BigNumberish,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>;
-
+    /**
+     * Gets the next metatransaction nonce for user that should be used targeting this contract
+     * @param userAddress The address of the user that will sign the metatransaction
+     */
     getMetatransactionNonce(
       userAddress: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { nonce: BigNumber }>;
 
-    /**
-     * Returns the identifier of the extension
-     */
     identifier(overrides?: CallOverrides): Promise<[string]>;
 
-    /**
-     * Return the version number
-     */
-    version(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    /**
-     * Install the extension
-     * @param _colony Base colony for the installation
-     */
     install(
       _colony: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
+
+    uninstall(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    version(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     /**
      * Initialise the extension
@@ -835,28 +749,6 @@ export interface VotingReputation extends BaseContract {
       _submitPeriod: BigNumberish,
       _revealPeriod: BigNumberish,
       _escalationPeriod: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    /**
-     * Called when upgrading the extension
-     */
-    finishUpgrade(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    /**
-     * Called when deprecating (or undeprecating) the extension
-     */
-    deprecate(
-      _deprecated: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    /**
-     * Called when uninstalling the extension
-     */
-    uninstall(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -1015,7 +907,7 @@ export interface VotingReputation extends BaseContract {
     ): Promise<ContractTransaction>;
 
     /**
-     * We are only expecting this to be called from finalize motion in the contracts. It is marked as public only so that the frontend can use it.
+     * We are only expecting this to be called from finalize motion in the contracts. It is marked as external only so that the frontend can use it.
      * @param _motionId The id of the motion
      */
     failingExecutionAllowed(
@@ -1179,25 +1071,41 @@ export interface VotingReputation extends BaseContract {
       value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
+
+    claimMisalignedReward(
+      _motionId: BigNumberish,
+      _permissionDomainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
+      _staker: string,
+      _vote: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
   };
 
-  authority(overrides?: CallOverrides): Promise<string>;
+  deprecate(
+    _deprecated: boolean,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   /**
-   * Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
-   * @param _payload Function call to make via meta transaction
-   * @param _sigR R part of the signature
-   * @param _sigS S part of the signature
-   * @param _sigV V part of the signature
-   * @param _user Address of user trying to do meta transaction
+   * Executes a metatransaction targeting this contract
+   * @param payload The transaction data that will be executed if signature valid
+   * @param sigR The 'r' part of the signature
+   * @param sigS The 's' part of the signature
+   * @param sigV The 'v' part of the signature
+   * @param userAddress The address of the user that signed the metatransaction
    */
   executeMetaTransaction(
-    _user: string,
-    _payload: BytesLike,
-    _sigR: BytesLike,
-    _sigS: BytesLike,
-    _sigV: BigNumberish,
+    userAddress: string,
+    payload: BytesLike,
+    sigR: BytesLike,
+    sigS: BytesLike,
+    sigV: BigNumberish,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  finishUpgrade(
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   getCapabilityRoles(
@@ -1205,58 +1113,31 @@ export interface VotingReputation extends BaseContract {
     overrides?: CallOverrides
   ): Promise<string>;
 
-  getChainId(overrides?: CallOverrides): Promise<BigNumber>;
-
   getColony(overrides?: CallOverrides): Promise<string>;
 
   getDeprecated(overrides?: CallOverrides): Promise<boolean>;
 
-  owner(overrides?: CallOverrides): Promise<string>;
-
-  setAuthority(
-    authority_: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  setOwner(
-    owner_: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  verify(
-    _owner: string,
-    _nonce: BigNumberish,
-    _chainId: BigNumberish,
-    _payload: BytesLike,
-    _sigR: BytesLike,
-    _sigS: BytesLike,
-    _sigV: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<boolean>;
-
+  /**
+   * Gets the next metatransaction nonce for user that should be used targeting this contract
+   * @param userAddress The address of the user that will sign the metatransaction
+   */
   getMetatransactionNonce(
     userAddress: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
-  /**
-   * Returns the identifier of the extension
-   */
   identifier(overrides?: CallOverrides): Promise<string>;
 
-  /**
-   * Return the version number
-   */
-  version(overrides?: CallOverrides): Promise<BigNumber>;
-
-  /**
-   * Install the extension
-   * @param _colony Base colony for the installation
-   */
   install(
     _colony: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
+
+  uninstall(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  version(overrides?: CallOverrides): Promise<BigNumber>;
 
   /**
    * Initialise the extension
@@ -1278,28 +1159,6 @@ export interface VotingReputation extends BaseContract {
     _submitPeriod: BigNumberish,
     _revealPeriod: BigNumberish,
     _escalationPeriod: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  /**
-   * Called when upgrading the extension
-   */
-  finishUpgrade(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  /**
-   * Called when deprecating (or undeprecating) the extension
-   */
-  deprecate(
-    _deprecated: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  /**
-   * Called when uninstalling the extension
-   */
-  uninstall(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -1458,7 +1317,7 @@ export interface VotingReputation extends BaseContract {
   ): Promise<ContractTransaction>;
 
   /**
-   * We are only expecting this to be called from finalize motion in the contracts. It is marked as public only so that the frontend can use it.
+   * We are only expecting this to be called from finalize motion in the contracts. It is marked as external only so that the frontend can use it.
    * @param _motionId The id of the motion
    */
   failingExecutionAllowed(
@@ -1619,74 +1478,62 @@ export interface VotingReputation extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  claimMisalignedReward(
+    _motionId: BigNumberish,
+    _permissionDomainId: BigNumberish,
+    _childSkillIndex: BigNumberish,
+    _staker: string,
+    _vote: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   callStatic: {
-    authority(overrides?: CallOverrides): Promise<string>;
+    deprecate(_deprecated: boolean, overrides?: CallOverrides): Promise<void>;
 
     /**
-     * Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
-     * @param _payload Function call to make via meta transaction
-     * @param _sigR R part of the signature
-     * @param _sigS S part of the signature
-     * @param _sigV V part of the signature
-     * @param _user Address of user trying to do meta transaction
+     * Executes a metatransaction targeting this contract
+     * @param payload The transaction data that will be executed if signature valid
+     * @param sigR The 'r' part of the signature
+     * @param sigS The 's' part of the signature
+     * @param sigV The 'v' part of the signature
+     * @param userAddress The address of the user that signed the metatransaction
      */
     executeMetaTransaction(
-      _user: string,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
+      userAddress: string,
+      payload: BytesLike,
+      sigR: BytesLike,
+      sigS: BytesLike,
+      sigV: BigNumberish,
       overrides?: CallOverrides
     ): Promise<string>;
+
+    finishUpgrade(overrides?: CallOverrides): Promise<void>;
 
     getCapabilityRoles(
       _sig: BytesLike,
       overrides?: CallOverrides
     ): Promise<string>;
 
-    getChainId(overrides?: CallOverrides): Promise<BigNumber>;
-
     getColony(overrides?: CallOverrides): Promise<string>;
 
     getDeprecated(overrides?: CallOverrides): Promise<boolean>;
 
-    owner(overrides?: CallOverrides): Promise<string>;
-
-    setAuthority(authority_: string, overrides?: CallOverrides): Promise<void>;
-
-    setOwner(owner_: string, overrides?: CallOverrides): Promise<void>;
-
-    verify(
-      _owner: string,
-      _nonce: BigNumberish,
-      _chainId: BigNumberish,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
+    /**
+     * Gets the next metatransaction nonce for user that should be used targeting this contract
+     * @param userAddress The address of the user that will sign the metatransaction
+     */
     getMetatransactionNonce(
       userAddress: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    /**
-     * Returns the identifier of the extension
-     */
     identifier(overrides?: CallOverrides): Promise<string>;
 
-    /**
-     * Return the version number
-     */
-    version(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * Install the extension
-     * @param _colony Base colony for the installation
-     */
     install(_colony: string, overrides?: CallOverrides): Promise<void>;
+
+    uninstall(overrides?: CallOverrides): Promise<void>;
+
+    version(overrides?: CallOverrides): Promise<BigNumber>;
 
     /**
      * Initialise the extension
@@ -1710,21 +1557,6 @@ export interface VotingReputation extends BaseContract {
       _escalationPeriod: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
-
-    /**
-     * Called when upgrading the extension
-     */
-    finishUpgrade(overrides?: CallOverrides): Promise<void>;
-
-    /**
-     * Called when deprecating (or undeprecating) the extension
-     */
-    deprecate(_deprecated: boolean, overrides?: CallOverrides): Promise<void>;
-
-    /**
-     * Called when uninstalling the extension
-     */
-    uninstall(overrides?: CallOverrides): Promise<void>;
 
     /**
      * Create a motion
@@ -1881,7 +1713,7 @@ export interface VotingReputation extends BaseContract {
     ): Promise<void>;
 
     /**
-     * We are only expecting this to be called from finalize motion in the contracts. It is marked as public only so that the frontend can use it.
+     * We are only expecting this to be called from finalize motion in the contracts. It is marked as external only so that the frontend can use it.
      * @param _motionId The id of the motion
      */
     failingExecutionAllowed(
@@ -2041,29 +1873,27 @@ export interface VotingReputation extends BaseContract {
       value: BigNumberish,
       overrides?: CallOverrides
     ): Promise<string>;
+
+    claimMisalignedReward(
+      _motionId: BigNumberish,
+      _permissionDomainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
+      _staker: string,
+      _vote: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
   };
 
   filters: {
-    "ExtensionInitialised()"(): ExtensionInitialisedEventFilter;
-    ExtensionInitialised(): ExtensionInitialisedEventFilter;
-
-    "LogSetAuthority(address)"(
-      authority?: string | null
-    ): LogSetAuthorityEventFilter;
-    LogSetAuthority(authority?: string | null): LogSetAuthorityEventFilter;
-
-    "LogSetOwner(address)"(owner?: string | null): LogSetOwnerEventFilter;
-    LogSetOwner(owner?: string | null): LogSetOwnerEventFilter;
-
     "MetaTransactionExecuted(address,address,bytes)"(
-      user?: null,
+      userAddress?: null,
       relayerAddress?: null,
-      functionSignature?: null
+      payload?: null
     ): MetaTransactionExecutedEventFilter;
     MetaTransactionExecuted(
-      user?: null,
+      userAddress?: null,
       relayerAddress?: null,
-      functionSignature?: null
+      payload?: null
     ): MetaTransactionExecutedEventFilter;
 
     "MotionCreated(uint256,address,uint256)"(
@@ -2158,23 +1988,30 @@ export interface VotingReputation extends BaseContract {
   };
 
   estimateGas: {
-    authority(overrides?: CallOverrides): Promise<BigNumber>;
+    deprecate(
+      _deprecated: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
 
     /**
-     * Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
-     * @param _payload Function call to make via meta transaction
-     * @param _sigR R part of the signature
-     * @param _sigS S part of the signature
-     * @param _sigV V part of the signature
-     * @param _user Address of user trying to do meta transaction
+     * Executes a metatransaction targeting this contract
+     * @param payload The transaction data that will be executed if signature valid
+     * @param sigR The 'r' part of the signature
+     * @param sigS The 's' part of the signature
+     * @param sigV The 'v' part of the signature
+     * @param userAddress The address of the user that signed the metatransaction
      */
     executeMetaTransaction(
-      _user: string,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
+      userAddress: string,
+      payload: BytesLike,
+      sigR: BytesLike,
+      sigS: BytesLike,
+      sigV: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    finishUpgrade(
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     getCapabilityRoles(
@@ -2182,58 +2019,31 @@ export interface VotingReputation extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    getChainId(overrides?: CallOverrides): Promise<BigNumber>;
-
     getColony(overrides?: CallOverrides): Promise<BigNumber>;
 
     getDeprecated(overrides?: CallOverrides): Promise<BigNumber>;
 
-    owner(overrides?: CallOverrides): Promise<BigNumber>;
-
-    setAuthority(
-      authority_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    setOwner(
-      owner_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    verify(
-      _owner: string,
-      _nonce: BigNumberish,
-      _chainId: BigNumberish,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
+    /**
+     * Gets the next metatransaction nonce for user that should be used targeting this contract
+     * @param userAddress The address of the user that will sign the metatransaction
+     */
     getMetatransactionNonce(
       userAddress: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    /**
-     * Returns the identifier of the extension
-     */
     identifier(overrides?: CallOverrides): Promise<BigNumber>;
 
-    /**
-     * Return the version number
-     */
-    version(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * Install the extension
-     * @param _colony Base colony for the installation
-     */
     install(
       _colony: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
+
+    uninstall(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    version(overrides?: CallOverrides): Promise<BigNumber>;
 
     /**
      * Initialise the extension
@@ -2255,28 +2065,6 @@ export interface VotingReputation extends BaseContract {
       _submitPeriod: BigNumberish,
       _revealPeriod: BigNumberish,
       _escalationPeriod: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    /**
-     * Called when upgrading the extension
-     */
-    finishUpgrade(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    /**
-     * Called when deprecating (or undeprecating) the extension
-     */
-    deprecate(
-      _deprecated: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    /**
-     * Called when uninstalling the extension
-     */
-    uninstall(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -2435,7 +2223,7 @@ export interface VotingReputation extends BaseContract {
     ): Promise<BigNumber>;
 
     /**
-     * We are only expecting this to be called from finalize motion in the contracts. It is marked as public only so that the frontend can use it.
+     * We are only expecting this to be called from finalize motion in the contracts. It is marked as external only so that the frontend can use it.
      * @param _motionId The id of the motion
      */
     failingExecutionAllowed(
@@ -2595,26 +2383,42 @@ export interface VotingReputation extends BaseContract {
       value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
+
+    claimMisalignedReward(
+      _motionId: BigNumberish,
+      _permissionDomainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
+      _staker: string,
+      _vote: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    authority(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    deprecate(
+      _deprecated: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
 
     /**
-     * Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
-     * @param _payload Function call to make via meta transaction
-     * @param _sigR R part of the signature
-     * @param _sigS S part of the signature
-     * @param _sigV V part of the signature
-     * @param _user Address of user trying to do meta transaction
+     * Executes a metatransaction targeting this contract
+     * @param payload The transaction data that will be executed if signature valid
+     * @param sigR The 'r' part of the signature
+     * @param sigS The 's' part of the signature
+     * @param sigV The 'v' part of the signature
+     * @param userAddress The address of the user that signed the metatransaction
      */
     executeMetaTransaction(
-      _user: string,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
+      userAddress: string,
+      payload: BytesLike,
+      sigR: BytesLike,
+      sigS: BytesLike,
+      sigV: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    finishUpgrade(
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     getCapabilityRoles(
@@ -2622,58 +2426,31 @@ export interface VotingReputation extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    getChainId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     getColony(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getDeprecated(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    setAuthority(
-      authority_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setOwner(
-      owner_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    verify(
-      _owner: string,
-      _nonce: BigNumberish,
-      _chainId: BigNumberish,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
+    /**
+     * Gets the next metatransaction nonce for user that should be used targeting this contract
+     * @param userAddress The address of the user that will sign the metatransaction
+     */
     getMetatransactionNonce(
       userAddress: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    /**
-     * Returns the identifier of the extension
-     */
     identifier(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    /**
-     * Return the version number
-     */
-    version(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    /**
-     * Install the extension
-     * @param _colony Base colony for the installation
-     */
     install(
       _colony: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
+
+    uninstall(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    version(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     /**
      * Initialise the extension
@@ -2695,28 +2472,6 @@ export interface VotingReputation extends BaseContract {
       _submitPeriod: BigNumberish,
       _revealPeriod: BigNumberish,
       _escalationPeriod: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Called when upgrading the extension
-     */
-    finishUpgrade(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Called when deprecating (or undeprecating) the extension
-     */
-    deprecate(
-      _deprecated: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Called when uninstalling the extension
-     */
-    uninstall(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -2875,7 +2630,7 @@ export interface VotingReputation extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     /**
-     * We are only expecting this to be called from finalize motion in the contracts. It is marked as public only so that the frontend can use it.
+     * We are only expecting this to be called from finalize motion in the contracts. It is marked as external only so that the frontend can use it.
      * @param _motionId The id of the motion
      */
     failingExecutionAllowed(
@@ -3043,6 +2798,15 @@ export interface VotingReputation extends BaseContract {
     createClaimDelayAction(
       action: BytesLike,
       value: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    claimMisalignedReward(
+      _motionId: BigNumberish,
+      _permissionDomainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
+      _staker: string,
+      _vote: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };
