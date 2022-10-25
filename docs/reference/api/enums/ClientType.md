@@ -21,6 +21,12 @@ ___
 
 ___
 
+### EvaluatedExpenditureClient
+
+• **EvaluatedExpenditureClient** = ``"EvaluatedExpenditureClient"``
+
+___
+
 ### MotionTargetClient
 
 • **MotionTargetClient** = ``"MotionTargetClient"``

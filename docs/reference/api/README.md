@@ -171,6 +171,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `CoinMachine` | `number` |
+| `EvaluatedExpenditure` | `number` |
 | `IVotingReputation` | `number` |
 | `OneTxPayment` | `number` |
 | `VotingReputation` | `number` |

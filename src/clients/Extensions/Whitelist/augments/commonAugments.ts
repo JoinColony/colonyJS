@@ -8,7 +8,7 @@ import {
   WhitelistEvents__factory as WhitelistEventsFactory,
 } from '../../../../contracts';
 
-export type AugmentedWhitelst<T extends AnyWhitelist = AnyWhitelist> = T & {
+export type AugmentedWhitelist<T extends AnyWhitelist = AnyWhitelist> = T & {
   clientType: ClientType.WhitelistClient;
   clientVersion: WhitelistVersion;
   /** An instance of the corresponding ColonyClient */
@@ -22,7 +22,7 @@ export type AugmentedWhitelst<T extends AnyWhitelist = AnyWhitelist> = T & {
   whitelistEvents: WhitelistEvents;
 };
 
-export const addAugments = <T extends AugmentedWhitelst>(
+export const addAugments = <T extends AugmentedWhitelist>(
   instance: T,
   colonyClient: AugmentedIColony,
 ): T => {
