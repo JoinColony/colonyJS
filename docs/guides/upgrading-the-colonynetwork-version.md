@@ -16,11 +16,11 @@ Make sure you have the correct node version
 nvm use
 ```
 
-Go into the `vendor/colonyNetwork` subdirectory and check out the correct tag for the latest ColonyNetwork version (here `flwss`):
+Go into the `vendor/colonyNetwork` subdirectory and check out the correct tag for the latest ColonyNetwork version (here `glwss`):
 
 ```bash
 cd vendor/colonyNetwork
-git checkout flwss
+git checkout glwss
 ```
 
 Update all git submodules and install all dependencies (see also [this guide](https://colony.gitbook.io/colony-network/quick-start)):
@@ -49,27 +49,27 @@ rm -rf build/contracts/*.json # to remove any prior builds
 npx truffle compile
 ```
 
-Now we should have all the necessary contract ABIs ready. Next we extract those using a helper script within ColonyJS. Execute the following script. For the tag name use the tag checked out in the `colonyNetwork` directory (here `flwss`):
+Now we should have all the necessary contract ABIs ready. Next we extract those using a helper script within ColonyJS. Execute the following script. For the tag name use the tag checked out in the `colonyNetwork` directory (here `glwss`):
 
 ```bash
 cd ../.. # go back to the colonyJS root folder
-npm run extact-contract-abis -- -t=flwss
+npm run extract-contract-abis -- -t=glwss
 ```
 
-That process should be  fairly quick. A directory called `src/abis/flwss` should have been created, containing all the required ABIs for the next version (and more).
+That process should be  fairly quick. A directory called `src/abis/glwss` should have been created, containing all the required ABIs for the next version (and more).
 
 ## Building the TypeChain typings
 
 For ColonyJS, we use [TypeChain](https://github.com/dethcrypto/TypeChain) to create the TypeScript typings for the individual contracts. To make the process easier we provide helper scripts that do most of the heavy lifting.&#x20;
 
-First we need to find out all the latest versions of the contracts that were updated. Go to the [colonyNetwork repository](https://github.com/JoinColony/colonyNetwork) in GitHub, select latest release tag (e.g. `flwss`). Go to `contracts`, look at `colony/Colony.sol`, and all the `extensions`
+First we need to find out all the latest versions of the contracts that were updated. Go to the [colonyNetwork repository](https://github.com/JoinColony/colonyNetwork) in GitHub, select latest release tag (e.g. `glwss`). Go to `contracts`, look at `colony/Colony.sol`, and all the `extensions`
 
 In `scripts/build-contracts.ts` adjust in `RELEASE_MAP`. If the colony version you see is newer, add the tag and adjust `latest` to the next version ( add 1). Do this with all the extension contracts as well (and add contracts if any were added in the new release). If a contract wasn't updated (no new version) you don't need to do anything for that one there.
 
-Now the fun part begins! Build the contract type definitions using TypeChain by doing (replace `flwss` with the ColonyNetwork version tag you're adding):
+Now the fun part begins! Build the contract type definitions using TypeChain by doing (replace `glwss` with the ColonyNetwork version tag you're adding):
 
 ```bash
-npm run build-contracts -- -t=flwss
+npm run build-contracts -- -t=glwss
 ```
 
 &#x20;The type definitions will be placed in the `src/contracts` folder. You will see subfolders being created for all contracts and their versions. Next, we will integrate the new types.

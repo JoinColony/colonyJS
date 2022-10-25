@@ -1,5 +1,5 @@
-import { VotingReputation__factory as VotingReputationFactory } from '../../../contracts/VotingReputation/7/factories/VotingReputation__factory';
-import { VotingReputation } from '../../../contracts/VotingReputation/7/VotingReputation';
+import { IVotingReputation__factory as VotingReputationFactory } from '../../../contracts/IVotingReputation/7/factories/IVotingReputation__factory';
+import { IVotingReputation } from '../../../contracts/IVotingReputation/7/IVotingReputation';
 import {
   AugmentedEstimate,
   AugmentedVotingReputation,
@@ -12,12 +12,12 @@ import {
 import { AugmentedIColony } from '../../Core/augments/commonAugments';
 
 interface VotingReputationEstimate
-  extends AugmentedEstimate<VotingReputation>,
+  extends AugmentedEstimate<IVotingReputation>,
     AugmentedEstimateV2 {}
 
 export interface VotingReputationClientV7
-  extends AugmentedVotingReputation<VotingReputation>,
-    AugmentsV2<VotingReputation> {
+  extends AugmentedVotingReputation<IVotingReputation>,
+    AugmentsV2<IVotingReputation> {
   clientVersion: 7;
   estimateGas: VotingReputationEstimate;
 }

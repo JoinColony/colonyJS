@@ -4,10 +4,10 @@ import type { VotingReputation as VotingReputation2 } from './2';
 import type { VotingReputation as VotingReputation3 } from './3';
 import type { VotingReputation as VotingReputation4 } from './4';
 import type { VotingReputation as VotingReputation5 } from './5';
-import type { VotingReputation as VotingReputation6 } from './6';
-import type { VotingReputation as VotingReputation7 } from './7';
+import type { IVotingReputation as VotingReputation6 } from '../IVotingReputation/6';
+import type { IVotingReputation as VotingReputation7 } from '../IVotingReputation/7';
 
-export { VotingReputation__factory as VotingReputationFactory } from './7/factories/VotingReputation__factory';
+export { IVotingReputation__factory as VotingReputationFactory } from '../IVotingReputation/7/factories/IVotingReputation__factory';
 
 export type VotingReputationV1 = VotingReputation1;
 export type VotingReputationV2 = VotingReputation2;
