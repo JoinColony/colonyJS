@@ -41,6 +41,8 @@
 - [ColonyTokenClient](interfaces/ColonyTokenClient.md)
 - [DaiTokenClient](interfaces/DaiTokenClient.md)
 - [Erc20TokenClient](interfaces/Erc20TokenClient.md)
+- [EvaluatedExpenditureClientV1](interfaces/EvaluatedExpenditureClientV1.md)
+- [EvaluatedExpenditureClientV2](interfaces/EvaluatedExpenditureClientV2.md)
 - [NetworkClientOptions](interfaces/NetworkClientOptions.md)
 - [OneTxPaymentClientV1](interfaces/OneTxPaymentClientV1.md)
 - [OneTxPaymentClientV2](interfaces/OneTxPaymentClientV2.md)
@@ -67,6 +69,12 @@ ___
 ### AnyColonyClient
 
 Ƭ **AnyColonyClient**: [`ColonyClientV1`](interfaces/ColonyClientV1.md) \| [`ColonyClientV2`](interfaces/ColonyClientV2.md) \| [`ColonyClientV3`](interfaces/ColonyClientV3.md) \| [`ColonyClientV4`](interfaces/ColonyClientV4.md) \| [`ColonyClientV5`](interfaces/ColonyClientV5.md) \| [`ColonyClientV6`](interfaces/ColonyClientV6.md) \| [`ColonyClientV7`](interfaces/ColonyClientV7.md) \| [`ColonyClientV8`](interfaces/ColonyClientV8.md) \| [`ColonyClientV9`](interfaces/ColonyClientV9.md) \| [`ColonyClientV10`](interfaces/ColonyClientV10.md)
+
+___
+
+### AnyEvaluatedExpenditureClient
+
+Ƭ **AnyEvaluatedExpenditureClient**: [`EvaluatedExpenditureClientV1`](interfaces/EvaluatedExpenditureClientV1.md) \| [`EvaluatedExpenditureClientV2`](interfaces/EvaluatedExpenditureClientV2.md)
 
 ___
 
@@ -125,7 +133,7 @@ ___
 
 ### ExtensionClient
 
-Ƭ **ExtensionClient**: [`AnyCoinMachineClient`](README.md#anycoinmachineclient) \| [`AnyOneTxPaymentClient`](README.md#anyonetxpaymentclient) \| [`AnyVotingReputationClient`](README.md#anyvotingreputationclient) \| [`AnyWhitelistClient`](README.md#anywhitelistclient)
+Ƭ **ExtensionClient**: [`AnyCoinMachineClient`](README.md#anycoinmachineclient) \| [`AnyOneTxPaymentClient`](README.md#anyonetxpaymentclient) \| [`AnyVotingReputationClient`](README.md#anyvotingreputationclient) \| [`AnyEvaluatedExpenditureClient`](README.md#anyevaluatedexpenditureclient) \| [`AnyWhitelistClient`](README.md#anywhitelistclient)
 
 ___
 

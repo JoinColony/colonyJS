@@ -33,6 +33,11 @@ const RELEASE_MAP = {
     glwss: 6,
     latest: 7,
   },
+  [Extension.EvaluatedExpenditure]: {
+    elwss: 1,
+    flwss: 2,
+    latest: 3,
+  },
   [Extension.IVotingReputation]: {
     flwss3: 6,
     glwss: 7,
@@ -62,6 +67,7 @@ const RELEASE_MAP = {
 const VERSIONED_CONTRACTS = [
   Core.IColony,
   Extension.CoinMachine,
+  Extension.EvaluatedExpenditure,
   Extension.IVotingReputation,
   Extension.OneTxPayment,
   Extension.VotingReputation,
