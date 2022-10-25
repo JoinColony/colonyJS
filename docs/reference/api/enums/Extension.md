@@ -10,6 +10,12 @@ Extension contract names
 
 ___
 
+### EvaluatedExpenditure
+
+• **EvaluatedExpenditure** = ``"EvaluatedExpenditure"``
+
+___
+
 ### IVotingReputation
 
 • **IVotingReputation** = ``"IVotingReputation"``

@@ -1,9 +1,9 @@
 import { Whitelist__factory as WhitelistFactory } from '../../../contracts/Whitelist/1/factories/Whitelist__factory';
 import { Whitelist } from '../../../contracts/Whitelist/1/Whitelist';
 import { AugmentedIColony } from '../../Core/augments/commonAugments';
-import { addAugments, AugmentedWhitelst } from './augments/commonAugments';
+import { addAugments, AugmentedWhitelist } from './augments/commonAugments';
 
-export interface WhitelistClientV1 extends AugmentedWhitelst<Whitelist> {
+export interface WhitelistClientV1 extends AugmentedWhitelist<Whitelist> {
   clientVersion: 1;
 }
 

@@ -2,7 +2,7 @@
 
 ## Hierarchy
 
-- `AugmentedWhitelst`<`Whitelist`\>
+- `AugmentedWhitelist`<`Whitelist`\>
 
   ↳ **`WhitelistClientV2`**
 
@@ -14,7 +14,7 @@
 
 #### Inherited from
 
-AugmentedWhitelst.\_deployedPromise
+AugmentedWhitelist.\_deployedPromise
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.\_runningEvents
+AugmentedWhitelist.\_runningEvents
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.\_wrappedEmits
+AugmentedWhitelist.\_wrappedEmits
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.address
+AugmentedWhitelist.address
 
 ___
 
@@ -92,7 +92,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.callStatic
+AugmentedWhitelist.callStatic
 
 ___
 
@@ -102,7 +102,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.clientType
+AugmentedWhitelist.clientType
 
 ___
 
@@ -112,7 +112,7 @@ ___
 
 #### Overrides
 
-AugmentedWhitelst.clientVersion
+AugmentedWhitelist.clientVersion
 
 ___
 
@@ -124,7 +124,7 @@ An instance of the corresponding ColonyClient
 
 #### Inherited from
 
-AugmentedWhitelst.colonyClient
+AugmentedWhitelist.colonyClient
 
 ___
 
@@ -134,7 +134,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.deployTransaction
+AugmentedWhitelist.deployTransaction
 
 ___
 
@@ -174,7 +174,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.estimateGas
+AugmentedWhitelist.estimateGas
 
 ___
 
@@ -201,7 +201,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.filters
+AugmentedWhitelist.filters
 
 ___
 
@@ -241,7 +241,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.functions
+AugmentedWhitelist.functions
 
 ___
 
@@ -251,7 +251,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.interface
+AugmentedWhitelist.interface
 
 ___
 
@@ -261,7 +261,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.off
+AugmentedWhitelist.off
 
 ___
 
@@ -271,7 +271,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.on
+AugmentedWhitelist.on
 
 ___
 
@@ -281,7 +281,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.once
+AugmentedWhitelist.once
 
 ___
 
@@ -321,7 +321,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.populateTransaction
+AugmentedWhitelist.populateTransaction
 
 ___
 
@@ -331,7 +331,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.provider
+AugmentedWhitelist.provider
 
 ___
 
@@ -341,7 +341,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.removeListener
+AugmentedWhitelist.removeListener
 
 ___
 
@@ -351,7 +351,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.resolvedAddress
+AugmentedWhitelist.resolvedAddress
 
 ___
 
@@ -361,7 +361,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.signer
+AugmentedWhitelist.signer
 
 ___
 
@@ -375,7 +375,7 @@ It's an ethers contract with only events to filter
 
 #### Inherited from
 
-AugmentedWhitelst.whitelistEvents
+AugmentedWhitelist.whitelistEvents
 
 ## Methods
 
@@ -395,7 +395,7 @@ AugmentedWhitelst.whitelistEvents
 
 #### Inherited from
 
-AugmentedWhitelst.\_checkRunningEvents
+AugmentedWhitelist.\_checkRunningEvents
 
 ___
 
@@ -415,7 +415,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.\_deployed
+AugmentedWhitelist.\_deployed
 
 ___
 
@@ -437,7 +437,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.\_wrapEvent
+AugmentedWhitelist.\_wrapEvent
 
 ___
 
@@ -461,7 +461,7 @@ Sets user statuses in the whitelist
 
 #### Inherited from
 
-AugmentedWhitelst.approveUsers
+AugmentedWhitelist.approveUsers
 
 ___
 
@@ -481,7 +481,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.attach
+AugmentedWhitelist.attach
 
 ___
 
@@ -501,7 +501,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.authority
+AugmentedWhitelist.authority
 
 ___
 
@@ -521,7 +521,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.connect
+AugmentedWhitelist.connect
 
 ___
 
@@ -535,7 +535,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.deployed
+AugmentedWhitelist.deployed
 
 ___
 
@@ -558,7 +558,7 @@ Called when deprecating (or undeprecating) the extension
 
 #### Inherited from
 
-AugmentedWhitelst.deprecate
+AugmentedWhitelist.deprecate
 
 ___
 
@@ -579,7 +579,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.emit
+AugmentedWhitelist.emit
 
 ___
 
@@ -606,7 +606,7 @@ Main function to be called when user wants to execute meta transaction. The actu
 
 #### Inherited from
 
-AugmentedWhitelst.executeMetaTransaction
+AugmentedWhitelist.executeMetaTransaction
 
 ___
 
@@ -626,7 +626,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.fallback
+AugmentedWhitelist.fallback
 
 ___
 
@@ -648,7 +648,7 @@ Called when upgrading the extension
 
 #### Inherited from
 
-AugmentedWhitelst.finishUpgrade
+AugmentedWhitelist.finishUpgrade
 
 ___
 
@@ -670,7 +670,7 @@ Get the agreementHash
 
 #### Inherited from
 
-AugmentedWhitelst.getAgreementHash
+AugmentedWhitelist.getAgreementHash
 
 ___
 
@@ -693,7 +693,7 @@ Get the user's approval status
 
 #### Inherited from
 
-AugmentedWhitelst.getApproval
+AugmentedWhitelist.getApproval
 
 ___
 
@@ -714,7 +714,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.getCapabilityRoles
+AugmentedWhitelist.getCapabilityRoles
 
 ___
 
@@ -734,7 +734,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.getChainId
+AugmentedWhitelist.getChainId
 
 ___
 
@@ -754,7 +754,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.getColony
+AugmentedWhitelist.getColony
 
 ___
 
@@ -774,7 +774,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.getDeprecated
+AugmentedWhitelist.getDeprecated
 
 ___
 
@@ -795,7 +795,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.getMetatransactionNonce
+AugmentedWhitelist.getMetatransactionNonce
 
 ___
 
@@ -818,7 +818,7 @@ Get the user's signature status
 
 #### Inherited from
 
-AugmentedWhitelst.getSignature
+AugmentedWhitelist.getSignature
 
 ___
 
@@ -840,7 +840,7 @@ Get the useApprovals boolean
 
 #### Inherited from
 
-AugmentedWhitelst.getUseApprovals
+AugmentedWhitelist.getUseApprovals
 
 ___
 
@@ -862,7 +862,7 @@ Returns the identifier of the extension
 
 #### Inherited from
 
-AugmentedWhitelst.identifier
+AugmentedWhitelist.identifier
 
 ___
 
@@ -886,7 +886,7 @@ Initialise the extension
 
 #### Inherited from
 
-AugmentedWhitelst.initialise
+AugmentedWhitelist.initialise
 
 ___
 
@@ -909,7 +909,7 @@ Configures the extension
 
 #### Inherited from
 
-AugmentedWhitelst.install
+AugmentedWhitelist.install
 
 ___
 
@@ -932,7 +932,7 @@ Get the user's overall whitelist status
 
 #### Inherited from
 
-AugmentedWhitelst.isApproved
+AugmentedWhitelist.isApproved
 
 ___
 
@@ -952,7 +952,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.listenerCount
+AugmentedWhitelist.listenerCount
 
 ___
 
@@ -978,7 +978,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.listeners
+AugmentedWhitelist.listeners
 
 ▸ **listeners**(`eventName?`): `Listener`[]
 
@@ -994,7 +994,7 @@ AugmentedWhitelst.listeners
 
 #### Inherited from
 
-AugmentedWhitelst.listeners
+AugmentedWhitelist.listeners
 
 ___
 
@@ -1014,7 +1014,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.owner
+AugmentedWhitelist.owner
 
 ___
 
@@ -1042,7 +1042,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.queryFilter
+AugmentedWhitelist.queryFilter
 
 ___
 
@@ -1068,7 +1068,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.removeAllListeners
+AugmentedWhitelist.removeAllListeners
 
 ▸ **removeAllListeners**(`eventName?`): [`WhitelistClientV2`](WhitelistClientV2.md)
 
@@ -1084,7 +1084,7 @@ AugmentedWhitelst.removeAllListeners
 
 #### Inherited from
 
-AugmentedWhitelst.removeAllListeners
+AugmentedWhitelist.removeAllListeners
 
 ___
 
@@ -1105,7 +1105,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.setAuthority
+AugmentedWhitelist.setAuthority
 
 ___
 
@@ -1126,7 +1126,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.setOwner
+AugmentedWhitelist.setOwner
 
 ___
 
@@ -1149,7 +1149,7 @@ The user's signature on the agreement
 
 #### Inherited from
 
-AugmentedWhitelst.signAgreement
+AugmentedWhitelist.signAgreement
 
 ___
 
@@ -1171,7 +1171,7 @@ Called when uninstalling the extension
 
 #### Inherited from
 
-AugmentedWhitelst.uninstall
+AugmentedWhitelist.uninstall
 
 ___
 
@@ -1198,7 +1198,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelst.verify
+AugmentedWhitelist.verify
 
 ___
 
@@ -1220,4 +1220,4 @@ Returns the version of the extension
 
 #### Inherited from
 
-AugmentedWhitelst.version
+AugmentedWhitelist.version
