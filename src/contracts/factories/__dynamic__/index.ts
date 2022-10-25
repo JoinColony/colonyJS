@@ -2,6 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export { CoinMachineEvents__factory } from "./CoinMachineEvents__factory";
+export { EvaluatedExpenditureEvents__factory } from "./EvaluatedExpenditureEvents__factory";
 export { IColonyEvents__factory } from "./IColonyEvents__factory";
 export { IColonyNetworkEvents__factory } from "./IColonyNetworkEvents__factory";
 export { IVotingReputationEvents__factory } from "./IVotingReputationEvents__factory";
