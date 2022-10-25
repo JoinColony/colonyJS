@@ -93,6 +93,7 @@ async function setExpenditurePayoutModifiersWithProofs(
     this.colonyClient,
     domainId,
     ColonyRole.Arbitration,
+    this.address,
   );
 
   return this.setExpenditurePayoutModifiers(
@@ -118,6 +119,7 @@ async function estimateSetExpenditurePayoutModifiersWithProofs(
     this.colonyClient,
     domainId,
     ColonyRole.Arbitration,
+    this.address,
   );
 
   return this.estimateGas.setExpenditurePayoutModifiers(

@@ -447,36 +447,6 @@ export const getPermissionProofs = async (
   return [foundDomainId, idx];
 };
 
-export const getExtensionPermissionProofs = async (
-  colonyClient: AugmentedIColony,
-  domainId: BigNumberish,
-  address?: string,
-): Promise<[BigNumberish, BigNumberish]> => {
-  const [fundingPDID, fundingCSI] = await getPermissionProofs(
-    colonyClient,
-    domainId,
-    ColonyRole.Funding,
-    address,
-  );
-  const [adminPDID, adminCSI] = await getPermissionProofs(
-    colonyClient,
-    domainId,
-    ColonyRole.Administration,
-    address,
-  );
-
-  if (!fundingPDID.eq(adminPDID) || !fundingCSI.eq(adminCSI)) {
-    // @TODO: this can surely be improved
-    throw new Error(
-      `${
-        address || 'User'
-      } has to have the funding and administration role in the same domain`,
-    );
-  }
-
-  return [adminPDID, adminCSI];
-};
-
 async function setArchitectureRoleWithProofs(
   this: AugmentedIColony,
   _user: string,

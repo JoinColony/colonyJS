@@ -28,6 +28,24 @@ ___
 
 ___
 
+### StakedExpenditure
+
+• **StakedExpenditure** = ``"StakedExpenditure"``
+
+___
+
+### StreamingPayments
+
+• **StreamingPayments** = ``"StreamingPayments"``
+
+___
+
+### TokenSupplier
+
+• **TokenSupplier** = ``"TokenSupplier"``
+
+___
+
 ### VotingReputation
 
 • **VotingReputation** = ``"VotingReputation"``
