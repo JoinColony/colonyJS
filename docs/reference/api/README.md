@@ -182,6 +182,9 @@ ___
 | `EvaluatedExpenditure` | `number` |
 | `IVotingReputation` | `number` |
 | `OneTxPayment` | `number` |
+| `StakedExpenditure` | `number` |
+| `StreamingPayments` | `number` |
+| `TokenSupplier` | `number` |
 | `VotingReputation` | `number` |
 | `Whitelist` | `number` |
 
@@ -376,29 +379,6 @@ Hashes to identify the colony extension contracts
 
 ___
 
-### getExtensionPermissionProofs
-
-▸ **getExtensionPermissionProofs**(`colonyClient`, `domainId`, `address?`): `Promise`<[`BigNumberish`, `BigNumberish`]\>
-
-Wrapper around `getPermissionProofs` to check two types of permissions: Funding and Administration
-To be used for checking an extension's permission in said colony
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `colonyClient` | `AugmentedIColony`<`AnyIColony`\> | Any ColonyClient |
-| `domainId` | `BigNumberish` | Domain id the method needs to act in |
-| `address?` | `string` | Address of the extension |
-
-#### Returns
-
-`Promise`<[`BigNumberish`, `BigNumberish`]\>
-
-Tuple of `[permissionDomainId, childSkillIndex]`
-
-___
-
 ### getHistoricColonyRoles
 
 ▸ **getHistoricColonyRoles**(`client`, `fromBlock?`, `toBlock?`): `Promise`<[`ColonyRoles`](README.md#colonyroles)\>
@@ -461,7 +441,7 @@ only works when all events are emitted by the same contract!
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `client` | [`ContractClient`](README.md#contractclient) | Any of the intantiated contract clients |
-| `filters` | `EventFilter`[] | - |
+| `filters` | `EventFilter`[] | Array of ethers compatible Filter objects |
 | `options?` | `LogOptions` | Configuration options to filter logs |
 
 #### Returns

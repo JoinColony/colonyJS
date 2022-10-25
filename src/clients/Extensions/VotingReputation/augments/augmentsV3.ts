@@ -65,6 +65,7 @@ async function claimMisalignedRewardWithProofs(
     this.colonyClient,
     domainId,
     ColonyRole.Arbitration,
+    this.address,
   );
 
   return this.claimMisalignedReward(
@@ -90,6 +91,7 @@ async function estimateClaimMisalignedRewardWithProofs(
     this.colonyClient,
     domainId,
     ColonyRole.Arbitration,
+    this.address,
   );
 
   return this.estimateGas.claimMisalignedReward(

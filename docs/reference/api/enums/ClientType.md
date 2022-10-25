@@ -45,6 +45,18 @@ ___
 
 ___
 
+### StakedExpenditureClient
+
+• **StakedExpenditureClient** = ``"StakedExpenditureClient"``
+
+___
+
+### StreamingPaymentsClient
+
+• **StreamingPaymentsClient** = ``"StreamingPaymentsClient"``
+
+___
+
 ### TokenClient
 
 • **TokenClient** = ``"TokenClient"``
@@ -54,6 +66,12 @@ ___
 ### TokenLockingClient
 
 • **TokenLockingClient** = ``"TokenLockingClient"``
+
+___
+
+### TokenSupplierClient
+
+• **TokenSupplierClient** = ``"TokenSupplierClient"``
 
 ___
 
