@@ -97,6 +97,7 @@ export type ColonyRoles = UserRoles[];
 export enum ClientType {
   CoinMachineClient = 'CoinMachineClient',
   ColonyClient = 'ColonyClient',
+  EvaluatedExpenditureClient = 'EvaluatedExpenditureClient',
   MotionTargetClient = 'MotionTargetClient',
   NetworkClient = 'NetworkClient',
   OneTxPaymentClient = 'OneTxPaymentClient',

@@ -33,11 +33,20 @@ import {
   WhitelistVersion,
   WHITELIST_VERSION_LATEST,
 } from './Whitelist/exports';
+import {
+  getEvaluatedExpenditureClient,
+  evaluatedExpenditureIncompatibilityMap,
+  AnyEvaluatedExpenditureClient,
+  EvaluatedExpenditureVersion,
+  EVALUATED_EXPENDITURE_VERSION_LATEST,
+} from './EvaluatedExpenditure/exports';
+
 import getExtensionVersionClient from './ExtensionVersionClient';
 
 const { AddressZero } = constants;
 
 export * from './CoinMachine/exports';
+export * from './EvaluatedExpenditure/exports';
 export * from './OneTxPayment/exports';
 export * from './VotingReputation/exports';
 export * from './Whitelist/exports';
@@ -45,6 +54,7 @@ export * from './Whitelist/exports';
 /** Extension contract names */
 export enum Extension {
   CoinMachine = 'CoinMachine',
+  EvaluatedExpenditure = 'EvaluatedExpenditure',
   // The VotingReputation contract was refactored in flwss3 to also be an interface (akin to IColony)
   IVotingReputation = 'IVotingReputation',
   OneTxPayment = 'OneTxPayment',
@@ -54,6 +64,7 @@ export enum Extension {
 
 export const ExtensionVersions = {
   [Extension.CoinMachine]: COIN_MACHINE_VERSION_LATEST,
+  [Extension.EvaluatedExpenditure]: EVALUATED_EXPENDITURE_VERSION_LATEST,
   [Extension.IVotingReputation]: VOTING_REPUTATION_VERSION_LATEST,
   [Extension.OneTxPayment]: ONE_TX_PAYMENT_VERSION_LATEST,
   [Extension.VotingReputation]: VOTING_REPUTATION_VERSION_LATEST,
@@ -64,11 +75,13 @@ export type ExtensionClient =
   | AnyCoinMachineClient
   | AnyOneTxPaymentClient
   | AnyVotingReputationClient
+  | AnyEvaluatedExpenditureClient
   | AnyWhitelistClient;
 
 /** @internal */
 export type ExtensionVersion =
   | CoinMachineVersion
+  | EvaluatedExpenditureVersion
   | OneTxPaymentVersion
   | VotingReputationVersion
   | WhitelistVersion;
@@ -92,6 +105,13 @@ export const isExtensionCompatible = (
     case Extension.CoinMachine: {
       const map =
         coinMachineIncompatibilityMap[extensionVersion as CoinMachineVersion];
+      return !!map && !map.includes(colonyVersion);
+    }
+    case Extension.EvaluatedExpenditure: {
+      const map =
+        evaluatedExpenditureIncompatibilityMap[
+          extensionVersion as EvaluatedExpenditureVersion
+        ];
       return !!map && !map.includes(colonyVersion);
     }
     case Extension.IVotingReputation: {
@@ -129,6 +149,7 @@ export const isExtensionCompatible = (
 /** @internal */
 export type GetExtensionClientReturns = {
   [Extension.CoinMachine]: AnyCoinMachineClient;
+  [Extension.EvaluatedExpenditure]: AnyEvaluatedExpenditureClient;
   [Extension.IVotingReputation]: AnyVotingReputationClient;
   [Extension.OneTxPayment]: AnyOneTxPaymentClient;
   [Extension.VotingReputation]: AnyVotingReputationClient;
@@ -163,6 +184,21 @@ export async function getExtensionClient(
     case Extension.CoinMachine: {
       const version = versionBN.toNumber() as CoinMachineVersion;
       return getCoinMachineClient(this, address, version);
+    }
+    case Extension.EvaluatedExpenditure: {
+      const version = versionBN.toNumber() as EvaluatedExpenditureVersion;
+      if (
+        !isExtensionCompatible(
+          Extension.EvaluatedExpenditure,
+          version,
+          this.clientVersion,
+        )
+      ) {
+        throw new Error(
+          `Extension ${Extension.EvaluatedExpenditure} in version ${version} is not compatible with Colony version ${this.clientVersion}`,
+        );
+      }
+      return getEvaluatedExpenditureClient(this, address, version);
     }
     case Extension.IVotingReputation: {
       const version = versionBN.toNumber() as VotingReputationVersion;

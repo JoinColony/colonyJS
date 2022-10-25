@@ -10,6 +10,8 @@ export type { latest };
 export * as factories from "./factories";
 export type { CoinMachineEvents } from "./__dynamic__/CoinMachineEvents";
 export { CoinMachineEvents__factory } from "./factories/__dynamic__/CoinMachineEvents__factory";
+export type { EvaluatedExpenditureEvents } from "./__dynamic__/EvaluatedExpenditureEvents";
+export { EvaluatedExpenditureEvents__factory } from "./factories/__dynamic__/EvaluatedExpenditureEvents__factory";
 export type { IColonyEvents } from "./__dynamic__/IColonyEvents";
 export { IColonyEvents__factory } from "./factories/__dynamic__/IColonyEvents__factory";
 export type { IColonyNetworkEvents } from "./__dynamic__/IColonyNetworkEvents";
