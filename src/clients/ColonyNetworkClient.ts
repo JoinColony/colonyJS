@@ -129,7 +129,7 @@ const getColonyNetworkClient = (
   const networkAddress =
     options && options.networkAddress
       ? options.networkAddress
-      : ColonyNetworkAddress[network || Network.Xdai];
+      : ColonyNetworkAddress[network];
   if (!networkAddress) {
     throw new Error(
       `Could not get ColonyNetwork address for ${network}. Please specify using the 'networkAddress' option`,

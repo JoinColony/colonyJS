@@ -43,10 +43,17 @@ export enum ReputationMinerEndpoints {
  * Supported Ethereum networks. Use `Custom` if you'd like to bring your own deployment (e.g. local)
  */
 export enum Network {
+  /** Ethereum Mainnet */
   Mainnet = 'Mainnet',
-  Goerli = 'Goerli',
+  /** Use this to specify an own main ColonyNetwork address in the options */
   Custom = 'Custom',
+  /** Gnosis chain */
+  Gnosis = 'Xdai',
+  /** Goerli testnet */
+  Goerli = 'Goerli',
+  /** Gnosis chain (alias) */
   Xdai = 'Xdai',
+  /** Gnosis chain custom fork */
   XdaiQa = 'XdaiQa',
 }
 
