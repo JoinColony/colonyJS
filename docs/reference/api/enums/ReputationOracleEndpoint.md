@@ -10,12 +10,6 @@ HTTP endpoint of the official colony reputation oracle
 
 ___
 
-### Gnosis
-
-• **Gnosis** = ``"https://xdai.colony.io/reputation/xdai"``
-
-___
-
 ### Goerli
 
 • **Goerli** = ``"https://colony.io/reputation/goerli"``
