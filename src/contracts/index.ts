@@ -20,6 +20,12 @@ export type { IVotingReputationEvents } from "./__dynamic__/IVotingReputationEve
 export { IVotingReputationEvents__factory } from "./factories/__dynamic__/IVotingReputationEvents__factory";
 export type { OneTxPaymentEvents } from "./__dynamic__/OneTxPaymentEvents";
 export { OneTxPaymentEvents__factory } from "./factories/__dynamic__/OneTxPaymentEvents__factory";
+export type { StakedExpenditureEvents } from "./__dynamic__/StakedExpenditureEvents";
+export { StakedExpenditureEvents__factory } from "./factories/__dynamic__/StakedExpenditureEvents__factory";
+export type { StreamingPaymentsEvents } from "./__dynamic__/StreamingPaymentsEvents";
+export { StreamingPaymentsEvents__factory } from "./factories/__dynamic__/StreamingPaymentsEvents__factory";
+export type { TokenSupplierEvents } from "./__dynamic__/TokenSupplierEvents";
+export { TokenSupplierEvents__factory } from "./factories/__dynamic__/TokenSupplierEvents__factory";
 export type { VotingReputationEvents } from "./__dynamic__/VotingReputationEvents";
 export { VotingReputationEvents__factory } from "./factories/__dynamic__/VotingReputationEvents__factory";
 export type { WhitelistEvents } from "./__dynamic__/WhitelistEvents";

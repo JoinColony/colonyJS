@@ -10,9 +10,7 @@ import { formatColonyRoles } from './utils';
 import {
   getChildIndex as exGetChildIndex,
   getPotDomain as exGetPotDomain,
-  getPermissionProofs as exGetPermissionProofs,
-  getExtensionPermissionProofs as exGetExtensionPermissionProofs,
-  AugmentedIColony,
+  getPermissionProofs as origGetPermissionProofs,
 } from './clients/Core/augments/commonAugments';
 
 const { keccak256, toUtf8Bytes } = utils;
@@ -108,7 +106,7 @@ export const getEvents = async (
  * @remarks only works when all events are emitted by the same contract!
  *
  * @param client Any of the intantiated contract clients
- * @param filter Array of ethers compatible Filter objects
+ * @param filters Array of ethers compatible Filter objects
  * @param options Configuration options to filter logs
  *
  * @returns Parsed ethers LogDescription array (events)
@@ -274,29 +272,12 @@ export const getHistoricColonyRoles = async (
  * @param role Permissioning role that the methods needs to function
  * @param customAddress A custom address to get the permission proofs for (defaults to the signer's address)
  *
- * @returns Tuple of `[permissionDomainId, childSkillIndex]`
+ * @returns Tuple of `[permissionDomainId, childSkillIndex, permissionAddress]`
  */
 export const getPermissionProofs = async (
   client: AnyColonyClient,
   domainId: BigNumberish,
   role: ColonyRole,
   customAddress?: string,
-): Promise<[BigNumber, BigNumber]> =>
-  exGetPermissionProofs(client, domainId, role, customAddress);
-
-/**
- * Wrapper around `getPermissionProofs` to check two types of permissions: Funding and Administration
- * To be used for checking an extension's permission in said colony
- *
- * @param colonyClient Any ColonyClient
- * @param domainId Domain id the method needs to act in
- * @param address Address of the extension
- *
- * @returns Tuple of `[permissionDomainId, childSkillIndex]`
- */
-export const getExtensionPermissionProofs = async (
-  colonyClient: AugmentedIColony,
-  domainId: BigNumberish,
-  address?: string,
-): Promise<[BigNumberish, BigNumberish]> =>
-  exGetExtensionPermissionProofs(colonyClient, domainId, address);
+): Promise<[BigNumber, BigNumber, string]> =>
+  origGetPermissionProofs(client, domainId, role, customAddress);

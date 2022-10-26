@@ -47,7 +47,12 @@
 - [OneTxPaymentClientV1](interfaces/OneTxPaymentClientV1.md)
 - [OneTxPaymentClientV2](interfaces/OneTxPaymentClientV2.md)
 - [OneTxPaymentClientV3](interfaces/OneTxPaymentClientV3.md)
+- [StakedExpenditureClientV1](interfaces/StakedExpenditureClientV1.md)
+- [StreamingPaymentsClientV1](interfaces/StreamingPaymentsClientV1.md)
 - [TokenLockingClient](interfaces/TokenLockingClient.md)
+- [TokenSupplierClientV1](interfaces/TokenSupplierClientV1.md)
+- [TokenSupplierClientV2](interfaces/TokenSupplierClientV2.md)
+- [TokenSupplierClientV3](interfaces/TokenSupplierClientV3.md)
 - [VotingReputationClientV1](interfaces/VotingReputationClientV1.md)
 - [VotingReputationClientV2](interfaces/VotingReputationClientV2.md)
 - [VotingReputationClientV3](interfaces/VotingReputationClientV3.md)
@@ -81,6 +86,24 @@ ___
 ### AnyOneTxPaymentClient
 
 Ƭ **AnyOneTxPaymentClient**: [`OneTxPaymentClientV1`](interfaces/OneTxPaymentClientV1.md) \| [`OneTxPaymentClientV2`](interfaces/OneTxPaymentClientV2.md) \| [`OneTxPaymentClientV3`](interfaces/OneTxPaymentClientV3.md)
+
+___
+
+### AnyStakedExpenditureClient
+
+Ƭ **AnyStakedExpenditureClient**: [`StakedExpenditureClientV1`](interfaces/StakedExpenditureClientV1.md)
+
+___
+
+### AnyStreamingPaymentsClient
+
+Ƭ **AnyStreamingPaymentsClient**: [`StreamingPaymentsClientV1`](interfaces/StreamingPaymentsClientV1.md)
+
+___
+
+### AnyTokenSupplierClient
+
+Ƭ **AnyTokenSupplierClient**: [`TokenSupplierClientV1`](interfaces/TokenSupplierClientV1.md) \| [`TokenSupplierClientV2`](interfaces/TokenSupplierClientV2.md) \| [`TokenSupplierClientV3`](interfaces/TokenSupplierClientV3.md)
 
 ___
 
@@ -133,7 +156,7 @@ ___
 
 ### ExtensionClient
 
-Ƭ **ExtensionClient**: [`AnyCoinMachineClient`](README.md#anycoinmachineclient) \| [`AnyOneTxPaymentClient`](README.md#anyonetxpaymentclient) \| [`AnyVotingReputationClient`](README.md#anyvotingreputationclient) \| [`AnyEvaluatedExpenditureClient`](README.md#anyevaluatedexpenditureclient) \| [`AnyWhitelistClient`](README.md#anywhitelistclient)
+Ƭ **ExtensionClient**: [`AnyCoinMachineClient`](README.md#anycoinmachineclient) \| [`AnyEvaluatedExpenditureClient`](README.md#anyevaluatedexpenditureclient) \| [`AnyOneTxPaymentClient`](README.md#anyonetxpaymentclient) \| [`AnyStakedExpenditureClient`](README.md#anystakedexpenditureclient) \| [`AnyStreamingPaymentsClient`](README.md#anystreamingpaymentsclient) \| [`AnyTokenSupplierClient`](README.md#anytokensupplierclient) \| [`AnyVotingReputationClient`](README.md#anyvotingreputationclient) \| [`AnyWhitelistClient`](README.md#anywhitelistclient)
 
 ___
 
@@ -454,7 +477,7 @@ ___
 
 ### getPermissionProofs
 
-▸ **getPermissionProofs**(`client`, `domainId`, `role`, `customAddress?`): `Promise`<[`BigNumber`, `BigNumber`]\>
+▸ **getPermissionProofs**(`client`, `domainId`, `role`, `customAddress?`): `Promise`<[`BigNumber`, `BigNumber`, `string`]\>
 
 Get the permission proofs for a user address and a certain role
 
@@ -486,9 +509,9 @@ tl;dr:
 
 #### Returns
 
-`Promise`<[`BigNumber`, `BigNumber`]\>
+`Promise`<[`BigNumber`, `BigNumber`, `string`]\>
 
-Tuple of `[permissionDomainId, childSkillIndex]`
+Tuple of `[permissionDomainId, childSkillIndex, permissionAddress]`
 
 ___
 

@@ -7,5 +7,8 @@ export { IColonyEvents__factory } from "./IColonyEvents__factory";
 export { IColonyNetworkEvents__factory } from "./IColonyNetworkEvents__factory";
 export { IVotingReputationEvents__factory } from "./IVotingReputationEvents__factory";
 export { OneTxPaymentEvents__factory } from "./OneTxPaymentEvents__factory";
+export { StakedExpenditureEvents__factory } from "./StakedExpenditureEvents__factory";
+export { StreamingPaymentsEvents__factory } from "./StreamingPaymentsEvents__factory";
+export { TokenSupplierEvents__factory } from "./TokenSupplierEvents__factory";
 export { VotingReputationEvents__factory } from "./VotingReputationEvents__factory";
 export { WhitelistEvents__factory } from "./WhitelistEvents__factory";

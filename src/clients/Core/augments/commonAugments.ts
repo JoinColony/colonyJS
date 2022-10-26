@@ -416,7 +416,7 @@ export const getPermissionProofs = async (
   role: ColonyRole,
   customAddress?: string,
   /* [permissionDomainId, childSkillIndex] */
-): Promise<[BigNumber, BigNumber]> => {
+): Promise<[BigNumber, BigNumber, string]> => {
   const walletAddress = customAddress || (await contract.signer.getAddress());
   const hasPermissionInDomain = await contract.hasUserRole(
     walletAddress,
@@ -424,7 +424,7 @@ export const getPermissionProofs = async (
     role,
   );
   if (hasPermissionInDomain) {
-    return [BigNumber.from(domainId), MaxUint256];
+    return [BigNumber.from(domainId), MaxUint256, walletAddress];
   }
   // TODO: once we allow nested domains on the network level, this needs to traverse down the skill/domain tree. Use binary search
   const foundDomainId = BigNumber.from(Id.RootDomain);
@@ -435,16 +435,45 @@ export const getPermissionProofs = async (
   );
   if (!hasPermissionInAParentDomain) {
     throw new Error(
-      `User does not have the permission ${role} in any parent domain`,
+      `${walletAddress} does not have the permission ${role} in any parent domain`,
     );
   }
   const idx = await getChildIndex(contract, foundDomainId, domainId);
   if (idx.lt(0)) {
     throw new Error(
-      `User does not have the permission ${role} in any parent domain`,
+      `${walletAddress} does not have the permission ${role} in any parent domain`,
     );
   }
-  return [foundDomainId, idx];
+  return [foundDomainId, idx, walletAddress];
+};
+
+export const getMultiPermissionProofs = async (
+  contract: AugmentedIColony,
+  domainId: BigNumberish,
+  roles: ColonyRole[],
+  customAddress?: string,
+): Promise<[BigNumber, BigNumber, string]> => {
+  const proofs = await Promise.all(
+    roles.map((role) =>
+      getPermissionProofs(contract, domainId, role, customAddress),
+    ),
+  );
+
+  // We are checking that all of the permissions resolve to the same domain and childSkillIndex
+  for (let idx = 0; idx < proofs.length; idx += 1) {
+    const [permissionDomainId, childSkillIndex, address] = proofs[idx];
+    if (
+      !permissionDomainId.eq(proofs[0][0]) ||
+      !childSkillIndex.eq(proofs[0][1])
+    ) {
+      throw new Error(
+        `${address} has to have all required roles (${roles}) in the same domain`,
+      );
+    }
+  }
+
+  // It does not need to be an array because if we get here, all the proofs are the same
+  return proofs[0];
 };
 
 async function setArchitectureRoleWithProofs(
@@ -454,7 +483,7 @@ async function setArchitectureRoleWithProofs(
   _setTo: boolean,
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
-  let proofs: [BigNumberish, BigNumberish];
+  let proofs: [BigNumberish, BigNumberish, string];
   // This method has two potential permissions, so we try both of them
   try {
     proofs = await getPermissionProofs(
@@ -483,7 +512,7 @@ async function setFundingRoleWithProofs(
   _setTo: boolean,
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
-  let proofs: [BigNumberish, BigNumberish];
+  let proofs: [BigNumberish, BigNumberish, string];
   // This method has two potential permissions, so we try both of them
   try {
     proofs = await getPermissionProofs(
@@ -512,7 +541,7 @@ async function setAdministrationRoleWithProofs(
   _setTo: boolean,
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
-  let proofs: [BigNumberish, BigNumberish];
+  let proofs: [BigNumberish, BigNumberish, string];
   // This method has two potential permissions, so we try both of them
   try {
     proofs = await getPermissionProofs(
