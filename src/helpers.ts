@@ -11,6 +11,7 @@ import {
   getChildIndex as exGetChildIndex,
   getPotDomain as exGetPotDomain,
   getPermissionProofs as origGetPermissionProofs,
+  getMultiPermissionProofs as origGetMultiPermissionProofs,
 } from './clients/Core/augments/commonAugments';
 
 const { keccak256, toUtf8Bytes } = utils;
@@ -281,3 +282,23 @@ export const getPermissionProofs = async (
   customAddress?: string,
 ): Promise<[BigNumber, BigNumber, string]> =>
   origGetPermissionProofs(client, domainId, role, customAddress);
+
+/**
+ * Just like [[getPermissionProofs]] but can check for multiple roles at the same time.
+ *
+ * @remarks This also checks if all of the permissions are in the same domain. This is also the prerequisite for on-chain checks in the Colony Network.
+ *
+ * @param client Any ColonyClient
+ * @param domainId Domain id the method needs to act in
+ * @param roles Array of permissioning roles that the methods needs to function
+ * @param customAddress A custom address to get the permission proofs for (defaults to the signer's address)
+ *
+ * @returns Tuple of `[permissionDomainId, childSkillIndex, permissionAddress]`
+ */
+export const getMultiPermissionProofs = async (
+  client: AnyColonyClient,
+  domainId: BigNumberish,
+  roles: ColonyRole[],
+  customAddress?: string,
+): Promise<[BigNumber, BigNumber, string]> =>
+  origGetMultiPermissionProofs(client, domainId, roles, customAddress);
