@@ -449,6 +449,33 @@ ethers Log array
 
 ___
 
+### getMultiPermissionProofs
+
+▸ **getMultiPermissionProofs**(`client`, `domainId`, `roles`, `customAddress?`): `Promise`<[`BigNumber`, `BigNumber`, `string`]\>
+
+Just like [getPermissionProofs](README.md#getpermissionproofs) but can check for multiple roles at the same time.
+
+**`Remarks`**
+
+This also checks if all of the permissions are in the same domain. This is also the prerequisite for on-chain checks in the Colony Network.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `client` | [`AnyColonyClient`](README.md#anycolonyclient) | Any ColonyClient |
+| `domainId` | `BigNumberish` | Domain id the method needs to act in |
+| `roles` | [`ColonyRole`](enums/ColonyRole.md)[] | Array of permissioning roles that the methods needs to function |
+| `customAddress?` | `string` | A custom address to get the permission proofs for (defaults to the signer's address) |
+
+#### Returns
+
+`Promise`<[`BigNumber`, `BigNumber`, `string`]\>
+
+Tuple of `[permissionDomainId, childSkillIndex, permissionAddress]`
+
+___
+
 ### getMultipleEvents
 
 ▸ **getMultipleEvents**(`client`, `filters`, `options?`): `Promise`<`LogDescription`[]\>

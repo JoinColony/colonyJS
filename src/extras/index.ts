@@ -3,7 +3,7 @@ import { providers, constants } from 'ethers';
 import { TokenERC20__factory, TokenERC721__factory } from '../contracts';
 
 // Export useful types (for Colony SDK, always the latest version)
-export type { ColonyDataTypes } from '../contracts/IColony/9/IColony';
+export type { ColonyDataTypes } from '../contracts/IColony/10/IColony';
 export type { VotingReputationDataTypes } from '../contracts/IVotingReputation/7/IVotingReputation';
 
 const { AddressZero } = constants;
