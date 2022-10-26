@@ -71,7 +71,7 @@ async function setArbitrationRoleWithProofs(
   _setTo: boolean,
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
-  let proofs: [BigNumberish, BigNumberish];
+  let proofs: [BigNumberish, BigNumberish, string];
   // This method has two potential permissions, so we try both of them
   try {
     proofs = await getPermissionProofs(

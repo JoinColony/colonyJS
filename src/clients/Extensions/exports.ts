@@ -40,6 +40,27 @@ import {
   EvaluatedExpenditureVersion,
   EVALUATED_EXPENDITURE_VERSION_LATEST,
 } from './EvaluatedExpenditure/exports';
+import {
+  getStakedExpenditureClient,
+  stakedExpenditureIncompatibilityMap,
+  AnyStakedExpenditureClient,
+  StakedExpenditureVersion,
+  STAKED_EXPENDITURE_VERSION_LATEST,
+} from './StakedExpenditure/exports';
+import {
+  getStreamingPaymentsClient,
+  streamingPaymentsIncompatibilityMap,
+  AnyStreamingPaymentsClient,
+  StreamingPaymentsVersion,
+  STREAMING_PAYMENTS_VERSION_LATEST,
+} from './StreamingPayments/exports';
+import {
+  getTokenSupplierClient,
+  tokenSupplierIncompatibilityMap,
+  AnyTokenSupplierClient,
+  TokenSupplierVersion,
+  TOKEN_SUPPLIER_VERSION_LATEST,
+} from './TokenSupplier/exports';
 
 import getExtensionVersionClient from './ExtensionVersionClient';
 
@@ -48,6 +69,9 @@ const { AddressZero } = constants;
 export * from './CoinMachine/exports';
 export * from './EvaluatedExpenditure/exports';
 export * from './OneTxPayment/exports';
+export * from './StakedExpenditure/exports';
+export * from './StreamingPayments/exports';
+export * from './TokenSupplier/exports';
 export * from './VotingReputation/exports';
 export * from './Whitelist/exports';
 
@@ -58,6 +82,9 @@ export enum Extension {
   // The VotingReputation contract was refactored in flwss3 to also be an interface (akin to IColony)
   IVotingReputation = 'IVotingReputation',
   OneTxPayment = 'OneTxPayment',
+  StakedExpenditure = 'StakedExpenditure',
+  StreamingPayments = 'StreamingPayments',
+  TokenSupplier = 'TokenSupplier',
   VotingReputation = 'VotingReputation',
   Whitelist = 'Whitelist',
 }
@@ -67,15 +94,21 @@ export const ExtensionVersions = {
   [Extension.EvaluatedExpenditure]: EVALUATED_EXPENDITURE_VERSION_LATEST,
   [Extension.IVotingReputation]: VOTING_REPUTATION_VERSION_LATEST,
   [Extension.OneTxPayment]: ONE_TX_PAYMENT_VERSION_LATEST,
+  [Extension.StakedExpenditure]: STAKED_EXPENDITURE_VERSION_LATEST,
+  [Extension.StreamingPayments]: STREAMING_PAYMENTS_VERSION_LATEST,
+  [Extension.TokenSupplier]: TOKEN_SUPPLIER_VERSION_LATEST,
   [Extension.VotingReputation]: VOTING_REPUTATION_VERSION_LATEST,
   [Extension.Whitelist]: WHITELIST_VERSION_LATEST,
 };
 
 export type ExtensionClient =
   | AnyCoinMachineClient
-  | AnyOneTxPaymentClient
-  | AnyVotingReputationClient
   | AnyEvaluatedExpenditureClient
+  | AnyOneTxPaymentClient
+  | AnyStakedExpenditureClient
+  | AnyStreamingPaymentsClient
+  | AnyTokenSupplierClient
+  | AnyVotingReputationClient
   | AnyWhitelistClient;
 
 /** @internal */
@@ -83,6 +116,9 @@ export type ExtensionVersion =
   | CoinMachineVersion
   | EvaluatedExpenditureVersion
   | OneTxPaymentVersion
+  | StakedExpenditureVersion
+  | StreamingPaymentsVersion
+  | TokenSupplierVersion
   | VotingReputationVersion
   | WhitelistVersion;
 
@@ -126,6 +162,27 @@ export const isExtensionCompatible = (
         oneTxPaymentIncompatibilityMap[extensionVersion as OneTxPaymentVersion];
       return !!map && !map.includes(colonyVersion);
     }
+    case Extension.StakedExpenditure: {
+      const map =
+        stakedExpenditureIncompatibilityMap[
+          extensionVersion as StakedExpenditureVersion
+        ];
+      return !!map && !map.includes(colonyVersion);
+    }
+    case Extension.StreamingPayments: {
+      const map =
+        streamingPaymentsIncompatibilityMap[
+          extensionVersion as StreamingPaymentsVersion
+        ];
+      return !!map && !map.includes(colonyVersion);
+    }
+    case Extension.TokenSupplier: {
+      const map =
+        tokenSupplierIncompatibilityMap[
+          extensionVersion as StreamingPaymentsVersion
+        ];
+      return !!map && !map.includes(colonyVersion);
+    }
     case Extension.VotingReputation: {
       const map =
         votingReputationIncompatibilityMap[
@@ -152,6 +209,9 @@ export type GetExtensionClientReturns = {
   [Extension.EvaluatedExpenditure]: AnyEvaluatedExpenditureClient;
   [Extension.IVotingReputation]: AnyVotingReputationClient;
   [Extension.OneTxPayment]: AnyOneTxPaymentClient;
+  [Extension.StakedExpenditure]: AnyStakedExpenditureClient;
+  [Extension.StreamingPayments]: AnyStreamingPaymentsClient;
+  [Extension.TokenSupplier]: AnyTokenSupplierClient;
   [Extension.VotingReputation]: AnyVotingReputationClient;
   [Extension.Whitelist]: AnyWhitelistClient;
 };
@@ -180,41 +240,75 @@ export async function getExtensionClient(
     this.signer || this.provider,
   );
   const versionBN = await extensionVersionClient.version();
+  const version = versionBN.toNumber();
+
+  if (
+    !isExtensionCompatible(
+      extension,
+      version as ExtensionVersion,
+      this.clientVersion,
+    )
+  ) {
+    throw new Error(
+      `Extension ${extension} in version ${version} is not compatible with Colony version ${this.clientVersion}`,
+    );
+  }
+
   switch (extension) {
     case Extension.CoinMachine: {
-      const version = versionBN.toNumber() as CoinMachineVersion;
-      return getCoinMachineClient(this, address, version);
+      return getCoinMachineClient(this, address, version as CoinMachineVersion);
     }
     case Extension.EvaluatedExpenditure: {
-      const version = versionBN.toNumber() as EvaluatedExpenditureVersion;
-      if (
-        !isExtensionCompatible(
-          Extension.EvaluatedExpenditure,
-          version,
-          this.clientVersion,
-        )
-      ) {
-        throw new Error(
-          `Extension ${Extension.EvaluatedExpenditure} in version ${version} is not compatible with Colony version ${this.clientVersion}`,
-        );
-      }
-      return getEvaluatedExpenditureClient(this, address, version);
+      return getEvaluatedExpenditureClient(
+        this,
+        address,
+        version as EvaluatedExpenditureVersion,
+      );
     }
     case Extension.IVotingReputation: {
-      const version = versionBN.toNumber() as VotingReputationVersion;
-      return getVotingReputationClient(this, address, version);
+      return getVotingReputationClient(
+        this,
+        address,
+        version as VotingReputationVersion,
+      );
     }
     case Extension.OneTxPayment: {
-      const version = versionBN.toNumber() as OneTxPaymentVersion;
-      return getOneTxPaymentClient(this, address, version);
+      return getOneTxPaymentClient(
+        this,
+        address,
+        version as OneTxPaymentVersion,
+      );
+    }
+    case Extension.StakedExpenditure: {
+      return getStakedExpenditureClient(
+        this,
+        address,
+        version as StakedExpenditureVersion,
+      );
+    }
+    case Extension.StreamingPayments: {
+      return getStreamingPaymentsClient(
+        this,
+        address,
+        version as StreamingPaymentsVersion,
+      );
+    }
+    case Extension.TokenSupplier: {
+      return getTokenSupplierClient(
+        this,
+        address,
+        version as TokenSupplierVersion,
+      );
     }
     case Extension.VotingReputation: {
-      const version = versionBN.toNumber() as VotingReputationVersion;
-      return getVotingReputationClient(this, address, version);
+      return getVotingReputationClient(
+        this,
+        address,
+        version as VotingReputationVersion,
+      );
     }
     case Extension.Whitelist: {
-      const version = versionBN.toNumber() as WhitelistVersion;
-      return getWhitelistClient(this, address, version);
+      return getWhitelistClient(this, address, version as WhitelistVersion);
     }
     default:
       return assertExhaustiveSwitch(

@@ -7,5 +7,8 @@ export type { IColonyEvents } from "./IColonyEvents";
 export type { IColonyNetworkEvents } from "./IColonyNetworkEvents";
 export type { IVotingReputationEvents } from "./IVotingReputationEvents";
 export type { OneTxPaymentEvents } from "./OneTxPaymentEvents";
+export type { StakedExpenditureEvents } from "./StakedExpenditureEvents";
+export type { StreamingPaymentsEvents } from "./StreamingPaymentsEvents";
+export type { TokenSupplierEvents } from "./TokenSupplierEvents";
 export type { VotingReputationEvents } from "./VotingReputationEvents";
 export type { WhitelistEvents } from "./WhitelistEvents";
