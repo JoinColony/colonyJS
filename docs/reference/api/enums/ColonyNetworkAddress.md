@@ -12,14 +12,6 @@ Placeholder for a locally deployed EtherRouter address
 
 ___
 
-### Gnosis
-
-• **Gnosis** = ``"0x78163f593D1Fa151B4B7cacD146586aD2b686294"``
-
-The ColonyNetwork EtherRouter address on Gnosis chain
-
-___
-
 ### Goerli
 
 • **Goerli** = ``"0x79073fc2117dD054FCEdaCad1E7018C9CbE3ec0B"``
@@ -40,7 +32,7 @@ ___
 
 • **Xdai** = ``"0x78163f593D1Fa151B4B7cacD146586aD2b686294"``
 
-The ColonyNetwork EtherRouter address on Gnosis chain (alias)
+The ColonyNetwork EtherRouter address on Gnosis chain
 
 ___
 
