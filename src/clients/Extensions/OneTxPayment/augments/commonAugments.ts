@@ -2,7 +2,7 @@ import { ContractTransaction, BigNumberish, BigNumber } from 'ethers';
 
 import {
   AugmentedIColony,
-  getPermissionProofs,
+  getMultiPermissionProofs,
 } from '../../../Core/augments/commonAugments';
 
 import { OneTxPaymentVersion } from '../exports';
@@ -12,36 +12,6 @@ import {
   OneTxPaymentEvents,
   OneTxPaymentEvents__factory as OneTxPaymentEventsFactory,
 } from '../../../../contracts';
-
-const getOneTxPermissionProofs = async (
-  colonyClient: AugmentedIColony,
-  domainId: BigNumberish,
-  address?: string,
-): Promise<[BigNumberish, BigNumberish]> => {
-  const [fundingPDID, fundingCSI] = await getPermissionProofs(
-    colonyClient,
-    domainId,
-    ColonyRole.Funding,
-    address,
-  );
-  const [adminPDID, adminCSI] = await getPermissionProofs(
-    colonyClient,
-    domainId,
-    ColonyRole.Administration,
-    address,
-  );
-
-  if (!fundingPDID.eq(adminPDID) || !fundingCSI.eq(adminCSI)) {
-    // @TODO: this can surely be improved
-    throw new Error(
-      `${
-        address || 'User'
-      } has to have the funding and administration role in the same domain`,
-    );
-  }
-
-  return [adminPDID, adminCSI];
-};
 
 export type AugmentedEstimate<T extends AnyOneTxPayment = AnyOneTxPayment> =
   T['estimateGas'] & {
@@ -144,14 +114,17 @@ async function makePaymentWithProofs(
   _skillId: BigNumberish,
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
-  const [extensionPDID, extensionCSI] = await getOneTxPermissionProofs(
+  const [extensionPDID, extensionCSI] = await getMultiPermissionProofs(
     this.colonyClient,
     _domainId,
+    [ColonyRole.Funding, ColonyRole.Administration],
     this.address,
   );
-  const [userPDID, userCSI] = await getOneTxPermissionProofs(
+
+  const [userPDID, userCSI] = await getMultiPermissionProofs(
     this.colonyClient,
     _domainId,
+    [ColonyRole.Funding, ColonyRole.Administration],
   );
 
   return this.makePayment(
@@ -177,14 +150,16 @@ async function makePaymentFundedFromDomainWithProofs(
   _skillId: BigNumberish,
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
-  const [extensionPDID, extensionCSI] = await getOneTxPermissionProofs(
+  const [extensionPDID, extensionCSI] = await getMultiPermissionProofs(
     this.colonyClient,
     _domainId,
+    [ColonyRole.Funding, ColonyRole.Administration],
     this.address,
   );
-  const [userPDID, userCSI] = await getOneTxPermissionProofs(
+  const [userPDID, userCSI] = await getMultiPermissionProofs(
     this.colonyClient,
     _domainId,
+    [ColonyRole.Funding, ColonyRole.Administration],
   );
 
   return this.makePaymentFundedFromDomain(
@@ -210,14 +185,16 @@ async function estimateMakePaymentWithProofs(
   _skillId: BigNumberish,
   overrides: TxOverrides = {},
 ): Promise<BigNumber> {
-  const [extensionPDID, extensionCSI] = await getOneTxPermissionProofs(
+  const [extensionPDID, extensionCSI] = await getMultiPermissionProofs(
     this.colonyClient,
     _domainId,
+    [ColonyRole.Funding, ColonyRole.Administration],
     this.address,
   );
-  const [userPDID, userCSI] = await getOneTxPermissionProofs(
+  const [userPDID, userCSI] = await getMultiPermissionProofs(
     this.colonyClient,
     _domainId,
+    [ColonyRole.Funding, ColonyRole.Administration],
   );
 
   return this.estimateGas.makePayment(
@@ -243,14 +220,16 @@ async function estimateMakePaymentFundedFromDomainWithProofs(
   _skillId: BigNumberish,
   overrides: TxOverrides = {},
 ): Promise<BigNumber> {
-  const [extensionPDID, extensionCSI] = await getOneTxPermissionProofs(
+  const [extensionPDID, extensionCSI] = await getMultiPermissionProofs(
     this.colonyClient,
     _domainId,
+    [ColonyRole.Funding, ColonyRole.Administration],
     this.address,
   );
-  const [userPDID, userCSI] = await getOneTxPermissionProofs(
+  const [userPDID, userCSI] = await getMultiPermissionProofs(
     this.colonyClient,
     _domainId,
+    [ColonyRole.Funding, ColonyRole.Administration],
   );
 
   return this.estimateGas.makePaymentFundedFromDomain(

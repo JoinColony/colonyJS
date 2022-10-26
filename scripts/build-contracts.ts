@@ -49,6 +49,20 @@ const RELEASE_MAP = {
     flwss: 3,
     latest: 4,
   },
+  [Extension.StakedExpenditure]: {
+    glwss: 1,
+    latest: 2,
+  },
+  [Extension.StreamingPayments]: {
+    glwss: 1,
+    latest: 2,
+  },
+  [Extension.TokenSupplier]: {
+    lwss: 1,
+    dlwss: 2,
+    flwss: 3,
+    latest: 4,
+  },
   [Extension.VotingReputation]: {
     clwss: 1,
     dlwss: 2,
@@ -70,6 +84,9 @@ const VERSIONED_CONTRACTS = [
   Extension.EvaluatedExpenditure,
   Extension.IVotingReputation,
   Extension.OneTxPayment,
+  Extension.StakedExpenditure,
+  Extension.StreamingPayments,
+  Extension.TokenSupplier,
   Extension.VotingReputation,
   Extension.Whitelist,
 ];
