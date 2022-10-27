@@ -38,7 +38,7 @@ ___
 
 ### SupportedVersions
 
-▪ `Static` **SupportedVersions**: (``8`` \| ``9``)[]
+▪ `Static` **SupportedVersions**: ``10``[]
 
 The currently supported Colony version. If a Colony is not on this version it has to be upgraded.
 If this is not an option, Colony SDK might throw errors at certain points. Usage of ColonyJS is advised in these cases
@@ -215,7 +215,7 @@ Will throw if teamId does not exist
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `teamId` | `BigNumberish` | The teamId to get the team information for FIXME: get the type somehow |
+| `teamId` | `BigNumberish` | The teamId to get the team information for |
 
 #### Returns
 

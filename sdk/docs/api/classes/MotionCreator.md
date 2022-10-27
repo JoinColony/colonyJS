@@ -16,7 +16,7 @@ You can find an instance of this under `colony.ext.motions.create`
 | Name | Type |
 | :------ | :------ |
 | `colony` | [`Colony`](Colony.md) |
-| `votingReputationClient` | `VotingReputationClientV4` |
+| `votingReputationClient` | `VotingReputationClientV7` |
 
 ## Methods
 

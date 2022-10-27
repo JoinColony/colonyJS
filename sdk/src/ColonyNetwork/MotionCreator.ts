@@ -5,7 +5,7 @@ import {
   Extension,
   ColonyRole,
   getPermissionProofs,
-  getExtensionPermissionProofs,
+  getMultiPermissionProofs,
   getChildIndex,
 } from '@colony/colony-js';
 
@@ -166,14 +166,16 @@ export class MotionCreator {
       Extension.OneTxPayment,
     );
 
-    const [extensionPDID, extensionCSI] = await getExtensionPermissionProofs(
+    const [extensionPDID, extensionCSI] = await getMultiPermissionProofs(
       colonyClient,
       setTeamId,
+      [ColonyRole.Funding, ColonyRole.Administration],
       oneTxClient.address,
     );
-    const [userPDID, userCSI] = await getExtensionPermissionProofs(
+    const [userPDID, userCSI] = await getMultiPermissionProofs(
       colonyClient,
       setTeamId,
+      [ColonyRole.Funding, ColonyRole.Administration],
     );
 
     const encodedAction = oneTxClient.interface.encodeFunctionData(

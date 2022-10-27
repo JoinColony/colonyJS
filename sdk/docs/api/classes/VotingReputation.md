@@ -94,7 +94,7 @@ You can - at any point in the lifecycle inspect the current state of a Motion. U
 | Name | Type |
 | :------ | :------ |
 | `colony` | [`Colony`](Colony.md) |
-| `votingReputationClient` | `VotingReputationClientV4` |
+| `votingReputationClient` | `VotingReputationClientV7` |
 
 ## Properties
 

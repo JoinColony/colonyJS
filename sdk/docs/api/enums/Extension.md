@@ -10,9 +10,39 @@ Extension contract names
 
 ___
 
+### EvaluatedExpenditure
+
+• **EvaluatedExpenditure** = ``"EvaluatedExpenditure"``
+
+___
+
+### IVotingReputation
+
+• **IVotingReputation** = ``"IVotingReputation"``
+
+___
+
 ### OneTxPayment
 
 • **OneTxPayment** = ``"OneTxPayment"``
+
+___
+
+### StakedExpenditure
+
+• **StakedExpenditure** = ``"StakedExpenditure"``
+
+___
+
+### StreamingPayments
+
+• **StreamingPayments** = ``"StreamingPayments"``
+
+___
+
+### TokenSupplier
+
+• **TokenSupplier** = ``"TokenSupplier"``
 
 ___
 

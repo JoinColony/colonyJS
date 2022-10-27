@@ -70,10 +70,7 @@ export class ColonyNetwork {
   async getColony(address: string): Promise<Colony> {
     const colonyClient = await this.networkClient.getColonyClient(address);
 
-    if (
-      colonyClient.clientVersion !== Colony.SupportedVersions[0] &&
-      colonyClient.clientVersion !== Colony.SupportedVersions[1]
-    ) {
+    if (colonyClient.clientVersion !== Colony.SupportedVersions[0]) {
       throw new Error(
         `The version of this Colony ${colonyClient.clientVersion} is not supported by Colony SDK. Please update your Colony`,
       );

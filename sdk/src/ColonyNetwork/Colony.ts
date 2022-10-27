@@ -1,12 +1,12 @@
 import {
-  ColonyClientV8,
-  ColonyClientV9,
+  ColonyClientV10,
   SignerOrProvider,
   Id,
   Extension,
 } from '@colony/colony-js';
 
 import {
+  ColonyDataTypes,
   ColonyFundsClaimed_address_uint256_uint256_EventObject,
   // eslint-disable-next-line max-len
   ColonyFundsMovedBetweenFundingPots_address_uint256_uint256_uint256_address_EventObject,
@@ -28,7 +28,7 @@ import { ColonyToken } from './ColonyToken';
 import { ColonyNetwork } from './ColonyNetwork';
 import { VotingReputation } from './VotingReputation';
 
-export type SupportedColonyClient = ColonyClientV8 | ColonyClientV9;
+export type SupportedColonyClient = ColonyClientV10;
 export type SupportedColonyMethods = SupportedColonyClient['functions'];
 export interface SupportedExtensions {
   motions?: VotingReputation;
@@ -38,7 +38,7 @@ export class Colony {
   /** The currently supported Colony version. If a Colony is not on this version it has to be upgraded.
    * If this is not an option, Colony SDK might throw errors at certain points. Usage of ColonyJS is advised in these cases
    */
-  static SupportedVersions: (8 | 9)[] = [8, 9];
+  static SupportedVersions: 10[] = [10];
 
   private colonyClient: SupportedColonyClient;
 
@@ -219,10 +219,12 @@ export class Colony {
    * @remarks Will throw if teamId does not exist
    *
    * @param teamId The teamId to get the team information for
-   * FIXME: get the type somehow
+   *
    * @returns A Team object
    */
-  async getTeam(teamId: BigNumberish) {
+  async getTeam(
+    teamId: BigNumberish,
+  ): Promise<ColonyDataTypes.DomainStructOutput> {
     const teamCount = await this.colonyClient.getDomainCount();
     if (teamCount.lt(teamId)) {
       throw new Error(`Team with id ${teamId} does not exist`);

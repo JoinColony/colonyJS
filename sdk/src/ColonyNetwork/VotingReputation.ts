@@ -2,11 +2,11 @@ import {
   Extension,
   Id,
   MotionState,
-  Motion,
-  VotingReputationClientV4,
+  VotingReputationClientV7,
 } from '@colony/colony-js';
 
 import {
+  VotingReputationDataTypes,
   MotionEventSetEventObject,
   MotionFinalizedEventObject,
   MotionStakedEventObject,
@@ -25,8 +25,8 @@ export enum Vote {
   Yay,
 }
 
-export type SupportedVotingReputationClient = VotingReputationClientV4;
-export const SUPPORTED_VOTING_REPUTATION_VERSION = 4;
+export type SupportedVotingReputationClient = VotingReputationClientV7;
+export const SUPPORTED_VOTING_REPUTATION_VERSION = 7;
 
 type ReputationData = Awaited<
   ReturnType<SupportedColonyClient['getReputation']>
@@ -285,7 +285,10 @@ export class VotingReputation {
    *
    * @returns The minimum stake amount
    */
-  async getMinStake(motion: Motion, vote: Vote) {
+  async getMinStake(
+    motion: VotingReputationDataTypes.MotionStructOutput,
+    vote: Vote,
+  ) {
     // skillRep is the amount of reputation in the domain the motion was created in
     // at the time the motion was created
     const {
