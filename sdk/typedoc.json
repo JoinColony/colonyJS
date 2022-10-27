@@ -1,5 +1,5 @@
 {
-  "name": "Colony SDK",
+  "name": "API",
   "entryPoints": ["./src/index.ts"],
   "tsconfig": "./tsconfig.json",
   "out": "docs/api",

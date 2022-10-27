@@ -1,4 +1,4 @@
-# Colony SDK
+# API
 
 ## Namespaces
 
