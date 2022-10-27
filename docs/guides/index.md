@@ -1,6 +1,6 @@
 ---
 id: "index"
-sidebar_position: 0
+sidebar_position: 2
 ---
 
 import DocCardList from '@theme/DocCardList';
