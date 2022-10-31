@@ -97,6 +97,7 @@ const UPGRADABLE_CONTRACTS = ['IColonyNetwork'];
 const UNVERSIONED_CONTRACTS = [
   // Auxiliary contracts
   'ColonyExtension',
+  'IBasicMetaTransaction',
   'MotionTarget',
   'TokenLocking',
   // Tokens contracts
