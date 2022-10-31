@@ -4,6 +4,7 @@ export { formatColonyRoles } from './utils';
 
 export * from './constants';
 export * from './helpers';
+export * from './types';
 
 // Entry points and types for Core and Extensions
 export * from './clients/Core/exports';
@@ -23,4 +24,4 @@ export type {
   DaiTokenClient,
 } from './clients/TokenClient';
 
-export * from './types';
+export { IBasicMetaTransaction } from './contracts';

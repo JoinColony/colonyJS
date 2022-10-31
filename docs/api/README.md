@@ -43,6 +43,7 @@
 - [Erc20TokenClient](interfaces/Erc20TokenClient.md)
 - [EvaluatedExpenditureClientV1](interfaces/EvaluatedExpenditureClientV1.md)
 - [EvaluatedExpenditureClientV2](interfaces/EvaluatedExpenditureClientV2.md)
+- [IBasicMetaTransaction](interfaces/IBasicMetaTransaction.md)
 - [NetworkClientOptions](interfaces/NetworkClientOptions.md)
 - [OneTxPaymentClientV1](interfaces/OneTxPaymentClientV1.md)
 - [OneTxPaymentClientV2](interfaces/OneTxPaymentClientV2.md)
