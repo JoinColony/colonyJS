@@ -40,6 +40,8 @@ export type { TokenSAI } from "./__fixed__/TokenSAI";
 export { TokenSAI__factory } from "./factories/__fixed__/TokenSAI__factory";
 export type { ColonyExtension } from "./latest/ColonyExtension";
 export { ColonyExtension__factory } from "./factories/latest/ColonyExtension__factory";
+export type { IBasicMetaTransaction } from "./latest/IBasicMetaTransaction";
+export { IBasicMetaTransaction__factory } from "./factories/latest/IBasicMetaTransaction__factory";
 export type { IColonyNetwork } from "./latest/IColonyNetwork";
 export { IColonyNetwork__factory } from "./factories/latest/IColonyNetwork__factory";
 export type { MetaTxToken } from "./latest/MetaTxToken";
