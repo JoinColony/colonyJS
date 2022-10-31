@@ -11,7 +11,7 @@ import {
   getChildIndex as exGetChildIndex,
   getPotDomain as exGetPotDomain,
   getPermissionProofs as origGetPermissionProofs,
-  getMultiPermissionProofs as origGetMultiPermissionProofs,
+  getMultiPermissionProofs,
 } from './clients/Core/augments/commonAugments';
 
 const { keccak256, toUtf8Bytes } = utils;
@@ -270,7 +270,7 @@ export const getHistoricColonyRoles = async (
  *
  * @param client Any ColonyClient
  * @param domainId Domain id the method needs to act in
- * @param role Permissioning role that the methods needs to function
+ * @param roles Permissioning role(s) that the methods needs to function
  * @param customAddress A custom address to get the permission proofs for (defaults to the signer's address)
  *
  * @returns Tuple of `[permissionDomainId, childSkillIndex, permissionAddress]`
@@ -278,27 +278,14 @@ export const getHistoricColonyRoles = async (
 export const getPermissionProofs = async (
   client: AnyColonyClient,
   domainId: BigNumberish,
-  role: ColonyRole,
+  roles: ColonyRole | ColonyRole[],
   customAddress?: string,
-): Promise<[BigNumber, BigNumber, string]> =>
-  origGetPermissionProofs(client, domainId, role, customAddress);
-
-/**
- * Just like [[getPermissionProofs]] but can check for multiple roles at the same time.
- *
- * @remarks This also checks if all of the permissions are in the same domain. This is also the prerequisite for on-chain checks in the Colony Network.
- *
- * @param client Any ColonyClient
- * @param domainId Domain id the method needs to act in
- * @param roles Array of permissioning roles that the methods needs to function
- * @param customAddress A custom address to get the permission proofs for (defaults to the signer's address)
- *
- * @returns Tuple of `[permissionDomainId, childSkillIndex, permissionAddress]`
- */
-export const getMultiPermissionProofs = async (
-  client: AnyColonyClient,
-  domainId: BigNumberish,
-  roles: ColonyRole[],
-  customAddress?: string,
-): Promise<[BigNumber, BigNumber, string]> =>
-  origGetMultiPermissionProofs(client, domainId, roles, customAddress);
+): Promise<[BigNumber, BigNumber, string]> => {
+  if (Array.isArray(roles)) {
+    if (roles.length === 1) {
+      return getPermissionProofs(client, domainId, roles[0], customAddress);
+    }
+    return getMultiPermissionProofs(client, domainId, roles, customAddress);
+  }
+  return origGetPermissionProofs(client, domainId, roles, customAddress);
+};
