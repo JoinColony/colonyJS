@@ -12,6 +12,12 @@ require certain adjustments (like the original Dai (SAI))
 
 ___
 
+### ColonyLegacy
+
+• **ColonyLegacy** = ``"ColonyLegacy"``
+
+___
+
 ### Erc20
 
 • **Erc20** = ``"Erc20"``

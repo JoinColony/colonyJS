@@ -1,4 +1,5 @@
 export { default as getColonyNetworkClient } from './clients/ColonyNetworkClient';
+export { default as getTokenClient } from './clients/TokenClient';
 
 export { formatColonyRoles } from './utils';
 
