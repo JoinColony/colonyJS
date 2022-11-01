@@ -169,7 +169,7 @@ ___
 
 ### TokenClient
 
-Ƭ **TokenClient**: [`ColonyTokenClient`](interfaces/ColonyTokenClient.md) \| [`Erc20TokenClient`](interfaces/Erc20TokenClient.md) \| [`DaiTokenClient`](interfaces/DaiTokenClient.md)
+Ƭ **TokenClient**: [`ColonyTokenClient`](interfaces/ColonyTokenClient.md) \| `LegacyColonyTokenClient` \| [`Erc20TokenClient`](interfaces/Erc20TokenClient.md) \| [`DaiTokenClient`](interfaces/DaiTokenClient.md)
 
 ___
 
@@ -539,6 +539,23 @@ See [[`FundingPotAssociatedType`]] for details
 `Promise`<`BigNumberish`\>
 
 The associated domainId
+
+___
+
+### getTokenClient
+
+▸ **getTokenClient**(`address`, `signerOrProvider`): `Promise`<[`TokenClient`](README.md#tokenclient)\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `address` | `string` |
+| `signerOrProvider` | [`SignerOrProvider`](README.md#signerorprovider) |
+
+#### Returns
+
+`Promise`<[`TokenClient`](README.md#tokenclient)\>
 
 ___
 

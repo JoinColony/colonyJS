@@ -101,9 +101,13 @@ const UNVERSIONED_CONTRACTS = [
   'MotionTarget',
   'TokenLocking',
   // Tokens contracts
+  // New Colony token with MetaTx support
   'MetaTxToken',
+  // Legacy Colony token
+  'Token',
   'TokenERC20',
   'TokenERC721',
+  // Special ABI for SAI (not strictly ERC20?)
   'TokenSAI',
 ];
 

@@ -46,5 +46,7 @@ export type { IColonyNetwork } from "./latest/IColonyNetwork";
 export { IColonyNetwork__factory } from "./factories/latest/IColonyNetwork__factory";
 export type { MetaTxToken } from "./latest/MetaTxToken";
 export { MetaTxToken__factory } from "./factories/latest/MetaTxToken__factory";
+export type { Token } from "./latest/Token";
+export { Token__factory } from "./factories/latest/Token__factory";
 export type { TokenLocking } from "./latest/TokenLocking";
 export { TokenLocking__factory } from "./factories/latest/TokenLocking__factory";
