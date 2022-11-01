@@ -59,11 +59,11 @@ export interface ColonyTokenClient extends MetaTxToken {
    * @remarks
    * Only works with tokens that allow for an authority to be set (e.g. tokens deployed with Colony)
    *
-   * @param tokenAddress The token to install the token authority for
+   * @param colonyAddress The address of the Colony to install the token authority for
    * @param allowedToTransfer Addresses that are allowed to transfer the token, even if it's locked
    */
   deployTokenAuthority(
-    tokenAddress: string,
+    colonyAddress: string,
     allowedToTransfer: string[],
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
@@ -79,11 +79,11 @@ export interface ColonyTokenClient extends MetaTxToken {
      * @remarks
      * Only works with tokens that allow for an authority to be set (e.g. tokens deployed with Colony)
      *
-     * @param tokenAddress The token to install the token authority for
+     * @param colonyAddress The address of the Colony to install the token authority for
      * @param allowedToTransfer Addresses that are allowed to transfer the token, even if it's locked
      */
     deployTokenAuthority(
-      tokenAddress: string,
+      colonyAddress: string,
       allowedToTransfer: string[],
       overrides?: TxOverrides,
     ): Promise<BigNumber>;
