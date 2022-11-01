@@ -1,4 +1,10 @@
-import { utils, BigNumber, ContractTransaction, ContractFactory } from 'ethers';
+import {
+  constants,
+  utils,
+  BigNumber,
+  ContractTransaction,
+  ContractFactory,
+} from 'ethers';
 import {
   TxOverrides,
   ClientType,
@@ -9,8 +15,10 @@ import {
 import { abis } from '../abis/exports';
 
 import {
-  MetaTxToken__factory as TokenFactory,
+  MetaTxToken__factory as MetaTxTokenFactory,
   MetaTxToken,
+  Token__factory as TokenFactory,
+  Token,
   TokenERC20__factory as TokenERC20Factory,
   TokenERC20,
   TokenSAI__factory as TokenSAIFactory,
@@ -18,6 +26,7 @@ import {
 } from '../contracts';
 
 const { getAddress, isHexString, parseBytes32String } = utils;
+const { AddressZero } = constants;
 
 const { abi: tokenAuthorityAbi, bytecode: tokenAuthorityBytecode } =
   abis.TokenAuthority;
@@ -54,7 +63,7 @@ export interface ColonyTokenClient extends MetaTxToken {
    * @param allowedToTransfer Addresses that are allowed to transfer the token, even if it's locked
    */
   deployTokenAuthority(
-    colonyAddress: string,
+    tokenAddress: string,
     allowedToTransfer: string[],
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
@@ -74,11 +83,20 @@ export interface ColonyTokenClient extends MetaTxToken {
      * @param allowedToTransfer Addresses that are allowed to transfer the token, even if it's locked
      */
     deployTokenAuthority(
-      colonyAddress: string,
+      tokenAddress: string,
       allowedToTransfer: string[],
       overrides?: TxOverrides,
     ): Promise<BigNumber>;
   };
+}
+
+/** The "old", legacy Colony token without Metatransactions token */
+export interface LegacyColonyTokenClient extends Token {
+  clientType: ClientType.TokenClient;
+  tokenClientType: TokenClientType.ColonyLegacy;
+
+  /** Get the standard ERC20 token information */
+  getTokenInfo(): Promise<TokenInfo>;
 }
 
 /** A standard ERC20 token */
@@ -99,7 +117,11 @@ export interface DaiTokenClient extends TokenSAI {
   getTokenInfo(): Promise<TokenInfo>;
 }
 
-export type TokenClient = ColonyTokenClient | Erc20TokenClient | DaiTokenClient;
+export type TokenClient =
+  | ColonyTokenClient
+  | LegacyColonyTokenClient
+  | Erc20TokenClient
+  | DaiTokenClient;
 
 async function checkTokenAuthorityCompatibility(
   tokenClient: ColonyTokenClient,
@@ -157,9 +179,10 @@ const getTokenClient = async (
   signerOrProvider: SignerOrProvider,
 ): Promise<TokenClient> => {
   let tokenClient: TokenClient;
-  let isColonyToken = false;
+  let isColonyToken = true;
+  let isMetaTxToken = true;
 
-  tokenClient = TokenFactory.connect(
+  tokenClient = MetaTxTokenFactory.connect(
     address,
     signerOrProvider,
   ) as ColonyTokenClient;
@@ -180,17 +203,29 @@ const getTokenClient = async (
   try {
     await tokenClient.locked();
     await checkTokenAuthorityCompatibility(tokenClient);
-    isColonyToken = true;
   } catch {
     isColonyToken = false;
   }
 
-  if (isColonyToken) {
-    tokenClient.tokenClientType = TokenClientType.Colony;
+  try {
+    await tokenClient.getMetatransactionNonce(AddressZero);
+  } catch {
+    isMetaTxToken = false;
+  }
 
-    tokenClient.deployTokenAuthority = deployTokenAuthority.bind(tokenClient);
-    tokenClient.estimateGas.deployTokenAuthority =
-      estimateDeployTokenAuthority.bind(tokenClient);
+  if (isColonyToken) {
+    if (!isMetaTxToken) {
+      tokenClient = TokenFactory.connect(
+        address,
+        signerOrProvider,
+      ) as LegacyColonyTokenClient;
+      tokenClient.tokenClientType = TokenClientType.ColonyLegacy;
+    } else {
+      tokenClient.tokenClientType = TokenClientType.Colony;
+      tokenClient.deployTokenAuthority = deployTokenAuthority.bind(tokenClient);
+      tokenClient.estimateGas.deployTokenAuthority =
+        estimateDeployTokenAuthority.bind(tokenClient);
+    }
   } else if (isSai(address)) {
     tokenClient = TokenSAIFactory.connect(
       address,
