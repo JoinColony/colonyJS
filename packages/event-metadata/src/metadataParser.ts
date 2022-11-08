@@ -57,6 +57,7 @@ const parseEventMetadata = (res: string): Metadata | undefined => {
           verifiedAddresses: colonyData.verifiedAddresses
             ? colonyData.verifiedAddresses
             : [],
+          colonySafes: colonyData.colonySafes ? colonyData.colonySafes : [],
         },
       };
     }
