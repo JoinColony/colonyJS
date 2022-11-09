@@ -6,6 +6,13 @@ export enum MetadataType {
   Misc = 'misc',
 }
 
+export interface SafeMetadata {
+  chainId: string;
+  contractAddress: string;
+  moduleContractAddress: string;
+  safeName: string;
+}
+
 export interface ColonyMetadata {
   colonyName?: string;
   colonyDisplayName?: string;
@@ -13,6 +20,7 @@ export interface ColonyMetadata {
   colonyTokens?: Array<string>;
   verifiedAddresses?: Array<string>;
   isWhitelistActivated?: boolean;
+  colonySafes?: Array<SafeMetadata>
 }
 
 export interface DomainMetadata {

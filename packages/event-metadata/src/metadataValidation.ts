@@ -15,6 +15,13 @@ const miscMetadataSchema = yup.object({
   value: yup.string().required(() => MSG.requiredField),
 });
 
+const safeMetadataSchema = yup.object({
+  chainId: yup.string(),
+  contractAddress: yup.string(),
+  moduleContractAddress: yup.string(),
+  safeName: yup.string(),
+});
+
 const colonyMetadataSchema = yup.object({
   colonyName: yup.string(),
   colonyDisplayName: yup.string(),
@@ -22,6 +29,7 @@ const colonyMetadataSchema = yup.object({
   colonyTokens: yup.array().of(yup.string()),
   verifiedAddresses: yup.array().of(yup.string()),
   isWhitelistActivated: yup.boolean(),
+  colonySafes: yup.array().of(safeMetadataSchema),
 });
 
 const domainMetadataSchema = yup.object({
