@@ -55,17 +55,23 @@ This will annotate a transaction with an arbitrary text message. This only reall
 
 **`Remarks`**
 
-Requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS. See its documentation for more information
+Requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
 
 **`Example`**
 
 ```typescript
 // Immediately executing async function
 (async function() {
-  // Annotate a motion transaction to pay ourselves a little bonus :)
+
+  // Create a motion to pay 10 of the native token to some (maybe your own?) address
+  const [, { transactionHash }] = await colony.ext.motions.create.pay(
+    '0xb77D57F4959eAfA0339424b83FcFaf9c15407461',
+    w`10`,
+  );
+  // Annotate the motion transaction with a little explanation :)
   await colony.annotateTransaction(
-     '0xf1940d38e0a74262643a75b0f826353d62a505aedd9c95ae5fb5da6856e4adb2',
-        'I am creating this motion because I think I deserve a little bonus'
+     transactionHash,
+     'I am creating this motion because I think I deserve a little bonus'
   );
 })();
 ```
