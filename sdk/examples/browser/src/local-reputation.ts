@@ -21,8 +21,10 @@ const getWallet = () => {
 const getMetaColony = async (networkAddress: string) => {
   const signer = getWallet();
   const colonyNetwork = new ColonyNetwork(signer, {
-    networkAddress,
-    reputationOracleEndpoint: 'http://localhost:3000',
+    networkClientOptions: {
+      networkAddress,
+      reputationOracleEndpoint: 'http://localhost:3000',
+    },
   });
   // Get an instance of the MetaColony
   const colony = await colonyNetwork.getMetaColony();

@@ -10,15 +10,9 @@ export {
 } from './ColonyNetwork';
 export { ColonyEventManager } from './events/ColonyEventManager';
 
-export type {
-  AnyMetadataValue,
-  ColonyFilter,
-  ColonyMultiFilter,
-  ColonyEvent,
-  EventSource,
-  EventSources,
-  MetadataKey,
-} from './events';
+export * from './events';
+
+export * from './ipfs';
 
 export * from './constants';
 

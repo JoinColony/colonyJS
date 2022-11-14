@@ -45,6 +45,54 @@ If this is not an option, Colony SDK might throw errors at certain points. Usage
 
 ## Methods
 
+### annotateTransaction
+
+▸ **annotateTransaction**(`txHash`, `annotationMsg`): `Promise`<[{ `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, `ContractReceipt`]\>
+
+Annotate a transaction with IPFS metadata to provide extra information
+
+This will annotate a transaction with an arbitrary text message. This only really works for transactions that happened within this Colony. This will upload the text string to IPFS and connect the transaction to the IPFS hash accordingly.
+
+**`Remarks`**
+
+Requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS. See its documentation for more information
+
+**`Example`**
+
+```typescript
+// Immediately executing async function
+(async function() {
+  // Annotate a motion transaction to pay ourselves a little bonus :)
+  await colony.annotateTransaction(
+     '0xf1940d38e0a74262643a75b0f826353d62a505aedd9c95ae5fb5da6856e4adb2',
+        'I am creating this motion because I think I deserve a little bonus'
+  );
+})();
+```
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `txHash` | `string` | Transaction hash of the transaction to annotate (within the Colony) |
+| `annotationMsg` | `string` | The text message you would like to annotate the transaction with |
+
+#### Returns
+
+`Promise`<[{ `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, `ContractReceipt`]\>
+
+A tupel of event data and contract receipt
+
+**Event data**
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `agent` | string | The address that is responsible for triggering this event |
+| `txHash` | BigNumber | The hash of the annotated transaction |
+| `metadata` | BigNumber | The IPFS hash (CID) of the metadata object |
+
+___
+
 ### claimFunds
 
 ▸ **claimFunds**(`tokenAddress?`): `Promise`<[{ `fee?`: `BigNumber` ; `payoutRemainder?`: `BigNumber` ; `token?`: `string`  }, `ContractReceipt`]\>
@@ -78,7 +126,7 @@ ___
 
 ### createTeam
 
-▸ **createTeam**(`metadataCid?`): `Promise`<[{ `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, `ContractReceipt`, () => `Promise`<{ `domainColor`: `number` ; `domainName`: `string` ; `domainPurpose`: `string`  }\>] \| [{ `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, `ContractReceipt`]\>
+▸ **createTeam**(`metadataCid?`): `Promise`<[{ `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, `ContractReceipt`, () => `Promise`<`undefined` \| `DomainMetadata`\>] \| [{ `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, `ContractReceipt`]\>
 
 Create a team within a Colony
 
@@ -94,7 +142,7 @@ Currently you can only add domains within the `Root` domain. This restriction wi
 
 #### Returns
 
-`Promise`<[{ `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, `ContractReceipt`, () => `Promise`<{ `domainColor`: `number` ; `domainName`: `string` ; `domainPurpose`: `string`  }\>] \| [{ `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, `ContractReceipt`]\>
+`Promise`<[{ `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, `ContractReceipt`, () => `Promise`<`undefined` \| `DomainMetadata`\>] \| [{ `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, `ContractReceipt`]\>
 
 A tupel: `[eventData, ContractReceipt, getMetaData]`
 

@@ -28,13 +28,13 @@ const colonyNetwork = new ColonyNetwork(provider);
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `signerOrProvider` | `SignerOrProvider` | An _ethers_ compatible Signer or Provider instance |
-| `options?` | `NetworkClientOptions` | Pass in a custom ColonyNetwork address or Reputation Miner endpoint |
+| `options?` | `ColonyNetworkOptions` | Optional custom ColonyNetworkOptions |
 
 ## Properties
 
-### ipfsMetadata
+### ipfs
 
-• **ipfsMetadata**: `IpfsMetadata`
+• **ipfs**: `IpfsMetadata`
 
 ___
 

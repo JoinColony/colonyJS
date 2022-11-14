@@ -17,9 +17,14 @@ import {
   VotingReputationEvents__factory,
 } from '@colony/colony-js/extras';
 
-import { IpfsMetadata, MetadataKey, AnyMetadataValue } from './IpfsMetadata';
 import type { Ethers6Filter } from '../types';
 import { addressesAreEqual, getLogs, nonNullable } from '../utils';
+import {
+  IpfsAdapter,
+  IpfsMetadata,
+  MetadataEvent,
+  MetadataEventValue,
+} from '../ipfs';
 
 /** Valid sources for Colony emitted events. Used to map the parsed event data */
 export interface EventSources {
@@ -58,10 +63,17 @@ export interface ColonyMultiFilter {
 }
 
 /** An Event that came from a contract within the Colony Network */
-export interface ColonyEvent extends ColonyFilter {
+export interface ColonyEvent<E extends MetadataEvent = MetadataEvent>
+  extends ColonyFilter {
   data: Result;
   transactionHash: string;
-  getMetadata?: () => Promise<AnyMetadataValue>;
+  getMetadata?: () => Promise<MetadataEventValue<E>>;
+}
+
+/** Additional options for the [[ColonyEventManager]] */
+export interface ColonyEventManagerOptions {
+  /** Provide a custom [[IpfsAdapter]] */
+  ipfsAdapter?: IpfsAdapter;
 }
 
 /**
@@ -75,7 +87,7 @@ export interface ColonyEvent extends ColonyFilter {
 export class ColonyEventManager {
   eventSources: EventSources;
 
-  ipfsMetadata: IpfsMetadata;
+  ipfs: IpfsMetadata;
 
   provider: providers.JsonRpcProvider;
 
@@ -87,9 +99,13 @@ export class ColonyEventManager {
    * the only provider that supports topic filtering by multiple addresses
    *
    * @param provider An _ethers_ `JsonRpcProvider`
+   * @param options Optional custom [[ColonyEventManagerOptions]]
    * @returns A ColonyEvents instance
    */
-  constructor(provider: providers.JsonRpcProvider) {
+  constructor(
+    provider: providers.JsonRpcProvider,
+    options?: ColonyEventManagerOptions,
+  ) {
     this.eventSources = {
       Colony: IColonyEvents__factory.connect(constants.AddressZero, provider),
       ColonyNetwork: IColonyNetworkEvents__factory.connect(
@@ -105,7 +121,7 @@ export class ColonyEventManager {
         provider,
       ),
     };
-    this.ipfsMetadata = new IpfsMetadata();
+    this.ipfs = new IpfsMetadata(options?.ipfsAdapter);
     this.provider = provider;
   }
 
@@ -151,7 +167,9 @@ export class ColonyEventManager {
    * @param filter A [[ColonyFilter]]. [[ColonyMultiFilters]] will not work
    * @returns An array of [[ColonyEvent]]s
    */
-  async getEvents(filter: ColonyFilter): Promise<Array<ColonyEvent>> {
+  async getEvents(
+    filter: ColonyFilter,
+  ): Promise<Array<ColonyEvent<MetadataEvent>>> {
     const logs = await getLogs(filter, this.provider);
 
     return logs
@@ -162,14 +180,14 @@ export class ColonyEventManager {
           log.data,
           log.topics,
         );
-        if (IpfsMetadata.eventSupportMetadata(eventName)) {
+        if (IpfsMetadata.eventSupportsMetadata(eventName)) {
           return {
             ...filter,
             data,
             transactionHash: log.transactionHash,
             getMetadata: async () => {
-              return this.ipfsMetadata.getMetadataForEvent(
-                eventName as MetadataKey,
+              return this.ipfs.getMetadataForEvent(
+                eventName as MetadataEvent,
                 data.metadata,
               );
             },
@@ -224,7 +242,7 @@ export class ColonyEventManager {
   async getMultiEvents(
     filters: ColonyMultiFilter[],
     options: { fromBlock?: BlockTag; toBlock?: BlockTag } = {},
-  ): Promise<ColonyEvent[]> {
+  ): Promise<ColonyEvent<MetadataEvent>[]> {
     // Unique list of addresses
     const addresses = Array.from(
       new Set(filters.flatMap(({ address }) => address)),
@@ -280,12 +298,12 @@ export class ColonyEventManager {
           transactionHash: log.transactionHash,
         };
 
-        if (IpfsMetadata.eventSupportMetadata(eventName)) {
+        if (IpfsMetadata.eventSupportsMetadata(eventName)) {
           return {
             ...colonyEvent,
             getMetadata: async () => {
-              return this.ipfsMetadata.getMetadataForEvent(
-                eventName as MetadataKey,
+              return this.ipfs.getMetadataForEvent(
+                eventName as MetadataEvent,
                 data.metadata,
               );
             },

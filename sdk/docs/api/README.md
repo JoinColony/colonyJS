@@ -14,29 +14,27 @@
 
 ## Classes
 
+- [CloudflareReadonlyAdapter](classes/CloudflareReadonlyAdapter.md)
 - [Colony](classes/Colony.md)
 - [ColonyEventManager](classes/ColonyEventManager.md)
 - [ColonyNetwork](classes/ColonyNetwork.md)
 - [ColonyToken](classes/ColonyToken.md)
 - [MotionCreator](classes/MotionCreator.md)
+- [PinataAdapter](classes/PinataAdapter.md)
 - [VotingReputation](classes/VotingReputation.md)
 
 ## Interfaces
 
 - [ColonyEvent](interfaces/ColonyEvent.md)
+- [ColonyEventManagerOptions](interfaces/ColonyEventManagerOptions.md)
 - [ColonyFilter](interfaces/ColonyFilter.md)
 - [ColonyMultiFilter](interfaces/ColonyMultiFilter.md)
 - [Ethers6Filter](interfaces/Ethers6Filter.md)
 - [Ethers6FilterByBlockHash](interfaces/Ethers6FilterByBlockHash.md)
 - [EventSources](interfaces/EventSources.md)
+- [IpfsAdapter](interfaces/IpfsAdapter.md)
 
 ## Type Aliases
-
-### AnyMetadataValue
-
-Ƭ **AnyMetadataValue**: `Static`<typeof `IPFS_METADATA`[[`MetadataKey`](README.md#metadatakey)]\>
-
-___
 
 ### EventSource
 
@@ -46,9 +44,33 @@ An EventSource is essentially an _ethers_ contract, that we can keep track of
 
 ___
 
-### MetadataKey
+### MetadataEvent
 
-Ƭ **MetadataKey**: keyof typeof `IPFS_METADATA`
+Ƭ **MetadataEvent**: keyof typeof `IPFS_METADATA_EVENTS`
+
+___
+
+### MetadataEventValue
+
+Ƭ **MetadataEventValue**<`K`\>: `ReturnType`<typeof `IPFS_METADATA_PARSERS`[typeof `IPFS_METADATA_EVENTS`[`K`]]\>
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `K` | extends [`MetadataEvent`](README.md#metadataevent) |
+
+___
+
+### MetadataValue
+
+Ƭ **MetadataValue**<`K`\>: `ReturnType`<typeof `IPFS_METADATA_PARSERS`[`K`]\>
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `K` | extends `MetadataType` |
 
 ## Functions
 

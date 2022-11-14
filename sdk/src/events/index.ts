@@ -4,4 +4,3 @@
  */
 
 export * from './ColonyEventManager';
-export * from './IpfsMetadata';
