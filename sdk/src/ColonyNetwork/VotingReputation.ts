@@ -20,13 +20,15 @@ import { extractEvent, extractEventFromLogs, toEth } from '../utils';
 import { Colony, SupportedColonyClient } from './Colony';
 import { MotionCreator } from './MotionCreator';
 
+export type SupportedVotingReputationClient = VotingReputationClientV7;
+export const SUPPORTED_VOTING_REPUTATION_VERSION = 7;
+
+export type Motion = VotingReputationDataTypes.MotionStruct;
+
 export enum Vote {
   Nay,
   Yay,
 }
-
-export type SupportedVotingReputationClient = VotingReputationClientV7;
-export const SUPPORTED_VOTING_REPUTATION_VERSION = 7;
 
 type ReputationData = Awaited<
   ReturnType<SupportedColonyClient['getReputation']>
@@ -304,7 +306,7 @@ export class VotingReputation {
     const userMinStakeFraction =
       await this.votingReputationClient.getUserMinStakeFraction();
     // Total amount that is needed for activation
-    const requiredStakeForActivation = skillRep
+    const requiredStakeForActivation = BigNumber.from(skillRep)
       .mul(totalStakeFraction)
       .div(REP_DIVISOR);
     // Total amount that is needed per transaction
@@ -321,12 +323,15 @@ export class VotingReputation {
     // Minimum stake per transaction: 2
     // Here the minimum becomes 1 (instead of 2) as this is what's missing for activation
     let minStake = minStakePerUser;
-    if (vote === Vote.Nay && totalNay.lt(requiredStakeForActivation)) {
+    if (
+      vote === Vote.Nay &&
+      BigNumber.from(totalNay).lt(requiredStakeForActivation)
+    ) {
       const requiredNay = requiredStakeForActivation.sub(totalNay);
       minStake = requiredNay.lt(minStakePerUser)
         ? requiredNay
         : minStakePerUser;
-    } else if (totalYay.lt(requiredStakeForActivation)) {
+    } else if (BigNumber.from(totalYay).lt(requiredStakeForActivation)) {
       const requiredYay = requiredStakeForActivation.sub(totalYay);
       minStake = requiredYay.lt(minStakePerUser)
         ? requiredYay
