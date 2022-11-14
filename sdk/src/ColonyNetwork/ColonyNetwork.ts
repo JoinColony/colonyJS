@@ -6,17 +6,25 @@ import {
   SignerOrProvider,
 } from '@colony/colony-js';
 
-import { IpfsMetadata } from '../events/IpfsMetadata';
+import { IpfsMetadata, IpfsAdapter } from '../ipfs';
 import { Colony, SupportedExtensions } from './Colony';
 import {
   getVotingReputationClient,
   VotingReputation,
 } from './VotingReputation';
 
+/** Additional options for the [[ColonyNetwork]] */
+export interface ColonyNetworkOptions {
+  /** Provide a custom [[IpfsAdapter]] */
+  ipfsAdapter?: IpfsAdapter;
+  /** Provide custom [[NetworkClientOptions]] for the ColonyJS client */
+  networkClientOptions?: NetworkClientOptions;
+}
+
 export class ColonyNetwork {
   private signerOrProvider: SignerOrProvider;
 
-  ipfsMetadata: IpfsMetadata;
+  ipfs: IpfsMetadata;
 
   networkClient: ColonyNetworkClient;
 
@@ -39,19 +47,21 @@ export class ColonyNetwork {
    * ```
    *
    * @param signerOrProvider An _ethers_ compatible Signer or Provider instance
-   * @param options Pass in a custom ColonyNetwork address or Reputation Miner endpoint
+   * @param options Optional custom [[ColonyNetworkOptions]]
    * @returns A ColonyNetwork abstraction instance
    */
   constructor(
     signerOrProvider: SignerOrProvider,
-    options?: NetworkClientOptions,
+    options?: ColonyNetworkOptions,
   ) {
-    const network = options?.networkAddress ? Network.Custom : Network.Xdai;
-    this.ipfsMetadata = new IpfsMetadata();
+    const network = options?.networkClientOptions?.networkAddress
+      ? Network.Custom
+      : Network.Xdai;
+    this.ipfs = new IpfsMetadata(options?.ipfsAdapter);
     this.networkClient = getColonyNetworkClient(
       network,
       signerOrProvider,
-      options,
+      options?.networkClientOptions,
     );
     this.signerOrProvider = signerOrProvider;
   }

@@ -4,8 +4,8 @@ import {
   Id,
   Extension,
 } from '@colony/colony-js';
-
 import {
+  AnnotationEventObject,
   ColonyDataTypes,
   ColonyFundsClaimed_address_uint256_uint256_EventObject,
   // eslint-disable-next-line max-len
@@ -15,6 +15,8 @@ import {
   FundingPotAddedEventObject,
   OneTxPaymentMadeEventObject,
 } from '@colony/colony-js/extras';
+import { MetadataType } from '@colony/colony-event-metadata-parser';
+
 import type {
   BigNumberish,
   BytesLike,
@@ -22,7 +24,7 @@ import type {
   ContractTransaction,
 } from 'ethers';
 
-import { MetadataKey, MetadataValue } from '../events';
+import { MetadataEvent, MetadataEventValue } from '../ipfs';
 import { extractEvent } from '../utils';
 import { ColonyToken } from './ColonyToken';
 import { ColonyNetwork } from './ColonyNetwork';
@@ -85,21 +87,21 @@ export class Colony {
 
   private async returnTxData<
     D extends { metadata?: string },
-    E extends MetadataKey,
+    E extends MetadataEvent,
   >(
     data: D,
     metadataEvent: E,
     receipt: ContractReceipt,
   ): Promise<
-    [D, ContractReceipt, () => Promise<MetadataValue<E>>] | [D, ContractReceipt]
+    | [D, ContractReceipt, () => Promise<MetadataEventValue<E>>]
+    | [D, ContractReceipt]
   > {
     if (data.metadata) {
-      const getMetadata =
-        this.colonyNetwork.ipfsMetadata.getMetadataForEvent.bind(
-          this.colonyNetwork.ipfsMetadata,
-          metadataEvent,
-          data.metadata,
-        );
+      const getMetadata = this.colonyNetwork.ipfs.getMetadataForEvent.bind(
+        this.colonyNetwork.ipfs,
+        metadataEvent,
+        data.metadata,
+      ) as () => Promise<MetadataEventValue<E>>;
 
       return [data, receipt, getMetadata];
     }
@@ -476,6 +478,56 @@ export class Colony {
     const receipt = await tx.wait();
 
     const data = {};
+
+    return [data, receipt] as [typeof data, typeof receipt];
+  }
+
+  /**
+   * Annotate a transaction with IPFS metadata to provide extra information
+   *
+   * This will annotate a transaction with an arbitrary text message. This only really works for transactions that happened within this Colony. This will upload the text string to IPFS and connect the transaction to the IPFS hash accordingly.
+   *
+   * @remarks Requires an [[IpfsAdapter]] that can upload and pin to IPFS. See its documentation for more information
+   *
+   * @example
+   * ```typescript
+   * // Immediately executing async function
+   * (async function() {
+   *   // Annotate a motion transaction to pay ourselves a little bonus :)
+   *   await colony.annotateTransaction(
+   *      '0xf1940d38e0a74262643a75b0f826353d62a505aedd9c95ae5fb5da6856e4adb2',
+   *         'I am creating this motion because I think I deserve a little bonus'
+   *   );
+   * })();
+   * ```
+   *
+   * @param txHash Transaction hash of the transaction to annotate (within the Colony)
+   * @param annotationMsg The text message you would like to annotate the transaction with
+   * @returns A tupel of event data and contract receipt
+   *
+   * **Event data**
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `agent` | string | The address that is responsible for triggering this event |
+   * | `txHash` | BigNumber | The hash of the annotated transaction |
+   * | `metadata` | BigNumber | The IPFS hash (CID) of the metadata object |
+   */
+  async annotateTransaction(txHash: string, annotationMsg: string) {
+    const cid = await this.colonyNetwork.ipfs.uploadMetadata(
+      MetadataType.Annotation,
+      {
+        annotationMsg,
+      },
+    );
+
+    const tx = await this.colonyClient.annotateTransaction(txHash, cid);
+
+    const receipt = await tx.wait();
+
+    const data = {
+      ...extractEvent<AnnotationEventObject>('Annotation', receipt),
+    };
 
     return [data, receipt] as [typeof data, typeof receipt];
   }

@@ -12,7 +12,7 @@ The API is subject to change as we find more applications for this
 
 ### constructor
 
-• **new ColonyEventManager**(`provider`)
+• **new ColonyEventManager**(`provider`, `options?`)
 
 Create a new ColonyEvents instance
 
@@ -26,6 +26,7 @@ the only provider that supports topic filtering by multiple addresses
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `provider` | `JsonRpcProvider` | An _ethers_ `JsonRpcProvider` |
+| `options?` | [`ColonyEventManagerOptions`](../interfaces/ColonyEventManagerOptions.md) | Optional custom [ColonyEventManagerOptions](../interfaces/ColonyEventManagerOptions.md) |
 
 ## Properties
 
@@ -35,9 +36,9 @@ the only provider that supports topic filtering by multiple addresses
 
 ___
 
-### ipfsMetadata
+### ipfs
 
-• **ipfsMetadata**: `IpfsMetadata`
+• **ipfs**: `IpfsMetadata`
 
 ___
 
@@ -149,7 +150,7 @@ ___
 
 ### getEvents
 
-▸ **getEvents**(`filter`): `Promise`<[`ColonyEvent`](../interfaces/ColonyEvent.md)[]\>
+▸ **getEvents**(`filter`): `Promise`<[`ColonyEvent`](../interfaces/ColonyEvent.md)<``"Annotation(address,bytes32,string)"`` \| ``"ColonyMetadata(address,string)"`` \| ``"DomainMetadata(address,uint256,string)"`` \| ``"Decision"`` \| ``"MISC"``\>[]\>
 
 Get events for a single filter
 
@@ -178,7 +179,7 @@ const domainAdded = colonyEvents.createFilter(
 
 #### Returns
 
-`Promise`<[`ColonyEvent`](../interfaces/ColonyEvent.md)[]\>
+`Promise`<[`ColonyEvent`](../interfaces/ColonyEvent.md)<``"Annotation(address,bytes32,string)"`` \| ``"ColonyMetadata(address,string)"`` \| ``"DomainMetadata(address,uint256,string)"`` \| ``"Decision"`` \| ``"MISC"``\>[]\>
 
 An array of [ColonyEvent](../interfaces/ColonyEvent.md)s
 
@@ -186,7 +187,7 @@ ___
 
 ### getMultiEvents
 
-▸ **getMultiEvents**(`filters`, `options?`): `Promise`<[`ColonyEvent`](../interfaces/ColonyEvent.md)[]\>
+▸ **getMultiEvents**(`filters`, `options?`): `Promise`<[`ColonyEvent`](../interfaces/ColonyEvent.md)<``"Annotation(address,bytes32,string)"`` \| ``"ColonyMetadata(address,string)"`` \| ``"DomainMetadata(address,uint256,string)"`` \| ``"Decision"`` \| ``"MISC"``\>[]\>
 
 Get events for multiple filters across multiple addresses at once
 
@@ -231,6 +232,6 @@ const domainMetadata = colonyEvents.createMultiFilter(
 
 #### Returns
 
-`Promise`<[`ColonyEvent`](../interfaces/ColonyEvent.md)[]\>
+`Promise`<[`ColonyEvent`](../interfaces/ColonyEvent.md)<``"Annotation(address,bytes32,string)"`` \| ``"ColonyMetadata(address,string)"`` \| ``"DomainMetadata(address,uint256,string)"`` \| ``"Decision"`` \| ``"MISC"``\>[]\>
 
 An array of [ColonyEvent](../interfaces/ColonyEvent.md)s

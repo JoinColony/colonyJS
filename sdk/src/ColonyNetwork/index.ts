@@ -3,7 +3,7 @@
  * @module ColonyNetwork
  */
 
-export { ColonyNetwork } from './ColonyNetwork';
+export { ColonyNetwork, ColonyNetworkOptions } from './ColonyNetwork';
 export { Colony } from './Colony';
 export { ColonyToken } from './ColonyToken';
 export { MotionCreator } from './MotionCreator';

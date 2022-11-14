@@ -25,9 +25,9 @@ const getColonyFunding = async () => {
 const createTeam = async (): Promise<{
   domainId: BigNumber;
   fundingPotId: BigNumber;
-  domainName: string;
-  domainColor: number;
-  domainPurpose: string;
+  domainName?: string;
+  domainColor?: number;
+  domainPurpose?: string;
 }> => {
   // This is to demonstrate the Colony SDK's IPFS capabilities. For now, we would like to keep it agnostic to any IPFS upload mechanism, so you have to provide your own hash
   // You can see how the data looks like here: https://cloudflare-ipfs.com/ipfs/QmVgJC8WNJCzkZYLPuVPG5gvSzLvLZTxvb24Sj5Nca4jW2
@@ -40,7 +40,13 @@ const createTeam = async (): Promise<{
     throw new Error('Transaction event data not found');
   }
 
-  const { domainName, domainColor, domainPurpose } = await getMetadata();
+  const metadata = await getMetadata();
+
+  if (!metadata) {
+    throw new Error('No metadata found');
+  }
+
+  const { domainName, domainColor, domainPurpose } = metadata;
 
   return {
     domainId,

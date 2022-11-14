@@ -71,7 +71,12 @@ button.addEventListener('click', async () => {
     events.forEach(async (event) => {
       if (event.getMetadata) {
         const metadata = await event.getMetadata();
-        if ('domainName' in metadata) {
+        // TODO: improve this on the API level (maybe .isMetadataType(MetadataType.Domain))
+        if (
+          metadata &&
+          typeof metadata != 'string' &&
+          'domainName' in metadata
+        ) {
           speak(
             `A domain with id ${event.data.domainId} was created on Colony ${event.address}. It's name is ${metadata.domainName}, it's color ${metadata.domainColor} and was created for the following purpose: ${metadata.domainPurpose}`,
           );

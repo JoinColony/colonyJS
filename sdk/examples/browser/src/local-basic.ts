@@ -21,8 +21,10 @@ const getMetaColonyFunding = async (networkAddress: string) => {
   const signer = getWallet();
   // Connect to a locally deployed ColonyNetwork (EtherRouter address), with a local Reputation Oracle running on port 3000
   const colonyNetwork = new ColonyNetwork(signer, {
-    networkAddress,
-    reputationOracleEndpoint: 'http://localhost:3000',
+    networkClientOptions: {
+      networkAddress,
+      reputationOracleEndpoint: 'http://localhost:3000',
+    },
   });
   // Get the locally deployed MetaColony...
   const colony = await colonyNetwork.getMetaColony();
