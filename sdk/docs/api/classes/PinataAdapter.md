@@ -2,7 +2,7 @@
 
 PinataAdapter
 
-A Colony SDK IPFS adapter for Pinata (https://pinata.cloud). In order to use this, sign up for Pinata (if you haven't already) and generate a token. Then either supply this token when instantiating the class (example below) or provide it via the environment variable `COLONY_IPFS_PINATA_TOKEN`. Then provide an instance of this class to the [ColonyNetwork](ColonyNetwork.md) or ColonyEventManger classes (depending on your needs).
+A Colony SDK IPFS adapter for Pinata (https://pinata.cloud). In order to use this, sign up for Pinata (if you haven't already) and generate a token. Then either supply this token when instantiating the class (example below) or provide it via the environment variable `COLONY_IPFS_PINATA_TOKEN` (when using NodeJS). Then provide an instance of this class to the [ColonyNetwork](ColonyNetwork.md) or ColonyEventManger classes (depending on your needs).
 
 **`Remarks`**
 
