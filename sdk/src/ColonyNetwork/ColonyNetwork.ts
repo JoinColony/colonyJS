@@ -12,6 +12,7 @@ import {
   getVotingReputationClient,
   VotingReputation,
 } from './VotingReputation';
+import { getOneTxPaymentClient, OneTxPayment } from './OneTxPayment';
 
 /** Additional options for the [[ColonyNetwork]] */
 export interface ColonyNetworkOptions {
@@ -96,6 +97,13 @@ export class ColonyNetwork {
         colonyClient,
       );
       extensions.motions = new VotingReputation(colony, votingReputationClient);
+    } catch (e) {
+      // Ignore error here. Extension just won't be available.
+    }
+
+    try {
+      const oneTxPaymentClient = await getOneTxPaymentClient(colonyClient);
+      extensions.oneTx = new OneTxPayment(colony, oneTxPaymentClient);
     } catch (e) {
       // Ignore error here. Extension just won't be available.
     }

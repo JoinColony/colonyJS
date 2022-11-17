@@ -34,13 +34,12 @@ const connectColony = async (colonyAddress: string) => {
 };
 
 const createPaymentMotion = async (amount: string): Promise<BigNumber> => {
-  if (!colony.ext.motions) {
+  if (!colony.ext.motions || !colony.ext.oneTx) {
     throw new Error('Motions & Disputes extension not installed');
   }
-  const [{ motionId }] = await colony.ext.motions.create.pay(
-    '0x27ff0c145e191c22c75cd123c679c3e1f58a4469',
-    toWei(amount),
-  );
+  const [{ motionId }] = await colony.ext.oneTx
+    .pay('0x27ff0c145e191c22c75cd123c679c3e1f58a4469', toWei(amount))
+    .motionTx();
 
   if (!motionId) {
     // This case should not happen (rather the tx reverts) but we're making the check here for type-safety

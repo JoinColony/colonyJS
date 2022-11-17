@@ -13,12 +13,12 @@ import {
   MotionVoteRevealedEventObject,
   MotionVoteSubmittedEventObject,
   UserTokenApprovedEventObject,
+  MotionCreatedEventObject,
 } from '@colony/colony-js/extras';
 import { BigNumber, BigNumberish, Signer, utils } from 'ethers';
 import { extractEvent, extractEventFromLogs, toEth } from '../utils';
 
 import { Colony, SupportedColonyClient } from './Colony';
-import { MotionCreator } from './MotionCreator';
 
 export type SupportedVotingReputationClient = VotingReputationClientV7;
 export const SUPPORTED_VOTING_REPUTATION_VERSION = 7;
@@ -148,14 +148,11 @@ export class VotingReputation {
 
   address: string;
 
-  create: MotionCreator;
-
   constructor(
     colony: Colony,
     votingReputationClient: SupportedVotingReputationClient,
   ) {
     this.address = votingReputationClient.address;
-    this.create = new MotionCreator(colony, votingReputationClient);
     this.colony = colony;
     this.signer = this.colony.getInternalColonyClient().signer;
     this.votingReputationClient = votingReputationClient;
@@ -219,6 +216,37 @@ export class VotingReputation {
       }
     }
     return sideVoted;
+  }
+
+  /**
+   * Create a motion using an encoded action
+   *
+   * @remarks You will usually not use this function directly, but use the `send` or `motion` functions of the [[TxCreator]] within the relevant contract.
+   *
+   * @param motionDomain The domain the motion will be created in
+   * @param encodedAction The encoded action as a string
+   * @param altTarget The contract to which we send the action - 0x0 for the colony (default)
+   *
+   * @returns A Motion object
+   */
+  async createMotion(
+    motionDomain: BigNumberish,
+    encodedAction: string,
+    altTarget = '0x0',
+  ) {
+    const tx = await this.votingReputationClient.createMotionWithProofs(
+      motionDomain,
+      altTarget,
+      encodedAction,
+    );
+
+    const receipt = await tx.wait();
+
+    const data = {
+      ...extractEvent<MotionCreatedEventObject>('MotionCreated', receipt),
+    };
+
+    return [data, receipt] as [typeof data, typeof receipt];
   }
 
   /**
@@ -404,14 +432,13 @@ export class VotingReputation {
       .approveStake(this.votingReputationClient.address, teamId, amount);
     const receipt = await tx.wait();
 
-    const tokenLockingClient =
-      await this.colony.colonyToken.getTokenLockingClient();
+    const token = await this.colony.getToken();
 
     const data = {
       ...extractEventFromLogs<UserTokenApprovedEventObject>(
         'UserTokenApproved',
         receipt,
-        tokenLockingClient.interface,
+        token.tokenLockingClient.interface,
       ),
     };
 
@@ -469,13 +496,14 @@ export class VotingReputation {
     }
 
     const motion = await this.getMotion(motionId);
+    const token = await this.colony.getToken();
 
-    const deposited = await this.colony.colonyToken.getUserDeposit(userAddress);
+    const deposited = await token.getUserDeposit(userAddress);
     if (deposited.lt(amount)) {
       throw new Error('Not enough tokens deposited for staking.');
     }
 
-    const colonyApproval = await this.colony.colonyToken.getUserApproval(
+    const colonyApproval = await token.getUserApproval(
       userAddress,
       this.colony.address,
     );

@@ -19,6 +19,8 @@ export interface Ethers6FilterByBlockHash
  * Mostly used for removing the proof params from contract transaction methods
  */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+export type Parameters<F> = F extends (...rest: infer R) => any ? R : never;
+
 export type ParametersFrom2<F> = F extends (
   arg0: any,
   arg1: any,

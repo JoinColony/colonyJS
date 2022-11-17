@@ -4,7 +4,6 @@ export {
   ColonyNetwork,
   Colony,
   ColonyToken,
-  MotionCreator,
   VotingReputation,
   Vote,
 } from './ColonyNetwork';

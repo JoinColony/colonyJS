@@ -9,6 +9,7 @@
 - [ColonyRole](enums/ColonyRole.md)
 - [Extension](enums/Extension.md)
 - [Id](enums/Id.md)
+- [MetadataType](enums/MetadataType.md)
 - [MotionState](enums/MotionState.md)
 - [Vote](enums/Vote.md)
 
@@ -19,7 +20,6 @@
 - [ColonyEventManager](classes/ColonyEventManager.md)
 - [ColonyNetwork](classes/ColonyNetwork.md)
 - [ColonyToken](classes/ColonyToken.md)
-- [MotionCreator](classes/MotionCreator.md)
 - [PinataAdapter](classes/PinataAdapter.md)
 - [VotingReputation](classes/VotingReputation.md)
 
@@ -70,7 +70,19 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `K` | extends `MetadataType` |
+| `K` | extends [`MetadataType`](enums/MetadataType.md) |
+
+___
+
+### ParametersFrom2
+
+Ƭ **ParametersFrom2**<`F`\>: `F` extends (`arg0`: `any`, `arg1`: `any`, ...`rest`: infer R) => `any` ? `R` : `never`
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `F` |
 
 ## Functions
 
