@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { metadataSchema } from './metaDataValidation';
+import { metadataSchema } from './metadataValidation';
 import {
   AnnotationMetadata,
   ColonyMetadata,
