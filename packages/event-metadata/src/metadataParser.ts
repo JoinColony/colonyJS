@@ -9,7 +9,6 @@ import {
   MetadataType,
   DecisionMetadata,
 } from './types';
-import { log } from './debug';
 
 import { METADATA_VERSION } from './constants';
 
@@ -17,7 +16,7 @@ import { METADATA_VERSION } from './constants';
  * Internal
  */
 // String from IPFS to Metadata Object
-const parseEventMetadata = (res: string): Metadata | undefined => {
+const parseEventMetadata = (res: string): Metadata => {
   let validatedRes: yup.Shape<
     object | undefined,
     {
@@ -31,28 +30,30 @@ const parseEventMetadata = (res: string): Metadata | undefined => {
     validatedRes = metadataSchema.validateSync(res, {
       stripUnknown: true,
     });
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (validationError: any) {
-    log.verbose('Metadata validation schema error:', validationError.message);
-    log.verbose('Error:', validationError);
-    log.verbose('Res: ', res);
-    return undefined;
+  } catch (validationError: unknown) {
+    const err = validationError as Error;
+    throw new Error(
+      `Metadata validation schema error: ${err.message} - Input: ${res}`,
+    );
+  }
+
+  if (!validatedRes) {
+    throw new Error('Could not get Metadata');
   }
 
   // @TODO decide how to handle versions in the future
-  if (validatedRes?.version !== METADATA_VERSION) {
-    log.verbose('Invalid metadata version: ', validatedRes?.version);
-    return undefined;
+  if (validatedRes.version !== METADATA_VERSION) {
+    throw new Error(`Invalid metadata version: ${validatedRes.version}`);
   }
 
-  switch (validatedRes?.name) {
+  switch (validatedRes.name) {
     case MetadataType.Colony: {
-      const colonyData = validatedRes?.data as ColonyMetadata;
+      const colonyData = validatedRes.data as ColonyMetadata;
       return {
-        version: validatedRes?.version,
-        name: validatedRes?.name,
+        version: validatedRes.version,
+        name: validatedRes.name,
         data: {
-          ...validatedRes?.data,
+          ...validatedRes.data,
           colonyTokens: colonyData.colonyTokens ? colonyData.colonyTokens : [],
           verifiedAddresses: colonyData.verifiedAddresses
             ? colonyData.verifiedAddresses
@@ -66,17 +67,15 @@ const parseEventMetadata = (res: string): Metadata | undefined => {
     case MetadataType.Decision:
     case MetadataType.Misc:
       return {
-        version: validatedRes?.version,
-        name: validatedRes?.name,
+        version: validatedRes.version,
+        name: validatedRes.name,
         data: {
-          ...validatedRes?.data,
+          ...validatedRes.data,
         },
       };
     default:
-      log.verbose('Invalid metadata type');
+      throw new Error(`Invalid metadata type: ${validatedRes.name}`);
   }
-  // @TODO handle invalid metadata - not expecting to get this far
-  return undefined;
 };
 
 /*
@@ -85,30 +84,22 @@ const parseEventMetadata = (res: string): Metadata | undefined => {
  */
 
 // get colony data from ipfs data
-export const getColonyMetadataFromResponse = (
-  res: string,
-): ColonyMetadata | undefined => {
+export const getColonyMetadataFromResponse = (res: string): ColonyMetadata => {
   return parseEventMetadata(res)?.data as ColonyMetadata;
 };
 
 // get domain data from ipfs data
-export const getDomainMetadataFromResponse = (
-  res: string,
-): DomainMetadata | undefined => {
+export const getDomainMetadataFromResponse = (res: string): DomainMetadata => {
   return parseEventMetadata(res)?.data as DomainMetadata;
 };
 
 // get misc data from ipfs data
-export const getMiscDataFromResponse = (
-  res: string,
-): MiscMetadata | undefined => {
+export const getMiscDataFromResponse = (res: string): MiscMetadata => {
   return parseEventMetadata(res)?.data as MiscMetadata;
 };
 
 // get annotation message from ipfs data
-export const getAnnotationMsgFromResponse = (
-  res: string,
-): string | undefined => {
+export const getAnnotationMsgFromResponse = (res: string): string => {
   const metadata = parseEventMetadata(res)?.data as AnnotationMetadata;
   return metadata.annotationMsg;
 };
@@ -116,7 +107,7 @@ export const getAnnotationMsgFromResponse = (
 // get decision details from ipfs data
 export const getDecisionDetailsFromResponse = (
   res: string,
-): DecisionMetadata | undefined => {
+): DecisionMetadata => {
   return parseEventMetadata(res)?.data as DecisionMetadata;
 };
 
@@ -128,7 +119,7 @@ export const getMiscValueFor = (
   name: string,
   metaData: MiscMetadata,
 ): string | undefined => {
-  return name === metaData?.name ? metaData.value : undefined;
+  return name === metaData.name ? metaData.value : undefined;
 };
 
 // extract value for 'name' DIRECTLY from repsonse string
@@ -139,14 +130,14 @@ export const getNameValueFromMisc = (
 ): string | undefined => {
   return getMiscValueFor(
     name,
-    parseEventMetadata(response)?.data as MiscMetadata,
+    parseEventMetadata(response).data as MiscMetadata,
   );
 };
 
 export const getColonyAvatarImage = (res: string): string | undefined => {
   return getMiscValueFor(
     'colonyAvatarImage',
-    parseEventMetadata(res)?.data as MiscMetadata,
+    parseEventMetadata(res).data as MiscMetadata,
   );
 };
 
@@ -158,5 +149,5 @@ export const getEventMetadataVersion = (
   if (typeof ipfsResponse === 'undefined' || !ipfsResponse) {
     throw Error(`Cannot obtain metadata version from: ${ipfsResponse}`);
   }
-  return (JSON.parse(ipfsResponse)?.version as number) || 1;
+  return (JSON.parse(ipfsResponse).version as number) || 1;
 };

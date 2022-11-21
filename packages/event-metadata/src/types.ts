@@ -20,7 +20,7 @@ export interface ColonyMetadata {
   colonyTokens?: Array<string>;
   verifiedAddresses?: Array<string>;
   isWhitelistActivated?: boolean;
-  colonySafes?: Array<SafeMetadata>
+  colonySafes?: Array<SafeMetadata>;
 }
 
 export interface DomainMetadata {
