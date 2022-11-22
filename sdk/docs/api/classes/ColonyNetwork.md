@@ -32,9 +32,21 @@ const colonyNetwork = new ColonyNetwork(provider);
 
 ## Properties
 
+### config
+
+• **config**: `ColonyNetworkConfig`
+
+___
+
 ### ipfs
 
 • **ipfs**: `IpfsMetadata`
+
+___
+
+### network
+
+• **network**: [`Network`](../enums/Network.md)
 
 ___
 

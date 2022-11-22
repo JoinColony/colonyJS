@@ -3,11 +3,22 @@ import {
   IBasicMetaTransaction,
   getPermissionProofs,
   Id,
+  Network,
 } from '@colony/colony-js';
-import { BigNumberish, ContractReceipt, ContractTransaction } from 'ethers';
+import {
+  BigNumberish,
+  ContractReceipt,
+  ContractTransaction,
+  Signer,
+  utils,
+} from 'ethers';
+import { fetch } from 'cross-fetch';
 
 import { Colony } from './Colony';
 import { MetadataEvent, MetadataEventValue } from '../ipfs';
+import type { ParsedLogTransactionReceipt } from '../utils';
+
+const { arrayify, solidityKeccak256, splitSignature } = utils;
 
 export interface PermissionConfig {
   domain: BigNumberish;
@@ -32,6 +43,7 @@ interface BaseContract {
   interface: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     encodeFunctionData(functionFragment: string, values: any[]): string;
+    parseLog: IBasicMetaTransaction['interface']['parseLog'];
   };
 }
 
@@ -172,5 +184,127 @@ export class TxCreator<
       encodedAction,
       altTarget,
     );
+  }
+
+  async force() {
+    const { colonyNetwork, signerOrProvider } = this.colony;
+
+    if (!colonyNetwork.config.metaTxBroadcasterEndpoint) {
+      throw new Error(
+        `No metatransaction broadcaster endpoint found for network ${colonyNetwork.network}`,
+      );
+    }
+
+    if (!(signerOrProvider instanceof Signer)) {
+      throw new Error('Need a signer to create a transaction');
+    }
+
+    const { provider } = signerOrProvider;
+    if (!provider) {
+      throw new Error('No provider found');
+    }
+
+    let args: unknown[] = [];
+
+    if (typeof this.args == 'function') {
+      args = await this.args();
+    } else {
+      args = this.args;
+    }
+
+    const userAddress = await signerOrProvider.getAddress();
+    const nonce = await this.contract.functions.getMetatransactionNonce(
+      userAddress,
+    );
+
+    let chainId: number;
+
+    if (colonyNetwork.network === Network.Custom) {
+      chainId = 1;
+    } else {
+      const networkInfo = await provider.getNetwork();
+      chainId = networkInfo.chainId;
+    }
+
+    if (this.permissionConfig) {
+      const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+        this.colony.getInternalColonyClient(),
+        this.permissionConfig.domain,
+        this.permissionConfig.roles,
+        this.permissionConfig.address,
+      );
+      // Quite dangerous but probably fine. Plus, it gets TS off our backs ;)
+      args.unshift(permissionDomainId, childSkillIndex);
+    }
+
+    const encodedTransaction = this.contract.interface.encodeFunctionData(
+      this.method,
+      args,
+    );
+    const message = solidityKeccak256(
+      ['uint256', 'address', 'uint256', 'bytes'],
+      [nonce.toString(), this.contract.address, chainId, encodedTransaction],
+    );
+    const buf = arrayify(message);
+    const signature = await signerOrProvider.signMessage(buf);
+    const { r, s, v } = splitSignature(signature);
+
+    const data = {
+      target: this.contract.address,
+      payload: encodedTransaction,
+      userAddress,
+      r,
+      s,
+      v,
+    };
+
+    const res = await fetch(
+      `${colonyNetwork.config.metaTxBroadcasterEndpoint}/broadcast`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      },
+    );
+    const parsed = await res.json();
+
+    if (parsed.status !== 'success') {
+      throw new Error(
+        `Could not send Metatransaction. Reason given: ${parsed.data.reason}`,
+      );
+    }
+
+    if (!parsed.data?.txHash) {
+      throw new Error(
+        'Could not get transaction hash from broadcaster response',
+      );
+    }
+
+    const receipt = (await provider.waitForTransaction(
+      parsed.data.txHash,
+    )) as ParsedLogTransactionReceipt;
+    receipt.parsedLogs = receipt.logs.map((log) =>
+      this.contract.interface.parseLog(log),
+    );
+
+    if (this.eventData) {
+      const eventData = await this.eventData(receipt);
+
+      if (this.metadataEvent && eventData.metadata) {
+        const getMetadata = colonyNetwork.ipfs.getMetadataForEvent.bind(
+          colonyNetwork.ipfs,
+          this.metadataEvent,
+          eventData.metadata,
+        ) as () => Promise<MetadataEventValue<ME>>;
+
+        return [eventData, receipt, getMetadata];
+      }
+
+      return [eventData, receipt];
+    }
+
+    return [{} as E, receipt];
   }
 }

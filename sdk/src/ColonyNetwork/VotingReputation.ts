@@ -16,7 +16,7 @@ import {
   MotionCreatedEventObject,
 } from '@colony/colony-js/extras';
 import { BigNumber, BigNumberish, Signer, utils } from 'ethers';
-import { extractEvent, extractEventFromLogs, toEth } from '../utils';
+import { extractEvent, extractCustomEvent, toEth } from '../utils';
 
 import { Colony, SupportedColonyClient } from './Colony';
 
@@ -142,8 +142,6 @@ const REP_DIVISOR = BigNumber.from(10).pow(18);
 export class VotingReputation {
   private colony: Colony;
 
-  private signer: Signer;
-
   private votingReputationClient: SupportedVotingReputationClient;
 
   address: string;
@@ -154,7 +152,6 @@ export class VotingReputation {
   ) {
     this.address = votingReputationClient.address;
     this.colony = colony;
-    this.signer = this.colony.getInternalColonyClient().signer;
     this.votingReputationClient = votingReputationClient;
   }
 
@@ -435,7 +432,7 @@ export class VotingReputation {
     const token = await this.colony.getToken();
 
     const data = {
-      ...extractEventFromLogs<UserTokenApprovedEventObject>(
+      ...extractCustomEvent<UserTokenApprovedEventObject>(
         'UserTokenApproved',
         receipt,
         token.tokenLockingClient.interface,
@@ -483,7 +480,11 @@ export class VotingReputation {
    * | `eventIndex` | BigNumber | If the stake triggered a motion event, this will contain its index |
    */
   async stakeMotion(motionId: BigNumberish, vote: Vote, amount: BigNumberish) {
-    const userAddress = await this.signer.getAddress();
+    if (!(this.colony.signerOrProvider instanceof Signer)) {
+      throw new Error('Need a signer to create a transaction');
+    }
+
+    const userAddress = await this.colony.signerOrProvider.getAddress();
 
     const motionState = await this.votingReputationClient.getMotionState(
       motionId,

@@ -13,6 +13,7 @@ import {
   VotingReputation,
 } from './VotingReputation';
 import { getOneTxPaymentClient, OneTxPayment } from './OneTxPayment';
+import { MetaTxBroadCasterEndpoint } from '../constants';
 
 /** Additional options for the [[ColonyNetwork]] */
 export interface ColonyNetworkOptions {
@@ -20,6 +21,12 @@ export interface ColonyNetworkOptions {
   ipfsAdapter?: IpfsAdapter;
   /** Provide custom [[NetworkClientOptions]] for the ColonyJS client */
   networkClientOptions?: NetworkClientOptions;
+  /** Provide a custom metatransaction broadcaster endpoint */
+  metaTxBroadcasterEndpoint?: string;
+}
+
+export interface ColonyNetworkConfig {
+  metaTxBroadcasterEndpoint?: string;
 }
 
 export class ColonyNetwork {
@@ -27,7 +34,11 @@ export class ColonyNetwork {
 
   ipfs: IpfsMetadata;
 
+  network: Network;
+
   networkClient: ColonyNetworkClient;
+
+  config: ColonyNetworkConfig;
 
   /**
    * Creates a new instance to connect to the ColonyNetwork
@@ -55,15 +66,20 @@ export class ColonyNetwork {
     signerOrProvider: SignerOrProvider,
     options?: ColonyNetworkOptions,
   ) {
-    const network = options?.networkClientOptions?.networkAddress
+    this.network = options?.networkClientOptions?.networkAddress
       ? Network.Custom
       : Network.Xdai;
     this.ipfs = new IpfsMetadata(options?.ipfsAdapter);
     this.networkClient = getColonyNetworkClient(
-      network,
+      this.network,
       signerOrProvider,
       options?.networkClientOptions,
     );
+    this.config = {
+      metaTxBroadcasterEndpoint:
+        options?.metaTxBroadcasterEndpoint ||
+        MetaTxBroadCasterEndpoint[this.network],
+    };
     this.signerOrProvider = signerOrProvider;
   }
 

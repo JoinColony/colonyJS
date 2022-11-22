@@ -1,17 +1,27 @@
 import { BigNumberish, ContractReceipt, utils } from 'ethers';
-import type { Log } from '@ethersproject/abstract-provider';
+import type { Log, TransactionReceipt } from '@ethersproject/abstract-provider';
 import type { JsonRpcProvider } from '@ethersproject/providers';
-import type { Interface } from '@ethersproject/abi';
+import type { Interface, LogDescription } from '@ethersproject/abi';
 
 import { Ethers6Filter, Ethers6FilterByBlockHash } from './types';
+
+// Custom Transaction receipt for when we manually have to parse logs (metatransactions)
+export interface ParsedLogTransactionReceipt extends TransactionReceipt {
+  parsedLogs: LogDescription[];
+}
 
 /** Extract event args from a contract receipt */
 export const extractEvent = <T>(
   eventName: string,
-  receipt: ContractReceipt,
+  receipt: ContractReceipt | ParsedLogTransactionReceipt,
 ): T | undefined => {
-  if (receipt.events) {
+  if ('events' in receipt && receipt.events) {
     const event = receipt.events.find((ev) => ev.event === eventName);
+    if (event?.args) {
+      return event.args as ReadonlyArray<unknown> & T;
+    }
+  } else if ('parsedLogs' in receipt && receipt.parsedLogs) {
+    const event = receipt.parsedLogs.find((ev) => ev.name === eventName);
     if (event?.args) {
       return event.args as ReadonlyArray<unknown> & T;
     }
@@ -19,21 +29,26 @@ export const extractEvent = <T>(
   return undefined;
 };
 
-/** Manually extract an event from logs (e.g. if emitting contract is a different one than the calling contract) */
-export const extractEventFromLogs = <T>(
+/** Manually extract an event using the interface (e.g. if emitting contract is a different one than the calling contract) */
+export const extractCustomEvent = <T>(
   eventName: string,
-  receipt: ContractReceipt,
+  receipt: ContractReceipt | ParsedLogTransactionReceipt,
   iface: Interface,
 ): T | undefined => {
-  if (!receipt.events || !receipt.events.length) {
-    return undefined;
+  let events: { data: string; topics: string[] }[];
+  if ('events' in receipt && receipt.events) {
+    events = receipt.events;
+  } else if ('logs' in receipt && receipt.logs) {
+    events = receipt.logs;
+  } else {
+    events = [];
   }
-  for (let i = 0; i < receipt.events.length; i += 1) {
+  for (let i = 0; i < events.length; i += 1) {
     try {
       return iface.decodeEventLog(
         eventName,
-        receipt.events[i].data,
-        receipt.events[i].topics,
+        events[i].data,
+        events[i].topics,
       ) as ReadonlyArray<unknown> & T;
     } catch (e) {
       // ignore

@@ -30,6 +30,12 @@ ___
 
 ___
 
+### signerOrProvider
+
+• **signerOrProvider**: `SignerOrProvider`
+
+___
+
 ### version
 
 • **version**: `number`
@@ -47,7 +53,7 @@ If this is not an option, Colony SDK might throw errors at certain points. Usage
 
 ### annotateTransaction
 
-▸ **annotateTransaction**(`txHash`, `annotationMetadata`): `TxCreator`<`ColonyClientV10`, ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, ``"Annotation(address,bytes32,string)"`` \| ``"ColonyMetadata(address,string)"`` \| ``"DomainMetadata(address,uint256,string)"`` \| ``"Decision"`` \| ``"MISC"``\>
+▸ **annotateTransaction**(`txHash`, `annotationMetadata`): `TxCreator`<`ColonyClientV10`, ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, ``"Annotation(address,bytes32,string)"``\>
 
 Annotate a transaction with IPFS metadata to provide extra information
 
@@ -86,7 +92,7 @@ If AnnotationMetadata is provided directly (as opposed to a [CID](https://docs.i
 
 #### Returns
 
-`TxCreator`<`ColonyClientV10`, ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, ``"Annotation(address,bytes32,string)"`` \| ``"ColonyMetadata(address,string)"`` \| ``"DomainMetadata(address,uint256,string)"`` \| ``"Decision"`` \| ``"MISC"``\>
+`TxCreator`<`ColonyClientV10`, ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, ``"Annotation(address,bytes32,string)"``\>
 
 A TxCreator
 
@@ -108,11 +114,15 @@ Claim outstanding Colony funds
 
 Anyone can call this function. Claims funds _for_ the Colony that have been sent to the Colony's contract address or minted funds of the Colony's native token. This function _has_ to be called in order for the funds to appear in the Colony's treasury. You can provide a token address for the token to be claimed. Otherwise it will claim the outstanding funds of the Colony's native token
 
+**`Remarks`**
+
+use `ethers.constants.AddressZero` to claim ETH.
+
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `tokenAddress` | `string` | The address of the token to claim the funds for. Default is the Colony's native token |
+| `tokenAddress?` | `string` | The address of the token to claim the funds for. Default is the Colony's native token |
 
 #### Returns
 

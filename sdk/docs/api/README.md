@@ -9,8 +9,10 @@
 - [ColonyRole](enums/ColonyRole.md)
 - [Extension](enums/Extension.md)
 - [Id](enums/Id.md)
+- [MetaTxBroadCasterEndpoint](enums/MetaTxBroadCasterEndpoint.md)
 - [MetadataType](enums/MetadataType.md)
 - [MotionState](enums/MotionState.md)
+- [Network](enums/Network.md)
 - [Vote](enums/Vote.md)
 
 ## Classes
@@ -33,6 +35,7 @@
 - [Ethers6FilterByBlockHash](interfaces/Ethers6FilterByBlockHash.md)
 - [EventSources](interfaces/EventSources.md)
 - [IpfsAdapter](interfaces/IpfsAdapter.md)
+- [ParsedLogTransactionReceipt](interfaces/ParsedLogTransactionReceipt.md)
 
 ## Type Aliases
 
@@ -105,6 +108,32 @@ Check if two addresses are equal
 
 ___
 
+### extractCustomEvent
+
+▸ **extractCustomEvent**<`T`\>(`eventName`, `receipt`, `iface`): `undefined` \| `T`
+
+Manually extract an event using the interface (e.g. if emitting contract is a different one than the calling contract)
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `T` |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `eventName` | `string` |
+| `receipt` | `ContractReceipt` \| [`ParsedLogTransactionReceipt`](interfaces/ParsedLogTransactionReceipt.md) |
+| `iface` | `Interface` |
+
+#### Returns
+
+`undefined` \| `T`
+
+___
+
 ### extractEvent
 
 ▸ **extractEvent**<`T`\>(`eventName`, `receipt`): `undefined` \| `T`
@@ -122,33 +151,7 @@ Extract event args from a contract receipt
 | Name | Type |
 | :------ | :------ |
 | `eventName` | `string` |
-| `receipt` | `ContractReceipt` |
-
-#### Returns
-
-`undefined` \| `T`
-
-___
-
-### extractEventFromLogs
-
-▸ **extractEventFromLogs**<`T`\>(`eventName`, `receipt`, `iface`): `undefined` \| `T`
-
-Manually extract an event from logs (e.g. if emitting contract is a different one than the calling contract)
-
-#### Type parameters
-
-| Name |
-| :------ |
-| `T` |
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `eventName` | `string` |
-| `receipt` | `ContractReceipt` |
-| `iface` | `Interface` |
+| `receipt` | `ContractReceipt` \| [`ParsedLogTransactionReceipt`](interfaces/ParsedLogTransactionReceipt.md) |
 
 #### Returns
 

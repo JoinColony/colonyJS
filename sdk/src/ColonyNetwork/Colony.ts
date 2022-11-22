@@ -50,8 +50,6 @@ export class Colony {
 
   private colonyClient: SupportedColonyClient;
 
-  private signerOrProvider: SignerOrProvider;
-
   address: string;
 
   colonyNetwork: ColonyNetwork;
@@ -64,6 +62,8 @@ export class Colony {
   colonyToken?: ColonyToken;
 
   ext: SupportedExtensions;
+
+  signerOrProvider: SignerOrProvider;
 
   version: number;
 
@@ -332,31 +332,6 @@ export class Colony {
     );
   }
 
-  // async createTeamMeta() {
-  //   if (!(this.signerOrProvider instanceof Signer)) {
-  //     throw new Error('Need a signer to create a transaction');
-  //   }
-  //   const { provider } = this.signerOrProvider;
-  //   if (!provider) {
-  //     throw new Error('No provider found');
-  //   }
-  //   const userAddress = await this.signerOrProvider.getAddress();
-  //   const nonce = await this.colonyClient.getMetatransactionNonce(userAddress);
-  //   const { chainId } = await provider.getNetwork();
-  //   const encodedTransaction = this.colonyClient.interface.encodeFunctionData(
-  //     // TODO: add metadata case as well
-  //     'addDomain(uint256,uint256,uint256)',
-  //     // TODO: get permission proofs (see motion creation)
-  //     // TODO: We probably can consolidate them somehow
-  //     [1, 2, 3],
-  //   );
-  //   const message = utils.solidityKeccak256(
-  //     ['uint256', 'address', 'uint256', 'bytes'],
-  //     [nonce.toString(), this.address, chainId, encodedTransaction],
-  //   );
-  //   const;
-  // }
-
   /**
    * Deprecate (remove) or undeprecate a team
    *
@@ -417,6 +392,8 @@ export class Colony {
    *
    * Anyone can call this function. Claims funds _for_ the Colony that have been sent to the Colony's contract address or minted funds of the Colony's native token. This function _has_ to be called in order for the funds to appear in the Colony's treasury. You can provide a token address for the token to be claimed. Otherwise it will claim the outstanding funds of the Colony's native token
    *
+   * @remarks use `ethers.constants.AddressZero` to claim ETH.
+   *
    * @param tokenAddress The address of the token to claim the funds for. Default is the Colony's native token
    *
    * @returns A [[TxCreator]]
@@ -430,7 +407,7 @@ export class Colony {
    * | `fee` | BigNumber | The fee deducted for rewards |
    * | `payoutRemainder` | BigNumber | The remaining funds moved to the top-level domain pot |
    */
-  claimFunds(tokenAddress: string = this.colonyClient.tokenClient.address) {
+  claimFunds(tokenAddress?: string) {
     const token = tokenAddress || this.colonyClient.tokenClient.address;
 
     return this.createTxCreator(
@@ -690,6 +667,7 @@ export class Colony {
       async (receipt) => ({
         ...extractEvent<AnnotationEventObject>('Annotation', receipt),
       }),
+      'Annotation(address,bytes32,string)',
     );
   }
 }

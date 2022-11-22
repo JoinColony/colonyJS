@@ -7,7 +7,7 @@ import {
 } from '@colony/colony-js';
 
 import { OneTxPaymentMadeEventObject } from '@colony/colony-js/extras';
-import { BigNumber, BigNumberish, Signer } from 'ethers';
+import { BigNumber, BigNumberish } from 'ethers';
 import { extractEvent } from '../utils';
 
 import { Colony, SupportedColonyClient } from './Colony';
@@ -47,8 +47,6 @@ export const getOneTxPaymentClient = async (
 export class OneTxPayment {
   private colony: Colony;
 
-  private signer: Signer;
-
   private oneTxPaymentClient: SupportedOneTxPaymentClient;
 
   address: string;
@@ -56,7 +54,6 @@ export class OneTxPayment {
   constructor(colony: Colony, oneTxPaymentClient: SupportedOneTxPaymentClient) {
     this.address = oneTxPaymentClient.address;
     this.colony = colony;
-    this.signer = this.colony.getInternalColonyClient().signer;
     this.oneTxPaymentClient = oneTxPaymentClient;
   }
 
