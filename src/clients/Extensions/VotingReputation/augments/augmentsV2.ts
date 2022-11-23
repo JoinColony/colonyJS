@@ -24,6 +24,7 @@ import {
 } from './commonAugments';
 import { Id } from '../../../../constants';
 import { parsePermissionedAction } from '../../../../utils';
+import { AnyVotingReputationClient } from '../exports';
 
 const { AddressZero, MaxUint256 } = constants;
 
@@ -72,8 +73,8 @@ type FullAugmentedVotingReputation =
   AugmentedVotingReputation<ValidVotingReputation> &
     AugmentsV2<ValidVotingReputation>;
 
-async function getCreateMotionProofs(
-  contract: FullAugmentedVotingReputation,
+export async function getCreateMotionProofs(
+  contract: AnyVotingReputationClient,
   domainId: BigNumberish,
   altTarget: string,
   action: BytesLike,
@@ -152,7 +153,12 @@ async function createMotionWithProofs(
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const { actionCid, key, value, branchMask, siblings } =
-    await getCreateMotionProofs(this, _domainId, _altTarget, _action);
+    await getCreateMotionProofs(
+      this as AnyVotingReputationClient,
+      _domainId,
+      _altTarget,
+      _action,
+    );
 
   return this.createMotion(
     _domainId,
@@ -175,7 +181,12 @@ async function estimateCreateMotionWithProofs(
   overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const { actionCid, key, value, branchMask, siblings } =
-    await getCreateMotionProofs(this, _domainId, _altTarget, _action);
+    await getCreateMotionProofs(
+      this as AnyVotingReputationClient,
+      _domainId,
+      _altTarget,
+      _action,
+    );
 
   return this.estimateGas.createMotion(
     _domainId,

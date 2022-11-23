@@ -1,4 +1,4 @@
-import { EventFilter, BigNumber, BigNumberish, utils } from 'ethers';
+import { EventFilter, BigNumber, BigNumberish, utils, BytesLike } from 'ethers';
 
 import type { Filter, Log, Provider } from '@ethersproject/abstract-provider';
 import type { LogDescription } from '@ethersproject/abi';
@@ -13,6 +13,9 @@ import {
   getPermissionProofs as origGetPermissionProofs,
   getMultiPermissionProofs,
 } from './clients/Core/augments/commonAugments';
+
+import { getCreateMotionProofs as origGetCreateMotionProofs } from './clients/Extensions/VotingReputation/augments/augmentsV2';
+import { AnyVotingReputationClient } from './clients/Extensions/exports';
 
 const { keccak256, toUtf8Bytes } = utils;
 
@@ -289,3 +292,22 @@ export const getPermissionProofs = async (
   }
   return origGetPermissionProofs(client, domainId, roles, customAddress);
 };
+
+/**
+ * Gets the necessary proofs for motion creation
+ *
+ * This gets the reputation and domain proofs for motion creation
+ *
+ * @param client Any VotingReputationClient
+ * @param domainId Domain id the motion will be created in
+ * @param altTarget Target address for the motion (0x0 if Colony contract)
+ * @param action The encoded action the motion will execute when finalized
+ *
+ * @returns The necessary reputation and domain proofs to create a motion
+ */
+export const getCreateMotionProofs = (
+  client: AnyVotingReputationClient,
+  domainId: BigNumberish,
+  altTarget: string,
+  action: BytesLike,
+) => origGetCreateMotionProofs(client, domainId, altTarget, action);
