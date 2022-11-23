@@ -53,7 +53,7 @@ If this is not an option, Colony SDK might throw errors at certain points. Usage
 
 ### annotateTransaction
 
-▸ **annotateTransaction**(`txHash`, `annotationMetadata`): `TxCreator`<`ColonyClientV10`, ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, ``"Annotation(address,bytes32,string)"``\>
+▸ **annotateTransaction**(`txHash`, `annotationMetadata`): `TxCreator`<`ColonyClientV10`, ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, [`Annotation`](../enums/MetadataType.md#annotation)\>
 
 Annotate a transaction with IPFS metadata to provide extra information
 
@@ -92,7 +92,7 @@ If AnnotationMetadata is provided directly (as opposed to a [CID](https://docs.i
 
 #### Returns
 
-`TxCreator`<`ColonyClientV10`, ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, ``"Annotation(address,bytes32,string)"``\>
+`TxCreator`<`ColonyClientV10`, ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, [`Annotation`](../enums/MetadataType.md#annotation)\>
 
 A TxCreator
 
@@ -108,7 +108,7 @@ ___
 
 ### claimFunds
 
-▸ **claimFunds**(`tokenAddress?`): `TxCreator`<`ColonyClientV10`, ``"claimColonyFunds"``, { `fee?`: `BigNumber` ; `payoutRemainder?`: `BigNumber` ; `token?`: `string`  }, ``"Annotation(address,bytes32,string)"`` \| ``"ColonyMetadata(address,string)"`` \| ``"DomainMetadata(address,uint256,string)"`` \| ``"Decision"`` \| ``"MISC"``\>
+▸ **claimFunds**(`tokenAddress?`): `TxCreator`<`ColonyClientV10`, ``"claimColonyFunds"``, { `fee?`: `BigNumber` ; `payoutRemainder?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Claim outstanding Colony funds
 
@@ -126,7 +126,7 @@ use `ethers.constants.AddressZero` to claim ETH.
 
 #### Returns
 
-`TxCreator`<`ColonyClientV10`, ``"claimColonyFunds"``, { `fee?`: `BigNumber` ; `payoutRemainder?`: `BigNumber` ; `token?`: `string`  }, ``"Annotation(address,bytes32,string)"`` \| ``"ColonyMetadata(address,string)"`` \| ``"DomainMetadata(address,uint256,string)"`` \| ``"Decision"`` \| ``"MISC"``\>
+`TxCreator`<`ColonyClientV10`, ``"claimColonyFunds"``, { `fee?`: `BigNumber` ; `payoutRemainder?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A TxCreator
 
@@ -143,7 +143,7 @@ ___
 
 ### createTeam
 
-▸ **createTeam**(): `TxCreator`<`ColonyClientV10`, ``"addDomain(uint256,uint256,uint256)"``, { `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber`  }, ``"Annotation(address,bytes32,string)"`` \| ``"ColonyMetadata(address,string)"`` \| ``"DomainMetadata(address,uint256,string)"`` \| ``"Decision"`` \| ``"MISC"``\>
+▸ **createTeam**(): `TxCreator`<`ColonyClientV10`, ``"addDomain(uint256,uint256,uint256)"``, { `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Create a team (domain) within a Colony with no metadata attached
 
@@ -153,7 +153,7 @@ Currently you can only add domains within the `Root` domain. This restriction wi
 
 #### Returns
 
-`TxCreator`<`ColonyClientV10`, ``"addDomain(uint256,uint256,uint256)"``, { `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber`  }, ``"Annotation(address,bytes32,string)"`` \| ``"ColonyMetadata(address,string)"`` \| ``"DomainMetadata(address,uint256,string)"`` \| ``"Decision"`` \| ``"MISC"``\>
+`TxCreator`<`ColonyClientV10`, ``"addDomain(uint256,uint256,uint256)"``, { `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A TxCreator
 
@@ -169,7 +169,7 @@ ___
 
 ### createTeamWithData
 
-▸ **createTeamWithData**(`teamMetadata`): `TxCreator`<`ColonyClientV10`, ``"addDomain(uint256,uint256,uint256,string)"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, ``"DomainMetadata(address,uint256,string)"``\>
+▸ **createTeamWithData**(`teamMetadata`): `TxCreator`<`ColonyClientV10`, ``"addDomain(uint256,uint256,uint256,string)"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, [`Domain`](../enums/MetadataType.md#domain)\>
 
 Create a team (domain) within a Colony with team details as metadata
 
@@ -185,7 +185,7 @@ Currently you can only add domains within the `Root` domain. This restriction wi
 
 #### Returns
 
-`TxCreator`<`ColonyClientV10`, ``"addDomain(uint256,uint256,uint256,string)"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, ``"DomainMetadata(address,uint256,string)"``\>
+`TxCreator`<`ColonyClientV10`, ``"addDomain(uint256,uint256,uint256,string)"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, [`Domain`](../enums/MetadataType.md#domain)\>
 
 A TxCreator
 
@@ -210,7 +210,7 @@ ___
 
 ### deprecateTeam
 
-▸ **deprecateTeam**(`teamId`, `deprecated`): `TxCreator`<`ColonyClientV10`, ``"deprecateDomain"``, { `agent?`: `string` ; `deprecated?`: `boolean` ; `domainId?`: `BigNumber`  }, ``"Annotation(address,bytes32,string)"`` \| ``"ColonyMetadata(address,string)"`` \| ``"DomainMetadata(address,uint256,string)"`` \| ``"Decision"`` \| ``"MISC"``\>
+▸ **deprecateTeam**(`teamId`, `deprecated`): `TxCreator`<`ColonyClientV10`, ``"deprecateDomain"``, { `agent?`: `string` ; `deprecated?`: `boolean` ; `domainId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Deprecate (remove) or undeprecate a team
 
@@ -225,7 +225,7 @@ Teams can be deprecated which will remove them from the UI. As they can't be del
 
 #### Returns
 
-`TxCreator`<`ColonyClientV10`, ``"deprecateDomain"``, { `agent?`: `string` ; `deprecated?`: `boolean` ; `domainId?`: `BigNumber`  }, ``"Annotation(address,bytes32,string)"`` \| ``"ColonyMetadata(address,string)"`` \| ``"DomainMetadata(address,uint256,string)"`` \| ``"Decision"`` \| ``"MISC"``\>
+`TxCreator`<`ColonyClientV10`, ``"deprecateDomain"``, { `agent?`: `string` ; `deprecated?`: `boolean` ; `domainId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A TxCreator
 
@@ -349,7 +349,7 @@ ___
 
 ### makeArbitraryTransaction
 
-▸ **makeArbitraryTransaction**(`target`, `action`): `TxCreator`<`ColonyClientV10`, ``"makeArbitraryTransactions"``, `Record`<`string`, `unknown`\>, ``"Annotation(address,bytes32,string)"`` \| ``"ColonyMetadata(address,string)"`` \| ``"DomainMetadata(address,uint256,string)"`` \| ``"Decision"`` \| ``"MISC"``\>
+▸ **makeArbitraryTransaction**(`target`, `action`): `TxCreator`<`ColonyClientV10`, ``"makeArbitraryTransactions"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
 
 Execute an arbitrary transaction in the name of the Colony
 
@@ -388,7 +388,7 @@ const encodedAction = ERC721.encodeFunctionData(
 
 #### Returns
 
-`TxCreator`<`ColonyClientV10`, ``"makeArbitraryTransactions"``, `Record`<`string`, `unknown`\>, ``"Annotation(address,bytes32,string)"`` \| ``"ColonyMetadata(address,string)"`` \| ``"DomainMetadata(address,uint256,string)"`` \| ``"Decision"`` \| ``"MISC"``\>
+`TxCreator`<`ColonyClientV10`, ``"makeArbitraryTransactions"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
 
 A TxCreator
 
@@ -398,7 +398,7 @@ ___
 
 ### moveFundsToTeam
 
-▸ **moveFundsToTeam**(`amount`, `toTeam`, `fromTeam?`, `tokenAddress?`): `TxCreator`<`ColonyClientV10`, ``"moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `fromPot?`: `BigNumber` ; `toPot?`: `BigNumber` ; `token?`: `string`  }, ``"Annotation(address,bytes32,string)"`` \| ``"ColonyMetadata(address,string)"`` \| ``"DomainMetadata(address,uint256,string)"`` \| ``"Decision"`` \| ``"MISC"``\>
+▸ **moveFundsToTeam**(`amount`, `toTeam`, `fromTeam?`, `tokenAddress?`): `TxCreator`<`ColonyClientV10`, ``"moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `fromPot?`: `BigNumber` ; `toPot?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Move funds from one team to another
 
@@ -436,7 +436,7 @@ import { Tokens, w } from '@colony/sdk';
 
 #### Returns
 
-`TxCreator`<`ColonyClientV10`, ``"moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `fromPot?`: `BigNumber` ; `toPot?`: `BigNumber` ; `token?`: `string`  }, ``"Annotation(address,bytes32,string)"`` \| ``"ColonyMetadata(address,string)"`` \| ``"DomainMetadata(address,uint256,string)"`` \| ``"Decision"`` \| ``"MISC"``\>
+`TxCreator`<`ColonyClientV10`, ``"moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `fromPot?`: `BigNumber` ; `toPot?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A TxCreator
 

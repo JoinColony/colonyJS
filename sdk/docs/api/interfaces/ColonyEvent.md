@@ -1,4 +1,4 @@
-# Interface: ColonyEvent<E\>
+# Interface: ColonyEvent<T\>
 
 An Event that came from a contract within the Colony Network
 
@@ -6,7 +6,7 @@ An Event that came from a contract within the Colony Network
 
 | Name | Type |
 | :------ | :------ |
-| `E` | extends [`MetadataEvent`](../README.md#metadataevent) = [`MetadataEvent`](../README.md#metadataevent) |
+| `T` | extends [`MetadataType`](../enums/MetadataType.md) |
 
 ## Hierarchy
 
@@ -68,15 +68,15 @@ ___
 
 ### getMetadata
 
-• `Optional` **getMetadata**: () => `Promise`<`ReturnType`<{ `annotation`: (`res`: `string`) => `undefined` \| `string` = getAnnotationMsgFromResponse; `colony`: (`res`: `string`) => `undefined` \| `ColonyMetadata` = getColonyMetadataFromResponse; `decision`: (`res`: `string`) => `undefined` \| `DecisionMetadata` = getDecisionDetailsFromResponse; `domain`: (`res`: `string`) => `undefined` \| `DomainMetadata` = getDomainMetadataFromResponse; `misc`: (`res`: `string`) => `undefined` \| `MiscMetadata` = getMiscDataFromResponse }[{ `Annotation(address,bytes32,string)`: [`Annotation`](../enums/MetadataType.md#annotation) = MetadataType.Annotation; `ColonyMetadata(address,string)`: [`Colony`](../enums/MetadataType.md#colony) = MetadataType.Colony; `Decision`: [`Decision`](../enums/MetadataType.md#decision) = MetadataType.Decision; `DomainMetadata(address,uint256,string)`: [`Domain`](../enums/MetadataType.md#domain) = MetadataType.Domain; `MISC`: [`Misc`](../enums/MetadataType.md#misc) = MetadataType.Misc }[`E`]]\>\>
+• `Optional` **getMetadata**: () => `Promise`<`ReturnType`<{ `None`: () => `void` ; `annotation`: (`res`: `string`) => `undefined` \| `string` = getAnnotationMsgFromResponse; `colony`: (`res`: `string`) => `undefined` \| `ColonyMetadata` = getColonyMetadataFromResponse; `decision`: (`res`: `string`) => `undefined` \| `DecisionMetadata` = getDecisionDetailsFromResponse; `domain`: (`res`: `string`) => `undefined` \| `DomainMetadata` = getDomainMetadataFromResponse; `misc`: (`res`: `string`) => `undefined` \| `MiscMetadata` = getMiscDataFromResponse }[`T`]\>\>
 
 #### Type declaration
 
-▸ (): `Promise`<`ReturnType`<{ `annotation`: (`res`: `string`) => `undefined` \| `string` = getAnnotationMsgFromResponse; `colony`: (`res`: `string`) => `undefined` \| `ColonyMetadata` = getColonyMetadataFromResponse; `decision`: (`res`: `string`) => `undefined` \| `DecisionMetadata` = getDecisionDetailsFromResponse; `domain`: (`res`: `string`) => `undefined` \| `DomainMetadata` = getDomainMetadataFromResponse; `misc`: (`res`: `string`) => `undefined` \| `MiscMetadata` = getMiscDataFromResponse }[{ `Annotation(address,bytes32,string)`: [`Annotation`](../enums/MetadataType.md#annotation) = MetadataType.Annotation; `ColonyMetadata(address,string)`: [`Colony`](../enums/MetadataType.md#colony) = MetadataType.Colony; `Decision`: [`Decision`](../enums/MetadataType.md#decision) = MetadataType.Decision; `DomainMetadata(address,uint256,string)`: [`Domain`](../enums/MetadataType.md#domain) = MetadataType.Domain; `MISC`: [`Misc`](../enums/MetadataType.md#misc) = MetadataType.Misc }[`E`]]\>\>
+▸ (): `Promise`<`ReturnType`<{ `None`: () => `void` ; `annotation`: (`res`: `string`) => `undefined` \| `string` = getAnnotationMsgFromResponse; `colony`: (`res`: `string`) => `undefined` \| `ColonyMetadata` = getColonyMetadataFromResponse; `decision`: (`res`: `string`) => `undefined` \| `DecisionMetadata` = getDecisionDetailsFromResponse; `domain`: (`res`: `string`) => `undefined` \| `DomainMetadata` = getDomainMetadataFromResponse; `misc`: (`res`: `string`) => `undefined` \| `MiscMetadata` = getMiscDataFromResponse }[`T`]\>\>
 
 ##### Returns
 
-`Promise`<`ReturnType`<{ `annotation`: (`res`: `string`) => `undefined` \| `string` = getAnnotationMsgFromResponse; `colony`: (`res`: `string`) => `undefined` \| `ColonyMetadata` = getColonyMetadataFromResponse; `decision`: (`res`: `string`) => `undefined` \| `DecisionMetadata` = getDecisionDetailsFromResponse; `domain`: (`res`: `string`) => `undefined` \| `DomainMetadata` = getDomainMetadataFromResponse; `misc`: (`res`: `string`) => `undefined` \| `MiscMetadata` = getMiscDataFromResponse }[{ `Annotation(address,bytes32,string)`: [`Annotation`](../enums/MetadataType.md#annotation) = MetadataType.Annotation; `ColonyMetadata(address,string)`: [`Colony`](../enums/MetadataType.md#colony) = MetadataType.Colony; `Decision`: [`Decision`](../enums/MetadataType.md#decision) = MetadataType.Decision; `DomainMetadata(address,uint256,string)`: [`Domain`](../enums/MetadataType.md#domain) = MetadataType.Domain; `MISC`: [`Misc`](../enums/MetadataType.md#misc) = MetadataType.Misc }[`E`]]\>\>
+`Promise`<`ReturnType`<{ `None`: () => `void` ; `annotation`: (`res`: `string`) => `undefined` \| `string` = getAnnotationMsgFromResponse; `colony`: (`res`: `string`) => `undefined` \| `ColonyMetadata` = getColonyMetadataFromResponse; `decision`: (`res`: `string`) => `undefined` \| `DecisionMetadata` = getDecisionDetailsFromResponse; `domain`: (`res`: `string`) => `undefined` \| `DomainMetadata` = getDomainMetadataFromResponse; `misc`: (`res`: `string`) => `undefined` \| `MiscMetadata` = getMiscDataFromResponse }[`T`]\>\>
 
 ___
 

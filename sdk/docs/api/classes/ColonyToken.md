@@ -145,7 +145,7 @@ ___
 
 ### mint
 
-▸ **mint**(`amount`): `TxCreator`<`ColonyClientV10`, ``"mintTokens"``, `Record`<`string`, `unknown`\>, ``"Annotation(address,bytes32,string)"`` \| ``"ColonyMetadata(address,string)"`` \| ``"DomainMetadata(address,uint256,string)"`` \| ``"Decision"`` \| ``"MISC"``\>
+▸ **mint**(`amount`): `TxCreator`<`ColonyClientV10`, ``"mintTokens"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
 
 Mints `amount` of a Colony's native token.
 
@@ -178,7 +178,7 @@ import { w } from '@colony/sdk';
 
 #### Returns
 
-`TxCreator`<`ColonyClientV10`, ``"mintTokens"``, `Record`<`string`, `unknown`\>, ``"Annotation(address,bytes32,string)"`` \| ``"ColonyMetadata(address,string)"`` \| ``"DomainMetadata(address,uint256,string)"`` \| ``"Decision"`` \| ``"MISC"``\>
+`TxCreator`<`ColonyClientV10`, ``"mintTokens"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
 
 A TxCreator
 

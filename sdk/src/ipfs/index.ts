@@ -1,7 +1,6 @@
 export {
   default as IpfsMetadata,
   MetadataEvent,
-  MetadataEventValue,
   MetadataType,
   MetadataValue,
 } from './IpfsMetadata';

@@ -150,7 +150,7 @@ ___
 
 ### getEvents
 
-▸ **getEvents**(`filter`): `Promise`<[`ColonyEvent`](../interfaces/ColonyEvent.md)<``"Annotation(address,bytes32,string)"`` \| ``"ColonyMetadata(address,string)"`` \| ``"DomainMetadata(address,uint256,string)"`` \| ``"Decision"`` \| ``"MISC"``\>[]\>
+▸ **getEvents**<`T`\>(`filter`): `Promise`<[`ColonyEvent`](../interfaces/ColonyEvent.md)<`T`\>[]\>
 
 Get events for a single filter
 
@@ -171,6 +171,12 @@ const domainAdded = colonyEvents.createFilter(
 })();
 ```
 
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `T` | extends [`MetadataType`](../enums/MetadataType.md) |
+
 #### Parameters
 
 | Name | Type | Description |
@@ -179,7 +185,7 @@ const domainAdded = colonyEvents.createFilter(
 
 #### Returns
 
-`Promise`<[`ColonyEvent`](../interfaces/ColonyEvent.md)<``"Annotation(address,bytes32,string)"`` \| ``"ColonyMetadata(address,string)"`` \| ``"DomainMetadata(address,uint256,string)"`` \| ``"Decision"`` \| ``"MISC"``\>[]\>
+`Promise`<[`ColonyEvent`](../interfaces/ColonyEvent.md)<`T`\>[]\>
 
 An array of [ColonyEvent](../interfaces/ColonyEvent.md)s
 
@@ -187,7 +193,7 @@ ___
 
 ### getMultiEvents
 
-▸ **getMultiEvents**(`filters`, `options?`): `Promise`<[`ColonyEvent`](../interfaces/ColonyEvent.md)<``"Annotation(address,bytes32,string)"`` \| ``"ColonyMetadata(address,string)"`` \| ``"DomainMetadata(address,uint256,string)"`` \| ``"Decision"`` \| ``"MISC"``\>[]\>
+▸ **getMultiEvents**<`T`\>(`filters`, `options?`): `Promise`<[`ColonyEvent`](../interfaces/ColonyEvent.md)<`T`\>[]\>
 
 Get events for multiple filters across multiple addresses at once
 
@@ -221,6 +227,12 @@ const domainMetadata = colonyEvents.createMultiFilter(
 })();
 ```
 
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `T` | extends [`MetadataType`](../enums/MetadataType.md) |
+
 #### Parameters
 
 | Name | Type | Description |
@@ -232,6 +244,6 @@ const domainMetadata = colonyEvents.createMultiFilter(
 
 #### Returns
 
-`Promise`<[`ColonyEvent`](../interfaces/ColonyEvent.md)<``"Annotation(address,bytes32,string)"`` \| ``"ColonyMetadata(address,string)"`` \| ``"DomainMetadata(address,uint256,string)"`` \| ``"Decision"`` \| ``"MISC"``\>[]\>
+`Promise`<[`ColonyEvent`](../interfaces/ColonyEvent.md)<`T`\>[]\>
 
 An array of [ColonyEvent](../interfaces/ColonyEvent.md)s

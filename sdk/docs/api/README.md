@@ -49,19 +49,13 @@ ___
 
 ### MetadataEvent
 
-Ƭ **MetadataEvent**: keyof typeof `IPFS_METADATA_EVENTS`
-
-___
-
-### MetadataEventValue
-
-Ƭ **MetadataEventValue**<`K`\>: `ReturnType`<typeof `IPFS_METADATA_PARSERS`[typeof `IPFS_METADATA_EVENTS`[`K`]]\>
+Ƭ **MetadataEvent**<`K`\>: typeof `IPFS_METADATA_EVENTS`[`K`]
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `K` | extends [`MetadataEvent`](README.md#metadataevent) |
+| `K` | extends [`MetadataType`](enums/MetadataType.md) |
 
 ___
 

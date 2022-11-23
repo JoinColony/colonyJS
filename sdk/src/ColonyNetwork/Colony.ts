@@ -26,7 +26,6 @@ import {
 
 import { BigNumberish, BytesLike, ContractReceipt } from 'ethers';
 
-import { MetadataEvent } from '../ipfs';
 import { extractEvent } from '../utils';
 import { ColonyToken } from './ColonyToken';
 import { ColonyNetwork } from './ColonyNetwork';
@@ -101,14 +100,14 @@ export class Colony {
    * @param method The transaction method to execute on the contract
    * @param args The arguments for the method
    * @param eventData A function that extracts the relevant event data from the [[ContractReceipt]]
-   * @param metadataEvent The signature of a relevant event containing a `metadata` field
+   * @param metadataType The [[MetadataType]] if the event contains metadata
    * @returns A [[TxCreator]]
    */
   createTxCreator<
     C extends IBasicMetaTransaction,
     F extends keyof C['functions'],
     D extends Record<string, unknown>,
-    E extends MetadataEvent,
+    M extends MetadataType,
   >(
     contract: C,
     method: F,
@@ -116,7 +115,7 @@ export class Colony {
       | Parameters<C['functions'][F]>
       | (() => Promise<Parameters<C['functions'][F]>>),
     eventData?: (receipt: ContractReceipt) => Promise<D>,
-    metadataEvent?: E,
+    metadataType?: M,
   ) {
     return new TxCreator({
       colony: this,
@@ -124,7 +123,7 @@ export class Colony {
       method,
       args,
       eventData,
-      metadataEvent,
+      metadataType,
     });
   }
 
@@ -140,14 +139,14 @@ export class Colony {
    * @param args The arguments for the method
    * @param permissionConfig Relevant configuration for the permissioned Colony function
    * @param eventData A function that extracts the relevant event data from the [[ContractReceipt]]
-   * @param metadataEvent The signature of a relevant event containing a `metadata` field
+   * @param metadataType The [[MetadataType]] if the event contains metadata
    * @returns A permissioned [[TxCreator]]
    */
   createPermissionedTxCreator<
     C extends IBasicMetaTransaction,
     F extends keyof C['functions'],
     D extends Record<string, unknown>,
-    E extends MetadataEvent,
+    M extends MetadataType,
   >(
     contract: C,
     method: F,
@@ -156,7 +155,7 @@ export class Colony {
       | (() => Promise<ParametersFrom2<C['functions'][F]>>),
     permissionConfig: PermissionConfig,
     eventData?: (receipt: ContractReceipt) => Promise<D>,
-    metadataEvent?: E,
+    metadataType?: M,
   ) {
     return new TxCreator({
       colony: this,
@@ -165,7 +164,7 @@ export class Colony {
       args,
       permissionConfig,
       eventData,
-      metadataEvent,
+      metadataType,
     });
   }
 
@@ -292,8 +291,7 @@ export class Colony {
         ...extractEvent<FundingPotAddedEventObject>('FundingPotAdded', receipt),
         ...extractEvent<DomainMetadataEventObject>('DomainMetadata', receipt),
       }),
-      // TODO: can we use the MetadataType instead?
-      'DomainMetadata(address,uint256,string)',
+      MetadataType.Domain,
     );
   }
 
@@ -667,7 +665,7 @@ export class Colony {
       async (receipt) => ({
         ...extractEvent<AnnotationEventObject>('Annotation', receipt),
       }),
-      'Annotation(address,bytes32,string)',
+      MetadataType.Annotation,
     );
   }
 }

@@ -15,8 +15,9 @@ import {
 import { fetch } from 'cross-fetch';
 
 import { Colony } from './Colony';
-import { MetadataEvent, MetadataEventValue } from '../ipfs';
+import { MetadataType, MetadataValue } from '../ipfs';
 import type { ParsedLogTransactionReceipt } from '../utils';
+import { IPFS_METADATA_EVENTS } from '../ipfs/IpfsMetadata';
 
 const { arrayify, solidityKeccak256, splitSignature } = utils;
 
@@ -51,7 +52,7 @@ export class TxCreator<
   C extends BaseContract,
   M extends keyof C['functions'],
   E extends EventData,
-  ME extends MetadataEvent,
+  MD extends MetadataType,
 > {
   private colony: Colony;
 
@@ -63,7 +64,7 @@ export class TxCreator<
 
   private eventData?: (receipt: ContractReceipt) => Promise<E>;
 
-  private metadataEvent?: ME;
+  private metadataType?: MD;
 
   private permissionConfig?: PermissionConfig;
 
@@ -73,7 +74,7 @@ export class TxCreator<
     method,
     args,
     eventData,
-    metadataEvent,
+    metadataType,
     permissionConfig,
   }: {
     colony: Colony;
@@ -81,7 +82,7 @@ export class TxCreator<
     method: M;
     args: unknown[] | (() => Promise<unknown[]>);
     eventData?: (receipt: ContractReceipt) => Promise<E>;
-    metadataEvent?: ME;
+    metadataType?: MD;
     permissionConfig?: PermissionConfig;
   }) {
     this.colony = colony;
@@ -89,12 +90,12 @@ export class TxCreator<
     this.method = method as string;
     this.args = args;
     this.eventData = eventData;
-    this.metadataEvent = metadataEvent;
+    this.metadataType = metadataType;
     this.permissionConfig = permissionConfig;
   }
 
   async forceTx(): Promise<
-    | [E, ContractReceipt, () => Promise<MetadataEventValue<ME>>]
+    | [E, ContractReceipt, () => Promise<MetadataValue<MD>>]
     | [E, ContractReceipt]
   > {
     let args: unknown[] = [];
@@ -125,13 +126,13 @@ export class TxCreator<
     if (this.eventData) {
       const data = await this.eventData(receipt);
 
-      if (this.metadataEvent && data.metadata) {
+      if (this.metadataType && data.metadata) {
         const getMetadata =
           this.colony.colonyNetwork.ipfs.getMetadataForEvent.bind(
             this.colony.colonyNetwork.ipfs,
-            this.metadataEvent,
+            IPFS_METADATA_EVENTS[this.metadataType],
             data.metadata,
-          ) as () => Promise<MetadataEventValue<ME>>;
+          ) as () => Promise<MetadataValue<MD>>;
 
         return [data, receipt, getMetadata];
       }
@@ -292,12 +293,12 @@ export class TxCreator<
     if (this.eventData) {
       const eventData = await this.eventData(receipt);
 
-      if (this.metadataEvent && eventData.metadata) {
+      if (this.metadataType && eventData.metadata) {
         const getMetadata = colonyNetwork.ipfs.getMetadataForEvent.bind(
           colonyNetwork.ipfs,
-          this.metadataEvent,
+          IPFS_METADATA_EVENTS[this.metadataType],
           eventData.metadata,
-        ) as () => Promise<MetadataEventValue<ME>>;
+        ) as () => Promise<MetadataValue<MD>>;
 
         return [eventData, receipt, getMetadata];
       }

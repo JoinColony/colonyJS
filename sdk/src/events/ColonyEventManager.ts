@@ -23,7 +23,8 @@ import {
   IpfsAdapter,
   IpfsMetadata,
   MetadataEvent,
-  MetadataEventValue,
+  MetadataType,
+  MetadataValue,
 } from '../ipfs';
 
 /** Valid sources for Colony emitted events. Used to map the parsed event data */
@@ -63,11 +64,10 @@ export interface ColonyMultiFilter {
 }
 
 /** An Event that came from a contract within the Colony Network */
-export interface ColonyEvent<E extends MetadataEvent = MetadataEvent>
-  extends ColonyFilter {
+export interface ColonyEvent<T extends MetadataType> extends ColonyFilter {
   data: Result;
   transactionHash: string;
-  getMetadata?: () => Promise<MetadataEventValue<E>>;
+  getMetadata?: () => Promise<MetadataValue<T>>;
 }
 
 /** Additional options for the [[ColonyEventManager]] */
@@ -167,9 +167,9 @@ export class ColonyEventManager {
    * @param filter A [[ColonyFilter]]. [[ColonyMultiFilters]] will not work
    * @returns An array of [[ColonyEvent]]s
    */
-  async getEvents(
+  async getEvents<T extends MetadataType>(
     filter: ColonyFilter,
-  ): Promise<Array<ColonyEvent<MetadataEvent>>> {
+  ): Promise<Array<ColonyEvent<T>>> {
     const logs = await getLogs(filter, this.provider);
 
     return logs
@@ -187,9 +187,9 @@ export class ColonyEventManager {
             transactionHash: log.transactionHash,
             getMetadata: async () => {
               return this.ipfs.getMetadataForEvent(
-                eventName as MetadataEvent,
+                eventName as MetadataEvent<T>,
                 data.metadata,
-              );
+              ) as MetadataValue<T>;
             },
           };
         }
@@ -239,10 +239,10 @@ export class ColonyEventManager {
    * @param options.toBlock Ending block in which to look for this event - inclusive (default: 'latest')
    * @returns An array of [[ColonyEvent]]s
    */
-  async getMultiEvents(
+  async getMultiEvents<T extends MetadataType>(
     filters: ColonyMultiFilter[],
     options: { fromBlock?: BlockTag; toBlock?: BlockTag } = {},
-  ): Promise<ColonyEvent<MetadataEvent>[]> {
+  ): Promise<ColonyEvent<T>[]> {
     // Unique list of addresses
     const addresses = Array.from(
       new Set(filters.flatMap(({ address }) => address)),
@@ -303,9 +303,9 @@ export class ColonyEventManager {
             ...colonyEvent,
             getMetadata: async () => {
               return this.ipfs.getMetadataForEvent(
-                eventName as MetadataEvent,
+                eventName as MetadataEvent<T>,
                 data.metadata,
-              );
+              ) as MetadataValue<T>;
             },
           };
         }
