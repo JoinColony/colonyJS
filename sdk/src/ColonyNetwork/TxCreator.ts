@@ -2,6 +2,7 @@ import {
   ColonyRole,
   IBasicMetaTransaction,
   getPermissionProofs,
+  getCreateMotionProofs,
   Id,
   Network,
 } from '@colony/colony-js';
@@ -242,6 +243,164 @@ export class TxCreator<
       this.method,
       args,
     );
+    const message = solidityKeccak256(
+      ['uint256', 'address', 'uint256', 'bytes'],
+      [nonce.toString(), this.contract.address, chainId, encodedTransaction],
+    );
+    const buf = arrayify(message);
+    const signature = await signerOrProvider.signMessage(buf);
+    const { r, s, v } = splitSignature(signature);
+
+    const data = {
+      target: this.contract.address,
+      payload: encodedTransaction,
+      userAddress,
+      r,
+      s,
+      v,
+    };
+
+    const res = await fetch(
+      `${colonyNetwork.config.metaTxBroadcasterEndpoint}/broadcast`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      },
+    );
+    const parsed = await res.json();
+
+    if (parsed.status !== 'success') {
+      throw new Error(
+        `Could not send Metatransaction. Reason given: ${parsed.data.reason}`,
+      );
+    }
+
+    if (!parsed.data?.txHash) {
+      throw new Error(
+        'Could not get transaction hash from broadcaster response',
+      );
+    }
+
+    const receipt = (await provider.waitForTransaction(
+      parsed.data.txHash,
+    )) as ParsedLogTransactionReceipt;
+    receipt.parsedLogs = receipt.logs.map((log) =>
+      this.contract.interface.parseLog(log),
+    );
+
+    if (this.eventData) {
+      const eventData = await this.eventData(receipt);
+
+      if (this.metadataType && eventData.metadata) {
+        const getMetadata = colonyNetwork.ipfs.getMetadataForEvent.bind(
+          colonyNetwork.ipfs,
+          IPFS_METADATA_EVENTS[this.metadataType],
+          eventData.metadata,
+        ) as () => Promise<MetadataValue<MD>>;
+
+        return [eventData, receipt, getMetadata];
+      }
+
+      return [eventData, receipt];
+    }
+
+    return [{} as E, receipt];
+  }
+
+  async send(motionDomain: BigNumberish) {
+    const { colonyNetwork, signerOrProvider } = this.colony;
+
+    if (!this.colony.ext.motions) {
+      throw new Error(
+        'VotingReputation extension is not installed for this Colony',
+      );
+    }
+
+    if (!colonyNetwork.config.metaTxBroadcasterEndpoint) {
+      throw new Error(
+        `No metatransaction broadcaster endpoint found for network ${colonyNetwork.network}`,
+      );
+    }
+
+    if (!(signerOrProvider instanceof Signer)) {
+      throw new Error('Need a signer to create a transaction');
+    }
+
+    const { provider } = signerOrProvider;
+    if (!provider) {
+      throw new Error('No provider found');
+    }
+
+    let args: unknown[] = [];
+
+    if (typeof this.args == 'function') {
+      args = await this.args();
+    } else {
+      args = this.args;
+    }
+
+    const userAddress = await signerOrProvider.getAddress();
+    const nonce = await this.contract.functions.getMetatransactionNonce(
+      userAddress,
+    );
+
+    let chainId: number;
+
+    if (colonyNetwork.network === Network.Custom) {
+      chainId = 1;
+    } else {
+      const networkInfo = await provider.getNetwork();
+      chainId = networkInfo.chainId;
+    }
+
+    if (this.permissionConfig) {
+      const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+        this.colony.getInternalColonyClient(),
+        this.permissionConfig.domain,
+        this.permissionConfig.roles,
+        this.permissionConfig.address,
+      );
+      // Quite dangerous but probably fine. Plus, it gets TS off our backs ;)
+      args.unshift(permissionDomainId, childSkillIndex);
+    }
+
+    const encodedAction = this.contract.interface.encodeFunctionData(
+      this.method,
+      args,
+    );
+
+    // If the contract for this TxCreator is the colony, use 0x0, otherwise use the extension's address
+    const altTarget =
+      this.contract.address === this.colony.address
+        ? '0x0'
+        : this.contract.address;
+
+    const votingReputationClient =
+      this.colony.ext.motions.getInternalVotingReputationClient();
+
+    const { actionCid, key, value, branchMask, siblings } =
+      await getCreateMotionProofs(
+        votingReputationClient,
+        motionDomain,
+        altTarget,
+        encodedAction,
+      );
+
+    const encodedTransaction =
+      votingReputationClient.interface.encodeFunctionData('createMotion', [
+        motionDomain,
+        actionCid,
+        altTarget,
+        encodedAction,
+        key,
+        value,
+        branchMask,
+        siblings,
+      ]);
+
     const message = solidityKeccak256(
       ['uint256', 'address', 'uint256', 'bytes'],
       [nonce.toString(), this.contract.address, chainId, encodedTransaction],

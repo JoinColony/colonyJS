@@ -216,6 +216,16 @@ export class VotingReputation {
   }
 
   /**
+   * Provide direct access to the internally used ColonyJS client. Only use when you know what you're doing
+   * @internal
+   *
+   * @returns The internally used VotingReputationClient
+   */
+  getInternalVotingReputationClient(): SupportedVotingReputationClient {
+    return this.votingReputationClient;
+  }
+
+  /**
    * Create a motion using an encoded action
    *
    * @remarks You will usually not use this function directly, but use the `send` or `motion` functions of the [[TxCreator]] within the relevant contract.

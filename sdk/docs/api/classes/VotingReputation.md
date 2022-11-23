@@ -296,7 +296,7 @@ ___
 
 ### getRemainingStakes
 
-▸ **getRemainingStakes**(`motionId`): `Promise`<{ `remainingToFullyNayStaked`: `BigNumber` ; `remainingToFullyYayStaked`: `BigNumber`  }\>
+▸ **getRemainingStakes**(`motionId`): `Promise`<{ `remainingToFullyNayStaked`: `BigNumber` \| `BigNumber` ; `remainingToFullyYayStaked`: `BigNumber` \| `BigNumber`  }\>
 
 Get the amounts remaining for Yay/Nay sides to be activated
 
@@ -308,7 +308,7 @@ Get the amounts remaining for Yay/Nay sides to be activated
 
 #### Returns
 
-`Promise`<{ `remainingToFullyNayStaked`: `BigNumber` ; `remainingToFullyYayStaked`: `BigNumber`  }\>
+`Promise`<{ `remainingToFullyNayStaked`: `BigNumber` \| `BigNumber` ; `remainingToFullyYayStaked`: `BigNumber` \| `BigNumber`  }\>
 
 An object containing the remaining amounts
 
