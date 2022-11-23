@@ -15,9 +15,10 @@ import {
 } from 'ethers';
 import { fetch } from 'cross-fetch';
 
+import { MotionCreatedEventObject } from '@colony/colony-js/extras';
 import { Colony } from './Colony';
 import { MetadataType, MetadataValue } from '../ipfs';
-import type { ParsedLogTransactionReceipt } from '../utils';
+import { extractEvent, ParsedLogTransactionReceipt } from '../utils';
 import { IPFS_METADATA_EVENTS } from '../ipfs/IpfsMetadata';
 
 const { arrayify, solidityKeccak256, splitSignature } = utils;
@@ -95,10 +96,7 @@ export class TxCreator<
     this.permissionConfig = permissionConfig;
   }
 
-  async forceTx(): Promise<
-    | [E, ContractReceipt, () => Promise<MetadataValue<MD>>]
-    | [E, ContractReceipt]
-  > {
+  private async getArgs() {
     let args: unknown[] = [];
 
     if (typeof this.args == 'function') {
@@ -118,12 +116,12 @@ export class TxCreator<
       args.unshift(permissionDomainId, childSkillIndex);
     }
 
-    const tx = (await this.contract.functions[this.method].apply(
-      this.contract,
-      args,
-    )) as ContractTransaction;
-    const receipt = await tx.wait();
+    return args;
+  }
 
+  private async getEventData<
+    R extends ContractReceipt | ParsedLogTransactionReceipt,
+  >(receipt: R): Promise<[E, R, () => Promise<MetadataValue<MD>>] | [E, R]> {
     if (this.eventData) {
       const data = await this.eventData(receipt);
 
@@ -135,61 +133,28 @@ export class TxCreator<
             data.metadata,
           ) as () => Promise<MetadataValue<MD>>;
 
-        return [data, receipt, getMetadata];
+        return [data, receipt as R, getMetadata];
       }
 
-      return [data, receipt];
+      return [data, receipt as R];
     }
 
-    return [{} as E, receipt];
+    return [{} as E, receipt as R];
   }
 
-  async motionTx(motionDomain: BigNumberish = Id.RootDomain) {
-    if (!this.colony.ext.motions) {
-      throw new Error(
-        'VotingReputation extension is not installed for this Colony',
-      );
+  private getSigner(): Signer {
+    const { signerOrProvider } = this.colony;
+    if (!(signerOrProvider instanceof Signer)) {
+      throw new Error('Need a signer to create a transaction');
     }
-
-    let args: unknown[] = [];
-
-    if (typeof this.args == 'function') {
-      args = await this.args();
-    } else {
-      args = this.args;
-    }
-
-    if (this.permissionConfig) {
-      const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
-        this.colony.getInternalColonyClient(),
-        this.permissionConfig.domain,
-        this.permissionConfig.roles,
-        this.permissionConfig.address,
-      );
-      // Quite dangerous but probably fine. Plus, it gets TS off our backs ;)
-      args.unshift(permissionDomainId, childSkillIndex);
-    }
-
-    const encodedAction = this.contract.interface.encodeFunctionData(
-      this.method,
-      args,
-    );
-
-    // If the contract for this TxCreator is the colony, use 0x0, otherwise use the extension's address
-    const altTarget =
-      this.contract.address === this.colony.address
-        ? '0x0'
-        : this.contract.address;
-
-    return this.colony.ext.motions.createMotion(
-      motionDomain,
-      encodedAction,
-      altTarget,
-    );
+    return signerOrProvider;
   }
 
-  async force() {
-    const { colonyNetwork, signerOrProvider } = this.colony;
+  private async sendMetaTransaction(
+    encodedTransaction: string,
+    target: string,
+  ): Promise<ParsedLogTransactionReceipt> {
+    const { colonyNetwork } = this.colony;
 
     if (!colonyNetwork.config.metaTxBroadcasterEndpoint) {
       throw new Error(
@@ -197,27 +162,12 @@ export class TxCreator<
       );
     }
 
-    if (!(signerOrProvider instanceof Signer)) {
-      throw new Error('Need a signer to create a transaction');
-    }
+    const signer = this.getSigner();
+    const { provider } = signer;
 
-    const { provider } = signerOrProvider;
     if (!provider) {
       throw new Error('No provider found');
     }
-
-    let args: unknown[] = [];
-
-    if (typeof this.args == 'function') {
-      args = await this.args();
-    } else {
-      args = this.args;
-    }
-
-    const userAddress = await signerOrProvider.getAddress();
-    const nonce = await this.contract.functions.getMetatransactionNonce(
-      userAddress,
-    );
 
     let chainId: number;
 
@@ -228,31 +178,21 @@ export class TxCreator<
       chainId = networkInfo.chainId;
     }
 
-    if (this.permissionConfig) {
-      const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
-        this.colony.getInternalColonyClient(),
-        this.permissionConfig.domain,
-        this.permissionConfig.roles,
-        this.permissionConfig.address,
-      );
-      // Quite dangerous but probably fine. Plus, it gets TS off our backs ;)
-      args.unshift(permissionDomainId, childSkillIndex);
-    }
-
-    const encodedTransaction = this.contract.interface.encodeFunctionData(
-      this.method,
-      args,
+    const userAddress = await signer.getAddress();
+    const nonce = await this.contract.functions.getMetatransactionNonce(
+      userAddress,
     );
+
     const message = solidityKeccak256(
       ['uint256', 'address', 'uint256', 'bytes'],
-      [nonce.toString(), this.contract.address, chainId, encodedTransaction],
+      [nonce.toString(), target, chainId, encodedTransaction],
     );
     const buf = arrayify(message);
-    const signature = await signerOrProvider.signMessage(buf);
+    const signature = await signer.signMessage(buf);
     const { r, s, v } = splitSignature(signature);
 
-    const data = {
-      target: this.contract.address,
+    const broadcastData = {
+      target,
       payload: encodedTransaction,
       userAddress,
       r,
@@ -267,7 +207,7 @@ export class TxCreator<
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(broadcastData),
       },
     );
     const parsed = await res.json();
@@ -291,81 +231,69 @@ export class TxCreator<
       this.contract.interface.parseLog(log),
     );
 
-    if (this.eventData) {
-      const eventData = await this.eventData(receipt);
-
-      if (this.metadataType && eventData.metadata) {
-        const getMetadata = colonyNetwork.ipfs.getMetadataForEvent.bind(
-          colonyNetwork.ipfs,
-          IPFS_METADATA_EVENTS[this.metadataType],
-          eventData.metadata,
-        ) as () => Promise<MetadataValue<MD>>;
-
-        return [eventData, receipt, getMetadata];
-      }
-
-      return [eventData, receipt];
-    }
-
-    return [{} as E, receipt];
+    return receipt;
   }
 
-  async send(motionDomain: BigNumberish) {
-    const { colonyNetwork, signerOrProvider } = this.colony;
+  async forceTx() {
+    const args = await this.getArgs();
 
+    const tx = (await this.contract.functions[this.method].apply(
+      this.contract,
+      args,
+    )) as ContractTransaction;
+    const receipt = await tx.wait();
+    return this.getEventData(receipt);
+  }
+
+  async motionTx(motionDomain: BigNumberish = Id.RootDomain) {
     if (!this.colony.ext.motions) {
       throw new Error(
         'VotingReputation extension is not installed for this Colony',
       );
     }
 
-    if (!colonyNetwork.config.metaTxBroadcasterEndpoint) {
-      throw new Error(
-        `No metatransaction broadcaster endpoint found for network ${colonyNetwork.network}`,
-      );
-    }
+    const args = await this.getArgs();
 
-    if (!(signerOrProvider instanceof Signer)) {
-      throw new Error('Need a signer to create a transaction');
-    }
-
-    const { provider } = signerOrProvider;
-    if (!provider) {
-      throw new Error('No provider found');
-    }
-
-    let args: unknown[] = [];
-
-    if (typeof this.args == 'function') {
-      args = await this.args();
-    } else {
-      args = this.args;
-    }
-
-    const userAddress = await signerOrProvider.getAddress();
-    const nonce = await this.contract.functions.getMetatransactionNonce(
-      userAddress,
+    const encodedAction = this.contract.interface.encodeFunctionData(
+      this.method,
+      args,
     );
 
-    let chainId: number;
+    // If the contract for this TxCreator is the colony, use 0x0, otherwise use the extension's address
+    const altTarget =
+      this.contract.address === this.colony.address
+        ? '0x0'
+        : this.contract.address;
 
-    if (colonyNetwork.network === Network.Custom) {
-      chainId = 1;
-    } else {
-      const networkInfo = await provider.getNetwork();
-      chainId = networkInfo.chainId;
-    }
+    return this.colony.ext.motions.createMotion(
+      motionDomain,
+      encodedAction,
+      altTarget,
+    );
+  }
 
-    if (this.permissionConfig) {
-      const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
-        this.colony.getInternalColonyClient(),
-        this.permissionConfig.domain,
-        this.permissionConfig.roles,
-        this.permissionConfig.address,
+  async force() {
+    const args = await this.getArgs();
+
+    const encodedTransaction = this.contract.interface.encodeFunctionData(
+      this.method,
+      args,
+    );
+    const receipt = await this.sendMetaTransaction(
+      encodedTransaction,
+      this.contract.address,
+    );
+    return this.getEventData(receipt);
+  }
+
+  async send(motionDomain: BigNumberish) {
+    if (!this.colony.ext.motions) {
+      throw new Error(
+        'VotingReputation extension is not installed for this Colony',
       );
-      // Quite dangerous but probably fine. Plus, it gets TS off our backs ;)
-      args.unshift(permissionDomainId, childSkillIndex);
     }
+
+    const args = await this.getArgs();
 
     const encodedAction = this.contract.interface.encodeFunctionData(
       this.method,
@@ -401,70 +329,15 @@ export class TxCreator<
         siblings,
       ]);
 
-    const message = solidityKeccak256(
-      ['uint256', 'address', 'uint256', 'bytes'],
-      [nonce.toString(), this.contract.address, chainId, encodedTransaction],
+    const receipt = await this.sendMetaTransaction(
+      encodedTransaction,
+      votingReputationClient.address,
     );
-    const buf = arrayify(message);
-    const signature = await signerOrProvider.signMessage(buf);
-    const { r, s, v } = splitSignature(signature);
 
     const data = {
-      target: this.contract.address,
-      payload: encodedTransaction,
-      userAddress,
-      r,
-      s,
-      v,
+      ...extractEvent<MotionCreatedEventObject>('MotionCreated', receipt),
     };
 
-    const res = await fetch(
-      `${colonyNetwork.config.metaTxBroadcasterEndpoint}/broadcast`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      },
-    );
-    const parsed = await res.json();
-
-    if (parsed.status !== 'success') {
-      throw new Error(
-        `Could not send Metatransaction. Reason given: ${parsed.data.reason}`,
-      );
-    }
-
-    if (!parsed.data?.txHash) {
-      throw new Error(
-        'Could not get transaction hash from broadcaster response',
-      );
-    }
-
-    const receipt = (await provider.waitForTransaction(
-      parsed.data.txHash,
-    )) as ParsedLogTransactionReceipt;
-    receipt.parsedLogs = receipt.logs.map((log) =>
-      this.contract.interface.parseLog(log),
-    );
-
-    if (this.eventData) {
-      const eventData = await this.eventData(receipt);
-
-      if (this.metadataType && eventData.metadata) {
-        const getMetadata = colonyNetwork.ipfs.getMetadataForEvent.bind(
-          colonyNetwork.ipfs,
-          IPFS_METADATA_EVENTS[this.metadataType],
-          eventData.metadata,
-        ) as () => Promise<MetadataValue<MD>>;
-
-        return [eventData, receipt, getMetadata];
-      }
-
-      return [eventData, receipt];
-    }
-
-    return [{} as E, receipt];
+    return [data, receipt] as [typeof data, typeof receipt];
   }
 }
