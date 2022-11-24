@@ -2273,7 +2273,6 @@
             "type": "function"
         }
     ],
-    "bytecode": "0x",
     "devdoc": {
         "methods": {
             "addDomain(uint256,uint256,uint256)": {

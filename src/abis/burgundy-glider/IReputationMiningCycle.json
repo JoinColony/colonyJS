@@ -812,7 +812,6 @@
             "type": "function"
         }
     ],
-    "bytecode": "0x",
     "devdoc": {
         "methods": {
             "appendReputationUpdateLog(address,int256,uint256,address,uint128,uint128)": {

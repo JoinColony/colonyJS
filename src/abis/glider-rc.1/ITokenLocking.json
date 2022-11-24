@@ -325,7 +325,6 @@
             "type": "function"
         }
     ],
-    "bytecode": "0x",
     "devdoc": {
         "methods": {
             "deposit(address,uint256)": {

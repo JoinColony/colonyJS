@@ -124,7 +124,6 @@
             "type": "event"
         }
     ],
-    "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3fe6080604052600080fdfea165627a7a72305820a7537016e985347ddb5ceacd3e052c49ceb6cedf22b7d896554943a4fdf0e80c0029",
     "devdoc": {
         "methods": {}
     },

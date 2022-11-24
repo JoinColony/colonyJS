@@ -1,7 +1,6 @@
 {
     "contractName": "PatriciaTreeProofs",
     "abi": [],
-    "bytecode": "0x6080604052348015600f57600080fd5b50604380601d6000396000f3fe6080604052600080fdfea265627a7a72305820283faca800f0e6f9ac4acf5b82f9c93a480699fd8febe35ad58c378a57c3d6596c6578706572696d656e74616cf50037",
     "devdoc": {
         "methods": {},
         "title": "Functions related to checking Patricia Tree proofs"
