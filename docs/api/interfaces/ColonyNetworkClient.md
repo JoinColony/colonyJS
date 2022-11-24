@@ -64,90 +64,90 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `addColonyVersion` | (`_version`: `BigNumberish`, `_resolver`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `addExtensionToNetwork` | (`_extensionId`: `BytesLike`, `_resolver`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `addSkill` | (`_parentSkillId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `addr` | (`_node`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `appendReputationUpdateLog` | (`_user`: `string`, `_amount`: `BigNumberish`, `_skillId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `addColonyVersion` | (`_version`: `PromiseOrValue`<`BigNumberish`\>, `_resolver`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `addExtensionToNetwork` | (`_extensionId`: `PromiseOrValue`<`BytesLike`\>, `_resolver`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `addSkill` | (`_parentSkillId`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `addr` | (`_node`: `PromiseOrValue`<`BytesLike`\>, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `appendReputationUpdateLog` | (`_user`: `PromiseOrValue`<`string`\>, `_amount`: `PromiseOrValue`<`BigNumberish`\>, `_skillId`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `approveExitRecovery` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `burnUnneededRewards` | (`_amount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `calculateMinerWeight` | (`_timeStaked`: `BigNumberish`, `_submissonIndex`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `checkNotAdditionalProtectedVariable` | (`_slot`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `claimMiningReward` | (`_recipient`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `createColony(address)` | (`_tokenAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `createColony(address,uint256,string)` | (`_tokenAddress`: `string`, `_version`: `BigNumberish`, `_colonyName`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `createColony(address,uint256,string,string)` | (`_tokenAddress`: `string`, `_version`: `BigNumberish`, `_colonyName`: `string`, `_metadata`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `createColony(address,uint256,string,string,bool)` | (`_tokenAddress`: `string`, `_version`: `BigNumberish`, `_colonyName`: `string`, `_orbitdb`: `string`, `_useExtensionManager`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `createMetaColony` | (`_tokenAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `deployTokenAuthority` | (`_token`: `string`, `_colony`: `string`, `_allowedToTransfer`: `string`[], `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `deployTokenViaNetwork` | (`_name`: `string`, `_symbol`: `string`, `_decimals`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `deprecateExtension` | (`_extensionId`: `BytesLike`, `_deprecated`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `deprecateSkill(uint256)` | (`_skillId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `deprecateSkill(uint256,bool)` | (`_skillId`: `BigNumberish`, `_deprecated`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
+| `burnUnneededRewards` | (`_amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `calculateMinerWeight` | (`_timeStaked`: `PromiseOrValue`<`BigNumberish`\>, `_submissonIndex`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `checkNotAdditionalProtectedVariable` | (`_slot`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `claimMiningReward` | (`_recipient`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `createColony(address)` | (`_tokenAddress`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `createColony(address,uint256,string)` | (`_tokenAddress`: `PromiseOrValue`<`string`\>, `_version`: `PromiseOrValue`<`BigNumberish`\>, `_colonyName`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `createColony(address,uint256,string,string)` | (`_tokenAddress`: `PromiseOrValue`<`string`\>, `_version`: `PromiseOrValue`<`BigNumberish`\>, `_colonyName`: `PromiseOrValue`<`string`\>, `_metadata`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `createColony(address,uint256,string,string,bool)` | (`_tokenAddress`: `PromiseOrValue`<`string`\>, `_version`: `PromiseOrValue`<`BigNumberish`\>, `_colonyName`: `PromiseOrValue`<`string`\>, `_orbitdb`: `PromiseOrValue`<`string`\>, `_useExtensionManager`: `PromiseOrValue`<`boolean`\>, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `createMetaColony` | (`_tokenAddress`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `deployTokenAuthority` | (`_token`: `PromiseOrValue`<`string`\>, `_colony`: `PromiseOrValue`<`string`\>, `_allowedToTransfer`: `PromiseOrValue`<`string`\>[], `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `deployTokenViaNetwork` | (`_name`: `PromiseOrValue`<`string`\>, `_symbol`: `PromiseOrValue`<`string`\>, `_decimals`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `deprecateExtension` | (`_extensionId`: `PromiseOrValue`<`BytesLike`\>, `_deprecated`: `PromiseOrValue`<`boolean`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `deprecateSkill(uint256)` | (`_skillId`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `deprecateSkill(uint256,bool)` | (`_skillId`: `PromiseOrValue`<`BigNumberish`\>, `_deprecated`: `PromiseOrValue`<`boolean`\>, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 | `enterRecoveryMode` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `executeMetaTransaction` | (`userAddress`: `string`, `payload`: `BytesLike`, `sigR`: `BytesLike`, `sigS`: `BytesLike`, `sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `executeMetaTransaction` | (`userAddress`: `PromiseOrValue`<`string`\>, `payload`: `PromiseOrValue`<`BytesLike`\>, `sigR`: `PromiseOrValue`<`BytesLike`\>, `sigS`: `PromiseOrValue`<`BytesLike`\>, `sigV`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `exitRecoveryMode` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `getChildSkillId` | (`_skillId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getColony` | (`_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `getChildSkillId` | (`_skillId`: `PromiseOrValue`<`BigNumberish`\>, `_childSkillIndex`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getColony` | (`_id`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getColonyCount` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getColonyVersionResolver` | (`_version`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `getColonyVersionResolver` | (`_version`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getCurrentColonyVersion` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getENSRegistrar` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `getExtensionInstallation` | (`_extensionId`: `BytesLike`, `_colony`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `getExtensionResolver` | (`_extensionId`: `BytesLike`, `_version`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `getExtensionInstallation` | (`_extensionId`: `PromiseOrValue`<`BytesLike`\>, `_colony`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `getExtensionResolver` | (`_extensionId`: `PromiseOrValue`<`BytesLike`\>, `_version`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getFeeInverse` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getMetaColony` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `getMetatransactionNonce` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getMiningDelegator` | (`_delegate`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `getMetatransactionNonce` | (`userAddress`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getMiningDelegator` | (`_delegate`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getMiningResolver` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `getMiningStake` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`MiningStakeStructOutput`\> |
-| `getParentSkillId` | (`_skillId`: `BigNumberish`, `_parentSkillIndex`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getPayoutWhitelist` | (`_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
-| `getProfileDBAddress` | (`_node`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `getReplacementReputationUpdateLogEntry` | (`_reputationMiningCycle`: `string`, `_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`ReputationLogEntryStructOutput`\> |
-| `getReplacementReputationUpdateLogsExist` | (`_reputationMiningCycle`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
-| `getReputationMiningCycle` | (`_active`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `getMiningStake` | (`_user`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`MiningStakeStructOutput`\> |
+| `getParentSkillId` | (`_skillId`: `PromiseOrValue`<`BigNumberish`\>, `_parentSkillIndex`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getPayoutWhitelist` | (`_token`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
+| `getProfileDBAddress` | (`_node`: `PromiseOrValue`<`BytesLike`\>, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `getReplacementReputationUpdateLogEntry` | (`_reputationMiningCycle`: `PromiseOrValue`<`string`\>, `_id`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`ReputationLogEntryStructOutput`\> |
+| `getReplacementReputationUpdateLogsExist` | (`_reputationMiningCycle`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
+| `getReputationMiningCycle` | (`_active`: `PromiseOrValue`<`boolean`\>, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getReputationMiningCycleReward` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getReputationMiningSkillId` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getReputationRootHash` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getReputationRootHashNLeaves` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getReputationRootHashNNodes` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getSkill` | (`_skillId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`SkillStructOutput`\> |
+| `getSkill` | (`_skillId`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`SkillStructOutput`\> |
 | `getSkillCount` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getTokenLocking` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `initialise` | (`_resolver`: `string`, `_version`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `initialise` | (`_resolver`: `PromiseOrValue`<`string`\>, `_version`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `initialiseReputationMining` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `initialiseRootLocalSkill` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `installExtension` | (`_extensionId`: `BytesLike`, `_version`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `isColony` | (`_colony`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
+| `installExtension` | (`_extensionId`: `PromiseOrValue`<`BytesLike`\>, `_version`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `isColony` | (`_colony`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 | `isInRecoveryMode` | (`overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
-| `lookupRegisteredENSDomain` | (`_addr`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `lookupRegisteredENSDomain` | (`_addr`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `numRecoveryRoles` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `punishStakers` | (`_stakers`: `string`[], `_amount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `registerColonyLabel` | (`_colonyName`: `string`, `_orbitdb`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `registerUserLabel` | (`_username`: `string`, `_orbitdb`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `removeRecoveryRole` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `reward` | (`_recipient`: `string`, `_amount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setFeeInverse` | (`_feeInverse`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setMiningDelegate` | (`_delegate`: `string`, `_allowed`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setMiningResolver` | (`_miningResolverAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setPayoutWhitelist` | (`_token`: `string`, `_status`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setRecoveryRole` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setReplacementReputationUpdateLogEntry` | (`_reputationMiningCycle`: `string`, `_id`: `BigNumberish`, `_user`: `string`, `_amount`: `BigNumberish`, `_skillId`: `BigNumberish`, `_colony`: `string`, `_nUpdates`: `BigNumberish`, `_nPreviousUpdates`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setReputationMiningCycleReward` | (`_amount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setReputationRootHash` | (`_newHash`: `BytesLike`, `_newNLeaves`: `BigNumberish`, `_stakers`: `string`[], `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setStorageSlotRecovery` | (`_slot`: `BigNumberish`, `_value`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setTokenLocking` | (`_tokenLockingAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setupRegistrar` | (`_ens`: `string`, `_rootNode`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `stakeForMining` | (`_amount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `punishStakers` | (`_stakers`: `PromiseOrValue`<`string`\>[], `_amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `registerColonyLabel` | (`_colonyName`: `PromiseOrValue`<`string`\>, `_orbitdb`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `registerUserLabel` | (`_username`: `PromiseOrValue`<`string`\>, `_orbitdb`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `removeRecoveryRole` | (`_user`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `reward` | (`_recipient`: `PromiseOrValue`<`string`\>, `_amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setFeeInverse` | (`_feeInverse`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setMiningDelegate` | (`_delegate`: `PromiseOrValue`<`string`\>, `_allowed`: `PromiseOrValue`<`boolean`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setMiningResolver` | (`_miningResolverAddress`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setPayoutWhitelist` | (`_token`: `PromiseOrValue`<`string`\>, `_status`: `PromiseOrValue`<`boolean`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setRecoveryRole` | (`_user`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setReplacementReputationUpdateLogEntry` | (`_reputationMiningCycle`: `PromiseOrValue`<`string`\>, `_id`: `PromiseOrValue`<`BigNumberish`\>, `_user`: `PromiseOrValue`<`string`\>, `_amount`: `PromiseOrValue`<`BigNumberish`\>, `_skillId`: `PromiseOrValue`<`BigNumberish`\>, `_colony`: `PromiseOrValue`<`string`\>, `_nUpdates`: `PromiseOrValue`<`BigNumberish`\>, `_nPreviousUpdates`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setReputationMiningCycleReward` | (`_amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setReputationRootHash` | (`_newHash`: `PromiseOrValue`<`BytesLike`\>, `_newNLeaves`: `PromiseOrValue`<`BigNumberish`\>, `_stakers`: `PromiseOrValue`<`string`\>[], `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setStorageSlotRecovery` | (`_slot`: `PromiseOrValue`<`BigNumberish`\>, `_value`: `PromiseOrValue`<`BytesLike`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setTokenLocking` | (`_tokenLockingAddress`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setupRegistrar` | (`_ens`: `PromiseOrValue`<`string`\>, `_rootNode`: `PromiseOrValue`<`BytesLike`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `stakeForMining` | (`_amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `startNextCycle` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `startTokenAuction` | (`_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `supportsInterface` | (`_interfaceID`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
-| `uninstallExtension` | (`_extensionId`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `unstakeForMining` | (`_amount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `updateColonyOrbitDB` | (`_orbitdb`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `updateUserOrbitDB` | (`_orbitdb`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `upgradeExtension` | (`_extensionId`: `BytesLike`, `_newVersion`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `startTokenAuction` | (`_token`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `supportsInterface` | (`_interfaceID`: `PromiseOrValue`<`BytesLike`\>, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
+| `uninstallExtension` | (`_extensionId`: `PromiseOrValue`<`BytesLike`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `unstakeForMining` | (`_amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `updateColonyOrbitDB` | (`_orbitdb`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `updateUserOrbitDB` | (`_orbitdb`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `upgradeExtension` | (`_extensionId`: `PromiseOrValue`<`BytesLike`\>, `_newVersion`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 
 #### Inherited from
 
@@ -191,24 +191,24 @@ ___
 | :------ | :------ |
 | `AuctionCreated` | (`auction?`: ``null``, `token?`: ``null``, `quantity?`: ``null``) => `AuctionCreatedEventFilter` |
 | `AuctionCreated(address,address,uint256)` | (`auction?`: ``null``, `token?`: ``null``, `quantity?`: ``null``) => `AuctionCreatedEventFilter` |
-| `ColonyAdded` | (`colonyId?`: ``null`` \| `BigNumberish`, `colonyAddress?`: ``null`` \| `string`, `token?`: ``null``) => `ColonyAddedEventFilter` |
-| `ColonyAdded(uint256,address,address)` | (`colonyId?`: ``null`` \| `BigNumberish`, `colonyAddress?`: ``null`` \| `string`, `token?`: ``null``) => `ColonyAddedEventFilter` |
-| `ColonyLabelRegistered` | (`colony?`: ``null`` \| `string`, `label?`: ``null``) => `ColonyLabelRegisteredEventFilter` |
-| `ColonyLabelRegistered(address,bytes32)` | (`colony?`: ``null`` \| `string`, `label?`: ``null``) => `ColonyLabelRegisteredEventFilter` |
+| `ColonyAdded` | (`colonyId?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>, `colonyAddress?`: ``null`` \| `PromiseOrValue`<`string`\>, `token?`: ``null``) => `ColonyAddedEventFilter` |
+| `ColonyAdded(uint256,address,address)` | (`colonyId?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>, `colonyAddress?`: ``null`` \| `PromiseOrValue`<`string`\>, `token?`: ``null``) => `ColonyAddedEventFilter` |
+| `ColonyLabelRegistered` | (`colony?`: ``null`` \| `PromiseOrValue`<`string`\>, `label?`: ``null``) => `ColonyLabelRegisteredEventFilter` |
+| `ColonyLabelRegistered(address,bytes32)` | (`colony?`: ``null`` \| `PromiseOrValue`<`string`\>, `label?`: ``null``) => `ColonyLabelRegisteredEventFilter` |
 | `ColonyNetworkInitialised` | (`resolver?`: ``null``) => `ColonyNetworkInitialisedEventFilter` |
 | `ColonyNetworkInitialised(address)` | (`resolver?`: ``null``) => `ColonyNetworkInitialisedEventFilter` |
 | `ColonyVersionAdded` | (`version?`: ``null``, `resolver?`: ``null``) => `ColonyVersionAddedEventFilter` |
 | `ColonyVersionAdded(uint256,address)` | (`version?`: ``null``, `resolver?`: ``null``) => `ColonyVersionAddedEventFilter` |
-| `ExtensionAddedToNetwork` | (`extensionId?`: ``null`` \| `BytesLike`, `version?`: ``null``) => `ExtensionAddedToNetworkEventFilter` |
-| `ExtensionAddedToNetwork(bytes32,uint256)` | (`extensionId?`: ``null`` \| `BytesLike`, `version?`: ``null``) => `ExtensionAddedToNetworkEventFilter` |
-| `ExtensionDeprecated` | (`extensionId?`: ``null`` \| `BytesLike`, `colony?`: ``null`` \| `string`, `deprecated?`: ``null``) => `ExtensionDeprecatedEventFilter` |
-| `ExtensionDeprecated(bytes32,address,bool)` | (`extensionId?`: ``null`` \| `BytesLike`, `colony?`: ``null`` \| `string`, `deprecated?`: ``null``) => `ExtensionDeprecatedEventFilter` |
-| `ExtensionInstalled` | (`extensionId?`: ``null`` \| `BytesLike`, `colony?`: ``null`` \| `string`, `version?`: ``null``) => `ExtensionInstalledEventFilter` |
-| `ExtensionInstalled(bytes32,address,uint256)` | (`extensionId?`: ``null`` \| `BytesLike`, `colony?`: ``null`` \| `string`, `version?`: ``null``) => `ExtensionInstalledEventFilter` |
-| `ExtensionUninstalled` | (`extensionId?`: ``null`` \| `BytesLike`, `colony?`: ``null`` \| `string`) => `ExtensionUninstalledEventFilter` |
-| `ExtensionUninstalled(bytes32,address)` | (`extensionId?`: ``null`` \| `BytesLike`, `colony?`: ``null`` \| `string`) => `ExtensionUninstalledEventFilter` |
-| `ExtensionUpgraded` | (`extensionId?`: ``null`` \| `BytesLike`, `colony?`: ``null`` \| `string`, `version?`: ``null``) => `ExtensionUpgradedEventFilter` |
-| `ExtensionUpgraded(bytes32,address,uint256)` | (`extensionId?`: ``null`` \| `BytesLike`, `colony?`: ``null`` \| `string`, `version?`: ``null``) => `ExtensionUpgradedEventFilter` |
+| `ExtensionAddedToNetwork` | (`extensionId?`: ``null`` \| `PromiseOrValue`<`BytesLike`\>, `version?`: ``null``) => `ExtensionAddedToNetworkEventFilter` |
+| `ExtensionAddedToNetwork(bytes32,uint256)` | (`extensionId?`: ``null`` \| `PromiseOrValue`<`BytesLike`\>, `version?`: ``null``) => `ExtensionAddedToNetworkEventFilter` |
+| `ExtensionDeprecated` | (`extensionId?`: ``null`` \| `PromiseOrValue`<`BytesLike`\>, `colony?`: ``null`` \| `PromiseOrValue`<`string`\>, `deprecated?`: ``null``) => `ExtensionDeprecatedEventFilter` |
+| `ExtensionDeprecated(bytes32,address,bool)` | (`extensionId?`: ``null`` \| `PromiseOrValue`<`BytesLike`\>, `colony?`: ``null`` \| `PromiseOrValue`<`string`\>, `deprecated?`: ``null``) => `ExtensionDeprecatedEventFilter` |
+| `ExtensionInstalled` | (`extensionId?`: ``null`` \| `PromiseOrValue`<`BytesLike`\>, `colony?`: ``null`` \| `PromiseOrValue`<`string`\>, `version?`: ``null``) => `ExtensionInstalledEventFilter` |
+| `ExtensionInstalled(bytes32,address,uint256)` | (`extensionId?`: ``null`` \| `PromiseOrValue`<`BytesLike`\>, `colony?`: ``null`` \| `PromiseOrValue`<`string`\>, `version?`: ``null``) => `ExtensionInstalledEventFilter` |
+| `ExtensionUninstalled` | (`extensionId?`: ``null`` \| `PromiseOrValue`<`BytesLike`\>, `colony?`: ``null`` \| `PromiseOrValue`<`string`\>) => `ExtensionUninstalledEventFilter` |
+| `ExtensionUninstalled(bytes32,address)` | (`extensionId?`: ``null`` \| `PromiseOrValue`<`BytesLike`\>, `colony?`: ``null`` \| `PromiseOrValue`<`string`\>) => `ExtensionUninstalledEventFilter` |
+| `ExtensionUpgraded` | (`extensionId?`: ``null`` \| `PromiseOrValue`<`BytesLike`\>, `colony?`: ``null`` \| `PromiseOrValue`<`string`\>, `version?`: ``null``) => `ExtensionUpgradedEventFilter` |
+| `ExtensionUpgraded(bytes32,address,uint256)` | (`extensionId?`: ``null`` \| `PromiseOrValue`<`BytesLike`\>, `colony?`: ``null`` \| `PromiseOrValue`<`string`\>, `version?`: ``null``) => `ExtensionUpgradedEventFilter` |
 | `MetaColonyCreated` | (`metaColony?`: ``null``, `token?`: ``null``, `rootSkillId?`: ``null``) => `MetaColonyCreatedEventFilter` |
 | `MetaColonyCreated(address,address,uint256)` | (`metaColony?`: ``null``, `token?`: ``null``, `rootSkillId?`: ``null``) => `MetaColonyCreatedEventFilter` |
 | `MetaTransactionExecuted` | (`userAddress?`: ``null``, `relayerAddress?`: ``null``, `payload?`: ``null``) => `MetaTransactionExecutedEventFilter` |
@@ -223,8 +223,8 @@ ___
 | `RecoveryModeExitApproved(address)` | (`user?`: ``null``) => `RecoveryModeExitApprovedEventFilter` |
 | `RecoveryModeExited` | (`user?`: ``null``) => `RecoveryModeExitedEventFilter` |
 | `RecoveryModeExited(address)` | (`user?`: ``null``) => `RecoveryModeExitedEventFilter` |
-| `RecoveryRoleSet` | (`user?`: ``null`` \| `string`, `setTo?`: ``null``) => `RecoveryRoleSetEventFilter` |
-| `RecoveryRoleSet(address,bool)` | (`user?`: ``null`` \| `string`, `setTo?`: ``null``) => `RecoveryRoleSetEventFilter` |
+| `RecoveryRoleSet` | (`user?`: ``null`` \| `PromiseOrValue`<`string`\>, `setTo?`: ``null``) => `RecoveryRoleSetEventFilter` |
+| `RecoveryRoleSet(address,bool)` | (`user?`: ``null`` \| `PromiseOrValue`<`string`\>, `setTo?`: ``null``) => `RecoveryRoleSetEventFilter` |
 | `RecoveryStorageSlotSet` | (`user?`: ``null``, `slot?`: ``null``, `fromValue?`: ``null``, `toValue?`: ``null``) => `RecoveryStorageSlotSetEventFilter` |
 | `RecoveryStorageSlotSet(address,uint256,bytes32,bytes32)` | (`user?`: ``null``, `slot?`: ``null``, `fromValue?`: ``null``, `toValue?`: ``null``) => `RecoveryStorageSlotSetEventFilter` |
 | `RegistrarInitialised` | (`ens?`: ``null``, `rootNode?`: ``null``) => `RegistrarInitialisedEventFilter` |
@@ -249,8 +249,8 @@ ___
 | `TokenLockingAddressSet(address)` | (`tokenLocking?`: ``null``) => `TokenLockingAddressSetEventFilter` |
 | `TokenWhitelisted` | (`token?`: ``null``, `status?`: ``null``) => `TokenWhitelistedEventFilter` |
 | `TokenWhitelisted(address,bool)` | (`token?`: ``null``, `status?`: ``null``) => `TokenWhitelistedEventFilter` |
-| `UserLabelRegistered` | (`user?`: ``null`` \| `string`, `label?`: ``null``) => `UserLabelRegisteredEventFilter` |
-| `UserLabelRegistered(address,bytes32)` | (`user?`: ``null`` \| `string`, `label?`: ``null``) => `UserLabelRegisteredEventFilter` |
+| `UserLabelRegistered` | (`user?`: ``null`` \| `PromiseOrValue`<`string`\>, `label?`: ``null``) => `UserLabelRegisteredEventFilter` |
+| `UserLabelRegistered(address,bytes32)` | (`user?`: ``null`` \| `PromiseOrValue`<`string`\>, `label?`: ``null``) => `UserLabelRegisteredEventFilter` |
 
 #### Inherited from
 
@@ -266,90 +266,90 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `addColonyVersion` | (`_version`: `BigNumberish`, `_resolver`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `addExtensionToNetwork` | (`_extensionId`: `BytesLike`, `_resolver`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `addSkill` | (`_parentSkillId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `addr` | (`_node`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_address`: `string`  }\> |
-| `appendReputationUpdateLog` | (`_user`: `string`, `_amount`: `BigNumberish`, `_skillId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `approveExitRecovery` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `burnUnneededRewards` | (`_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `calculateMinerWeight` | (`_timeStaked`: `BigNumberish`, `_submissonIndex`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_minerWeight`: `BigNumber`  }\> |
-| `checkNotAdditionalProtectedVariable` | (`_slot`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`void`]\> |
-| `claimMiningReward` | (`_recipient`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `createColony(address)` | (`_tokenAddress`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `createColony(address,uint256,string)` | (`_tokenAddress`: `string`, `_version`: `BigNumberish`, `_colonyName`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `createColony(address,uint256,string,string)` | (`_tokenAddress`: `string`, `_version`: `BigNumberish`, `_colonyName`: `string`, `_metadata`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `createColony(address,uint256,string,string,bool)` | (`_tokenAddress`: `string`, `_version`: `BigNumberish`, `_colonyName`: `string`, `_orbitdb`: `string`, `_useExtensionManager`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `createMetaColony` | (`_tokenAddress`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `deployTokenAuthority` | (`_token`: `string`, `_colony`: `string`, `_allowedToTransfer`: `string`[], `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `deployTokenViaNetwork` | (`_name`: `string`, `_symbol`: `string`, `_decimals`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `deprecateExtension` | (`_extensionId`: `BytesLike`, `_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `deprecateSkill(uint256)` | (`_skillId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `deprecateSkill(uint256,bool)` | (`_skillId`: `BigNumberish`, `_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `enterRecoveryMode` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `executeMetaTransaction` | (`userAddress`: `string`, `payload`: `BytesLike`, `sigR`: `BytesLike`, `sigS`: `BytesLike`, `sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `exitRecoveryMode` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `getChildSkillId` | (`_skillId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_childSkillId`: `BigNumber`  }\> |
-| `getColony` | (`_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_colonyAddress`: `string`  }\> |
+| `addColonyVersion` | (`_version`: `PromiseOrValue`<`BigNumberish`\>, `_resolver`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `addExtensionToNetwork` | (`_extensionId`: `PromiseOrValue`<`BytesLike`\>, `_resolver`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `addSkill` | (`_parentSkillId`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `addr` | (`_node`: `PromiseOrValue`<`BytesLike`\>, `overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_address`: `string`  }\> |
+| `appendReputationUpdateLog` | (`_user`: `PromiseOrValue`<`string`\>, `_amount`: `PromiseOrValue`<`BigNumberish`\>, `_skillId`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `approveExitRecovery` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `burnUnneededRewards` | (`_amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `calculateMinerWeight` | (`_timeStaked`: `PromiseOrValue`<`BigNumberish`\>, `_submissonIndex`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_minerWeight`: `BigNumber`  }\> |
+| `checkNotAdditionalProtectedVariable` | (`_slot`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<[`void`]\> |
+| `claimMiningReward` | (`_recipient`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `createColony(address)` | (`_tokenAddress`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `createColony(address,uint256,string)` | (`_tokenAddress`: `PromiseOrValue`<`string`\>, `_version`: `PromiseOrValue`<`BigNumberish`\>, `_colonyName`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `createColony(address,uint256,string,string)` | (`_tokenAddress`: `PromiseOrValue`<`string`\>, `_version`: `PromiseOrValue`<`BigNumberish`\>, `_colonyName`: `PromiseOrValue`<`string`\>, `_metadata`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `createColony(address,uint256,string,string,bool)` | (`_tokenAddress`: `PromiseOrValue`<`string`\>, `_version`: `PromiseOrValue`<`BigNumberish`\>, `_colonyName`: `PromiseOrValue`<`string`\>, `_orbitdb`: `PromiseOrValue`<`string`\>, `_useExtensionManager`: `PromiseOrValue`<`boolean`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `createMetaColony` | (`_tokenAddress`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `deployTokenAuthority` | (`_token`: `PromiseOrValue`<`string`\>, `_colony`: `PromiseOrValue`<`string`\>, `_allowedToTransfer`: `PromiseOrValue`<`string`\>[], `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `deployTokenViaNetwork` | (`_name`: `PromiseOrValue`<`string`\>, `_symbol`: `PromiseOrValue`<`string`\>, `_decimals`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `deprecateExtension` | (`_extensionId`: `PromiseOrValue`<`BytesLike`\>, `_deprecated`: `PromiseOrValue`<`boolean`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `deprecateSkill(uint256)` | (`_skillId`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `deprecateSkill(uint256,bool)` | (`_skillId`: `PromiseOrValue`<`BigNumberish`\>, `_deprecated`: `PromiseOrValue`<`boolean`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `enterRecoveryMode` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `executeMetaTransaction` | (`userAddress`: `PromiseOrValue`<`string`\>, `payload`: `PromiseOrValue`<`BytesLike`\>, `sigR`: `PromiseOrValue`<`BytesLike`\>, `sigS`: `PromiseOrValue`<`BytesLike`\>, `sigV`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `PayableOverrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `exitRecoveryMode` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `getChildSkillId` | (`_skillId`: `PromiseOrValue`<`BigNumberish`\>, `_childSkillIndex`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_childSkillId`: `BigNumber`  }\> |
+| `getColony` | (`_id`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_colonyAddress`: `string`  }\> |
 | `getColonyCount` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_count`: `BigNumber`  }\> |
-| `getColonyVersionResolver` | (`_version`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_resolverAddress`: `string`  }\> |
+| `getColonyVersionResolver` | (`_version`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_resolverAddress`: `string`  }\> |
 | `getCurrentColonyVersion` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_version`: `BigNumber`  }\> |
 | `getENSRegistrar` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_address`: `string`  }\> |
-| `getExtensionInstallation` | (`_extensionId`: `BytesLike`, `_colony`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_installation`: `string`  }\> |
-| `getExtensionResolver` | (`_extensionId`: `BytesLike`, `_version`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_resolver`: `string`  }\> |
+| `getExtensionInstallation` | (`_extensionId`: `PromiseOrValue`<`BytesLike`\>, `_colony`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_installation`: `string`  }\> |
+| `getExtensionResolver` | (`_extensionId`: `PromiseOrValue`<`BytesLike`\>, `_version`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_resolver`: `string`  }\> |
 | `getFeeInverse` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_feeInverse`: `BigNumber`  }\> |
 | `getMetaColony` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_colonyAddress`: `string`  }\> |
-| `getMetatransactionNonce` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
-| `getMiningDelegator` | (`_delegate`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_delegator`: `string`  }\> |
+| `getMetatransactionNonce` | (`userAddress`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
+| `getMiningDelegator` | (`_delegate`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_delegator`: `string`  }\> |
 | `getMiningResolver` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `miningResolverAddress`: `string`  }\> |
-| `getMiningStake` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`MiningStakeStructOutput`] & { `_info`: `MiningStakeStructOutput`  }\> |
-| `getParentSkillId` | (`_skillId`: `BigNumberish`, `_parentSkillIndex`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_parentSkillId`: `BigNumber`  }\> |
-| `getPayoutWhitelist` | (`_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`] & { `_status`: `boolean`  }\> |
-| `getProfileDBAddress` | (`_node`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_orbitdb`: `string`  }\> |
-| `getReplacementReputationUpdateLogEntry` | (`_reputationMiningCycle`: `string`, `_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`ReputationLogEntryStructOutput`] & { `_reputationLogEntry`: `ReputationLogEntryStructOutput`  }\> |
-| `getReplacementReputationUpdateLogsExist` | (`_reputationMiningCycle`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`] & { `_exists`: `boolean`  }\> |
-| `getReputationMiningCycle` | (`_active`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_repMiningCycleAddress`: `string`  }\> |
+| `getMiningStake` | (`_user`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<[`MiningStakeStructOutput`] & { `_info`: `MiningStakeStructOutput`  }\> |
+| `getParentSkillId` | (`_skillId`: `PromiseOrValue`<`BigNumberish`\>, `_parentSkillIndex`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_parentSkillId`: `BigNumber`  }\> |
+| `getPayoutWhitelist` | (`_token`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`] & { `_status`: `boolean`  }\> |
+| `getProfileDBAddress` | (`_node`: `PromiseOrValue`<`BytesLike`\>, `overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_orbitdb`: `string`  }\> |
+| `getReplacementReputationUpdateLogEntry` | (`_reputationMiningCycle`: `PromiseOrValue`<`string`\>, `_id`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<[`ReputationLogEntryStructOutput`] & { `_reputationLogEntry`: `ReputationLogEntryStructOutput`  }\> |
+| `getReplacementReputationUpdateLogsExist` | (`_reputationMiningCycle`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`] & { `_exists`: `boolean`  }\> |
+| `getReputationMiningCycle` | (`_active`: `PromiseOrValue`<`boolean`\>, `overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_repMiningCycleAddress`: `string`  }\> |
 | `getReputationMiningCycleReward` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_amount`: `BigNumber`  }\> |
 | `getReputationMiningSkillId` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_skillId`: `BigNumber`  }\> |
 | `getReputationRootHash` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `rootHash`: `string`  }\> |
 | `getReputationRootHashNLeaves` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nLeaves`: `BigNumber`  }\> |
 | `getReputationRootHashNNodes` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nNodes`: `BigNumber`  }\> |
-| `getSkill` | (`_skillId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`SkillStructOutput`] & { `_skill`: `SkillStructOutput`  }\> |
+| `getSkill` | (`_skillId`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<[`SkillStructOutput`] & { `_skill`: `SkillStructOutput`  }\> |
 | `getSkillCount` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_count`: `BigNumber`  }\> |
 | `getTokenLocking` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_lockingAddress`: `string`  }\> |
-| `initialise` | (`_resolver`: `string`, `_version`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `initialiseReputationMining` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `initialiseRootLocalSkill` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `installExtension` | (`_extensionId`: `BytesLike`, `_version`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `isColony` | (`_colony`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`] & { `_addressIsColony`: `boolean`  }\> |
+| `initialise` | (`_resolver`: `PromiseOrValue`<`string`\>, `_version`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `initialiseReputationMining` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `initialiseRootLocalSkill` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `installExtension` | (`_extensionId`: `PromiseOrValue`<`BytesLike`\>, `_version`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `isColony` | (`_colony`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`] & { `_addressIsColony`: `boolean`  }\> |
 | `isInRecoveryMode` | (`overrides?`: `CallOverrides`) => `Promise`<[`boolean`] & { `inRecoveryMode`: `boolean`  }\> |
-| `lookupRegisteredENSDomain` | (`_addr`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_domain`: `string`  }\> |
+| `lookupRegisteredENSDomain` | (`_addr`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_domain`: `string`  }\> |
 | `numRecoveryRoles` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `numRoles`: `BigNumber`  }\> |
-| `punishStakers` | (`_stakers`: `string`[], `_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `registerColonyLabel` | (`_colonyName`: `string`, `_orbitdb`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `registerUserLabel` | (`_username`: `string`, `_orbitdb`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `removeRecoveryRole` | (`_user`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `reward` | (`_recipient`: `string`, `_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `setFeeInverse` | (`_feeInverse`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `setMiningDelegate` | (`_delegate`: `string`, `_allowed`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `setMiningResolver` | (`_miningResolverAddress`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `setPayoutWhitelist` | (`_token`: `string`, `_status`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `setRecoveryRole` | (`_user`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `setReplacementReputationUpdateLogEntry` | (`_reputationMiningCycle`: `string`, `_id`: `BigNumberish`, `_user`: `string`, `_amount`: `BigNumberish`, `_skillId`: `BigNumberish`, `_colony`: `string`, `_nUpdates`: `BigNumberish`, `_nPreviousUpdates`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `setReputationMiningCycleReward` | (`_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `setReputationRootHash` | (`_newHash`: `BytesLike`, `_newNLeaves`: `BigNumberish`, `_stakers`: `string`[], `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `setStorageSlotRecovery` | (`_slot`: `BigNumberish`, `_value`: `BytesLike`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `setTokenLocking` | (`_tokenLockingAddress`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `setupRegistrar` | (`_ens`: `string`, `_rootNode`: `BytesLike`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `stakeForMining` | (`_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `startNextCycle` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `startTokenAuction` | (`_token`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `supportsInterface` | (`_interfaceID`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`] & { `_status`: `boolean`  }\> |
-| `uninstallExtension` | (`_extensionId`: `BytesLike`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `unstakeForMining` | (`_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `updateColonyOrbitDB` | (`_orbitdb`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `updateUserOrbitDB` | (`_orbitdb`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `upgradeExtension` | (`_extensionId`: `BytesLike`, `_newVersion`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `punishStakers` | (`_stakers`: `PromiseOrValue`<`string`\>[], `_amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `registerColonyLabel` | (`_colonyName`: `PromiseOrValue`<`string`\>, `_orbitdb`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `registerUserLabel` | (`_username`: `PromiseOrValue`<`string`\>, `_orbitdb`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `removeRecoveryRole` | (`_user`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `reward` | (`_recipient`: `PromiseOrValue`<`string`\>, `_amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `setFeeInverse` | (`_feeInverse`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `setMiningDelegate` | (`_delegate`: `PromiseOrValue`<`string`\>, `_allowed`: `PromiseOrValue`<`boolean`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `setMiningResolver` | (`_miningResolverAddress`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `setPayoutWhitelist` | (`_token`: `PromiseOrValue`<`string`\>, `_status`: `PromiseOrValue`<`boolean`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `setRecoveryRole` | (`_user`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `setReplacementReputationUpdateLogEntry` | (`_reputationMiningCycle`: `PromiseOrValue`<`string`\>, `_id`: `PromiseOrValue`<`BigNumberish`\>, `_user`: `PromiseOrValue`<`string`\>, `_amount`: `PromiseOrValue`<`BigNumberish`\>, `_skillId`: `PromiseOrValue`<`BigNumberish`\>, `_colony`: `PromiseOrValue`<`string`\>, `_nUpdates`: `PromiseOrValue`<`BigNumberish`\>, `_nPreviousUpdates`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `setReputationMiningCycleReward` | (`_amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `setReputationRootHash` | (`_newHash`: `PromiseOrValue`<`BytesLike`\>, `_newNLeaves`: `PromiseOrValue`<`BigNumberish`\>, `_stakers`: `PromiseOrValue`<`string`\>[], `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `setStorageSlotRecovery` | (`_slot`: `PromiseOrValue`<`BigNumberish`\>, `_value`: `PromiseOrValue`<`BytesLike`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `setTokenLocking` | (`_tokenLockingAddress`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `setupRegistrar` | (`_ens`: `PromiseOrValue`<`string`\>, `_rootNode`: `PromiseOrValue`<`BytesLike`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `stakeForMining` | (`_amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `startNextCycle` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `startTokenAuction` | (`_token`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `supportsInterface` | (`_interfaceID`: `PromiseOrValue`<`BytesLike`\>, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`] & { `_status`: `boolean`  }\> |
+| `uninstallExtension` | (`_extensionId`: `PromiseOrValue`<`BytesLike`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `unstakeForMining` | (`_amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `updateColonyOrbitDB` | (`_orbitdb`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `updateUserOrbitDB` | (`_orbitdb`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `upgradeExtension` | (`_extensionId`: `PromiseOrValue`<`BytesLike`\>, `_newVersion`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 
 #### Inherited from
 
@@ -411,90 +411,90 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `addColonyVersion` | (`_version`: `BigNumberish`, `_resolver`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `addExtensionToNetwork` | (`_extensionId`: `BytesLike`, `_resolver`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `addSkill` | (`_parentSkillId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `addr` | (`_node`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `appendReputationUpdateLog` | (`_user`: `string`, `_amount`: `BigNumberish`, `_skillId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `approveExitRecovery` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `burnUnneededRewards` | (`_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `calculateMinerWeight` | (`_timeStaked`: `BigNumberish`, `_submissonIndex`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `checkNotAdditionalProtectedVariable` | (`_slot`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `claimMiningReward` | (`_recipient`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `createColony(address)` | (`_tokenAddress`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `createColony(address,uint256,string)` | (`_tokenAddress`: `string`, `_version`: `BigNumberish`, `_colonyName`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `createColony(address,uint256,string,string)` | (`_tokenAddress`: `string`, `_version`: `BigNumberish`, `_colonyName`: `string`, `_metadata`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `createColony(address,uint256,string,string,bool)` | (`_tokenAddress`: `string`, `_version`: `BigNumberish`, `_colonyName`: `string`, `_orbitdb`: `string`, `_useExtensionManager`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `createMetaColony` | (`_tokenAddress`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `deployTokenAuthority` | (`_token`: `string`, `_colony`: `string`, `_allowedToTransfer`: `string`[], `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `deployTokenViaNetwork` | (`_name`: `string`, `_symbol`: `string`, `_decimals`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `deprecateExtension` | (`_extensionId`: `BytesLike`, `_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `deprecateSkill(uint256)` | (`_skillId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `deprecateSkill(uint256,bool)` | (`_skillId`: `BigNumberish`, `_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `enterRecoveryMode` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `executeMetaTransaction` | (`userAddress`: `string`, `payload`: `BytesLike`, `sigR`: `BytesLike`, `sigS`: `BytesLike`, `sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `exitRecoveryMode` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `getChildSkillId` | (`_skillId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getColony` | (`_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `addColonyVersion` | (`_version`: `PromiseOrValue`<`BigNumberish`\>, `_resolver`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `addExtensionToNetwork` | (`_extensionId`: `PromiseOrValue`<`BytesLike`\>, `_resolver`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `addSkill` | (`_parentSkillId`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `addr` | (`_node`: `PromiseOrValue`<`BytesLike`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `appendReputationUpdateLog` | (`_user`: `PromiseOrValue`<`string`\>, `_amount`: `PromiseOrValue`<`BigNumberish`\>, `_skillId`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `approveExitRecovery` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `burnUnneededRewards` | (`_amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `calculateMinerWeight` | (`_timeStaked`: `PromiseOrValue`<`BigNumberish`\>, `_submissonIndex`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `checkNotAdditionalProtectedVariable` | (`_slot`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `claimMiningReward` | (`_recipient`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `createColony(address)` | (`_tokenAddress`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `createColony(address,uint256,string)` | (`_tokenAddress`: `PromiseOrValue`<`string`\>, `_version`: `PromiseOrValue`<`BigNumberish`\>, `_colonyName`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `createColony(address,uint256,string,string)` | (`_tokenAddress`: `PromiseOrValue`<`string`\>, `_version`: `PromiseOrValue`<`BigNumberish`\>, `_colonyName`: `PromiseOrValue`<`string`\>, `_metadata`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `createColony(address,uint256,string,string,bool)` | (`_tokenAddress`: `PromiseOrValue`<`string`\>, `_version`: `PromiseOrValue`<`BigNumberish`\>, `_colonyName`: `PromiseOrValue`<`string`\>, `_orbitdb`: `PromiseOrValue`<`string`\>, `_useExtensionManager`: `PromiseOrValue`<`boolean`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `createMetaColony` | (`_tokenAddress`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `deployTokenAuthority` | (`_token`: `PromiseOrValue`<`string`\>, `_colony`: `PromiseOrValue`<`string`\>, `_allowedToTransfer`: `PromiseOrValue`<`string`\>[], `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `deployTokenViaNetwork` | (`_name`: `PromiseOrValue`<`string`\>, `_symbol`: `PromiseOrValue`<`string`\>, `_decimals`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `deprecateExtension` | (`_extensionId`: `PromiseOrValue`<`BytesLike`\>, `_deprecated`: `PromiseOrValue`<`boolean`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `deprecateSkill(uint256)` | (`_skillId`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `deprecateSkill(uint256,bool)` | (`_skillId`: `PromiseOrValue`<`BigNumberish`\>, `_deprecated`: `PromiseOrValue`<`boolean`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `enterRecoveryMode` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `executeMetaTransaction` | (`userAddress`: `PromiseOrValue`<`string`\>, `payload`: `PromiseOrValue`<`BytesLike`\>, `sigR`: `PromiseOrValue`<`BytesLike`\>, `sigS`: `PromiseOrValue`<`BytesLike`\>, `sigV`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `PayableOverrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `exitRecoveryMode` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `getChildSkillId` | (`_skillId`: `PromiseOrValue`<`BigNumberish`\>, `_childSkillIndex`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getColony` | (`_id`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getColonyCount` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getColonyVersionResolver` | (`_version`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getColonyVersionResolver` | (`_version`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getCurrentColonyVersion` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getENSRegistrar` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getExtensionInstallation` | (`_extensionId`: `BytesLike`, `_colony`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getExtensionResolver` | (`_extensionId`: `BytesLike`, `_version`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getExtensionInstallation` | (`_extensionId`: `PromiseOrValue`<`BytesLike`\>, `_colony`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getExtensionResolver` | (`_extensionId`: `PromiseOrValue`<`BytesLike`\>, `_version`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getFeeInverse` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getMetaColony` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getMetatransactionNonce` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getMiningDelegator` | (`_delegate`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getMetatransactionNonce` | (`userAddress`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getMiningDelegator` | (`_delegate`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getMiningResolver` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getMiningStake` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getParentSkillId` | (`_skillId`: `BigNumberish`, `_parentSkillIndex`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getPayoutWhitelist` | (`_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getProfileDBAddress` | (`_node`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getReplacementReputationUpdateLogEntry` | (`_reputationMiningCycle`: `string`, `_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getReplacementReputationUpdateLogsExist` | (`_reputationMiningCycle`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getReputationMiningCycle` | (`_active`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getMiningStake` | (`_user`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getParentSkillId` | (`_skillId`: `PromiseOrValue`<`BigNumberish`\>, `_parentSkillIndex`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getPayoutWhitelist` | (`_token`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getProfileDBAddress` | (`_node`: `PromiseOrValue`<`BytesLike`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getReplacementReputationUpdateLogEntry` | (`_reputationMiningCycle`: `PromiseOrValue`<`string`\>, `_id`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getReplacementReputationUpdateLogsExist` | (`_reputationMiningCycle`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getReputationMiningCycle` | (`_active`: `PromiseOrValue`<`boolean`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getReputationMiningCycleReward` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getReputationMiningSkillId` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getReputationRootHash` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getReputationRootHashNLeaves` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getReputationRootHashNNodes` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getSkill` | (`_skillId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getSkill` | (`_skillId`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getSkillCount` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getTokenLocking` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `initialise` | (`_resolver`: `string`, `_version`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `initialiseReputationMining` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `initialiseRootLocalSkill` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `installExtension` | (`_extensionId`: `BytesLike`, `_version`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `isColony` | (`_colony`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `initialise` | (`_resolver`: `PromiseOrValue`<`string`\>, `_version`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `initialiseReputationMining` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `initialiseRootLocalSkill` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `installExtension` | (`_extensionId`: `PromiseOrValue`<`BytesLike`\>, `_version`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `isColony` | (`_colony`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `isInRecoveryMode` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `lookupRegisteredENSDomain` | (`_addr`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `lookupRegisteredENSDomain` | (`_addr`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `numRecoveryRoles` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `punishStakers` | (`_stakers`: `string`[], `_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `registerColonyLabel` | (`_colonyName`: `string`, `_orbitdb`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `registerUserLabel` | (`_username`: `string`, `_orbitdb`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `removeRecoveryRole` | (`_user`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `reward` | (`_recipient`: `string`, `_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `setFeeInverse` | (`_feeInverse`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `setMiningDelegate` | (`_delegate`: `string`, `_allowed`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `setMiningResolver` | (`_miningResolverAddress`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `setPayoutWhitelist` | (`_token`: `string`, `_status`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `setRecoveryRole` | (`_user`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `setReplacementReputationUpdateLogEntry` | (`_reputationMiningCycle`: `string`, `_id`: `BigNumberish`, `_user`: `string`, `_amount`: `BigNumberish`, `_skillId`: `BigNumberish`, `_colony`: `string`, `_nUpdates`: `BigNumberish`, `_nPreviousUpdates`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `setReputationMiningCycleReward` | (`_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `setReputationRootHash` | (`_newHash`: `BytesLike`, `_newNLeaves`: `BigNumberish`, `_stakers`: `string`[], `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `setStorageSlotRecovery` | (`_slot`: `BigNumberish`, `_value`: `BytesLike`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `setTokenLocking` | (`_tokenLockingAddress`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `setupRegistrar` | (`_ens`: `string`, `_rootNode`: `BytesLike`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `stakeForMining` | (`_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `startNextCycle` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `startTokenAuction` | (`_token`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `supportsInterface` | (`_interfaceID`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `uninstallExtension` | (`_extensionId`: `BytesLike`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `unstakeForMining` | (`_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `updateColonyOrbitDB` | (`_orbitdb`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `updateUserOrbitDB` | (`_orbitdb`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `upgradeExtension` | (`_extensionId`: `BytesLike`, `_newVersion`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `punishStakers` | (`_stakers`: `PromiseOrValue`<`string`\>[], `_amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `registerColonyLabel` | (`_colonyName`: `PromiseOrValue`<`string`\>, `_orbitdb`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `registerUserLabel` | (`_username`: `PromiseOrValue`<`string`\>, `_orbitdb`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `removeRecoveryRole` | (`_user`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `reward` | (`_recipient`: `PromiseOrValue`<`string`\>, `_amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `setFeeInverse` | (`_feeInverse`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `setMiningDelegate` | (`_delegate`: `PromiseOrValue`<`string`\>, `_allowed`: `PromiseOrValue`<`boolean`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `setMiningResolver` | (`_miningResolverAddress`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `setPayoutWhitelist` | (`_token`: `PromiseOrValue`<`string`\>, `_status`: `PromiseOrValue`<`boolean`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `setRecoveryRole` | (`_user`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `setReplacementReputationUpdateLogEntry` | (`_reputationMiningCycle`: `PromiseOrValue`<`string`\>, `_id`: `PromiseOrValue`<`BigNumberish`\>, `_user`: `PromiseOrValue`<`string`\>, `_amount`: `PromiseOrValue`<`BigNumberish`\>, `_skillId`: `PromiseOrValue`<`BigNumberish`\>, `_colony`: `PromiseOrValue`<`string`\>, `_nUpdates`: `PromiseOrValue`<`BigNumberish`\>, `_nPreviousUpdates`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `setReputationMiningCycleReward` | (`_amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `setReputationRootHash` | (`_newHash`: `PromiseOrValue`<`BytesLike`\>, `_newNLeaves`: `PromiseOrValue`<`BigNumberish`\>, `_stakers`: `PromiseOrValue`<`string`\>[], `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `setStorageSlotRecovery` | (`_slot`: `PromiseOrValue`<`BigNumberish`\>, `_value`: `PromiseOrValue`<`BytesLike`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `setTokenLocking` | (`_tokenLockingAddress`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `setupRegistrar` | (`_ens`: `PromiseOrValue`<`string`\>, `_rootNode`: `PromiseOrValue`<`BytesLike`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `stakeForMining` | (`_amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `startNextCycle` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `startTokenAuction` | (`_token`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `supportsInterface` | (`_interfaceID`: `PromiseOrValue`<`BytesLike`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `uninstallExtension` | (`_extensionId`: `PromiseOrValue`<`BytesLike`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `unstakeForMining` | (`_amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `updateColonyOrbitDB` | (`_orbitdb`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `updateUserOrbitDB` | (`_orbitdb`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `upgradeExtension` | (`_extensionId`: `PromiseOrValue`<`BytesLike`\>, `_newVersion`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 
 #### Inherited from
 
@@ -620,9 +620,9 @@ Adds a new Colony contract version and the address of associated `_resolver` con
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_version` | `BigNumberish` | The new Colony contract version |
-| `_resolver` | `string` | Address of the `Resolver` contract which will be used with the underlying `EtherRouter` contract |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_version` | `PromiseOrValue`<`BigNumberish`\> | The new Colony contract version |
+| `_resolver` | `PromiseOrValue`<`string`\> | Address of the `Resolver` contract which will be used with the underlying `EtherRouter` contract |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -645,9 +645,9 @@ Add a new extension resolver to the Extensions repository.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_extensionId` | `BytesLike` | keccak256 hash of the extension name, used as an indentifier |
-| `_resolver` | `string` | The deployed resolver containing the extension contract logic |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_extensionId` | `PromiseOrValue`<`BytesLike`\> | keccak256 hash of the extension name, used as an indentifier |
+| `_resolver` | `PromiseOrValue`<`string`\> | The deployed resolver containing the extension contract logic |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -670,8 +670,8 @@ Adds a new skill to the global or local skills tree, under skill `_parentSkillId
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_parentSkillId` | `BigNumberish` | Id of the skill under which the new skill will be added. If 0, a global skill is added with no parent. |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_parentSkillId` | `PromiseOrValue`<`BigNumberish`\> | Id of the skill under which the new skill will be added. If 0, a global skill is added with no parent. |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -693,7 +693,7 @@ Returns the address the supplied node resolves do, if we are the resolver.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_node` | `BytesLike` | The namehash of the ENS address being requested |
+| `_node` | `PromiseOrValue`<`BytesLike`\> | The namehash of the ENS address being requested |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -717,10 +717,10 @@ Adds a reputation update entry to log.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_user` | `string` | The address of the user for the reputation update |
-| `_amount` | `BigNumberish` | The amount of reputation change for the update, this can be a negative as well as a positive value |
-| `_skillId` | `BigNumberish` | The skill for the reputation update |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_user` | `PromiseOrValue`<`string`\> | The address of the user for the reputation update |
+| `_amount` | `PromiseOrValue`<`BigNumberish`\> | The amount of reputation change for the update, this can be a negative as well as a positive value |
+| `_skillId` | `PromiseOrValue`<`BigNumberish`\> | The skill for the reputation update |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -742,7 +742,7 @@ Indicate approval to exit recovery mode. Can only be called by user with recover
 
 | Name | Type |
 | :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
 
 #### Returns
 
@@ -785,8 +785,8 @@ Used to burn tokens that are not needed to pay out rewards (because not every po
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_amount` | `BigNumberish` | The amount of CLNY to burn |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_amount` | `PromiseOrValue`<`BigNumberish`\> | The amount of CLNY to burn |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -808,8 +808,8 @@ Calculate raw miner weight in WADs.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_timeStaked` | `BigNumberish` | Amount of time (in seconds) that the miner has staked their CLNY |
-| `_submissonIndex` | `BigNumberish` | Index of reputation hash submission (between 0 and 11) |
+| `_timeStaked` | `PromiseOrValue`<`BigNumberish`\> | Amount of time (in seconds) that the miner has staked their CLNY |
+| `_submissonIndex` | `PromiseOrValue`<`BigNumberish`\> | Index of reputation hash submission (between 0 and 11) |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -833,7 +833,7 @@ Check whether the supplied slot is a protected variable specific to this contrac
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_slot` | `BigNumberish` | The storage slot number to check. |
+| `_slot` | `PromiseOrValue`<`BigNumberish`\> | The storage slot number to check. |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -857,8 +857,8 @@ Used by a user to claim any mining rewards due to them. This will place them in 
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_recipient` | `string` | The user whose rewards to claim |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_recipient` | `PromiseOrValue`<`string`\> | The user whose rewards to claim |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -901,8 +901,8 @@ Creates a new colony in the network, at version 3
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_tokenAddress` | `string` | Address of an ERC20 token to serve as the colony token. |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_tokenAddress` | `PromiseOrValue`<`string`\> | Address of an ERC20 token to serve as the colony token. |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -925,10 +925,10 @@ Creates a new colony in the network, with an optional ENS name
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_tokenAddress` | `string` | Address of an ERC20 token to serve as the colony token |
-| `_version` | `BigNumberish` | The version of colony to deploy (pass 0 for the current version) |
-| `_colonyName` | `string` | The label to register (if null, no label is registered) |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_tokenAddress` | `PromiseOrValue`<`string`\> | Address of an ERC20 token to serve as the colony token |
+| `_version` | `PromiseOrValue`<`BigNumberish`\> | The version of colony to deploy (pass 0 for the current version) |
+| `_colonyName` | `PromiseOrValue`<`string`\> | The label to register (if null, no label is registered) |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -951,11 +951,11 @@ Creates a new colony in the network, with an optional ENS name
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_tokenAddress` | `string` | Address of an ERC20 token to serve as the colony token |
-| `_version` | `BigNumberish` | The version of colony to deploy (pass 0 for the current version) |
-| `_colonyName` | `string` | The label to register (if null, no label is registered) |
-| `_metadata` | `string` | The metadata associated with the new colony |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_tokenAddress` | `PromiseOrValue`<`string`\> | Address of an ERC20 token to serve as the colony token |
+| `_version` | `PromiseOrValue`<`BigNumberish`\> | The version of colony to deploy (pass 0 for the current version) |
+| `_colonyName` | `PromiseOrValue`<`string`\> | The label to register (if null, no label is registered) |
+| `_metadata` | `PromiseOrValue`<`string`\> | The metadata associated with the new colony |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -978,12 +978,12 @@ Overload of the simpler `createColony` -- creates a new colony in the network wi
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_tokenAddress` | `string` | Address of an ERC20 token to serve as the colony token |
-| `_version` | `BigNumberish` | The version of colony to deploy (pass 0 for the current version) |
-| `_colonyName` | `string` | The label to register (if null, no label is registered) |
-| `_orbitdb` | `string` | DEPRECATED Currently a no-op |
-| `_useExtensionManager` | `boolean` | DEPRECATED Currently a no-op |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_tokenAddress` | `PromiseOrValue`<`string`\> | Address of an ERC20 token to serve as the colony token |
+| `_version` | `PromiseOrValue`<`BigNumberish`\> | The version of colony to deploy (pass 0 for the current version) |
+| `_colonyName` | `PromiseOrValue`<`string`\> | The label to register (if null, no label is registered) |
+| `_orbitdb` | `PromiseOrValue`<`string`\> | DEPRECATED Currently a no-op |
+| `_useExtensionManager` | `PromiseOrValue`<`boolean`\> | DEPRECATED Currently a no-op |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -1005,8 +1005,8 @@ Create the Meta Colony, same as a normal colony plus the root skill.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_tokenAddress` | `string` | Address of the CLNY token |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_tokenAddress` | `PromiseOrValue`<`string`\> | Address of the CLNY token |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -1056,10 +1056,10 @@ Called to deploy a token authority
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_token` | `string` | The address of the otken |
-| `_colony` | `string` | The address of the colony in control of the token |
-| `_allowedToTransfer` | `string`[] | An array of addresses that are allowed to transfer the token even if it's locked |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_token` | `PromiseOrValue`<`string`\> | The address of the otken |
+| `_colony` | `PromiseOrValue`<`string`\> | The address of the colony in control of the token |
+| `_allowedToTransfer` | `PromiseOrValue`<`string`\>[] | An array of addresses that are allowed to transfer the token even if it's locked |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -1082,10 +1082,10 @@ Called to deploy a token.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_name` | `string` | The name of the token |
-| `_symbol` | `string` | The short 'ticket' symbol for the token |
-| `_decimals` | `BigNumberish` | The number of decimal places that 1 user-facing token can be divided up in to In the case of ETH, and most tokens, this is 18. |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_name` | `PromiseOrValue`<`string`\> | The name of the token |
+| `_symbol` | `PromiseOrValue`<`string`\> | The short 'ticket' symbol for the token |
+| `_decimals` | `PromiseOrValue`<`BigNumberish`\> | The number of decimal places that 1 user-facing token can be divided up in to In the case of ETH, and most tokens, this is 18. |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -1121,9 +1121,9 @@ Set the deprecation of an extension in a colony. Can only be called by a Colony.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_extensionId` | `BytesLike` | keccak256 hash of the extension name, used as an indentifier |
-| `_deprecated` | `boolean` | Whether to deprecate the extension or not |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_extensionId` | `PromiseOrValue`<`BytesLike`\> | keccak256 hash of the extension name, used as an indentifier |
+| `_deprecated` | `PromiseOrValue`<`boolean`\> | Whether to deprecate the extension or not |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -1146,8 +1146,8 @@ Mark a skill as deprecated which stops new tasks and payments from using it.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_skillId` | `BigNumberish` | Id of the skill |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_skillId` | `PromiseOrValue`<`BigNumberish`\> | Id of the skill |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -1169,9 +1169,9 @@ Set deprecation status for a skill
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_skillId` | `BigNumberish` | Id of the skill |
-| `_deprecated` | `boolean` | Deprecation status |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_skillId` | `PromiseOrValue`<`BigNumberish`\> | Id of the skill |
+| `_deprecated` | `PromiseOrValue`<`boolean`\> | Deprecation status |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -1214,7 +1214,7 @@ Put colony network mining into recovery mode. Can only be called by user with re
 
 | Name | Type |
 | :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
 
 #### Returns
 
@@ -1236,12 +1236,12 @@ Executes a metatransaction targeting this contract
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `userAddress` | `string` | The address of the user that signed the metatransaction |
-| `payload` | `BytesLike` | The transaction data that will be executed if signature valid |
-| `sigR` | `BytesLike` | The 'r' part of the signature |
-| `sigS` | `BytesLike` | The 's' part of the signature |
-| `sigV` | `BigNumberish` | The 'v' part of the signature |
-| `overrides?` | `PayableOverrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `userAddress` | `PromiseOrValue`<`string`\> | The address of the user that signed the metatransaction |
+| `payload` | `PromiseOrValue`<`BytesLike`\> | The transaction data that will be executed if signature valid |
+| `sigR` | `PromiseOrValue`<`BytesLike`\> | The 'r' part of the signature |
+| `sigS` | `PromiseOrValue`<`BytesLike`\> | The 's' part of the signature |
+| `sigV` | `PromiseOrValue`<`BigNumberish`\> | The 'v' part of the signature |
+| `overrides?` | `PayableOverrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -1263,7 +1263,7 @@ Exit recovery mode, can be called by anyone if enough whitelist approvals are gi
 
 | Name | Type |
 | :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
 
 #### Returns
 
@@ -1305,8 +1305,8 @@ Get the id of the child skill at index `_childSkillIndex` for skill with Id `_sk
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_skillId` | `BigNumberish` | Id of the skill |
-| `_childSkillIndex` | `BigNumberish` | Index of the `skill.children` array to get |
+| `_skillId` | `PromiseOrValue`<`BigNumberish`\> | Id of the skill |
+| `_childSkillIndex` | `PromiseOrValue`<`BigNumberish`\> | Index of the `skill.children` array to get |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -1329,7 +1329,7 @@ Get a colony address by its Id in the network.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the colony to get |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Id of the colony to get |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -1394,7 +1394,7 @@ Get the `Resolver` address for Colony contract version `_version`.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_version` | `BigNumberish` | The Colony contract version |
+| `_version` | `PromiseOrValue`<`BigNumberish`\> | The Colony contract version |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -1461,8 +1461,8 @@ Get an extension's installation.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_extensionId` | `BytesLike` | keccak256 hash of the extension name, used as an indentifier |
-| `_colony` | `string` | Address of the colony the extension is installed in |
+| `_extensionId` | `PromiseOrValue`<`BytesLike`\> | keccak256 hash of the extension name, used as an indentifier |
+| `_colony` | `PromiseOrValue`<`string`\> | Address of the colony the extension is installed in |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -1485,8 +1485,8 @@ Get an extension's resolver.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_extensionId` | `BytesLike` | keccak256 hash of the extension name, used as an indentifier |
-| `_version` | `BigNumberish` | Version of the extension |
+| `_extensionId` | `PromiseOrValue`<`BytesLike`\> | keccak256 hash of the extension name, used as an indentifier |
+| `_version` | `PromiseOrValue`<`BigNumberish`\> | Version of the extension |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -1567,7 +1567,7 @@ Gets the next metatransaction nonce for user that should be used targeting this 
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `userAddress` | `string` | The address of the user that will sign the metatransaction |
+| `userAddress` | `PromiseOrValue`<`string`\> | The address of the user that will sign the metatransaction |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -1590,7 +1590,7 @@ Called to get the address _delegate is allowed to mine for
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_delegate` | `string` | The address that wants to mine |
+| `_delegate` | `PromiseOrValue`<`string`\> | The address that wants to mine |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -1635,7 +1635,7 @@ returns how much CLNY _user has staked for the purposes of reputation mining
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_user` | `string` | The user to query |
+| `_user` | `PromiseOrValue`<`string`\> | The user to query |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -1658,8 +1658,8 @@ Get the id of the parent skill at index `_parentSkillIndex` for skill with Id `_
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_skillId` | `BigNumberish` | Id of the skill |
-| `_parentSkillIndex` | `BigNumberish` | Index of the `skill.parents` array to get Note that not all parent skill ids are stored here. See `Skill.parents` member for definition on which parents are stored |
+| `_skillId` | `PromiseOrValue`<`BigNumberish`\> | Id of the skill |
+| `_parentSkillIndex` | `PromiseOrValue`<`BigNumberish`\> | Index of the `skill.parents` array to get Note that not all parent skill ids are stored here. See `Skill.parents` member for definition on which parents are stored |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -1682,7 +1682,7 @@ Get a token's status in the payout whitelist
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_token` | `string` | The token being queried |
+| `_token` | `PromiseOrValue`<`string`\> | The token being queried |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -1705,7 +1705,7 @@ Retrieve the orbitdb address corresponding to a registered account.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_node` | `BytesLike` | The Namehash of the account being queried. |
+| `_node` | `PromiseOrValue`<`BytesLike`\> | The Namehash of the account being queried. |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -1728,8 +1728,8 @@ Get a replacement log entry (if set) for the log entry `_id` in the mining cycle
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_reputationMiningCycle` | `string` | The address of the reputation mining cycle we are asking about |
-| `_id` | `BigNumberish` | The log entry number we wish to see if there is a replacement for |
+| `_reputationMiningCycle` | `PromiseOrValue`<`string`\> | The address of the reputation mining cycle we are asking about |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | The log entry number we wish to see if there is a replacement for |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -1752,7 +1752,7 @@ Get whether any replacement log entries have been set for the supplied reputatio
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_reputationMiningCycle` | `string` | The reputation mining cycle address we want to know if any entries have been replaced in. |
+| `_reputationMiningCycle` | `PromiseOrValue`<`string`\> | The reputation mining cycle address we want to know if any entries have been replaced in. |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -1775,7 +1775,7 @@ Get the address of either the active or inactive reputation mining cycle, based 
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_active` | `boolean` | Whether the user wants the active or inactive reputation mining cycle |
+| `_active` | `PromiseOrValue`<`boolean`\> | Whether the user wants the active or inactive reputation mining cycle |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -1910,7 +1910,7 @@ Get the `nParents` and `nChildren` of skill with id `_skillId`.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_skillId` | `BigNumberish` | Id of the skill |
+| `_skillId` | `PromiseOrValue`<`BigNumberish`\> | Id of the skill |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -1992,9 +1992,9 @@ Initialises the colony network by setting the first Colony version resolver to `
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_resolver` | `string` | Address of the resolver for Colony contract |
-| `_version` | `BigNumberish` | Version of the Colony contract the resolver represents |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_resolver` | `PromiseOrValue`<`string`\> | Address of the resolver for Colony contract |
+| `_version` | `PromiseOrValue`<`BigNumberish`\> | Version of the Colony contract the resolver represents |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2016,7 +2016,7 @@ Creates initial inactive reputation mining cycle.
 
 | Name | Type |
 | :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
 
 #### Returns
 
@@ -2038,7 +2038,7 @@ Initialise the local skills tree for a colony
 
 | Name | Type |
 | :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
 
 #### Returns
 
@@ -2060,9 +2060,9 @@ Install an extension in a colony. Can only be called by a Colony.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_extensionId` | `BytesLike` | keccak256 hash of the extension name, used as an indentifier |
-| `_version` | `BigNumberish` | Version of the extension to install |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_extensionId` | `PromiseOrValue`<`BytesLike`\> | keccak256 hash of the extension name, used as an indentifier |
+| `_version` | `PromiseOrValue`<`BigNumberish`\> | Version of the extension to install |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2084,7 +2084,7 @@ Check if specific address is a colony created on colony network.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_colony` | `string` | Address of the colony |
+| `_colony` | `PromiseOrValue`<`string`\> | Address of the colony |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -2191,7 +2191,7 @@ Reverse lookup a username from an address.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_addr` | `string` | The address we wish to find the corresponding ENS domain for (if any) |
+| `_addr` | `PromiseOrValue`<`string`\> | The address we wish to find the corresponding ENS domain for (if any) |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -2263,9 +2263,9 @@ Function called to punish people who staked against a new reputation root hash t
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_stakers` | `string`[] | Array of the addresses of stakers to punish |
-| `_amount` | `BigNumberish` | Amount of stake to slash |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_stakers` | `PromiseOrValue`<`string`\>[] | Array of the addresses of stakers to punish |
+| `_amount` | `PromiseOrValue`<`BigNumberish`\> | Amount of stake to slash |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2315,9 +2315,9 @@ Register a "colony.joincolony.eth" label. Can only be called by a Colony.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_colonyName` | `string` | The label to register. |
-| `_orbitdb` | `string` | The path of the orbitDB database associated with the colony name |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_colonyName` | `PromiseOrValue`<`string`\> | The label to register. |
+| `_orbitdb` | `PromiseOrValue`<`string`\> | The path of the orbitDB database associated with the colony name |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2339,9 +2339,9 @@ Register a "user.joincolony.eth" label.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_username` | `string` | The label to register |
-| `_orbitdb` | `string` | The path of the orbitDB database associated with the user profile |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_username` | `PromiseOrValue`<`string`\> | The label to register |
+| `_orbitdb` | `PromiseOrValue`<`string`\> | The path of the orbitDB database associated with the user profile |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2405,8 +2405,8 @@ Remove colony recovery role. Can only be called by root role.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_user` | `string` | User we want to remove recovery role from |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_user` | `PromiseOrValue`<`string`\> | User we want to remove recovery role from |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2429,9 +2429,9 @@ Used to track that a user is eligible to claim a reward
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_recipient` | `string` | The address receiving the award |
-| `_amount` | `BigNumberish` | The amount of CLNY to be awarded |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_recipient` | `PromiseOrValue`<`string`\> | The address receiving the award |
+| `_amount` | `PromiseOrValue`<`BigNumberish`\> | The amount of CLNY to be awarded |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2453,8 +2453,8 @@ Set the colony network fee to pay. e.g. if the fee is 1% (or 0.01), pass 100 as 
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_feeInverse` | `BigNumberish` | The inverse of the network fee to set |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_feeInverse` | `PromiseOrValue`<`BigNumberish`\> | The inverse of the network fee to set |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2476,9 +2476,9 @@ Called to give or remove another address's permission to mine on your behalf
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_delegate` | `string` | The address you're giving or removing permission from |
-| `_allowed` | `boolean` | Whether they are allowed (true) or not (false) to mine on your behalf |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_delegate` | `PromiseOrValue`<`string`\> | The address you're giving or removing permission from |
+| `_allowed` | `PromiseOrValue`<`boolean`\> | Whether they are allowed (true) or not (false) to mine on your behalf |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2500,8 +2500,8 @@ Set the resolver to be used by new instances of ReputationMiningCycle.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_miningResolverAddress` | `string` | The address of the Resolver contract with the functions correctly wired. |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_miningResolverAddress` | `PromiseOrValue`<`string`\> | The address of the Resolver contract with the functions correctly wired. |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2523,9 +2523,9 @@ Set a token's status in the payout whitelist
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_token` | `string` | The token being set |
-| `_status` | `boolean` | The whitelist status |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_token` | `PromiseOrValue`<`string`\> | The token being set |
+| `_status` | `PromiseOrValue`<`boolean`\> | The whitelist status |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2547,8 +2547,8 @@ Set new colony recovery role. Can be called by root.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_user` | `string` | User we want to give a recovery role to |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_user` | `PromiseOrValue`<`string`\> | User we want to give a recovery role to |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2571,15 +2571,15 @@ Set a replacement log entry if we're in recovery mode.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_reputationMiningCycle` | `string` | The address of the reputation mining cycle that the log was in. |
-| `_id` | `BigNumberish` | The number of the log entry in the reputation mining cycle in question. |
-| `_user` | `string` | The address of the user earning / losing the reputation |
-| `_amount` | `BigNumberish` | The amount of reputation being earned / lost |
-| `_skillId` | `BigNumberish` | The id of the origin skill for the reputation update |
-| `_colony` | `string` | The address of the colony being updated |
-| `_nUpdates` | `BigNumberish` | The number of updates the log entry corresponds to |
-| `_nPreviousUpdates` | `BigNumberish` | The number of updates in the log before this entry |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_reputationMiningCycle` | `PromiseOrValue`<`string`\> | The address of the reputation mining cycle that the log was in. |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | The number of the log entry in the reputation mining cycle in question. |
+| `_user` | `PromiseOrValue`<`string`\> | The address of the user earning / losing the reputation |
+| `_amount` | `PromiseOrValue`<`BigNumberish`\> | The amount of reputation being earned / lost |
+| `_skillId` | `PromiseOrValue`<`BigNumberish`\> | The id of the origin skill for the reputation update |
+| `_colony` | `PromiseOrValue`<`string`\> | The address of the colony being updated |
+| `_nUpdates` | `PromiseOrValue`<`BigNumberish`\> | The number of updates the log entry corresponds to |
+| `_nPreviousUpdates` | `PromiseOrValue`<`BigNumberish`\> | The number of updates in the log before this entry |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2602,8 +2602,8 @@ Called to set the total per-cycle reputation reward, which will be split between
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_amount` | `BigNumberish` | The CLNY awarded per mining cycle to the miners |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_amount` | `PromiseOrValue`<`BigNumberish`\> | The CLNY awarded per mining cycle to the miners |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2625,10 +2625,10 @@ Set a new Reputation root hash and starts a new mining cycle. Can only be called
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_newHash` | `BytesLike` | The reputation root hash |
-| `_newNLeaves` | `BigNumberish` | The updated leaves count value |
-| `_stakers` | `string`[] | Array of users who submitted or backed the hash, being accepted here as the new reputation root hash |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_newHash` | `PromiseOrValue`<`BytesLike`\> | The reputation root hash |
+| `_newNLeaves` | `PromiseOrValue`<`BigNumberish`\> | The updated leaves count value |
+| `_stakers` | `PromiseOrValue`<`string`\>[] | Array of users who submitted or backed the hash, being accepted here as the new reputation root hash |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2651,9 +2651,9 @@ Update value of arbitrary storage variable. Can only be called by user with reco
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_slot` | `BigNumberish` | Uint address of storage slot to be updated |
-| `_value` | `BytesLike` | word of data to be set |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_slot` | `PromiseOrValue`<`BigNumberish`\> | Uint address of storage slot to be updated |
+| `_value` | `PromiseOrValue`<`BytesLike`\> | word of data to be set |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2675,8 +2675,8 @@ Sets the token locking address. This is only set once, and can't be changed afte
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_tokenLockingAddress` | `string` | Address of the locking contract |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_tokenLockingAddress` | `PromiseOrValue`<`string`\> | Address of the locking contract |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2698,9 +2698,9 @@ Setup registrar with ENS and root node.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_ens` | `string` | Address of ENS registrar |
-| `_rootNode` | `BytesLike` | Namehash of the root node for the domain |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_ens` | `PromiseOrValue`<`string`\> | Address of ENS registrar |
+| `_rootNode` | `PromiseOrValue`<`BytesLike`\> | Namehash of the root node for the domain |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2722,8 +2722,8 @@ Stake CLNY to allow the staker to participate in reputation mining.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_amount` | `BigNumberish` | Amount of CLNY to stake for the purposes of mining |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_amount` | `PromiseOrValue`<`BigNumberish`\> | Amount of CLNY to stake for the purposes of mining |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2745,7 +2745,7 @@ Starts a new Reputation Mining cycle. Explicitly called only the first time, sub
 
 | Name | Type |
 | :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
 
 #### Returns
 
@@ -2767,8 +2767,8 @@ Create and start a new `DutchAuction` for the entire amount of `_token` owned by
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_token` | `string` | Address of the token held by the network to be auctioned |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_token` | `PromiseOrValue`<`string`\> | Address of the token held by the network to be auctioned |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2791,7 +2791,7 @@ Query if a contract implements an interface
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_interfaceID` | `BytesLike` | The interface identifier, as specified in ERC-165 |
+| `_interfaceID` | `PromiseOrValue`<`BytesLike`\> | The interface identifier, as specified in ERC-165 |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -2814,8 +2814,8 @@ Uninstall an extension in a colony. Can only be called by a Colony.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_extensionId` | `BytesLike` | keccak256 hash of the extension name, used as an indentifier |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_extensionId` | `PromiseOrValue`<`BytesLike`\> | keccak256 hash of the extension name, used as an indentifier |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2837,8 +2837,8 @@ Unstake CLNY currently staked for reputation mining.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_amount` | `BigNumberish` | Amount of CLNY staked for mining to unstake |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_amount` | `PromiseOrValue`<`BigNumberish`\> | Amount of CLNY staked for mining to unstake |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2860,8 +2860,8 @@ Update a colony's orbitdb address. Can only be called by a colony with a registe
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_orbitdb` | `string` | The path of the orbitDB database to be associated with the colony |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_orbitdb` | `PromiseOrValue`<`string`\> | The path of the orbitDB database to be associated with the colony |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2883,8 +2883,8 @@ Update a user's orbitdb address. Can only be called by a user with a registered 
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_orbitdb` | `string` | The path of the orbitDB database to be associated with the user |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_orbitdb` | `PromiseOrValue`<`string`\> | The path of the orbitDB database to be associated with the user |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2906,9 +2906,9 @@ Upgrade an extension in a colony. Can only be called by a Colony.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_extensionId` | `BytesLike` | keccak256 hash of the extension name, used as an indentifier |
-| `_newVersion` | `BigNumberish` | Version of the extension to upgrade to (must be one greater than current) |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_extensionId` | `PromiseOrValue`<`BytesLike`\> | keccak256 hash of the extension name, used as an indentifier |
+| `_newVersion` | `PromiseOrValue`<`BigNumberish`\> | Version of the extension to upgrade to (must be one greater than current) |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 

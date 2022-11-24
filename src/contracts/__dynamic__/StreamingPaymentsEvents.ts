@@ -15,6 +15,7 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
+  PromiseOrValue,
 } from "../common";
 
 export interface StreamingPaymentsEventsInterface extends utils.Interface {
@@ -153,12 +154,16 @@ export interface StreamingPaymentsEvents extends BaseContract {
     ExtensionInitialised(): ExtensionInitialisedEventFilter;
 
     "LogSetAuthority(address)"(
-      authority?: string | null
+      authority?: PromiseOrValue<string> | null
     ): LogSetAuthorityEventFilter;
-    LogSetAuthority(authority?: string | null): LogSetAuthorityEventFilter;
+    LogSetAuthority(
+      authority?: PromiseOrValue<string> | null
+    ): LogSetAuthorityEventFilter;
 
-    "LogSetOwner(address)"(owner?: string | null): LogSetOwnerEventFilter;
-    LogSetOwner(owner?: string | null): LogSetOwnerEventFilter;
+    "LogSetOwner(address)"(
+      owner?: PromiseOrValue<string> | null
+    ): LogSetOwnerEventFilter;
+    LogSetOwner(owner?: PromiseOrValue<string> | null): LogSetOwnerEventFilter;
 
     "MetaTransactionExecuted(address,address,bytes)"(
       user?: null,
@@ -173,26 +178,26 @@ export interface StreamingPaymentsEvents extends BaseContract {
 
     "PaymentTokenUpdated(address,uint256,address,uint256)"(
       agent?: null,
-      streamingPaymentId?: BigNumberish | null,
+      streamingPaymentId?: PromiseOrValue<BigNumberish> | null,
       token?: null,
       amount?: null
     ): PaymentTokenUpdatedEventFilter;
     PaymentTokenUpdated(
       agent?: null,
-      streamingPaymentId?: BigNumberish | null,
+      streamingPaymentId?: PromiseOrValue<BigNumberish> | null,
       token?: null,
       amount?: null
     ): PaymentTokenUpdatedEventFilter;
 
     "StreamingPaymentClaimed(address,uint256,address,uint256)"(
       agent?: null,
-      streamingPaymentId?: BigNumberish | null,
+      streamingPaymentId?: PromiseOrValue<BigNumberish> | null,
       token?: null,
       amount?: null
     ): StreamingPaymentClaimedEventFilter;
     StreamingPaymentClaimed(
       agent?: null,
-      streamingPaymentId?: BigNumberish | null,
+      streamingPaymentId?: PromiseOrValue<BigNumberish> | null,
       token?: null,
       amount?: null
     ): StreamingPaymentClaimedEventFilter;

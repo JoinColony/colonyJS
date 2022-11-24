@@ -9,6 +9,7 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
+  PromiseOrValue,
 } from "../common";
 
 export interface CoinMachineEventsInterface extends utils.Interface {
@@ -171,12 +172,16 @@ export interface CoinMachineEvents extends BaseContract {
     ExtensionInitialised(): ExtensionInitialisedEventFilter;
 
     "LogSetAuthority(address)"(
-      authority?: string | null
+      authority?: PromiseOrValue<string> | null
     ): LogSetAuthorityEventFilter;
-    LogSetAuthority(authority?: string | null): LogSetAuthorityEventFilter;
+    LogSetAuthority(
+      authority?: PromiseOrValue<string> | null
+    ): LogSetAuthorityEventFilter;
 
-    "LogSetOwner(address)"(owner?: string | null): LogSetOwnerEventFilter;
-    LogSetOwner(owner?: string | null): LogSetOwnerEventFilter;
+    "LogSetOwner(address)"(
+      owner?: PromiseOrValue<string> | null
+    ): LogSetOwnerEventFilter;
+    LogSetOwner(owner?: PromiseOrValue<string> | null): LogSetOwnerEventFilter;
 
     "PeriodUpdated(uint256,uint256)"(
       activePeriod?: null,
@@ -193,7 +198,7 @@ export interface CoinMachineEvents extends BaseContract {
       totalCost?: null
     ): TokensBought_address_uint256_uint256_EventFilter;
     "TokensBought(address,address,uint256,uint256)"(
-      buyer?: string | null,
+      buyer?: PromiseOrValue<string> | null,
       token?: null,
       numTokens?: null,
       totalCost?: null
