@@ -23,6 +23,7 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
+  PromiseOrValue,
 } from "./common";
 
 export interface WhitelistInterface extends utils.Interface {
@@ -78,7 +79,7 @@ export interface WhitelistInterface extends utils.Interface {
   encodeFunctionData(functionFragment: "authority", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "getCapabilityRoles",
-    values: [BytesLike]
+    values: [PromiseOrValue<BytesLike>]
   ): string;
   encodeFunctionData(functionFragment: "getColony", values?: undefined): string;
   encodeFunctionData(
@@ -88,34 +89,46 @@ export interface WhitelistInterface extends utils.Interface {
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "setAuthority",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
-  encodeFunctionData(functionFragment: "setOwner", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "setOwner",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(
     functionFragment: "identifier",
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "version", values?: undefined): string;
-  encodeFunctionData(functionFragment: "install", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "install",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(
     functionFragment: "finishUpgrade",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "deprecate", values: [boolean]): string;
+  encodeFunctionData(
+    functionFragment: "deprecate",
+    values: [PromiseOrValue<boolean>]
+  ): string;
   encodeFunctionData(functionFragment: "uninstall", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "initialise",
-    values: [boolean, string]
+    values: [PromiseOrValue<boolean>, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "approveUsers",
-    values: [string[], boolean]
+    values: [PromiseOrValue<string>[], PromiseOrValue<boolean>]
   ): string;
   encodeFunctionData(
     functionFragment: "signAgreement",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
-  encodeFunctionData(functionFragment: "isApproved", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "isApproved",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(
     functionFragment: "getUseApprovals",
     values?: undefined
@@ -124,10 +137,13 @@ export interface WhitelistInterface extends utils.Interface {
     functionFragment: "getAgreementHash",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "getApproval", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "getApproval",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(
     functionFragment: "getSignature",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
 
   decodeFunctionResult(functionFragment: "authority", data: BytesLike): Result;
@@ -274,7 +290,7 @@ export interface Whitelist extends BaseContract {
     authority(overrides?: CallOverrides): Promise<[string]>;
 
     getCapabilityRoles(
-      _sig: BytesLike,
+      _sig: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<[string]>;
 
@@ -285,13 +301,13 @@ export interface Whitelist extends BaseContract {
     owner(overrides?: CallOverrides): Promise<[string]>;
 
     setAuthority(
-      authority_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      authority_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     setOwner(
-      owner_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      owner_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -309,30 +325,30 @@ export interface Whitelist extends BaseContract {
      * @param _colony The colony in which the extension holds permissions
      */
     install(
-      _colony: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _colony: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Called when upgrading the extension
      */
     finishUpgrade(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Called when deprecating (or undeprecating) the extension
      */
     deprecate(
-      _deprecated: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Called when uninstalling the extension
      */
     uninstall(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -341,9 +357,9 @@ export interface Whitelist extends BaseContract {
      * @param _useApprovals Whether or not to require administrative approval
      */
     initialise(
-      _useApprovals: boolean,
-      _agreementHash: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _useApprovals: PromiseOrValue<boolean>,
+      _agreementHash: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -352,9 +368,9 @@ export interface Whitelist extends BaseContract {
      * @param _users An array of user addresses
      */
     approveUsers(
-      _users: string[],
-      _status: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _users: PromiseOrValue<string>[],
+      _status: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -362,15 +378,18 @@ export interface Whitelist extends BaseContract {
      * @param _agreementHash The agreement hash being signed
      */
     signAgreement(
-      _agreementHash: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _agreementHash: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Get the user's overall whitelist status
      * @param _user The address of the user
      */
-    isApproved(_user: string, overrides?: CallOverrides): Promise<[boolean]>;
+    isApproved(
+      _user: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
 
     /**
      * Get the useApprovals boolean
@@ -386,19 +405,25 @@ export interface Whitelist extends BaseContract {
      * Get the user's approval status
      * @param _user The address of the user
      */
-    getApproval(_user: string, overrides?: CallOverrides): Promise<[boolean]>;
+    getApproval(
+      _user: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
 
     /**
      * Get the user's signature status
      * @param _user The address of the user
      */
-    getSignature(_user: string, overrides?: CallOverrides): Promise<[boolean]>;
+    getSignature(
+      _user: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
   };
 
   authority(overrides?: CallOverrides): Promise<string>;
 
   getCapabilityRoles(
-    _sig: BytesLike,
+    _sig: PromiseOrValue<BytesLike>,
     overrides?: CallOverrides
   ): Promise<string>;
 
@@ -409,13 +434,13 @@ export interface Whitelist extends BaseContract {
   owner(overrides?: CallOverrides): Promise<string>;
 
   setAuthority(
-    authority_: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    authority_: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   setOwner(
-    owner_: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    owner_: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -433,30 +458,30 @@ export interface Whitelist extends BaseContract {
    * @param _colony The colony in which the extension holds permissions
    */
   install(
-    _colony: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _colony: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Called when upgrading the extension
    */
   finishUpgrade(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Called when deprecating (or undeprecating) the extension
    */
   deprecate(
-    _deprecated: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _deprecated: PromiseOrValue<boolean>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Called when uninstalling the extension
    */
   uninstall(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -465,9 +490,9 @@ export interface Whitelist extends BaseContract {
    * @param _useApprovals Whether or not to require administrative approval
    */
   initialise(
-    _useApprovals: boolean,
-    _agreementHash: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _useApprovals: PromiseOrValue<boolean>,
+    _agreementHash: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -476,9 +501,9 @@ export interface Whitelist extends BaseContract {
    * @param _users An array of user addresses
    */
   approveUsers(
-    _users: string[],
-    _status: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _users: PromiseOrValue<string>[],
+    _status: PromiseOrValue<boolean>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -486,15 +511,18 @@ export interface Whitelist extends BaseContract {
    * @param _agreementHash The agreement hash being signed
    */
   signAgreement(
-    _agreementHash: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _agreementHash: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Get the user's overall whitelist status
    * @param _user The address of the user
    */
-  isApproved(_user: string, overrides?: CallOverrides): Promise<boolean>;
+  isApproved(
+    _user: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
 
   /**
    * Get the useApprovals boolean
@@ -510,19 +538,25 @@ export interface Whitelist extends BaseContract {
    * Get the user's approval status
    * @param _user The address of the user
    */
-  getApproval(_user: string, overrides?: CallOverrides): Promise<boolean>;
+  getApproval(
+    _user: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
 
   /**
    * Get the user's signature status
    * @param _user The address of the user
    */
-  getSignature(_user: string, overrides?: CallOverrides): Promise<boolean>;
+  getSignature(
+    _user: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
 
   callStatic: {
     authority(overrides?: CallOverrides): Promise<string>;
 
     getCapabilityRoles(
-      _sig: BytesLike,
+      _sig: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -532,9 +566,15 @@ export interface Whitelist extends BaseContract {
 
     owner(overrides?: CallOverrides): Promise<string>;
 
-    setAuthority(authority_: string, overrides?: CallOverrides): Promise<void>;
+    setAuthority(
+      authority_: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
-    setOwner(owner_: string, overrides?: CallOverrides): Promise<void>;
+    setOwner(
+      owner_: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     /**
      * Returns the identifier of the extension
@@ -550,7 +590,10 @@ export interface Whitelist extends BaseContract {
      * Configures the extension
      * @param _colony The colony in which the extension holds permissions
      */
-    install(_colony: string, overrides?: CallOverrides): Promise<void>;
+    install(
+      _colony: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     /**
      * Called when upgrading the extension
@@ -560,7 +603,10 @@ export interface Whitelist extends BaseContract {
     /**
      * Called when deprecating (or undeprecating) the extension
      */
-    deprecate(_deprecated: boolean, overrides?: CallOverrides): Promise<void>;
+    deprecate(
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     /**
      * Called when uninstalling the extension
@@ -573,8 +619,8 @@ export interface Whitelist extends BaseContract {
      * @param _useApprovals Whether or not to require administrative approval
      */
     initialise(
-      _useApprovals: boolean,
-      _agreementHash: string,
+      _useApprovals: PromiseOrValue<boolean>,
+      _agreementHash: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -584,8 +630,8 @@ export interface Whitelist extends BaseContract {
      * @param _users An array of user addresses
      */
     approveUsers(
-      _users: string[],
-      _status: boolean,
+      _users: PromiseOrValue<string>[],
+      _status: PromiseOrValue<boolean>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -594,7 +640,7 @@ export interface Whitelist extends BaseContract {
      * @param _agreementHash The agreement hash being signed
      */
     signAgreement(
-      _agreementHash: string,
+      _agreementHash: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -602,7 +648,10 @@ export interface Whitelist extends BaseContract {
      * Get the user's overall whitelist status
      * @param _user The address of the user
      */
-    isApproved(_user: string, overrides?: CallOverrides): Promise<boolean>;
+    isApproved(
+      _user: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
 
     /**
      * Get the useApprovals boolean
@@ -618,38 +667,50 @@ export interface Whitelist extends BaseContract {
      * Get the user's approval status
      * @param _user The address of the user
      */
-    getApproval(_user: string, overrides?: CallOverrides): Promise<boolean>;
+    getApproval(
+      _user: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
 
     /**
      * Get the user's signature status
      * @param _user The address of the user
      */
-    getSignature(_user: string, overrides?: CallOverrides): Promise<boolean>;
+    getSignature(
+      _user: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
   };
 
   filters: {
     "AgreementSigned(address)"(
-      _user?: string | null
+      _user?: PromiseOrValue<string> | null
     ): AgreementSignedEventFilter;
-    AgreementSigned(_user?: string | null): AgreementSignedEventFilter;
+    AgreementSigned(
+      _user?: PromiseOrValue<string> | null
+    ): AgreementSignedEventFilter;
 
     "ExtensionInitialised()"(): ExtensionInitialisedEventFilter;
     ExtensionInitialised(): ExtensionInitialisedEventFilter;
 
     "LogSetAuthority(address)"(
-      authority?: string | null
+      authority?: PromiseOrValue<string> | null
     ): LogSetAuthorityEventFilter;
-    LogSetAuthority(authority?: string | null): LogSetAuthorityEventFilter;
+    LogSetAuthority(
+      authority?: PromiseOrValue<string> | null
+    ): LogSetAuthorityEventFilter;
 
-    "LogSetOwner(address)"(owner?: string | null): LogSetOwnerEventFilter;
-    LogSetOwner(owner?: string | null): LogSetOwnerEventFilter;
+    "LogSetOwner(address)"(
+      owner?: PromiseOrValue<string> | null
+    ): LogSetOwnerEventFilter;
+    LogSetOwner(owner?: PromiseOrValue<string> | null): LogSetOwnerEventFilter;
 
     "UserApproved(address,bool)"(
-      _user?: string | null,
+      _user?: PromiseOrValue<string> | null,
       _status?: null
     ): UserApprovedEventFilter;
     UserApproved(
-      _user?: string | null,
+      _user?: PromiseOrValue<string> | null,
       _status?: null
     ): UserApprovedEventFilter;
   };
@@ -658,7 +719,7 @@ export interface Whitelist extends BaseContract {
     authority(overrides?: CallOverrides): Promise<BigNumber>;
 
     getCapabilityRoles(
-      _sig: BytesLike,
+      _sig: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -669,13 +730,13 @@ export interface Whitelist extends BaseContract {
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
     setAuthority(
-      authority_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      authority_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     setOwner(
-      owner_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      owner_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -693,30 +754,30 @@ export interface Whitelist extends BaseContract {
      * @param _colony The colony in which the extension holds permissions
      */
     install(
-      _colony: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _colony: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
      * Called when upgrading the extension
      */
     finishUpgrade(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
      * Called when deprecating (or undeprecating) the extension
      */
     deprecate(
-      _deprecated: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
      * Called when uninstalling the extension
      */
     uninstall(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -725,9 +786,9 @@ export interface Whitelist extends BaseContract {
      * @param _useApprovals Whether or not to require administrative approval
      */
     initialise(
-      _useApprovals: boolean,
-      _agreementHash: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _useApprovals: PromiseOrValue<boolean>,
+      _agreementHash: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -736,9 +797,9 @@ export interface Whitelist extends BaseContract {
      * @param _users An array of user addresses
      */
     approveUsers(
-      _users: string[],
-      _status: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _users: PromiseOrValue<string>[],
+      _status: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -746,15 +807,18 @@ export interface Whitelist extends BaseContract {
      * @param _agreementHash The agreement hash being signed
      */
     signAgreement(
-      _agreementHash: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _agreementHash: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
      * Get the user's overall whitelist status
      * @param _user The address of the user
      */
-    isApproved(_user: string, overrides?: CallOverrides): Promise<BigNumber>;
+    isApproved(
+      _user: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     /**
      * Get the useApprovals boolean
@@ -770,20 +834,26 @@ export interface Whitelist extends BaseContract {
      * Get the user's approval status
      * @param _user The address of the user
      */
-    getApproval(_user: string, overrides?: CallOverrides): Promise<BigNumber>;
+    getApproval(
+      _user: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     /**
      * Get the user's signature status
      * @param _user The address of the user
      */
-    getSignature(_user: string, overrides?: CallOverrides): Promise<BigNumber>;
+    getSignature(
+      _user: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     authority(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getCapabilityRoles(
-      _sig: BytesLike,
+      _sig: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -794,13 +864,13 @@ export interface Whitelist extends BaseContract {
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     setAuthority(
-      authority_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      authority_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     setOwner(
-      owner_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      owner_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -818,30 +888,30 @@ export interface Whitelist extends BaseContract {
      * @param _colony The colony in which the extension holds permissions
      */
     install(
-      _colony: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _colony: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Called when upgrading the extension
      */
     finishUpgrade(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Called when deprecating (or undeprecating) the extension
      */
     deprecate(
-      _deprecated: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Called when uninstalling the extension
      */
     uninstall(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -850,9 +920,9 @@ export interface Whitelist extends BaseContract {
      * @param _useApprovals Whether or not to require administrative approval
      */
     initialise(
-      _useApprovals: boolean,
-      _agreementHash: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _useApprovals: PromiseOrValue<boolean>,
+      _agreementHash: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -861,9 +931,9 @@ export interface Whitelist extends BaseContract {
      * @param _users An array of user addresses
      */
     approveUsers(
-      _users: string[],
-      _status: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _users: PromiseOrValue<string>[],
+      _status: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -871,8 +941,8 @@ export interface Whitelist extends BaseContract {
      * @param _agreementHash The agreement hash being signed
      */
     signAgreement(
-      _agreementHash: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _agreementHash: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -880,7 +950,7 @@ export interface Whitelist extends BaseContract {
      * @param _user The address of the user
      */
     isApproved(
-      _user: string,
+      _user: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -899,7 +969,7 @@ export interface Whitelist extends BaseContract {
      * @param _user The address of the user
      */
     getApproval(
-      _user: string,
+      _user: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -908,7 +978,7 @@ export interface Whitelist extends BaseContract {
      * @param _user The address of the user
      */
     getSignature(
-      _user: string,
+      _user: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };

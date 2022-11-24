@@ -25,10 +25,14 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
+  PromiseOrValue,
 } from "./common";
 
 export declare namespace StakedExpenditure {
-  export type StakeStruct = { creator: string; amount: BigNumberish };
+  export type StakeStruct = {
+    creator: PromiseOrValue<string>;
+    amount: PromiseOrValue<BigNumberish>;
+  };
 
   export type StakeStructOutput = [string, BigNumber] & {
     creator: string;
@@ -95,11 +99,17 @@ export interface StakedExpenditureInterface extends utils.Interface {
   encodeFunctionData(functionFragment: "authority", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "executeMetaTransaction",
-    values: [string, BytesLike, BytesLike, BytesLike, BigNumberish]
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "getCapabilityRoles",
-    values: [BytesLike]
+    values: [PromiseOrValue<BytesLike>]
   ): string;
   encodeFunctionData(
     functionFragment: "getChainId",
@@ -112,24 +122,27 @@ export interface StakedExpenditureInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "getMetatransactionNonce",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "setAuthority",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
-  encodeFunctionData(functionFragment: "setOwner", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "setOwner",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(
     functionFragment: "verify",
     values: [
-      string,
-      BigNumberish,
-      BigNumberish,
-      BytesLike,
-      BytesLike,
-      BytesLike,
-      BigNumberish
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>
     ]
   ): string;
   encodeFunctionData(
@@ -137,46 +150,56 @@ export interface StakedExpenditureInterface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "version", values?: undefined): string;
-  encodeFunctionData(functionFragment: "install", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "install",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(
     functionFragment: "finishUpgrade",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "deprecate", values: [boolean]): string;
+  encodeFunctionData(
+    functionFragment: "deprecate",
+    values: [PromiseOrValue<boolean>]
+  ): string;
   encodeFunctionData(functionFragment: "uninstall", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "setStakeFraction",
-    values: [BigNumberish]
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "makeExpenditureWithStake",
     values: [
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BytesLike,
-      BytesLike,
-      BigNumberish,
-      BytesLike[]
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>[]
     ]
   ): string;
   encodeFunctionData(
     functionFragment: "reclaimStake",
-    values: [BigNumberish]
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "cancelAndReclaimStake",
-    values: [BigNumberish, BigNumberish, BigNumberish]
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "cancelAndPunish",
     values: [
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      boolean
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<boolean>
     ]
   ): string;
   encodeFunctionData(
@@ -185,7 +208,7 @@ export interface StakedExpenditureInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "getStake",
-    values: [BigNumberish]
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
 
   decodeFunctionResult(functionFragment: "authority", data: BytesLike): Result;
@@ -392,16 +415,16 @@ export interface StakedExpenditure extends BaseContract {
      * @param _user Address of user trying to do meta transaction
      */
     executeMetaTransaction(
-      _user: string,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      _user: PromiseOrValue<string>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     getCapabilityRoles(
-      _sig: BytesLike,
+      _sig: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<[string]>;
 
@@ -412,30 +435,30 @@ export interface StakedExpenditure extends BaseContract {
     getDeprecated(overrides?: CallOverrides): Promise<[boolean]>;
 
     getMetatransactionNonce(
-      _user: string,
+      _user: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { nonce: BigNumber }>;
 
     owner(overrides?: CallOverrides): Promise<[string]>;
 
     setAuthority(
-      authority_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      authority_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     setOwner(
-      owner_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      owner_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     verify(
-      _owner: string,
-      _nonce: BigNumberish,
-      _chainId: BigNumberish,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
+      _owner: PromiseOrValue<string>,
+      _nonce: PromiseOrValue<BigNumberish>,
+      _chainId: PromiseOrValue<BigNumberish>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
@@ -458,15 +481,15 @@ export interface StakedExpenditure extends BaseContract {
      * @param _colony The colony in which the extension holds permissions
      */
     install(
-      _colony: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _colony: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Called when upgrading the extension
      */
     finishUpgrade(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -474,15 +497,15 @@ export interface StakedExpenditure extends BaseContract {
      * @param _deprecated Indicates whether the extension should be deprecated or undeprecated
      */
     deprecate(
-      _deprecated: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Called when uninstalling the extension
      */
     uninstall(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -490,8 +513,8 @@ export interface StakedExpenditure extends BaseContract {
      * @param _stakeFraction WAD-denominated fraction, used to determine stake as fraction of rep in domain
      */
     setStakeFraction(
-      _stakeFraction: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _stakeFraction: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -505,14 +528,14 @@ export interface StakedExpenditure extends BaseContract {
      * @param _value Reputation value indicating the total reputation in _domainId
      */
     makeExpenditureWithStake(
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _domainId: BigNumberish,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _domainId: PromiseOrValue<BigNumberish>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -520,8 +543,8 @@ export interface StakedExpenditure extends BaseContract {
      * @param _expenditureId The id of the expenditure
      */
     reclaimStake(
-      _expenditureId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _expenditureId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -531,10 +554,10 @@ export interface StakedExpenditure extends BaseContract {
      * @param _permissionDomainId The domainId in which the extension has the arbitration permission
      */
     cancelAndReclaimStake(
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _expenditureId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _expenditureId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -547,13 +570,13 @@ export interface StakedExpenditure extends BaseContract {
      * @param _punish Whether the staker should be punished by losing an amount of reputation equal to the stake
      */
     cancelAndPunish(
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _callerPermissionDomainId: BigNumberish,
-      _callerChildSkillIndex: BigNumberish,
-      _expenditureId: BigNumberish,
-      _punish: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _callerPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _callerChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _expenditureId: PromiseOrValue<BigNumberish>,
+      _punish: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -568,7 +591,7 @@ export interface StakedExpenditure extends BaseContract {
      * @param _expenditureId The id of the expenditure to get the stake for
      */
     getStake(
-      _expenditureId: BigNumberish,
+      _expenditureId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<
       [StakedExpenditure.StakeStructOutput] & {
@@ -588,16 +611,16 @@ export interface StakedExpenditure extends BaseContract {
    * @param _user Address of user trying to do meta transaction
    */
   executeMetaTransaction(
-    _user: string,
-    _payload: BytesLike,
-    _sigR: BytesLike,
-    _sigS: BytesLike,
-    _sigV: BigNumberish,
-    overrides?: PayableOverrides & { from?: string | Promise<string> }
+    _user: PromiseOrValue<string>,
+    _payload: PromiseOrValue<BytesLike>,
+    _sigR: PromiseOrValue<BytesLike>,
+    _sigS: PromiseOrValue<BytesLike>,
+    _sigV: PromiseOrValue<BigNumberish>,
+    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   getCapabilityRoles(
-    _sig: BytesLike,
+    _sig: PromiseOrValue<BytesLike>,
     overrides?: CallOverrides
   ): Promise<string>;
 
@@ -608,30 +631,30 @@ export interface StakedExpenditure extends BaseContract {
   getDeprecated(overrides?: CallOverrides): Promise<boolean>;
 
   getMetatransactionNonce(
-    _user: string,
+    _user: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   owner(overrides?: CallOverrides): Promise<string>;
 
   setAuthority(
-    authority_: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    authority_: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   setOwner(
-    owner_: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    owner_: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   verify(
-    _owner: string,
-    _nonce: BigNumberish,
-    _chainId: BigNumberish,
-    _payload: BytesLike,
-    _sigR: BytesLike,
-    _sigS: BytesLike,
-    _sigV: BigNumberish,
+    _owner: PromiseOrValue<string>,
+    _nonce: PromiseOrValue<BigNumberish>,
+    _chainId: PromiseOrValue<BigNumberish>,
+    _payload: PromiseOrValue<BytesLike>,
+    _sigR: PromiseOrValue<BytesLike>,
+    _sigS: PromiseOrValue<BytesLike>,
+    _sigV: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<boolean>;
 
@@ -650,15 +673,15 @@ export interface StakedExpenditure extends BaseContract {
    * @param _colony The colony in which the extension holds permissions
    */
   install(
-    _colony: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _colony: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Called when upgrading the extension
    */
   finishUpgrade(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -666,15 +689,15 @@ export interface StakedExpenditure extends BaseContract {
    * @param _deprecated Indicates whether the extension should be deprecated or undeprecated
    */
   deprecate(
-    _deprecated: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _deprecated: PromiseOrValue<boolean>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Called when uninstalling the extension
    */
   uninstall(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -682,8 +705,8 @@ export interface StakedExpenditure extends BaseContract {
    * @param _stakeFraction WAD-denominated fraction, used to determine stake as fraction of rep in domain
    */
   setStakeFraction(
-    _stakeFraction: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _stakeFraction: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -697,14 +720,14 @@ export interface StakedExpenditure extends BaseContract {
    * @param _value Reputation value indicating the total reputation in _domainId
    */
   makeExpenditureWithStake(
-    _permissionDomainId: BigNumberish,
-    _childSkillIndex: BigNumberish,
-    _domainId: BigNumberish,
-    _key: BytesLike,
-    _value: BytesLike,
-    _branchMask: BigNumberish,
-    _siblings: BytesLike[],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _permissionDomainId: PromiseOrValue<BigNumberish>,
+    _childSkillIndex: PromiseOrValue<BigNumberish>,
+    _domainId: PromiseOrValue<BigNumberish>,
+    _key: PromiseOrValue<BytesLike>,
+    _value: PromiseOrValue<BytesLike>,
+    _branchMask: PromiseOrValue<BigNumberish>,
+    _siblings: PromiseOrValue<BytesLike>[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -712,8 +735,8 @@ export interface StakedExpenditure extends BaseContract {
    * @param _expenditureId The id of the expenditure
    */
   reclaimStake(
-    _expenditureId: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _expenditureId: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -723,10 +746,10 @@ export interface StakedExpenditure extends BaseContract {
    * @param _permissionDomainId The domainId in which the extension has the arbitration permission
    */
   cancelAndReclaimStake(
-    _permissionDomainId: BigNumberish,
-    _childSkillIndex: BigNumberish,
-    _expenditureId: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _permissionDomainId: PromiseOrValue<BigNumberish>,
+    _childSkillIndex: PromiseOrValue<BigNumberish>,
+    _expenditureId: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -739,13 +762,13 @@ export interface StakedExpenditure extends BaseContract {
    * @param _punish Whether the staker should be punished by losing an amount of reputation equal to the stake
    */
   cancelAndPunish(
-    _permissionDomainId: BigNumberish,
-    _childSkillIndex: BigNumberish,
-    _callerPermissionDomainId: BigNumberish,
-    _callerChildSkillIndex: BigNumberish,
-    _expenditureId: BigNumberish,
-    _punish: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _permissionDomainId: PromiseOrValue<BigNumberish>,
+    _childSkillIndex: PromiseOrValue<BigNumberish>,
+    _callerPermissionDomainId: PromiseOrValue<BigNumberish>,
+    _callerChildSkillIndex: PromiseOrValue<BigNumberish>,
+    _expenditureId: PromiseOrValue<BigNumberish>,
+    _punish: PromiseOrValue<boolean>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -758,7 +781,7 @@ export interface StakedExpenditure extends BaseContract {
    * @param _expenditureId The id of the expenditure to get the stake for
    */
   getStake(
-    _expenditureId: BigNumberish,
+    _expenditureId: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<StakedExpenditure.StakeStructOutput>;
 
@@ -774,16 +797,16 @@ export interface StakedExpenditure extends BaseContract {
      * @param _user Address of user trying to do meta transaction
      */
     executeMetaTransaction(
-      _user: string,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
+      _user: PromiseOrValue<string>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<string>;
 
     getCapabilityRoles(
-      _sig: BytesLike,
+      _sig: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -794,24 +817,30 @@ export interface StakedExpenditure extends BaseContract {
     getDeprecated(overrides?: CallOverrides): Promise<boolean>;
 
     getMetatransactionNonce(
-      _user: string,
+      _user: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<string>;
 
-    setAuthority(authority_: string, overrides?: CallOverrides): Promise<void>;
+    setAuthority(
+      authority_: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
-    setOwner(owner_: string, overrides?: CallOverrides): Promise<void>;
+    setOwner(
+      owner_: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     verify(
-      _owner: string,
-      _nonce: BigNumberish,
-      _chainId: BigNumberish,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
+      _owner: PromiseOrValue<string>,
+      _nonce: PromiseOrValue<BigNumberish>,
+      _chainId: PromiseOrValue<BigNumberish>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
@@ -829,7 +858,10 @@ export interface StakedExpenditure extends BaseContract {
      * Configures the extension
      * @param _colony The colony in which the extension holds permissions
      */
-    install(_colony: string, overrides?: CallOverrides): Promise<void>;
+    install(
+      _colony: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     /**
      * Called when upgrading the extension
@@ -840,7 +872,10 @@ export interface StakedExpenditure extends BaseContract {
      * Called when deprecating (or undeprecating) the extension
      * @param _deprecated Indicates whether the extension should be deprecated or undeprecated
      */
-    deprecate(_deprecated: boolean, overrides?: CallOverrides): Promise<void>;
+    deprecate(
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     /**
      * Called when uninstalling the extension
@@ -852,7 +887,7 @@ export interface StakedExpenditure extends BaseContract {
      * @param _stakeFraction WAD-denominated fraction, used to determine stake as fraction of rep in domain
      */
     setStakeFraction(
-      _stakeFraction: BigNumberish,
+      _stakeFraction: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -867,13 +902,13 @@ export interface StakedExpenditure extends BaseContract {
      * @param _value Reputation value indicating the total reputation in _domainId
      */
     makeExpenditureWithStake(
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _domainId: BigNumberish,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _domainId: PromiseOrValue<BigNumberish>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -882,7 +917,7 @@ export interface StakedExpenditure extends BaseContract {
      * @param _expenditureId The id of the expenditure
      */
     reclaimStake(
-      _expenditureId: BigNumberish,
+      _expenditureId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -893,9 +928,9 @@ export interface StakedExpenditure extends BaseContract {
      * @param _permissionDomainId The domainId in which the extension has the arbitration permission
      */
     cancelAndReclaimStake(
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _expenditureId: BigNumberish,
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _expenditureId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -909,12 +944,12 @@ export interface StakedExpenditure extends BaseContract {
      * @param _punish Whether the staker should be punished by losing an amount of reputation equal to the stake
      */
     cancelAndPunish(
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _callerPermissionDomainId: BigNumberish,
-      _callerChildSkillIndex: BigNumberish,
-      _expenditureId: BigNumberish,
-      _punish: boolean,
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _callerPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _callerChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _expenditureId: PromiseOrValue<BigNumberish>,
+      _punish: PromiseOrValue<boolean>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -928,7 +963,7 @@ export interface StakedExpenditure extends BaseContract {
      * @param _expenditureId The id of the expenditure to get the stake for
      */
     getStake(
-      _expenditureId: BigNumberish,
+      _expenditureId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<StakedExpenditure.StakeStructOutput>;
   };
@@ -940,12 +975,12 @@ export interface StakedExpenditure extends BaseContract {
     ExpenditureCancelled(expenditureId?: null): ExpenditureCancelledEventFilter;
 
     "ExpenditureMadeViaStake(address,uint256,uint256)"(
-      creator?: string | null,
+      creator?: PromiseOrValue<string> | null,
       expenditureId?: null,
       stake?: null
     ): ExpenditureMadeViaStakeEventFilter;
     ExpenditureMadeViaStake(
-      creator?: string | null,
+      creator?: PromiseOrValue<string> | null,
       expenditureId?: null,
       stake?: null
     ): ExpenditureMadeViaStakeEventFilter;
@@ -954,12 +989,16 @@ export interface StakedExpenditure extends BaseContract {
     ExtensionInitialised(): ExtensionInitialisedEventFilter;
 
     "LogSetAuthority(address)"(
-      authority?: string | null
+      authority?: PromiseOrValue<string> | null
     ): LogSetAuthorityEventFilter;
-    LogSetAuthority(authority?: string | null): LogSetAuthorityEventFilter;
+    LogSetAuthority(
+      authority?: PromiseOrValue<string> | null
+    ): LogSetAuthorityEventFilter;
 
-    "LogSetOwner(address)"(owner?: string | null): LogSetOwnerEventFilter;
-    LogSetOwner(owner?: string | null): LogSetOwnerEventFilter;
+    "LogSetOwner(address)"(
+      owner?: PromiseOrValue<string> | null
+    ): LogSetOwnerEventFilter;
+    LogSetOwner(owner?: PromiseOrValue<string> | null): LogSetOwnerEventFilter;
 
     "MetaTransactionExecuted(address,address,bytes)"(
       user?: null,
@@ -993,16 +1032,16 @@ export interface StakedExpenditure extends BaseContract {
      * @param _user Address of user trying to do meta transaction
      */
     executeMetaTransaction(
-      _user: string,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      _user: PromiseOrValue<string>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     getCapabilityRoles(
-      _sig: BytesLike,
+      _sig: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1013,30 +1052,30 @@ export interface StakedExpenditure extends BaseContract {
     getDeprecated(overrides?: CallOverrides): Promise<BigNumber>;
 
     getMetatransactionNonce(
-      _user: string,
+      _user: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
     setAuthority(
-      authority_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      authority_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     setOwner(
-      owner_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      owner_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     verify(
-      _owner: string,
-      _nonce: BigNumberish,
-      _chainId: BigNumberish,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
+      _owner: PromiseOrValue<string>,
+      _nonce: PromiseOrValue<BigNumberish>,
+      _chainId: PromiseOrValue<BigNumberish>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1055,15 +1094,15 @@ export interface StakedExpenditure extends BaseContract {
      * @param _colony The colony in which the extension holds permissions
      */
     install(
-      _colony: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _colony: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
      * Called when upgrading the extension
      */
     finishUpgrade(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -1071,15 +1110,15 @@ export interface StakedExpenditure extends BaseContract {
      * @param _deprecated Indicates whether the extension should be deprecated or undeprecated
      */
     deprecate(
-      _deprecated: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
      * Called when uninstalling the extension
      */
     uninstall(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -1087,8 +1126,8 @@ export interface StakedExpenditure extends BaseContract {
      * @param _stakeFraction WAD-denominated fraction, used to determine stake as fraction of rep in domain
      */
     setStakeFraction(
-      _stakeFraction: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _stakeFraction: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -1102,14 +1141,14 @@ export interface StakedExpenditure extends BaseContract {
      * @param _value Reputation value indicating the total reputation in _domainId
      */
     makeExpenditureWithStake(
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _domainId: BigNumberish,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _domainId: PromiseOrValue<BigNumberish>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -1117,8 +1156,8 @@ export interface StakedExpenditure extends BaseContract {
      * @param _expenditureId The id of the expenditure
      */
     reclaimStake(
-      _expenditureId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _expenditureId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -1128,10 +1167,10 @@ export interface StakedExpenditure extends BaseContract {
      * @param _permissionDomainId The domainId in which the extension has the arbitration permission
      */
     cancelAndReclaimStake(
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _expenditureId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _expenditureId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -1144,13 +1183,13 @@ export interface StakedExpenditure extends BaseContract {
      * @param _punish Whether the staker should be punished by losing an amount of reputation equal to the stake
      */
     cancelAndPunish(
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _callerPermissionDomainId: BigNumberish,
-      _callerChildSkillIndex: BigNumberish,
-      _expenditureId: BigNumberish,
-      _punish: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _callerPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _callerChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _expenditureId: PromiseOrValue<BigNumberish>,
+      _punish: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -1163,7 +1202,7 @@ export interface StakedExpenditure extends BaseContract {
      * @param _expenditureId The id of the expenditure to get the stake for
      */
     getStake(
-      _expenditureId: BigNumberish,
+      _expenditureId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
   };
@@ -1180,16 +1219,16 @@ export interface StakedExpenditure extends BaseContract {
      * @param _user Address of user trying to do meta transaction
      */
     executeMetaTransaction(
-      _user: string,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      _user: PromiseOrValue<string>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     getCapabilityRoles(
-      _sig: BytesLike,
+      _sig: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1200,30 +1239,30 @@ export interface StakedExpenditure extends BaseContract {
     getDeprecated(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getMetatransactionNonce(
-      _user: string,
+      _user: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     setAuthority(
-      authority_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      authority_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     setOwner(
-      owner_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      owner_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     verify(
-      _owner: string,
-      _nonce: BigNumberish,
-      _chainId: BigNumberish,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
+      _owner: PromiseOrValue<string>,
+      _nonce: PromiseOrValue<BigNumberish>,
+      _chainId: PromiseOrValue<BigNumberish>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1242,15 +1281,15 @@ export interface StakedExpenditure extends BaseContract {
      * @param _colony The colony in which the extension holds permissions
      */
     install(
-      _colony: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _colony: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Called when upgrading the extension
      */
     finishUpgrade(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -1258,15 +1297,15 @@ export interface StakedExpenditure extends BaseContract {
      * @param _deprecated Indicates whether the extension should be deprecated or undeprecated
      */
     deprecate(
-      _deprecated: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Called when uninstalling the extension
      */
     uninstall(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -1274,8 +1313,8 @@ export interface StakedExpenditure extends BaseContract {
      * @param _stakeFraction WAD-denominated fraction, used to determine stake as fraction of rep in domain
      */
     setStakeFraction(
-      _stakeFraction: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _stakeFraction: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -1289,14 +1328,14 @@ export interface StakedExpenditure extends BaseContract {
      * @param _value Reputation value indicating the total reputation in _domainId
      */
     makeExpenditureWithStake(
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _domainId: BigNumberish,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _domainId: PromiseOrValue<BigNumberish>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -1304,8 +1343,8 @@ export interface StakedExpenditure extends BaseContract {
      * @param _expenditureId The id of the expenditure
      */
     reclaimStake(
-      _expenditureId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _expenditureId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -1315,10 +1354,10 @@ export interface StakedExpenditure extends BaseContract {
      * @param _permissionDomainId The domainId in which the extension has the arbitration permission
      */
     cancelAndReclaimStake(
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _expenditureId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _expenditureId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -1331,13 +1370,13 @@ export interface StakedExpenditure extends BaseContract {
      * @param _punish Whether the staker should be punished by losing an amount of reputation equal to the stake
      */
     cancelAndPunish(
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _callerPermissionDomainId: BigNumberish,
-      _callerChildSkillIndex: BigNumberish,
-      _expenditureId: BigNumberish,
-      _punish: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _callerPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _callerChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _expenditureId: PromiseOrValue<BigNumberish>,
+      _punish: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -1350,7 +1389,7 @@ export interface StakedExpenditure extends BaseContract {
      * @param _expenditureId The id of the expenditure to get the stake for
      */
     getStake(
-      _expenditureId: BigNumberish,
+      _expenditureId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };

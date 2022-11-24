@@ -25,24 +25,29 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
+  PromiseOrValue,
 } from "./common";
 
 export declare namespace VotingReputation {
   export type MotionStruct = {
-    events: [BigNumberish, BigNumberish, BigNumberish];
-    rootHash: BytesLike;
-    domainId: BigNumberish;
-    skillId: BigNumberish;
-    skillRep: BigNumberish;
-    repSubmitted: BigNumberish;
-    paidVoterComp: BigNumberish;
-    pastVoterComp: [BigNumberish, BigNumberish];
-    stakes: [BigNumberish, BigNumberish];
-    votes: [BigNumberish, BigNumberish];
-    escalated: boolean;
-    finalized: boolean;
-    altTarget: string;
-    action: BytesLike;
+    events: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>
+    ];
+    rootHash: PromiseOrValue<BytesLike>;
+    domainId: PromiseOrValue<BigNumberish>;
+    skillId: PromiseOrValue<BigNumberish>;
+    skillRep: PromiseOrValue<BigNumberish>;
+    repSubmitted: PromiseOrValue<BigNumberish>;
+    paidVoterComp: PromiseOrValue<BigNumberish>;
+    pastVoterComp: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>];
+    stakes: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>];
+    votes: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>];
+    escalated: PromiseOrValue<boolean>;
+    finalized: PromiseOrValue<boolean>;
+    altTarget: PromiseOrValue<string>;
+    action: PromiseOrValue<BytesLike>;
   };
 
   export type MotionStructOutput = [
@@ -181,11 +186,17 @@ export interface VotingReputationInterface extends utils.Interface {
   encodeFunctionData(functionFragment: "authority", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "executeMetaTransaction",
-    values: [string, BytesLike, BytesLike, BytesLike, BigNumberish]
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "getCapabilityRoles",
-    values: [BytesLike]
+    values: [PromiseOrValue<BytesLike>]
   ): string;
   encodeFunctionData(
     functionFragment: "getChainId",
@@ -199,139 +210,161 @@ export interface VotingReputationInterface extends utils.Interface {
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "setAuthority",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
-  encodeFunctionData(functionFragment: "setOwner", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "setOwner",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(
     functionFragment: "verify",
     values: [
-      string,
-      BigNumberish,
-      BigNumberish,
-      BytesLike,
-      BytesLike,
-      BytesLike,
-      BigNumberish
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>
     ]
   ): string;
   encodeFunctionData(
     functionFragment: "getMetatransactionNonce",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "identifier",
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "version", values?: undefined): string;
-  encodeFunctionData(functionFragment: "install", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "install",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(
     functionFragment: "initialise",
     values: [
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>
     ]
   ): string;
   encodeFunctionData(
     functionFragment: "finishUpgrade",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "deprecate", values: [boolean]): string;
+  encodeFunctionData(
+    functionFragment: "deprecate",
+    values: [PromiseOrValue<boolean>]
+  ): string;
   encodeFunctionData(functionFragment: "uninstall", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "createMotion",
     values: [
-      BigNumberish,
-      BigNumberish,
-      string,
-      BytesLike,
-      BytesLike,
-      BytesLike,
-      BigNumberish,
-      BytesLike[]
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>[]
     ]
   ): string;
   encodeFunctionData(
     functionFragment: "createRootMotion",
-    values: [string, BytesLike, BytesLike, BytesLike, BigNumberish, BytesLike[]]
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>[]
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "createDomainMotion",
     values: [
-      BigNumberish,
-      BigNumberish,
-      BytesLike,
-      BytesLike,
-      BytesLike,
-      BigNumberish,
-      BytesLike[]
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>[]
     ]
   ): string;
   encodeFunctionData(
     functionFragment: "stakeMotion",
     values: [
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BytesLike,
-      BytesLike,
-      BigNumberish,
-      BytesLike[]
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>[]
     ]
   ): string;
   encodeFunctionData(
     functionFragment: "submitVote",
     values: [
-      BigNumberish,
-      BytesLike,
-      BytesLike,
-      BytesLike,
-      BigNumberish,
-      BytesLike[]
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>[]
     ]
   ): string;
   encodeFunctionData(
     functionFragment: "revealVote",
     values: [
-      BigNumberish,
-      BytesLike,
-      BigNumberish,
-      BytesLike,
-      BytesLike,
-      BigNumberish,
-      BytesLike[]
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>[]
     ]
   ): string;
   encodeFunctionData(
     functionFragment: "escalateMotion",
     values: [
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BytesLike,
-      BytesLike,
-      BigNumberish,
-      BytesLike[]
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>[]
     ]
   ): string;
   encodeFunctionData(
     functionFragment: "finalizeMotion",
-    values: [BigNumberish]
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "failingExecutionAllowed",
-    values: [BigNumberish]
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "claimReward",
-    values: [BigNumberish, BigNumberish, BigNumberish, string, BigNumberish]
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "getTotalStakeFraction",
@@ -371,39 +404,51 @@ export interface VotingReputationInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "getMotion",
-    values: [BigNumberish]
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "getStake",
-    values: [BigNumberish, string, BigNumberish]
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "getExpenditureMotionCount",
-    values: [BytesLike]
+    values: [PromiseOrValue<BytesLike>]
   ): string;
   encodeFunctionData(
     functionFragment: "getExpenditurePastVote",
-    values: [BytesLike]
+    values: [PromiseOrValue<BytesLike>]
   ): string;
   encodeFunctionData(
     functionFragment: "getMotionState",
-    values: [BigNumberish]
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "getVoterReward",
-    values: [BigNumberish, BigNumberish]
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "getVoterRewardRange",
-    values: [BigNumberish, BigNumberish, string]
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "getStakerReward",
-    values: [BigNumberish, string, BigNumberish]
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "createClaimDelayAction",
-    values: [BytesLike, BigNumberish]
+    values: [PromiseOrValue<BytesLike>, PromiseOrValue<BigNumberish>]
   ): string;
 
   decodeFunctionResult(functionFragment: "authority", data: BytesLike): Result;
@@ -749,16 +794,16 @@ export interface VotingReputation extends BaseContract {
      * @param _user Address of user trying to do meta transaction
      */
     executeMetaTransaction(
-      _user: string,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      _user: PromiseOrValue<string>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     getCapabilityRoles(
-      _sig: BytesLike,
+      _sig: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<[string]>;
 
@@ -771,28 +816,28 @@ export interface VotingReputation extends BaseContract {
     owner(overrides?: CallOverrides): Promise<[string]>;
 
     setAuthority(
-      authority_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      authority_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     setOwner(
-      owner_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      owner_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     verify(
-      _owner: string,
-      _nonce: BigNumberish,
-      _chainId: BigNumberish,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
+      _owner: PromiseOrValue<string>,
+      _nonce: PromiseOrValue<BigNumberish>,
+      _chainId: PromiseOrValue<BigNumberish>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
     getMetatransactionNonce(
-      userAddress: string,
+      userAddress: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { nonce: BigNumber }>;
 
@@ -811,8 +856,8 @@ export interface VotingReputation extends BaseContract {
      * @param _colony Base colony for the installation
      */
     install(
-      _colony: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _colony: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -827,37 +872,37 @@ export interface VotingReputation extends BaseContract {
      * @param _voterRewardFraction The fraction of the total stake paid out to voters as rewards
      */
     initialise(
-      _totalStakeFraction: BigNumberish,
-      _voterRewardFraction: BigNumberish,
-      _userMinStakeFraction: BigNumberish,
-      _maxVoteFraction: BigNumberish,
-      _stakePeriod: BigNumberish,
-      _submitPeriod: BigNumberish,
-      _revealPeriod: BigNumberish,
-      _escalationPeriod: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _totalStakeFraction: PromiseOrValue<BigNumberish>,
+      _voterRewardFraction: PromiseOrValue<BigNumberish>,
+      _userMinStakeFraction: PromiseOrValue<BigNumberish>,
+      _maxVoteFraction: PromiseOrValue<BigNumberish>,
+      _stakePeriod: PromiseOrValue<BigNumberish>,
+      _submitPeriod: PromiseOrValue<BigNumberish>,
+      _revealPeriod: PromiseOrValue<BigNumberish>,
+      _escalationPeriod: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Called when upgrading the extension
      */
     finishUpgrade(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Called when deprecating (or undeprecating) the extension
      */
     deprecate(
-      _deprecated: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Called when uninstalling the extension
      */
     uninstall(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -872,15 +917,15 @@ export interface VotingReputation extends BaseContract {
      * @param _value Reputation tree value for the root domain
      */
     createMotion(
-      _domainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _altTarget: string,
-      _action: BytesLike,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _domainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _altTarget: PromiseOrValue<string>,
+      _action: PromiseOrValue<BytesLike>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -893,13 +938,13 @@ export interface VotingReputation extends BaseContract {
      * @param _value Reputation tree value for the root domain
      */
     createRootMotion(
-      _altTarget: string,
-      _action: BytesLike,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _altTarget: PromiseOrValue<string>,
+      _action: PromiseOrValue<BytesLike>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -913,14 +958,14 @@ export interface VotingReputation extends BaseContract {
      * @param _value Reputation tree value for the domain
      */
     createDomainMotion(
-      _domainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _action: BytesLike,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _domainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _action: PromiseOrValue<BytesLike>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -936,16 +981,16 @@ export interface VotingReputation extends BaseContract {
      * @param _vote The side being supported (0 = NAY, 1 = YAY)
      */
     stakeMotion(
-      _motionId: BigNumberish,
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _vote: BigNumberish,
-      _amount: BigNumberish,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _motionId: PromiseOrValue<BigNumberish>,
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _vote: PromiseOrValue<BigNumberish>,
+      _amount: PromiseOrValue<BigNumberish>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -958,13 +1003,13 @@ export interface VotingReputation extends BaseContract {
      * @param _voteSecret The hashed vote secret
      */
     submitVote(
-      _motionId: BigNumberish,
-      _voteSecret: BytesLike,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _motionId: PromiseOrValue<BigNumberish>,
+      _voteSecret: PromiseOrValue<BytesLike>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -978,14 +1023,14 @@ export interface VotingReputation extends BaseContract {
      * @param _vote The side being supported (0 = NAY, 1 = YAY)
      */
     revealVote(
-      _motionId: BigNumberish,
-      _salt: BytesLike,
-      _vote: BigNumberish,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _motionId: PromiseOrValue<BigNumberish>,
+      _salt: PromiseOrValue<BytesLike>,
+      _vote: PromiseOrValue<BigNumberish>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -999,19 +1044,19 @@ export interface VotingReputation extends BaseContract {
      * @param _value Reputation tree value for the new domain
      */
     escalateMotion(
-      _motionId: BigNumberish,
-      _newDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _motionId: PromiseOrValue<BigNumberish>,
+      _newDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     finalizeMotion(
-      _motionId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _motionId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -1019,7 +1064,7 @@ export interface VotingReputation extends BaseContract {
      * @param _motionId The id of the motion
      */
     failingExecutionAllowed(
-      _motionId: BigNumberish,
+      _motionId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
@@ -1032,12 +1077,12 @@ export interface VotingReputation extends BaseContract {
      * @param _vote The side being supported (0 = NAY, 1 = YAY)
      */
     claimReward(
-      _motionId: BigNumberish,
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _staker: string,
-      _vote: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _motionId: PromiseOrValue<BigNumberish>,
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _staker: PromiseOrValue<string>,
+      _vote: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -1090,7 +1135,7 @@ export interface VotingReputation extends BaseContract {
      * @param _motionId The id of the motion
      */
     getMotion(
-      _motionId: BigNumberish,
+      _motionId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<
       [VotingReputation.MotionStructOutput] & {
@@ -1105,9 +1150,9 @@ export interface VotingReputation extends BaseContract {
      * @param _vote The side being supported (0 = NAY, 1 = YAY)
      */
     getStake(
-      _motionId: BigNumberish,
-      _staker: string,
-      _vote: BigNumberish,
+      _motionId: PromiseOrValue<BigNumberish>,
+      _staker: PromiseOrValue<string>,
+      _vote: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
@@ -1116,7 +1161,7 @@ export interface VotingReputation extends BaseContract {
      * @param _structHash The hash of the expenditureId or expenditureId*expenditureSlot
      */
     getExpenditureMotionCount(
-      _structHash: BytesLike,
+      _structHash: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
@@ -1125,7 +1170,7 @@ export interface VotingReputation extends BaseContract {
      * @param _actionHash The hash of the particular expenditure action
      */
     getExpenditurePastVote(
-      _actionHash: BytesLike,
+      _actionHash: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
@@ -1133,7 +1178,7 @@ export interface VotingReputation extends BaseContract {
      * Get the current state of the motion
      */
     getMotionState(
-      _motionId: BigNumberish,
+      _motionId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[number]>;
 
@@ -1143,8 +1188,8 @@ export interface VotingReputation extends BaseContract {
      * @param _voterRep The reputation the voter has in the domain
      */
     getVoterReward(
-      _motionId: BigNumberish,
-      _voterRep: BigNumberish,
+      _motionId: PromiseOrValue<BigNumberish>,
+      _voterRep: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
@@ -1155,9 +1200,9 @@ export interface VotingReputation extends BaseContract {
      * @param _voterRep The reputation the voter has in the domain
      */
     getVoterRewardRange(
-      _motionId: BigNumberish,
-      _voterRep: BigNumberish,
-      _voterAddress: string,
+      _motionId: PromiseOrValue<BigNumberish>,
+      _voterRep: PromiseOrValue<BigNumberish>,
+      _voterAddress: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[BigNumber, BigNumber]>;
 
@@ -1168,16 +1213,16 @@ export interface VotingReputation extends BaseContract {
      * @param _vote The vote (0 = NAY, 1 = YAY)
      */
     getStakerReward(
-      _motionId: BigNumberish,
-      _staker: string,
-      _vote: BigNumberish,
+      _motionId: PromiseOrValue<BigNumberish>,
+      _staker: PromiseOrValue<string>,
+      _vote: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[BigNumber, BigNumber]>;
 
     createClaimDelayAction(
-      action: BytesLike,
-      value: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      action: PromiseOrValue<BytesLike>,
+      value: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
   };
 
@@ -1192,16 +1237,16 @@ export interface VotingReputation extends BaseContract {
    * @param _user Address of user trying to do meta transaction
    */
   executeMetaTransaction(
-    _user: string,
-    _payload: BytesLike,
-    _sigR: BytesLike,
-    _sigS: BytesLike,
-    _sigV: BigNumberish,
-    overrides?: PayableOverrides & { from?: string | Promise<string> }
+    _user: PromiseOrValue<string>,
+    _payload: PromiseOrValue<BytesLike>,
+    _sigR: PromiseOrValue<BytesLike>,
+    _sigS: PromiseOrValue<BytesLike>,
+    _sigV: PromiseOrValue<BigNumberish>,
+    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   getCapabilityRoles(
-    _sig: BytesLike,
+    _sig: PromiseOrValue<BytesLike>,
     overrides?: CallOverrides
   ): Promise<string>;
 
@@ -1214,28 +1259,28 @@ export interface VotingReputation extends BaseContract {
   owner(overrides?: CallOverrides): Promise<string>;
 
   setAuthority(
-    authority_: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    authority_: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   setOwner(
-    owner_: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    owner_: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   verify(
-    _owner: string,
-    _nonce: BigNumberish,
-    _chainId: BigNumberish,
-    _payload: BytesLike,
-    _sigR: BytesLike,
-    _sigS: BytesLike,
-    _sigV: BigNumberish,
+    _owner: PromiseOrValue<string>,
+    _nonce: PromiseOrValue<BigNumberish>,
+    _chainId: PromiseOrValue<BigNumberish>,
+    _payload: PromiseOrValue<BytesLike>,
+    _sigR: PromiseOrValue<BytesLike>,
+    _sigS: PromiseOrValue<BytesLike>,
+    _sigV: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<boolean>;
 
   getMetatransactionNonce(
-    userAddress: string,
+    userAddress: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
@@ -1254,8 +1299,8 @@ export interface VotingReputation extends BaseContract {
    * @param _colony Base colony for the installation
    */
   install(
-    _colony: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _colony: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -1270,37 +1315,37 @@ export interface VotingReputation extends BaseContract {
    * @param _voterRewardFraction The fraction of the total stake paid out to voters as rewards
    */
   initialise(
-    _totalStakeFraction: BigNumberish,
-    _voterRewardFraction: BigNumberish,
-    _userMinStakeFraction: BigNumberish,
-    _maxVoteFraction: BigNumberish,
-    _stakePeriod: BigNumberish,
-    _submitPeriod: BigNumberish,
-    _revealPeriod: BigNumberish,
-    _escalationPeriod: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _totalStakeFraction: PromiseOrValue<BigNumberish>,
+    _voterRewardFraction: PromiseOrValue<BigNumberish>,
+    _userMinStakeFraction: PromiseOrValue<BigNumberish>,
+    _maxVoteFraction: PromiseOrValue<BigNumberish>,
+    _stakePeriod: PromiseOrValue<BigNumberish>,
+    _submitPeriod: PromiseOrValue<BigNumberish>,
+    _revealPeriod: PromiseOrValue<BigNumberish>,
+    _escalationPeriod: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Called when upgrading the extension
    */
   finishUpgrade(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Called when deprecating (or undeprecating) the extension
    */
   deprecate(
-    _deprecated: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _deprecated: PromiseOrValue<boolean>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Called when uninstalling the extension
    */
   uninstall(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -1315,15 +1360,15 @@ export interface VotingReputation extends BaseContract {
    * @param _value Reputation tree value for the root domain
    */
   createMotion(
-    _domainId: BigNumberish,
-    _childSkillIndex: BigNumberish,
-    _altTarget: string,
-    _action: BytesLike,
-    _key: BytesLike,
-    _value: BytesLike,
-    _branchMask: BigNumberish,
-    _siblings: BytesLike[],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _domainId: PromiseOrValue<BigNumberish>,
+    _childSkillIndex: PromiseOrValue<BigNumberish>,
+    _altTarget: PromiseOrValue<string>,
+    _action: PromiseOrValue<BytesLike>,
+    _key: PromiseOrValue<BytesLike>,
+    _value: PromiseOrValue<BytesLike>,
+    _branchMask: PromiseOrValue<BigNumberish>,
+    _siblings: PromiseOrValue<BytesLike>[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -1336,13 +1381,13 @@ export interface VotingReputation extends BaseContract {
    * @param _value Reputation tree value for the root domain
    */
   createRootMotion(
-    _altTarget: string,
-    _action: BytesLike,
-    _key: BytesLike,
-    _value: BytesLike,
-    _branchMask: BigNumberish,
-    _siblings: BytesLike[],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _altTarget: PromiseOrValue<string>,
+    _action: PromiseOrValue<BytesLike>,
+    _key: PromiseOrValue<BytesLike>,
+    _value: PromiseOrValue<BytesLike>,
+    _branchMask: PromiseOrValue<BigNumberish>,
+    _siblings: PromiseOrValue<BytesLike>[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -1356,14 +1401,14 @@ export interface VotingReputation extends BaseContract {
    * @param _value Reputation tree value for the domain
    */
   createDomainMotion(
-    _domainId: BigNumberish,
-    _childSkillIndex: BigNumberish,
-    _action: BytesLike,
-    _key: BytesLike,
-    _value: BytesLike,
-    _branchMask: BigNumberish,
-    _siblings: BytesLike[],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _domainId: PromiseOrValue<BigNumberish>,
+    _childSkillIndex: PromiseOrValue<BigNumberish>,
+    _action: PromiseOrValue<BytesLike>,
+    _key: PromiseOrValue<BytesLike>,
+    _value: PromiseOrValue<BytesLike>,
+    _branchMask: PromiseOrValue<BigNumberish>,
+    _siblings: PromiseOrValue<BytesLike>[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -1379,16 +1424,16 @@ export interface VotingReputation extends BaseContract {
    * @param _vote The side being supported (0 = NAY, 1 = YAY)
    */
   stakeMotion(
-    _motionId: BigNumberish,
-    _permissionDomainId: BigNumberish,
-    _childSkillIndex: BigNumberish,
-    _vote: BigNumberish,
-    _amount: BigNumberish,
-    _key: BytesLike,
-    _value: BytesLike,
-    _branchMask: BigNumberish,
-    _siblings: BytesLike[],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _motionId: PromiseOrValue<BigNumberish>,
+    _permissionDomainId: PromiseOrValue<BigNumberish>,
+    _childSkillIndex: PromiseOrValue<BigNumberish>,
+    _vote: PromiseOrValue<BigNumberish>,
+    _amount: PromiseOrValue<BigNumberish>,
+    _key: PromiseOrValue<BytesLike>,
+    _value: PromiseOrValue<BytesLike>,
+    _branchMask: PromiseOrValue<BigNumberish>,
+    _siblings: PromiseOrValue<BytesLike>[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -1401,13 +1446,13 @@ export interface VotingReputation extends BaseContract {
    * @param _voteSecret The hashed vote secret
    */
   submitVote(
-    _motionId: BigNumberish,
-    _voteSecret: BytesLike,
-    _key: BytesLike,
-    _value: BytesLike,
-    _branchMask: BigNumberish,
-    _siblings: BytesLike[],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _motionId: PromiseOrValue<BigNumberish>,
+    _voteSecret: PromiseOrValue<BytesLike>,
+    _key: PromiseOrValue<BytesLike>,
+    _value: PromiseOrValue<BytesLike>,
+    _branchMask: PromiseOrValue<BigNumberish>,
+    _siblings: PromiseOrValue<BytesLike>[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -1421,14 +1466,14 @@ export interface VotingReputation extends BaseContract {
    * @param _vote The side being supported (0 = NAY, 1 = YAY)
    */
   revealVote(
-    _motionId: BigNumberish,
-    _salt: BytesLike,
-    _vote: BigNumberish,
-    _key: BytesLike,
-    _value: BytesLike,
-    _branchMask: BigNumberish,
-    _siblings: BytesLike[],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _motionId: PromiseOrValue<BigNumberish>,
+    _salt: PromiseOrValue<BytesLike>,
+    _vote: PromiseOrValue<BigNumberish>,
+    _key: PromiseOrValue<BytesLike>,
+    _value: PromiseOrValue<BytesLike>,
+    _branchMask: PromiseOrValue<BigNumberish>,
+    _siblings: PromiseOrValue<BytesLike>[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -1442,19 +1487,19 @@ export interface VotingReputation extends BaseContract {
    * @param _value Reputation tree value for the new domain
    */
   escalateMotion(
-    _motionId: BigNumberish,
-    _newDomainId: BigNumberish,
-    _childSkillIndex: BigNumberish,
-    _key: BytesLike,
-    _value: BytesLike,
-    _branchMask: BigNumberish,
-    _siblings: BytesLike[],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _motionId: PromiseOrValue<BigNumberish>,
+    _newDomainId: PromiseOrValue<BigNumberish>,
+    _childSkillIndex: PromiseOrValue<BigNumberish>,
+    _key: PromiseOrValue<BytesLike>,
+    _value: PromiseOrValue<BytesLike>,
+    _branchMask: PromiseOrValue<BigNumberish>,
+    _siblings: PromiseOrValue<BytesLike>[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   finalizeMotion(
-    _motionId: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _motionId: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -1462,7 +1507,7 @@ export interface VotingReputation extends BaseContract {
    * @param _motionId The id of the motion
    */
   failingExecutionAllowed(
-    _motionId: BigNumberish,
+    _motionId: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<boolean>;
 
@@ -1475,12 +1520,12 @@ export interface VotingReputation extends BaseContract {
    * @param _vote The side being supported (0 = NAY, 1 = YAY)
    */
   claimReward(
-    _motionId: BigNumberish,
-    _permissionDomainId: BigNumberish,
-    _childSkillIndex: BigNumberish,
-    _staker: string,
-    _vote: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _motionId: PromiseOrValue<BigNumberish>,
+    _permissionDomainId: PromiseOrValue<BigNumberish>,
+    _childSkillIndex: PromiseOrValue<BigNumberish>,
+    _staker: PromiseOrValue<string>,
+    _vote: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -1533,7 +1578,7 @@ export interface VotingReputation extends BaseContract {
    * @param _motionId The id of the motion
    */
   getMotion(
-    _motionId: BigNumberish,
+    _motionId: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<VotingReputation.MotionStructOutput>;
 
@@ -1544,9 +1589,9 @@ export interface VotingReputation extends BaseContract {
    * @param _vote The side being supported (0 = NAY, 1 = YAY)
    */
   getStake(
-    _motionId: BigNumberish,
-    _staker: string,
-    _vote: BigNumberish,
+    _motionId: PromiseOrValue<BigNumberish>,
+    _staker: PromiseOrValue<string>,
+    _vote: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
@@ -1555,7 +1600,7 @@ export interface VotingReputation extends BaseContract {
    * @param _structHash The hash of the expenditureId or expenditureId*expenditureSlot
    */
   getExpenditureMotionCount(
-    _structHash: BytesLike,
+    _structHash: PromiseOrValue<BytesLike>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
@@ -1564,7 +1609,7 @@ export interface VotingReputation extends BaseContract {
    * @param _actionHash The hash of the particular expenditure action
    */
   getExpenditurePastVote(
-    _actionHash: BytesLike,
+    _actionHash: PromiseOrValue<BytesLike>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
@@ -1572,7 +1617,7 @@ export interface VotingReputation extends BaseContract {
    * Get the current state of the motion
    */
   getMotionState(
-    _motionId: BigNumberish,
+    _motionId: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<number>;
 
@@ -1582,8 +1627,8 @@ export interface VotingReputation extends BaseContract {
    * @param _voterRep The reputation the voter has in the domain
    */
   getVoterReward(
-    _motionId: BigNumberish,
-    _voterRep: BigNumberish,
+    _motionId: PromiseOrValue<BigNumberish>,
+    _voterRep: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
@@ -1594,9 +1639,9 @@ export interface VotingReputation extends BaseContract {
    * @param _voterRep The reputation the voter has in the domain
    */
   getVoterRewardRange(
-    _motionId: BigNumberish,
-    _voterRep: BigNumberish,
-    _voterAddress: string,
+    _motionId: PromiseOrValue<BigNumberish>,
+    _voterRep: PromiseOrValue<BigNumberish>,
+    _voterAddress: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<[BigNumber, BigNumber]>;
 
@@ -1607,16 +1652,16 @@ export interface VotingReputation extends BaseContract {
    * @param _vote The vote (0 = NAY, 1 = YAY)
    */
   getStakerReward(
-    _motionId: BigNumberish,
-    _staker: string,
-    _vote: BigNumberish,
+    _motionId: PromiseOrValue<BigNumberish>,
+    _staker: PromiseOrValue<string>,
+    _vote: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<[BigNumber, BigNumber]>;
 
   createClaimDelayAction(
-    action: BytesLike,
-    value: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    action: PromiseOrValue<BytesLike>,
+    value: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
@@ -1631,16 +1676,16 @@ export interface VotingReputation extends BaseContract {
      * @param _user Address of user trying to do meta transaction
      */
     executeMetaTransaction(
-      _user: string,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
+      _user: PromiseOrValue<string>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<string>;
 
     getCapabilityRoles(
-      _sig: BytesLike,
+      _sig: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -1652,23 +1697,29 @@ export interface VotingReputation extends BaseContract {
 
     owner(overrides?: CallOverrides): Promise<string>;
 
-    setAuthority(authority_: string, overrides?: CallOverrides): Promise<void>;
+    setAuthority(
+      authority_: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
-    setOwner(owner_: string, overrides?: CallOverrides): Promise<void>;
+    setOwner(
+      owner_: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     verify(
-      _owner: string,
-      _nonce: BigNumberish,
-      _chainId: BigNumberish,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
+      _owner: PromiseOrValue<string>,
+      _nonce: PromiseOrValue<BigNumberish>,
+      _chainId: PromiseOrValue<BigNumberish>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
     getMetatransactionNonce(
-      userAddress: string,
+      userAddress: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1686,7 +1737,10 @@ export interface VotingReputation extends BaseContract {
      * Install the extension
      * @param _colony Base colony for the installation
      */
-    install(_colony: string, overrides?: CallOverrides): Promise<void>;
+    install(
+      _colony: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     /**
      * Initialise the extension
@@ -1700,14 +1754,14 @@ export interface VotingReputation extends BaseContract {
      * @param _voterRewardFraction The fraction of the total stake paid out to voters as rewards
      */
     initialise(
-      _totalStakeFraction: BigNumberish,
-      _voterRewardFraction: BigNumberish,
-      _userMinStakeFraction: BigNumberish,
-      _maxVoteFraction: BigNumberish,
-      _stakePeriod: BigNumberish,
-      _submitPeriod: BigNumberish,
-      _revealPeriod: BigNumberish,
-      _escalationPeriod: BigNumberish,
+      _totalStakeFraction: PromiseOrValue<BigNumberish>,
+      _voterRewardFraction: PromiseOrValue<BigNumberish>,
+      _userMinStakeFraction: PromiseOrValue<BigNumberish>,
+      _maxVoteFraction: PromiseOrValue<BigNumberish>,
+      _stakePeriod: PromiseOrValue<BigNumberish>,
+      _submitPeriod: PromiseOrValue<BigNumberish>,
+      _revealPeriod: PromiseOrValue<BigNumberish>,
+      _escalationPeriod: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1719,7 +1773,10 @@ export interface VotingReputation extends BaseContract {
     /**
      * Called when deprecating (or undeprecating) the extension
      */
-    deprecate(_deprecated: boolean, overrides?: CallOverrides): Promise<void>;
+    deprecate(
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     /**
      * Called when uninstalling the extension
@@ -1738,14 +1795,14 @@ export interface VotingReputation extends BaseContract {
      * @param _value Reputation tree value for the root domain
      */
     createMotion(
-      _domainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _altTarget: string,
-      _action: BytesLike,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
+      _domainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _altTarget: PromiseOrValue<string>,
+      _action: PromiseOrValue<BytesLike>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1759,12 +1816,12 @@ export interface VotingReputation extends BaseContract {
      * @param _value Reputation tree value for the root domain
      */
     createRootMotion(
-      _altTarget: string,
-      _action: BytesLike,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
+      _altTarget: PromiseOrValue<string>,
+      _action: PromiseOrValue<BytesLike>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1779,13 +1836,13 @@ export interface VotingReputation extends BaseContract {
      * @param _value Reputation tree value for the domain
      */
     createDomainMotion(
-      _domainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _action: BytesLike,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
+      _domainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _action: PromiseOrValue<BytesLike>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1802,15 +1859,15 @@ export interface VotingReputation extends BaseContract {
      * @param _vote The side being supported (0 = NAY, 1 = YAY)
      */
     stakeMotion(
-      _motionId: BigNumberish,
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _vote: BigNumberish,
-      _amount: BigNumberish,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
+      _motionId: PromiseOrValue<BigNumberish>,
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _vote: PromiseOrValue<BigNumberish>,
+      _amount: PromiseOrValue<BigNumberish>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1824,12 +1881,12 @@ export interface VotingReputation extends BaseContract {
      * @param _voteSecret The hashed vote secret
      */
     submitVote(
-      _motionId: BigNumberish,
-      _voteSecret: BytesLike,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
+      _motionId: PromiseOrValue<BigNumberish>,
+      _voteSecret: PromiseOrValue<BytesLike>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1844,13 +1901,13 @@ export interface VotingReputation extends BaseContract {
      * @param _vote The side being supported (0 = NAY, 1 = YAY)
      */
     revealVote(
-      _motionId: BigNumberish,
-      _salt: BytesLike,
-      _vote: BigNumberish,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
+      _motionId: PromiseOrValue<BigNumberish>,
+      _salt: PromiseOrValue<BytesLike>,
+      _vote: PromiseOrValue<BigNumberish>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1865,18 +1922,18 @@ export interface VotingReputation extends BaseContract {
      * @param _value Reputation tree value for the new domain
      */
     escalateMotion(
-      _motionId: BigNumberish,
-      _newDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
+      _motionId: PromiseOrValue<BigNumberish>,
+      _newDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
       overrides?: CallOverrides
     ): Promise<void>;
 
     finalizeMotion(
-      _motionId: BigNumberish,
+      _motionId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1885,7 +1942,7 @@ export interface VotingReputation extends BaseContract {
      * @param _motionId The id of the motion
      */
     failingExecutionAllowed(
-      _motionId: BigNumberish,
+      _motionId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
@@ -1898,11 +1955,11 @@ export interface VotingReputation extends BaseContract {
      * @param _vote The side being supported (0 = NAY, 1 = YAY)
      */
     claimReward(
-      _motionId: BigNumberish,
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _staker: string,
-      _vote: BigNumberish,
+      _motionId: PromiseOrValue<BigNumberish>,
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _staker: PromiseOrValue<string>,
+      _vote: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1956,7 +2013,7 @@ export interface VotingReputation extends BaseContract {
      * @param _motionId The id of the motion
      */
     getMotion(
-      _motionId: BigNumberish,
+      _motionId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<VotingReputation.MotionStructOutput>;
 
@@ -1967,9 +2024,9 @@ export interface VotingReputation extends BaseContract {
      * @param _vote The side being supported (0 = NAY, 1 = YAY)
      */
     getStake(
-      _motionId: BigNumberish,
-      _staker: string,
-      _vote: BigNumberish,
+      _motionId: PromiseOrValue<BigNumberish>,
+      _staker: PromiseOrValue<string>,
+      _vote: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1978,7 +2035,7 @@ export interface VotingReputation extends BaseContract {
      * @param _structHash The hash of the expenditureId or expenditureId*expenditureSlot
      */
     getExpenditureMotionCount(
-      _structHash: BytesLike,
+      _structHash: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1987,7 +2044,7 @@ export interface VotingReputation extends BaseContract {
      * @param _actionHash The hash of the particular expenditure action
      */
     getExpenditurePastVote(
-      _actionHash: BytesLike,
+      _actionHash: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1995,7 +2052,7 @@ export interface VotingReputation extends BaseContract {
      * Get the current state of the motion
      */
     getMotionState(
-      _motionId: BigNumberish,
+      _motionId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<number>;
 
@@ -2005,8 +2062,8 @@ export interface VotingReputation extends BaseContract {
      * @param _voterRep The reputation the voter has in the domain
      */
     getVoterReward(
-      _motionId: BigNumberish,
-      _voterRep: BigNumberish,
+      _motionId: PromiseOrValue<BigNumberish>,
+      _voterRep: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -2017,9 +2074,9 @@ export interface VotingReputation extends BaseContract {
      * @param _voterRep The reputation the voter has in the domain
      */
     getVoterRewardRange(
-      _motionId: BigNumberish,
-      _voterRep: BigNumberish,
-      _voterAddress: string,
+      _motionId: PromiseOrValue<BigNumberish>,
+      _voterRep: PromiseOrValue<BigNumberish>,
+      _voterAddress: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[BigNumber, BigNumber]>;
 
@@ -2030,15 +2087,15 @@ export interface VotingReputation extends BaseContract {
      * @param _vote The vote (0 = NAY, 1 = YAY)
      */
     getStakerReward(
-      _motionId: BigNumberish,
-      _staker: string,
-      _vote: BigNumberish,
+      _motionId: PromiseOrValue<BigNumberish>,
+      _staker: PromiseOrValue<string>,
+      _vote: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[BigNumber, BigNumber]>;
 
     createClaimDelayAction(
-      action: BytesLike,
-      value: BigNumberish,
+      action: PromiseOrValue<BytesLike>,
+      value: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<string>;
   };
@@ -2048,12 +2105,16 @@ export interface VotingReputation extends BaseContract {
     ExtensionInitialised(): ExtensionInitialisedEventFilter;
 
     "LogSetAuthority(address)"(
-      authority?: string | null
+      authority?: PromiseOrValue<string> | null
     ): LogSetAuthorityEventFilter;
-    LogSetAuthority(authority?: string | null): LogSetAuthorityEventFilter;
+    LogSetAuthority(
+      authority?: PromiseOrValue<string> | null
+    ): LogSetAuthorityEventFilter;
 
-    "LogSetOwner(address)"(owner?: string | null): LogSetOwnerEventFilter;
-    LogSetOwner(owner?: string | null): LogSetOwnerEventFilter;
+    "LogSetOwner(address)"(
+      owner?: PromiseOrValue<string> | null
+    ): LogSetOwnerEventFilter;
+    LogSetOwner(owner?: PromiseOrValue<string> | null): LogSetOwnerEventFilter;
 
     "MetaTransactionExecuted(address,address,bytes)"(
       user?: null,
@@ -2067,93 +2128,93 @@ export interface VotingReputation extends BaseContract {
     ): MetaTransactionExecutedEventFilter;
 
     "MotionCreated(uint256,address,uint256)"(
-      motionId?: BigNumberish | null,
+      motionId?: PromiseOrValue<BigNumberish> | null,
       creator?: null,
-      domainId?: BigNumberish | null
+      domainId?: PromiseOrValue<BigNumberish> | null
     ): MotionCreatedEventFilter;
     MotionCreated(
-      motionId?: BigNumberish | null,
+      motionId?: PromiseOrValue<BigNumberish> | null,
       creator?: null,
-      domainId?: BigNumberish | null
+      domainId?: PromiseOrValue<BigNumberish> | null
     ): MotionCreatedEventFilter;
 
     "MotionEscalated(uint256,address,uint256,uint256)"(
-      motionId?: BigNumberish | null,
+      motionId?: PromiseOrValue<BigNumberish> | null,
       escalator?: null,
-      domainId?: BigNumberish | null,
-      newDomainId?: BigNumberish | null
+      domainId?: PromiseOrValue<BigNumberish> | null,
+      newDomainId?: PromiseOrValue<BigNumberish> | null
     ): MotionEscalatedEventFilter;
     MotionEscalated(
-      motionId?: BigNumberish | null,
+      motionId?: PromiseOrValue<BigNumberish> | null,
       escalator?: null,
-      domainId?: BigNumberish | null,
-      newDomainId?: BigNumberish | null
+      domainId?: PromiseOrValue<BigNumberish> | null,
+      newDomainId?: PromiseOrValue<BigNumberish> | null
     ): MotionEscalatedEventFilter;
 
     "MotionEventSet(uint256,uint256)"(
-      motionId?: BigNumberish | null,
+      motionId?: PromiseOrValue<BigNumberish> | null,
       eventIndex?: null
     ): MotionEventSetEventFilter;
     MotionEventSet(
-      motionId?: BigNumberish | null,
+      motionId?: PromiseOrValue<BigNumberish> | null,
       eventIndex?: null
     ): MotionEventSetEventFilter;
 
     "MotionFinalized(uint256,bytes,bool)"(
-      motionId?: BigNumberish | null,
+      motionId?: PromiseOrValue<BigNumberish> | null,
       action?: null,
       executed?: null
     ): MotionFinalizedEventFilter;
     MotionFinalized(
-      motionId?: BigNumberish | null,
+      motionId?: PromiseOrValue<BigNumberish> | null,
       action?: null,
       executed?: null
     ): MotionFinalizedEventFilter;
 
     "MotionRewardClaimed(uint256,address,uint256,uint256)"(
-      motionId?: BigNumberish | null,
-      staker?: string | null,
-      vote?: BigNumberish | null,
+      motionId?: PromiseOrValue<BigNumberish> | null,
+      staker?: PromiseOrValue<string> | null,
+      vote?: PromiseOrValue<BigNumberish> | null,
       amount?: null
     ): MotionRewardClaimedEventFilter;
     MotionRewardClaimed(
-      motionId?: BigNumberish | null,
-      staker?: string | null,
-      vote?: BigNumberish | null,
+      motionId?: PromiseOrValue<BigNumberish> | null,
+      staker?: PromiseOrValue<string> | null,
+      vote?: PromiseOrValue<BigNumberish> | null,
       amount?: null
     ): MotionRewardClaimedEventFilter;
 
     "MotionStaked(uint256,address,uint256,uint256)"(
-      motionId?: BigNumberish | null,
-      staker?: string | null,
-      vote?: BigNumberish | null,
+      motionId?: PromiseOrValue<BigNumberish> | null,
+      staker?: PromiseOrValue<string> | null,
+      vote?: PromiseOrValue<BigNumberish> | null,
       amount?: null
     ): MotionStakedEventFilter;
     MotionStaked(
-      motionId?: BigNumberish | null,
-      staker?: string | null,
-      vote?: BigNumberish | null,
+      motionId?: PromiseOrValue<BigNumberish> | null,
+      staker?: PromiseOrValue<string> | null,
+      vote?: PromiseOrValue<BigNumberish> | null,
       amount?: null
     ): MotionStakedEventFilter;
 
     "MotionVoteRevealed(uint256,address,uint256)"(
-      motionId?: BigNumberish | null,
-      voter?: string | null,
-      vote?: BigNumberish | null
+      motionId?: PromiseOrValue<BigNumberish> | null,
+      voter?: PromiseOrValue<string> | null,
+      vote?: PromiseOrValue<BigNumberish> | null
     ): MotionVoteRevealedEventFilter;
     MotionVoteRevealed(
-      motionId?: BigNumberish | null,
-      voter?: string | null,
-      vote?: BigNumberish | null
+      motionId?: PromiseOrValue<BigNumberish> | null,
+      voter?: PromiseOrValue<string> | null,
+      vote?: PromiseOrValue<BigNumberish> | null
     ): MotionVoteRevealedEventFilter;
 
     "MotionVoteSubmitted(uint256,address)"(
-      motionId?: BigNumberish | null,
-      voter?: string | null
+      motionId?: PromiseOrValue<BigNumberish> | null,
+      voter?: PromiseOrValue<string> | null
     ): MotionVoteSubmittedEventFilter;
     MotionVoteSubmitted(
-      motionId?: BigNumberish | null,
-      voter?: string | null
+      motionId?: PromiseOrValue<BigNumberish> | null,
+      voter?: PromiseOrValue<string> | null
     ): MotionVoteSubmittedEventFilter;
   };
 
@@ -2169,16 +2230,16 @@ export interface VotingReputation extends BaseContract {
      * @param _user Address of user trying to do meta transaction
      */
     executeMetaTransaction(
-      _user: string,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      _user: PromiseOrValue<string>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     getCapabilityRoles(
-      _sig: BytesLike,
+      _sig: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -2191,28 +2252,28 @@ export interface VotingReputation extends BaseContract {
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
     setAuthority(
-      authority_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      authority_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     setOwner(
-      owner_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      owner_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     verify(
-      _owner: string,
-      _nonce: BigNumberish,
-      _chainId: BigNumberish,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
+      _owner: PromiseOrValue<string>,
+      _nonce: PromiseOrValue<BigNumberish>,
+      _chainId: PromiseOrValue<BigNumberish>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getMetatransactionNonce(
-      userAddress: string,
+      userAddress: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -2231,8 +2292,8 @@ export interface VotingReputation extends BaseContract {
      * @param _colony Base colony for the installation
      */
     install(
-      _colony: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _colony: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -2247,37 +2308,37 @@ export interface VotingReputation extends BaseContract {
      * @param _voterRewardFraction The fraction of the total stake paid out to voters as rewards
      */
     initialise(
-      _totalStakeFraction: BigNumberish,
-      _voterRewardFraction: BigNumberish,
-      _userMinStakeFraction: BigNumberish,
-      _maxVoteFraction: BigNumberish,
-      _stakePeriod: BigNumberish,
-      _submitPeriod: BigNumberish,
-      _revealPeriod: BigNumberish,
-      _escalationPeriod: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _totalStakeFraction: PromiseOrValue<BigNumberish>,
+      _voterRewardFraction: PromiseOrValue<BigNumberish>,
+      _userMinStakeFraction: PromiseOrValue<BigNumberish>,
+      _maxVoteFraction: PromiseOrValue<BigNumberish>,
+      _stakePeriod: PromiseOrValue<BigNumberish>,
+      _submitPeriod: PromiseOrValue<BigNumberish>,
+      _revealPeriod: PromiseOrValue<BigNumberish>,
+      _escalationPeriod: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
      * Called when upgrading the extension
      */
     finishUpgrade(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
      * Called when deprecating (or undeprecating) the extension
      */
     deprecate(
-      _deprecated: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
      * Called when uninstalling the extension
      */
     uninstall(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -2292,15 +2353,15 @@ export interface VotingReputation extends BaseContract {
      * @param _value Reputation tree value for the root domain
      */
     createMotion(
-      _domainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _altTarget: string,
-      _action: BytesLike,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _domainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _altTarget: PromiseOrValue<string>,
+      _action: PromiseOrValue<BytesLike>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -2313,13 +2374,13 @@ export interface VotingReputation extends BaseContract {
      * @param _value Reputation tree value for the root domain
      */
     createRootMotion(
-      _altTarget: string,
-      _action: BytesLike,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _altTarget: PromiseOrValue<string>,
+      _action: PromiseOrValue<BytesLike>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -2333,14 +2394,14 @@ export interface VotingReputation extends BaseContract {
      * @param _value Reputation tree value for the domain
      */
     createDomainMotion(
-      _domainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _action: BytesLike,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _domainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _action: PromiseOrValue<BytesLike>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -2356,16 +2417,16 @@ export interface VotingReputation extends BaseContract {
      * @param _vote The side being supported (0 = NAY, 1 = YAY)
      */
     stakeMotion(
-      _motionId: BigNumberish,
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _vote: BigNumberish,
-      _amount: BigNumberish,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _motionId: PromiseOrValue<BigNumberish>,
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _vote: PromiseOrValue<BigNumberish>,
+      _amount: PromiseOrValue<BigNumberish>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -2378,13 +2439,13 @@ export interface VotingReputation extends BaseContract {
      * @param _voteSecret The hashed vote secret
      */
     submitVote(
-      _motionId: BigNumberish,
-      _voteSecret: BytesLike,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _motionId: PromiseOrValue<BigNumberish>,
+      _voteSecret: PromiseOrValue<BytesLike>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -2398,14 +2459,14 @@ export interface VotingReputation extends BaseContract {
      * @param _vote The side being supported (0 = NAY, 1 = YAY)
      */
     revealVote(
-      _motionId: BigNumberish,
-      _salt: BytesLike,
-      _vote: BigNumberish,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _motionId: PromiseOrValue<BigNumberish>,
+      _salt: PromiseOrValue<BytesLike>,
+      _vote: PromiseOrValue<BigNumberish>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -2419,19 +2480,19 @@ export interface VotingReputation extends BaseContract {
      * @param _value Reputation tree value for the new domain
      */
     escalateMotion(
-      _motionId: BigNumberish,
-      _newDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _motionId: PromiseOrValue<BigNumberish>,
+      _newDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     finalizeMotion(
-      _motionId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _motionId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -2439,7 +2500,7 @@ export interface VotingReputation extends BaseContract {
      * @param _motionId The id of the motion
      */
     failingExecutionAllowed(
-      _motionId: BigNumberish,
+      _motionId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -2452,12 +2513,12 @@ export interface VotingReputation extends BaseContract {
      * @param _vote The side being supported (0 = NAY, 1 = YAY)
      */
     claimReward(
-      _motionId: BigNumberish,
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _staker: string,
-      _vote: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _motionId: PromiseOrValue<BigNumberish>,
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _staker: PromiseOrValue<string>,
+      _vote: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -2510,7 +2571,7 @@ export interface VotingReputation extends BaseContract {
      * @param _motionId The id of the motion
      */
     getMotion(
-      _motionId: BigNumberish,
+      _motionId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -2521,9 +2582,9 @@ export interface VotingReputation extends BaseContract {
      * @param _vote The side being supported (0 = NAY, 1 = YAY)
      */
     getStake(
-      _motionId: BigNumberish,
-      _staker: string,
-      _vote: BigNumberish,
+      _motionId: PromiseOrValue<BigNumberish>,
+      _staker: PromiseOrValue<string>,
+      _vote: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -2532,7 +2593,7 @@ export interface VotingReputation extends BaseContract {
      * @param _structHash The hash of the expenditureId or expenditureId*expenditureSlot
      */
     getExpenditureMotionCount(
-      _structHash: BytesLike,
+      _structHash: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -2541,7 +2602,7 @@ export interface VotingReputation extends BaseContract {
      * @param _actionHash The hash of the particular expenditure action
      */
     getExpenditurePastVote(
-      _actionHash: BytesLike,
+      _actionHash: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -2549,7 +2610,7 @@ export interface VotingReputation extends BaseContract {
      * Get the current state of the motion
      */
     getMotionState(
-      _motionId: BigNumberish,
+      _motionId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -2559,8 +2620,8 @@ export interface VotingReputation extends BaseContract {
      * @param _voterRep The reputation the voter has in the domain
      */
     getVoterReward(
-      _motionId: BigNumberish,
-      _voterRep: BigNumberish,
+      _motionId: PromiseOrValue<BigNumberish>,
+      _voterRep: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -2571,9 +2632,9 @@ export interface VotingReputation extends BaseContract {
      * @param _voterRep The reputation the voter has in the domain
      */
     getVoterRewardRange(
-      _motionId: BigNumberish,
-      _voterRep: BigNumberish,
-      _voterAddress: string,
+      _motionId: PromiseOrValue<BigNumberish>,
+      _voterRep: PromiseOrValue<BigNumberish>,
+      _voterAddress: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -2584,16 +2645,16 @@ export interface VotingReputation extends BaseContract {
      * @param _vote The vote (0 = NAY, 1 = YAY)
      */
     getStakerReward(
-      _motionId: BigNumberish,
-      _staker: string,
-      _vote: BigNumberish,
+      _motionId: PromiseOrValue<BigNumberish>,
+      _staker: PromiseOrValue<string>,
+      _vote: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     createClaimDelayAction(
-      action: BytesLike,
-      value: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      action: PromiseOrValue<BytesLike>,
+      value: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
   };
 
@@ -2609,16 +2670,16 @@ export interface VotingReputation extends BaseContract {
      * @param _user Address of user trying to do meta transaction
      */
     executeMetaTransaction(
-      _user: string,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      _user: PromiseOrValue<string>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     getCapabilityRoles(
-      _sig: BytesLike,
+      _sig: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -2631,28 +2692,28 @@ export interface VotingReputation extends BaseContract {
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     setAuthority(
-      authority_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      authority_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     setOwner(
-      owner_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      owner_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     verify(
-      _owner: string,
-      _nonce: BigNumberish,
-      _chainId: BigNumberish,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
+      _owner: PromiseOrValue<string>,
+      _nonce: PromiseOrValue<BigNumberish>,
+      _chainId: PromiseOrValue<BigNumberish>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getMetatransactionNonce(
-      userAddress: string,
+      userAddress: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -2671,8 +2732,8 @@ export interface VotingReputation extends BaseContract {
      * @param _colony Base colony for the installation
      */
     install(
-      _colony: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _colony: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -2687,37 +2748,37 @@ export interface VotingReputation extends BaseContract {
      * @param _voterRewardFraction The fraction of the total stake paid out to voters as rewards
      */
     initialise(
-      _totalStakeFraction: BigNumberish,
-      _voterRewardFraction: BigNumberish,
-      _userMinStakeFraction: BigNumberish,
-      _maxVoteFraction: BigNumberish,
-      _stakePeriod: BigNumberish,
-      _submitPeriod: BigNumberish,
-      _revealPeriod: BigNumberish,
-      _escalationPeriod: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _totalStakeFraction: PromiseOrValue<BigNumberish>,
+      _voterRewardFraction: PromiseOrValue<BigNumberish>,
+      _userMinStakeFraction: PromiseOrValue<BigNumberish>,
+      _maxVoteFraction: PromiseOrValue<BigNumberish>,
+      _stakePeriod: PromiseOrValue<BigNumberish>,
+      _submitPeriod: PromiseOrValue<BigNumberish>,
+      _revealPeriod: PromiseOrValue<BigNumberish>,
+      _escalationPeriod: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Called when upgrading the extension
      */
     finishUpgrade(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Called when deprecating (or undeprecating) the extension
      */
     deprecate(
-      _deprecated: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Called when uninstalling the extension
      */
     uninstall(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -2732,15 +2793,15 @@ export interface VotingReputation extends BaseContract {
      * @param _value Reputation tree value for the root domain
      */
     createMotion(
-      _domainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _altTarget: string,
-      _action: BytesLike,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _domainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _altTarget: PromiseOrValue<string>,
+      _action: PromiseOrValue<BytesLike>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -2753,13 +2814,13 @@ export interface VotingReputation extends BaseContract {
      * @param _value Reputation tree value for the root domain
      */
     createRootMotion(
-      _altTarget: string,
-      _action: BytesLike,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _altTarget: PromiseOrValue<string>,
+      _action: PromiseOrValue<BytesLike>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -2773,14 +2834,14 @@ export interface VotingReputation extends BaseContract {
      * @param _value Reputation tree value for the domain
      */
     createDomainMotion(
-      _domainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _action: BytesLike,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _domainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _action: PromiseOrValue<BytesLike>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -2796,16 +2857,16 @@ export interface VotingReputation extends BaseContract {
      * @param _vote The side being supported (0 = NAY, 1 = YAY)
      */
     stakeMotion(
-      _motionId: BigNumberish,
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _vote: BigNumberish,
-      _amount: BigNumberish,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _motionId: PromiseOrValue<BigNumberish>,
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _vote: PromiseOrValue<BigNumberish>,
+      _amount: PromiseOrValue<BigNumberish>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -2818,13 +2879,13 @@ export interface VotingReputation extends BaseContract {
      * @param _voteSecret The hashed vote secret
      */
     submitVote(
-      _motionId: BigNumberish,
-      _voteSecret: BytesLike,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _motionId: PromiseOrValue<BigNumberish>,
+      _voteSecret: PromiseOrValue<BytesLike>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -2838,14 +2899,14 @@ export interface VotingReputation extends BaseContract {
      * @param _vote The side being supported (0 = NAY, 1 = YAY)
      */
     revealVote(
-      _motionId: BigNumberish,
-      _salt: BytesLike,
-      _vote: BigNumberish,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _motionId: PromiseOrValue<BigNumberish>,
+      _salt: PromiseOrValue<BytesLike>,
+      _vote: PromiseOrValue<BigNumberish>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -2859,19 +2920,19 @@ export interface VotingReputation extends BaseContract {
      * @param _value Reputation tree value for the new domain
      */
     escalateMotion(
-      _motionId: BigNumberish,
-      _newDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _key: BytesLike,
-      _value: BytesLike,
-      _branchMask: BigNumberish,
-      _siblings: BytesLike[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _motionId: PromiseOrValue<BigNumberish>,
+      _newDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _key: PromiseOrValue<BytesLike>,
+      _value: PromiseOrValue<BytesLike>,
+      _branchMask: PromiseOrValue<BigNumberish>,
+      _siblings: PromiseOrValue<BytesLike>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     finalizeMotion(
-      _motionId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _motionId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -2879,7 +2940,7 @@ export interface VotingReputation extends BaseContract {
      * @param _motionId The id of the motion
      */
     failingExecutionAllowed(
-      _motionId: BigNumberish,
+      _motionId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -2892,12 +2953,12 @@ export interface VotingReputation extends BaseContract {
      * @param _vote The side being supported (0 = NAY, 1 = YAY)
      */
     claimReward(
-      _motionId: BigNumberish,
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _staker: string,
-      _vote: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _motionId: PromiseOrValue<BigNumberish>,
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _staker: PromiseOrValue<string>,
+      _vote: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -2960,7 +3021,7 @@ export interface VotingReputation extends BaseContract {
      * @param _motionId The id of the motion
      */
     getMotion(
-      _motionId: BigNumberish,
+      _motionId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -2971,9 +3032,9 @@ export interface VotingReputation extends BaseContract {
      * @param _vote The side being supported (0 = NAY, 1 = YAY)
      */
     getStake(
-      _motionId: BigNumberish,
-      _staker: string,
-      _vote: BigNumberish,
+      _motionId: PromiseOrValue<BigNumberish>,
+      _staker: PromiseOrValue<string>,
+      _vote: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -2982,7 +3043,7 @@ export interface VotingReputation extends BaseContract {
      * @param _structHash The hash of the expenditureId or expenditureId*expenditureSlot
      */
     getExpenditureMotionCount(
-      _structHash: BytesLike,
+      _structHash: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -2991,7 +3052,7 @@ export interface VotingReputation extends BaseContract {
      * @param _actionHash The hash of the particular expenditure action
      */
     getExpenditurePastVote(
-      _actionHash: BytesLike,
+      _actionHash: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -2999,7 +3060,7 @@ export interface VotingReputation extends BaseContract {
      * Get the current state of the motion
      */
     getMotionState(
-      _motionId: BigNumberish,
+      _motionId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -3009,8 +3070,8 @@ export interface VotingReputation extends BaseContract {
      * @param _voterRep The reputation the voter has in the domain
      */
     getVoterReward(
-      _motionId: BigNumberish,
-      _voterRep: BigNumberish,
+      _motionId: PromiseOrValue<BigNumberish>,
+      _voterRep: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -3021,9 +3082,9 @@ export interface VotingReputation extends BaseContract {
      * @param _voterRep The reputation the voter has in the domain
      */
     getVoterRewardRange(
-      _motionId: BigNumberish,
-      _voterRep: BigNumberish,
-      _voterAddress: string,
+      _motionId: PromiseOrValue<BigNumberish>,
+      _voterRep: PromiseOrValue<BigNumberish>,
+      _voterAddress: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -3034,16 +3095,16 @@ export interface VotingReputation extends BaseContract {
      * @param _vote The vote (0 = NAY, 1 = YAY)
      */
     getStakerReward(
-      _motionId: BigNumberish,
-      _staker: string,
-      _vote: BigNumberish,
+      _motionId: PromiseOrValue<BigNumberish>,
+      _staker: PromiseOrValue<string>,
+      _vote: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     createClaimDelayAction(
-      action: BytesLike,
-      value: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      action: PromiseOrValue<BytesLike>,
+      value: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
   };
 }

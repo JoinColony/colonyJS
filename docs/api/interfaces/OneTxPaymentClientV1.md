@@ -65,17 +65,17 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `authority` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `deprecate` | (`_deprecated`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `deprecate` | (`_deprecated`: `PromiseOrValue`<`boolean`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `finishUpgrade` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 | `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `install` | (`_colony`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `makePayment` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_callerPermissionDomainId`: `BigNumberish`, `_callerChildSkillIndex`: `BigNumberish`, `_workers`: `string`[], `_tokens`: `string`[], `_amounts`: `BigNumberish`[], `_domainId`: `BigNumberish`, `_skillId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `makePaymentFundedFromDomain` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_callerPermissionDomainId`: `BigNumberish`, `_callerChildSkillIndex`: `BigNumberish`, `_workers`: `string`[], `_tokens`: `string`[], `_amounts`: `BigNumberish`[], `_domainId`: `BigNumberish`, `_skillId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `install` | (`_colony`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `makePayment` | (`_permissionDomainId`: `PromiseOrValue`<`BigNumberish`\>, `_childSkillIndex`: `PromiseOrValue`<`BigNumberish`\>, `_callerPermissionDomainId`: `PromiseOrValue`<`BigNumberish`\>, `_callerChildSkillIndex`: `PromiseOrValue`<`BigNumberish`\>, `_workers`: `PromiseOrValue`<`string`\>[], `_tokens`: `PromiseOrValue`<`string`\>[], `_amounts`: `PromiseOrValue`<`BigNumberish`\>[], `_domainId`: `PromiseOrValue`<`BigNumberish`\>, `_skillId`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `makePaymentFundedFromDomain` | (`_permissionDomainId`: `PromiseOrValue`<`BigNumberish`\>, `_childSkillIndex`: `PromiseOrValue`<`BigNumberish`\>, `_callerPermissionDomainId`: `PromiseOrValue`<`BigNumberish`\>, `_callerChildSkillIndex`: `PromiseOrValue`<`BigNumberish`\>, `_workers`: `PromiseOrValue`<`string`\>[], `_tokens`: `PromiseOrValue`<`string`\>[], `_amounts`: `PromiseOrValue`<`BigNumberish`\>[], `_domainId`: `PromiseOrValue`<`BigNumberish`\>, `_skillId`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `setAuthority` | (`authority_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setOwner` | (`owner_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setAuthority` | (`authority_`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setOwner` | (`owner_`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `uninstall` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `version` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 
@@ -147,10 +147,10 @@ ___
 | :------ | :------ |
 | `ExtensionInitialised` | () => `ExtensionInitialisedEventFilter` |
 | `ExtensionInitialised()` | () => `ExtensionInitialisedEventFilter` |
-| `LogSetAuthority` | (`authority?`: ``null`` \| `string`) => `LogSetAuthorityEventFilter` |
-| `LogSetAuthority(address)` | (`authority?`: ``null`` \| `string`) => `LogSetAuthorityEventFilter` |
-| `LogSetOwner` | (`owner?`: ``null`` \| `string`) => `LogSetOwnerEventFilter` |
-| `LogSetOwner(address)` | (`owner?`: ``null`` \| `string`) => `LogSetOwnerEventFilter` |
+| `LogSetAuthority` | (`authority?`: ``null`` \| `PromiseOrValue`<`string`\>) => `LogSetAuthorityEventFilter` |
+| `LogSetAuthority(address)` | (`authority?`: ``null`` \| `PromiseOrValue`<`string`\>) => `LogSetAuthorityEventFilter` |
+| `LogSetOwner` | (`owner?`: ``null`` \| `PromiseOrValue`<`string`\>) => `LogSetOwnerEventFilter` |
+| `LogSetOwner(address)` | (`owner?`: ``null`` \| `PromiseOrValue`<`string`\>) => `LogSetOwnerEventFilter` |
 | `OneTxPaymentMade` | (`agent?`: ``null``, `fundamentalId?`: ``null``, `nPayouts?`: ``null``) => `OneTxPaymentMadeEventFilter` |
 | `OneTxPaymentMade(address,uint256,uint256)` | (`agent?`: ``null``, `fundamentalId?`: ``null``, `nPayouts?`: ``null``) => `OneTxPaymentMadeEventFilter` |
 
@@ -169,18 +169,18 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `authority` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `deprecate` | (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `finishUpgrade` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `deprecate` | (`_deprecated`: `PromiseOrValue`<`boolean`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `finishUpgrade` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
 | `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `install` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `makePayment` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_callerPermissionDomainId`: `BigNumberish`, `_callerChildSkillIndex`: `BigNumberish`, `_workers`: `string`[], `_tokens`: `string`[], `_amounts`: `BigNumberish`[], `_domainId`: `BigNumberish`, `_skillId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `makePaymentFundedFromDomain` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_callerPermissionDomainId`: `BigNumberish`, `_callerChildSkillIndex`: `BigNumberish`, `_workers`: `string`[], `_tokens`: `string`[], `_amounts`: `BigNumberish`[], `_domainId`: `BigNumberish`, `_skillId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `install` | (`_colony`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `makePayment` | (`_permissionDomainId`: `PromiseOrValue`<`BigNumberish`\>, `_childSkillIndex`: `PromiseOrValue`<`BigNumberish`\>, `_callerPermissionDomainId`: `PromiseOrValue`<`BigNumberish`\>, `_callerChildSkillIndex`: `PromiseOrValue`<`BigNumberish`\>, `_workers`: `PromiseOrValue`<`string`\>[], `_tokens`: `PromiseOrValue`<`string`\>[], `_amounts`: `PromiseOrValue`<`BigNumberish`\>[], `_domainId`: `PromiseOrValue`<`BigNumberish`\>, `_skillId`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `makePaymentFundedFromDomain` | (`_permissionDomainId`: `PromiseOrValue`<`BigNumberish`\>, `_childSkillIndex`: `PromiseOrValue`<`BigNumberish`\>, `_callerPermissionDomainId`: `PromiseOrValue`<`BigNumberish`\>, `_callerChildSkillIndex`: `PromiseOrValue`<`BigNumberish`\>, `_workers`: `PromiseOrValue`<`string`\>[], `_tokens`: `PromiseOrValue`<`string`\>[], `_amounts`: `PromiseOrValue`<`BigNumberish`\>[], `_domainId`: `PromiseOrValue`<`BigNumberish`\>, `_skillId`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `owner` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `setAuthority` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `setOwner` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `uninstall` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `setAuthority` | (`authority_`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `setOwner` | (`owner_`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `uninstall` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `version` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
 
 #### Inherited from
@@ -252,18 +252,18 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `authority` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `deprecate` | (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `finishUpgrade` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `deprecate` | (`_deprecated`: `PromiseOrValue`<`boolean`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `finishUpgrade` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `install` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `makePayment` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_callerPermissionDomainId`: `BigNumberish`, `_callerChildSkillIndex`: `BigNumberish`, `_workers`: `string`[], `_tokens`: `string`[], `_amounts`: `BigNumberish`[], `_domainId`: `BigNumberish`, `_skillId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `makePaymentFundedFromDomain` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_callerPermissionDomainId`: `BigNumberish`, `_callerChildSkillIndex`: `BigNumberish`, `_workers`: `string`[], `_tokens`: `string`[], `_amounts`: `BigNumberish`[], `_domainId`: `BigNumberish`, `_skillId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `install` | (`_colony`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `makePayment` | (`_permissionDomainId`: `PromiseOrValue`<`BigNumberish`\>, `_childSkillIndex`: `PromiseOrValue`<`BigNumberish`\>, `_callerPermissionDomainId`: `PromiseOrValue`<`BigNumberish`\>, `_callerChildSkillIndex`: `PromiseOrValue`<`BigNumberish`\>, `_workers`: `PromiseOrValue`<`string`\>[], `_tokens`: `PromiseOrValue`<`string`\>[], `_amounts`: `PromiseOrValue`<`BigNumberish`\>[], `_domainId`: `PromiseOrValue`<`BigNumberish`\>, `_skillId`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `makePaymentFundedFromDomain` | (`_permissionDomainId`: `PromiseOrValue`<`BigNumberish`\>, `_childSkillIndex`: `PromiseOrValue`<`BigNumberish`\>, `_callerPermissionDomainId`: `PromiseOrValue`<`BigNumberish`\>, `_callerChildSkillIndex`: `PromiseOrValue`<`BigNumberish`\>, `_workers`: `PromiseOrValue`<`string`\>[], `_tokens`: `PromiseOrValue`<`string`\>[], `_amounts`: `PromiseOrValue`<`BigNumberish`\>[], `_domainId`: `PromiseOrValue`<`BigNumberish`\>, `_skillId`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `setAuthority` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `setOwner` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `uninstall` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `setAuthority` | (`authority_`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `setOwner` | (`owner_`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `uninstall` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `version` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 
 #### Inherited from
@@ -458,8 +458,8 @@ Called when deprecating (or undeprecating) the extension
 
 | Name | Type |
 | :------ | :------ |
-| `_deprecated` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
+| `_deprecated` | `PromiseOrValue`<`boolean`\> |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
 
 #### Returns
 
@@ -522,7 +522,7 @@ Called when upgrading the extension
 
 | Name | Type |
 | :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
 
 #### Returns
 
@@ -606,8 +606,8 @@ Configures the extension
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_colony` | `string` | The colony in which the extension holds permissions |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_colony` | `PromiseOrValue`<`string`\> | The colony in which the extension holds permissions |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -692,16 +692,16 @@ Completes a colony payment in a single transaction
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` | The domainId in which the _contract_ has permissions to add a payment and fund it |
-| `_childSkillIndex` | `BigNumberish` | Index of the _permissionDomainId skill.children array to get |
-| `_callerPermissionDomainId` | `BigNumberish` | The domainId in which the _caller_ has the administration permission (must have funding in root) |
-| `_callerChildSkillIndex` | `BigNumberish` | Index of the _callerPermissionDomainId skill.children array to get |
-| `_workers` | `string`[] | The addresses of the recipients of the payment |
-| `_tokens` | `string`[] | Addresses of the tokens the payments are being made in. 0x00 for Ether. |
-| `_amounts` | `BigNumberish`[] | amounts of the tokens being paid out |
-| `_domainId` | `BigNumberish` | The domainId the payment should be coming from |
-| `_skillId` | `BigNumberish` | The skillId that the payment should be marked with, possibly awarding reputation in this skill. |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_permissionDomainId` | `PromiseOrValue`<`BigNumberish`\> | The domainId in which the _contract_ has permissions to add a payment and fund it |
+| `_childSkillIndex` | `PromiseOrValue`<`BigNumberish`\> | Index of the _permissionDomainId skill.children array to get |
+| `_callerPermissionDomainId` | `PromiseOrValue`<`BigNumberish`\> | The domainId in which the _caller_ has the administration permission (must have funding in root) |
+| `_callerChildSkillIndex` | `PromiseOrValue`<`BigNumberish`\> | Index of the _callerPermissionDomainId skill.children array to get |
+| `_workers` | `PromiseOrValue`<`string`\>[] | The addresses of the recipients of the payment |
+| `_tokens` | `PromiseOrValue`<`string`\>[] | Addresses of the tokens the payments are being made in. 0x00 for Ether. |
+| `_amounts` | `PromiseOrValue`<`BigNumberish`\>[] | amounts of the tokens being paid out |
+| `_domainId` | `PromiseOrValue`<`BigNumberish`\> | The domainId the payment should be coming from |
+| `_skillId` | `PromiseOrValue`<`BigNumberish`\> | The skillId that the payment should be marked with, possibly awarding reputation in this skill. |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -724,16 +724,16 @@ Completes a colony payment in a single transaction
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` | The domainId in which the _contract_ has permissions to add a payment and fund it |
-| `_childSkillIndex` | `BigNumberish` | Index of the _permissionDomainId skill.children array to get |
-| `_callerPermissionDomainId` | `BigNumberish` | The domainId in which the _caller_ has permissions to add a payment and fund it |
-| `_callerChildSkillIndex` | `BigNumberish` | Index of the _callerPermissionDomainId skill.children array to get |
-| `_workers` | `string`[] | The addresses of the recipients of the payment |
-| `_tokens` | `string`[] | The addresses of the token the payments are being made in. 0x00 for Ether. |
-| `_amounts` | `BigNumberish`[] | The amounts of the tokens being paid out |
-| `_domainId` | `BigNumberish` | The domainId the payment should be coming from |
-| `_skillId` | `BigNumberish` | The skillId that the payment should be marked with, possibly awarding reputation in this skill. |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_permissionDomainId` | `PromiseOrValue`<`BigNumberish`\> | The domainId in which the _contract_ has permissions to add a payment and fund it |
+| `_childSkillIndex` | `PromiseOrValue`<`BigNumberish`\> | Index of the _permissionDomainId skill.children array to get |
+| `_callerPermissionDomainId` | `PromiseOrValue`<`BigNumberish`\> | The domainId in which the _caller_ has permissions to add a payment and fund it |
+| `_callerChildSkillIndex` | `PromiseOrValue`<`BigNumberish`\> | Index of the _callerPermissionDomainId skill.children array to get |
+| `_workers` | `PromiseOrValue`<`string`\>[] | The addresses of the recipients of the payment |
+| `_tokens` | `PromiseOrValue`<`string`\>[] | The addresses of the token the payments are being made in. 0x00 for Ether. |
+| `_amounts` | `PromiseOrValue`<`BigNumberish`\>[] | The amounts of the tokens being paid out |
+| `_domainId` | `PromiseOrValue`<`BigNumberish`\> | The domainId the payment should be coming from |
+| `_skillId` | `PromiseOrValue`<`BigNumberish`\> | The skillId that the payment should be marked with, possibly awarding reputation in this skill. |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -899,8 +899,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `authority_` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
+| `authority_` | `PromiseOrValue`<`string`\> |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
 
 #### Returns
 
@@ -920,8 +920,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `owner_` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
+| `owner_` | `PromiseOrValue`<`string`\> |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
 
 #### Returns
 
@@ -943,7 +943,7 @@ Called when uninstalling the extension
 
 | Name | Type |
 | :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
 
 #### Returns
 

@@ -25,6 +25,7 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
+  PromiseOrValue,
 } from "./common";
 
 export interface EvaluatedExpenditureInterface extends utils.Interface {
@@ -74,11 +75,17 @@ export interface EvaluatedExpenditureInterface extends utils.Interface {
   encodeFunctionData(functionFragment: "authority", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "executeMetaTransaction",
-    values: [string, BytesLike, BytesLike, BytesLike, BigNumberish]
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "getCapabilityRoles",
-    values: [BytesLike]
+    values: [PromiseOrValue<BytesLike>]
   ): string;
   encodeFunctionData(
     functionFragment: "getChainId",
@@ -92,19 +99,22 @@ export interface EvaluatedExpenditureInterface extends utils.Interface {
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "setAuthority",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
-  encodeFunctionData(functionFragment: "setOwner", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "setOwner",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(
     functionFragment: "verify",
     values: [
-      string,
-      BigNumberish,
-      BigNumberish,
-      BytesLike,
-      BytesLike,
-      BytesLike,
-      BigNumberish
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>
     ]
   ): string;
   encodeFunctionData(
@@ -112,25 +122,31 @@ export interface EvaluatedExpenditureInterface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "version", values?: undefined): string;
-  encodeFunctionData(functionFragment: "install", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "install",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(
     functionFragment: "finishUpgrade",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "deprecate", values: [boolean]): string;
+  encodeFunctionData(
+    functionFragment: "deprecate",
+    values: [PromiseOrValue<boolean>]
+  ): string;
   encodeFunctionData(functionFragment: "uninstall", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "getMetatransactionNonce",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "setExpenditurePayoutModifiers",
     values: [
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish[],
-      BigNumberish[]
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>[],
+      PromiseOrValue<BigNumberish>[]
     ]
   ): string;
 
@@ -264,16 +280,16 @@ export interface EvaluatedExpenditure extends BaseContract {
      * @param _user Address of user trying to do meta transaction
      */
     executeMetaTransaction(
-      _user: string,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      _user: PromiseOrValue<string>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     getCapabilityRoles(
-      _sig: BytesLike,
+      _sig: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<[string]>;
 
@@ -286,23 +302,23 @@ export interface EvaluatedExpenditure extends BaseContract {
     owner(overrides?: CallOverrides): Promise<[string]>;
 
     setAuthority(
-      authority_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      authority_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     setOwner(
-      owner_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      owner_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     verify(
-      _owner: string,
-      _nonce: BigNumberish,
-      _chainId: BigNumberish,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
+      _owner: PromiseOrValue<string>,
+      _nonce: PromiseOrValue<BigNumberish>,
+      _chainId: PromiseOrValue<BigNumberish>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
@@ -321,34 +337,34 @@ export interface EvaluatedExpenditure extends BaseContract {
      * @param _colony The colony in which the extension holds permissions
      */
     install(
-      _colony: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _colony: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Called when upgrading the extension
      */
     finishUpgrade(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Called when deprecating (or undeprecating) the extension
      */
     deprecate(
-      _deprecated: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Called when uninstalling the extension
      */
     uninstall(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     getMetatransactionNonce(
-      _userAddress: string,
+      _userAddress: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { nonce: BigNumber }>;
 
@@ -361,12 +377,12 @@ export interface EvaluatedExpenditure extends BaseContract {
      * @param _slots Array of slots to set payout modifiers
      */
     setExpenditurePayoutModifiers(
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _id: BigNumberish,
-      _slots: BigNumberish[],
-      _payoutModifiers: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _id: PromiseOrValue<BigNumberish>,
+      _slots: PromiseOrValue<BigNumberish>[],
+      _payoutModifiers: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
   };
 
@@ -381,16 +397,16 @@ export interface EvaluatedExpenditure extends BaseContract {
    * @param _user Address of user trying to do meta transaction
    */
   executeMetaTransaction(
-    _user: string,
-    _payload: BytesLike,
-    _sigR: BytesLike,
-    _sigS: BytesLike,
-    _sigV: BigNumberish,
-    overrides?: PayableOverrides & { from?: string | Promise<string> }
+    _user: PromiseOrValue<string>,
+    _payload: PromiseOrValue<BytesLike>,
+    _sigR: PromiseOrValue<BytesLike>,
+    _sigS: PromiseOrValue<BytesLike>,
+    _sigV: PromiseOrValue<BigNumberish>,
+    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   getCapabilityRoles(
-    _sig: BytesLike,
+    _sig: PromiseOrValue<BytesLike>,
     overrides?: CallOverrides
   ): Promise<string>;
 
@@ -403,23 +419,23 @@ export interface EvaluatedExpenditure extends BaseContract {
   owner(overrides?: CallOverrides): Promise<string>;
 
   setAuthority(
-    authority_: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    authority_: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   setOwner(
-    owner_: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    owner_: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   verify(
-    _owner: string,
-    _nonce: BigNumberish,
-    _chainId: BigNumberish,
-    _payload: BytesLike,
-    _sigR: BytesLike,
-    _sigS: BytesLike,
-    _sigV: BigNumberish,
+    _owner: PromiseOrValue<string>,
+    _nonce: PromiseOrValue<BigNumberish>,
+    _chainId: PromiseOrValue<BigNumberish>,
+    _payload: PromiseOrValue<BytesLike>,
+    _sigR: PromiseOrValue<BytesLike>,
+    _sigS: PromiseOrValue<BytesLike>,
+    _sigV: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<boolean>;
 
@@ -438,34 +454,34 @@ export interface EvaluatedExpenditure extends BaseContract {
    * @param _colony The colony in which the extension holds permissions
    */
   install(
-    _colony: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _colony: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Called when upgrading the extension
    */
   finishUpgrade(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Called when deprecating (or undeprecating) the extension
    */
   deprecate(
-    _deprecated: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _deprecated: PromiseOrValue<boolean>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Called when uninstalling the extension
    */
   uninstall(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   getMetatransactionNonce(
-    _userAddress: string,
+    _userAddress: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
@@ -478,12 +494,12 @@ export interface EvaluatedExpenditure extends BaseContract {
    * @param _slots Array of slots to set payout modifiers
    */
   setExpenditurePayoutModifiers(
-    _permissionDomainId: BigNumberish,
-    _childSkillIndex: BigNumberish,
-    _id: BigNumberish,
-    _slots: BigNumberish[],
-    _payoutModifiers: BigNumberish[],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _permissionDomainId: PromiseOrValue<BigNumberish>,
+    _childSkillIndex: PromiseOrValue<BigNumberish>,
+    _id: PromiseOrValue<BigNumberish>,
+    _slots: PromiseOrValue<BigNumberish>[],
+    _payoutModifiers: PromiseOrValue<BigNumberish>[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
@@ -498,16 +514,16 @@ export interface EvaluatedExpenditure extends BaseContract {
      * @param _user Address of user trying to do meta transaction
      */
     executeMetaTransaction(
-      _user: string,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
+      _user: PromiseOrValue<string>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<string>;
 
     getCapabilityRoles(
-      _sig: BytesLike,
+      _sig: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -519,18 +535,24 @@ export interface EvaluatedExpenditure extends BaseContract {
 
     owner(overrides?: CallOverrides): Promise<string>;
 
-    setAuthority(authority_: string, overrides?: CallOverrides): Promise<void>;
+    setAuthority(
+      authority_: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
-    setOwner(owner_: string, overrides?: CallOverrides): Promise<void>;
+    setOwner(
+      owner_: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     verify(
-      _owner: string,
-      _nonce: BigNumberish,
-      _chainId: BigNumberish,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
+      _owner: PromiseOrValue<string>,
+      _nonce: PromiseOrValue<BigNumberish>,
+      _chainId: PromiseOrValue<BigNumberish>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
@@ -548,7 +570,10 @@ export interface EvaluatedExpenditure extends BaseContract {
      * Configures the extension
      * @param _colony The colony in which the extension holds permissions
      */
-    install(_colony: string, overrides?: CallOverrides): Promise<void>;
+    install(
+      _colony: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     /**
      * Called when upgrading the extension
@@ -558,7 +583,10 @@ export interface EvaluatedExpenditure extends BaseContract {
     /**
      * Called when deprecating (or undeprecating) the extension
      */
-    deprecate(_deprecated: boolean, overrides?: CallOverrides): Promise<void>;
+    deprecate(
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     /**
      * Called when uninstalling the extension
@@ -566,7 +594,7 @@ export interface EvaluatedExpenditure extends BaseContract {
     uninstall(overrides?: CallOverrides): Promise<void>;
 
     getMetatransactionNonce(
-      _userAddress: string,
+      _userAddress: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -579,11 +607,11 @@ export interface EvaluatedExpenditure extends BaseContract {
      * @param _slots Array of slots to set payout modifiers
      */
     setExpenditurePayoutModifiers(
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _id: BigNumberish,
-      _slots: BigNumberish[],
-      _payoutModifiers: BigNumberish[],
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _id: PromiseOrValue<BigNumberish>,
+      _slots: PromiseOrValue<BigNumberish>[],
+      _payoutModifiers: PromiseOrValue<BigNumberish>[],
       overrides?: CallOverrides
     ): Promise<void>;
   };
@@ -593,12 +621,16 @@ export interface EvaluatedExpenditure extends BaseContract {
     ExtensionInitialised(): ExtensionInitialisedEventFilter;
 
     "LogSetAuthority(address)"(
-      authority?: string | null
+      authority?: PromiseOrValue<string> | null
     ): LogSetAuthorityEventFilter;
-    LogSetAuthority(authority?: string | null): LogSetAuthorityEventFilter;
+    LogSetAuthority(
+      authority?: PromiseOrValue<string> | null
+    ): LogSetAuthorityEventFilter;
 
-    "LogSetOwner(address)"(owner?: string | null): LogSetOwnerEventFilter;
-    LogSetOwner(owner?: string | null): LogSetOwnerEventFilter;
+    "LogSetOwner(address)"(
+      owner?: PromiseOrValue<string> | null
+    ): LogSetOwnerEventFilter;
+    LogSetOwner(owner?: PromiseOrValue<string> | null): LogSetOwnerEventFilter;
 
     "MetaTransactionExecuted(address,address,bytes)"(
       user?: null,
@@ -624,16 +656,16 @@ export interface EvaluatedExpenditure extends BaseContract {
      * @param _user Address of user trying to do meta transaction
      */
     executeMetaTransaction(
-      _user: string,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      _user: PromiseOrValue<string>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     getCapabilityRoles(
-      _sig: BytesLike,
+      _sig: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -646,23 +678,23 @@ export interface EvaluatedExpenditure extends BaseContract {
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
     setAuthority(
-      authority_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      authority_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     setOwner(
-      owner_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      owner_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     verify(
-      _owner: string,
-      _nonce: BigNumberish,
-      _chainId: BigNumberish,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
+      _owner: PromiseOrValue<string>,
+      _nonce: PromiseOrValue<BigNumberish>,
+      _chainId: PromiseOrValue<BigNumberish>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -681,34 +713,34 @@ export interface EvaluatedExpenditure extends BaseContract {
      * @param _colony The colony in which the extension holds permissions
      */
     install(
-      _colony: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _colony: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
      * Called when upgrading the extension
      */
     finishUpgrade(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
      * Called when deprecating (or undeprecating) the extension
      */
     deprecate(
-      _deprecated: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
      * Called when uninstalling the extension
      */
     uninstall(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     getMetatransactionNonce(
-      _userAddress: string,
+      _userAddress: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -721,12 +753,12 @@ export interface EvaluatedExpenditure extends BaseContract {
      * @param _slots Array of slots to set payout modifiers
      */
     setExpenditurePayoutModifiers(
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _id: BigNumberish,
-      _slots: BigNumberish[],
-      _payoutModifiers: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _id: PromiseOrValue<BigNumberish>,
+      _slots: PromiseOrValue<BigNumberish>[],
+      _payoutModifiers: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
   };
 
@@ -742,16 +774,16 @@ export interface EvaluatedExpenditure extends BaseContract {
      * @param _user Address of user trying to do meta transaction
      */
     executeMetaTransaction(
-      _user: string,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      _user: PromiseOrValue<string>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     getCapabilityRoles(
-      _sig: BytesLike,
+      _sig: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -764,23 +796,23 @@ export interface EvaluatedExpenditure extends BaseContract {
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     setAuthority(
-      authority_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      authority_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     setOwner(
-      owner_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      owner_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     verify(
-      _owner: string,
-      _nonce: BigNumberish,
-      _chainId: BigNumberish,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
+      _owner: PromiseOrValue<string>,
+      _nonce: PromiseOrValue<BigNumberish>,
+      _chainId: PromiseOrValue<BigNumberish>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -799,34 +831,34 @@ export interface EvaluatedExpenditure extends BaseContract {
      * @param _colony The colony in which the extension holds permissions
      */
     install(
-      _colony: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _colony: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Called when upgrading the extension
      */
     finishUpgrade(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Called when deprecating (or undeprecating) the extension
      */
     deprecate(
-      _deprecated: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Called when uninstalling the extension
      */
     uninstall(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     getMetatransactionNonce(
-      _userAddress: string,
+      _userAddress: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -839,12 +871,12 @@ export interface EvaluatedExpenditure extends BaseContract {
      * @param _slots Array of slots to set payout modifiers
      */
     setExpenditurePayoutModifiers(
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _id: BigNumberish,
-      _slots: BigNumberish[],
-      _payoutModifiers: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _id: PromiseOrValue<BigNumberish>,
+      _slots: PromiseOrValue<BigNumberish>[],
+      _payoutModifiers: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
   };
 }

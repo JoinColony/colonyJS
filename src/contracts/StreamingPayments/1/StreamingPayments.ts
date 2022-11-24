@@ -25,15 +25,16 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
+  PromiseOrValue,
 } from "./common";
 
 export declare namespace StreamingPayments {
   export type StreamingPaymentStruct = {
-    recipient: string;
-    domainId: BigNumberish;
-    startTime: BigNumberish;
-    endTime: BigNumberish;
-    interval: BigNumberish;
+    recipient: PromiseOrValue<string>;
+    domainId: PromiseOrValue<BigNumberish>;
+    startTime: PromiseOrValue<BigNumberish>;
+    endTime: PromiseOrValue<BigNumberish>;
+    interval: PromiseOrValue<BigNumberish>;
   };
 
   export type StreamingPaymentStructOutput = [
@@ -51,8 +52,8 @@ export declare namespace StreamingPayments {
   };
 
   export type PaymentTokenStruct = {
-    amount: BigNumberish;
-    pseudoAmountClaimedFromStart: BigNumberish;
+    amount: PromiseOrValue<BigNumberish>;
+    pseudoAmountClaimedFromStart: PromiseOrValue<BigNumberish>;
   };
 
   export type PaymentTokenStructOutput = [BigNumber, BigNumber] & {
@@ -130,11 +131,17 @@ export interface StreamingPaymentsInterface extends utils.Interface {
   encodeFunctionData(functionFragment: "authority", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "executeMetaTransaction",
-    values: [string, BytesLike, BytesLike, BytesLike, BigNumberish]
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "getCapabilityRoles",
-    values: [BytesLike]
+    values: [PromiseOrValue<BytesLike>]
   ): string;
   encodeFunctionData(
     functionFragment: "getChainId",
@@ -147,24 +154,27 @@ export interface StreamingPaymentsInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "getMetatransactionNonce",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "setAuthority",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
-  encodeFunctionData(functionFragment: "setOwner", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "setOwner",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(
     functionFragment: "verify",
     values: [
-      string,
-      BigNumberish,
-      BigNumberish,
-      BytesLike,
-      BytesLike,
-      BytesLike,
-      BigNumberish
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>
     ]
   ): string;
   encodeFunctionData(
@@ -172,81 +182,107 @@ export interface StreamingPaymentsInterface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "version", values?: undefined): string;
-  encodeFunctionData(functionFragment: "install", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "install",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(
     functionFragment: "finishUpgrade",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "deprecate", values: [boolean]): string;
+  encodeFunctionData(
+    functionFragment: "deprecate",
+    values: [PromiseOrValue<boolean>]
+  ): string;
   encodeFunctionData(functionFragment: "uninstall", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "create",
     values: [
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      string,
-      string[],
-      BigNumberish[]
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>,
+      PromiseOrValue<string>[],
+      PromiseOrValue<BigNumberish>[]
     ]
   ): string;
   encodeFunctionData(
     functionFragment: "claim",
     values: [
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      string[]
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>[]
     ]
   ): string;
   encodeFunctionData(
     functionFragment: "addToken",
-    values: [BigNumberish, BigNumberish, BigNumberish, string, BigNumberish]
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "setTokenAmount",
     values: [
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      string,
-      BigNumberish
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>
     ]
   ): string;
   encodeFunctionData(
     functionFragment: "setStartTime",
-    values: [BigNumberish, BigNumberish, BigNumberish, BigNumberish]
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "setEndTime",
-    values: [BigNumberish, BigNumberish, BigNumberish, BigNumberish]
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "cancel",
-    values: [BigNumberish, BigNumberish, BigNumberish]
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "cancelAndWaive",
-    values: [BigNumberish, string[]]
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>[]]
   ): string;
   encodeFunctionData(
     functionFragment: "getStreamingPayment",
-    values: [BigNumberish]
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "getPaymentToken",
-    values: [BigNumberish, string]
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "getNumStreamingPayments",
@@ -254,7 +290,7 @@ export interface StreamingPaymentsInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "getAmountEntitledFromStart",
-    values: [BigNumberish, string]
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
   ): string;
 
   decodeFunctionResult(functionFragment: "authority", data: BytesLike): Result;
@@ -462,16 +498,16 @@ export interface StreamingPayments extends BaseContract {
      * @param _user Address of user trying to do meta transaction
      */
     executeMetaTransaction(
-      _user: string,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      _user: PromiseOrValue<string>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     getCapabilityRoles(
-      _sig: BytesLike,
+      _sig: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<[string]>;
 
@@ -482,30 +518,30 @@ export interface StreamingPayments extends BaseContract {
     getDeprecated(overrides?: CallOverrides): Promise<[boolean]>;
 
     getMetatransactionNonce(
-      _user: string,
+      _user: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { nonce: BigNumber }>;
 
     owner(overrides?: CallOverrides): Promise<[string]>;
 
     setAuthority(
-      authority_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      authority_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     setOwner(
-      owner_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      owner_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     verify(
-      _owner: string,
-      _nonce: BigNumberish,
-      _chainId: BigNumberish,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
+      _owner: PromiseOrValue<string>,
+      _nonce: PromiseOrValue<BigNumberish>,
+      _chainId: PromiseOrValue<BigNumberish>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
@@ -528,15 +564,15 @@ export interface StreamingPayments extends BaseContract {
      * @param _colony The colony in which the extension holds permissions
      */
     install(
-      _colony: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _colony: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Called when upgrading the extension
      */
     finishUpgrade(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -544,15 +580,15 @@ export interface StreamingPayments extends BaseContract {
      * @param _deprecated Indicates whether the extension should be deprecated or undeprecated
      */
     deprecate(
-      _deprecated: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Called when uninstalling the extension
      */
     uninstall(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -570,18 +606,18 @@ export interface StreamingPayments extends BaseContract {
      * @param _tokens The tokens to be paid out
      */
     create(
-      _fundingPermissionDomainId: BigNumberish,
-      _fundingChildSkillIndex: BigNumberish,
-      _adminPermissionDomainId: BigNumberish,
-      _adminChildSkillIndex: BigNumberish,
-      _domainId: BigNumberish,
-      _startTime: BigNumberish,
-      _endTime: BigNumberish,
-      _interval: BigNumberish,
-      _recipient: string,
-      _tokens: string[],
-      _amounts: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _fundingPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _fundingChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _adminPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _adminChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _domainId: PromiseOrValue<BigNumberish>,
+      _startTime: PromiseOrValue<BigNumberish>,
+      _endTime: PromiseOrValue<BigNumberish>,
+      _interval: PromiseOrValue<BigNumberish>,
+      _recipient: PromiseOrValue<string>,
+      _tokens: PromiseOrValue<string>[],
+      _amounts: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -594,13 +630,13 @@ export interface StreamingPayments extends BaseContract {
      * @param _tokens The tokens to be paid out
      */
     claim(
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _fromChildSkillIndex: BigNumberish,
-      _toChildSkillIndex: BigNumberish,
-      _id: BigNumberish,
-      _tokens: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _fromChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _toChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _id: PromiseOrValue<BigNumberish>,
+      _tokens: PromiseOrValue<string>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -612,12 +648,12 @@ export interface StreamingPayments extends BaseContract {
      * @param _token The address of the token
      */
     addToken(
-      _fundingPermissionDomainId: BigNumberish,
-      _fundingChildSkillIndex: BigNumberish,
-      _id: BigNumberish,
-      _token: string,
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _fundingPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _fundingChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _id: PromiseOrValue<BigNumberish>,
+      _token: PromiseOrValue<string>,
+      _amount: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -633,16 +669,16 @@ export interface StreamingPayments extends BaseContract {
      * @param _token The address of the token
      */
     setTokenAmount(
-      _fundingPermissionDomainId: BigNumberish,
-      _fundingChildSkillIndex: BigNumberish,
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _fromChildSkillIndex: BigNumberish,
-      _toChildSkillIndex: BigNumberish,
-      _id: BigNumberish,
-      _token: string,
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _fundingPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _fundingChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _fromChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _toChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _id: PromiseOrValue<BigNumberish>,
+      _token: PromiseOrValue<string>,
+      _amount: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -653,11 +689,11 @@ export interface StreamingPayments extends BaseContract {
      * @param _startTime The new startTime to set
      */
     setStartTime(
-      _adminPermissionDomainId: BigNumberish,
-      _adminChildSkillIndex: BigNumberish,
-      _id: BigNumberish,
-      _startTime: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _adminPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _adminChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _id: PromiseOrValue<BigNumberish>,
+      _startTime: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -668,11 +704,11 @@ export interface StreamingPayments extends BaseContract {
      * @param _id The id of the streaming payment
      */
     setEndTime(
-      _adminPermissionDomainId: BigNumberish,
-      _adminChildSkillIndex: BigNumberish,
-      _id: BigNumberish,
-      _endTime: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _adminPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _adminChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _id: PromiseOrValue<BigNumberish>,
+      _endTime: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -682,10 +718,10 @@ export interface StreamingPayments extends BaseContract {
      * @param _id The id of the streaming payment
      */
     cancel(
-      _adminPermissionDomainId: BigNumberish,
-      _adminChildSkillIndex: BigNumberish,
-      _id: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _adminPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _adminChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _id: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -694,9 +730,9 @@ export interface StreamingPayments extends BaseContract {
      * @param _tokens The tokens to waive any claims to.
      */
     cancelAndWaive(
-      _id: BigNumberish,
-      _tokens: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _id: PromiseOrValue<BigNumberish>,
+      _tokens: PromiseOrValue<string>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -704,7 +740,7 @@ export interface StreamingPayments extends BaseContract {
      * @param _id The id of the streaming payment
      */
     getStreamingPayment(
-      _id: BigNumberish,
+      _id: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<
       [StreamingPayments.StreamingPaymentStructOutput] & {
@@ -718,8 +754,8 @@ export interface StreamingPayments extends BaseContract {
      * @param _token The address of the token
      */
     getPaymentToken(
-      _id: BigNumberish,
-      _token: string,
+      _id: PromiseOrValue<BigNumberish>,
+      _token: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<
       [StreamingPayments.PaymentTokenStructOutput] & {
@@ -740,8 +776,8 @@ export interface StreamingPayments extends BaseContract {
      * @param _token The address of the token
      */
     getAmountEntitledFromStart(
-      _id: BigNumberish,
-      _token: string,
+      _id: PromiseOrValue<BigNumberish>,
+      _token: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { amount: BigNumber }>;
   };
@@ -757,16 +793,16 @@ export interface StreamingPayments extends BaseContract {
    * @param _user Address of user trying to do meta transaction
    */
   executeMetaTransaction(
-    _user: string,
-    _payload: BytesLike,
-    _sigR: BytesLike,
-    _sigS: BytesLike,
-    _sigV: BigNumberish,
-    overrides?: PayableOverrides & { from?: string | Promise<string> }
+    _user: PromiseOrValue<string>,
+    _payload: PromiseOrValue<BytesLike>,
+    _sigR: PromiseOrValue<BytesLike>,
+    _sigS: PromiseOrValue<BytesLike>,
+    _sigV: PromiseOrValue<BigNumberish>,
+    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   getCapabilityRoles(
-    _sig: BytesLike,
+    _sig: PromiseOrValue<BytesLike>,
     overrides?: CallOverrides
   ): Promise<string>;
 
@@ -777,30 +813,30 @@ export interface StreamingPayments extends BaseContract {
   getDeprecated(overrides?: CallOverrides): Promise<boolean>;
 
   getMetatransactionNonce(
-    _user: string,
+    _user: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   owner(overrides?: CallOverrides): Promise<string>;
 
   setAuthority(
-    authority_: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    authority_: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   setOwner(
-    owner_: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    owner_: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   verify(
-    _owner: string,
-    _nonce: BigNumberish,
-    _chainId: BigNumberish,
-    _payload: BytesLike,
-    _sigR: BytesLike,
-    _sigS: BytesLike,
-    _sigV: BigNumberish,
+    _owner: PromiseOrValue<string>,
+    _nonce: PromiseOrValue<BigNumberish>,
+    _chainId: PromiseOrValue<BigNumberish>,
+    _payload: PromiseOrValue<BytesLike>,
+    _sigR: PromiseOrValue<BytesLike>,
+    _sigS: PromiseOrValue<BytesLike>,
+    _sigV: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<boolean>;
 
@@ -819,15 +855,15 @@ export interface StreamingPayments extends BaseContract {
    * @param _colony The colony in which the extension holds permissions
    */
   install(
-    _colony: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _colony: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Called when upgrading the extension
    */
   finishUpgrade(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -835,15 +871,15 @@ export interface StreamingPayments extends BaseContract {
    * @param _deprecated Indicates whether the extension should be deprecated or undeprecated
    */
   deprecate(
-    _deprecated: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _deprecated: PromiseOrValue<boolean>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Called when uninstalling the extension
    */
   uninstall(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -861,18 +897,18 @@ export interface StreamingPayments extends BaseContract {
    * @param _tokens The tokens to be paid out
    */
   create(
-    _fundingPermissionDomainId: BigNumberish,
-    _fundingChildSkillIndex: BigNumberish,
-    _adminPermissionDomainId: BigNumberish,
-    _adminChildSkillIndex: BigNumberish,
-    _domainId: BigNumberish,
-    _startTime: BigNumberish,
-    _endTime: BigNumberish,
-    _interval: BigNumberish,
-    _recipient: string,
-    _tokens: string[],
-    _amounts: BigNumberish[],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _fundingPermissionDomainId: PromiseOrValue<BigNumberish>,
+    _fundingChildSkillIndex: PromiseOrValue<BigNumberish>,
+    _adminPermissionDomainId: PromiseOrValue<BigNumberish>,
+    _adminChildSkillIndex: PromiseOrValue<BigNumberish>,
+    _domainId: PromiseOrValue<BigNumberish>,
+    _startTime: PromiseOrValue<BigNumberish>,
+    _endTime: PromiseOrValue<BigNumberish>,
+    _interval: PromiseOrValue<BigNumberish>,
+    _recipient: PromiseOrValue<string>,
+    _tokens: PromiseOrValue<string>[],
+    _amounts: PromiseOrValue<BigNumberish>[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -885,13 +921,13 @@ export interface StreamingPayments extends BaseContract {
    * @param _tokens The tokens to be paid out
    */
   claim(
-    _permissionDomainId: BigNumberish,
-    _childSkillIndex: BigNumberish,
-    _fromChildSkillIndex: BigNumberish,
-    _toChildSkillIndex: BigNumberish,
-    _id: BigNumberish,
-    _tokens: string[],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _permissionDomainId: PromiseOrValue<BigNumberish>,
+    _childSkillIndex: PromiseOrValue<BigNumberish>,
+    _fromChildSkillIndex: PromiseOrValue<BigNumberish>,
+    _toChildSkillIndex: PromiseOrValue<BigNumberish>,
+    _id: PromiseOrValue<BigNumberish>,
+    _tokens: PromiseOrValue<string>[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -903,12 +939,12 @@ export interface StreamingPayments extends BaseContract {
    * @param _token The address of the token
    */
   addToken(
-    _fundingPermissionDomainId: BigNumberish,
-    _fundingChildSkillIndex: BigNumberish,
-    _id: BigNumberish,
-    _token: string,
-    _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _fundingPermissionDomainId: PromiseOrValue<BigNumberish>,
+    _fundingChildSkillIndex: PromiseOrValue<BigNumberish>,
+    _id: PromiseOrValue<BigNumberish>,
+    _token: PromiseOrValue<string>,
+    _amount: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -924,16 +960,16 @@ export interface StreamingPayments extends BaseContract {
    * @param _token The address of the token
    */
   setTokenAmount(
-    _fundingPermissionDomainId: BigNumberish,
-    _fundingChildSkillIndex: BigNumberish,
-    _permissionDomainId: BigNumberish,
-    _childSkillIndex: BigNumberish,
-    _fromChildSkillIndex: BigNumberish,
-    _toChildSkillIndex: BigNumberish,
-    _id: BigNumberish,
-    _token: string,
-    _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _fundingPermissionDomainId: PromiseOrValue<BigNumberish>,
+    _fundingChildSkillIndex: PromiseOrValue<BigNumberish>,
+    _permissionDomainId: PromiseOrValue<BigNumberish>,
+    _childSkillIndex: PromiseOrValue<BigNumberish>,
+    _fromChildSkillIndex: PromiseOrValue<BigNumberish>,
+    _toChildSkillIndex: PromiseOrValue<BigNumberish>,
+    _id: PromiseOrValue<BigNumberish>,
+    _token: PromiseOrValue<string>,
+    _amount: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -944,11 +980,11 @@ export interface StreamingPayments extends BaseContract {
    * @param _startTime The new startTime to set
    */
   setStartTime(
-    _adminPermissionDomainId: BigNumberish,
-    _adminChildSkillIndex: BigNumberish,
-    _id: BigNumberish,
-    _startTime: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _adminPermissionDomainId: PromiseOrValue<BigNumberish>,
+    _adminChildSkillIndex: PromiseOrValue<BigNumberish>,
+    _id: PromiseOrValue<BigNumberish>,
+    _startTime: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -959,11 +995,11 @@ export interface StreamingPayments extends BaseContract {
    * @param _id The id of the streaming payment
    */
   setEndTime(
-    _adminPermissionDomainId: BigNumberish,
-    _adminChildSkillIndex: BigNumberish,
-    _id: BigNumberish,
-    _endTime: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _adminPermissionDomainId: PromiseOrValue<BigNumberish>,
+    _adminChildSkillIndex: PromiseOrValue<BigNumberish>,
+    _id: PromiseOrValue<BigNumberish>,
+    _endTime: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -973,10 +1009,10 @@ export interface StreamingPayments extends BaseContract {
    * @param _id The id of the streaming payment
    */
   cancel(
-    _adminPermissionDomainId: BigNumberish,
-    _adminChildSkillIndex: BigNumberish,
-    _id: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _adminPermissionDomainId: PromiseOrValue<BigNumberish>,
+    _adminChildSkillIndex: PromiseOrValue<BigNumberish>,
+    _id: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -985,9 +1021,9 @@ export interface StreamingPayments extends BaseContract {
    * @param _tokens The tokens to waive any claims to.
    */
   cancelAndWaive(
-    _id: BigNumberish,
-    _tokens: string[],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _id: PromiseOrValue<BigNumberish>,
+    _tokens: PromiseOrValue<string>[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -995,7 +1031,7 @@ export interface StreamingPayments extends BaseContract {
    * @param _id The id of the streaming payment
    */
   getStreamingPayment(
-    _id: BigNumberish,
+    _id: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<StreamingPayments.StreamingPaymentStructOutput>;
 
@@ -1005,8 +1041,8 @@ export interface StreamingPayments extends BaseContract {
    * @param _token The address of the token
    */
   getPaymentToken(
-    _id: BigNumberish,
-    _token: string,
+    _id: PromiseOrValue<BigNumberish>,
+    _token: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<StreamingPayments.PaymentTokenStructOutput>;
 
@@ -1021,8 +1057,8 @@ export interface StreamingPayments extends BaseContract {
    * @param _token The address of the token
    */
   getAmountEntitledFromStart(
-    _id: BigNumberish,
-    _token: string,
+    _id: PromiseOrValue<BigNumberish>,
+    _token: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
@@ -1038,16 +1074,16 @@ export interface StreamingPayments extends BaseContract {
      * @param _user Address of user trying to do meta transaction
      */
     executeMetaTransaction(
-      _user: string,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
+      _user: PromiseOrValue<string>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<string>;
 
     getCapabilityRoles(
-      _sig: BytesLike,
+      _sig: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -1058,24 +1094,30 @@ export interface StreamingPayments extends BaseContract {
     getDeprecated(overrides?: CallOverrides): Promise<boolean>;
 
     getMetatransactionNonce(
-      _user: string,
+      _user: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<string>;
 
-    setAuthority(authority_: string, overrides?: CallOverrides): Promise<void>;
+    setAuthority(
+      authority_: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
-    setOwner(owner_: string, overrides?: CallOverrides): Promise<void>;
+    setOwner(
+      owner_: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     verify(
-      _owner: string,
-      _nonce: BigNumberish,
-      _chainId: BigNumberish,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
+      _owner: PromiseOrValue<string>,
+      _nonce: PromiseOrValue<BigNumberish>,
+      _chainId: PromiseOrValue<BigNumberish>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
@@ -1093,7 +1135,10 @@ export interface StreamingPayments extends BaseContract {
      * Configures the extension
      * @param _colony The colony in which the extension holds permissions
      */
-    install(_colony: string, overrides?: CallOverrides): Promise<void>;
+    install(
+      _colony: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     /**
      * Called when upgrading the extension
@@ -1104,7 +1149,10 @@ export interface StreamingPayments extends BaseContract {
      * Called when deprecating (or undeprecating) the extension
      * @param _deprecated Indicates whether the extension should be deprecated or undeprecated
      */
-    deprecate(_deprecated: boolean, overrides?: CallOverrides): Promise<void>;
+    deprecate(
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     /**
      * Called when uninstalling the extension
@@ -1126,17 +1174,17 @@ export interface StreamingPayments extends BaseContract {
      * @param _tokens The tokens to be paid out
      */
     create(
-      _fundingPermissionDomainId: BigNumberish,
-      _fundingChildSkillIndex: BigNumberish,
-      _adminPermissionDomainId: BigNumberish,
-      _adminChildSkillIndex: BigNumberish,
-      _domainId: BigNumberish,
-      _startTime: BigNumberish,
-      _endTime: BigNumberish,
-      _interval: BigNumberish,
-      _recipient: string,
-      _tokens: string[],
-      _amounts: BigNumberish[],
+      _fundingPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _fundingChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _adminPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _adminChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _domainId: PromiseOrValue<BigNumberish>,
+      _startTime: PromiseOrValue<BigNumberish>,
+      _endTime: PromiseOrValue<BigNumberish>,
+      _interval: PromiseOrValue<BigNumberish>,
+      _recipient: PromiseOrValue<string>,
+      _tokens: PromiseOrValue<string>[],
+      _amounts: PromiseOrValue<BigNumberish>[],
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1150,12 +1198,12 @@ export interface StreamingPayments extends BaseContract {
      * @param _tokens The tokens to be paid out
      */
     claim(
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _fromChildSkillIndex: BigNumberish,
-      _toChildSkillIndex: BigNumberish,
-      _id: BigNumberish,
-      _tokens: string[],
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _fromChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _toChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _id: PromiseOrValue<BigNumberish>,
+      _tokens: PromiseOrValue<string>[],
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1168,11 +1216,11 @@ export interface StreamingPayments extends BaseContract {
      * @param _token The address of the token
      */
     addToken(
-      _fundingPermissionDomainId: BigNumberish,
-      _fundingChildSkillIndex: BigNumberish,
-      _id: BigNumberish,
-      _token: string,
-      _amount: BigNumberish,
+      _fundingPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _fundingChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _id: PromiseOrValue<BigNumberish>,
+      _token: PromiseOrValue<string>,
+      _amount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1189,15 +1237,15 @@ export interface StreamingPayments extends BaseContract {
      * @param _token The address of the token
      */
     setTokenAmount(
-      _fundingPermissionDomainId: BigNumberish,
-      _fundingChildSkillIndex: BigNumberish,
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _fromChildSkillIndex: BigNumberish,
-      _toChildSkillIndex: BigNumberish,
-      _id: BigNumberish,
-      _token: string,
-      _amount: BigNumberish,
+      _fundingPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _fundingChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _fromChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _toChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _id: PromiseOrValue<BigNumberish>,
+      _token: PromiseOrValue<string>,
+      _amount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1209,10 +1257,10 @@ export interface StreamingPayments extends BaseContract {
      * @param _startTime The new startTime to set
      */
     setStartTime(
-      _adminPermissionDomainId: BigNumberish,
-      _adminChildSkillIndex: BigNumberish,
-      _id: BigNumberish,
-      _startTime: BigNumberish,
+      _adminPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _adminChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _id: PromiseOrValue<BigNumberish>,
+      _startTime: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1224,10 +1272,10 @@ export interface StreamingPayments extends BaseContract {
      * @param _id The id of the streaming payment
      */
     setEndTime(
-      _adminPermissionDomainId: BigNumberish,
-      _adminChildSkillIndex: BigNumberish,
-      _id: BigNumberish,
-      _endTime: BigNumberish,
+      _adminPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _adminChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _id: PromiseOrValue<BigNumberish>,
+      _endTime: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1238,9 +1286,9 @@ export interface StreamingPayments extends BaseContract {
      * @param _id The id of the streaming payment
      */
     cancel(
-      _adminPermissionDomainId: BigNumberish,
-      _adminChildSkillIndex: BigNumberish,
-      _id: BigNumberish,
+      _adminPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _adminChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _id: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1250,8 +1298,8 @@ export interface StreamingPayments extends BaseContract {
      * @param _tokens The tokens to waive any claims to.
      */
     cancelAndWaive(
-      _id: BigNumberish,
-      _tokens: string[],
+      _id: PromiseOrValue<BigNumberish>,
+      _tokens: PromiseOrValue<string>[],
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1260,7 +1308,7 @@ export interface StreamingPayments extends BaseContract {
      * @param _id The id of the streaming payment
      */
     getStreamingPayment(
-      _id: BigNumberish,
+      _id: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<StreamingPayments.StreamingPaymentStructOutput>;
 
@@ -1270,8 +1318,8 @@ export interface StreamingPayments extends BaseContract {
      * @param _token The address of the token
      */
     getPaymentToken(
-      _id: BigNumberish,
-      _token: string,
+      _id: PromiseOrValue<BigNumberish>,
+      _token: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<StreamingPayments.PaymentTokenStructOutput>;
 
@@ -1286,8 +1334,8 @@ export interface StreamingPayments extends BaseContract {
      * @param _token The address of the token
      */
     getAmountEntitledFromStart(
-      _id: BigNumberish,
-      _token: string,
+      _id: PromiseOrValue<BigNumberish>,
+      _token: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
   };
@@ -1297,12 +1345,16 @@ export interface StreamingPayments extends BaseContract {
     ExtensionInitialised(): ExtensionInitialisedEventFilter;
 
     "LogSetAuthority(address)"(
-      authority?: string | null
+      authority?: PromiseOrValue<string> | null
     ): LogSetAuthorityEventFilter;
-    LogSetAuthority(authority?: string | null): LogSetAuthorityEventFilter;
+    LogSetAuthority(
+      authority?: PromiseOrValue<string> | null
+    ): LogSetAuthorityEventFilter;
 
-    "LogSetOwner(address)"(owner?: string | null): LogSetOwnerEventFilter;
-    LogSetOwner(owner?: string | null): LogSetOwnerEventFilter;
+    "LogSetOwner(address)"(
+      owner?: PromiseOrValue<string> | null
+    ): LogSetOwnerEventFilter;
+    LogSetOwner(owner?: PromiseOrValue<string> | null): LogSetOwnerEventFilter;
 
     "MetaTransactionExecuted(address,address,bytes)"(
       user?: null,
@@ -1317,26 +1369,26 @@ export interface StreamingPayments extends BaseContract {
 
     "PaymentTokenUpdated(address,uint256,address,uint256)"(
       agent?: null,
-      streamingPaymentId?: BigNumberish | null,
+      streamingPaymentId?: PromiseOrValue<BigNumberish> | null,
       token?: null,
       amount?: null
     ): PaymentTokenUpdatedEventFilter;
     PaymentTokenUpdated(
       agent?: null,
-      streamingPaymentId?: BigNumberish | null,
+      streamingPaymentId?: PromiseOrValue<BigNumberish> | null,
       token?: null,
       amount?: null
     ): PaymentTokenUpdatedEventFilter;
 
     "StreamingPaymentClaimed(address,uint256,address,uint256)"(
       agent?: null,
-      streamingPaymentId?: BigNumberish | null,
+      streamingPaymentId?: PromiseOrValue<BigNumberish> | null,
       token?: null,
       amount?: null
     ): StreamingPaymentClaimedEventFilter;
     StreamingPaymentClaimed(
       agent?: null,
-      streamingPaymentId?: BigNumberish | null,
+      streamingPaymentId?: PromiseOrValue<BigNumberish> | null,
       token?: null,
       amount?: null
     ): StreamingPaymentClaimedEventFilter;
@@ -1363,16 +1415,16 @@ export interface StreamingPayments extends BaseContract {
      * @param _user Address of user trying to do meta transaction
      */
     executeMetaTransaction(
-      _user: string,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      _user: PromiseOrValue<string>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     getCapabilityRoles(
-      _sig: BytesLike,
+      _sig: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1383,30 +1435,30 @@ export interface StreamingPayments extends BaseContract {
     getDeprecated(overrides?: CallOverrides): Promise<BigNumber>;
 
     getMetatransactionNonce(
-      _user: string,
+      _user: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
     setAuthority(
-      authority_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      authority_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     setOwner(
-      owner_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      owner_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     verify(
-      _owner: string,
-      _nonce: BigNumberish,
-      _chainId: BigNumberish,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
+      _owner: PromiseOrValue<string>,
+      _nonce: PromiseOrValue<BigNumberish>,
+      _chainId: PromiseOrValue<BigNumberish>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1425,15 +1477,15 @@ export interface StreamingPayments extends BaseContract {
      * @param _colony The colony in which the extension holds permissions
      */
     install(
-      _colony: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _colony: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
      * Called when upgrading the extension
      */
     finishUpgrade(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -1441,15 +1493,15 @@ export interface StreamingPayments extends BaseContract {
      * @param _deprecated Indicates whether the extension should be deprecated or undeprecated
      */
     deprecate(
-      _deprecated: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
      * Called when uninstalling the extension
      */
     uninstall(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -1467,18 +1519,18 @@ export interface StreamingPayments extends BaseContract {
      * @param _tokens The tokens to be paid out
      */
     create(
-      _fundingPermissionDomainId: BigNumberish,
-      _fundingChildSkillIndex: BigNumberish,
-      _adminPermissionDomainId: BigNumberish,
-      _adminChildSkillIndex: BigNumberish,
-      _domainId: BigNumberish,
-      _startTime: BigNumberish,
-      _endTime: BigNumberish,
-      _interval: BigNumberish,
-      _recipient: string,
-      _tokens: string[],
-      _amounts: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _fundingPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _fundingChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _adminPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _adminChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _domainId: PromiseOrValue<BigNumberish>,
+      _startTime: PromiseOrValue<BigNumberish>,
+      _endTime: PromiseOrValue<BigNumberish>,
+      _interval: PromiseOrValue<BigNumberish>,
+      _recipient: PromiseOrValue<string>,
+      _tokens: PromiseOrValue<string>[],
+      _amounts: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -1491,13 +1543,13 @@ export interface StreamingPayments extends BaseContract {
      * @param _tokens The tokens to be paid out
      */
     claim(
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _fromChildSkillIndex: BigNumberish,
-      _toChildSkillIndex: BigNumberish,
-      _id: BigNumberish,
-      _tokens: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _fromChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _toChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _id: PromiseOrValue<BigNumberish>,
+      _tokens: PromiseOrValue<string>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -1509,12 +1561,12 @@ export interface StreamingPayments extends BaseContract {
      * @param _token The address of the token
      */
     addToken(
-      _fundingPermissionDomainId: BigNumberish,
-      _fundingChildSkillIndex: BigNumberish,
-      _id: BigNumberish,
-      _token: string,
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _fundingPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _fundingChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _id: PromiseOrValue<BigNumberish>,
+      _token: PromiseOrValue<string>,
+      _amount: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -1530,16 +1582,16 @@ export interface StreamingPayments extends BaseContract {
      * @param _token The address of the token
      */
     setTokenAmount(
-      _fundingPermissionDomainId: BigNumberish,
-      _fundingChildSkillIndex: BigNumberish,
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _fromChildSkillIndex: BigNumberish,
-      _toChildSkillIndex: BigNumberish,
-      _id: BigNumberish,
-      _token: string,
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _fundingPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _fundingChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _fromChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _toChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _id: PromiseOrValue<BigNumberish>,
+      _token: PromiseOrValue<string>,
+      _amount: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -1550,11 +1602,11 @@ export interface StreamingPayments extends BaseContract {
      * @param _startTime The new startTime to set
      */
     setStartTime(
-      _adminPermissionDomainId: BigNumberish,
-      _adminChildSkillIndex: BigNumberish,
-      _id: BigNumberish,
-      _startTime: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _adminPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _adminChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _id: PromiseOrValue<BigNumberish>,
+      _startTime: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -1565,11 +1617,11 @@ export interface StreamingPayments extends BaseContract {
      * @param _id The id of the streaming payment
      */
     setEndTime(
-      _adminPermissionDomainId: BigNumberish,
-      _adminChildSkillIndex: BigNumberish,
-      _id: BigNumberish,
-      _endTime: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _adminPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _adminChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _id: PromiseOrValue<BigNumberish>,
+      _endTime: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -1579,10 +1631,10 @@ export interface StreamingPayments extends BaseContract {
      * @param _id The id of the streaming payment
      */
     cancel(
-      _adminPermissionDomainId: BigNumberish,
-      _adminChildSkillIndex: BigNumberish,
-      _id: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _adminPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _adminChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _id: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -1591,9 +1643,9 @@ export interface StreamingPayments extends BaseContract {
      * @param _tokens The tokens to waive any claims to.
      */
     cancelAndWaive(
-      _id: BigNumberish,
-      _tokens: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _id: PromiseOrValue<BigNumberish>,
+      _tokens: PromiseOrValue<string>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -1601,7 +1653,7 @@ export interface StreamingPayments extends BaseContract {
      * @param _id The id of the streaming payment
      */
     getStreamingPayment(
-      _id: BigNumberish,
+      _id: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1611,8 +1663,8 @@ export interface StreamingPayments extends BaseContract {
      * @param _token The address of the token
      */
     getPaymentToken(
-      _id: BigNumberish,
-      _token: string,
+      _id: PromiseOrValue<BigNumberish>,
+      _token: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1627,8 +1679,8 @@ export interface StreamingPayments extends BaseContract {
      * @param _token The address of the token
      */
     getAmountEntitledFromStart(
-      _id: BigNumberish,
-      _token: string,
+      _id: PromiseOrValue<BigNumberish>,
+      _token: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
   };
@@ -1645,16 +1697,16 @@ export interface StreamingPayments extends BaseContract {
      * @param _user Address of user trying to do meta transaction
      */
     executeMetaTransaction(
-      _user: string,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      _user: PromiseOrValue<string>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     getCapabilityRoles(
-      _sig: BytesLike,
+      _sig: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1665,30 +1717,30 @@ export interface StreamingPayments extends BaseContract {
     getDeprecated(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getMetatransactionNonce(
-      _user: string,
+      _user: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     setAuthority(
-      authority_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      authority_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     setOwner(
-      owner_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      owner_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     verify(
-      _owner: string,
-      _nonce: BigNumberish,
-      _chainId: BigNumberish,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
+      _owner: PromiseOrValue<string>,
+      _nonce: PromiseOrValue<BigNumberish>,
+      _chainId: PromiseOrValue<BigNumberish>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1707,15 +1759,15 @@ export interface StreamingPayments extends BaseContract {
      * @param _colony The colony in which the extension holds permissions
      */
     install(
-      _colony: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _colony: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Called when upgrading the extension
      */
     finishUpgrade(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -1723,15 +1775,15 @@ export interface StreamingPayments extends BaseContract {
      * @param _deprecated Indicates whether the extension should be deprecated or undeprecated
      */
     deprecate(
-      _deprecated: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Called when uninstalling the extension
      */
     uninstall(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -1749,18 +1801,18 @@ export interface StreamingPayments extends BaseContract {
      * @param _tokens The tokens to be paid out
      */
     create(
-      _fundingPermissionDomainId: BigNumberish,
-      _fundingChildSkillIndex: BigNumberish,
-      _adminPermissionDomainId: BigNumberish,
-      _adminChildSkillIndex: BigNumberish,
-      _domainId: BigNumberish,
-      _startTime: BigNumberish,
-      _endTime: BigNumberish,
-      _interval: BigNumberish,
-      _recipient: string,
-      _tokens: string[],
-      _amounts: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _fundingPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _fundingChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _adminPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _adminChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _domainId: PromiseOrValue<BigNumberish>,
+      _startTime: PromiseOrValue<BigNumberish>,
+      _endTime: PromiseOrValue<BigNumberish>,
+      _interval: PromiseOrValue<BigNumberish>,
+      _recipient: PromiseOrValue<string>,
+      _tokens: PromiseOrValue<string>[],
+      _amounts: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -1773,13 +1825,13 @@ export interface StreamingPayments extends BaseContract {
      * @param _tokens The tokens to be paid out
      */
     claim(
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _fromChildSkillIndex: BigNumberish,
-      _toChildSkillIndex: BigNumberish,
-      _id: BigNumberish,
-      _tokens: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _fromChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _toChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _id: PromiseOrValue<BigNumberish>,
+      _tokens: PromiseOrValue<string>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -1791,12 +1843,12 @@ export interface StreamingPayments extends BaseContract {
      * @param _token The address of the token
      */
     addToken(
-      _fundingPermissionDomainId: BigNumberish,
-      _fundingChildSkillIndex: BigNumberish,
-      _id: BigNumberish,
-      _token: string,
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _fundingPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _fundingChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _id: PromiseOrValue<BigNumberish>,
+      _token: PromiseOrValue<string>,
+      _amount: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -1812,16 +1864,16 @@ export interface StreamingPayments extends BaseContract {
      * @param _token The address of the token
      */
     setTokenAmount(
-      _fundingPermissionDomainId: BigNumberish,
-      _fundingChildSkillIndex: BigNumberish,
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _fromChildSkillIndex: BigNumberish,
-      _toChildSkillIndex: BigNumberish,
-      _id: BigNumberish,
-      _token: string,
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _fundingPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _fundingChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _fromChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _toChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _id: PromiseOrValue<BigNumberish>,
+      _token: PromiseOrValue<string>,
+      _amount: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -1832,11 +1884,11 @@ export interface StreamingPayments extends BaseContract {
      * @param _startTime The new startTime to set
      */
     setStartTime(
-      _adminPermissionDomainId: BigNumberish,
-      _adminChildSkillIndex: BigNumberish,
-      _id: BigNumberish,
-      _startTime: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _adminPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _adminChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _id: PromiseOrValue<BigNumberish>,
+      _startTime: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -1847,11 +1899,11 @@ export interface StreamingPayments extends BaseContract {
      * @param _id The id of the streaming payment
      */
     setEndTime(
-      _adminPermissionDomainId: BigNumberish,
-      _adminChildSkillIndex: BigNumberish,
-      _id: BigNumberish,
-      _endTime: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _adminPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _adminChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _id: PromiseOrValue<BigNumberish>,
+      _endTime: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -1861,10 +1913,10 @@ export interface StreamingPayments extends BaseContract {
      * @param _id The id of the streaming payment
      */
     cancel(
-      _adminPermissionDomainId: BigNumberish,
-      _adminChildSkillIndex: BigNumberish,
-      _id: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _adminPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _adminChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _id: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -1873,9 +1925,9 @@ export interface StreamingPayments extends BaseContract {
      * @param _tokens The tokens to waive any claims to.
      */
     cancelAndWaive(
-      _id: BigNumberish,
-      _tokens: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _id: PromiseOrValue<BigNumberish>,
+      _tokens: PromiseOrValue<string>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -1883,7 +1935,7 @@ export interface StreamingPayments extends BaseContract {
      * @param _id The id of the streaming payment
      */
     getStreamingPayment(
-      _id: BigNumberish,
+      _id: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1893,8 +1945,8 @@ export interface StreamingPayments extends BaseContract {
      * @param _token The address of the token
      */
     getPaymentToken(
-      _id: BigNumberish,
-      _token: string,
+      _id: PromiseOrValue<BigNumberish>,
+      _token: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1911,8 +1963,8 @@ export interface StreamingPayments extends BaseContract {
      * @param _token The address of the token
      */
     getAmountEntitledFromStart(
-      _id: BigNumberish,
-      _token: string,
+      _id: PromiseOrValue<BigNumberish>,
+      _token: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };

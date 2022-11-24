@@ -65,7 +65,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `authority` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `deprecate` | (`_deprecated`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `deprecate` | (`_deprecated`: `PromiseOrValue`<`boolean`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `finishUpgrade` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
@@ -74,14 +74,14 @@ ___
 | `getTokenIssuanceRate` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getTokenSupplyCeiling` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `initialise` | (`_tokenSupplyCeiling`: `BigNumberish`, `_tokenIssuanceRate`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `install` | (`_colony`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `initialise` | (`_tokenSupplyCeiling`: `PromiseOrValue`<`BigNumberish`\>, `_tokenIssuanceRate`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `install` | (`_colony`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `issueTokens` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `setAuthority` | (`authority_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setOwner` | (`owner_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setTokenIssuanceRate` | (`_tokenIssuanceRate`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setTokenSupplyCeiling` | (`_tokenSupplyCeiling`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setAuthority` | (`authority_`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setOwner` | (`owner_`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setTokenIssuanceRate` | (`_tokenIssuanceRate`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setTokenSupplyCeiling` | (`_tokenSupplyCeiling`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `uninstall` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `version` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 
@@ -142,8 +142,8 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `authority` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `deprecate` | (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`BigNumber`\> |
-| `finishUpgrade` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`BigNumber`\> |
+| `deprecate` | (`_deprecated`: `PromiseOrValue`<`boolean`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
+| `finishUpgrade` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
 | `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getLastPinged` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
@@ -151,15 +151,15 @@ ___
 | `getTokenIssuanceRate` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getTokenSupplyCeiling` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `initialise` | (`_tokenSupplyCeiling`: `BigNumberish`, `_tokenIssuanceRate`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`BigNumber`\> |
-| `install` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`BigNumber`\> |
-| `issueTokens` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`BigNumber`\> |
+| `initialise` | (`_tokenSupplyCeiling`: `PromiseOrValue`<`BigNumberish`\>, `_tokenIssuanceRate`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
+| `install` | (`_colony`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
+| `issueTokens` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
 | `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `setAuthority` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`BigNumber`\> |
-| `setOwner` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`BigNumber`\> |
-| `setTokenIssuanceRate` | (`_tokenIssuanceRate`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`BigNumber`\> |
-| `setTokenSupplyCeiling` | (`_tokenSupplyCeiling`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`BigNumber`\> |
-| `uninstall` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`BigNumber`\> |
+| `setAuthority` | (`authority_`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
+| `setOwner` | (`owner_`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
+| `setTokenIssuanceRate` | (`_tokenIssuanceRate`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
+| `setTokenSupplyCeiling` | (`_tokenSupplyCeiling`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
+| `uninstall` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
 | `version` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 
 #### Inherited from
@@ -178,10 +178,10 @@ ___
 | :------ | :------ |
 | `ExtensionInitialised` | () => `ExtensionInitialisedEventFilter` |
 | `ExtensionInitialised()` | () => `ExtensionInitialisedEventFilter` |
-| `LogSetAuthority` | (`authority?`: ``null`` \| `string`) => `LogSetAuthorityEventFilter` |
-| `LogSetAuthority(address)` | (`authority?`: ``null`` \| `string`) => `LogSetAuthorityEventFilter` |
-| `LogSetOwner` | (`owner?`: ``null`` \| `string`) => `LogSetOwnerEventFilter` |
-| `LogSetOwner(address)` | (`owner?`: ``null`` \| `string`) => `LogSetOwnerEventFilter` |
+| `LogSetAuthority` | (`authority?`: ``null`` \| `PromiseOrValue`<`string`\>) => `LogSetAuthorityEventFilter` |
+| `LogSetAuthority(address)` | (`authority?`: ``null`` \| `PromiseOrValue`<`string`\>) => `LogSetAuthorityEventFilter` |
+| `LogSetOwner` | (`owner?`: ``null`` \| `PromiseOrValue`<`string`\>) => `LogSetOwnerEventFilter` |
+| `LogSetOwner(address)` | (`owner?`: ``null`` \| `PromiseOrValue`<`string`\>) => `LogSetOwnerEventFilter` |
 | `TokenIssuanceRateSet` | (`tokenIssuanceRate?`: ``null``) => `TokenIssuanceRateSetEventFilter` |
 | `TokenIssuanceRateSet(uint256)` | (`tokenIssuanceRate?`: ``null``) => `TokenIssuanceRateSetEventFilter` |
 | `TokenSupplyCeilingSet` | (`tokenSupplyCeiling?`: ``null``) => `TokenSupplyCeilingSetEventFilter` |
@@ -204,8 +204,8 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `authority` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `deprecate` | (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `finishUpgrade` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `deprecate` | (`_deprecated`: `PromiseOrValue`<`boolean`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `finishUpgrade` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
 | `getLastPinged` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
@@ -213,15 +213,15 @@ ___
 | `getTokenIssuanceRate` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
 | `getTokenSupplyCeiling` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
 | `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `initialise` | (`_tokenSupplyCeiling`: `BigNumberish`, `_tokenIssuanceRate`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `install` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `issueTokens` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `initialise` | (`_tokenSupplyCeiling`: `PromiseOrValue`<`BigNumberish`\>, `_tokenIssuanceRate`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `install` | (`_colony`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `issueTokens` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `owner` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `setAuthority` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `setOwner` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `setTokenIssuanceRate` | (`_tokenIssuanceRate`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `setTokenSupplyCeiling` | (`_tokenSupplyCeiling`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `uninstall` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `setAuthority` | (`authority_`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `setOwner` | (`owner_`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `setTokenIssuanceRate` | (`_tokenIssuanceRate`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `setTokenSupplyCeiling` | (`_tokenSupplyCeiling`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `uninstall` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `version` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
 
 #### Inherited from
@@ -279,8 +279,8 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `authority` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `deprecate` | (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `finishUpgrade` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `deprecate` | (`_deprecated`: `PromiseOrValue`<`boolean`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `finishUpgrade` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getLastPinged` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
@@ -288,15 +288,15 @@ ___
 | `getTokenIssuanceRate` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getTokenSupplyCeiling` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `initialise` | (`_tokenSupplyCeiling`: `BigNumberish`, `_tokenIssuanceRate`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `install` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `issueTokens` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `initialise` | (`_tokenSupplyCeiling`: `PromiseOrValue`<`BigNumberish`\>, `_tokenIssuanceRate`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `install` | (`_colony`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `issueTokens` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `setAuthority` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `setOwner` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `setTokenIssuanceRate` | (`_tokenIssuanceRate`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `setTokenSupplyCeiling` | (`_tokenSupplyCeiling`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `uninstall` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `setAuthority` | (`authority_`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `setOwner` | (`owner_`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `setTokenIssuanceRate` | (`_tokenIssuanceRate`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `setTokenSupplyCeiling` | (`_tokenSupplyCeiling`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `uninstall` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `version` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 
 #### Inherited from
@@ -505,8 +505,8 @@ Called when deprecating (or undeprecating) the extension (currently a no-op)
 
 | Name | Type |
 | :------ | :------ |
-| `_deprecated` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
+| `_deprecated` | `PromiseOrValue`<`boolean`\> |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
 
 #### Returns
 
@@ -569,7 +569,7 @@ Called when upgrading the extension (currently a no-op)
 
 | Name | Type |
 | :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
 
 #### Returns
 
@@ -733,9 +733,9 @@ Initialise the extension, must be called before any tokens can be issued
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_tokenSupplyCeiling` | `BigNumberish` | Total amount of tokens to issue |
-| `_tokenIssuanceRate` | `BigNumberish` | Number of tokens to issue per day |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_tokenSupplyCeiling` | `PromiseOrValue`<`BigNumberish`\> | Total amount of tokens to issue |
+| `_tokenIssuanceRate` | `PromiseOrValue`<`BigNumberish`\> | Number of tokens to issue per day |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -757,8 +757,8 @@ Configures the extension
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_colony` | `string` | The colony in which the extension holds permissions |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_colony` | `PromiseOrValue`<`string`\> | The colony in which the extension holds permissions |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -780,7 +780,7 @@ Issue the appropriate amount of tokens
 
 | Name | Type |
 | :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
 
 #### Returns
 
@@ -952,8 +952,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `authority_` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
+| `authority_` | `PromiseOrValue`<`string`\> |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
 
 #### Returns
 
@@ -973,8 +973,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `owner_` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
+| `owner_` | `PromiseOrValue`<`string`\> |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
 
 #### Returns
 
@@ -996,8 +996,8 @@ Update the tokenIssuanceRate
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_tokenIssuanceRate` | `BigNumberish` | Number of tokens to issue per day |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_tokenIssuanceRate` | `PromiseOrValue`<`BigNumberish`\> | Number of tokens to issue per day |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -1019,8 +1019,8 @@ Update the tokenSupplyCeiling, cannot set below current tokenSupply
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_tokenSupplyCeiling` | `BigNumberish` | Total amount of tokens to issue |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_tokenSupplyCeiling` | `PromiseOrValue`<`BigNumberish`\> | Total amount of tokens to issue |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -1042,7 +1042,7 @@ Called when uninstalling the extension
 
 | Name | Type |
 | :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
 
 #### Returns
 
