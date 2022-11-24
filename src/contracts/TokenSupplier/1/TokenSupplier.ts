@@ -24,6 +24,7 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
+  PromiseOrValue,
 } from "./common";
 
 export interface TokenSupplierInterface extends utils.Interface {
@@ -83,32 +84,41 @@ export interface TokenSupplierInterface extends utils.Interface {
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "setAuthority",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
-  encodeFunctionData(functionFragment: "setOwner", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "setOwner",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(
     functionFragment: "identifier",
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "version", values?: undefined): string;
-  encodeFunctionData(functionFragment: "install", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "install",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(
     functionFragment: "finishUpgrade",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "deprecate", values: [boolean]): string;
+  encodeFunctionData(
+    functionFragment: "deprecate",
+    values: [PromiseOrValue<boolean>]
+  ): string;
   encodeFunctionData(functionFragment: "uninstall", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "initialise",
-    values: [BigNumberish, BigNumberish]
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "setTokenSupplyCeiling",
-    values: [BigNumberish]
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "setTokenIssuanceRate",
-    values: [BigNumberish]
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "issueTokens",
@@ -293,13 +303,13 @@ export interface TokenSupplier extends BaseContract {
     owner(overrides?: CallOverrides): Promise<[string]>;
 
     setAuthority(
-      authority_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      authority_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     setOwner(
-      owner_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      owner_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -317,30 +327,30 @@ export interface TokenSupplier extends BaseContract {
      * @param _colony The colony in which the extension holds permissions
      */
     install(
-      _colony: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _colony: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Called when upgrading the extension (currently a no-op)
      */
     finishUpgrade(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Called when deprecating (or undeprecating) the extension (currently a no-op)
      */
     deprecate(
-      _deprecated: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Called when uninstalling the extension
      */
     uninstall(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -349,9 +359,9 @@ export interface TokenSupplier extends BaseContract {
      * @param _tokenSupplyCeiling Total amount of tokens to issue
      */
     initialise(
-      _tokenSupplyCeiling: BigNumberish,
-      _tokenIssuanceRate: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _tokenSupplyCeiling: PromiseOrValue<BigNumberish>,
+      _tokenIssuanceRate: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -359,8 +369,8 @@ export interface TokenSupplier extends BaseContract {
      * @param _tokenSupplyCeiling Total amount of tokens to issue
      */
     setTokenSupplyCeiling(
-      _tokenSupplyCeiling: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _tokenSupplyCeiling: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -368,15 +378,15 @@ export interface TokenSupplier extends BaseContract {
      * @param _tokenIssuanceRate Number of tokens to issue per day
      */
     setTokenIssuanceRate(
-      _tokenIssuanceRate: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _tokenIssuanceRate: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Issue the appropriate amount of tokens
      */
     issueTokens(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     getTokenSupplyCeiling(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -397,13 +407,13 @@ export interface TokenSupplier extends BaseContract {
   owner(overrides?: CallOverrides): Promise<string>;
 
   setAuthority(
-    authority_: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    authority_: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   setOwner(
-    owner_: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    owner_: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -421,30 +431,30 @@ export interface TokenSupplier extends BaseContract {
    * @param _colony The colony in which the extension holds permissions
    */
   install(
-    _colony: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _colony: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Called when upgrading the extension (currently a no-op)
    */
   finishUpgrade(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Called when deprecating (or undeprecating) the extension (currently a no-op)
    */
   deprecate(
-    _deprecated: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _deprecated: PromiseOrValue<boolean>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Called when uninstalling the extension
    */
   uninstall(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -453,9 +463,9 @@ export interface TokenSupplier extends BaseContract {
    * @param _tokenSupplyCeiling Total amount of tokens to issue
    */
   initialise(
-    _tokenSupplyCeiling: BigNumberish,
-    _tokenIssuanceRate: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _tokenSupplyCeiling: PromiseOrValue<BigNumberish>,
+    _tokenIssuanceRate: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -463,8 +473,8 @@ export interface TokenSupplier extends BaseContract {
    * @param _tokenSupplyCeiling Total amount of tokens to issue
    */
   setTokenSupplyCeiling(
-    _tokenSupplyCeiling: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _tokenSupplyCeiling: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -472,15 +482,15 @@ export interface TokenSupplier extends BaseContract {
    * @param _tokenIssuanceRate Number of tokens to issue per day
    */
   setTokenIssuanceRate(
-    _tokenIssuanceRate: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _tokenIssuanceRate: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Issue the appropriate amount of tokens
    */
   issueTokens(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   getTokenSupplyCeiling(overrides?: CallOverrides): Promise<BigNumber>;
@@ -500,9 +510,15 @@ export interface TokenSupplier extends BaseContract {
 
     owner(overrides?: CallOverrides): Promise<string>;
 
-    setAuthority(authority_: string, overrides?: CallOverrides): Promise<void>;
+    setAuthority(
+      authority_: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
-    setOwner(owner_: string, overrides?: CallOverrides): Promise<void>;
+    setOwner(
+      owner_: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     /**
      * Returns the identifier of the extension
@@ -518,7 +534,10 @@ export interface TokenSupplier extends BaseContract {
      * Configures the extension
      * @param _colony The colony in which the extension holds permissions
      */
-    install(_colony: string, overrides?: CallOverrides): Promise<void>;
+    install(
+      _colony: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     /**
      * Called when upgrading the extension (currently a no-op)
@@ -528,7 +547,10 @@ export interface TokenSupplier extends BaseContract {
     /**
      * Called when deprecating (or undeprecating) the extension (currently a no-op)
      */
-    deprecate(_deprecated: boolean, overrides?: CallOverrides): Promise<void>;
+    deprecate(
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     /**
      * Called when uninstalling the extension
@@ -541,8 +563,8 @@ export interface TokenSupplier extends BaseContract {
      * @param _tokenSupplyCeiling Total amount of tokens to issue
      */
     initialise(
-      _tokenSupplyCeiling: BigNumberish,
-      _tokenIssuanceRate: BigNumberish,
+      _tokenSupplyCeiling: PromiseOrValue<BigNumberish>,
+      _tokenIssuanceRate: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -551,7 +573,7 @@ export interface TokenSupplier extends BaseContract {
      * @param _tokenSupplyCeiling Total amount of tokens to issue
      */
     setTokenSupplyCeiling(
-      _tokenSupplyCeiling: BigNumberish,
+      _tokenSupplyCeiling: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -560,7 +582,7 @@ export interface TokenSupplier extends BaseContract {
      * @param _tokenIssuanceRate Number of tokens to issue per day
      */
     setTokenIssuanceRate(
-      _tokenIssuanceRate: BigNumberish,
+      _tokenIssuanceRate: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -583,12 +605,16 @@ export interface TokenSupplier extends BaseContract {
     ExtensionInitialised(): ExtensionInitialisedEventFilter;
 
     "LogSetAuthority(address)"(
-      authority?: string | null
+      authority?: PromiseOrValue<string> | null
     ): LogSetAuthorityEventFilter;
-    LogSetAuthority(authority?: string | null): LogSetAuthorityEventFilter;
+    LogSetAuthority(
+      authority?: PromiseOrValue<string> | null
+    ): LogSetAuthorityEventFilter;
 
-    "LogSetOwner(address)"(owner?: string | null): LogSetOwnerEventFilter;
-    LogSetOwner(owner?: string | null): LogSetOwnerEventFilter;
+    "LogSetOwner(address)"(
+      owner?: PromiseOrValue<string> | null
+    ): LogSetOwnerEventFilter;
+    LogSetOwner(owner?: PromiseOrValue<string> | null): LogSetOwnerEventFilter;
 
     "TokenIssuanceRateSet(uint256)"(
       tokenIssuanceRate?: null
@@ -618,13 +644,13 @@ export interface TokenSupplier extends BaseContract {
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
     setAuthority(
-      authority_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      authority_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     setOwner(
-      owner_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      owner_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -642,30 +668,30 @@ export interface TokenSupplier extends BaseContract {
      * @param _colony The colony in which the extension holds permissions
      */
     install(
-      _colony: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _colony: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
      * Called when upgrading the extension (currently a no-op)
      */
     finishUpgrade(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
      * Called when deprecating (or undeprecating) the extension (currently a no-op)
      */
     deprecate(
-      _deprecated: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
      * Called when uninstalling the extension
      */
     uninstall(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -674,9 +700,9 @@ export interface TokenSupplier extends BaseContract {
      * @param _tokenSupplyCeiling Total amount of tokens to issue
      */
     initialise(
-      _tokenSupplyCeiling: BigNumberish,
-      _tokenIssuanceRate: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _tokenSupplyCeiling: PromiseOrValue<BigNumberish>,
+      _tokenIssuanceRate: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -684,8 +710,8 @@ export interface TokenSupplier extends BaseContract {
      * @param _tokenSupplyCeiling Total amount of tokens to issue
      */
     setTokenSupplyCeiling(
-      _tokenSupplyCeiling: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _tokenSupplyCeiling: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -693,15 +719,15 @@ export interface TokenSupplier extends BaseContract {
      * @param _tokenIssuanceRate Number of tokens to issue per day
      */
     setTokenIssuanceRate(
-      _tokenIssuanceRate: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _tokenIssuanceRate: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
      * Issue the appropriate amount of tokens
      */
     issueTokens(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     getTokenSupplyCeiling(overrides?: CallOverrides): Promise<BigNumber>;
@@ -723,13 +749,13 @@ export interface TokenSupplier extends BaseContract {
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     setAuthority(
-      authority_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      authority_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     setOwner(
-      owner_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      owner_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -747,30 +773,30 @@ export interface TokenSupplier extends BaseContract {
      * @param _colony The colony in which the extension holds permissions
      */
     install(
-      _colony: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _colony: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Called when upgrading the extension (currently a no-op)
      */
     finishUpgrade(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Called when deprecating (or undeprecating) the extension (currently a no-op)
      */
     deprecate(
-      _deprecated: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Called when uninstalling the extension
      */
     uninstall(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -779,9 +805,9 @@ export interface TokenSupplier extends BaseContract {
      * @param _tokenSupplyCeiling Total amount of tokens to issue
      */
     initialise(
-      _tokenSupplyCeiling: BigNumberish,
-      _tokenIssuanceRate: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _tokenSupplyCeiling: PromiseOrValue<BigNumberish>,
+      _tokenIssuanceRate: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -789,8 +815,8 @@ export interface TokenSupplier extends BaseContract {
      * @param _tokenSupplyCeiling Total amount of tokens to issue
      */
     setTokenSupplyCeiling(
-      _tokenSupplyCeiling: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _tokenSupplyCeiling: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -798,15 +824,15 @@ export interface TokenSupplier extends BaseContract {
      * @param _tokenIssuanceRate Number of tokens to issue per day
      */
     setTokenIssuanceRate(
-      _tokenIssuanceRate: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _tokenIssuanceRate: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Issue the appropriate amount of tokens
      */
     issueTokens(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     getTokenSupplyCeiling(

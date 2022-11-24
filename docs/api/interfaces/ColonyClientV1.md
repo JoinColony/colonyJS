@@ -134,8 +134,8 @@ ___
 | `ColonyFundingRoleSet(address,bool)` | (`user?`: ``null``, `setTo?`: ``null``) => `ColonyFundingRoleSetEventFilter` |
 | `ColonyFundsClaimed` | (`token?`: ``null``, `fee?`: ``null``, `payoutRemainder?`: ``null``) => `ColonyFundsClaimedEventFilter` |
 | `ColonyFundsClaimed(address,uint256,uint256)` | (`token?`: ``null``, `fee?`: ``null``, `payoutRemainder?`: ``null``) => `ColonyFundsClaimedEventFilter` |
-| `ColonyFundsMovedBetweenFundingPots` | (`fromPot?`: ``null`` \| `BigNumberish`, `toPot?`: ``null`` \| `BigNumberish`, `amount?`: ``null``, `token?`: ``null``) => `ColonyFundsMovedBetweenFundingPotsEventFilter` |
-| `ColonyFundsMovedBetweenFundingPots(uint256,uint256,uint256,address)` | (`fromPot?`: ``null`` \| `BigNumberish`, `toPot?`: ``null`` \| `BigNumberish`, `amount?`: ``null``, `token?`: ``null``) => `ColonyFundsMovedBetweenFundingPotsEventFilter` |
+| `ColonyFundsMovedBetweenFundingPots` | (`fromPot?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>, `toPot?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>, `amount?`: ``null``, `token?`: ``null``) => `ColonyFundsMovedBetweenFundingPotsEventFilter` |
+| `ColonyFundsMovedBetweenFundingPots(uint256,uint256,uint256,address)` | (`fromPot?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>, `toPot?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>, `amount?`: ``null``, `token?`: ``null``) => `ColonyFundsMovedBetweenFundingPotsEventFilter` |
 | `ColonyInitialised` | (`colonyNetwork?`: ``null``, `token?`: ``null``) => `ColonyInitialisedEventFilter` |
 | `ColonyInitialised(address,address)` | (`colonyNetwork?`: ``null``, `token?`: ``null``) => `ColonyInitialisedEventFilter` |
 | `ColonyRewardInverseSet` | (`rewardInverse?`: ``null``) => `ColonyRewardInverseSetEventFilter` |
@@ -150,8 +150,8 @@ ___
 | `FundingPotAdded(uint256)` | (`fundingPotId?`: ``null``) => `FundingPotAddedEventFilter` |
 | `PaymentAdded` | (`paymentId?`: ``null``) => `PaymentAddedEventFilter` |
 | `PaymentAdded(uint256)` | (`paymentId?`: ``null``) => `PaymentAddedEventFilter` |
-| `PayoutClaimed` | (`fundingPotId?`: ``null`` \| `BigNumberish`, `token?`: ``null``, `amount?`: ``null``) => `PayoutClaimedEventFilter` |
-| `PayoutClaimed(uint256,address,uint256)` | (`fundingPotId?`: ``null`` \| `BigNumberish`, `token?`: ``null``, `amount?`: ``null``) => `PayoutClaimedEventFilter` |
+| `PayoutClaimed` | (`fundingPotId?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>, `token?`: ``null``, `amount?`: ``null``) => `PayoutClaimedEventFilter` |
+| `PayoutClaimed(uint256,address,uint256)` | (`fundingPotId?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>, `token?`: ``null``, `amount?`: ``null``) => `PayoutClaimedEventFilter` |
 | `RewardPayoutClaimed` | (`rewardPayoutId?`: ``null``, `user?`: ``null``, `fee?`: ``null``, `rewardRemainder?`: ``null``) => `RewardPayoutClaimedEventFilter` |
 | `RewardPayoutClaimed(uint256,address,uint256,uint256)` | (`rewardPayoutId?`: ``null``, `user?`: ``null``, `fee?`: ``null``, `rewardRemainder?`: ``null``) => `RewardPayoutClaimedEventFilter` |
 | `RewardPayoutCycleEnded` | (`rewardPayoutId?`: ``null``) => `RewardPayoutCycleEndedEventFilter` |
@@ -160,28 +160,28 @@ ___
 | `RewardPayoutCycleStarted(uint256)` | (`rewardPayoutId?`: ``null``) => `RewardPayoutCycleStartedEventFilter` |
 | `TaskAdded` | (`taskId?`: ``null``) => `TaskAddedEventFilter` |
 | `TaskAdded(uint256)` | (`taskId?`: ``null``) => `TaskAddedEventFilter` |
-| `TaskBriefSet` | (`taskId?`: ``null`` \| `BigNumberish`, `specificationHash?`: ``null``) => `TaskBriefSetEventFilter` |
-| `TaskBriefSet(uint256,bytes32)` | (`taskId?`: ``null`` \| `BigNumberish`, `specificationHash?`: ``null``) => `TaskBriefSetEventFilter` |
-| `TaskCanceled` | (`taskId?`: ``null`` \| `BigNumberish`) => `TaskCanceledEventFilter` |
-| `TaskCanceled(uint256)` | (`taskId?`: ``null`` \| `BigNumberish`) => `TaskCanceledEventFilter` |
-| `TaskCompleted` | (`taskId?`: ``null`` \| `BigNumberish`) => `TaskCompletedEventFilter` |
-| `TaskCompleted(uint256)` | (`taskId?`: ``null`` \| `BigNumberish`) => `TaskCompletedEventFilter` |
-| `TaskDeliverableSubmitted` | (`taskId?`: ``null`` \| `BigNumberish`, `deliverableHash?`: ``null``) => `TaskDeliverableSubmittedEventFilter` |
-| `TaskDeliverableSubmitted(uint256,bytes32)` | (`taskId?`: ``null`` \| `BigNumberish`, `deliverableHash?`: ``null``) => `TaskDeliverableSubmittedEventFilter` |
-| `TaskDomainSet` | (`taskId?`: ``null`` \| `BigNumberish`, `domainId?`: ``null`` \| `BigNumberish`) => `TaskDomainSetEventFilter` |
-| `TaskDomainSet(uint256,uint256)` | (`taskId?`: ``null`` \| `BigNumberish`, `domainId?`: ``null`` \| `BigNumberish`) => `TaskDomainSetEventFilter` |
-| `TaskDueDateSet` | (`taskId?`: ``null`` \| `BigNumberish`, `dueDate?`: ``null``) => `TaskDueDateSetEventFilter` |
-| `TaskDueDateSet(uint256,uint256)` | (`taskId?`: ``null`` \| `BigNumberish`, `dueDate?`: ``null``) => `TaskDueDateSetEventFilter` |
-| `TaskFinalized` | (`taskId?`: ``null`` \| `BigNumberish`) => `TaskFinalizedEventFilter` |
-| `TaskFinalized(uint256)` | (`taskId?`: ``null`` \| `BigNumberish`) => `TaskFinalizedEventFilter` |
-| `TaskPayoutSet` | (`taskId?`: ``null`` \| `BigNumberish`, `role?`: ``null``, `token?`: ``null``, `amount?`: ``null``) => `TaskPayoutSetEventFilter` |
-| `TaskPayoutSet(uint256,uint8,address,uint256)` | (`taskId?`: ``null`` \| `BigNumberish`, `role?`: ``null``, `token?`: ``null``, `amount?`: ``null``) => `TaskPayoutSetEventFilter` |
-| `TaskRoleUserSet` | (`taskId?`: ``null`` \| `BigNumberish`, `role?`: ``null``, `user?`: ``null`` \| `string`) => `TaskRoleUserSetEventFilter` |
-| `TaskRoleUserSet(uint256,uint8,address)` | (`taskId?`: ``null`` \| `BigNumberish`, `role?`: ``null``, `user?`: ``null`` \| `string`) => `TaskRoleUserSetEventFilter` |
-| `TaskSkillSet` | (`taskId?`: ``null`` \| `BigNumberish`, `skillId?`: ``null`` \| `BigNumberish`) => `TaskSkillSetEventFilter` |
-| `TaskSkillSet(uint256,uint256)` | (`taskId?`: ``null`` \| `BigNumberish`, `skillId?`: ``null`` \| `BigNumberish`) => `TaskSkillSetEventFilter` |
-| `TaskWorkRatingRevealed` | (`taskId?`: ``null`` \| `BigNumberish`, `role?`: ``null``, `rating?`: ``null``) => `TaskWorkRatingRevealedEventFilter` |
-| `TaskWorkRatingRevealed(uint256,uint8,uint8)` | (`taskId?`: ``null`` \| `BigNumberish`, `role?`: ``null``, `rating?`: ``null``) => `TaskWorkRatingRevealedEventFilter` |
+| `TaskBriefSet` | (`taskId?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>, `specificationHash?`: ``null``) => `TaskBriefSetEventFilter` |
+| `TaskBriefSet(uint256,bytes32)` | (`taskId?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>, `specificationHash?`: ``null``) => `TaskBriefSetEventFilter` |
+| `TaskCanceled` | (`taskId?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>) => `TaskCanceledEventFilter` |
+| `TaskCanceled(uint256)` | (`taskId?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>) => `TaskCanceledEventFilter` |
+| `TaskCompleted` | (`taskId?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>) => `TaskCompletedEventFilter` |
+| `TaskCompleted(uint256)` | (`taskId?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>) => `TaskCompletedEventFilter` |
+| `TaskDeliverableSubmitted` | (`taskId?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>, `deliverableHash?`: ``null``) => `TaskDeliverableSubmittedEventFilter` |
+| `TaskDeliverableSubmitted(uint256,bytes32)` | (`taskId?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>, `deliverableHash?`: ``null``) => `TaskDeliverableSubmittedEventFilter` |
+| `TaskDomainSet` | (`taskId?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>, `domainId?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>) => `TaskDomainSetEventFilter` |
+| `TaskDomainSet(uint256,uint256)` | (`taskId?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>, `domainId?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>) => `TaskDomainSetEventFilter` |
+| `TaskDueDateSet` | (`taskId?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>, `dueDate?`: ``null``) => `TaskDueDateSetEventFilter` |
+| `TaskDueDateSet(uint256,uint256)` | (`taskId?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>, `dueDate?`: ``null``) => `TaskDueDateSetEventFilter` |
+| `TaskFinalized` | (`taskId?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>) => `TaskFinalizedEventFilter` |
+| `TaskFinalized(uint256)` | (`taskId?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>) => `TaskFinalizedEventFilter` |
+| `TaskPayoutSet` | (`taskId?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>, `role?`: ``null``, `token?`: ``null``, `amount?`: ``null``) => `TaskPayoutSetEventFilter` |
+| `TaskPayoutSet(uint256,uint8,address,uint256)` | (`taskId?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>, `role?`: ``null``, `token?`: ``null``, `amount?`: ``null``) => `TaskPayoutSetEventFilter` |
+| `TaskRoleUserSet` | (`taskId?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>, `role?`: ``null``, `user?`: ``null`` \| `PromiseOrValue`<`string`\>) => `TaskRoleUserSetEventFilter` |
+| `TaskRoleUserSet(uint256,uint8,address)` | (`taskId?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>, `role?`: ``null``, `user?`: ``null`` \| `PromiseOrValue`<`string`\>) => `TaskRoleUserSetEventFilter` |
+| `TaskSkillSet` | (`taskId?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>, `skillId?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>) => `TaskSkillSetEventFilter` |
+| `TaskSkillSet(uint256,uint256)` | (`taskId?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>, `skillId?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>) => `TaskSkillSetEventFilter` |
+| `TaskWorkRatingRevealed` | (`taskId?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>, `role?`: ``null``, `rating?`: ``null``) => `TaskWorkRatingRevealedEventFilter` |
+| `TaskWorkRatingRevealed(uint256,uint8,uint8)` | (`taskId?`: ``null`` \| `PromiseOrValue`<`BigNumberish`\>, `role?`: ``null``, `rating?`: ``null``) => `TaskWorkRatingRevealedEventFilter` |
 
 #### Inherited from
 
@@ -366,10 +366,10 @@ Add a colony domain, and its respective local skill under skill with id `_parent
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` | The domainId in which I have the permission to take this action |
-| `_childSkillIndex` | `BigNumberish` | The index that the _domainId is relative to _permissionDomainId |
-| `_parentDomainId` | `BigNumberish` | Id of the domain under which the new one will be added |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_permissionDomainId` | `PromiseOrValue`<`BigNumberish`\> | The domainId in which I have the permission to take this action |
+| `_childSkillIndex` | `PromiseOrValue`<`BigNumberish`\> | The index that the _domainId is relative to _permissionDomainId |
+| `_parentDomainId` | `PromiseOrValue`<`BigNumberish`\> | Id of the domain under which the new one will be added |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -417,14 +417,14 @@ Add a new payment in the colony. Secured function to authorised members
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` | The domainId in which I have the permission to take this action |
-| `_childSkillIndex` | `BigNumberish` | The index that the _domainId is relative to _permissionDomainId |
-| `_recipient` | `string` | Address of the payment recipient |
-| `_token` | `string` | Address of the token, `0x0` value indicates Ether |
-| `_amount` | `BigNumberish` | Payout amount |
-| `_domainId` | `BigNumberish` | The domain where the payment belongs |
-| `_skillId` | `BigNumberish` | The skill associated with the payment |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_permissionDomainId` | `PromiseOrValue`<`BigNumberish`\> | The domainId in which I have the permission to take this action |
+| `_childSkillIndex` | `PromiseOrValue`<`BigNumberish`\> | The index that the _domainId is relative to _permissionDomainId |
+| `_recipient` | `PromiseOrValue`<`string`\> | Address of the payment recipient |
+| `_token` | `PromiseOrValue`<`string`\> | Address of the token, `0x0` value indicates Ether |
+| `_amount` | `PromiseOrValue`<`BigNumberish`\> | Payout amount |
+| `_domainId` | `PromiseOrValue`<`BigNumberish`\> | The domain where the payment belongs |
+| `_skillId` | `PromiseOrValue`<`BigNumberish`\> | The skill associated with the payment |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -476,7 +476,7 @@ Indicate approval to exit recovery mode. Can only be called by user with recover
 
 | Name | Type |
 | :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
 
 #### Returns
 
@@ -543,9 +543,9 @@ Allows the colony to bootstrap itself by having initial reputation and token `_a
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_users` | `string`[] | Array of address to bootstrap with reputation |
-| `_amount` | `BigNumberish`[] | Amount of reputation/tokens for every address |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_users` | `PromiseOrValue`<`string`\>[] | Array of address to bootstrap with reputation |
+| `_amount` | `PromiseOrValue`<`BigNumberish`\>[] | Amount of reputation/tokens for every address |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -568,8 +568,8 @@ Cancel a task at any point before it is finalized. Secured function to authorise
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the task |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Id of the task |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -592,7 +592,7 @@ Check whether the supplied slot is a protected variable specific to this contrac
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_slot` | `BigNumberish` | The storage slot number to check. |
+| `_slot` | `PromiseOrValue`<`BigNumberish`\> | The storage slot number to check. |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -615,8 +615,8 @@ Move any funds received by the colony in `_token` denomination to the top-level 
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_token` | `string` | Address of the token, `0x0` value indicates Ether |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_token` | `PromiseOrValue`<`string`\> | Address of the token, `0x0` value indicates Ether |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -638,9 +638,9 @@ Claim the payout in `_token` denomination for payment `_id`. Here the network re
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Payment identifier |
-| `_token` | `string` | Address of the token, `0x0` value indicates Ether |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Payment identifier |
+| `_token` | `PromiseOrValue`<`string`\> | Address of the token, `0x0` value indicates Ether |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -662,13 +662,13 @@ Claim the reward payout at `_payoutId`. User needs to provide their reputation a
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_payoutId` | `BigNumberish` | Id of the reward payout |
-| `_squareRoots` | `BigNumberish`[] | Square roots of values used in equation _squareRoots[0] - square root of user reputation _squareRoots[1] - square root of user tokens _squareRoots[2] - square root of total reputation _squareRoots[3] - square root of total tokens _squareRoots[4] - square root of numerator (user reputation * user tokens) _squareRoots[5] - square root of denominator (total reputation * total tokens) _squareRoots[6] - square root of payout amount |
-| `key` | `BytesLike` | Some Reputation hash tree key |
-| `value` | `BytesLike` | Reputation value |
-| `branchMask` | `BigNumberish` | The branchmask of the proof |
-| `siblings` | `BytesLike`[] | The siblings of the proof |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_payoutId` | `PromiseOrValue`<`BigNumberish`\> | Id of the reward payout |
+| `_squareRoots` | `PromiseOrValue`<`BigNumberish`\>[] | Square roots of values used in equation _squareRoots[0] - square root of user reputation _squareRoots[1] - square root of user tokens _squareRoots[2] - square root of total reputation _squareRoots[3] - square root of total tokens _squareRoots[4] - square root of numerator (user reputation * user tokens) _squareRoots[5] - square root of denominator (total reputation * total tokens) _squareRoots[6] - square root of payout amount |
+| `key` | `PromiseOrValue`<`BytesLike`\> | Some Reputation hash tree key |
+| `value` | `PromiseOrValue`<`BytesLike`\> | Reputation value |
+| `branchMask` | `PromiseOrValue`<`BigNumberish`\> | The branchmask of the proof |
+| `siblings` | `PromiseOrValue`<`BytesLike`\>[] | The siblings of the proof |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -690,10 +690,10 @@ Claim the payout in `_token` denomination for work completed in task `_id` by co
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the task |
-| `_role` | `BigNumberish` | Id of the role, as defined in TaskRole enum |
-| `_token` | `string` | Address of the token, `0x0` value indicates Ether |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Id of the task |
+| `_role` | `PromiseOrValue`<`BigNumberish`\> | Id of the role, as defined in TaskRole enum |
+| `_token` | `PromiseOrValue`<`string`\> | Address of the token, `0x0` value indicates Ether |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -715,8 +715,8 @@ Mark a task as complete after the due date has passed. This allows the task to b
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the task |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Id of the task |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -793,7 +793,7 @@ Put colony network mining into recovery mode. Can only be called by user with re
 
 | Name | Type |
 | :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
 
 #### Returns
 
@@ -816,13 +816,13 @@ Executes a task update transaction `_data` which is approved and signed by two o
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_sigV` | `BigNumberish`[] | recovery id |
-| `_sigR` | `BytesLike`[] | r output of the ECDSA signature of the transaction |
-| `_sigS` | `BytesLike`[] | s output of the ECDSA signature of the transaction |
-| `_mode` | `BigNumberish`[] | How the signature was generated - 0 for Geth-style (usual), 1 for Trezor-style (only Trezor does this) |
-| `_value` | `BigNumberish` | The transaction value, i.e. number of wei to be sent when the transaction is executed Currently we only accept 0 value transactions but this is kept as a future option |
-| `_data` | `BytesLike` | The transaction data |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_sigV` | `PromiseOrValue`<`BigNumberish`\>[] | recovery id |
+| `_sigR` | `PromiseOrValue`<`BytesLike`\>[] | r output of the ECDSA signature of the transaction |
+| `_sigS` | `PromiseOrValue`<`BytesLike`\>[] | s output of the ECDSA signature of the transaction |
+| `_mode` | `PromiseOrValue`<`BigNumberish`\>[] | How the signature was generated - 0 for Geth-style (usual), 1 for Trezor-style (only Trezor does this) |
+| `_value` | `PromiseOrValue`<`BigNumberish`\> | The transaction value, i.e. number of wei to be sent when the transaction is executed Currently we only accept 0 value transactions but this is kept as a future option |
+| `_data` | `PromiseOrValue`<`BytesLike`\> | The transaction data |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -844,13 +844,13 @@ Executes a task role update transaction `_data` which is approved and signed by 
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_sigV` | `BigNumberish`[] | recovery id |
-| `_sigR` | `BytesLike`[] | r output of the ECDSA signature of the transaction |
-| `_sigS` | `BytesLike`[] | s output of the ECDSA signature of the transaction |
-| `_mode` | `BigNumberish`[] | How the signature was generated - 0 for Geth-style (usual), 1 for Trezor-style (only Trezor does this) |
-| `_value` | `BigNumberish` | The transaction value, i.e. number of wei to be sent when the transaction is executed Currently we only accept 0 value transactions but this is kept as a future option |
-| `_data` | `BytesLike` | The transaction data |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_sigV` | `PromiseOrValue`<`BigNumberish`\>[] | recovery id |
+| `_sigR` | `PromiseOrValue`<`BytesLike`\>[] | r output of the ECDSA signature of the transaction |
+| `_sigS` | `PromiseOrValue`<`BytesLike`\>[] | s output of the ECDSA signature of the transaction |
+| `_mode` | `PromiseOrValue`<`BigNumberish`\>[] | How the signature was generated - 0 for Geth-style (usual), 1 for Trezor-style (only Trezor does this) |
+| `_value` | `PromiseOrValue`<`BigNumberish`\> | The transaction value, i.e. number of wei to be sent when the transaction is executed Currently we only accept 0 value transactions but this is kept as a future option |
+| `_data` | `PromiseOrValue`<`BytesLike`\> | The transaction data |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -872,7 +872,7 @@ Exit recovery mode, can be called by anyone if enough whitelist approvals are gi
 
 | Name | Type |
 | :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
 
 #### Returns
 
@@ -914,10 +914,10 @@ Finalizes the payment and logs the reputation log updates Allowed to be called o
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` | The domainId in which I have the permission to take this action |
-| `_childSkillIndex` | `BigNumberish` | The index that the _domainId is relative to _permissionDomainId |
-| `_id` | `BigNumberish` | Payment identifier |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_permissionDomainId` | `PromiseOrValue`<`BigNumberish`\> | The domainId in which I have the permission to take this action |
+| `_childSkillIndex` | `PromiseOrValue`<`BigNumberish`\> | The index that the _domainId is relative to _permissionDomainId |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Payment identifier |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -963,8 +963,8 @@ Finalises the reward payout. Allows creation of next reward payouts for token th
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_payoutId` | `BigNumberish` | Id of the reward payout |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_payoutId` | `PromiseOrValue`<`BigNumberish`\> | Id of the reward payout |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -987,8 +987,8 @@ Called after task work rating is complete which closes the task and logs the res
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the task |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Id of the task |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -1010,8 +1010,8 @@ Helper function used to generage consistently the rating secret using salt value
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_salt` | `BytesLike` | Salt value |
-| `_value` | `BigNumberish` | Value to hide |
+| `_salt` | `PromiseOrValue`<`BytesLike`\> | Salt value |
+| `_value` | `PromiseOrValue`<`BigNumberish`\> | Value to hide |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -1061,7 +1061,7 @@ Get a domain by id
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the domain which details to get |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Id of the domain which details to get |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -1141,7 +1141,7 @@ Get the non-mapping properties of a pot by id
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the pot which details to get |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Id of the pot which details to get |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -1166,8 +1166,8 @@ Get the `_token` balance of pot with id `_potId`
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_potId` | `BigNumberish` | Id of the funding pot |
-| `_token` | `string` | Address of the token, `0x0` value indicates Ether |
+| `_potId` | `PromiseOrValue`<`BigNumberish`\> | Id of the funding pot |
+| `_token` | `PromiseOrValue`<`string`\> | Address of the token, `0x0` value indicates Ether |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -1216,8 +1216,8 @@ Get the assigned `_token` payouts of pot with id `_potId`
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_potId` | `BigNumberish` | Id of the funding pot |
-| `_token` | `string` | Address of the token, `0x0` value indicates Ether |
+| `_potId` | `PromiseOrValue`<`BigNumberish`\> | Id of the funding pot |
+| `_token` | `PromiseOrValue`<`string`\> | Address of the token, `0x0` value indicates Ether |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -1267,7 +1267,7 @@ Get the total amount of tokens `_token` minus amount reserved to be paid to the 
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_token` | `string` | Address of the token, `0x0` value indicates Ether |
+| `_token` | `PromiseOrValue`<`string`\> | Address of the token, `0x0` value indicates Ether |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -1292,7 +1292,7 @@ Returns an exiting payment
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Payment identifier |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Payment identifier |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -1450,7 +1450,7 @@ Get useful information about specific reward payout
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_payoutId` | `BigNumberish` | Id of the reward payout |
+| `_payoutId` | `PromiseOrValue`<`BigNumberish`\> | Id of the reward payout |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -1475,7 +1475,7 @@ Get a task with id `_id`
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the task |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Id of the task |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -1500,7 +1500,7 @@ Starts from 0 and is incremented on every co-reviewed task change via `executeTa
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the task |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Id of the task |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -1549,9 +1549,9 @@ Get payout amount in `_token` denomination for role `_role` in task `_id`
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the task |
-| `_role` | `BigNumberish` | Id of the role, as defined in TaskRole enum |
-| `_token` | `string` | Address of the token, `0x0` value indicates Ether |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Id of the task |
+| `_role` | `PromiseOrValue`<`BigNumberish`\> | Id of the role, as defined in TaskRole enum |
+| `_token` | `PromiseOrValue`<`string`\> | Address of the token, `0x0` value indicates Ether |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -1576,8 +1576,8 @@ Get the `Role` properties back for role `_role` in task `_id`
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the task |
-| `_role` | `BigNumberish` | Id of the role, as defined in TaskRole enum |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Id of the task |
+| `_role` | `PromiseOrValue`<`BigNumberish`\> | Id of the role, as defined in TaskRole enum |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -1602,8 +1602,8 @@ Get the rating secret submitted for role `_role` in task `_id`
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the task |
-| `_role` | `BigNumberish` | Id of the role, as defined in TaskRole enum |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Id of the task |
+| `_role` | `PromiseOrValue`<`BigNumberish`\> | Id of the role, as defined in TaskRole enum |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -1628,7 +1628,7 @@ Get the `ColonyStorage.RatingSecrets` information for task `_id`
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the task |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Id of the task |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -1677,9 +1677,9 @@ Check whether a given user has a given role for the colony. Calls the function o
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_user` | `string` | The user whose role we want to check |
-| `_domainId` | `BigNumberish` | The domain where we want to check for the role |
-| `_role` | `BigNumberish` | The role we want to check for |
+| `_user` | `PromiseOrValue`<`string`\> | The user whose role we want to check |
+| `_domainId` | `PromiseOrValue`<`BigNumberish`\> | The domain where we want to check for the role |
+| `_role` | `PromiseOrValue`<`BigNumberish`\> | The role we want to check for |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
@@ -1703,9 +1703,9 @@ Called once when the colony is created to initialise certain storage slot values
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_colonyNetworkAddress` | `string` | Address of the colony network |
-| `_token` | `string` | Address of the colony ERC20 Token |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_colonyNetworkAddress` | `PromiseOrValue`<`string`\> | Address of the colony network |
+| `_token` | `PromiseOrValue`<`string`\> | Address of the colony ERC20 Token |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -1813,13 +1813,13 @@ Make a new task in the colony. Secured function to authorised members
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` | The domainId in which I have the permission to take this action |
-| `_childSkillIndex` | `BigNumberish` | The index that the _domainId is relative to _permissionDomainId |
-| `_specificationHash` | `BytesLike` | Database identifier where the task specification is stored |
-| `_domainId` | `BigNumberish` | The domain where the task belongs |
-| `_skillId` | `BigNumberish` | The skill associated with the task, can set to 0 for no-op |
-| `_dueDate` | `BigNumberish` | The due date of the task, can set to 0 for no-op |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_permissionDomainId` | `PromiseOrValue`<`BigNumberish`\> | The domainId in which I have the permission to take this action |
+| `_childSkillIndex` | `PromiseOrValue`<`BigNumberish`\> | The index that the _domainId is relative to _permissionDomainId |
+| `_specificationHash` | `PromiseOrValue`<`BytesLike`\> | Database identifier where the task specification is stored |
+| `_domainId` | `PromiseOrValue`<`BigNumberish`\> | The domain where the task belongs |
+| `_skillId` | `PromiseOrValue`<`BigNumberish`\> | The skill associated with the task, can set to 0 for no-op |
+| `_dueDate` | `PromiseOrValue`<`BigNumberish`\> | The due date of the task, can set to 0 for no-op |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -1868,8 +1868,8 @@ Mint `_wad` amount of colony tokens. Secured function to authorised members
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_wad` | `BigNumberish` | Amount to mint |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_wad` | `PromiseOrValue`<`BigNumberish`\> | Amount to mint |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -1891,14 +1891,14 @@ Move a given amount: `_amount` of `_token` funds from funding pot with id `_from
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` | The domainId in which I have the permission to take this action |
-| `_fromChildSkillIndex` | `BigNumberish` | The child index in _permissionDomainId where we can find the domain for _fromPotId |
-| `_toChildSkillIndex` | `BigNumberish` | The child index in _permissionDomainId where we can find the domain for _toPotId |
-| `_fromPot` | `BigNumberish` | Funding pot id providing the funds |
-| `_toPot` | `BigNumberish` | Funding pot id receiving the funds |
-| `_amount` | `BigNumberish` | Amount of funds |
-| `_token` | `string` | Address of the token, `0x0` value indicates Ether |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_permissionDomainId` | `PromiseOrValue`<`BigNumberish`\> | The domainId in which I have the permission to take this action |
+| `_fromChildSkillIndex` | `PromiseOrValue`<`BigNumberish`\> | The child index in _permissionDomainId where we can find the domain for _fromPotId |
+| `_toChildSkillIndex` | `PromiseOrValue`<`BigNumberish`\> | The child index in _permissionDomainId where we can find the domain for _toPotId |
+| `_fromPot` | `PromiseOrValue`<`BigNumberish`\> | Funding pot id providing the funds |
+| `_toPot` | `PromiseOrValue`<`BigNumberish`\> | Funding pot id receiving the funds |
+| `_amount` | `PromiseOrValue`<`BigNumberish`\> | Amount of funds |
+| `_token` | `PromiseOrValue`<`string`\> | Address of the token, `0x0` value indicates Ether |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2026,9 +2026,9 @@ Register colony's ENS label
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `colonyName` | `string` | The label to register. |
-| `orbitdb` | `string` | The path of the orbitDB database associated with the colony name |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `colonyName` | `PromiseOrValue`<`string`\> | The label to register. |
+| `orbitdb` | `PromiseOrValue`<`string`\> | The path of the orbitDB database associated with the colony name |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2092,8 +2092,8 @@ Remove colony recovery role. Can only be called by root role.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_user` | `string` | User we want to remove recovery role from |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_user` | `PromiseOrValue`<`string`\> | User we want to remove recovery role from |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2115,8 +2115,8 @@ Removing evaluator role Agreed between manager and currently assigned evaluator
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the task |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Id of the task |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2138,8 +2138,8 @@ Removing worker role Agreed between manager and currently assigned worker
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the task |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Id of the task |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2162,11 +2162,11 @@ Reveal the secret rating submitted in `IColony.submitTaskWorkRating` for task `_
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the task |
-| `_role` | `BigNumberish` | Id of the role, as defined in TaskRole enum |
-| `_rating` | `BigNumberish` | 0-50 rating score (in increments of 10, .e.g 0, 10, 20, 30, 40 or 50) |
-| `_salt` | `BytesLike` | Salt value used to generate the rating secret |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Id of the task |
+| `_role` | `PromiseOrValue`<`BigNumberish`\> | Id of the role, as defined in TaskRole enum |
+| `_rating` | `PromiseOrValue`<`BigNumberish`\> | 0-50 rating score (in increments of 10, .e.g 0, 10, 20, 30, 40 or 50) |
+| `_salt` | `PromiseOrValue`<`BytesLike`\> | Salt value used to generate the rating secret |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2188,12 +2188,12 @@ Set new colony admin role. Can be called by root role or architecture role.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` | Domain in which the caller has root/architecture role |
-| `_childSkillIndex` | `BigNumberish` | The index that the _domainId is relative to _permissionDomainId |
-| `_user` | `string` | User we want to give an admin role to |
-| `_domainId` | `BigNumberish` | Domain in which we are giving user the role |
-| `_setTo` | `boolean` | The state of the role permission (true assign the permission, false revokes it) |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_permissionDomainId` | `PromiseOrValue`<`BigNumberish`\> | Domain in which the caller has root/architecture role |
+| `_childSkillIndex` | `PromiseOrValue`<`BigNumberish`\> | The index that the _domainId is relative to _permissionDomainId |
+| `_user` | `PromiseOrValue`<`string`\> | User we want to give an admin role to |
+| `_domainId` | `PromiseOrValue`<`BigNumberish`\> | Domain in which we are giving user the role |
+| `_setTo` | `PromiseOrValue`<`boolean`\> | The state of the role permission (true assign the permission, false revokes it) |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2242,12 +2242,12 @@ Set `_token` payout for all roles in task `_id` to the respective amounts
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the task |
-| `_token` | `string` | Address of the token, `0x0` value indicates Ether |
-| `_managerAmount` | `BigNumberish` | Payout amount for manager |
-| `_evaluatorAmount` | `BigNumberish` | Payout amount for evaluator |
-| `_workerAmount` | `BigNumberish` | Payout amount for worker |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Id of the task |
+| `_token` | `PromiseOrValue`<`string`\> | Address of the token, `0x0` value indicates Ether |
+| `_managerAmount` | `PromiseOrValue`<`BigNumberish`\> | Payout amount for manager |
+| `_evaluatorAmount` | `PromiseOrValue`<`BigNumberish`\> | Payout amount for evaluator |
+| `_workerAmount` | `PromiseOrValue`<`BigNumberish`\> | Payout amount for worker |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2269,12 +2269,12 @@ Set new colony architecture role. Can be called by root role or architecture rol
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` | Domain in which the caller has root/architecture role |
-| `_childSkillIndex` | `BigNumberish` | The index that the _domainId is relative to _permissionDomainId |
-| `_user` | `string` | User we want to give an architecture role to |
-| `_domainId` | `BigNumberish` | Domain in which we are giving user the role |
-| `_setTo` | `boolean` | The state of the role permission (true assign the permission, false revokes it) |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_permissionDomainId` | `PromiseOrValue`<`BigNumberish`\> | Domain in which the caller has root/architecture role |
+| `_childSkillIndex` | `PromiseOrValue`<`BigNumberish`\> | The index that the _domainId is relative to _permissionDomainId |
+| `_user` | `PromiseOrValue`<`string`\> | User we want to give an architecture role to |
+| `_domainId` | `PromiseOrValue`<`BigNumberish`\> | Domain in which we are giving user the role |
+| `_setTo` | `PromiseOrValue`<`boolean`\> | The state of the role permission (true assign the permission, false revokes it) |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2322,12 +2322,12 @@ Set new colony funding role. Can be called by root role or architecture role.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` | Domain in which the caller has root/architecture role |
-| `_childSkillIndex` | `BigNumberish` | The index that the _domainId is relative to _permissionDomainId |
-| `_user` | `string` | User we want to give an funding role to |
-| `_domainId` | `BigNumberish` | Domain in which we are giving user the role |
-| `_setTo` | `boolean` | The state of the role permission (true assign the permission, false revokes it) |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_permissionDomainId` | `PromiseOrValue`<`BigNumberish`\> | Domain in which the caller has root/architecture role |
+| `_childSkillIndex` | `PromiseOrValue`<`BigNumberish`\> | The index that the _domainId is relative to _permissionDomainId |
+| `_user` | `PromiseOrValue`<`string`\> | User we want to give an funding role to |
+| `_domainId` | `PromiseOrValue`<`BigNumberish`\> | Domain in which we are giving user the role |
+| `_setTo` | `PromiseOrValue`<`boolean`\> | The state of the role permission (true assign the permission, false revokes it) |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2375,11 +2375,11 @@ Sets the domain on an existing payment. Secured function to authorised members
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` | The domainId in which I have the permission to take this action |
-| `_childSkillIndex` | `BigNumberish` | The index that the _domainId is relative to _permissionDomainId |
-| `_id` | `BigNumberish` | Payment identifier |
-| `_domainId` | `BigNumberish` | Id of the new domain to set |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_permissionDomainId` | `PromiseOrValue`<`BigNumberish`\> | The domainId in which I have the permission to take this action |
+| `_childSkillIndex` | `PromiseOrValue`<`BigNumberish`\> | The index that the _domainId is relative to _permissionDomainId |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Payment identifier |
+| `_domainId` | `PromiseOrValue`<`BigNumberish`\> | Id of the new domain to set |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2428,12 +2428,12 @@ Sets the payout for a given token on an existing payment. Secured function to au
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` | The domainId in which I have the permission to take this action |
-| `_childSkillIndex` | `BigNumberish` | The index that the _domainId is relative to _permissionDomainId |
-| `_id` | `BigNumberish` | Payment identifier |
-| `_token` | `string` | Address of the token, `0x0` value indicates Ether |
-| `_amount` | `BigNumberish` | Payout amount |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_permissionDomainId` | `PromiseOrValue`<`BigNumberish`\> | The domainId in which I have the permission to take this action |
+| `_childSkillIndex` | `PromiseOrValue`<`BigNumberish`\> | The index that the _domainId is relative to _permissionDomainId |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Payment identifier |
+| `_token` | `PromiseOrValue`<`string`\> | Address of the token, `0x0` value indicates Ether |
+| `_amount` | `PromiseOrValue`<`BigNumberish`\> | Payout amount |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2481,11 +2481,11 @@ Sets the recipient on an existing payment. Secured function to authorised member
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` | The domainId in which I have the permission to take this action |
-| `_childSkillIndex` | `BigNumberish` | The index that the _domainId is relative to _permissionDomainId |
-| `_id` | `BigNumberish` | Payment identifier |
-| `_recipient` | `string` | Address of the payment recipient |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_permissionDomainId` | `PromiseOrValue`<`BigNumberish`\> | The domainId in which I have the permission to take this action |
+| `_childSkillIndex` | `PromiseOrValue`<`BigNumberish`\> | The index that the _domainId is relative to _permissionDomainId |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Payment identifier |
+| `_recipient` | `PromiseOrValue`<`string`\> | Address of the payment recipient |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2532,11 +2532,11 @@ Sets the skill on an existing payment. Secured function to authorised members
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` | The domainId in which I have the permission to take this action |
-| `_childSkillIndex` | `BigNumberish` | The index that the _domainId is relative to _permissionDomainId |
-| `_id` | `BigNumberish` | Payment identifier |
-| `_skillId` | `BigNumberish` | Id of the new skill to set |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_permissionDomainId` | `PromiseOrValue`<`BigNumberish`\> | The domainId in which I have the permission to take this action |
+| `_childSkillIndex` | `PromiseOrValue`<`BigNumberish`\> | The index that the _domainId is relative to _permissionDomainId |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Payment identifier |
+| `_skillId` | `PromiseOrValue`<`BigNumberish`\> | Id of the new skill to set |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2583,8 +2583,8 @@ Set new colony recovery role. Can be called by root.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_user` | `string` | User we want to give a recovery role to |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_user` | `PromiseOrValue`<`string`\> | User we want to give a recovery role to |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2606,8 +2606,8 @@ Set the reward inverse to pay out from revenue. e.g. if the fee is 1% (or 0.01),
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_rewardInverse` | `BigNumberish` | The inverse of the reward |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_rewardInverse` | `PromiseOrValue`<`BigNumberish`\> | The inverse of the reward |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2629,9 +2629,9 @@ Set new colony root role. Can be called by root role only.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_user` | `string` | User we want to give an root role to |
-| `_setTo` | `boolean` | The state of the role permission (true assign the permission, false revokes it) |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_user` | `PromiseOrValue`<`string`\> | User we want to give an root role to |
+| `_setTo` | `PromiseOrValue`<`boolean`\> | The state of the role permission (true assign the permission, false revokes it) |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2654,9 +2654,9 @@ Update value of arbitrary storage variable. Can only be called by user with reco
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_slot` | `BigNumberish` | Uint address of storage slot to be updated |
-| `_value` | `BytesLike` | Bytes32 word of data to be set |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_slot` | `PromiseOrValue`<`BigNumberish`\> | Uint address of storage slot to be updated |
+| `_value` | `PromiseOrValue`<`BytesLike`\> | Bytes32 word of data to be set |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2678,9 +2678,9 @@ Set the hash for the task brief, aka task work specification, which identifies t
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the task |
-| `_specificationHash` | `BytesLike` | Unique hash of the task brief in ddb |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Id of the task |
+| `_specificationHash` | `PromiseOrValue`<`BytesLike`\> | Unique hash of the task brief in ddb |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2702,9 +2702,9 @@ Set the domain for task `_id`
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the task |
-| `_domainId` | `BigNumberish` | Id of the domain |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Id of the task |
+| `_domainId` | `PromiseOrValue`<`BigNumberish`\> | Id of the domain |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2726,9 +2726,9 @@ Set the due date on task `_id`. Allowed before a task is finalized
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the task |
-| `_dueDate` | `BigNumberish` | Due date as seconds since unix epoch |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Id of the task |
+| `_dueDate` | `PromiseOrValue`<`BigNumberish`\> | Due date as seconds since unix epoch |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2750,10 +2750,10 @@ Set `_token` payout for evaluator in task `_id` to `_amount`
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the task |
-| `_token` | `string` | Address of the token, `0x0` value indicates Ether |
-| `_amount` | `BigNumberish` | Payout amount |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Id of the task |
+| `_token` | `PromiseOrValue`<`string`\> | Address of the token, `0x0` value indicates Ether |
+| `_amount` | `PromiseOrValue`<`BigNumberish`\> | Payout amount |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2776,9 +2776,9 @@ Assigning evaluator role Can only be set if there is no one currently assigned t
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the task |
-| `_user` | `string` | Address of the user we want to give a evaluator role to |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Id of the task |
+| `_user` | `PromiseOrValue`<`string`\> | Address of the user we want to give a evaluator role to |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2800,10 +2800,10 @@ Set `_token` payout for manager in task `_id` to `_amount`
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the task |
-| `_token` | `string` | Address of the token, `0x0` value indicates Ether |
-| `_amount` | `BigNumberish` | Payout amount |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Id of the task |
+| `_token` | `PromiseOrValue`<`string`\> | Address of the token, `0x0` value indicates Ether |
+| `_amount` | `PromiseOrValue`<`BigNumberish`\> | Payout amount |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2826,11 +2826,11 @@ Assigning manager role Current manager and user we want to assign role to both n
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the task |
-| `_user` | `string` | Address of the user we want to give a manager role to |
-| `_permissionDomainId` | `BigNumberish` | The domain ID in which _user has the Administration permission |
-| `_childSkillIndex` | `BigNumberish` | The index that the _domainId is relative to _permissionDomainId |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Id of the task |
+| `_user` | `PromiseOrValue`<`string`\> | Address of the user we want to give a manager role to |
+| `_permissionDomainId` | `PromiseOrValue`<`BigNumberish`\> | The domain ID in which _user has the Administration permission |
+| `_childSkillIndex` | `PromiseOrValue`<`BigNumberish`\> | The index that the _domainId is relative to _permissionDomainId |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2853,9 +2853,9 @@ Set the skill for task `_id`
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the task |
-| `_skillId` | `BigNumberish` | Id of the skill which has to be a global skill |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Id of the task |
+| `_skillId` | `PromiseOrValue`<`BigNumberish`\> | Id of the skill which has to be a global skill |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2877,10 +2877,10 @@ Set `_token` payout for worker in task `_id` to `_amount`
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the task |
-| `_token` | `string` | Address of the token, `0x0` value indicates Ether |
-| `_amount` | `BigNumberish` | Payout amount |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Id of the task |
+| `_token` | `PromiseOrValue`<`string`\> | Address of the token, `0x0` value indicates Ether |
+| `_amount` | `PromiseOrValue`<`BigNumberish`\> | Payout amount |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2903,9 +2903,9 @@ Assigning worker role Can only be set if there is no one currently assigned to b
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the task |
-| `_user` | `string` | Address of the user we want to give a worker role to |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Id of the task |
+| `_user` | `PromiseOrValue`<`string`\> | Address of the user we want to give a worker role to |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2927,12 +2927,12 @@ Start next reward payout for `_token`. All funds in the reward pot for `_token` 
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_token` | `string` | Address of the token used for reward payout |
-| `key` | `BytesLike` | Some Reputation hash tree key |
-| `value` | `BytesLike` | Reputation value |
-| `branchMask` | `BigNumberish` | The branchmask of the proof |
-| `siblings` | `BytesLike`[] | The siblings of the proof |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_token` | `PromiseOrValue`<`string`\> | Address of the token used for reward payout |
+| `key` | `PromiseOrValue`<`BytesLike`\> | Some Reputation hash tree key |
+| `value` | `PromiseOrValue`<`BytesLike`\> | Reputation value |
+| `branchMask` | `PromiseOrValue`<`BigNumberish`\> | The branchmask of the proof |
+| `siblings` | `PromiseOrValue`<`BytesLike`\>[] | The siblings of the proof |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2955,9 +2955,9 @@ Submit the task deliverable, i.e. the output of the work performed for task `_id
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the task |
-| `_deliverableHash` | `BytesLike` | Unique hash of the task deliverable content in ddb |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Id of the task |
+| `_deliverableHash` | `PromiseOrValue`<`BytesLike`\> | Unique hash of the task deliverable content in ddb |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -2980,10 +2980,10 @@ Submit the task deliverable for Worker and rating for Manager
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the task |
-| `_deliverableHash` | `BytesLike` | Unique hash of the task deliverable content in ddb |
-| `_ratingSecret` | `BytesLike` | Rating secret for manager |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Id of the task |
+| `_deliverableHash` | `PromiseOrValue`<`BytesLike`\> | Unique hash of the task deliverable content in ddb |
+| `_ratingSecret` | `PromiseOrValue`<`BytesLike`\> | Rating secret for manager |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -3005,10 +3005,10 @@ Submit a hashed secret of the rating for work in task `_id` which was performed 
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the task |
-| `_role` | `BigNumberish` | Id of the role, as defined in TaskRole enum |
-| `_ratingSecret` | `BytesLike` | `keccak256` hash of a salt and 0-50 rating score (in increments of 10, .e.g 0, 10, 20, 30, 40 or 50) Can be generated via `IColony.generateSecret` helper function |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_id` | `PromiseOrValue`<`BigNumberish`\> | Id of the task |
+| `_role` | `PromiseOrValue`<`BigNumberish`\> | Id of the role, as defined in TaskRole enum |
+| `_ratingSecret` | `PromiseOrValue`<`BytesLike`\> | `keccak256` hash of a salt and 0-50 rating score (in increments of 10, .e.g 0, 10, 20, 30, 40 or 50) Can be generated via `IColony.generateSecret` helper function |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -3031,8 +3031,8 @@ Upgrades a colony to a new Colony contract version `_newVersion`
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_newVersion` | `BigNumberish` | The target version for the upgrade |
-| `overrides?` | `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `_newVersion` | `PromiseOrValue`<`BigNumberish`\> | The target version for the upgrade |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -3055,10 +3055,10 @@ Helper function that can be used by a client to verify the correctness of a patr
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `key` | `BytesLike` | The key of the element the proof is for. |
-| `value` | `BytesLike` | The value of the element that the proof is for. |
-| `branchMask` | `BigNumberish` | The branchmask of the proof |
-| `siblings` | `BytesLike`[] | The siblings of the proof |
+| `key` | `PromiseOrValue`<`BytesLike`\> | The key of the element the proof is for. |
+| `value` | `PromiseOrValue`<`BytesLike`\> | The value of the element that the proof is for. |
+| `branchMask` | `PromiseOrValue`<`BigNumberish`\> | The branchmask of the proof |
+| `siblings` | `PromiseOrValue`<`BytesLike`\>[] | The siblings of the proof |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
