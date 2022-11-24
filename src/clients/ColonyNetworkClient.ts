@@ -1,15 +1,9 @@
-import {
-  ContractFactory,
-  ContractTransaction,
-  BigNumber,
-  Overrides,
-} from 'ethers';
+import { ContractTransaction, BigNumber, Overrides } from 'ethers';
 
 import { ClientType, Network, SignerOrProvider } from '../types';
 import { AnyColonyClient } from '../clients/Core/exports';
 
 import { ColonyNetworkAddress, ReputationOracleEndpoint } from '../constants';
-import { abis } from '../abis/exports';
 import {
   IColonyNetwork,
   IColonyNetwork__factory as IColonyNetworkFactory,
@@ -18,8 +12,7 @@ import { getColonyClient } from './Core/exports';
 import getTokenLockingClient, {
   TokenLockingClient,
 } from './TokenLockingClient';
-
-const { abi: tokenAbi, bytecode: tokenBytecode } = abis.MetaTxToken;
+import { ColonyTokenFactory } from '../tokens';
 
 type NetworkEstimate = IColonyNetwork['estimateGas'];
 
@@ -185,11 +178,7 @@ const getColonyNetworkClient = (
     decimals?: number,
     overrides?: Overrides,
   ): Promise<ContractTransaction> => {
-    const tokenFactory = new ContractFactory(
-      tokenAbi,
-      tokenBytecode,
-      networkClient.signer,
-    );
+    const tokenFactory = new ColonyTokenFactory(networkClient.signer);
     const tokenContract = await tokenFactory.deploy(
       name,
       symbol,
@@ -205,7 +194,7 @@ const getColonyNetworkClient = (
     symbol: string,
     decimals = 18,
   ): Promise<BigNumber> => {
-    const tokenFactory = new ContractFactory(tokenAbi, tokenBytecode);
+    const tokenFactory = new ColonyTokenFactory();
     const deployTx = tokenFactory.getDeployTransaction(name, symbol, decimals);
     return networkClient.provider.estimateGas(deployTx);
   };
