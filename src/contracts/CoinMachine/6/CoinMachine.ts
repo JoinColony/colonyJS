@@ -25,6 +25,7 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
+  PromiseOrValue,
 } from "./common";
 
 export interface CoinMachineInterface extends utils.Interface {
@@ -114,11 +115,17 @@ export interface CoinMachineInterface extends utils.Interface {
   encodeFunctionData(functionFragment: "authority", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "executeMetaTransaction",
-    values: [string, BytesLike, BytesLike, BytesLike, BigNumberish]
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "getCapabilityRoles",
-    values: [BytesLike]
+    values: [PromiseOrValue<BytesLike>]
   ): string;
   encodeFunctionData(
     functionFragment: "getChainId",
@@ -132,58 +139,67 @@ export interface CoinMachineInterface extends utils.Interface {
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "setAuthority",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
-  encodeFunctionData(functionFragment: "setOwner", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "setOwner",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(
     functionFragment: "verify",
     values: [
-      string,
-      BigNumberish,
-      BigNumberish,
-      BytesLike,
-      BytesLike,
-      BytesLike,
-      BigNumberish
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>
     ]
   ): string;
   encodeFunctionData(
     functionFragment: "getMetatransactionNonce",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "identifier",
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "version", values?: undefined): string;
-  encodeFunctionData(functionFragment: "install", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "install",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(
     functionFragment: "finishUpgrade",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "deprecate", values: [boolean]): string;
+  encodeFunctionData(
+    functionFragment: "deprecate",
+    values: [PromiseOrValue<boolean>]
+  ): string;
   encodeFunctionData(functionFragment: "uninstall", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "initialise",
     values: [
-      string,
-      string,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      string
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>
     ]
   ): string;
   encodeFunctionData(
     functionFragment: "setWhitelist",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "buyTokens",
-    values: [BigNumberish]
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "updatePeriod",
@@ -240,11 +256,11 @@ export interface CoinMachineInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "getUserLimit",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "getMaxPurchase",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "getWhitelist",
@@ -506,16 +522,16 @@ export interface CoinMachine extends BaseContract {
      * @param _user Address of user trying to do meta transaction
      */
     executeMetaTransaction(
-      _user: string,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      _user: PromiseOrValue<string>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     getCapabilityRoles(
-      _sig: BytesLike,
+      _sig: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<[string]>;
 
@@ -528,23 +544,23 @@ export interface CoinMachine extends BaseContract {
     owner(overrides?: CallOverrides): Promise<[string]>;
 
     setAuthority(
-      authority_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      authority_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     setOwner(
-      owner_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      owner_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     verify(
-      _owner: string,
-      _nonce: BigNumberish,
-      _chainId: BigNumberish,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
+      _owner: PromiseOrValue<string>,
+      _nonce: PromiseOrValue<BigNumberish>,
+      _chainId: PromiseOrValue<BigNumberish>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
@@ -553,7 +569,7 @@ export interface CoinMachine extends BaseContract {
      * @param _userAddress The user's address
      */
     getMetatransactionNonce(
-      _userAddress: string,
+      _userAddress: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { _nonce: BigNumber }>;
 
@@ -576,15 +592,15 @@ export interface CoinMachine extends BaseContract {
      * @param _colony The colony in which the extension holds permissions
      */
     install(
-      _colony: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _colony: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Called when upgrading the extension
      */
     finishUpgrade(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -592,15 +608,15 @@ export interface CoinMachine extends BaseContract {
      * @param _deprecated Indicates whether the extension should be deprecated or undeprecated
      */
     deprecate(
-      _deprecated: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Called when uninstalling the extension
      */
     uninstall(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -616,16 +632,16 @@ export interface CoinMachine extends BaseContract {
      * @param _windowSize Characteristic number of periods that should be used for the moving average. In the long-term, 86% of the weighting will be in this window size. The higher the number, the slower the price will be to adjust
      */
     initialise(
-      _token: string,
-      _purchaseToken: string,
-      _periodLength: BigNumberish,
-      _windowSize: BigNumberish,
-      _targetPerPeriod: BigNumberish,
-      _maxPerPeriod: BigNumberish,
-      _userLimitFraction: BigNumberish,
-      _startingPrice: BigNumberish,
-      _whitelist: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _token: PromiseOrValue<string>,
+      _purchaseToken: PromiseOrValue<string>,
+      _periodLength: PromiseOrValue<BigNumberish>,
+      _windowSize: PromiseOrValue<BigNumberish>,
+      _targetPerPeriod: PromiseOrValue<BigNumberish>,
+      _maxPerPeriod: PromiseOrValue<BigNumberish>,
+      _userLimitFraction: PromiseOrValue<BigNumberish>,
+      _startingPrice: PromiseOrValue<BigNumberish>,
+      _whitelist: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -633,8 +649,8 @@ export interface CoinMachine extends BaseContract {
      * @param _whitelist The address of the whitelist
      */
     setWhitelist(
-      _whitelist: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _whitelist: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -642,15 +658,15 @@ export interface CoinMachine extends BaseContract {
      * @param _numTokens The number of tokens to purchase
      */
     buyTokens(
-      _numTokens: BigNumberish,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      _numTokens: PromiseOrValue<BigNumberish>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Bring the token accounting current
      */
     updatePeriod(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -747,7 +763,7 @@ export interface CoinMachine extends BaseContract {
      * @param _user The user's address
      */
     getUserLimit(
-      _user: string,
+      _user: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { _max: BigNumber }>;
 
@@ -756,7 +772,7 @@ export interface CoinMachine extends BaseContract {
      * @param _user The user's address
      */
     getMaxPurchase(
-      _user: string,
+      _user: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { _max: BigNumber }>;
 
@@ -786,16 +802,16 @@ export interface CoinMachine extends BaseContract {
    * @param _user Address of user trying to do meta transaction
    */
   executeMetaTransaction(
-    _user: string,
-    _payload: BytesLike,
-    _sigR: BytesLike,
-    _sigS: BytesLike,
-    _sigV: BigNumberish,
-    overrides?: PayableOverrides & { from?: string | Promise<string> }
+    _user: PromiseOrValue<string>,
+    _payload: PromiseOrValue<BytesLike>,
+    _sigR: PromiseOrValue<BytesLike>,
+    _sigS: PromiseOrValue<BytesLike>,
+    _sigV: PromiseOrValue<BigNumberish>,
+    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   getCapabilityRoles(
-    _sig: BytesLike,
+    _sig: PromiseOrValue<BytesLike>,
     overrides?: CallOverrides
   ): Promise<string>;
 
@@ -808,23 +824,23 @@ export interface CoinMachine extends BaseContract {
   owner(overrides?: CallOverrides): Promise<string>;
 
   setAuthority(
-    authority_: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    authority_: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   setOwner(
-    owner_: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    owner_: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   verify(
-    _owner: string,
-    _nonce: BigNumberish,
-    _chainId: BigNumberish,
-    _payload: BytesLike,
-    _sigR: BytesLike,
-    _sigS: BytesLike,
-    _sigV: BigNumberish,
+    _owner: PromiseOrValue<string>,
+    _nonce: PromiseOrValue<BigNumberish>,
+    _chainId: PromiseOrValue<BigNumberish>,
+    _payload: PromiseOrValue<BytesLike>,
+    _sigR: PromiseOrValue<BytesLike>,
+    _sigS: PromiseOrValue<BytesLike>,
+    _sigV: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<boolean>;
 
@@ -833,7 +849,7 @@ export interface CoinMachine extends BaseContract {
    * @param _userAddress The user's address
    */
   getMetatransactionNonce(
-    _userAddress: string,
+    _userAddress: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
@@ -852,15 +868,15 @@ export interface CoinMachine extends BaseContract {
    * @param _colony The colony in which the extension holds permissions
    */
   install(
-    _colony: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _colony: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Called when upgrading the extension
    */
   finishUpgrade(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -868,15 +884,15 @@ export interface CoinMachine extends BaseContract {
    * @param _deprecated Indicates whether the extension should be deprecated or undeprecated
    */
   deprecate(
-    _deprecated: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _deprecated: PromiseOrValue<boolean>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Called when uninstalling the extension
    */
   uninstall(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -892,16 +908,16 @@ export interface CoinMachine extends BaseContract {
    * @param _windowSize Characteristic number of periods that should be used for the moving average. In the long-term, 86% of the weighting will be in this window size. The higher the number, the slower the price will be to adjust
    */
   initialise(
-    _token: string,
-    _purchaseToken: string,
-    _periodLength: BigNumberish,
-    _windowSize: BigNumberish,
-    _targetPerPeriod: BigNumberish,
-    _maxPerPeriod: BigNumberish,
-    _userLimitFraction: BigNumberish,
-    _startingPrice: BigNumberish,
-    _whitelist: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _token: PromiseOrValue<string>,
+    _purchaseToken: PromiseOrValue<string>,
+    _periodLength: PromiseOrValue<BigNumberish>,
+    _windowSize: PromiseOrValue<BigNumberish>,
+    _targetPerPeriod: PromiseOrValue<BigNumberish>,
+    _maxPerPeriod: PromiseOrValue<BigNumberish>,
+    _userLimitFraction: PromiseOrValue<BigNumberish>,
+    _startingPrice: PromiseOrValue<BigNumberish>,
+    _whitelist: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -909,8 +925,8 @@ export interface CoinMachine extends BaseContract {
    * @param _whitelist The address of the whitelist
    */
   setWhitelist(
-    _whitelist: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _whitelist: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -918,15 +934,15 @@ export interface CoinMachine extends BaseContract {
    * @param _numTokens The number of tokens to purchase
    */
   buyTokens(
-    _numTokens: BigNumberish,
-    overrides?: PayableOverrides & { from?: string | Promise<string> }
+    _numTokens: PromiseOrValue<BigNumberish>,
+    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Bring the token accounting current
    */
   updatePeriod(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -998,13 +1014,19 @@ export interface CoinMachine extends BaseContract {
    * Get the maximum amount of tokens a user can purchase in total
    * @param _user The user's address
    */
-  getUserLimit(_user: string, overrides?: CallOverrides): Promise<BigNumber>;
+  getUserLimit(
+    _user: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
   /**
    * Get the maximum amount of tokens a user can purchase in a period
    * @param _user The user's address
    */
-  getMaxPurchase(_user: string, overrides?: CallOverrides): Promise<BigNumber>;
+  getMaxPurchase(
+    _user: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
   /**
    * Get the address of the whitelist (if exists)
@@ -1028,16 +1050,16 @@ export interface CoinMachine extends BaseContract {
      * @param _user Address of user trying to do meta transaction
      */
     executeMetaTransaction(
-      _user: string,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
+      _user: PromiseOrValue<string>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<string>;
 
     getCapabilityRoles(
-      _sig: BytesLike,
+      _sig: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -1049,18 +1071,24 @@ export interface CoinMachine extends BaseContract {
 
     owner(overrides?: CallOverrides): Promise<string>;
 
-    setAuthority(authority_: string, overrides?: CallOverrides): Promise<void>;
+    setAuthority(
+      authority_: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
-    setOwner(owner_: string, overrides?: CallOverrides): Promise<void>;
+    setOwner(
+      owner_: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     verify(
-      _owner: string,
-      _nonce: BigNumberish,
-      _chainId: BigNumberish,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
+      _owner: PromiseOrValue<string>,
+      _nonce: PromiseOrValue<BigNumberish>,
+      _chainId: PromiseOrValue<BigNumberish>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
@@ -1069,7 +1097,7 @@ export interface CoinMachine extends BaseContract {
      * @param _userAddress The user's address
      */
     getMetatransactionNonce(
-      _userAddress: string,
+      _userAddress: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1087,7 +1115,10 @@ export interface CoinMachine extends BaseContract {
      * Configures the extension
      * @param _colony The colony in which the extension holds permissions
      */
-    install(_colony: string, overrides?: CallOverrides): Promise<void>;
+    install(
+      _colony: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     /**
      * Called when upgrading the extension
@@ -1098,7 +1129,10 @@ export interface CoinMachine extends BaseContract {
      * Called when deprecating (or undeprecating) the extension
      * @param _deprecated Indicates whether the extension should be deprecated or undeprecated
      */
-    deprecate(_deprecated: boolean, overrides?: CallOverrides): Promise<void>;
+    deprecate(
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     /**
      * Called when uninstalling the extension
@@ -1118,15 +1152,15 @@ export interface CoinMachine extends BaseContract {
      * @param _windowSize Characteristic number of periods that should be used for the moving average. In the long-term, 86% of the weighting will be in this window size. The higher the number, the slower the price will be to adjust
      */
     initialise(
-      _token: string,
-      _purchaseToken: string,
-      _periodLength: BigNumberish,
-      _windowSize: BigNumberish,
-      _targetPerPeriod: BigNumberish,
-      _maxPerPeriod: BigNumberish,
-      _userLimitFraction: BigNumberish,
-      _startingPrice: BigNumberish,
-      _whitelist: string,
+      _token: PromiseOrValue<string>,
+      _purchaseToken: PromiseOrValue<string>,
+      _periodLength: PromiseOrValue<BigNumberish>,
+      _windowSize: PromiseOrValue<BigNumberish>,
+      _targetPerPeriod: PromiseOrValue<BigNumberish>,
+      _maxPerPeriod: PromiseOrValue<BigNumberish>,
+      _userLimitFraction: PromiseOrValue<BigNumberish>,
+      _startingPrice: PromiseOrValue<BigNumberish>,
+      _whitelist: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1134,14 +1168,17 @@ export interface CoinMachine extends BaseContract {
      * Set the address for an (optional) whitelist
      * @param _whitelist The address of the whitelist
      */
-    setWhitelist(_whitelist: string, overrides?: CallOverrides): Promise<void>;
+    setWhitelist(
+      _whitelist: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     /**
      * Purchase tokens from Coin Machine.
      * @param _numTokens The number of tokens to purchase
      */
     buyTokens(
-      _numTokens: BigNumberish,
+      _numTokens: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1219,14 +1256,17 @@ export interface CoinMachine extends BaseContract {
      * Get the maximum amount of tokens a user can purchase in total
      * @param _user The user's address
      */
-    getUserLimit(_user: string, overrides?: CallOverrides): Promise<BigNumber>;
+    getUserLimit(
+      _user: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     /**
      * Get the maximum amount of tokens a user can purchase in a period
      * @param _user The user's address
      */
     getMaxPurchase(
-      _user: string,
+      _user: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1246,12 +1286,16 @@ export interface CoinMachine extends BaseContract {
     ExtensionInitialised(): ExtensionInitialisedEventFilter;
 
     "LogSetAuthority(address)"(
-      authority?: string | null
+      authority?: PromiseOrValue<string> | null
     ): LogSetAuthorityEventFilter;
-    LogSetAuthority(authority?: string | null): LogSetAuthorityEventFilter;
+    LogSetAuthority(
+      authority?: PromiseOrValue<string> | null
+    ): LogSetAuthorityEventFilter;
 
-    "LogSetOwner(address)"(owner?: string | null): LogSetOwnerEventFilter;
-    LogSetOwner(owner?: string | null): LogSetOwnerEventFilter;
+    "LogSetOwner(address)"(
+      owner?: PromiseOrValue<string> | null
+    ): LogSetOwnerEventFilter;
+    LogSetOwner(owner?: PromiseOrValue<string> | null): LogSetOwnerEventFilter;
 
     "MetaTransactionExecuted(address,address,bytes)"(
       user?: null,
@@ -1277,13 +1321,13 @@ export interface CoinMachine extends BaseContract {
     PriceEvolutionSet(evolvePrice?: null): PriceEvolutionSetEventFilter;
 
     "TokensBought(address,address,uint256,uint256)"(
-      buyer?: string | null,
+      buyer?: PromiseOrValue<string> | null,
       token?: null,
       numTokens?: null,
       totalCost?: null
     ): TokensBoughtEventFilter;
     TokensBought(
-      buyer?: string | null,
+      buyer?: PromiseOrValue<string> | null,
       token?: null,
       numTokens?: null,
       totalCost?: null
@@ -1305,16 +1349,16 @@ export interface CoinMachine extends BaseContract {
      * @param _user Address of user trying to do meta transaction
      */
     executeMetaTransaction(
-      _user: string,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      _user: PromiseOrValue<string>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     getCapabilityRoles(
-      _sig: BytesLike,
+      _sig: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1327,23 +1371,23 @@ export interface CoinMachine extends BaseContract {
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
     setAuthority(
-      authority_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      authority_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     setOwner(
-      owner_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      owner_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     verify(
-      _owner: string,
-      _nonce: BigNumberish,
-      _chainId: BigNumberish,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
+      _owner: PromiseOrValue<string>,
+      _nonce: PromiseOrValue<BigNumberish>,
+      _chainId: PromiseOrValue<BigNumberish>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1352,7 +1396,7 @@ export interface CoinMachine extends BaseContract {
      * @param _userAddress The user's address
      */
     getMetatransactionNonce(
-      _userAddress: string,
+      _userAddress: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1371,15 +1415,15 @@ export interface CoinMachine extends BaseContract {
      * @param _colony The colony in which the extension holds permissions
      */
     install(
-      _colony: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _colony: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
      * Called when upgrading the extension
      */
     finishUpgrade(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -1387,15 +1431,15 @@ export interface CoinMachine extends BaseContract {
      * @param _deprecated Indicates whether the extension should be deprecated or undeprecated
      */
     deprecate(
-      _deprecated: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
      * Called when uninstalling the extension
      */
     uninstall(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -1411,16 +1455,16 @@ export interface CoinMachine extends BaseContract {
      * @param _windowSize Characteristic number of periods that should be used for the moving average. In the long-term, 86% of the weighting will be in this window size. The higher the number, the slower the price will be to adjust
      */
     initialise(
-      _token: string,
-      _purchaseToken: string,
-      _periodLength: BigNumberish,
-      _windowSize: BigNumberish,
-      _targetPerPeriod: BigNumberish,
-      _maxPerPeriod: BigNumberish,
-      _userLimitFraction: BigNumberish,
-      _startingPrice: BigNumberish,
-      _whitelist: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _token: PromiseOrValue<string>,
+      _purchaseToken: PromiseOrValue<string>,
+      _periodLength: PromiseOrValue<BigNumberish>,
+      _windowSize: PromiseOrValue<BigNumberish>,
+      _targetPerPeriod: PromiseOrValue<BigNumberish>,
+      _maxPerPeriod: PromiseOrValue<BigNumberish>,
+      _userLimitFraction: PromiseOrValue<BigNumberish>,
+      _startingPrice: PromiseOrValue<BigNumberish>,
+      _whitelist: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -1428,8 +1472,8 @@ export interface CoinMachine extends BaseContract {
      * @param _whitelist The address of the whitelist
      */
     setWhitelist(
-      _whitelist: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _whitelist: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -1437,15 +1481,15 @@ export interface CoinMachine extends BaseContract {
      * @param _numTokens The number of tokens to purchase
      */
     buyTokens(
-      _numTokens: BigNumberish,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      _numTokens: PromiseOrValue<BigNumberish>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
      * Bring the token accounting current
      */
     updatePeriod(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -1517,14 +1561,17 @@ export interface CoinMachine extends BaseContract {
      * Get the maximum amount of tokens a user can purchase in total
      * @param _user The user's address
      */
-    getUserLimit(_user: string, overrides?: CallOverrides): Promise<BigNumber>;
+    getUserLimit(
+      _user: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     /**
      * Get the maximum amount of tokens a user can purchase in a period
      * @param _user The user's address
      */
     getMaxPurchase(
-      _user: string,
+      _user: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1551,16 +1598,16 @@ export interface CoinMachine extends BaseContract {
      * @param _user Address of user trying to do meta transaction
      */
     executeMetaTransaction(
-      _user: string,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      _user: PromiseOrValue<string>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     getCapabilityRoles(
-      _sig: BytesLike,
+      _sig: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1573,23 +1620,23 @@ export interface CoinMachine extends BaseContract {
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     setAuthority(
-      authority_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      authority_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     setOwner(
-      owner_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      owner_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     verify(
-      _owner: string,
-      _nonce: BigNumberish,
-      _chainId: BigNumberish,
-      _payload: BytesLike,
-      _sigR: BytesLike,
-      _sigS: BytesLike,
-      _sigV: BigNumberish,
+      _owner: PromiseOrValue<string>,
+      _nonce: PromiseOrValue<BigNumberish>,
+      _chainId: PromiseOrValue<BigNumberish>,
+      _payload: PromiseOrValue<BytesLike>,
+      _sigR: PromiseOrValue<BytesLike>,
+      _sigS: PromiseOrValue<BytesLike>,
+      _sigV: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1598,7 +1645,7 @@ export interface CoinMachine extends BaseContract {
      * @param _userAddress The user's address
      */
     getMetatransactionNonce(
-      _userAddress: string,
+      _userAddress: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1617,15 +1664,15 @@ export interface CoinMachine extends BaseContract {
      * @param _colony The colony in which the extension holds permissions
      */
     install(
-      _colony: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _colony: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Called when upgrading the extension
      */
     finishUpgrade(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -1633,15 +1680,15 @@ export interface CoinMachine extends BaseContract {
      * @param _deprecated Indicates whether the extension should be deprecated or undeprecated
      */
     deprecate(
-      _deprecated: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Called when uninstalling the extension
      */
     uninstall(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -1657,16 +1704,16 @@ export interface CoinMachine extends BaseContract {
      * @param _windowSize Characteristic number of periods that should be used for the moving average. In the long-term, 86% of the weighting will be in this window size. The higher the number, the slower the price will be to adjust
      */
     initialise(
-      _token: string,
-      _purchaseToken: string,
-      _periodLength: BigNumberish,
-      _windowSize: BigNumberish,
-      _targetPerPeriod: BigNumberish,
-      _maxPerPeriod: BigNumberish,
-      _userLimitFraction: BigNumberish,
-      _startingPrice: BigNumberish,
-      _whitelist: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _token: PromiseOrValue<string>,
+      _purchaseToken: PromiseOrValue<string>,
+      _periodLength: PromiseOrValue<BigNumberish>,
+      _windowSize: PromiseOrValue<BigNumberish>,
+      _targetPerPeriod: PromiseOrValue<BigNumberish>,
+      _maxPerPeriod: PromiseOrValue<BigNumberish>,
+      _userLimitFraction: PromiseOrValue<BigNumberish>,
+      _startingPrice: PromiseOrValue<BigNumberish>,
+      _whitelist: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -1674,8 +1721,8 @@ export interface CoinMachine extends BaseContract {
      * @param _whitelist The address of the whitelist
      */
     setWhitelist(
-      _whitelist: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _whitelist: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -1683,15 +1730,15 @@ export interface CoinMachine extends BaseContract {
      * @param _numTokens The number of tokens to purchase
      */
     buyTokens(
-      _numTokens: BigNumberish,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      _numTokens: PromiseOrValue<BigNumberish>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Bring the token accounting current
      */
     updatePeriod(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -1766,7 +1813,7 @@ export interface CoinMachine extends BaseContract {
      * @param _user The user's address
      */
     getUserLimit(
-      _user: string,
+      _user: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1775,7 +1822,7 @@ export interface CoinMachine extends BaseContract {
      * @param _user The user's address
      */
     getMaxPurchase(
-      _user: string,
+      _user: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 

@@ -24,6 +24,7 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
+  PromiseOrValue,
 } from "./common";
 
 export interface OneTxPaymentInterface extends utils.Interface {
@@ -71,47 +72,56 @@ export interface OneTxPaymentInterface extends utils.Interface {
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "setAuthority",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
-  encodeFunctionData(functionFragment: "setOwner", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "setOwner",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(
     functionFragment: "identifier",
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "version", values?: undefined): string;
-  encodeFunctionData(functionFragment: "install", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "install",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(
     functionFragment: "finishUpgrade",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "deprecate", values: [boolean]): string;
+  encodeFunctionData(
+    functionFragment: "deprecate",
+    values: [PromiseOrValue<boolean>]
+  ): string;
   encodeFunctionData(functionFragment: "uninstall", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "makePayment",
     values: [
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      string[],
-      string[],
-      BigNumberish[],
-      BigNumberish,
-      BigNumberish
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>[],
+      PromiseOrValue<string>[],
+      PromiseOrValue<BigNumberish>[],
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>
     ]
   ): string;
   encodeFunctionData(
     functionFragment: "makePaymentFundedFromDomain",
     values: [
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      string[],
-      string[],
-      BigNumberish[],
-      BigNumberish,
-      BigNumberish
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>[],
+      PromiseOrValue<string>[],
+      PromiseOrValue<BigNumberish>[],
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>
     ]
   ): string;
 
@@ -233,13 +243,13 @@ export interface OneTxPayment extends BaseContract {
     owner(overrides?: CallOverrides): Promise<[string]>;
 
     setAuthority(
-      authority_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      authority_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     setOwner(
-      owner_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      owner_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -257,30 +267,30 @@ export interface OneTxPayment extends BaseContract {
      * @param _colony The colony in which the extension holds permissions
      */
     install(
-      _colony: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _colony: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Called when upgrading the extension
      */
     finishUpgrade(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Called when deprecating (or undeprecating) the extension
      */
     deprecate(
-      _deprecated: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
      * Called when uninstalling the extension
      */
     uninstall(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -297,16 +307,16 @@ export interface OneTxPayment extends BaseContract {
      * @param _workers The addresses of the recipients of the payment
      */
     makePayment(
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _callerPermissionDomainId: BigNumberish,
-      _callerChildSkillIndex: BigNumberish,
-      _workers: string[],
-      _tokens: string[],
-      _amounts: BigNumberish[],
-      _domainId: BigNumberish,
-      _skillId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _callerPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _callerChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _workers: PromiseOrValue<string>[],
+      _tokens: PromiseOrValue<string>[],
+      _amounts: PromiseOrValue<BigNumberish>[],
+      _domainId: PromiseOrValue<BigNumberish>,
+      _skillId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     /**
@@ -323,16 +333,16 @@ export interface OneTxPayment extends BaseContract {
      * @param _workers The addresses of the recipients of the payment
      */
     makePaymentFundedFromDomain(
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _callerPermissionDomainId: BigNumberish,
-      _callerChildSkillIndex: BigNumberish,
-      _workers: string[],
-      _tokens: string[],
-      _amounts: BigNumberish[],
-      _domainId: BigNumberish,
-      _skillId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _callerPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _callerChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _workers: PromiseOrValue<string>[],
+      _tokens: PromiseOrValue<string>[],
+      _amounts: PromiseOrValue<BigNumberish>[],
+      _domainId: PromiseOrValue<BigNumberish>,
+      _skillId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
   };
 
@@ -345,13 +355,13 @@ export interface OneTxPayment extends BaseContract {
   owner(overrides?: CallOverrides): Promise<string>;
 
   setAuthority(
-    authority_: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    authority_: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   setOwner(
-    owner_: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    owner_: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -369,30 +379,30 @@ export interface OneTxPayment extends BaseContract {
    * @param _colony The colony in which the extension holds permissions
    */
   install(
-    _colony: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _colony: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Called when upgrading the extension
    */
   finishUpgrade(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Called when deprecating (or undeprecating) the extension
    */
   deprecate(
-    _deprecated: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _deprecated: PromiseOrValue<boolean>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
    * Called when uninstalling the extension
    */
   uninstall(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -409,16 +419,16 @@ export interface OneTxPayment extends BaseContract {
    * @param _workers The addresses of the recipients of the payment
    */
   makePayment(
-    _permissionDomainId: BigNumberish,
-    _childSkillIndex: BigNumberish,
-    _callerPermissionDomainId: BigNumberish,
-    _callerChildSkillIndex: BigNumberish,
-    _workers: string[],
-    _tokens: string[],
-    _amounts: BigNumberish[],
-    _domainId: BigNumberish,
-    _skillId: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _permissionDomainId: PromiseOrValue<BigNumberish>,
+    _childSkillIndex: PromiseOrValue<BigNumberish>,
+    _callerPermissionDomainId: PromiseOrValue<BigNumberish>,
+    _callerChildSkillIndex: PromiseOrValue<BigNumberish>,
+    _workers: PromiseOrValue<string>[],
+    _tokens: PromiseOrValue<string>[],
+    _amounts: PromiseOrValue<BigNumberish>[],
+    _domainId: PromiseOrValue<BigNumberish>,
+    _skillId: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   /**
@@ -435,16 +445,16 @@ export interface OneTxPayment extends BaseContract {
    * @param _workers The addresses of the recipients of the payment
    */
   makePaymentFundedFromDomain(
-    _permissionDomainId: BigNumberish,
-    _childSkillIndex: BigNumberish,
-    _callerPermissionDomainId: BigNumberish,
-    _callerChildSkillIndex: BigNumberish,
-    _workers: string[],
-    _tokens: string[],
-    _amounts: BigNumberish[],
-    _domainId: BigNumberish,
-    _skillId: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _permissionDomainId: PromiseOrValue<BigNumberish>,
+    _childSkillIndex: PromiseOrValue<BigNumberish>,
+    _callerPermissionDomainId: PromiseOrValue<BigNumberish>,
+    _callerChildSkillIndex: PromiseOrValue<BigNumberish>,
+    _workers: PromiseOrValue<string>[],
+    _tokens: PromiseOrValue<string>[],
+    _amounts: PromiseOrValue<BigNumberish>[],
+    _domainId: PromiseOrValue<BigNumberish>,
+    _skillId: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
@@ -456,9 +466,15 @@ export interface OneTxPayment extends BaseContract {
 
     owner(overrides?: CallOverrides): Promise<string>;
 
-    setAuthority(authority_: string, overrides?: CallOverrides): Promise<void>;
+    setAuthority(
+      authority_: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
-    setOwner(owner_: string, overrides?: CallOverrides): Promise<void>;
+    setOwner(
+      owner_: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     /**
      * Returns the identifier of the extension
@@ -474,7 +490,10 @@ export interface OneTxPayment extends BaseContract {
      * Configures the extension
      * @param _colony The colony in which the extension holds permissions
      */
-    install(_colony: string, overrides?: CallOverrides): Promise<void>;
+    install(
+      _colony: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     /**
      * Called when upgrading the extension
@@ -484,7 +503,10 @@ export interface OneTxPayment extends BaseContract {
     /**
      * Called when deprecating (or undeprecating) the extension
      */
-    deprecate(_deprecated: boolean, overrides?: CallOverrides): Promise<void>;
+    deprecate(
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     /**
      * Called when uninstalling the extension
@@ -505,15 +527,15 @@ export interface OneTxPayment extends BaseContract {
      * @param _workers The addresses of the recipients of the payment
      */
     makePayment(
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _callerPermissionDomainId: BigNumberish,
-      _callerChildSkillIndex: BigNumberish,
-      _workers: string[],
-      _tokens: string[],
-      _amounts: BigNumberish[],
-      _domainId: BigNumberish,
-      _skillId: BigNumberish,
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _callerPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _callerChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _workers: PromiseOrValue<string>[],
+      _tokens: PromiseOrValue<string>[],
+      _amounts: PromiseOrValue<BigNumberish>[],
+      _domainId: PromiseOrValue<BigNumberish>,
+      _skillId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -531,15 +553,15 @@ export interface OneTxPayment extends BaseContract {
      * @param _workers The addresses of the recipients of the payment
      */
     makePaymentFundedFromDomain(
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _callerPermissionDomainId: BigNumberish,
-      _callerChildSkillIndex: BigNumberish,
-      _workers: string[],
-      _tokens: string[],
-      _amounts: BigNumberish[],
-      _domainId: BigNumberish,
-      _skillId: BigNumberish,
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _callerPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _callerChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _workers: PromiseOrValue<string>[],
+      _tokens: PromiseOrValue<string>[],
+      _amounts: PromiseOrValue<BigNumberish>[],
+      _domainId: PromiseOrValue<BigNumberish>,
+      _skillId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
   };
@@ -549,12 +571,16 @@ export interface OneTxPayment extends BaseContract {
     ExtensionInitialised(): ExtensionInitialisedEventFilter;
 
     "LogSetAuthority(address)"(
-      authority?: string | null
+      authority?: PromiseOrValue<string> | null
     ): LogSetAuthorityEventFilter;
-    LogSetAuthority(authority?: string | null): LogSetAuthorityEventFilter;
+    LogSetAuthority(
+      authority?: PromiseOrValue<string> | null
+    ): LogSetAuthorityEventFilter;
 
-    "LogSetOwner(address)"(owner?: string | null): LogSetOwnerEventFilter;
-    LogSetOwner(owner?: string | null): LogSetOwnerEventFilter;
+    "LogSetOwner(address)"(
+      owner?: PromiseOrValue<string> | null
+    ): LogSetOwnerEventFilter;
+    LogSetOwner(owner?: PromiseOrValue<string> | null): LogSetOwnerEventFilter;
 
     "OneTxPaymentMade(address,uint256,uint256)"(
       agent?: null,
@@ -578,13 +604,13 @@ export interface OneTxPayment extends BaseContract {
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
     setAuthority(
-      authority_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      authority_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     setOwner(
-      owner_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      owner_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -602,30 +628,30 @@ export interface OneTxPayment extends BaseContract {
      * @param _colony The colony in which the extension holds permissions
      */
     install(
-      _colony: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _colony: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
      * Called when upgrading the extension
      */
     finishUpgrade(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
      * Called when deprecating (or undeprecating) the extension
      */
     deprecate(
-      _deprecated: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
      * Called when uninstalling the extension
      */
     uninstall(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -642,16 +668,16 @@ export interface OneTxPayment extends BaseContract {
      * @param _workers The addresses of the recipients of the payment
      */
     makePayment(
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _callerPermissionDomainId: BigNumberish,
-      _callerChildSkillIndex: BigNumberish,
-      _workers: string[],
-      _tokens: string[],
-      _amounts: BigNumberish[],
-      _domainId: BigNumberish,
-      _skillId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _callerPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _callerChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _workers: PromiseOrValue<string>[],
+      _tokens: PromiseOrValue<string>[],
+      _amounts: PromiseOrValue<BigNumberish>[],
+      _domainId: PromiseOrValue<BigNumberish>,
+      _skillId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     /**
@@ -668,16 +694,16 @@ export interface OneTxPayment extends BaseContract {
      * @param _workers The addresses of the recipients of the payment
      */
     makePaymentFundedFromDomain(
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _callerPermissionDomainId: BigNumberish,
-      _callerChildSkillIndex: BigNumberish,
-      _workers: string[],
-      _tokens: string[],
-      _amounts: BigNumberish[],
-      _domainId: BigNumberish,
-      _skillId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _callerPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _callerChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _workers: PromiseOrValue<string>[],
+      _tokens: PromiseOrValue<string>[],
+      _amounts: PromiseOrValue<BigNumberish>[],
+      _domainId: PromiseOrValue<BigNumberish>,
+      _skillId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
   };
 
@@ -691,13 +717,13 @@ export interface OneTxPayment extends BaseContract {
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     setAuthority(
-      authority_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      authority_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     setOwner(
-      owner_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      owner_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -715,30 +741,30 @@ export interface OneTxPayment extends BaseContract {
      * @param _colony The colony in which the extension holds permissions
      */
     install(
-      _colony: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _colony: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Called when upgrading the extension
      */
     finishUpgrade(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Called when deprecating (or undeprecating) the extension
      */
     deprecate(
-      _deprecated: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _deprecated: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Called when uninstalling the extension
      */
     uninstall(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -755,16 +781,16 @@ export interface OneTxPayment extends BaseContract {
      * @param _workers The addresses of the recipients of the payment
      */
     makePayment(
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _callerPermissionDomainId: BigNumberish,
-      _callerChildSkillIndex: BigNumberish,
-      _workers: string[],
-      _tokens: string[],
-      _amounts: BigNumberish[],
-      _domainId: BigNumberish,
-      _skillId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _callerPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _callerChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _workers: PromiseOrValue<string>[],
+      _tokens: PromiseOrValue<string>[],
+      _amounts: PromiseOrValue<BigNumberish>[],
+      _domainId: PromiseOrValue<BigNumberish>,
+      _skillId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -781,16 +807,16 @@ export interface OneTxPayment extends BaseContract {
      * @param _workers The addresses of the recipients of the payment
      */
     makePaymentFundedFromDomain(
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _callerPermissionDomainId: BigNumberish,
-      _callerChildSkillIndex: BigNumberish,
-      _workers: string[],
-      _tokens: string[],
-      _amounts: BigNumberish[],
-      _domainId: BigNumberish,
-      _skillId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _permissionDomainId: PromiseOrValue<BigNumberish>,
+      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _callerPermissionDomainId: PromiseOrValue<BigNumberish>,
+      _callerChildSkillIndex: PromiseOrValue<BigNumberish>,
+      _workers: PromiseOrValue<string>[],
+      _tokens: PromiseOrValue<string>[],
+      _amounts: PromiseOrValue<BigNumberish>[],
+      _domainId: PromiseOrValue<BigNumberish>,
+      _skillId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
   };
 }
