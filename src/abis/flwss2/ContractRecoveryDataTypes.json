@@ -91,7 +91,6 @@
             "type": "event"
         }
     ],
-    "bytecode": "0x",
     "devdoc": {
         "events": {
             "RecoveryModeEntered(address)": {

@@ -220,7 +220,6 @@
             "type": "event"
         }
     ],
-    "bytecode": "0x",
     "devdoc": {
         "kind": "dev",
         "methods": {},

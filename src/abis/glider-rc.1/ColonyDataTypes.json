@@ -495,7 +495,6 @@
             "type": "event"
         }
     ],
-    "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3fe6080604052600080fdfea165627a7a72305820a5a016756a9c1c9cebd08c423d52e8b7e80be62a5afdb34baee9789628e3c8ce0029",
     "devdoc": {
         "methods": {}
     },

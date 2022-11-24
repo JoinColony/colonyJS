@@ -1,7 +1,6 @@
 {
     "contractName": "PatriciaTreeProofs",
     "abi": [],
-    "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea2646970667358221220c16a841b6cf5b4f6cfa0b70e6b675d6101be5d141e651dd2c447117caaf9ddb164736f6c63430007030033",
     "devdoc": {
         "kind": "dev",
         "methods": {},

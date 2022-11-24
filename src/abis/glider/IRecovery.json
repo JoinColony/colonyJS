@@ -117,7 +117,6 @@
             "type": "function"
         }
     ],
-    "bytecode": "0x",
     "devdoc": {
         "methods": {
             "checkNotAdditionalProtectedVariable(uint256)": {

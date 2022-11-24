@@ -167,7 +167,6 @@
             "type": "function"
         }
     ],
-    "bytecode": "0x",
     "devdoc": {
         "methods": {
             "getImpliedRoot(bytes,bytes,uint256,bytes32[])": {

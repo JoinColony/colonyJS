@@ -419,7 +419,6 @@
             "type": "event"
         }
     ],
-    "bytecode": "0x",
     "devdoc": {
         "events": {
             "AuctionCreated(address,address,uint256)": {
