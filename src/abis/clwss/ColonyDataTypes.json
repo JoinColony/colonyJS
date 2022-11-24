@@ -1010,7 +1010,6 @@
             "type": "event"
         }
     ],
-    "bytecode": "0x",
     "devdoc": {
         "events": {
             "Annotation(address,bytes32,string)": {

@@ -1,7 +1,6 @@
 {
     "contractName": "MetaTransactionMsgSender",
     "abi": [],
-    "bytecode": "0x",
     "devdoc": {
         "kind": "dev",
         "methods": {},

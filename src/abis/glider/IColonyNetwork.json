@@ -1163,7 +1163,6 @@
             "type": "function"
         }
     ],
-    "bytecode": "0x",
     "devdoc": {
         "methods": {
             "addColonyVersion(uint256,address)": {

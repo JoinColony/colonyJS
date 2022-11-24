@@ -1,7 +1,6 @@
 {
     "contractName": "DSMath",
     "abi": [],
-    "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea2646970667358221220d944369ce9d165b6ffe6d1f1ec4af356acd168deacbe6b4d640241e85b90f25b64736f6c634300080a0033",
     "devdoc": {
         "kind": "dev",
         "methods": {},
