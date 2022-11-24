@@ -23,7 +23,7 @@ import {
   TokenERC20,
   TokenSAI__factory as TokenSAIFactory,
   TokenSAI,
-} from '../contracts';
+} from '../tokens';
 
 const { getAddress, isHexString, parseBytes32String } = utils;
 const { AddressZero } = constants;

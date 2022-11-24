@@ -1,12 +1,6 @@
-import { providers, constants } from 'ethers';
-// eslint-disable-next-line camelcase
-import { TokenERC20__factory, TokenERC721__factory } from '../contracts';
-
 // Export useful types (for Colony SDK, always the latest version)
 export type { ColonyDataTypes } from '../contracts/IColony/10/IColony';
 export type { VotingReputationDataTypes } from '../contracts/IVotingReputation/7/IVotingReputation';
-
-const { AddressZero } = constants;
 
 export * from '../contracts';
 
@@ -45,7 +39,6 @@ export {
   LogSetOwnerEventObject,
 } from '../contracts/latest/ColonyExtension';
 
-export * from '../contracts/latest/MetaTxToken';
 export * from '../contracts/latest/TokenLocking';
 
 export * from '../contracts/__dynamic__/CoinMachineEvents';
@@ -54,16 +47,3 @@ export * from '../contracts/__dynamic__/IColonyNetworkEvents';
 export * from '../contracts/__dynamic__/OneTxPaymentEvents';
 export * from '../contracts/__dynamic__/VotingReputationEvents';
 export * from '../contracts/__dynamic__/WhitelistEvents';
-
-// Initialize dummy ethers contracts in order to get their (typed) interfaces
-// eslint-disable-next-line camelcase
-export const ERC20 = TokenERC20__factory.connect(
-  AddressZero,
-  new providers.BaseProvider(3656691),
-).interface;
-
-// eslint-disable-next-line camelcase
-export const ERC721 = TokenERC721__factory.connect(
-  AddressZero,
-  new providers.BaseProvider(3656691),
-).interface;
