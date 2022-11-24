@@ -9,6 +9,10 @@
     "./extras": {
       "import": "./dist/esm/extras/index.js",
       "require": "./dist/cjs/extras/index.js"
+    },
+    "./tokens": {
+      "import": "./dist/esm/tokens/index.js",
+      "require": "./dist/cjs/tokens/index.js"
     }
   },
   "typesVersions": {
@@ -18,6 +22,9 @@
       ],
       "extras": [
         "dist/types/extras/index.d.ts"
+      ],
+      "tokens": [
+        "dist/types/tokens/index.d.ts"
       ]
     }
   },

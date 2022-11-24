@@ -100,6 +100,10 @@ const UNVERSIONED_CONTRACTS = [
   'IBasicMetaTransaction',
   'MotionTarget',
   'TokenLocking',
+];
+
+// Names of Token contracts used
+const TOKEN_CONTRACTS = [
   // Tokens contracts
   // New Colony token with MetaTx support
   'MetaTxToken',
@@ -114,6 +118,7 @@ const UNVERSIONED_CONTRACTS = [
 const FIXED_DIR = resolvePath(__dirname, '../src/abis/__fixed__');
 const DYNAMIC_DIR = resolvePath(__dirname, '../src/abis/__dynamic__');
 const OUT_ROOT_DIR = resolvePath(__dirname, '../src/contracts');
+const OUT_TOKEN_DIR = resolvePath(__dirname, '../src/tokens/contracts');
 
 const EVENTS_CONTRACTS = [...VERSIONED_CONTRACTS, ...UPGRADABLE_CONTRACTS];
 
@@ -226,6 +231,22 @@ const buildUnversionedContracts = async (inputDir: string) => {
   await typechain;
 };
 
+const buildTokenContracts = async (inputDir: string) => {
+  const contractGlobs = `{${TOKEN_CONTRACTS.map((c) => `${c}.json`).join(
+    ',',
+  )}}`;
+  const typechain = execa('typechain', [
+    '--target',
+    'ethers-v5',
+    '--out-dir',
+    OUT_TOKEN_DIR,
+    `{${inputDir},${FIXED_DIR},${DYNAMIC_DIR}}/${contractGlobs}`,
+  ]);
+
+  if (typechain.stdout) typechain.stdout.pipe(process.stdout);
+  await typechain;
+};
+
 const build = async () => {
   const { argv } = yargs(hideBin(process.argv)).options({
     tag: { alias: 't', type: 'string', default: 'develop' },
@@ -244,6 +265,7 @@ const build = async () => {
   if (tag === 'develop') {
     buildEventsAbis(abiDir);
     await buildUnversionedContracts(inputDir);
+    await buildTokenContracts(inputDir);
   }
 };
 
