@@ -9,6 +9,7 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
+  PromiseOrValue,
 } from "../common";
 
 export interface WhitelistEventsInterface extends utils.Interface {
@@ -123,27 +124,33 @@ export interface WhitelistEvents extends BaseContract {
 
   filters: {
     "AgreementSigned(address)"(
-      _user?: string | null
+      _user?: PromiseOrValue<string> | null
     ): AgreementSignedEventFilter;
-    AgreementSigned(_user?: string | null): AgreementSignedEventFilter;
+    AgreementSigned(
+      _user?: PromiseOrValue<string> | null
+    ): AgreementSignedEventFilter;
 
     "ExtensionInitialised()"(): ExtensionInitialisedEventFilter;
     ExtensionInitialised(): ExtensionInitialisedEventFilter;
 
     "LogSetAuthority(address)"(
-      authority?: string | null
+      authority?: PromiseOrValue<string> | null
     ): LogSetAuthorityEventFilter;
-    LogSetAuthority(authority?: string | null): LogSetAuthorityEventFilter;
+    LogSetAuthority(
+      authority?: PromiseOrValue<string> | null
+    ): LogSetAuthorityEventFilter;
 
-    "LogSetOwner(address)"(owner?: string | null): LogSetOwnerEventFilter;
-    LogSetOwner(owner?: string | null): LogSetOwnerEventFilter;
+    "LogSetOwner(address)"(
+      owner?: PromiseOrValue<string> | null
+    ): LogSetOwnerEventFilter;
+    LogSetOwner(owner?: PromiseOrValue<string> | null): LogSetOwnerEventFilter;
 
     "UserApproved(address,bool)"(
-      _user?: string | null,
+      _user?: PromiseOrValue<string> | null,
       _status?: null
     ): UserApprovedEventFilter;
     UserApproved(
-      _user?: string | null,
+      _user?: PromiseOrValue<string> | null,
       _status?: null
     ): UserApprovedEventFilter;
 

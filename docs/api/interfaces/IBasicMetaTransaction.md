@@ -64,8 +64,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `executeMetaTransaction` | (`userAddress`: `string`, `payload`: `BytesLike`, `sigR`: `BytesLike`, `sigS`: `BytesLike`, `sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `getMetatransactionNonce` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `executeMetaTransaction` | (`userAddress`: `PromiseOrValue`<`string`\>, `payload`: `PromiseOrValue`<`BytesLike`\>, `sigR`: `PromiseOrValue`<`BytesLike`\>, `sigS`: `PromiseOrValue`<`BytesLike`\>, `sigV`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `getMetatransactionNonce` | (`userAddress`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 
 #### Overrides
 
@@ -91,8 +91,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `executeMetaTransaction` | (`userAddress`: `string`, `payload`: `BytesLike`, `sigR`: `BytesLike`, `sigS`: `BytesLike`, `sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`BigNumber`\> |
-| `getMetatransactionNonce` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `executeMetaTransaction` | (`userAddress`: `PromiseOrValue`<`string`\>, `payload`: `PromiseOrValue`<`BytesLike`\>, `sigR`: `PromiseOrValue`<`BytesLike`\>, `sigS`: `PromiseOrValue`<`BytesLike`\>, `sigV`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `PayableOverrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
+| `getMetatransactionNonce` | (`userAddress`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 
 #### Overrides
 
@@ -125,8 +125,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `executeMetaTransaction` | (`userAddress`: `string`, `payload`: `BytesLike`, `sigR`: `BytesLike`, `sigS`: `BytesLike`, `sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `getMetatransactionNonce` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
+| `executeMetaTransaction` | (`userAddress`: `PromiseOrValue`<`string`\>, `payload`: `PromiseOrValue`<`BytesLike`\>, `sigR`: `PromiseOrValue`<`BytesLike`\>, `sigS`: `PromiseOrValue`<`BytesLike`\>, `sigV`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `PayableOverrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `getMetatransactionNonce` | (`userAddress`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
 
 #### Overrides
 
@@ -182,8 +182,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `executeMetaTransaction` | (`userAddress`: `string`, `payload`: `BytesLike`, `sigR`: `BytesLike`, `sigS`: `BytesLike`, `sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `getMetatransactionNonce` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `executeMetaTransaction` | (`userAddress`: `PromiseOrValue`<`string`\>, `payload`: `PromiseOrValue`<`BytesLike`\>, `sigR`: `PromiseOrValue`<`BytesLike`\>, `sigS`: `PromiseOrValue`<`BytesLike`\>, `sigV`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `PayableOverrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `getMetatransactionNonce` | (`userAddress`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 
 #### Overrides
 
@@ -378,12 +378,12 @@ Executes a metatransaction targeting this contract
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `userAddress` | `string` | The address of the user that signed the metatransaction |
-| `payload` | `BytesLike` | The transaction data that will be executed if signature valid |
-| `sigR` | `BytesLike` | The 'r' part of the signature |
-| `sigS` | `BytesLike` | The 's' part of the signature |
-| `sigV` | `BigNumberish` | The 'v' part of the signature |
-| `overrides?` | `PayableOverrides` & { `from?`: `string` \| `Promise`<`string`\>  } | - |
+| `userAddress` | `PromiseOrValue`<`string`\> | The address of the user that signed the metatransaction |
+| `payload` | `PromiseOrValue`<`BytesLike`\> | The transaction data that will be executed if signature valid |
+| `sigR` | `PromiseOrValue`<`BytesLike`\> | The 'r' part of the signature |
+| `sigS` | `PromiseOrValue`<`BytesLike`\> | The 's' part of the signature |
+| `sigV` | `PromiseOrValue`<`BigNumberish`\> | The 'v' part of the signature |
+| `overrides?` | `PayableOverrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
 
 #### Returns
 
@@ -421,7 +421,7 @@ Gets the next metatransaction nonce for user that should be used targeting this 
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `userAddress` | `string` | The address of the user that will sign the metatransaction |
+| `userAddress` | `PromiseOrValue`<`string`\> | The address of the user that will sign the metatransaction |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns
