@@ -7,7 +7,7 @@ import { hideBin } from 'yargs/helpers';
 import fg from 'fast-glob';
 import { sync as mkdirpSync } from 'mkdirp';
 
-const DEPLOY_CONTRACTS = ['MetaTxToken'];
+const DEPLOY_CONTRACTS = ['MetaTxToken', 'TokenAuthority'];
 
 const ARTIFACTS_DIR = resolvePath(
   __dirname,

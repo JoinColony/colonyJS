@@ -99,6 +99,7 @@ const UNVERSIONED_CONTRACTS = [
   'ColonyExtension',
   'IBasicMetaTransaction',
   'MotionTarget',
+  'TokenAuthority',
   'TokenLocking',
 ];
 
