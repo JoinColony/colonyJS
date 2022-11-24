@@ -1,18 +1,10 @@
-import {
-  constants,
-  utils,
-  BigNumber,
-  ContractTransaction,
-  ContractFactory,
-} from 'ethers';
+import { constants, utils, BigNumber, ContractTransaction } from 'ethers';
 import {
   TxOverrides,
   ClientType,
   SignerOrProvider,
   TokenClientType,
 } from '../types';
-
-import { abis } from '../abis/exports';
 
 import {
   MetaTxToken__factory as MetaTxTokenFactory,
@@ -24,12 +16,10 @@ import {
   TokenSAI__factory as TokenSAIFactory,
   TokenSAI,
 } from '../tokens';
+import { TokenAuthority__factory as TokenAuthorityFactory } from '../contracts';
 
 const { getAddress, isHexString, parseBytes32String } = utils;
 const { AddressZero } = constants;
-
-const { abi: tokenAuthorityAbi, bytecode: tokenAuthorityBytecode } =
-  abis.TokenAuthority;
 
 // Token addresses to identify tokens that need special treatment
 const tokenAddresses = {
@@ -140,11 +130,7 @@ async function deployTokenAuthority(
   allowedToTransfer: string[],
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
-  const tokenAuthorityFactory = new ContractFactory(
-    tokenAuthorityAbi,
-    tokenAuthorityBytecode,
-    this.signer,
-  );
+  const tokenAuthorityFactory = new TokenAuthorityFactory(this.signer);
   const tokenAuthorityContract = await tokenAuthorityFactory.deploy(
     this.address,
     colonyAddress,
@@ -161,10 +147,7 @@ async function estimateDeployTokenAuthority(
   allowedToTransfer: string[],
   overrides: TxOverrides = {},
 ): Promise<BigNumber> {
-  const tokenAuthorityFactory = new ContractFactory(
-    tokenAuthorityAbi,
-    tokenAuthorityBytecode,
-  );
+  const tokenAuthorityFactory = new TokenAuthorityFactory(this.signer);
   const deployTx = tokenAuthorityFactory.getDeployTransaction(
     this.address,
     colonyAddress,
