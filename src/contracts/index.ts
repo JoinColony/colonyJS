@@ -38,5 +38,7 @@ export type { IBasicMetaTransaction } from "./latest/IBasicMetaTransaction";
 export { IBasicMetaTransaction__factory } from "./factories/latest/IBasicMetaTransaction__factory";
 export type { IColonyNetwork } from "./latest/IColonyNetwork";
 export { IColonyNetwork__factory } from "./factories/latest/IColonyNetwork__factory";
+export type { TokenAuthority } from "./latest/TokenAuthority";
+export { TokenAuthority__factory } from "./factories/latest/TokenAuthority__factory";
 export type { TokenLocking } from "./latest/TokenLocking";
 export { TokenLocking__factory } from "./factories/latest/TokenLocking__factory";
