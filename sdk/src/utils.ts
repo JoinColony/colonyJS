@@ -1,14 +1,13 @@
 import { BigNumberish, ContractReceipt, utils } from 'ethers';
-import type { Log, TransactionReceipt } from '@ethersproject/abstract-provider';
+import type { Log } from '@ethersproject/abstract-provider';
 import type { JsonRpcProvider } from '@ethersproject/providers';
-import type { Interface, LogDescription } from '@ethersproject/abi';
+import type { Interface } from '@ethersproject/abi';
 
-import { Ethers6Filter, Ethers6FilterByBlockHash } from './types';
-
-// Custom Transaction receipt for when we manually have to parse logs (metatransactions)
-export interface ParsedLogTransactionReceipt extends TransactionReceipt {
-  parsedLogs: LogDescription[];
-}
+import {
+  Ethers6Filter,
+  Ethers6FilterByBlockHash,
+  ParsedLogTransactionReceipt,
+} from './types';
 
 /** Extract event args from a contract receipt */
 export const extractEvent = <T>(

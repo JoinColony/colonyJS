@@ -46,7 +46,8 @@ export interface ColonyFilter extends Ethers6Filter {
   eventName: string;
 }
 
-interface ColonyTopic {
+/** A Colony specific topic that keeps track of which contract it belongs to */
+export interface ColonyTopic {
   eventSource: keyof EventSources;
   eventName: string;
   topic: string;
@@ -95,7 +96,7 @@ export class ColonyEventManager {
    * Create a new ColonyEvents instance
    *
    * @remarks
-   * As opposed to the [[ColonyNetwork.ColonyNetwork]] class, this constructor _needs_ an _ethers_ JsonRpcProvider (or a subclass of it) as it's
+   * As opposed to the [[ColonyNetwork]] class, this constructor _needs_ an _ethers_ JsonRpcProvider (or a subclass of it) as it's
    * the only provider that supports topic filtering by multiple addresses
    *
    * @param provider An _ethers_ `JsonRpcProvider`
@@ -151,7 +152,7 @@ export class ColonyEventManager {
    * Gets events for an individual filter and automatically parses the data if possible
    *
    * @example
-   * Retrieve and parse all `DomainAdded` events for a specific [[ColonyNetwork.Colony]] contract
+   * Retrieve and parse all `DomainAdded` events for a specific [[Colony]] contract
    * ```typescript
    * const domainAdded = colonyEvents.createFilter(
    *   colonyEvents.eventSources.Colony,
@@ -164,7 +165,7 @@ export class ColonyEventManager {
    * })();
    * ```
    *
-   * @param filter A [[ColonyFilter]]. [[ColonyMultiFilters]] will not work
+   * @param filter A [[ColonyFilter]]. [[ColonyMultiFilter]]s will not work
    * @returns An array of [[ColonyEvent]]s
    */
   async getEvents<T extends MetadataType>(
@@ -212,8 +213,8 @@ export class ColonyEventManager {
    * `fromBlock` and `toBlock` properties of the indivdual filters will be ignored
    *
    * @example
-   * Retrieve and parse all `DomainAdded` and `DomainMetadata` events for a specific [[ColonyNetwork.Colony]] contract.
-   * Note that we're using [[ColonyEvents.createMultiFilter]] here. The two `colonyAddress`es could also be different
+   * Retrieve and parse all `DomainAdded` and `DomainMetadata` events for a specific [[ColonyNetwork]] contract.
+   * Note that we're using [[createMultiFilter]] here. The two `colonyAddress`es could also be different
    *
    * ```typescript
    * const domainAdded = colonyEvents.createMultiFilter(
@@ -233,7 +234,7 @@ export class ColonyEventManager {
    * })();
    * ```
    *
-   * @param filters An array of [[ColonyMultiFilter]]s. Normal [[ColonyFilters]] will not work
+   * @param filters An array of [[ColonyMultiFilter]]s. Normal [[ColonyFilter]]s will not work
    * @param options You can define `fromBlock` and `toBlock` only once for all the filters given
    * @param options.fromBlock Starting block in which to look for this event - inclusive (default: 'latest')
    * @param options.toBlock Ending block in which to look for this event - inclusive (default: 'latest')
@@ -325,7 +326,7 @@ export class ColonyEventManager {
    * We can do that as we do not have ambiguous events across our contracts, so we will always be able to find the right contract to parse the event data later on
    *
    * @example
-   * Filter for all `DomainAdded` events between block 21830000 and 21840000 (across all deployed [[ColonyNetwork.Colony]] contracts)
+   * Filter for all `DomainAdded` events between block 21830000 and 21840000 (across all deployed [[ColonyNetwork]] contracts)
    * ```typescript
    *  const domainAdded = colonyEvents.createFilter(
    *    colonyEvents.eventSources.Colony,
@@ -398,7 +399,7 @@ export class ColonyEventManager {
    * We can do that as we do not have ambiguous events across our contracts, so we will always be able to find the right contract to parse the event data later on. Note that `ColonyMultiFilter` does not allow for params to be passed in.
    *
    * @example
-   * Filter for all `DomainAdded` events for a specific [[ColonyNetwork.Colony]] contract
+   * Filter for all `DomainAdded` events for a specific [[Colony]] contract
    * ```typescript
    * const domainAdded = colonyEvents.createFilter(
    *   colonyEvents.eventSources.Colony,

@@ -23,19 +23,25 @@
 - [ColonyNetwork](classes/ColonyNetwork.md)
 - [ColonyToken](classes/ColonyToken.md)
 - [PinataAdapter](classes/PinataAdapter.md)
+- [TxCreator](classes/TxCreator.md)
 - [VotingReputation](classes/VotingReputation.md)
 
 ## Interfaces
 
+- [AnnotationMetadata](interfaces/AnnotationMetadata.md)
 - [ColonyEvent](interfaces/ColonyEvent.md)
 - [ColonyEventManagerOptions](interfaces/ColonyEventManagerOptions.md)
 - [ColonyFilter](interfaces/ColonyFilter.md)
 - [ColonyMultiFilter](interfaces/ColonyMultiFilter.md)
+- [ColonyNetworkOptions](interfaces/ColonyNetworkOptions.md)
+- [ColonyTopic](interfaces/ColonyTopic.md)
 - [Ethers6Filter](interfaces/Ethers6Filter.md)
 - [Ethers6FilterByBlockHash](interfaces/Ethers6FilterByBlockHash.md)
 - [EventSources](interfaces/EventSources.md)
 - [IpfsAdapter](interfaces/IpfsAdapter.md)
+- [NetworkClientOptions](interfaces/NetworkClientOptions.md)
 - [ParsedLogTransactionReceipt](interfaces/ParsedLogTransactionReceipt.md)
+- [SupportedExtensions](interfaces/SupportedExtensions.md)
 
 ## Type Aliases
 
@@ -68,18 +74,6 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `K` | extends [`MetadataType`](enums/MetadataType.md) |
-
-___
-
-### ParametersFrom2
-
-Ƭ **ParametersFrom2**<`F`\>: `F` extends (`arg0`: `any`, `arg1`: `any`, ...`rest`: infer R) => `any` ? `R` : `never`
-
-#### Type parameters
-
-| Name |
-| :------ |
-| `F` |
 
 ## Functions
 

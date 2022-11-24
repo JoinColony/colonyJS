@@ -70,10 +70,10 @@ export class ColonyToken {
    *   const token = await colony.getToken();
    *   // Mint 100 tokens of the Colony's native token
    *   // (forced transaction example)
-   *   await token.mint(w`100`).forceTx();
+   *   await token.mint(w`100`).force();
    *   // Claim the minted tokens for the Colony
    *   // (forced transaction example)
-   *   await colony.claimFunds().forceTx();
+   *   await colony.claimFunds().force();
    * })();
    * ```
    *

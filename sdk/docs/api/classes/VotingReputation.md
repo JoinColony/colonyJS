@@ -19,9 +19,9 @@ The exact lifecycle is determined by the parameters that were set when the `Voti
 
 #### Creating a Motion
 
-See MotionCreator.
+See [TxCreator.motion](TxCreator.md#motion) or [TxCreator.motionMeta](TxCreator.md#motionmeta).
 
-Anyone within a Colony can start a motion. In Colony SDK, this can be done with the MotionCreator API. There the `action` (the contract transaction) for the Motion will be defined. This is essentially nothing else than an encoded contract function string alongside its parameters (see for detailed info [here](https://medium.com/linum-labs/a-technical-primer-on-using-encoded-function-calls-50e2b9939223) - but don't worry. In Colony SDK this will all be taken care of by the MotionCreator).
+Anyone within a Colony can start a motion. In Colony SDK, this is as easy as sending a transaction of the same kind. There the `action` (the contract transaction) for the Motion will be defined. This is essentially nothing else than an encoded contract function string alongside its parameters (see for detailed info [here](https://medium.com/linum-labs/a-technical-primer-on-using-encoded-function-calls-50e2b9939223) - but don't worry. In Colony SDK this will all be taken care of by the [TxCreator](TxCreator.md)).
 
  #### Staking
 
@@ -143,7 +143,7 @@ Create a motion using an encoded action
 
 **`Remarks`**
 
-You will usually not use this function directly, but use the `send` or `motion` functions of the TxCreator within the relevant contract.
+You will usually not use this function directly, but use the `send` or `motion` functions of the [TxCreator](TxCreator.md) within the relevant contract.
 
 #### Parameters
 
@@ -205,7 +205,7 @@ Get the minimum stake that has to be supplied for a motion and a certain vote (N
 
 **`Remarks`**
 
-To get the missing amount for activation, call getMotionStakes
+To get the missing amount for activation, call [getRemainingStakes](VotingReputation.md#getremainingstakes)
 
 #### Parameters
 

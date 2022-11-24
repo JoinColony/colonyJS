@@ -37,9 +37,9 @@ const getMetaColony = async (networkAddress: string) => {
 const fundColony = async (amount: string) => {
   const token = await metaColony.getToken();
   // Mint `amount` CLNY
-  await token.mint(toWei(amount)).forceTx();
+  await token.mint(toWei(amount)).force();
   // Claim the CLNY for the MetaColony (important!)
-  await metaColony.claimFunds().forceTx();
+  await metaColony.claimFunds().force();
   // Look up the funds
   const funding = await metaColony.getBalance();
   return toEth(funding);
@@ -51,7 +51,7 @@ const makePayment = async (to: string) => {
     throw new Error('OneTxPayment extension not installed');
   }
   // Pay 10 CLNY to the recipient
-  return metaColony.ext.oneTx.pay(to, w`10`).forceTx();
+  return metaColony.ext.oneTx.pay(to, w`10`).force();
 };
 
 // We're using Ganache's evm_increaseTime and evm_mine methods to first increase the block time artificially by one hour and then force a block to mine. This will trigger the local reputation oracle/miner to award the pending reputation.

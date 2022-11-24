@@ -3,4 +3,13 @@
  * @module events
  */
 
-export * from './ColonyEventManager';
+export {
+  ColonyEvent,
+  ColonyEventManager,
+  ColonyEventManagerOptions,
+  ColonyTopic,
+  ColonyFilter,
+  ColonyMultiFilter,
+  EventSource,
+  EventSources,
+} from './ColonyEventManager';

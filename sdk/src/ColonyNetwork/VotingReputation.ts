@@ -74,9 +74,9 @@ const REP_DIVISOR = BigNumber.from(10).pow(18);
  *
  * #### Creating a Motion
  *
- * See [[MotionCreator]].
+ * See [[TxCreator.motion]] or [[TxCreator.motionMeta]].
  *
- * Anyone within a Colony can start a motion. In Colony SDK, this can be done with the [[MotionCreator]] API. There the `action` (the contract transaction) for the Motion will be defined. This is essentially nothing else than an encoded contract function string alongside its parameters (see for detailed info [here](https://medium.com/linum-labs/a-technical-primer-on-using-encoded-function-calls-50e2b9939223) - but don't worry. In Colony SDK this will all be taken care of by the [[MotionCreator]]).
+ * Anyone within a Colony can start a motion. In Colony SDK, this is as easy as sending a transaction of the same kind. There the `action` (the contract transaction) for the Motion will be defined. This is essentially nothing else than an encoded contract function string alongside its parameters (see for detailed info [here](https://medium.com/linum-labs/a-technical-primer-on-using-encoded-function-calls-50e2b9939223) - but don't worry. In Colony SDK this will all be taken care of by the [[TxCreator]]).
  *
  *  #### Staking
  *
@@ -315,7 +315,7 @@ export class VotingReputation {
   /**
    * Get the minimum stake that has to be supplied for a motion and a certain vote (NOT for activation)
    *
-   * @remarks To get the missing amount for activation, call [[getMotionStakes]]
+   * @remarks To get the missing amount for activation, call [[getRemainingStakes]]
    *
    * @param motion A Motion struct object
    * @param vote A vote for (Yay) or against (Nay) the motion

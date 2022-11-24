@@ -8,7 +8,7 @@ const COLONY_IPFS_PINATA_TOKEN =
 /**
  * PinataAdapter
  *
- * A Colony SDK IPFS adapter for Pinata (https://pinata.cloud). In order to use this, sign up for Pinata (if you haven't already) and generate a token. Then either supply this token when instantiating the class (example below) or provide it via the environment variable `COLONY_IPFS_PINATA_TOKEN` (when using NodeJS). Then provide an instance of this class to the [[ColonyNetwork]] or [[ColonyEventManger]] classes (depending on your needs).
+ * A Colony SDK IPFS adapter for Pinata (https://pinata.cloud). In order to use this, sign up for Pinata (if you haven't already) and generate a token. Then either supply this token when instantiating the class (example below) or provide it via the environment variable `COLONY_IPFS_PINATA_TOKEN` (when using NodeJS). Then provide an instance of this class to the [[ColonyNetwork]] or [[ColonyEventManager]] classes (depending on your needs).
  *
  * @remarks DO NOT CHECK IN YOUR PINATA TOKEN INTO VERSION CONTROL AND **DO NOT EMBED IT INTO YOUR FRONTEND BUNDLE**.
  *

@@ -1,5 +1,5 @@
 export {
-  default as IpfsMetadata,
+  IpfsMetadata,
   MetadataEvent,
   MetadataType,
   MetadataValue,

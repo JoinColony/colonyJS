@@ -18,7 +18,8 @@ import { fetch } from 'cross-fetch';
 import { MotionCreatedEventObject } from '@colony/colony-js/extras';
 import { Colony } from './Colony';
 import { MetadataType, MetadataValue } from '../ipfs';
-import { extractEvent, ParsedLogTransactionReceipt } from '../utils';
+import { extractEvent } from '../utils';
+import { ParsedLogTransactionReceipt } from '../types';
 import { IPFS_METADATA_EVENTS } from '../ipfs/IpfsMetadata';
 
 const { arrayify, solidityKeccak256, splitSignature } = utils;
@@ -50,6 +51,23 @@ interface BaseContract {
   };
 }
 
+/**
+ * An umbrella API for all kinds of transactions
+ *
+ * The `TxCreator` allows for a simple API to cover all the different cases of transactions within Colony. Once a `TxCreator` is created using a method on the base contracts (e.g. [[Colony]] or extensions like [[VotingReputation]]), there are four options available:
+ *
+ * ## Force a transaction
+ *
+ * - [[TxCreator.force]]: force a Colony transaction, knowing you have the permissions to do so
+ * - [[TxCreator.forceMeta]]: same as `force()`, but send as a gasless metatransaction
+ *
+ * ## Create a motion to trigger an action once it passes
+ *
+ * - [[TxCreator.motion]]: create a motion (needs the motion's domain as a parameter)
+ * - [[TxCreator.forceMeta]]: same as `motion()`, but sends a gasless metatransaction
+ *
+ * Learn more about these functions in their individual documentation
+ */
 export class TxCreator<
   C extends BaseContract,
   M extends keyof C['functions'],
@@ -234,7 +252,14 @@ export class TxCreator<
     return receipt;
   }
 
-  async forceTx() {
+  /**
+   * Forces an action
+   *
+   * @remarks The user sending this transaction has to have the appropriate permissions to do so. Learn more about permissions in Colony [here](/develop/dev-learning/permissions).
+   *
+   * @returns A tupel of event data and contract receipt (and a function to retrieve metadata if applicable)
+   */
+  async force() {
     const args = await this.getArgs();
 
     const tx = (await this.contract.functions[this.method].apply(
@@ -245,7 +270,16 @@ export class TxCreator<
     return this.getEventData(receipt);
   }
 
-  async motionTx(motionDomain: BigNumberish = Id.RootDomain) {
+  /**
+   * Creates a motion for an action
+   *
+   * You can specify a team (domain) this motion should be created in. It will be created in the Root team by default.
+   *
+   * @remarks This will only work if the [[VotingReputation]] extension is installed for the Colony that's being acted on
+   *
+   * @returns A tupel of motion event data and contract receipt
+   */
+  async motion(motionDomain: BigNumberish = Id.RootDomain) {
     if (!this.colony.ext.motions) {
       throw new Error(
         'VotingReputation extension is not installed for this Colony',
@@ -272,7 +306,14 @@ export class TxCreator<
     );
   }
 
-  async force() {
+  /**
+   * Forces an action using a gasless metatransaction
+   *
+   * @remarks The user sending this transaction has to have the appropriate permissions to do so. Learn more about permissions in Colony [here](/develop/dev-learning/permissions).
+   *
+   * @returns A tupel of event data and contract receipt (and a function to retrieve metadata if applicable)
+   */
+  async forceMeta() {
     const args = await this.getArgs();
 
     const encodedTransaction = this.contract.interface.encodeFunctionData(
@@ -286,7 +327,16 @@ export class TxCreator<
     return this.getEventData(receipt);
   }
 
-  async send(motionDomain: BigNumberish) {
+  /**
+   * Creates a motion for an action
+   *
+   * You can specify a team (domain) this motion should be created in. It will be created in the Root team by default.
+   *
+   * @remarks This will only work if the [[VotingReputation]] extension is installed for the Colony that's being acted on
+   *
+   * @returns A tupel of motion event data and contract receipt
+   */
+  async motionMeta(motionDomain: BigNumberish = Id.RootDomain) {
     if (!this.colony.ext.motions) {
       throw new Error(
         'VotingReputation extension is not installed for this Colony',

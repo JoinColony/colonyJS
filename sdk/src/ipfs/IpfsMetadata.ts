@@ -71,7 +71,7 @@ export type MetadataValue<K extends MetadataType> = ReturnType<
  * @internal
  *
  */
-class IpfsMetadata {
+export class IpfsMetadata {
   private adapter: IpfsAdapter;
 
   constructor(adapter?: IpfsAdapter) {
@@ -155,5 +155,3 @@ class IpfsMetadata {
     return this.adapter.uploadJson(str);
   }
 }
-
-export default IpfsMetadata;

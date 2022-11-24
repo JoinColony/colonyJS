@@ -440,7 +440,7 @@ export class Colony {
    *      w`10`,
    *      2,
    *      3,
-   *   ).forceTx();
+   *   ).force();
    * })();
    * ```
    *
@@ -587,7 +587,7 @@ export class Colony {
    *      '0x06012c8cf97BEaD5deAe237070F9587f8E7A266d',
    *      // encoded transaction from above
    *      encodedAction
-   *   ).forceTx();
+   *   ).force();
    * })();
    * ```
    *
@@ -622,12 +622,12 @@ export class Colony {
    *   const [, { transactionHash }] = await colony.ext.oneTx.pay(
    *     '0xb77D57F4959eAfA0339424b83FcFaf9c15407461',
    *     w`10`,
-   *   ).motionTx();
+   *   ).motion();
    *   // Annotate the motion transaction with a little explanation :)
    *   await colony.annotateTransaction(
    *      transactionHash,
    *      { annotationMsg: 'I am creating this motion because I think I deserve a little bonus' },
-   *   ).forceTx();
+   *   ).force();
    * })();
    * ```
    *

@@ -18,7 +18,7 @@ Create a new ColonyEvents instance
 
 **`Remarks`**
 
-As opposed to the ColonyNetwork.ColonyNetwork class, this constructor _needs_ an _ethers_ JsonRpcProvider (or a subclass of it) as it's
+As opposed to the [ColonyNetwork](ColonyNetwork.md) class, this constructor _needs_ an _ethers_ JsonRpcProvider (or a subclass of it) as it's
 the only provider that supports topic filtering by multiple addresses
 
 #### Parameters
@@ -64,7 +64,7 @@ We can do that as we do not have ambiguous events across our contracts, so we wi
 
 **`Example`**
 
-Filter for all `DomainAdded` events between block 21830000 and 21840000 (across all deployed ColonyNetwork.Colony contracts)
+Filter for all `DomainAdded` events between block 21830000 and 21840000 (across all deployed [ColonyNetwork](ColonyNetwork.md) contracts)
 ```typescript
  const domainAdded = colonyEvents.createFilter(
    colonyEvents.eventSources.Colony,
@@ -116,7 +116,7 @@ We can do that as we do not have ambiguous events across our contracts, so we wi
 
 **`Example`**
 
-Filter for all `DomainAdded` events for a specific ColonyNetwork.Colony contract
+Filter for all `DomainAdded` events for a specific [Colony](Colony.md) contract
 ```typescript
 const domainAdded = colonyEvents.createFilter(
   colonyEvents.eventSources.Colony,
@@ -158,7 +158,7 @@ Gets events for an individual filter and automatically parses the data if possib
 
 **`Example`**
 
-Retrieve and parse all `DomainAdded` events for a specific ColonyNetwork.Colony contract
+Retrieve and parse all `DomainAdded` events for a specific [Colony](Colony.md) contract
 ```typescript
 const domainAdded = colonyEvents.createFilter(
   colonyEvents.eventSources.Colony,
@@ -181,7 +181,7 @@ const domainAdded = colonyEvents.createFilter(
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `filter` | [`ColonyFilter`](../interfaces/ColonyFilter.md) | A [ColonyFilter](../interfaces/ColonyFilter.md). ColonyMultiFilters will not work |
+| `filter` | [`ColonyFilter`](../interfaces/ColonyFilter.md) | A [ColonyFilter](../interfaces/ColonyFilter.md). [ColonyMultiFilter](../interfaces/ColonyMultiFilter.md)s will not work |
 
 #### Returns
 
@@ -206,8 +206,8 @@ This is handy when you want to listen to a fixed set of events for a lot of diff
 
 **`Example`**
 
-Retrieve and parse all `DomainAdded` and `DomainMetadata` events for a specific ColonyNetwork.Colony contract.
-Note that we're using ColonyEvents.createMultiFilter here. The two `colonyAddress`es could also be different
+Retrieve and parse all `DomainAdded` and `DomainMetadata` events for a specific [ColonyNetwork](ColonyNetwork.md) contract.
+Note that we're using [createMultiFilter](ColonyEventManager.md#createmultifilter) here. The two `colonyAddress`es could also be different
 
 ```typescript
 const domainAdded = colonyEvents.createMultiFilter(
@@ -237,7 +237,7 @@ const domainMetadata = colonyEvents.createMultiFilter(
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `filters` | [`ColonyMultiFilter`](../interfaces/ColonyMultiFilter.md)[] | An array of [ColonyMultiFilter](../interfaces/ColonyMultiFilter.md)s. Normal ColonyFilters will not work |
+| `filters` | [`ColonyMultiFilter`](../interfaces/ColonyMultiFilter.md)[] | An array of [ColonyMultiFilter](../interfaces/ColonyMultiFilter.md)s. Normal [ColonyFilter](../interfaces/ColonyFilter.md)s will not work |
 | `options` | `Object` | You can define `fromBlock` and `toBlock` only once for all the filters given |
 | `options.fromBlock?` | `BlockTag` | Starting block in which to look for this event - inclusive (default: 'latest') |
 | `options.toBlock?` | `BlockTag` | Ending block in which to look for this event - inclusive (default: 'latest') |

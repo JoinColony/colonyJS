@@ -145,7 +145,7 @@ ___
 
 ### mint
 
-▸ **mint**(`amount`): `TxCreator`<`ColonyClientV10`, ``"mintTokens"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **mint**(`amount`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"mintTokens"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
 
 Mints `amount` of a Colony's native token.
 
@@ -163,10 +163,10 @@ import { w } from '@colony/sdk';
   const token = await colony.getToken();
   // Mint 100 tokens of the Colony's native token
   // (forced transaction example)
-  await token.mint(w`100`).forceTx();
+  await token.mint(w`100`).force();
   // Claim the minted tokens for the Colony
   // (forced transaction example)
-  await colony.claimFunds().forceTx();
+  await colony.claimFunds().force();
 })();
 ```
 
@@ -178,9 +178,9 @@ import { w } from '@colony/sdk';
 
 #### Returns
 
-`TxCreator`<`ColonyClientV10`, ``"mintTokens"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
+[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"mintTokens"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
 
-A TxCreator
+A [TxCreator](TxCreator.md)
 
 ___
 

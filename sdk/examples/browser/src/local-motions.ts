@@ -54,17 +54,17 @@ const installVotingReputation = async () => {
   }
   // Mint CLNY and fund the Colony with it
   const token = await metaColony.getToken();
-  await token.mint(w`500`).forceTx();
+  await token.mint(w`500`).force();
   // Claim the CLNY for the MetaColony (important!)
-  await metaColony.claimFunds().forceTx();
+  await metaColony.claimFunds().force();
   // Pay some CLNY each to two addresses (we are going to use the first for staking)
   // This will also give these addresses reputation in the ROOT team
   await metaColony.ext.oneTx
     .pay('0xb77D57F4959eAfA0339424b83FcFaf9c15407461', w`100`)
-    .forceTx();
+    .force();
   await metaColony.ext.oneTx
     .pay('0x9df24e73f40b2a911eb254a8825103723e13209c', w`20`)
-    .forceTx();
+    .force();
 };
 
 const createPaymentMotion = async (amount: string): Promise<BigNumber> => {
@@ -76,7 +76,7 @@ const createPaymentMotion = async (amount: string): Promise<BigNumber> => {
   }
   const [{ motionId }] = await metaColony.ext.oneTx
     .pay('0x27ff0c145e191c22c75cd123c679c3e1f58a4469', toWei(amount))
-    .motionTx();
+    .motion();
 
   if (!motionId) {
     // This case should not happen (rather the tx reverts) but we're making the check here for type-safety

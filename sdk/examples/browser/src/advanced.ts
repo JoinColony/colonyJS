@@ -37,7 +37,7 @@ const createTeam = async (): Promise<{
   const ipfsTestHash = 'QmTwksWE2Zn4icTvk5E7QZb1vucGNuu5GUCFZ361r8gKXM';
   const [{ domainId, fundingPotId }, , getMetadata] = await colony
     .createTeamWithData(ipfsTestHash)
-    .forceTx();
+    .force();
 
   if (!domainId || !fundingPotId || !getMetadata) {
     throw new Error('Transaction event data not found');
@@ -53,7 +53,7 @@ const createTeam = async (): Promise<{
 
   const [{ domainId: deprecatedDomain }] = await colony
     .deprecateTeam(domainId, true)
-    .forceTx();
+    .force();
 
   console.info(`${deprecatedDomain} successfully deprecated`);
 
@@ -76,7 +76,7 @@ const moveFunds = async (): Promise<ContractReceipt> => {
   }
   const [, receipt] = await colony
     .moveFundsToTeam(w`0.66`, domainData.domainId)
-    .forceTx();
+    .force();
   return receipt;
 };
 
@@ -88,7 +88,7 @@ const makePayment = async (to: string): Promise<ContractReceipt> => {
   // Create payment in newly created domain
   const [, receipt] = await colony.ext.oneTx
     .pay(to, w`0.42`, domainData.domainId)
-    .forceTx();
+    .force();
   return receipt;
 };
 

@@ -39,7 +39,7 @@ const createPaymentMotion = async (amount: string): Promise<BigNumber> => {
   }
   const [{ motionId }] = await colony.ext.oneTx
     .pay('0x27ff0c145e191c22c75cd123c679c3e1f58a4469', toWei(amount))
-    .motionTx();
+    .motion();
 
   if (!motionId) {
     // This case should not happen (rather the tx reverts) but we're making the check here for type-safety
