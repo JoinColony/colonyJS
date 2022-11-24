@@ -9,6 +9,7 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
+  PromiseOrValue,
 } from "../common";
 
 export interface StakedExpenditureEventsInterface extends utils.Interface {
@@ -156,12 +157,12 @@ export interface StakedExpenditureEvents extends BaseContract {
     ExpenditureCancelled(expenditureId?: null): ExpenditureCancelledEventFilter;
 
     "ExpenditureMadeViaStake(address,uint256,uint256)"(
-      creator?: string | null,
+      creator?: PromiseOrValue<string> | null,
       expenditureId?: null,
       stake?: null
     ): ExpenditureMadeViaStakeEventFilter;
     ExpenditureMadeViaStake(
-      creator?: string | null,
+      creator?: PromiseOrValue<string> | null,
       expenditureId?: null,
       stake?: null
     ): ExpenditureMadeViaStakeEventFilter;
@@ -170,12 +171,16 @@ export interface StakedExpenditureEvents extends BaseContract {
     ExtensionInitialised(): ExtensionInitialisedEventFilter;
 
     "LogSetAuthority(address)"(
-      authority?: string | null
+      authority?: PromiseOrValue<string> | null
     ): LogSetAuthorityEventFilter;
-    LogSetAuthority(authority?: string | null): LogSetAuthorityEventFilter;
+    LogSetAuthority(
+      authority?: PromiseOrValue<string> | null
+    ): LogSetAuthorityEventFilter;
 
-    "LogSetOwner(address)"(owner?: string | null): LogSetOwnerEventFilter;
-    LogSetOwner(owner?: string | null): LogSetOwnerEventFilter;
+    "LogSetOwner(address)"(
+      owner?: PromiseOrValue<string> | null
+    ): LogSetOwnerEventFilter;
+    LogSetOwner(owner?: PromiseOrValue<string> | null): LogSetOwnerEventFilter;
 
     "MetaTransactionExecuted(address,address,bytes)"(
       user?: null,

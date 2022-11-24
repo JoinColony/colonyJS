@@ -7,6 +7,8 @@ import { hideBin } from 'yargs/helpers';
 import fg from 'fast-glob';
 import { sync as mkdirpSync } from 'mkdirp';
 
+const DEPLOY_CONTRACTS = ['MetaTxToken'];
+
 const ARTIFACTS_DIR = resolvePath(
   __dirname,
   '../vendor/colonyNetwork/build/contracts',
@@ -44,9 +46,12 @@ const extract = async () => {
     const { abi, contractName, bytecode, devdoc, userdoc } = JSON.parse(
       readFileSync(file).toString(),
     );
+    const content = DEPLOY_CONTRACTS.includes(contractName)
+      ? { contractName, abi, bytecode, devdoc, userdoc }
+      : { contractName, abi, devdoc, userdoc };
     writeFileSync(
       resolvePath(outputDir, basename(file)),
-      JSON.stringify({ contractName, abi, bytecode, devdoc, userdoc }, null, 4),
+      JSON.stringify(content, null, 4),
     );
   });
 };
