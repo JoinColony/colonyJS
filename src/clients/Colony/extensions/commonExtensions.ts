@@ -22,6 +22,7 @@ import { IColony as IColonyV7 } from '../../../contracts/colony/7/IColony';
 import { IColony as IColonyV8 } from '../../../contracts/colony/8/IColony';
 import { IColony as IColonyV9 } from '../../../contracts/colony/9/IColony';
 import { IColony as IColonyV10 } from '../../../contracts/colony/10/IColony';
+import { IColony as IColonyV11 } from '../../../contracts/colony/11/IColony';
 import { TransactionOverrides } from '../../../contracts/6';
 import { IColonyFactory } from '../../../contracts/4/IColonyFactory';
 
@@ -49,7 +50,8 @@ type AnyIColony =
   | IColonyV7
   | IColonyV8
   | IColonyV9
-  | IColonyV10;
+  | IColonyV10
+  | IColonyV11;
 
 // This is exposed to type the awkward recovery event client which is basically
 // just an IColonyV4
