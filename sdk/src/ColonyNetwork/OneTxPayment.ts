@@ -13,16 +13,19 @@ import { extractEvent } from '../utils';
 import { Colony, SupportedColonyClient } from './Colony';
 
 export type SupportedOneTxPaymentClient = OneTxPaymentClientV3;
-export const SUPPORTED_ONE_TX_PAYMENT_VERSION = 3;
 
 export const getOneTxPaymentClient = async (
   colonyClient: SupportedColonyClient,
 ) => {
   const oneTxPaymentClient = await colonyClient.getExtensionClient(
-    Extension.OneTxPayment,
+    OneTxPayment.type,
   );
 
-  if (oneTxPaymentClient.clientVersion !== SUPPORTED_ONE_TX_PAYMENT_VERSION) {
+  // TODO: Support more versions?
+  if (
+    oneTxPaymentClient.clientVersion !==
+    OneTxPayment.getLatestSupportedVersion()
+  ) {
     throw new Error(
       `The installed version ${oneTxPaymentClient.clientVersion} of the OneTxPayment extension is not supported. Please upgrade the extension in your Colony`,
     );
@@ -45,11 +48,21 @@ export const getOneTxPaymentClient = async (
  * Note: if you deployed your Colony using the Dapp, the OneTxPayment extension is already installed for you
  */
 export class OneTxPayment {
+  static supportedVersion: 3[] = [3];
+
+  static type: Extension.OneTxPayment;
+
   private colony: Colony;
 
   private oneTxPaymentClient: SupportedOneTxPaymentClient;
 
   address: string;
+
+  static getLatestSupportedVersion() {
+    return OneTxPayment.supportedVersion[
+      OneTxPayment.supportedVersion.length - 1
+    ];
+  }
 
   constructor(colony: Colony, oneTxPaymentClient: SupportedOneTxPaymentClient) {
     this.address = oneTxPaymentClient.address;

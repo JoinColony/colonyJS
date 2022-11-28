@@ -46,7 +46,8 @@ Learn more about these functions in their individual documentation
 | :------ | :------ |
 | `__namedParameters` | `Object` |
 | `__namedParameters.args` | `unknown`[] \| () => `Promise`<`unknown`[]\> |
-| `__namedParameters.colony` | [`Colony`](Colony.md) |
+| `__namedParameters.colony?` | [`Colony`](Colony.md) |
+| `__namedParameters.colonyNetwork` | [`ColonyNetwork`](ColonyNetwork.md) |
 | `__namedParameters.contract` | `C` |
 | `__namedParameters.eventData?` | (`receipt`: `ContractReceipt`) => `Promise`<`E`\> |
 | `__namedParameters.metadataType?` | `MD` |

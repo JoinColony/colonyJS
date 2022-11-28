@@ -19,6 +19,8 @@ export class ColonyToken {
 
   private tokenClient: ColonyTokenClient;
 
+  address: string;
+
   tokenLockingClient: TokenLockingClient;
 
   // TODO: Add symbol, decimals
@@ -41,6 +43,7 @@ export class ColonyToken {
         `Requested token is not a token deployed with Colony. Please use the Erc20Token class`,
       );
     }
+    this.address = colonyClient.tokenClient.address;
     this.colony = colony;
     this.tokenClient = colonyClient.tokenClient;
     this.tokenLockingClient = tokenLockingClient;
@@ -257,5 +260,35 @@ export class ColonyToken {
       this.tokenClient.address,
       obligator,
     );
+  }
+
+  async deployAuthority(allowedToTransfer?: string[]): Promise<string> {
+    let allowed: string[] = [];
+    const tokenLockingAddress =
+      await this.colony.colonyNetwork.networkClient.getTokenLocking();
+    if (!allowedToTransfer) {
+      allowed = [tokenLockingAddress];
+    } else {
+      allowed = [...allowedToTransfer, tokenLockingAddress];
+    }
+    // TODO: Use TxCreator
+    const tx = await this.tokenClient.deployTokenAuthority(
+      this.tokenClient.address,
+      allowed,
+    );
+    const receipt = await tx.wait();
+    return receipt.contractAddress;
+  }
+
+  async setAuthority(tokenAuthorityAddress: string) {
+    return this.colony.createTxCreator(this.tokenClient, 'setAuthority', [
+      tokenAuthorityAddress,
+    ]);
+  }
+
+  async setupColonyAsOwner() {
+    return this.colony.createTxCreator(this.tokenClient, 'setOwner', [
+      this.colony.address,
+    ]);
   }
 }

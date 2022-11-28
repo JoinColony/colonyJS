@@ -54,7 +54,66 @@ ___
 
 • **networkClient**: `ColonyNetworkClient`
 
+___
+
+### signerOrProvider
+
+• **signerOrProvider**: `SignerOrProvider`
+
 ## Methods
+
+### createColony
+
+▸ **createColony**(`tokenAddress`, `colonyLabel`): `Promise`<[`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"createColony(address,uint256,string)"``, { `colonyAddress?`: `string` ; `colonyId?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `tokenAddress` | `string` |
+| `colonyLabel` | `string` |
+
+#### Returns
+
+`Promise`<[`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"createColony(address,uint256,string)"``, { `colonyAddress?`: `string` ; `colonyId?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>\>
+
+___
+
+### createColonyWithMetadata
+
+▸ **createColonyWithMetadata**(`tokenAddress`, `colonyLabel`, `metadata`): `Promise`<[`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"createColony(address,uint256,string,string)"``, { `colonyAddress?`: `string` ; `colonyId?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `tokenAddress` | `string` |
+| `colonyLabel` | `string` |
+| `metadata` | `string` \| `ColonyMetadata` |
+
+#### Returns
+
+`Promise`<[`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"createColony(address,uint256,string,string)"``, { `colonyAddress?`: `string` ; `colonyId?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>\>
+
+___
+
+### deployToken
+
+▸ **deployToken**(`name`, `symbol`, `decimals?`): `Promise`<`string`\>
+
+#### Parameters
+
+| Name | Type | Default value |
+| :------ | :------ | :------ |
+| `name` | `string` | `undefined` |
+| `symbol` | `string` | `undefined` |
+| `decimals` | `number` | `18` |
+
+#### Returns
+
+`Promise`<`string`\>
+
+___
 
 ### getColony
 

@@ -42,9 +42,9 @@ ___
 
 ___
 
-### SupportedVersions
+### supportedVersions
 
-▪ `Static` **SupportedVersions**: ``10``[]
+▪ `Static` **supportedVersions**: ``10``[]
 
 The currently supported Colony version. If a Colony is not on this version it has to be upgraded.
 If this is not an option, Colony SDK might throw errors at certain points. Usage of ColonyJS is advised in these cases
@@ -361,6 +361,22 @@ A Team object
 
 ___
 
+### installExtension
+
+▸ **installExtension**(`extension`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"installExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `extension` | [`SupportedExtension`](../enums/SupportedExtension.md) |
+
+#### Returns
+
+[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"installExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+___
+
 ### makeArbitraryTransaction
 
 ▸ **makeArbitraryTransaction**(`target`, `action`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"makeArbitraryTransactions"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
@@ -463,3 +479,49 @@ A [TxCreator](TxCreator.md)
 | `toPot` | BigNumber | The target funding pot |
 | `amount` | BigNumber | The amount that was transferred |
 | `token` | string | The token address being transferred |
+
+___
+
+### setAdministrationRole
+
+▸ **setAdministrationRole**(`address`, `teamId`, `set`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"setAdministrationRole"``, { `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `address` | `string` |
+| `teamId` | `BigNumberish` |
+| `set` | `boolean` |
+
+#### Returns
+
+[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"setAdministrationRole"``, { `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+___
+
+### setFundingRole
+
+▸ **setFundingRole**(`address`, `teamId`, `set`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"setFundingRole"``, { `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `address` | `string` |
+| `teamId` | `BigNumberish` |
+| `set` | `boolean` |
+
+#### Returns
+
+[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"setFundingRole"``, { `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+___
+
+### getLatestSupportedVersion
+
+▸ `Static` **getLatestSupportedVersion**(): ``10``
+
+#### Returns
+
+``10``

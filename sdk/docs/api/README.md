@@ -13,6 +13,7 @@
 - [MetadataType](enums/MetadataType.md)
 - [MotionState](enums/MotionState.md)
 - [Network](enums/Network.md)
+- [SupportedExtension](enums/SupportedExtension.md)
 - [TeamColor](enums/TeamColor.md)
 - [Vote](enums/Vote.md)
 

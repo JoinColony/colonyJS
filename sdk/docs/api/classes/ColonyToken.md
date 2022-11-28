@@ -2,6 +2,12 @@
 
 ## Properties
 
+### address
+
+• **address**: `string`
+
+___
+
 ### tokenLockingClient
 
 • **tokenLockingClient**: `TokenLockingClient`
@@ -50,6 +56,22 @@ A tupel of event data and contract receipt
 | `src` | string | The address that approved the tokens from their wallet |
 | `guy` | string | Address of the TokenLocking contract |
 | `wad` | BigNumber | Amount that was approved |
+
+___
+
+### deployAuthority
+
+▸ **deployAuthority**(`allowedToTransfer?`): `Promise`<`string`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `allowedToTransfer?` | `string`[] |
+
+#### Returns
+
+`Promise`<`string`\>
 
 ___
 
@@ -181,6 +203,32 @@ import { w } from '@colony/sdk';
 [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"mintTokens"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
 
 A [TxCreator](TxCreator.md)
+
+___
+
+### setAuthority
+
+▸ **setAuthority**(`tokenAuthorityAddress`): `Promise`<[`TxCreator`](TxCreator.md)<`ColonyTokenClient`, ``"setAuthority"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `tokenAuthorityAddress` | `string` |
+
+#### Returns
+
+`Promise`<[`TxCreator`](TxCreator.md)<`ColonyTokenClient`, ``"setAuthority"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>\>
+
+___
+
+### setupColonyAsOwner
+
+▸ **setupColonyAsOwner**(): `Promise`<[`TxCreator`](TxCreator.md)<`ColonyTokenClient`, ``"setOwner"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>\>
+
+#### Returns
+
+`Promise`<[`TxCreator`](TxCreator.md)<`ColonyTokenClient`, ``"setOwner"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>\>
 
 ___
 

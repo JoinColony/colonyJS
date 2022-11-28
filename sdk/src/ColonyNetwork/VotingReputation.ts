@@ -21,7 +21,6 @@ import { extractEvent, extractCustomEvent, toEth } from '../utils';
 import { Colony, SupportedColonyClient } from './Colony';
 
 export type SupportedVotingReputationClient = VotingReputationClientV7;
-export const SUPPORTED_VOTING_REPUTATION_VERSION = 7;
 
 export type Motion = VotingReputationDataTypes.MotionStruct;
 
@@ -38,11 +37,12 @@ export const getVotingReputationClient = async (
   colonyClient: SupportedColonyClient,
 ) => {
   const votingReputationClient = await colonyClient.getExtensionClient(
-    Extension.VotingReputation,
+    VotingReputation.type,
   );
 
   if (
-    votingReputationClient.clientVersion !== SUPPORTED_VOTING_REPUTATION_VERSION
+    votingReputationClient.clientVersion !==
+    VotingReputation.getLatestSupportedVersion()
   ) {
     throw new Error(
       `The installed version ${votingReputationClient.clientVersion} of the VotingReputation extension is not supported. Please upgrade the extension in your Colony`,
@@ -140,11 +140,21 @@ const REP_DIVISOR = BigNumber.from(10).pow(18);
  *
  */
 export class VotingReputation {
+  static supportedVersions: 7[] = [7];
+
+  static type: Extension.IVotingReputation;
+
   private colony: Colony;
 
   private votingReputationClient: SupportedVotingReputationClient;
 
   address: string;
+
+  static getLatestSupportedVersion() {
+    return VotingReputation.supportedVersions[
+      VotingReputation.supportedVersions.length - 1
+    ];
+  }
 
   constructor(
     colony: Colony,

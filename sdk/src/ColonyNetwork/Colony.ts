@@ -6,16 +6,20 @@ import {
   IBasicMetaTransaction,
   getChildIndex,
   getPermissionProofs,
+  isExtensionCompatible,
 } from '@colony/colony-js';
 import {
   AnnotationEventObject,
+  ColonyAdministrationRoleSetEventObject,
   ColonyDataTypes,
+  ColonyFundingRoleSetEventObject,
   ColonyFundsClaimed_address_uint256_uint256_EventObject,
   // eslint-disable-next-line max-len
   ColonyFundsMovedBetweenFundingPots_address_uint256_uint256_uint256_address_EventObject,
   DomainAdded_uint256_EventObject,
   DomainDeprecatedEventObject,
   DomainMetadataEventObject,
+  ExtensionInstalledEventObject,
   FundingPotAddedEventObject,
 } from '@colony/colony-js/extras';
 import {
@@ -35,6 +39,17 @@ import { PermissionConfig, TxCreator } from './TxCreator';
 
 export type SupportedColonyClient = ColonyClientV10;
 export type SupportedColonyMethods = SupportedColonyClient['functions'];
+
+export enum SupportedExtension {
+  motion = 'motion',
+  oneTx = 'oneTx',
+}
+
+const supportedExtensionMap = {
+  [SupportedExtension.motion]: VotingReputation,
+  [SupportedExtension.oneTx]: OneTxPayment,
+} as const;
+
 export interface SupportedExtensions {
   motions?: VotingReputation;
   oneTx?: OneTxPayment;
@@ -44,9 +59,11 @@ export class Colony {
   /** The currently supported Colony version. If a Colony is not on this version it has to be upgraded.
    * If this is not an option, Colony SDK might throw errors at certain points. Usage of ColonyJS is advised in these cases
    */
-  static SupportedVersions: 10[] = [10];
+  static supportedVersions: 10[] = [10];
 
   private colonyClient: SupportedColonyClient;
+
+  signerOrProvider: SignerOrProvider;
 
   address: string;
 
@@ -60,8 +77,6 @@ export class Colony {
   colonyToken?: ColonyToken;
 
   ext: SupportedExtensions;
-
-  signerOrProvider: SignerOrProvider;
 
   version: number;
 
@@ -86,6 +101,10 @@ export class Colony {
     this.address = colonyClient.address;
     this.ext = {};
     this.version = colonyClient.clientVersion;
+  }
+
+  static getLatestSupportedVersion() {
+    return Colony.supportedVersions[Colony.supportedVersions.length - 1];
   }
 
   /**
@@ -118,6 +137,7 @@ export class Colony {
   ) {
     return new TxCreator({
       colony: this,
+      colonyNetwork: this.colonyNetwork,
       contract,
       method,
       args,
@@ -158,6 +178,7 @@ export class Colony {
   ) {
     return new TxCreator({
       colony: this,
+      colonyNetwork: this.colonyNetwork,
       contract,
       method,
       args,
@@ -706,6 +727,67 @@ export class Colony {
         ...extractEvent<AnnotationEventObject>('Annotation', receipt),
       }),
       MetadataType.Annotation,
+    );
+  }
+
+  installExtension(extension: SupportedExtension) {
+    const Extension = supportedExtensionMap[extension];
+    const version = Extension.getLatestSupportedVersion();
+    const { type } = Extension;
+    const colonyVersion = this.colonyClient.clientVersion;
+    if (!isExtensionCompatible(type, version, colonyVersion)) {
+      throw new Error(
+        `v${version} of ${type} extension is not compatible with colony v${colonyVersion}`,
+      );
+    }
+    return this.createTxCreator(
+      this.colonyClient,
+      'installExtension',
+      [type, Extension.getLatestSupportedVersion()],
+      async (receipt) => ({
+        ...extractEvent<ExtensionInstalledEventObject>(
+          'ExtensionInstalled',
+          receipt,
+        ),
+      }),
+    );
+  }
+
+  // TODO: consider using ColonyClient.setRoles in an improved abstraction
+  setAdministrationRole(address: string, teamId: BigNumberish, set: boolean) {
+    return this.createPermissionedTxCreator(
+      this.colonyClient,
+      'setAdministrationRole',
+      [address, teamId, set],
+      {
+        roles: ColonyRole.Architecture,
+        domain: teamId,
+      },
+      async (receipt) => ({
+        ...extractEvent<ColonyAdministrationRoleSetEventObject>(
+          'ColonyAdministrationRoleSet',
+          receipt,
+        ),
+      }),
+    );
+  }
+
+  // TODO: consider using ColonyClient.setRoles in an improved abstraction
+  setFundingRole(address: string, teamId: BigNumberish, set: boolean) {
+    return this.createPermissionedTxCreator(
+      this.colonyClient,
+      'setFundingRole',
+      [address, teamId, set],
+      {
+        roles: ColonyRole.Architecture,
+        domain: teamId,
+      },
+      async (receipt) => ({
+        ...extractEvent<ColonyFundingRoleSetEventObject>(
+          'ColonyFundingRoleSet',
+          receipt,
+        ),
+      }),
     );
   }
 }
