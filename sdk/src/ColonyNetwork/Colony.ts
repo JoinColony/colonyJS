@@ -23,7 +23,6 @@ import {
   DomainMetadata,
   MetadataType,
 } from '@colony/colony-event-metadata-parser';
-
 import { BigNumberish, BytesLike, ContractReceipt } from 'ethers';
 
 import { extractEvent } from '../utils';
@@ -31,7 +30,7 @@ import { ColonyToken } from './ColonyToken';
 import { ColonyNetwork } from './ColonyNetwork';
 import { OneTxPayment } from './OneTxPayment';
 import { VotingReputation } from './VotingReputation';
-import { Parameters, ParametersFrom2 } from '../types';
+import { Expand, Parameters, ParametersFrom2 } from '../types';
 import { PermissionConfig, TxCreator } from './TxCreator';
 
 export type SupportedColonyClient = ColonyClientV10;
@@ -241,8 +240,7 @@ export class Colony {
    * @remarks
    * Currently you can only add domains within the `Root` domain. This restriction will be lifted soon
    *
-   * @param teamMetadata An IPFS [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file containing the metadata described below. For now, we would like to keep it agnostic to any IPFS upload mechanism, so you have to upload the file manually and provide your own hash (by using, for example, [Pinata](https://docs.pinata.cloud/))
-   * @param teamMetadata The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[DomainMetadata]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
+   * @param metadata The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[DomainMetadata]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
    *
    * @returns A [[TxCreator]]
    *
@@ -263,37 +261,17 @@ export class Colony {
    * | `domainColor` | string | The color assigned to this team |
    * | `domainPurpose` | string | The purpose for this team (a broad description) |
    */
-  createTeamWithData(teamMetadata: DomainMetadata | string) {
-    return this.createPermissionedTxCreator(
-      this.colonyClient,
-      'addDomain(uint256,uint256,uint256,string)',
-      async () => {
-        let cid: string;
-        if (typeof teamMetadata == 'string') {
-          cid = teamMetadata;
-        } else {
-          cid = await this.colonyNetwork.ipfs.uploadMetadata(
-            MetadataType.Domain,
-            teamMetadata,
-          );
-        }
-        return [Id.RootDomain, cid] as [BigNumberish, string];
-      },
-      {
-        roles: ColonyRole.Architecture,
-        domain: Id.RootDomain,
-      },
-      async (receipt) => ({
-        ...extractEvent<DomainAdded_uint256_EventObject>(
-          'DomainAdded',
-          receipt,
-        ),
-        ...extractEvent<FundingPotAddedEventObject>('FundingPotAdded', receipt),
-        ...extractEvent<DomainMetadataEventObject>('DomainMetadata', receipt),
-      }),
-      MetadataType.Domain,
-    );
-  }
+  createTeam(
+    metadata: DomainMetadata | string,
+  ): TxCreator<
+    SupportedColonyClient,
+    'addDomain(uint256,uint256,uint256,string)',
+    Expand<
+      DomainAdded_uint256_EventObject &
+        FundingPotAddedEventObject & { metadata: string }
+    >,
+    MetadataType.Domain
+  >;
 
   /**
    * Create a team (domain) within a Colony with no metadata attached
@@ -311,11 +289,54 @@ export class Colony {
    * | `domainId` | BigNumber | Integer domain id of the created team |
    * | `fundingPotId` | BigNumber | Integer id of the corresponding funding pot |
    */
-  createTeam() {
+  createTeam(): TxCreator<
+    SupportedColonyClient,
+    'addDomain(uint256,uint256,uint256,string)',
+    Expand<
+      DomainAdded_uint256_EventObject &
+        FundingPotAddedEventObject & { metadata: undefined }
+    >,
+    MetadataType
+  >;
+
+  createTeam(metadata?: DomainMetadata | string) {
+    if (!metadata) {
+      return this.createPermissionedTxCreator(
+        this.colonyClient,
+        'addDomain(uint256,uint256,uint256)',
+        [Id.RootDomain],
+        {
+          roles: ColonyRole.Architecture,
+          domain: Id.RootDomain,
+        },
+        async (receipt) => ({
+          ...extractEvent<DomainAdded_uint256_EventObject>(
+            'DomainAdded',
+            receipt,
+          ),
+          ...extractEvent<FundingPotAddedEventObject>(
+            'FundingPotAdded',
+            receipt,
+          ),
+        }),
+      );
+    }
+
     return this.createPermissionedTxCreator(
       this.colonyClient,
-      'addDomain(uint256,uint256,uint256)',
-      [Id.RootDomain],
+      'addDomain(uint256,uint256,uint256,string)',
+      async () => {
+        let cid: string;
+        if (typeof metadata == 'string') {
+          cid = metadata;
+        } else {
+          cid = await this.colonyNetwork.ipfs.uploadMetadata(
+            MetadataType.Domain,
+            metadata,
+          );
+        }
+        return [Id.RootDomain, cid] as [BigNumberish, string];
+      },
       {
         roles: ColonyRole.Architecture,
         domain: Id.RootDomain,
@@ -326,7 +347,9 @@ export class Colony {
           receipt,
         ),
         ...extractEvent<FundingPotAddedEventObject>('FundingPotAdded', receipt),
+        ...extractEvent<DomainMetadataEventObject>('DomainMetadata', receipt),
       }),
+      MetadataType.Domain,
     );
   }
 

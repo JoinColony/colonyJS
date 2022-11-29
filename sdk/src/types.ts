@@ -47,3 +47,10 @@ export type ParametersFrom2<F> = F extends (
   ? R
   : never;
 /* eslint-enable @typescript-eslint/no-explicit-any */
+
+/**
+ * @internal
+ * Type helper. Forces TypeScript to expand the contents in the docs
+ */
+// eslint-disable-next-line @typescript-eslint/ban-types
+export type Expand<T> = {} & { [P in keyof T]: T[P] };

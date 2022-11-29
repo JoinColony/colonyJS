@@ -36,7 +36,7 @@ const createTeam = async (): Promise<{
   // You can see how the data looks like here: https://cloudflare-ipfs.com/ipfs/QmTwksWE2Zn4icTvk5E7QZb1vucGNuu5GUCFZ361r8gKXM
   const ipfsTestHash = 'QmTwksWE2Zn4icTvk5E7QZb1vucGNuu5GUCFZ361r8gKXM';
   const [{ domainId, fundingPotId }, , getMetadata] = await colony
-    .createTeamWithData(ipfsTestHash)
+    .createTeam(ipfsTestHash)
     .force();
 
   if (!domainId || !fundingPotId || !getMetadata) {

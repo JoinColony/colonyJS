@@ -143,33 +143,7 @@ ___
 
 ### createTeam
 
-▸ **createTeam**(): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"addDomain(uint256,uint256,uint256)"``, { `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
-
-Create a team (domain) within a Colony with no metadata attached
-
-**`Remarks`**
-
-Currently you can only add domains within the `Root` domain. This restriction will be lifted soon
-
-#### Returns
-
-[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"addDomain(uint256,uint256,uint256)"``, { `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
-
-A [TxCreator](TxCreator.md)
-
-**Event data**
-
-| Property | Type | Description |
-| :------ | :------ | :------ |
-| `agent` | string | The address that is responsible for triggering this event |
-| `domainId` | BigNumber | Integer domain id of the created team |
-| `fundingPotId` | BigNumber | Integer id of the corresponding funding pot |
-
-___
-
-### createTeamWithData
-
-▸ **createTeamWithData**(`teamMetadata`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"addDomain(uint256,uint256,uint256,string)"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, [`Domain`](../enums/MetadataType.md#domain)\>
+▸ **createTeam**(`metadata`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"addDomain(uint256,uint256,uint256,string)"``, { `domainId`: `BigNumber` ; `fundingPotId`: `BigNumber` ; `metadata`: `string`  }, [`Domain`](../enums/MetadataType.md#domain)\>
 
 Create a team (domain) within a Colony with team details as metadata
 
@@ -181,11 +155,11 @@ Currently you can only add domains within the `Root` domain. This restriction wi
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `teamMetadata` | `string` \| `DomainMetadata` | An IPFS [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file containing the metadata described below. For now, we would like to keep it agnostic to any IPFS upload mechanism, so you have to upload the file manually and provide your own hash (by using, for example, [Pinata](https://docs.pinata.cloud/)) |
+| `metadata` | `string` \| `DomainMetadata` | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If DomainMetadata is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
 
 #### Returns
 
-[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"addDomain(uint256,uint256,uint256,string)"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, [`Domain`](../enums/MetadataType.md#domain)\>
+[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"addDomain(uint256,uint256,uint256,string)"``, { `domainId`: `BigNumber` ; `fundingPotId`: `BigNumber` ; `metadata`: `string`  }, [`Domain`](../enums/MetadataType.md#domain)\>
 
 A [TxCreator](TxCreator.md)
 
@@ -205,6 +179,28 @@ A [TxCreator](TxCreator.md)
 | `domainName` | string | The human readable name assigned to this team |
 | `domainColor` | string | The color assigned to this team |
 | `domainPurpose` | string | The purpose for this team (a broad description) |
+
+▸ **createTeam**(): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"addDomain(uint256,uint256,uint256,string)"``, { `domainId`: `BigNumber` ; `fundingPotId`: `BigNumber` ; `metadata`: `undefined`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+Create a team (domain) within a Colony with no metadata attached
+
+**`Remarks`**
+
+Currently you can only add domains within the `Root` domain. This restriction will be lifted soon
+
+#### Returns
+
+[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"addDomain(uint256,uint256,uint256,string)"``, { `domainId`: `BigNumber` ; `fundingPotId`: `BigNumber` ; `metadata`: `undefined`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+A [TxCreator](TxCreator.md)
+
+**Event data**
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `agent` | string | The address that is responsible for triggering this event |
+| `domainId` | BigNumber | Integer domain id of the created team |
+| `fundingPotId` | BigNumber | Integer id of the corresponding funding pot |
 
 ___
 
