@@ -61,7 +61,7 @@ ___
 
 ### deployAuthority
 
-▸ **deployAuthority**(`allowedToTransfer?`): `Promise`<`string`\>
+▸ **deployAuthority**(`allowedToTransfer?`): `Promise`<[`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"deployTokenAuthority"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>\>
 
 #### Parameters
 
@@ -71,7 +71,7 @@ ___
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`<[`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"deployTokenAuthority"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>\>
 
 ___
 

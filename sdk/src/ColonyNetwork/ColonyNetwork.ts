@@ -1,4 +1,4 @@
-import { BigNumberish, ContractReceipt } from 'ethers';
+import { BigNumberish, ContractReceipt, constants, utils } from 'ethers';
 import {
   ColonyNetworkClient,
   getColonyNetworkClient,
@@ -7,7 +7,10 @@ import {
   NetworkClientOptions,
   SignerOrProvider,
 } from '@colony/colony-js';
-import { ColonyAddedEventObject } from '@colony/colony-js/extras';
+import {
+  ColonyAddedEventObject,
+  TokenDeployedEventObject,
+} from '@colony/colony-js/extras';
 import { ColonyMetadata } from '@colony/colony-event-metadata-parser';
 
 import { IpfsMetadata, IpfsAdapter, MetadataType } from '../ipfs';
@@ -17,10 +20,13 @@ import {
   VotingReputation,
 } from './VotingReputation';
 import { getOneTxPaymentClient, OneTxPayment } from './OneTxPayment';
-import { MetaTxBroadCasterEndpoint } from '../constants';
+import { ColonyLabelSuffix, MetaTxBroadCasterEndpoint } from '../constants';
 import { Parameters } from '../types';
 import { TxCreator } from './TxCreator';
 import { extractEvent } from '../utils';
+
+const { namehash } = utils;
+const { AddressZero } = constants;
 
 /** Additional options for the [[ColonyNetwork]] */
 export interface ColonyNetworkOptions {
@@ -104,7 +110,7 @@ export class ColonyNetwork {
    * @param metadataType The [[MetadataType]] if the event contains metadata
    * @returns A [[TxCreator]]
    */
-  private createTxCreator<
+  createTxCreator<
     C extends IBasicMetaTransaction,
     F extends keyof C['functions'],
     D extends Record<string, unknown>,
@@ -126,6 +132,52 @@ export class ColonyNetwork {
       eventData,
       metadataType,
     });
+  }
+
+  async createColony(
+    tokenAddress: string,
+    label: string,
+    metadata?: ColonyMetadata | string,
+  ) {
+    const existingLabel = await this.getColonyAddress(label);
+
+    if (existingLabel) {
+      throw new Error(`Colony label ${label} already exists!`);
+    }
+
+    if (!metadata) {
+      return this.createTxCreator(
+        this.networkClient,
+        'createColony(address,uint256,string)',
+        [tokenAddress, Colony.getLatestSupportedVersion(), label],
+        async (receipt) => ({
+          ...extractEvent<ColonyAddedEventObject>('ColonyAdded', receipt),
+        }),
+      );
+    }
+
+    return this.createTxCreator(
+      this.networkClient,
+      'createColony(address,uint256,string,string)',
+      async () => {
+        let cid: string;
+        if (typeof metadata == 'string') {
+          cid = metadata;
+        } else {
+          cid = await this.ipfs.uploadMetadata(MetadataType.Colony, metadata);
+        }
+        return [
+          tokenAddress,
+          Colony.getLatestSupportedVersion(),
+          label,
+          cid,
+        ] as [string, BigNumberish, string, string];
+      },
+      async (receipt) => ({
+        ...extractEvent<ColonyAddedEventObject>('ColonyAdded', receipt),
+      }),
+      MetadataType.Colony,
+    );
   }
 
   /**
@@ -186,54 +238,33 @@ export class ColonyNetwork {
     return this.getColony(colonyAddress);
   }
 
-  async deployToken(
-    name: string,
-    symbol: string,
-    decimals = 18,
-  ): Promise<string> {
-    // TODO: Use TxCreator
-    const token = await this.networkClient.deployToken(name, symbol, decimals);
-    const receipt = await token.wait();
-    return receipt.contractAddress;
+  async getColonyLabel(address: string) {
+    const ensName =
+      await this.networkClient.lookupRegisteredENSDomainWithNetworkPatches(
+        address,
+      );
+    if (ensName) {
+      return ensName.replace(ColonyLabelSuffix[this.network], '');
+    }
+    return null;
   }
 
-  async createColony(tokenAddress: string, colonyLabel: string) {
-    // TODO: check whether colony label is taken
-    return this.createTxCreator(
-      this.networkClient,
-      'createColony(address,uint256,string)',
-      [tokenAddress, Colony.getLatestSupportedVersion(), colonyLabel],
-      async (receipt) => ({
-        ...extractEvent<ColonyAddedEventObject>('ColonyAdded', receipt),
-      }),
-    );
+  async getColonyAddress(label: string) {
+    const hash = namehash(`${label}${ColonyLabelSuffix[this.network]}`);
+    const address = await this.networkClient.addr(hash);
+    if (address !== AddressZero) {
+      return address;
+    }
+    return null;
   }
 
-  async createColonyWithMetadata(
-    tokenAddress: string,
-    colonyLabel: string,
-    metadata: ColonyMetadata | string,
-  ) {
-    // TODO: check whether colony label is taken
+  async deployToken(name: string, symbol: string, decimals = 18) {
     return this.createTxCreator(
       this.networkClient,
-      'createColony(address,uint256,string,string)',
-      async () => {
-        let cid: string;
-        if (typeof metadata == 'string') {
-          cid = metadata;
-        } else {
-          cid = await this.ipfs.uploadMetadata(MetadataType.Colony, metadata);
-        }
-        return [
-          tokenAddress,
-          Colony.getLatestSupportedVersion(),
-          colonyLabel,
-          cid,
-        ] as [string, BigNumberish, string, string];
-      },
+      'deployTokenViaNetwork',
+      [name, symbol, decimals],
       async (receipt) => ({
-        ...extractEvent<ColonyAddedEventObject>('ColonyAdded', receipt),
+        ...extractEvent<TokenDeployedEventObject>('TokenDeployed', receipt),
       }),
     );
   }

@@ -6,6 +6,7 @@
 
 ## Enumerations
 
+- [ColonyLabelSuffix](enums/ColonyLabelSuffix.md)
 - [ColonyRole](enums/ColonyRole.md)
 - [Extension](enums/Extension.md)
 - [Id](enums/Id.md)

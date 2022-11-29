@@ -34,3 +34,12 @@ export enum TeamColor {
   Magenta,
   PurpleGrey,
 }
+
+export enum ColonyLabelSuffix {
+  Mainnet = '.colony.joincolony.eth',
+  Goerli = '.colony.joincolony.test',
+  Gnosis = '.colony.joincolony.colonyxdai',
+  Xdai = '.colony.joincolony.colonyxdai',
+  XdaiQa = '.colony.joincolony.colonyxdai',
+  Custom = '.colony.joincolony.test',
+}

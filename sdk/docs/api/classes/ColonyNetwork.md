@@ -64,14 +64,15 @@ ___
 
 ### createColony
 
-▸ **createColony**(`tokenAddress`, `colonyLabel`): `Promise`<[`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"createColony(address,uint256,string)"``, { `colonyAddress?`: `string` ; `colonyId?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>\>
+▸ **createColony**(`tokenAddress`, `label`, `metadata?`): `Promise`<[`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"createColony(address,uint256,string)"``, { `colonyAddress?`: `string` ; `colonyId?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `tokenAddress` | `string` |
-| `colonyLabel` | `string` |
+| `label` | `string` |
+| `metadata?` | `string` \| `ColonyMetadata` |
 
 #### Returns
 
@@ -79,27 +80,9 @@ ___
 
 ___
 
-### createColonyWithMetadata
-
-▸ **createColonyWithMetadata**(`tokenAddress`, `colonyLabel`, `metadata`): `Promise`<[`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"createColony(address,uint256,string,string)"``, { `colonyAddress?`: `string` ; `colonyId?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `tokenAddress` | `string` |
-| `colonyLabel` | `string` |
-| `metadata` | `string` \| `ColonyMetadata` |
-
-#### Returns
-
-`Promise`<[`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"createColony(address,uint256,string,string)"``, { `colonyAddress?`: `string` ; `colonyId?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>\>
-
-___
-
 ### deployToken
 
-▸ **deployToken**(`name`, `symbol`, `decimals?`): `Promise`<`string`\>
+▸ **deployToken**(`name`, `symbol`, `decimals?`): `Promise`<[`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"deployTokenViaNetwork"``, { `tokenAddress?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>\>
 
 #### Parameters
 
@@ -111,7 +94,7 @@ ___
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`<[`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"deployTokenViaNetwork"``, { `tokenAddress?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>\>
 
 ___
 
@@ -138,6 +121,38 @@ Colony contracts are versioned. If the deployed Colony version does not match th
 `Promise`<[`Colony`](Colony.md)\>
 
 A Colony abstaction instance
+
+___
+
+### getColonyAddress
+
+▸ **getColonyAddress**(`label`): `Promise`<``null`` \| `string`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `label` | `string` |
+
+#### Returns
+
+`Promise`<``null`` \| `string`\>
+
+___
+
+### getColonyLabel
+
+▸ **getColonyLabel**(`address`): `Promise`<``null`` \| `string`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `address` | `string` |
+
+#### Returns
+
+`Promise`<``null`` \| `string`\>
 
 ___
 

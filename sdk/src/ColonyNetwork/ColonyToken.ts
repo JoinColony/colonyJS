@@ -262,22 +262,21 @@ export class ColonyToken {
     );
   }
 
-  async deployAuthority(allowedToTransfer?: string[]): Promise<string> {
+  async deployAuthority(allowedToTransfer?: string[]) {
+    const { colonyNetwork } = this.colony;
     let allowed: string[] = [];
     const tokenLockingAddress =
-      await this.colony.colonyNetwork.networkClient.getTokenLocking();
+      await colonyNetwork.networkClient.getTokenLocking();
     if (!allowedToTransfer) {
       allowed = [tokenLockingAddress];
     } else {
       allowed = [...allowedToTransfer, tokenLockingAddress];
     }
-    // TODO: Use TxCreator
-    const tx = await this.tokenClient.deployTokenAuthority(
-      this.tokenClient.address,
-      allowed,
+    return colonyNetwork.createTxCreator(
+      colonyNetwork.networkClient,
+      'deployTokenAuthority',
+      [this.address, this.colony.address, allowed],
     );
-    const receipt = await tx.wait();
-    return receipt.contractAddress;
   }
 
   async setAuthority(tokenAuthorityAddress: string) {
