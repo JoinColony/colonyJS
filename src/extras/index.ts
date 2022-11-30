@@ -44,6 +44,7 @@ export * from '../contracts/latest/TokenLocking';
 export * from '../contracts/__dynamic__/CoinMachineEvents';
 export * from '../contracts/__dynamic__/IColonyEvents';
 export * from '../contracts/__dynamic__/IColonyNetworkEvents';
+export * from '../contracts/__dynamic__/MetaTxTokenEvents';
 export * from '../contracts/__dynamic__/OneTxPaymentEvents';
 export * from '../contracts/__dynamic__/VotingReputationEvents';
 export * from '../contracts/__dynamic__/WhitelistEvents';
