@@ -75,6 +75,7 @@
   "dependencies": {
     "lint-staged": "^13.0.3",
     "react-intl": "^6.0.4",
+    "release-it": "^15.5.0",
     "yup": "^0.29.0"
   },
   "description": "",
