@@ -64,7 +64,7 @@ ___
 
 ### createColony
 
-▸ **createColony**(`tokenAddress`, `label`, `metadata?`): `Promise`<[`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"createColony(address,uint256,string)"``, { `colonyAddress?`: `string` ; `colonyId?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>\>
+▸ **createColony**(`tokenAddress`, `label`, `metadata`): [`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"createColony(address,uint256,string,string)"``, { `agent`: `string` ; `colonyAddress`: `string` ; `colonyId`: `BigNumber` ; `metadata`: `string` ; `token`: `string`  }, [`Colony`](../enums/MetadataType.md#colony)\>
 
 #### Parameters
 
@@ -72,17 +72,30 @@ ___
 | :------ | :------ |
 | `tokenAddress` | `string` |
 | `label` | `string` |
-| `metadata?` | `string` \| `ColonyMetadata` |
+| `metadata` | `string` \| `ColonyMetadata` |
 
 #### Returns
 
-`Promise`<[`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"createColony(address,uint256,string)"``, { `colonyAddress?`: `string` ; `colonyId?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>\>
+[`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"createColony(address,uint256,string,string)"``, { `agent`: `string` ; `colonyAddress`: `string` ; `colonyId`: `BigNumber` ; `metadata`: `string` ; `token`: `string`  }, [`Colony`](../enums/MetadataType.md#colony)\>
+
+▸ **createColony**(`tokenAddress`, `label`): [`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"createColony(address,uint256,string)"``, { `colonyAddress`: `string` ; `colonyId`: `BigNumber` ; `metadata?`: `undefined` ; `token`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `tokenAddress` | `string` |
+| `label` | `string` |
+
+#### Returns
+
+[`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"createColony(address,uint256,string)"``, { `colonyAddress`: `string` ; `colonyId`: `BigNumber` ; `metadata?`: `undefined` ; `token`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 ___
 
 ### deployToken
 
-▸ **deployToken**(`name`, `symbol`, `decimals?`): `Promise`<[`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"deployTokenViaNetwork"``, { `tokenAddress?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>\>
+▸ **deployToken**(`name`, `symbol`, `decimals?`): [`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"deployTokenViaNetwork"``, { `tokenAddress?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 #### Parameters
 
@@ -94,7 +107,7 @@ ___
 
 #### Returns
 
-`Promise`<[`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"deployTokenViaNetwork"``, { `tokenAddress?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>\>
+[`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"deployTokenViaNetwork"``, { `tokenAddress?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 ___
 

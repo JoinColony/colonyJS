@@ -9,6 +9,7 @@ import {
 } from '@colony/colony-js';
 import {
   ColonyAddedEventObject,
+  ColonyMetadataEventObject,
   TokenDeployedEventObject,
 } from '@colony/colony-js/extras';
 import { ColonyMetadata } from '@colony/colony-event-metadata-parser';
@@ -21,7 +22,7 @@ import {
 } from './VotingReputation';
 import { getOneTxPaymentClient, OneTxPayment } from './OneTxPayment';
 import { ColonyLabelSuffix, MetaTxBroadCasterEndpoint } from '../constants';
-import { Parameters } from '../types';
+import { Expand, Parameters } from '../types';
 import { TxCreator } from './TxCreator';
 import { extractEvent } from '../utils';
 
@@ -134,17 +135,32 @@ export class ColonyNetwork {
     });
   }
 
-  async createColony(
+  createColony(
+    tokenAddress: string,
+    label: string,
+    metadata: ColonyMetadata | string,
+  ): TxCreator<
+    ColonyNetworkClient,
+    'createColony(address,uint256,string,string)',
+    Expand<ColonyAddedEventObject & ColonyMetadataEventObject>,
+    MetadataType.Colony
+  >;
+
+  createColony(
+    tokenAddress: string,
+    label: string,
+  ): TxCreator<
+    ColonyNetworkClient,
+    'createColony(address,uint256,string)',
+    Expand<ColonyAddedEventObject & { metadata?: undefined }>,
+    MetadataType
+  >;
+
+  createColony(
     tokenAddress: string,
     label: string,
     metadata?: ColonyMetadata | string,
   ) {
-    const existingLabel = await this.getColonyAddress(label);
-
-    if (existingLabel) {
-      throw new Error(`Colony label ${label} already exists!`);
-    }
-
     if (!metadata) {
       return this.createTxCreator(
         this.networkClient,
@@ -258,7 +274,7 @@ export class ColonyNetwork {
     return null;
   }
 
-  async deployToken(name: string, symbol: string, decimals = 18) {
+  deployToken(name: string, symbol: string, decimals = 18) {
     return this.createTxCreator(
       this.networkClient,
       'deployTokenViaNetwork',
