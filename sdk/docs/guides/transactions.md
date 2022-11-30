@@ -1,4 +1,4 @@
-# How to create transactions with Colony SDK
+# How to create transactions
 
 Within Colony, there are a few ways to do an action. As a colony is a permissioned contract, not everyone can just do anything they like, users (or contracts) have to have the right permission in the relevant team to do so.
 If a governance extension is installed for the colony, this behaviour changes. Using [Motions & Disputes](../api/classes/VotingReputation.md) for example, it is possible to propose an action without having the appropriate permissions.
@@ -55,12 +55,12 @@ Okay, what did we learn? Here's a little overview:
 
 ### Force a transaction
 
-- [[TxCreator.force]]: force a Colony transaction, knowing you have the permissions to do so
-- [[TxCreator.forceMeta]]: same as `force()`, but send as a gasless metatransaction
+- [TxCreator.force](../api/classes/TxCreator.md#force): force a Colony transaction, knowing you have the permissions to do so
+- [TxCreator.forceMeta](../api/classes/TxCreator.md#forceMeta): same as `force()`, but send as a gasless metatransaction
 
 ### Create a motion to trigger an action once it passes
 
-- [[TxCreator.motion]]: create a motion (needs the motion's domain as a parameter)
-- [[TxCreator.forceMeta]]: same as `motion()`, but sends a gasless metatransaction
+- [TxCreator.motion](../api/classes/TxCreator.md#motion): create a motion (needs the motion's domain as a parameter)
+- [TxCreator.motionMeta](../api/classes/TxCreator.md#motionMeta): same as `motion()`, but sends a gasless metatransaction
 
-Also refer to the [[TxCreator]] documentation if you'd like to learn more.
+Also refer to the [TxCreator](../api/classes/TxCreator.md) documentation if you'd like to learn more.
