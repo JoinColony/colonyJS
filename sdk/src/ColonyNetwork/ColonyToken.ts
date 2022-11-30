@@ -19,7 +19,7 @@ export class ColonyToken {
 
   private tokenClient: ColonyTokenClient;
 
-  private tokenLockingClient?: TokenLockingClient;
+  tokenLockingClient: TokenLockingClient;
 
   // TODO: Add symbol, decimals
   // Get symbol in colonyJS. Use async getToken function
@@ -34,24 +34,16 @@ export class ColonyToken {
    * @param colony A Colony instance
    * @returns A Colony Token abstaction instance
    */
-  constructor(colony: Colony) {
-    this.colony = colony;
+  constructor(colony: Colony, tokenLockingClient: TokenLockingClient) {
     const colonyClient = colony.getInternalColonyClient();
     if (colonyClient.tokenClient.tokenClientType !== TokenClientType.Colony) {
       throw new Error(
         `Requested token is not a token deployed with Colony. Please use the Erc20Token class`,
       );
     }
+    this.colony = colony;
     this.tokenClient = colonyClient.tokenClient;
-  }
-
-  async getTokenLockingClient() {
-    if (!this.tokenLockingClient) {
-      this.tokenLockingClient = await this.colony
-        .getInternalColonyClient()
-        .networkClient.getTokenLockingClient();
-    }
-    return this.tokenLockingClient;
+    this.tokenLockingClient = tokenLockingClient;
   }
 
   /**
@@ -73,22 +65,28 @@ export class ColonyToken {
    * ```typescript
    * import { w } from '@colony/sdk';
    *
-   * const token = colony.getToken();
-   * // Mint 100 tokens of the Colony's native token
-   * await token.mint(w`100`);
-   * // Claim the minted tokens for the Colony
-   * await colony.claimFunds();
+   * // Immediately executing async function
+   * (async function() {
+   *   const token = await colony.getToken();
+   *   // Mint 100 tokens of the Colony's native token
+   *   // (forced transaction example)
+   *   await token.mint(w`100`).force();
+   *   // Claim the minted tokens for the Colony
+   *   // (forced transaction example)
+   *   await colony.claimFunds().force();
+   * })();
    * ```
    *
    * @param amount Amount of the token to be minted
    *
-   * @returns A tupel of event data and contract receipt
+   * @returns A [[TxCreator]]
    */
-  async mint(amount: BigNumberish) {
-    const tx = await this.colony.getInternalColonyClient().mintTokens(amount);
-    const receipt = await tx.wait();
-    const data = {};
-    return [data, receipt] as [typeof data, typeof receipt];
+  mint(amount: BigNumberish) {
+    return this.colony.createTxCreator(
+      this.colony.getInternalColonyClient(),
+      'mintTokens',
+      [amount],
+    );
   }
 
   /**
@@ -100,11 +98,14 @@ export class ColonyToken {
    * ```typescript
    * import { w } from '@colony/sdk';
    *
-   * const token = colony.getToken();
-   * // Approve 100 tokens to be "activated"
-   * await token.approve(w`100`);
-   * // Deposit the tokens
-   * await token.deposit(w`100`);
+   * // Immediately executing async function
+   * (async function() {
+   *   const token = await colony.getToken();
+   *   // Approve 100 tokens to be "activated"
+   *   await token.approve(w`100`);
+   *   // Deposit the tokens
+   *   await token.deposit(w`100`);
+   * })();
    * ```
    *
    * @param amount Amount of the token to be approved
@@ -120,9 +121,8 @@ export class ColonyToken {
    * | `wad` | BigNumber | Amount that was approved |
    */
   async approve(amount: BigNumberish) {
-    const tokenLockingClient = await this.getTokenLockingClient();
     const tx = await this.tokenClient.approve(
-      tokenLockingClient.address,
+      this.tokenLockingClient.address,
       amount,
     );
     const receipt = await tx.wait();
@@ -141,11 +141,14 @@ export class ColonyToken {
    * ```typescript
    * import { w } from '@colony/sdk';
    *
-   * const token = colony.getToken();
-   * // Approve 100 tokens to be "activated"
-   * await token.approve(w`100`);
-   * // Deposit the tokens
-   * await token.deposit(w`100`);
+   * // Immediately executing async function
+   * (async function() {
+   *   const token = await colony.getToken();
+   *   // Approve 100 tokens to be "activated"
+   *   await token.approve(w`100`);
+   *   // Deposit the tokens
+   *   await token.deposit(w`100`);
+   * })();
    * ```
    *
    * @param amount Amount of the token to be deposited
@@ -161,8 +164,7 @@ export class ColonyToken {
    * | `amount` | BigNumber | Amount that was deposited |
    */
   async deposit(amount: BigNumberish) {
-    const tokenLockingClient = await this.getTokenLockingClient();
-    const tx = await tokenLockingClient['deposit(address,uint256,bool)'](
+    const tx = await this.tokenLockingClient['deposit(address,uint256,bool)'](
       this.tokenClient.address,
       amount,
       false,
@@ -186,9 +188,12 @@ export class ColonyToken {
    * ```typescript
    * import { w } from '@colony/sdk';
    *
-   * const token = colony.getToken();
-   * // Withdraw 100 tokens that were previously deposited
-   * await token.withdraw(w`100`);
+   * // Immediately executing async function
+   * (async function() {
+   *   const token = await colony.getToken();
+   *   // Withdraw 100 tokens that were previously deposited
+   *   await token.withdraw(w`100`);
+   * })();
    * ```
    *
    * @param amount Amount of the token to be withdrawn
@@ -204,8 +209,7 @@ export class ColonyToken {
    * | `amount` | BigNumber | Amount that was withdrawn |
    */
   async withdraw(amount: BigNumberish) {
-    const tokenLockingClient = await this.getTokenLockingClient();
-    const tx = await tokenLockingClient['withdraw(address,uint256,bool)'](
+    const tx = await this.tokenLockingClient['withdraw(address,uint256,bool)'](
       this.tokenClient.address,
       amount,
       false,
@@ -230,8 +234,7 @@ export class ColonyToken {
    * @returns The currently deposited balance of the Colony's native token
    */
   async getUserDeposit(user: string) {
-    const tokenLockingClient = await this.getTokenLockingClient();
-    const userLock = await tokenLockingClient.getUserLock(
+    const userLock = await this.tokenLockingClient.getUserLock(
       this.tokenClient.address,
       user,
     );
@@ -249,8 +252,7 @@ export class ColonyToken {
    * @returns The currently approved balance of the Colony's native token for the obligator
    */
   async getUserApproval(user: string, obligator: string) {
-    const tokenLockingClient = await this.getTokenLockingClient();
-    return tokenLockingClient.getApproval(
+    return this.tokenLockingClient.getApproval(
       user,
       this.tokenClient.address,
       obligator,

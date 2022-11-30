@@ -1,5 +1,11 @@
 # Class: ColonyToken
 
+## Properties
+
+### tokenLockingClient
+
+• **tokenLockingClient**: `TokenLockingClient`
+
 ## Methods
 
 ### approve
@@ -15,11 +21,14 @@ In order for the wallet owner to stake tokens, that amount has to be approved an
 ```typescript
 import { w } from '@colony/sdk';
 
-const token = colony.getToken();
-// Approve 100 tokens to be "activated"
-await token.approve(w`100`);
-// Deposit the tokens
-await token.deposit(w`100`);
+// Immediately executing async function
+(async function() {
+  const token = await colony.getToken();
+  // Approve 100 tokens to be "activated"
+  await token.approve(w`100`);
+  // Deposit the tokens
+  await token.deposit(w`100`);
+})();
 ```
 
 #### Parameters
@@ -57,11 +66,14 @@ In order for the wallet owner to stake tokens, that amount has to be approved an
 ```typescript
 import { w } from '@colony/sdk';
 
-const token = colony.getToken();
-// Approve 100 tokens to be "activated"
-await token.approve(w`100`);
-// Deposit the tokens
-await token.deposit(w`100`);
+// Immediately executing async function
+(async function() {
+  const token = await colony.getToken();
+  // Approve 100 tokens to be "activated"
+  await token.approve(w`100`);
+  // Deposit the tokens
+  await token.deposit(w`100`);
+})();
 ```
 
 #### Parameters
@@ -83,16 +95,6 @@ A tupel of event data and contract receipt
 | `token` | string | The address of the Colony's native token |
 | `user` | string | The address that deposited the tokens from their wallet |
 | `amount` | BigNumber | Amount that was deposited |
-
-___
-
-### getTokenLockingClient
-
-▸ **getTokenLockingClient**(): `Promise`<`TokenLockingClient`\>
-
-#### Returns
-
-`Promise`<`TokenLockingClient`\>
 
 ___
 
@@ -143,7 +145,7 @@ ___
 
 ### mint
 
-▸ **mint**(`amount`): `Promise`<[{}, `ContractReceipt`]\>
+▸ **mint**(`amount`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"mintTokens"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
 
 Mints `amount` of a Colony's native token.
 
@@ -156,11 +158,16 @@ Only works for tokens deployed with Colony (not imported tokens). Note that most
 ```typescript
 import { w } from '@colony/sdk';
 
-const token = colony.getToken();
-// Mint 100 tokens of the Colony's native token
-await token.mint(w`100`);
-// Claim the minted tokens for the Colony
-await colony.claimFunds();
+// Immediately executing async function
+(async function() {
+  const token = await colony.getToken();
+  // Mint 100 tokens of the Colony's native token
+  // (forced transaction example)
+  await token.mint(w`100`).force();
+  // Claim the minted tokens for the Colony
+  // (forced transaction example)
+  await colony.claimFunds().force();
+})();
 ```
 
 #### Parameters
@@ -171,9 +178,9 @@ await colony.claimFunds();
 
 #### Returns
 
-`Promise`<[{}, `ContractReceipt`]\>
+[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"mintTokens"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
 
-A tupel of event data and contract receipt
+A [TxCreator](TxCreator.md)
 
 ___
 
@@ -204,9 +211,12 @@ Does the opposite of `deposit` and frees the deposited tokens back to the wallet
 ```typescript
 import { w } from '@colony/sdk';
 
-const token = colony.getToken();
-// Withdraw 100 tokens that were previously deposited
-await token.withdraw(w`100`);
+// Immediately executing async function
+(async function() {
+  const token = await colony.getToken();
+  // Withdraw 100 tokens that were previously deposited
+  await token.withdraw(w`100`);
+})();
 ```
 
 #### Parameters

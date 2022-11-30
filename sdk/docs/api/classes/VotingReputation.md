@@ -19,9 +19,9 @@ The exact lifecycle is determined by the parameters that were set when the `Voti
 
 #### Creating a Motion
 
-See [MotionCreator](MotionCreator.md).
+See [TxCreator.motion](TxCreator.md#motion) or [TxCreator.motionMeta](TxCreator.md#motionmeta).
 
-Anyone within a Colony can start a motion. In Colony SDK, this can be done with the [MotionCreator](MotionCreator.md) API. There the `action` (the contract transaction) for the Motion will be defined. This is essentially nothing else than an encoded contract function string alongside its parameters (see for detailed info [here](https://medium.com/linum-labs/a-technical-primer-on-using-encoded-function-calls-50e2b9939223) - but don't worry. In Colony SDK this will all be taken care of by the [MotionCreator](MotionCreator.md)).
+Anyone within a Colony can start a motion. In Colony SDK, this is as easy as sending a transaction of the same kind. There the `action` (the contract transaction) for the Motion will be defined. This is essentially nothing else than an encoded contract function string alongside its parameters (see for detailed info [here](https://medium.com/linum-labs/a-technical-primer-on-using-encoded-function-calls-50e2b9939223) - but don't worry. In Colony SDK this will all be taken care of by the [TxCreator](TxCreator.md)).
 
  #### Staking
 
@@ -102,12 +102,6 @@ You can - at any point in the lifecycle inspect the current state of a Motion. U
 
 • **address**: `string`
 
-___
-
-### create
-
-• **create**: [`MotionCreator`](MotionCreator.md)
-
 ## Methods
 
 ### approveStake
@@ -138,6 +132,32 @@ A tupel of event data and contract receipt
 | `user` | string | The address of the VotingReputation contract |
 | `approvedBy` | string | The address of the Colony |
 | `amount` | BigNumber | Amount of the token that was approved for staking |
+
+___
+
+### createMotion
+
+▸ **createMotion**(`motionDomain`, `encodedAction`, `altTarget?`): `Promise`<[{ `creator?`: `string` ; `domainId?`: `BigNumber` ; `motionId?`: `BigNumber`  }, `ContractReceipt`]\>
+
+Create a motion using an encoded action
+
+**`Remarks`**
+
+You will usually not use this function directly, but use the `send` or `motion` functions of the [TxCreator](TxCreator.md) within the relevant contract.
+
+#### Parameters
+
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `motionDomain` | `BigNumberish` | `undefined` | The domain the motion will be created in |
+| `encodedAction` | `string` | `undefined` | The encoded action as a string |
+| `altTarget` | `string` | `'0x0'` | The contract to which we send the action - 0x0 for the colony (default) |
+
+#### Returns
+
+`Promise`<[{ `creator?`: `string` ; `domainId?`: `BigNumber` ; `motionId?`: `BigNumber`  }, `ContractReceipt`]\>
+
+A Motion object
 
 ___
 
@@ -185,7 +205,7 @@ Get the minimum stake that has to be supplied for a motion and a certain vote (N
 
 **`Remarks`**
 
-To get the missing amount for activation, call getMotionStakes
+To get the missing amount for activation, call [getRemainingStakes](VotingReputation.md#getremainingstakes)
 
 #### Parameters
 

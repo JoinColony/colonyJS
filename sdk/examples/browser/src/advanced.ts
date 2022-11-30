@@ -1,8 +1,9 @@
 import { providers, utils, Signer, ContractReceipt, BigNumber } from 'ethers';
 
-import { Colony, ColonyNetwork, toEth, w } from '../../../src';
+import { Colony, ColonyNetwork, PinataAdapter, toEth, w } from '../../../src';
 
 const { isAddress } = utils;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const provider = new providers.Web3Provider((window as any).ethereum);
 
 let colony: Colony;
@@ -10,7 +11,9 @@ const domainData: { fundingPotId?: BigNumber; domainId?: BigNumber } = {};
 
 // Instantiate a colony client
 const getColony = async (colonyAddress: string, signer: Signer) => {
-  const colonyNetwork = new ColonyNetwork(signer);
+  const colonyNetwork = new ColonyNetwork(signer, {
+    ipfsAdapter: new PinataAdapter('INVALID'),
+  });
   return colonyNetwork.getColony(colonyAddress);
 };
 
@@ -30,11 +33,11 @@ const createTeam = async (): Promise<{
   domainPurpose?: string;
 }> => {
   // This is to demonstrate the Colony SDK's IPFS capabilities. For now, we would like to keep it agnostic to any IPFS upload mechanism, so you have to provide your own hash
-  // You can see how the data looks like here: https://cloudflare-ipfs.com/ipfs/QmVgJC8WNJCzkZYLPuVPG5gvSzLvLZTxvb24Sj5Nca4jW2
-  const ipfsTestHash = 'QmTbb3TUiXiZifywgnkxBH5C1YLCyxnMww3Et3DCNypHB9';
-  const [{ domainId, fundingPotId }, , getMetadata] = await colony.createTeam(
-    ipfsTestHash,
-  );
+  // You can see how the data looks like here: https://cloudflare-ipfs.com/ipfs/QmTwksWE2Zn4icTvk5E7QZb1vucGNuu5GUCFZ361r8gKXM
+  const ipfsTestHash = 'QmTwksWE2Zn4icTvk5E7QZb1vucGNuu5GUCFZ361r8gKXM';
+  const [{ domainId, fundingPotId }, , getMetadata] = await colony
+    .createTeam(ipfsTestHash)
+    .force();
 
   if (!domainId || !fundingPotId || !getMetadata) {
     throw new Error('Transaction event data not found');
@@ -45,6 +48,14 @@ const createTeam = async (): Promise<{
   if (!metadata) {
     throw new Error('No metadata found');
   }
+
+  console.info(metadata);
+
+  const [{ domainId: deprecatedDomain }] = await colony
+    .deprecateTeam(domainId, true)
+    .force();
+
+  console.info(`${deprecatedDomain} successfully deprecated`);
 
   const { domainName, domainColor, domainPurpose } = metadata;
 
@@ -63,17 +74,21 @@ const moveFunds = async (): Promise<ContractReceipt> => {
   if (!domainData.domainId) {
     throw new Error('No domain created yet');
   }
-  const [, receipt] = await colony.moveFundsToTeam(
-    w`0.66`,
-    domainData.domainId,
-  );
+  const [, receipt] = await colony
+    .moveFundsToTeam(w`0.66`, domainData.domainId)
+    .force();
   return receipt;
 };
 
 // Make a payment to a user from the newly created and funded domain. This will cause the user to have reputation in the new domain after the next reputation mining cycle (max 24h)
 const makePayment = async (to: string): Promise<ContractReceipt> => {
+  if (!colony.ext.oneTx) {
+    throw new Error('OneTxPayment extension not installed');
+  }
   // Create payment in newly created domain
-  const [, receipt] = await colony.pay(to, w`0.42`, domainData.domainId);
+  const [, receipt] = await colony.ext.oneTx
+    .pay(to, w`0.42`, domainData.domainId)
+    .force();
   return receipt;
 };
 
@@ -133,7 +148,8 @@ buttonConnect.addEventListener('click', async () => {
     const cc = await getColony(inputAddress.value, signer);
     colony = cc;
     const funding = await getColonyFunding();
-    const tokenSymbol = await cc.colonyToken.symbol();
+    const token = await cc.getToken();
+    const tokenSymbol = await token.symbol();
     speak(`
             Connected to Colony with address: ${colonyAddress}.
             Colony version: ${cc.version}.

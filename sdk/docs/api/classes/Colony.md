@@ -16,7 +16,7 @@ ___
 
 ### colonyToken
 
-• **colonyToken**: [`ColonyToken`](ColonyToken.md)
+• `Optional` **colonyToken**: [`ColonyToken`](ColonyToken.md)
 
 An instance of the Colony's native token
 
@@ -26,7 +26,13 @@ ___
 
 ### ext
 
-• **ext**: `SupportedExtensions`
+• **ext**: [`SupportedExtensions`](../interfaces/SupportedExtensions.md)
+
+___
+
+### signerOrProvider
+
+• **signerOrProvider**: `SignerOrProvider`
 
 ___
 
@@ -47,7 +53,7 @@ If this is not an option, Colony SDK might throw errors at certain points. Usage
 
 ### annotateTransaction
 
-▸ **annotateTransaction**(`txHash`, `annotationMsg`): `Promise`<[{ `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, `ContractReceipt`]\>
+▸ **annotateTransaction**(`txHash`, `annotationMetadata`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, [`Annotation`](../enums/MetadataType.md#annotation)\>
 
 Annotate a transaction with IPFS metadata to provide extra information
 
@@ -55,7 +61,7 @@ This will annotate a transaction with an arbitrary text message. This only reall
 
 **`Remarks`**
 
-Requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
+If [AnnotationMetadata](../interfaces/AnnotationMetadata.md) is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
 
 **`Example`**
 
@@ -64,15 +70,16 @@ Requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin 
 (async function() {
 
   // Create a motion to pay 10 of the native token to some (maybe your own?) address
-  const [, { transactionHash }] = await colony.ext.motions.create.pay(
+  // (forced transaction example)
+  const [, { transactionHash }] = await colony.ext.oneTx.pay(
     '0xb77D57F4959eAfA0339424b83FcFaf9c15407461',
     w`10`,
-  );
+  ).motion();
   // Annotate the motion transaction with a little explanation :)
   await colony.annotateTransaction(
      transactionHash,
-     'I am creating this motion because I think I deserve a little bonus'
-  );
+     { annotationMsg: 'I am creating this motion because I think I deserve a little bonus' },
+  ).force();
 })();
 ```
 
@@ -81,13 +88,13 @@ Requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `txHash` | `string` | Transaction hash of the transaction to annotate (within the Colony) |
-| `annotationMsg` | `string` | The text message you would like to annotate the transaction with |
+| `annotationMetadata` | `string` \| [`AnnotationMetadata`](../interfaces/AnnotationMetadata.md) | The annotation metadata you would like to annotate the transaction with (or an IPFS CID pointing to valid metadata) |
 
 #### Returns
 
-`Promise`<[{ `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, `ContractReceipt`]\>
+[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, [`Annotation`](../enums/MetadataType.md#annotation)\>
 
-A tupel of event data and contract receipt
+A [TxCreator](TxCreator.md)
 
 **Event data**
 
@@ -101,23 +108,27 @@ ___
 
 ### claimFunds
 
-▸ **claimFunds**(`tokenAddress?`): `Promise`<[{ `fee?`: `BigNumber` ; `payoutRemainder?`: `BigNumber` ; `token?`: `string`  }, `ContractReceipt`]\>
+▸ **claimFunds**(`tokenAddress?`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"claimColonyFunds"``, { `fee?`: `BigNumber` ; `payoutRemainder?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Claim outstanding Colony funds
 
 Anyone can call this function. Claims funds _for_ the Colony that have been sent to the Colony's contract address or minted funds of the Colony's native token. This function _has_ to be called in order for the funds to appear in the Colony's treasury. You can provide a token address for the token to be claimed. Otherwise it will claim the outstanding funds of the Colony's native token
 
+**`Remarks`**
+
+use `ethers.constants.AddressZero` to claim ETH.
+
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `tokenAddress` | `string` | The address of the token to claim the funds for. Default is the Colony's native token |
+| `tokenAddress?` | `string` | The address of the token to claim the funds for. Default is the Colony's native token |
 
 #### Returns
 
-`Promise`<[{ `fee?`: `BigNumber` ; `payoutRemainder?`: `BigNumber` ; `token?`: `string`  }, `ContractReceipt`]\>
+[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"claimColonyFunds"``, { `fee?`: `BigNumber` ; `payoutRemainder?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
-A tupel of event data and contract receipt
+A [TxCreator](TxCreator.md)
 
 **Event data**
 
@@ -132,25 +143,43 @@ ___
 
 ### createTeam
 
-▸ **createTeam**(`metadataCid?`): `Promise`<[{ `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, `ContractReceipt`, () => `Promise`<`undefined` \| `DomainMetadata`\>] \| [{ `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, `ContractReceipt`]\>
+▸ **createTeam**(`metadata`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"addDomain(uint256,uint256,uint256,string)"``, { `domainId`: `BigNumber` ; `fundingPotId`: `BigNumber` ; `metadata`: `string`  }, [`Domain`](../enums/MetadataType.md#domain)\>
 
-Create a team within a Colony
+Create a team (domain) within a Colony with team details as metadata
 
 **`Remarks`**
 
 Currently you can only add domains within the `Root` domain. This restriction will be lifted soon
 
+**`Example`**
+
+```typescript
+import { TeamColor } from '@colony/sdk';
+
+// Immediately executing async function
+(async function() {
+  // Create team of the butter-passers
+  // (forced transaction example)
+  // (also notice that this requires an upload-capable IPFS adapter)
+  await colony.createTeam({
+    domainName: 'Butter-passers',
+    domainColor: TeamColor.Gold,
+    domainPurpose: 'To pass butter',
+  }).force();
+})();
+```
+
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `metadataCid?` | `string` | An IPFS [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file containing the metadata described below. For now, we would like to keep it agnostic to any IPFS upload mechanism, so you have to upload the file manually and provide your own hash (by using, for example, [Pinata](https://docs.pinata.cloud/)) |
+| `metadata` | `string` \| `DomainMetadata` | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If DomainMetadata is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
 
 #### Returns
 
-`Promise`<[{ `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, `ContractReceipt`, () => `Promise`<`undefined` \| `DomainMetadata`\>] \| [{ `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, `ContractReceipt`]\>
+[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"addDomain(uint256,uint256,uint256,string)"``, { `domainId`: `BigNumber` ; `fundingPotId`: `BigNumber` ; `metadata`: `string`  }, [`Domain`](../enums/MetadataType.md#domain)\>
 
-A tupel: `[eventData, ContractReceipt, getMetaData]`
+A [TxCreator](TxCreator.md)
 
 **Event data**
 
@@ -168,6 +197,59 @@ A tupel: `[eventData, ContractReceipt, getMetaData]`
 | `domainName` | string | The human readable name assigned to this team |
 | `domainColor` | string | The color assigned to this team |
 | `domainPurpose` | string | The purpose for this team (a broad description) |
+
+▸ **createTeam**(): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"addDomain(uint256,uint256,uint256,string)"``, { `domainId`: `BigNumber` ; `fundingPotId`: `BigNumber` ; `metadata`: `undefined`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+Create a team (domain) within a Colony with no metadata attached
+
+**`Remarks`**
+
+Currently you can only add domains within the `Root` domain. This restriction will be lifted soon
+
+#### Returns
+
+[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"addDomain(uint256,uint256,uint256,string)"``, { `domainId`: `BigNumber` ; `fundingPotId`: `BigNumber` ; `metadata`: `undefined`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+A [TxCreator](TxCreator.md)
+
+**Event data**
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `agent` | string | The address that is responsible for triggering this event |
+| `domainId` | BigNumber | Integer domain id of the created team |
+| `fundingPotId` | BigNumber | Integer id of the corresponding funding pot |
+
+___
+
+### deprecateTeam
+
+▸ **deprecateTeam**(`teamId`, `deprecated`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"deprecateDomain"``, { `agent?`: `string` ; `deprecated?`: `boolean` ; `domainId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+Deprecate (remove) or undeprecate a team
+
+Teams can be deprecated which will remove them from the UI. As they can't be deleted you can always undeprecate a team by passing `false` as the second argument.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `teamId` | `BigNumberish` | Team to be (un)deprecated |
+| `deprecated` | `boolean` | `true`: Deprecate team; `false`: Undeprecate team |
+
+#### Returns
+
+[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"deprecateDomain"``, { `agent?`: `string` ; `deprecated?`: `boolean` ; `domainId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+A [TxCreator](TxCreator.md)
+
+**Event data**
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `agent` | string | The address that is responsible for triggering this event |
+| `domainId` | BigNumber | The id of the team that was (un)deprecated |
+| `deprecated` | bool | Whether the team was deprecated or not |
 
 ___
 
@@ -281,7 +363,7 @@ ___
 
 ### makeArbitraryTransaction
 
-▸ **makeArbitraryTransaction**(`target`, `action`): `Promise`<[{}, `ContractReceipt`]\>
+▸ **makeArbitraryTransaction**(`target`, `action`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"makeArbitraryTransactions"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
 
 Execute an arbitrary transaction in the name of the Colony
 
@@ -293,7 +375,8 @@ Mint an NFT from a Colony
 ```typescript
 import { ERC721 } from '@colony/sdk';
 
-// Mint a NFT for address 0xb794f5ea0ba39494ce839613fffba74279579268
+// Mint an NFT for address 0xb794f5ea0ba39494ce839613fffba74279579268
+// (forced transaction example)
 const encodedAction = ERC721.encodeFunctionData(
  'mintTo',
  '0xb794f5ea0ba39494ce839613fffba74279579268',
@@ -306,7 +389,7 @@ const encodedAction = ERC721.encodeFunctionData(
      '0x06012c8cf97BEaD5deAe237070F9587f8E7A266d',
      // encoded transaction from above
      encodedAction
-  );
+  ).force();
 })();
 ```
 
@@ -319,9 +402,9 @@ const encodedAction = ERC721.encodeFunctionData(
 
 #### Returns
 
-`Promise`<[{}, `ContractReceipt`]\>
+[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"makeArbitraryTransactions"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
 
-A tupel of event data and contract receipt
+A [TxCreator](TxCreator.md)
 
 **No event data**
 
@@ -329,7 +412,7 @@ ___
 
 ### moveFundsToTeam
 
-▸ **moveFundsToTeam**(`amount`, `toTeam`, `fromTeam?`, `tokenAddress?`): `Promise`<[{ `agent?`: `string` ; `amount?`: `BigNumber` ; `fromPot?`: `BigNumber` ; `toPot?`: `BigNumber` ; `token?`: `string`  }, `ContractReceipt`]\>
+▸ **moveFundsToTeam**(`amount`, `toTeam`, `fromTeam?`, `tokenAddress?`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `fromPot?`: `BigNumber` ; `toPot?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Move funds from one team to another
 
@@ -347,11 +430,12 @@ import { Tokens, w } from '@colony/sdk';
 // Immediately executing async function
 (async function() {
   // Move 10 of the native token from team 2 to team 3
+  // (forced transaction example)
   await colony.moveFundsToTeam(
      w`10`,
      2,
      3,
-  );
+  ).force();
 })();
 ```
 
@@ -366,9 +450,9 @@ import { Tokens, w } from '@colony/sdk';
 
 #### Returns
 
-`Promise`<[{ `agent?`: `string` ; `amount?`: `BigNumber` ; `fromPot?`: `BigNumber` ; `toPot?`: `BigNumber` ; `token?`: `string`  }, `ContractReceipt`]\>
+[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `fromPot?`: `BigNumber` ; `toPot?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
-A tupel of event data and contract receipt
+A [TxCreator](TxCreator.md)
 
 **Event data**
 
@@ -379,55 +463,3 @@ A tupel of event data and contract receipt
 | `toPot` | BigNumber | The target funding pot |
 | `amount` | BigNumber | The amount that was transferred |
 | `token` | string | The token address being transferred |
-
-___
-
-### pay
-
-▸ **pay**(`recipient`, `amount`, `teamId?`, `tokenAddress?`): `Promise`<[{ `agent?`: `string` ; `fundamentalId?`: `BigNumber` ; `nPayouts?`: `BigNumber`  }, `ContractReceipt`]\>
-
-Make a payment to a single address using a single token
-
-**`Remarks`**
-
-Requires the `OneTxPayment` extension to be installed for the Colony (this is usually the case for Colonies created via the Dapp). Note that most tokens use 18 decimals, so add a bunch of zeros or use our `w` or `toWei` functions (see example)
-
-**`Example`**
-
-```typescript
-import { Id, Tokens, w } from '@colony/sdk';
-
-// Immediately executing async function
-(async function() {
-  // Pay 10 XDAI (on Gnosis chain) from the root domain to the following address
-  await colony.pay(
-     '0xb77D57F4959eAfA0339424b83FcFaf9c15407461',
-     w`10`,
-     Id.RootDomain,
-     Tokens.Gnosis.XDAI,
-  );
-})();
-```
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `recipient` | `string` | Wallet address of account to send the funds to (also awarded reputation when sending the native token) |
-| `amount` | `BigNumberish` | Amount to pay in wei |
-| `teamId?` | `BigNumberish` | The team to use to send the funds from. Has to have funding of at least the amount you need to send. See [Colony.moveFundsToTeam](Colony.md#movefundstoteam). Defaults to the Colony's root team |
-| `tokenAddress?` | `string` | The address of the token to make the payment in. Default is the Colony's native token |
-
-#### Returns
-
-`Promise`<[{ `agent?`: `string` ; `fundamentalId?`: `BigNumber` ; `nPayouts?`: `BigNumber`  }, `ContractReceipt`]\>
-
-A tupel of event data and contract receipt
-
-**Event data**
-
-| Property | Type | Description |
-| :------ | :------ | :------ |
-| `agent` | string | The address that is responsible for triggering this event |
-| `fundamentalId` | BigNumber | The newly added payment id |
-| `nPayouts` | BigNumber | Number of payouts in total |

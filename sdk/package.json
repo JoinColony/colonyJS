@@ -1,10 +1,10 @@
 {
   "name": "@colony/sdk",
-  "version": "0.7.0-beta.1",
+  "version": "0.7.0-beta.2",
   "license": "GPL-3.0-only",
   "dependencies": {
     "@colony/colony-event-metadata-parser": "^1.1.5",
-    "@colony/colony-js": "^5.3.0-beta.1",
+    "@colony/colony-js": "^6.0.2",
     "@urql/core": "^2.5.0",
     "cross-fetch": "^3.1.5",
     "fetch-retry": "^5.0.2",

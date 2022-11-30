@@ -1,21 +1,15 @@
-export { MotionState, Tokens } from '@colony/colony-js';
+export { MotionState, NetworkClientOptions, Tokens } from '@colony/colony-js';
+export type { AnnotationMetadata } from '@colony/colony-event-metadata-parser';
 
-export {
-  ColonyNetwork,
-  Colony,
-  ColonyToken,
-  MotionCreator,
-  VotingReputation,
-  Vote,
-} from './ColonyNetwork';
-export { ColonyEventManager } from './events/ColonyEventManager';
-
+export * from './ColonyNetwork';
 export * from './events';
-
+export * from './events';
 export * from './ipfs';
-
 export * from './constants';
-
-export * from './types';
-
 export * from './utils';
+
+export type {
+  Ethers6Filter,
+  Ethers6FilterByBlockHash,
+  ParsedLogTransactionReceipt,
+} from './types';

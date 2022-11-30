@@ -1,9 +1,14 @@
 import type IpfsAdapter from './IpfsAdapter';
 
+const COLONY_IPFS_PINATA_TOKEN =
+  typeof global != 'undefined' && global.process
+    ? global.process.env.COLONY_IPFS_PINATA_TOKEN
+    : undefined;
+
 /**
  * PinataAdapter
  *
- * A Colony SDK IPFS adapter for Pinata (https://pinata.cloud). In order to use this, sign up for Pinata (if you haven't already) and generate a token. Then either supply this token when instantiating the class (example below) or provide it via the environment variable `COLONY_IPFS_PINATA_TOKEN`. Then provide an instance of this class to the [[ColonyNetwork]] or [[ColonyEventManger]] classes (depending on your needs).
+ * A Colony SDK IPFS adapter for Pinata (https://pinata.cloud). In order to use this, sign up for Pinata (if you haven't already) and generate a token. Then either supply this token when instantiating the class (example below) or provide it via the environment variable `COLONY_IPFS_PINATA_TOKEN` (when using NodeJS). Then provide an instance of this class to the [[ColonyNetwork]] or [[ColonyEventManager]] classes (depending on your needs).
  *
  * @remarks DO NOT CHECK IN YOUR PINATA TOKEN INTO VERSION CONTROL AND **DO NOT EMBED IT INTO YOUR FRONTEND BUNDLE**.
  *
@@ -23,10 +28,10 @@ class PinataAdapter implements IpfsAdapter {
   name = 'PINATA';
 
   constructor(pinataToken?: string) {
-    const token = pinataToken || process.env.COLONY_IPFS_PINATA_TOKEN;
+    const token = pinataToken || COLONY_IPFS_PINATA_TOKEN;
     if (!token) {
       throw new Error(
-        `Cannot find pinata token. Please supply it as an argument to the class or as "process.env.COLONY_IPFS_PINATA_TOKEN"`,
+        `Cannot find pinata token. Please supply it as an argument to the class or as "process.env.COLONY_IPFS_PINATA_TOKEN (in NodeJS)"`,
       );
     }
     this.token = token;

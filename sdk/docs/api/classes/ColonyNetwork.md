@@ -28,13 +28,25 @@ const colonyNetwork = new ColonyNetwork(provider);
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `signerOrProvider` | `SignerOrProvider` | An _ethers_ compatible Signer or Provider instance |
-| `options?` | `ColonyNetworkOptions` | Optional custom ColonyNetworkOptions |
+| `options?` | [`ColonyNetworkOptions`](../interfaces/ColonyNetworkOptions.md) | Optional custom [ColonyNetworkOptions](../interfaces/ColonyNetworkOptions.md) |
 
 ## Properties
+
+### config
+
+• **config**: `ColonyNetworkConfig`
+
+___
 
 ### ipfs
 
 • **ipfs**: `IpfsMetadata`
+
+___
+
+### network
+
+• **network**: [`Network`](../enums/Network.md)
 
 ___
 

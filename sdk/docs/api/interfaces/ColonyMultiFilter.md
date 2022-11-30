@@ -16,4 +16,4 @@ ___
 
 ### colonyTopics
 
-• **colonyTopics**: `ColonyTopic`[]
+• **colonyTopics**: [`ColonyTopic`](ColonyTopic.md)[]

@@ -49,24 +49,34 @@ const installVotingReputation = async () => {
   await setupVotingReputationExtension(metaColony);
   // Re-initialize Colony after VotingReputationExtension is installed
   metaColony = await colonyNetwork.getMetaColony();
+  if (!metaColony.ext.oneTx) {
+    throw new Error('OneTxPayment extension not installed');
+  }
   // Mint CLNY and fund the Colony with it
-  await metaColony.colonyToken.mint(w`500`);
+  const token = await metaColony.getToken();
+  await token.mint(w`500`).force();
   // Claim the CLNY for the MetaColony (important!)
-  await metaColony.claimFunds();
+  await metaColony.claimFunds().force();
   // Pay some CLNY each to two addresses (we are going to use the first for staking)
   // This will also give these addresses reputation in the ROOT team
-  await metaColony.pay('0xb77D57F4959eAfA0339424b83FcFaf9c15407461', w`100`);
-  await metaColony.pay('0x9df24e73f40b2a911eb254a8825103723e13209c', w`20`);
+  await metaColony.ext.oneTx
+    .pay('0xb77D57F4959eAfA0339424b83FcFaf9c15407461', w`100`)
+    .force();
+  await metaColony.ext.oneTx
+    .pay('0x9df24e73f40b2a911eb254a8825103723e13209c', w`20`)
+    .force();
 };
 
 const createPaymentMotion = async (amount: string): Promise<BigNumber> => {
   if (!metaColony.ext.motions) {
-    throw new Error('Motions & Disputes extension not installed');
+    throw new Error('VotingReputation extension not installed');
   }
-  const [{ motionId }] = await metaColony.ext.motions.create.pay(
-    '0x27ff0c145e191c22c75cd123c679c3e1f58a4469',
-    toWei(amount),
-  );
+  if (!metaColony.ext.oneTx) {
+    throw new Error('OneTxPayment extension not installed');
+  }
+  const [{ motionId }] = await metaColony.ext.oneTx
+    .pay('0x27ff0c145e191c22c75cd123c679c3e1f58a4469', toWei(amount))
+    .motion();
 
   if (!motionId) {
     // This case should not happen (rather the tx reverts) but we're making the check here for type-safety
@@ -97,7 +107,7 @@ const getMotion = async (motionId: BigNumberish) => {
 };
 
 const approveForStaking = async () => {
-  const token = metaColony.colonyToken;
+  const token = await metaColony.getToken();
   // This will activate 20 tokens for Motion staking, for the user address 0xb77D57F4959eAfA0339424b83FcFaf9c15407461.
   // Essentially you first "activate" them for use in the Colony in general and then approve some amount of that for staking in the VotingReputation extension
   await token.approve(w`20`);

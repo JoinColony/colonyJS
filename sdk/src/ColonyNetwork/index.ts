@@ -4,7 +4,7 @@
  */
 
 export { ColonyNetwork, ColonyNetworkOptions } from './ColonyNetwork';
-export { Colony } from './Colony';
+export { Colony, SupportedExtensions } from './Colony';
 export { ColonyToken } from './ColonyToken';
-export { MotionCreator } from './MotionCreator';
 export { VotingReputation, Vote } from './VotingReputation';
+export { TxCreator } from './TxCreator';

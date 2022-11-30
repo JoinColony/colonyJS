@@ -18,6 +18,8 @@ import {
 import IpfsAdapter from './IpfsAdapter';
 import CloudflareReadonlyAdapter from './CloudflareReadonlyAdapter';
 
+export { MetadataType } from '@colony/colony-event-metadata-parser';
+
 const fetchRetry = wrapFetch(fetch, {
   headers: {
     Accept: 'application/json',
@@ -27,12 +29,12 @@ const fetchRetry = wrapFetch(fetch, {
   retryDelay: 5000,
 });
 
-const IPFS_METADATA_EVENTS = {
-  'Annotation(address,bytes32,string)': MetadataType.Annotation,
-  'ColonyMetadata(address,string)': MetadataType.Colony,
-  'DomainMetadata(address,uint256,string)': MetadataType.Domain,
-  Decision: MetadataType.Decision,
-  MISC: MetadataType.Misc,
+export const IPFS_METADATA_EVENTS = {
+  [MetadataType.Annotation]: 'Annotation(address,bytes32,string)',
+  [MetadataType.Colony]: 'ColonyMetadata(address,string)',
+  [MetadataType.Decision]: '',
+  [MetadataType.Domain]: 'DomainMetadata(address,uint256,string)',
+  [MetadataType.Misc]: '',
 } as const;
 
 const IPFS_METADATA_PARSERS = {
@@ -41,6 +43,9 @@ const IPFS_METADATA_PARSERS = {
   [MetadataType.Domain]: getDomainMetadataFromResponse,
   [MetadataType.Decision]: getDecisionDetailsFromResponse,
   [MetadataType.Misc]: getMiscDataFromResponse,
+  None: () => {
+    // Deliberately empty
+  },
 } as const;
 
 const IPFS_METADATA_ENCODERS = {
@@ -51,10 +56,8 @@ const IPFS_METADATA_ENCODERS = {
   [MetadataType.Misc]: getStringForMetadataMisc,
 } as const;
 
-export type MetadataEvent = keyof typeof IPFS_METADATA_EVENTS;
-export type MetadataEventValue<K extends MetadataEvent> = ReturnType<
-  typeof IPFS_METADATA_PARSERS[typeof IPFS_METADATA_EVENTS[K]]
->;
+export type MetadataEvent<K extends MetadataType> =
+  typeof IPFS_METADATA_EVENTS[K];
 export type MetadataValue<K extends MetadataType> = ReturnType<
   typeof IPFS_METADATA_PARSERS[K]
 >;
@@ -68,7 +71,7 @@ export type MetadataValue<K extends MetadataType> = ReturnType<
  * @internal
  *
  */
-class IpfsMetadata {
+export class IpfsMetadata {
   private adapter: IpfsAdapter;
 
   constructor(adapter?: IpfsAdapter) {
@@ -100,17 +103,23 @@ class IpfsMetadata {
     }
   }
 
-  async getMetadataForEvent<E extends MetadataEvent>(
+  async getMetadataForEvent<T extends MetadataType, E extends MetadataEvent<T>>(
     eventName: E,
     cid: string,
-  ): Promise<MetadataEventValue<E>> {
+  ): Promise<MetadataValue<T>> {
     const url = this.adapter.getIpfsUrl(cid);
     const res = await fetchRetry(url);
     try {
       const data = await res.text();
-      return IPFS_METADATA_PARSERS[IPFS_METADATA_EVENTS[eventName]](
-        data,
-      ) as MetadataEventValue<E>;
+      const entry = Object.entries(IPFS_METADATA_EVENTS).find(
+        ([, value]) => value === eventName,
+      );
+      if (!entry) {
+        throw new Error(`Not a valid MetadataEvent: ${eventName}`);
+      }
+      const metadataType = entry[0] as T;
+
+      return IPFS_METADATA_PARSERS[metadataType](data) as MetadataValue<T>;
     } catch (e) {
       throw new Error(
         `Could not parse IPFS metadata. Original error: ${
@@ -146,5 +155,3 @@ class IpfsMetadata {
     return this.adapter.uploadJson(str);
   }
 }
-
-export default IpfsMetadata;

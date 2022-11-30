@@ -9,7 +9,11 @@
 - [ColonyRole](enums/ColonyRole.md)
 - [Extension](enums/Extension.md)
 - [Id](enums/Id.md)
+- [MetaTxBroadCasterEndpoint](enums/MetaTxBroadCasterEndpoint.md)
+- [MetadataType](enums/MetadataType.md)
 - [MotionState](enums/MotionState.md)
+- [Network](enums/Network.md)
+- [TeamColor](enums/TeamColor.md)
 - [Vote](enums/Vote.md)
 
 ## Classes
@@ -19,20 +23,26 @@
 - [ColonyEventManager](classes/ColonyEventManager.md)
 - [ColonyNetwork](classes/ColonyNetwork.md)
 - [ColonyToken](classes/ColonyToken.md)
-- [MotionCreator](classes/MotionCreator.md)
 - [PinataAdapter](classes/PinataAdapter.md)
+- [TxCreator](classes/TxCreator.md)
 - [VotingReputation](classes/VotingReputation.md)
 
 ## Interfaces
 
+- [AnnotationMetadata](interfaces/AnnotationMetadata.md)
 - [ColonyEvent](interfaces/ColonyEvent.md)
 - [ColonyEventManagerOptions](interfaces/ColonyEventManagerOptions.md)
 - [ColonyFilter](interfaces/ColonyFilter.md)
 - [ColonyMultiFilter](interfaces/ColonyMultiFilter.md)
+- [ColonyNetworkOptions](interfaces/ColonyNetworkOptions.md)
+- [ColonyTopic](interfaces/ColonyTopic.md)
 - [Ethers6Filter](interfaces/Ethers6Filter.md)
 - [Ethers6FilterByBlockHash](interfaces/Ethers6FilterByBlockHash.md)
 - [EventSources](interfaces/EventSources.md)
 - [IpfsAdapter](interfaces/IpfsAdapter.md)
+- [NetworkClientOptions](interfaces/NetworkClientOptions.md)
+- [ParsedLogTransactionReceipt](interfaces/ParsedLogTransactionReceipt.md)
+- [SupportedExtensions](interfaces/SupportedExtensions.md)
 
 ## Type Aliases
 
@@ -46,19 +56,13 @@ ___
 
 ### MetadataEvent
 
-Ƭ **MetadataEvent**: keyof typeof `IPFS_METADATA_EVENTS`
-
-___
-
-### MetadataEventValue
-
-Ƭ **MetadataEventValue**<`K`\>: `ReturnType`<typeof `IPFS_METADATA_PARSERS`[typeof `IPFS_METADATA_EVENTS`[`K`]]\>
+Ƭ **MetadataEvent**<`K`\>: typeof `IPFS_METADATA_EVENTS`[`K`]
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `K` | extends [`MetadataEvent`](README.md#metadataevent) |
+| `K` | extends [`MetadataType`](enums/MetadataType.md) |
 
 ___
 
@@ -70,7 +74,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `K` | extends `MetadataType` |
+| `K` | extends [`MetadataType`](enums/MetadataType.md) |
 
 ## Functions
 
@@ -93,6 +97,32 @@ Check if two addresses are equal
 
 ___
 
+### extractCustomEvent
+
+▸ **extractCustomEvent**<`T`\>(`eventName`, `receipt`, `iface`): `undefined` \| `T`
+
+Manually extract an event using the interface (e.g. if emitting contract is a different one than the calling contract)
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `T` |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `eventName` | `string` |
+| `receipt` | `ContractReceipt` \| [`ParsedLogTransactionReceipt`](interfaces/ParsedLogTransactionReceipt.md) |
+| `iface` | `Interface` |
+
+#### Returns
+
+`undefined` \| `T`
+
+___
+
 ### extractEvent
 
 ▸ **extractEvent**<`T`\>(`eventName`, `receipt`): `undefined` \| `T`
@@ -110,33 +140,7 @@ Extract event args from a contract receipt
 | Name | Type |
 | :------ | :------ |
 | `eventName` | `string` |
-| `receipt` | `ContractReceipt` |
-
-#### Returns
-
-`undefined` \| `T`
-
-___
-
-### extractEventFromLogs
-
-▸ **extractEventFromLogs**<`T`\>(`eventName`, `receipt`, `iface`): `undefined` \| `T`
-
-Manually extract an event from logs (e.g. if emitting contract is a different one than the calling contract)
-
-#### Type parameters
-
-| Name |
-| :------ |
-| `T` |
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `eventName` | `string` |
-| `receipt` | `ContractReceipt` |
-| `iface` | `Interface` |
+| `receipt` | `ContractReceipt` \| [`ParsedLogTransactionReceipt`](interfaces/ParsedLogTransactionReceipt.md) |
 
 #### Returns
 

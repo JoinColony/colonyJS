@@ -13,12 +13,12 @@ import {
   MotionVoteRevealedEventObject,
   MotionVoteSubmittedEventObject,
   UserTokenApprovedEventObject,
+  MotionCreatedEventObject,
 } from '@colony/colony-js/extras';
 import { BigNumber, BigNumberish, Signer, utils } from 'ethers';
-import { extractEvent, extractEventFromLogs, toEth } from '../utils';
+import { extractEvent, extractCustomEvent, toEth } from '../utils';
 
 import { Colony, SupportedColonyClient } from './Colony';
-import { MotionCreator } from './MotionCreator';
 
 export type SupportedVotingReputationClient = VotingReputationClientV7;
 export const SUPPORTED_VOTING_REPUTATION_VERSION = 7;
@@ -74,9 +74,9 @@ const REP_DIVISOR = BigNumber.from(10).pow(18);
  *
  * #### Creating a Motion
  *
- * See [[MotionCreator]].
+ * See [[TxCreator.motion]] or [[TxCreator.motionMeta]].
  *
- * Anyone within a Colony can start a motion. In Colony SDK, this can be done with the [[MotionCreator]] API. There the `action` (the contract transaction) for the Motion will be defined. This is essentially nothing else than an encoded contract function string alongside its parameters (see for detailed info [here](https://medium.com/linum-labs/a-technical-primer-on-using-encoded-function-calls-50e2b9939223) - but don't worry. In Colony SDK this will all be taken care of by the [[MotionCreator]]).
+ * Anyone within a Colony can start a motion. In Colony SDK, this is as easy as sending a transaction of the same kind. There the `action` (the contract transaction) for the Motion will be defined. This is essentially nothing else than an encoded contract function string alongside its parameters (see for detailed info [here](https://medium.com/linum-labs/a-technical-primer-on-using-encoded-function-calls-50e2b9939223) - but don't worry. In Colony SDK this will all be taken care of by the [[TxCreator]]).
  *
  *  #### Staking
  *
@@ -142,22 +142,16 @@ const REP_DIVISOR = BigNumber.from(10).pow(18);
 export class VotingReputation {
   private colony: Colony;
 
-  private signer: Signer;
-
   private votingReputationClient: SupportedVotingReputationClient;
 
   address: string;
-
-  create: MotionCreator;
 
   constructor(
     colony: Colony,
     votingReputationClient: SupportedVotingReputationClient,
   ) {
     this.address = votingReputationClient.address;
-    this.create = new MotionCreator(colony, votingReputationClient);
     this.colony = colony;
-    this.signer = this.colony.getInternalColonyClient().signer;
     this.votingReputationClient = votingReputationClient;
   }
 
@@ -222,6 +216,47 @@ export class VotingReputation {
   }
 
   /**
+   * Provide direct access to the internally used ColonyJS client. Only use when you know what you're doing
+   * @internal
+   *
+   * @returns The internally used VotingReputationClient
+   */
+  getInternalVotingReputationClient(): SupportedVotingReputationClient {
+    return this.votingReputationClient;
+  }
+
+  /**
+   * Create a motion using an encoded action
+   *
+   * @remarks You will usually not use this function directly, but use the `send` or `motion` functions of the [[TxCreator]] within the relevant contract.
+   *
+   * @param motionDomain The domain the motion will be created in
+   * @param encodedAction The encoded action as a string
+   * @param altTarget The contract to which we send the action - 0x0 for the colony (default)
+   *
+   * @returns A Motion object
+   */
+  async createMotion(
+    motionDomain: BigNumberish,
+    encodedAction: string,
+    altTarget = '0x0',
+  ) {
+    const tx = await this.votingReputationClient.createMotionWithProofs(
+      motionDomain,
+      altTarget,
+      encodedAction,
+    );
+
+    const receipt = await tx.wait();
+
+    const data = {
+      ...extractEvent<MotionCreatedEventObject>('MotionCreated', receipt),
+    };
+
+    return [data, receipt] as [typeof data, typeof receipt];
+  }
+
+  /**
    * Get a motion by its id
    *
    * @remarks Will throw if motionId does not exist
@@ -280,7 +315,7 @@ export class VotingReputation {
   /**
    * Get the minimum stake that has to be supplied for a motion and a certain vote (NOT for activation)
    *
-   * @remarks To get the missing amount for activation, call [[getMotionStakes]]
+   * @remarks To get the missing amount for activation, call [[getRemainingStakes]]
    *
    * @param motion A Motion struct object
    * @param vote A vote for (Yay) or against (Nay) the motion
@@ -404,14 +439,13 @@ export class VotingReputation {
       .approveStake(this.votingReputationClient.address, teamId, amount);
     const receipt = await tx.wait();
 
-    const tokenLockingClient =
-      await this.colony.colonyToken.getTokenLockingClient();
+    const token = await this.colony.getToken();
 
     const data = {
-      ...extractEventFromLogs<UserTokenApprovedEventObject>(
+      ...extractCustomEvent<UserTokenApprovedEventObject>(
         'UserTokenApproved',
         receipt,
-        tokenLockingClient.interface,
+        token.tokenLockingClient.interface,
       ),
     };
 
@@ -456,7 +490,11 @@ export class VotingReputation {
    * | `eventIndex` | BigNumber | If the stake triggered a motion event, this will contain its index |
    */
   async stakeMotion(motionId: BigNumberish, vote: Vote, amount: BigNumberish) {
-    const userAddress = await this.signer.getAddress();
+    if (!(this.colony.signerOrProvider instanceof Signer)) {
+      throw new Error('Need a signer to create a transaction');
+    }
+
+    const userAddress = await this.colony.signerOrProvider.getAddress();
 
     const motionState = await this.votingReputationClient.getMotionState(
       motionId,
@@ -469,13 +507,14 @@ export class VotingReputation {
     }
 
     const motion = await this.getMotion(motionId);
+    const token = await this.colony.getToken();
 
-    const deposited = await this.colony.colonyToken.getUserDeposit(userAddress);
+    const deposited = await token.getUserDeposit(userAddress);
     if (deposited.lt(amount)) {
       throw new Error('Not enough tokens deposited for staking.');
     }
 
-    const colonyApproval = await this.colony.colonyToken.getUserApproval(
+    const colonyApproval = await token.getUserApproval(
       userAddress,
       this.colony.address,
     );
