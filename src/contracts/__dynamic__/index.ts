@@ -6,6 +6,7 @@ export type { EvaluatedExpenditureEvents } from "./EvaluatedExpenditureEvents";
 export type { IColonyEvents } from "./IColonyEvents";
 export type { IColonyNetworkEvents } from "./IColonyNetworkEvents";
 export type { IVotingReputationEvents } from "./IVotingReputationEvents";
+export type { MetaTxTokenEvents } from "./MetaTxTokenEvents";
 export type { OneTxPaymentEvents } from "./OneTxPaymentEvents";
 export type { StakedExpenditureEvents } from "./StakedExpenditureEvents";
 export type { StreamingPaymentsEvents } from "./StreamingPaymentsEvents";

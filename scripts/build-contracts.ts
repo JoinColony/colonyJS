@@ -121,7 +121,11 @@ const DYNAMIC_DIR = resolvePath(__dirname, '../src/abis/__dynamic__');
 const OUT_ROOT_DIR = resolvePath(__dirname, '../src/contracts');
 const OUT_TOKEN_DIR = resolvePath(__dirname, '../src/tokens/contracts');
 
-const EVENTS_CONTRACTS = [...VERSIONED_CONTRACTS, ...UPGRADABLE_CONTRACTS];
+const EVENTS_CONTRACTS = [
+  ...VERSIONED_CONTRACTS,
+  ...UPGRADABLE_CONTRACTS,
+  'MetaTxToken',
+];
 
 const EVENT_CONTRACT_NAMES = EVENTS_CONTRACTS.map(
   (contractName) => `${contractName}Events`,

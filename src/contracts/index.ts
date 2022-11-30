@@ -18,6 +18,8 @@ export type { IColonyNetworkEvents } from "./__dynamic__/IColonyNetworkEvents";
 export { IColonyNetworkEvents__factory } from "./factories/__dynamic__/IColonyNetworkEvents__factory";
 export type { IVotingReputationEvents } from "./__dynamic__/IVotingReputationEvents";
 export { IVotingReputationEvents__factory } from "./factories/__dynamic__/IVotingReputationEvents__factory";
+export type { MetaTxTokenEvents } from "./__dynamic__/MetaTxTokenEvents";
+export { MetaTxTokenEvents__factory } from "./factories/__dynamic__/MetaTxTokenEvents__factory";
 export type { OneTxPaymentEvents } from "./__dynamic__/OneTxPaymentEvents";
 export { OneTxPaymentEvents__factory } from "./factories/__dynamic__/OneTxPaymentEvents__factory";
 export type { StakedExpenditureEvents } from "./__dynamic__/StakedExpenditureEvents";
