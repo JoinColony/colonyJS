@@ -240,6 +240,23 @@ export class Colony {
    * @remarks
    * Currently you can only add domains within the `Root` domain. This restriction will be lifted soon
    *
+   * @example
+   * ```typescript
+   * import { TeamColor } from '@colony/sdk';
+   *
+   * // Immediately executing async function
+   * (async function() {
+   *   // Create team of the butter-passers
+   *   // (forced transaction example)
+   *   // (also notice that this requires an upload-capable IPFS adapter)
+   *   await colony.createTeam({
+   *     domainName: 'Butter-passers',
+   *     domainColor: TeamColor.Gold,
+   *     domainPurpose: 'To pass butter',
+   *   }).force();
+   * })();
+   * ```
+   *
    * @param metadata The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[DomainMetadata]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
    *
    * @returns A [[TxCreator]]

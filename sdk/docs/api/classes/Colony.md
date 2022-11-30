@@ -151,6 +151,24 @@ Create a team (domain) within a Colony with team details as metadata
 
 Currently you can only add domains within the `Root` domain. This restriction will be lifted soon
 
+**`Example`**
+
+```typescript
+import { TeamColor } from '@colony/sdk';
+
+// Immediately executing async function
+(async function() {
+  // Create team of the butter-passers
+  // (forced transaction example)
+  // (also notice that this requires an upload-capable IPFS adapter)
+  await colony.createTeam({
+    domainName: 'Butter-passers',
+    domainColor: TeamColor.Gold,
+    domainPurpose: 'To pass butter',
+  }).force();
+})();
+```
+
 #### Parameters
 
 | Name | Type | Description |

@@ -14,3 +14,23 @@ export enum MetaTxBroadCasterEndpoint {
   /** The metatransaction broadcaster endpoint for a custom network */
   Custom = '',
 }
+
+// TODO: Consider moving this to the metadata-parser
+export enum TeamColor {
+  LightPink,
+  Pink,
+  Black,
+  EmeraldGreen,
+  Blue,
+  Yellow,
+  Red,
+  Green,
+  Periwinkle,
+  Gold,
+  Aqua,
+  BlueGrey,
+  Purple,
+  Orange,
+  Magenta,
+  PurpleGrey,
+}
