@@ -31,7 +31,7 @@ import { Id } from '@colony/sdk';
 
 Note that you have to supply a `motionTeam` when creating a motion. This is the id of the team in which the motion will be created. This will have an effect on who will be able to object or vote and with how much reputation.
 
-**If the `motionTeam` is not specified it will default to the Root domain**
+**If the `motionTeam` is not specified it will default to the Root domain**!
 
 
 ## Creating gasless transactions and motions (MetaTransactions)
@@ -49,7 +49,7 @@ import { Id } from '@colony/sdk';
 })();
 ```
 
-## tl;dir
+## tl;dr
 
 Okay, what did we learn? Here's a little overview:
 
