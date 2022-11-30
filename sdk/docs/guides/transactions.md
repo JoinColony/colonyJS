@@ -16,9 +16,9 @@ So what does this mean? Let's look at an example. We would like to create a team
 })();
 ```
 
-**Note the `force()`** at the end.** That's where we tell Colony SDK to create a transaction that will take its action immediately, given we have the right permissions.
+**Note the `force()` at the end.** That's where we tell Colony SDK to create a transaction that will take its action immediately, given we have the right permissions.
 
-If we wanted to create a motion instead (see [[VotingReputation]]) to create a new team, we'd replace `force()` with `motion(motionTeam)`:
+If we wanted to create a motion instead (see [VotingReputation](../api/classes/VotingReputation.md)) to create a new team, we'd replace `force()` with `motion(motionTeam)`:
 
 ```typescript
 import { Id } from '@colony/sdk';
@@ -56,11 +56,11 @@ Okay, what did we learn? Here's a little overview:
 ### Force a transaction
 
 - [TxCreator.force](../api/classes/TxCreator.md#force): force a Colony transaction, knowing you have the permissions to do so
-- [TxCreator.forceMeta](../api/classes/TxCreator.md#forceMeta): same as `force()`, but send as a gasless metatransaction
+- [TxCreator.forceMeta](../api/classes/TxCreator.md#forcemeta): same as `force()`, but send as a gasless metatransaction
 
 ### Create a motion to trigger an action once it passes
 
 - [TxCreator.motion](../api/classes/TxCreator.md#motion): create a motion (needs the motion's domain as a parameter)
-- [TxCreator.motionMeta](../api/classes/TxCreator.md#motionMeta): same as `motion()`, but sends a gasless metatransaction
+- [TxCreator.motionMeta](../api/classes/TxCreator.md#motionmeta): same as `motion()`, but sends a gasless metatransaction
 
 Also refer to the [TxCreator](../api/classes/TxCreator.md) documentation if you'd like to learn more.

@@ -64,7 +64,7 @@ interface BaseContract {
  * ## Create a motion to trigger an action once it passes
  *
  * - [[TxCreator.motion]]: create a motion (needs the motion's domain as a parameter)
- * - [[TxCreator.forceMeta]]: same as `motion()`, but sends a gasless metatransaction
+ * - [[TxCreator.motionMeta]]: same as `motion()`, but sends a gasless metatransaction
  *
  * Learn more about these functions in their individual documentation
  */

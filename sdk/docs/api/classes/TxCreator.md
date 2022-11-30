@@ -12,7 +12,7 @@ The `TxCreator` allows for a simple API to cover all the different cases of tran
 ## Create a motion to trigger an action once it passes
 
 - [TxCreator.motion](TxCreator.md#motion): create a motion (needs the motion's domain as a parameter)
-- [TxCreator.forceMeta](TxCreator.md#forcemeta): same as `motion()`, but sends a gasless metatransaction
+- [TxCreator.motionMeta](TxCreator.md#motionmeta): same as `motion()`, but sends a gasless metatransaction
 
 Learn more about these functions in their individual documentation
 
