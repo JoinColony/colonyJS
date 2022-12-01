@@ -40,10 +40,10 @@
     "compile-types": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --outDir dist/types",
     "lint": "eslint --fix 'src/**/*.{ts,tsx}'",
     "lint:ci": "eslint 'src/**/*.{ts,tsx}'",
-    "release": "npm test && npm run build && release-it",
+    "release": "npm run build && release-it",
     "test-ci": "npm run lint && npm run typecheck && jest",
-    "test": "jest --config=jest.conf.json",
-    "test:ci": "jest -w 1 --ci --verbose=true --config=jest.conf.json",
+    "test": "jest",
+    "test:ci": "jest -w 1 --ci --verbose=true",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "typecheck:watch": "tsc -p tsconfig.json --noEmit --watch"
   },
