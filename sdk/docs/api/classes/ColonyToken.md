@@ -61,7 +61,7 @@ ___
 
 ### deployAuthority
 
-▸ **deployAuthority**(`allowedToTransfer?`): `Promise`<[`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"deployTokenAuthority"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>\>
+▸ **deployAuthority**(`allowedToTransfer?`): [`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"deployTokenAuthority"``, { `tokenAuthorityAddress?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 #### Parameters
 
@@ -71,7 +71,7 @@ ___
 
 #### Returns
 
-`Promise`<[`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"deployTokenAuthority"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>\>
+[`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"deployTokenAuthority"``, { `tokenAuthorityAddress?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 ___
 
@@ -208,7 +208,7 @@ ___
 
 ### setAuthority
 
-▸ **setAuthority**(`tokenAuthorityAddress`): `Promise`<[`TxCreator`](TxCreator.md)<`ColonyTokenClient`, ``"setAuthority"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>\>
+▸ **setAuthority**(`tokenAuthorityAddress`): [`TxCreator`](TxCreator.md)<`ColonyTokenClient`, ``"setAuthority"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
 
 #### Parameters
 
@@ -218,17 +218,17 @@ ___
 
 #### Returns
 
-`Promise`<[`TxCreator`](TxCreator.md)<`ColonyTokenClient`, ``"setAuthority"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>\>
+[`TxCreator`](TxCreator.md)<`ColonyTokenClient`, ``"setAuthority"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
 
 ___
 
 ### setupColonyAsOwner
 
-▸ **setupColonyAsOwner**(): `Promise`<[`TxCreator`](TxCreator.md)<`ColonyTokenClient`, ``"setOwner"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>\>
+▸ **setupColonyAsOwner**(): [`TxCreator`](TxCreator.md)<`ColonyTokenClient`, ``"setOwner"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
 
 #### Returns
 
-`Promise`<[`TxCreator`](TxCreator.md)<`ColonyTokenClient`, ``"setOwner"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>\>
+[`TxCreator`](TxCreator.md)<`ColonyTokenClient`, ``"setOwner"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
 
 ___
 

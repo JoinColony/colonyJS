@@ -37,7 +37,7 @@ export const getVotingReputationClient = async (
   colonyClient: SupportedColonyClient,
 ) => {
   const votingReputationClient = await colonyClient.getExtensionClient(
-    VotingReputation.type,
+    VotingReputation.extensionType,
   );
 
   if (
@@ -142,7 +142,8 @@ const REP_DIVISOR = BigNumber.from(10).pow(18);
 export class VotingReputation {
   static supportedVersions: 7[] = [7];
 
-  static type: Extension.IVotingReputation;
+  static extensionType: Extension.IVotingReputation =
+    Extension.IVotingReputation;
 
   private colony: Colony;
 

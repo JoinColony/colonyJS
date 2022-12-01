@@ -484,7 +484,7 @@ ___
 
 ### setAdministrationRole
 
-▸ **setAdministrationRole**(`address`, `teamId`, `set`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"setAdministrationRole"``, { `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **setAdministrationRole**(`address`, `teamId`, `set`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"setAdministrationRole"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `role?`: `number` ; `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 #### Parameters
 
@@ -496,13 +496,13 @@ ___
 
 #### Returns
 
-[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"setAdministrationRole"``, { `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"setAdministrationRole"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `role?`: `number` ; `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 ___
 
 ### setFundingRole
 
-▸ **setFundingRole**(`address`, `teamId`, `set`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"setFundingRole"``, { `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **setFundingRole**(`address`, `teamId`, `set`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"setFundingRole"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `role?`: `number` ; `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 #### Parameters
 
@@ -514,7 +514,7 @@ ___
 
 #### Returns
 
-[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"setFundingRole"``, { `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"setFundingRole"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `role?`: `number` ; `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 ___
 

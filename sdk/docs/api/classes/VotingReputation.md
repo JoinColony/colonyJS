@@ -104,15 +104,15 @@ You can - at any point in the lifecycle inspect the current state of a Motion. U
 
 ___
 
-### supportedVersions
+### extensionType
 
-▪ `Static` **supportedVersions**: ``7``[]
+▪ `Static` **extensionType**: [`IVotingReputation`](../enums/Extension.md#ivotingreputation) = `Extension.IVotingReputation`
 
 ___
 
-### type
+### supportedVersions
 
-▪ `Static` **type**: [`IVotingReputation`](../enums/Extension.md#ivotingreputation)
+▪ `Static` **supportedVersions**: ``7``[]
 
 ## Methods
 

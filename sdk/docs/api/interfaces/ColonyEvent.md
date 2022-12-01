@@ -68,15 +68,15 @@ ___
 
 ### getMetadata
 
-• `Optional` **getMetadata**: () => `Promise`<`ReturnType`<{ `None`: () => `void` ; `annotation`: (`res`: `string`) => `undefined` \| `string` = getAnnotationMsgFromResponse; `colony`: (`res`: `string`) => `undefined` \| `ColonyMetadata` = getColonyMetadataFromResponse; `decision`: (`res`: `string`) => `undefined` \| `DecisionMetadata` = getDecisionDetailsFromResponse; `domain`: (`res`: `string`) => `undefined` \| `DomainMetadata` = getDomainMetadataFromResponse; `misc`: (`res`: `string`) => `undefined` \| `MiscMetadata` = getMiscDataFromResponse }[`T`]\>\>
+• `Optional` **getMetadata**: () => `Promise`<`ReturnType`<{ `None`: () => `void` ; `annotation`: (`res`: `string`) => `string` = getAnnotationMsgFromResponse; `colony`: (`res`: `string`) => `ColonyMetadata` = getColonyMetadataFromResponse; `decision`: (`res`: `string`) => `DecisionMetadata` = getDecisionDetailsFromResponse; `domain`: (`res`: `string`) => `DomainMetadata` = getDomainMetadataFromResponse; `misc`: (`res`: `string`) => `MiscMetadata` = getMiscDataFromResponse }[`T`]\>\>
 
 #### Type declaration
 
-▸ (): `Promise`<`ReturnType`<{ `None`: () => `void` ; `annotation`: (`res`: `string`) => `undefined` \| `string` = getAnnotationMsgFromResponse; `colony`: (`res`: `string`) => `undefined` \| `ColonyMetadata` = getColonyMetadataFromResponse; `decision`: (`res`: `string`) => `undefined` \| `DecisionMetadata` = getDecisionDetailsFromResponse; `domain`: (`res`: `string`) => `undefined` \| `DomainMetadata` = getDomainMetadataFromResponse; `misc`: (`res`: `string`) => `undefined` \| `MiscMetadata` = getMiscDataFromResponse }[`T`]\>\>
+▸ (): `Promise`<`ReturnType`<{ `None`: () => `void` ; `annotation`: (`res`: `string`) => `string` = getAnnotationMsgFromResponse; `colony`: (`res`: `string`) => `ColonyMetadata` = getColonyMetadataFromResponse; `decision`: (`res`: `string`) => `DecisionMetadata` = getDecisionDetailsFromResponse; `domain`: (`res`: `string`) => `DomainMetadata` = getDomainMetadataFromResponse; `misc`: (`res`: `string`) => `MiscMetadata` = getMiscDataFromResponse }[`T`]\>\>
 
 ##### Returns
 
-`Promise`<`ReturnType`<{ `None`: () => `void` ; `annotation`: (`res`: `string`) => `undefined` \| `string` = getAnnotationMsgFromResponse; `colony`: (`res`: `string`) => `undefined` \| `ColonyMetadata` = getColonyMetadataFromResponse; `decision`: (`res`: `string`) => `undefined` \| `DecisionMetadata` = getDecisionDetailsFromResponse; `domain`: (`res`: `string`) => `undefined` \| `DomainMetadata` = getDomainMetadataFromResponse; `misc`: (`res`: `string`) => `undefined` \| `MiscMetadata` = getMiscDataFromResponse }[`T`]\>\>
+`Promise`<`ReturnType`<{ `None`: () => `void` ; `annotation`: (`res`: `string`) => `string` = getAnnotationMsgFromResponse; `colony`: (`res`: `string`) => `ColonyMetadata` = getColonyMetadataFromResponse; `decision`: (`res`: `string`) => `DecisionMetadata` = getDecisionDetailsFromResponse; `domain`: (`res`: `string`) => `DomainMetadata` = getDomainMetadataFromResponse; `misc`: (`res`: `string`) => `MiscMetadata` = getMiscDataFromResponse }[`T`]\>\>
 
 ___
 

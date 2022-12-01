@@ -5,6 +5,7 @@ import {
 } from '@colony/colony-js';
 import {
   ApprovalEventObject,
+  TokenAuthorityDeployedEventObject,
   UserTokenDepositedEventObject,
   UserTokenWithdrawnEventObject,
 } from '@colony/colony-js/extras';
@@ -47,6 +48,16 @@ export class ColonyToken {
     this.colony = colony;
     this.tokenClient = colonyClient.tokenClient;
     this.tokenLockingClient = tokenLockingClient;
+  }
+
+  /**
+   * Provide direct access to the internally used ColonyJS TokenClient client. Only use when you know what you're doing
+   * @internal
+   *
+   * @returns The internally used TokenClient
+   */
+  getInternalTokenClient(): ColonyTokenClient {
+    return this.tokenClient;
   }
 
   /**
@@ -262,30 +273,42 @@ export class ColonyToken {
     );
   }
 
-  async deployAuthority(allowedToTransfer?: string[]) {
+  deployAuthority(allowedToTransfer?: string[]) {
     const { colonyNetwork } = this.colony;
-    let allowed: string[] = [];
-    const tokenLockingAddress =
-      await colonyNetwork.networkClient.getTokenLocking();
-    if (!allowedToTransfer) {
-      allowed = [tokenLockingAddress];
-    } else {
-      allowed = [...allowedToTransfer, tokenLockingAddress];
-    }
     return colonyNetwork.createTxCreator(
       colonyNetwork.networkClient,
       'deployTokenAuthority',
-      [this.address, this.colony.address, allowed],
+      async () => {
+        let allowed: string[] = [];
+        const tokenLockingAddress =
+          await colonyNetwork.networkClient.getTokenLocking();
+        if (!allowedToTransfer) {
+          allowed = [tokenLockingAddress];
+        } else {
+          allowed = [...allowedToTransfer, tokenLockingAddress];
+        }
+        return [this.address, this.colony.address, allowed] as [
+          string,
+          string,
+          string[],
+        ];
+      },
+      async (receipt) => ({
+        ...extractEvent<TokenAuthorityDeployedEventObject>(
+          'TokenAuthorityDeployed',
+          receipt,
+        ),
+      }),
     );
   }
 
-  async setAuthority(tokenAuthorityAddress: string) {
+  setAuthority(tokenAuthorityAddress: string) {
     return this.colony.createTxCreator(this.tokenClient, 'setAuthority', [
       tokenAuthorityAddress,
     ]);
   }
 
-  async setupColonyAsOwner() {
+  setupColonyAsOwner() {
     return this.colony.createTxCreator(this.tokenClient, 'setOwner', [
       this.colony.address,
     ]);

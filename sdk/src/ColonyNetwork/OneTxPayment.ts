@@ -18,7 +18,7 @@ export const getOneTxPaymentClient = async (
   colonyClient: SupportedColonyClient,
 ) => {
   const oneTxPaymentClient = await colonyClient.getExtensionClient(
-    OneTxPayment.type,
+    OneTxPayment.extensionType,
   );
 
   // TODO: Support more versions?
@@ -50,7 +50,7 @@ export const getOneTxPaymentClient = async (
 export class OneTxPayment {
   static supportedVersion: 3[] = [3];
 
-  static type: Extension.OneTxPayment;
+  static extensionType: Extension.OneTxPayment = Extension.OneTxPayment;
 
   private colony: Colony;
 

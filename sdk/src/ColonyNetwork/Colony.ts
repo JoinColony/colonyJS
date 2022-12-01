@@ -7,15 +7,15 @@ import {
   getChildIndex,
   getPermissionProofs,
   isExtensionCompatible,
+  getExtensionHash,
 } from '@colony/colony-js';
 import {
   AnnotationEventObject,
-  ColonyAdministrationRoleSetEventObject,
   ColonyDataTypes,
-  ColonyFundingRoleSetEventObject,
   ColonyFundsClaimed_address_uint256_uint256_EventObject,
   // eslint-disable-next-line max-len
   ColonyFundsMovedBetweenFundingPots_address_uint256_uint256_uint256_address_EventObject,
+  ColonyRoleSet_address_address_uint256_uint8_bool_EventObject,
   DomainAdded_uint256_EventObject,
   DomainDeprecatedEventObject,
   DomainMetadataEventObject,
@@ -29,12 +29,13 @@ import {
 } from '@colony/colony-event-metadata-parser';
 import { BigNumberish, BytesLike, ContractReceipt } from 'ethers';
 
-import { extractEvent } from '../utils';
+import type { Expand, Parameters, ParametersFrom2 } from '../types';
+
+import { extractEvent, extractCustomEvent } from '../utils';
 import { ColonyToken } from './ColonyToken';
 import { ColonyNetwork } from './ColonyNetwork';
 import { OneTxPayment } from './OneTxPayment';
 import { VotingReputation } from './VotingReputation';
-import { Expand, Parameters, ParametersFrom2 } from '../types';
 import { PermissionConfig, TxCreator } from './TxCreator';
 
 export type SupportedColonyClient = ColonyClientV10;
@@ -733,21 +734,22 @@ export class Colony {
   installExtension(extension: SupportedExtension) {
     const Extension = supportedExtensionMap[extension];
     const version = Extension.getLatestSupportedVersion();
-    const { type } = Extension;
+    const { extensionType } = Extension;
     const colonyVersion = this.colonyClient.clientVersion;
-    if (!isExtensionCompatible(type, version, colonyVersion)) {
+    if (!isExtensionCompatible(extensionType, version, colonyVersion)) {
       throw new Error(
-        `v${version} of ${type} extension is not compatible with colony v${colonyVersion}`,
+        `v${version} of ${extensionType} extension is not compatible with colony v${colonyVersion}`,
       );
     }
     return this.createTxCreator(
       this.colonyClient,
       'installExtension',
-      [type, Extension.getLatestSupportedVersion()],
+      [getExtensionHash(extensionType), Extension.getLatestSupportedVersion()],
       async (receipt) => ({
-        ...extractEvent<ExtensionInstalledEventObject>(
+        ...extractCustomEvent<ExtensionInstalledEventObject>(
           'ExtensionInstalled',
           receipt,
+          this.colonyNetwork.networkClient.interface,
         ),
       }),
     );
@@ -764,8 +766,9 @@ export class Colony {
         domain: teamId,
       },
       async (receipt) => ({
-        ...extractEvent<ColonyAdministrationRoleSetEventObject>(
-          'ColonyAdministrationRoleSet',
+        // eslint-disable-next-line max-len
+        ...extractEvent<ColonyRoleSet_address_address_uint256_uint8_bool_EventObject>(
+          'ColonyRoleSet',
           receipt,
         ),
       }),
@@ -783,8 +786,9 @@ export class Colony {
         domain: teamId,
       },
       async (receipt) => ({
-        ...extractEvent<ColonyFundingRoleSetEventObject>(
-          'ColonyFundingRoleSet',
+        // eslint-disable-next-line max-len
+        ...extractEvent<ColonyRoleSet_address_address_uint256_uint8_bool_EventObject>(
+          'ColonyRoleSet',
           receipt,
         ),
       }),

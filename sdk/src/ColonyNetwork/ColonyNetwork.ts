@@ -161,11 +161,24 @@ export class ColonyNetwork {
     label: string,
     metadata?: ColonyMetadata | string,
   ) {
+    const checkLabel = async () => {
+      const existingLabel = await this.getColonyAddress(label);
+
+      if (existingLabel) {
+        throw new Error(`Colony label ${label} already exists`);
+      }
+      return [tokenAddress, Colony.getLatestSupportedVersion(), label] as [
+        string,
+        BigNumberish,
+        string,
+      ];
+    };
+
     if (!metadata) {
       return this.createTxCreator(
         this.networkClient,
         'createColony(address,uint256,string)',
-        [tokenAddress, Colony.getLatestSupportedVersion(), label],
+        checkLabel,
         async (receipt) => ({
           ...extractEvent<ColonyAddedEventObject>('ColonyAdded', receipt),
         }),
@@ -176,6 +189,8 @@ export class ColonyNetwork {
       this.networkClient,
       'createColony(address,uint256,string,string)',
       async () => {
+        await checkLabel();
+
         let cid: string;
         if (typeof metadata == 'string') {
           cid = metadata;
@@ -255,10 +270,7 @@ export class ColonyNetwork {
   }
 
   async getColonyLabel(address: string) {
-    const ensName =
-      await this.networkClient.lookupRegisteredENSDomainWithNetworkPatches(
-        address,
-      );
+    const ensName = await this.networkClient.lookupRegisteredENSDomain(address);
     if (ensName) {
       return ensName.replace(ColonyLabelSuffix[this.network], '');
     }
