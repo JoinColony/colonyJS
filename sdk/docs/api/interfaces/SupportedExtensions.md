@@ -10,4 +10,4 @@ ___
 
 ### oneTx
 
-• `Optional` **oneTx**: `OneTxPayment`
+• `Optional` **oneTx**: [`OneTxPayment`](../classes/OneTxPayment.md)

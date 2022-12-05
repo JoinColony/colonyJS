@@ -66,19 +66,90 @@ ___
 
 ▸ **createColony**(`tokenAddress`, `label`, `metadata`): [`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"createColony(address,uint256,string,string)"``, { `agent`: `string` ; `colonyAddress`: `string` ; `colonyId`: `BigNumber` ; `metadata`: `string` ; `token`: `string`  }, [`Colony`](../enums/MetadataType.md#colony)\>
 
+Create a new Colony with metadata
+
+Creates a new Colony with IPFS metadata. To edit metadata at a later point you can call the Colony.editColony method.
+
+**`Remarks`**
+
+There is more to creating a fully functional colony that can be used within the dapp than just calling this function. See the [Colony Creation Guide](../../guides/colony-creation.md).
+
+**`Example`**
+
+```typescript
+import { Tokens } from '@colony/sdk';
+
+// Immediately executing async function
+(async function() {
+  // Create a colony with some metadata details attached
+  // (forced transaction example)
+  // (also notice that this requires an upload-capable IPFS adapter)
+  await colonyNetwork.createColony(
+    // Use USDC on Gnosis chain as the native token
+    '0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83', {
+      colonyDisplayName: 'Cool Colony',
+      // IPFS hash to an image file
+      colonyAvatarHash: 'QmS26o1Cmsrx7iw1SSFGEcy22TVDq6VmEZ4XNjpWFyaKUe',
+      // List of token addresses that the Colony should be initialized with (can be changed later) - excluding ETH and the native token from above
+      colonyTokens: [Tokens.CLNY],
+  }).force();
+})();
+```
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `tokenAddress` | `string` |
-| `label` | `string` |
-| `metadata` | `string` \| `ColonyMetadata` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `tokenAddress` | `string` | - |
+| `label` | `string` | - |
+| `metadata` | `string` \| [`ColonyMetadata`](../interfaces/ColonyMetadata.md) | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [ColonyMetadata](../interfaces/ColonyMetadata.md) is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
 
 #### Returns
 
 [`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"createColony(address,uint256,string,string)"``, { `agent`: `string` ; `colonyAddress`: `string` ; `colonyId`: `BigNumber` ; `metadata`: `string` ; `token`: `string`  }, [`Colony`](../enums/MetadataType.md#colony)\>
 
+A [TxCreator](TxCreator.md)
+
+**Event data**
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `colonyId` | BigNumber | Auto-incremented integer id of the colony |
+| `colonyAddress` | string | Address of the newly deployed colony contract |
+| `token` | string | Address of the token that is used as the colony's native token |
+| `metadata` | string | IPFS CID of metadata attached to this transaction |
+
+**Metadata** (can be obtained by calling and awaiting the `getMetadata` function)
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `colonyDisplayName` | string | The name that should be displayed for the colony |
+| `colonyAvatarHash` | string | An IPFS hash for a Colony logo (make it 200x200px) |
+| `colonyTokens` | string[] | A list of additional tokens that should be in the colony's "address book" |
+
 ▸ **createColony**(`tokenAddress`, `label`): [`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"createColony(address,uint256,string)"``, { `colonyAddress`: `string` ; `colonyId`: `BigNumber` ; `metadata?`: `undefined` ; `token`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+Create a new Colony without metadata
+
+Creates a new Colony without IPFS metadata. To add metadata at a later point you can call the Colony.editColony method.
+
+**`Remarks`**
+
+There is more to creating a fully functional colony that can be used within the dapp than just calling this function. See the [Colony Creation Guide](../../guides/colony-creation.md).
+
+**`Example`**
+
+```typescript
+// Immediately executing async function
+(async function() {
+  // Create a colony
+  // (forced transaction example)
+  await colonyNetwork
+    // Use USDC on Gnosis chain as the native token
+    .createColony('0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83')
+    .force();
+})();
+```
 
 #### Parameters
 
@@ -91,11 +162,31 @@ ___
 
 [`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"createColony(address,uint256,string)"``, { `colonyAddress`: `string` ; `colonyId`: `BigNumber` ; `metadata?`: `undefined` ; `token`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
+A [TxCreator](TxCreator.md)
+
+**Event data**
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `colonyId` | BigNumber | Auto-incremented integer id of the colony |
+| `colonyAddress` | string | Address of the newly deployed colony contract |
+| `token` | string | Address of the token that is used as the colony's native token |
+
 ___
 
 ### deployToken
 
 ▸ **deployToken**(`name`, `symbol`, `decimals?`): [`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"deployTokenViaNetwork"``, { `tokenAddress?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+Deploy a "special" colony ERC20 token
+
+If there is not token yet that should be used with the Colony, this is the canonical way to create one.
+
+This is a supercharged ERC20 token contract, that not only has a permissioned `mint` function (that can be used from the colony) but also supports Metatransactions. In order to fully use its permissioned system with a colony, some extra steps have to be taken. See the [Colony Creation Guide](../../guides/colony-creation.md).
+
+**`Remarks`**
+
+The token deployed with this function is locked by default. Call `unlockToken()` on the Colony at a later point to unlock it.
 
 #### Parameters
 
@@ -108,6 +199,8 @@ ___
 #### Returns
 
 [`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"deployTokenViaNetwork"``, { `tokenAddress?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+The colony's address
 
 ___
 
@@ -141,6 +234,11 @@ ___
 
 ▸ **getColonyAddress**(`label`): `Promise`<``null`` \| `string`\>
 
+Get the colony's addess by the ENS label
+
+Returns the colony's address that belongs to the given ENS label
+Will return `null` if the given label was not assigned to a colony.
+
 #### Parameters
 
 | Name | Type |
@@ -151,11 +249,18 @@ ___
 
 `Promise`<``null`` \| `string`\>
 
+The colony's address
+
 ___
 
 ### getColonyLabel
 
 ▸ **getColonyLabel**(`address`): `Promise`<``null`` \| `string`\>
+
+Get the colony's ENS label
+
+Returns the colony's ENS label, just like it's shown in the browsers address bar after `/colony/`, when using the dApp.
+Will return `null` if the colony does not exist or if no label was assigned yet
 
 #### Parameters
 
@@ -166,6 +271,8 @@ ___
 #### Returns
 
 `Promise`<``null`` \| `string`\>
+
+The colony's ENS label
 
 ___
 

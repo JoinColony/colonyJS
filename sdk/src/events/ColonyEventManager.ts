@@ -4,6 +4,7 @@
  */
 
 import { constants, providers, EventFilter } from 'ethers';
+
 import type { Result } from 'ethers/lib/utils';
 import type { BlockTag } from '@ethersproject/abstract-provider';
 import {
@@ -16,6 +17,7 @@ import {
   VotingReputationEvents,
   VotingReputationEvents__factory,
 } from '@colony/colony-js/extras';
+import type { MetadataType } from '@colony/colony-event-metadata-parser';
 
 import type { Ethers6Filter } from '../types';
 import { addressesAreEqual, getLogs, nonNullable } from '../utils';
@@ -23,7 +25,6 @@ import {
   IpfsAdapter,
   IpfsMetadata,
   MetadataEvent,
-  MetadataType,
   MetadataValue,
 } from '../ipfs';
 

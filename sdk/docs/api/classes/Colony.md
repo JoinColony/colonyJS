@@ -173,7 +173,7 @@ import { TeamColor } from '@colony/sdk';
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `metadata` | `string` \| `DomainMetadata` | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If DomainMetadata is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
+| `metadata` | `string` \| [`DomainMetadata`](../interfaces/DomainMetadata.md) | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [DomainMetadata](../interfaces/DomainMetadata.md) is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
 
 #### Returns
 

@@ -12,9 +12,12 @@ import {
   ColonyMetadataEventObject,
   TokenDeployedEventObject,
 } from '@colony/colony-js/extras';
-import { ColonyMetadata } from '@colony/colony-event-metadata-parser';
+import {
+  ColonyMetadata,
+  MetadataType,
+} from '@colony/colony-event-metadata-parser';
 
-import { IpfsMetadata, IpfsAdapter, MetadataType } from '../ipfs';
+import { IpfsMetadata, IpfsAdapter } from '../ipfs';
 import { Colony, SupportedExtensions } from './Colony';
 import {
   getVotingReputationClient,
@@ -135,6 +138,56 @@ export class ColonyNetwork {
     });
   }
 
+  /**
+   * Create a new Colony with metadata
+   *
+   * Creates a new Colony with IPFS metadata. To edit metadata at a later point you can call the [[Colony.editColony]] method.
+   *
+   * @remarks
+   * There is more to creating a fully functional colony that can be used within the dapp than just calling this function. See the [Colony Creation Guide](../../guides/colony-creation.md).
+   *
+   * @example
+   * ```typescript
+   * import { Tokens } from '@colony/sdk';
+   *
+   * // Immediately executing async function
+   * (async function() {
+   *   // Create a colony with some metadata details attached
+   *   // (forced transaction example)
+   *   // (also notice that this requires an upload-capable IPFS adapter)
+   *   await colonyNetwork.createColony(
+   *     // Use USDC on Gnosis chain as the native token
+   *     '0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83', {
+   *       colonyDisplayName: 'Cool Colony',
+   *       // IPFS hash to an image file
+   *       colonyAvatarHash: 'QmS26o1Cmsrx7iw1SSFGEcy22TVDq6VmEZ4XNjpWFyaKUe',
+   *       // List of token addresses that the Colony should be initialized with (can be changed later) - excluding ETH and the native token from above
+   *       colonyTokens: [Tokens.CLNY],
+   *   }).force();
+   * })();
+   * ```
+   *
+   * @param metadata The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[ColonyMetadata]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
+   *
+   * @returns A [[TxCreator]]
+   *
+   * **Event data**
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `colonyId` | BigNumber | Auto-incremented integer id of the colony |
+   * | `colonyAddress` | string | Address of the newly deployed colony contract |
+   * | `token` | string | Address of the token that is used as the colony's native token |
+   * | `metadata` | string | IPFS CID of metadata attached to this transaction |
+   *
+   * **Metadata** (can be obtained by calling and awaiting the `getMetadata` function)
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `colonyDisplayName` | string | The name that should be displayed for the colony |
+   * | `colonyAvatarHash` | string | An IPFS hash for a Colony logo (make it 200x200px) |
+   * | `colonyTokens` | string[] | A list of additional tokens that should be in the colony's "address book" |
+   */
   createColony(
     tokenAddress: string,
     label: string,
@@ -146,6 +199,37 @@ export class ColonyNetwork {
     MetadataType.Colony
   >;
 
+  /**
+   * Create a new Colony without metadata
+   *
+   * Creates a new Colony without IPFS metadata. To add metadata at a later point you can call the [[Colony.editColony]] method.
+   *
+   * @remarks
+   * There is more to creating a fully functional colony that can be used within the dapp than just calling this function. See the [Colony Creation Guide](../../guides/colony-creation.md).
+   *
+   * @example
+   * ```typescript
+   * // Immediately executing async function
+   * (async function() {
+   *   // Create a colony
+   *   // (forced transaction example)
+   *   await colonyNetwork
+   *     // Use USDC on Gnosis chain as the native token
+   *     .createColony('0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83')
+   *     .force();
+   * })();
+   * ```
+   *
+   * @returns A [[TxCreator]]
+   *
+   * **Event data**
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `colonyId` | BigNumber | Auto-incremented integer id of the colony |
+   * | `colonyAddress` | string | Address of the newly deployed colony contract |
+   * | `token` | string | Address of the token that is used as the colony's native token |
+   */
   createColony(
     tokenAddress: string,
     label: string,
@@ -269,6 +353,14 @@ export class ColonyNetwork {
     return this.getColony(colonyAddress);
   }
 
+  /**
+   * Get the colony's ENS label
+   *
+   * Returns the colony's ENS label, just like it's shown in the browsers address bar after `/colony/`, when using the dApp.
+   * Will return `null` if the colony does not exist or if no label was assigned yet
+   *
+   * @returns The colony's ENS label
+   */
   async getColonyLabel(address: string) {
     const ensName = await this.networkClient.lookupRegisteredENSDomain(address);
     if (ensName) {
@@ -277,6 +369,14 @@ export class ColonyNetwork {
     return null;
   }
 
+  /**
+   * Get the colony's addess by the ENS label
+   *
+   * Returns the colony's address that belongs to the given ENS label
+   * Will return `null` if the given label was not assigned to a colony.
+   *
+   * @returns The colony's address
+   */
   async getColonyAddress(label: string) {
     const hash = namehash(`${label}${ColonyLabelSuffix[this.network]}`);
     const address = await this.networkClient.addr(hash);
@@ -286,6 +386,18 @@ export class ColonyNetwork {
     return null;
   }
 
+  /**
+   * Deploy a "special" colony ERC20 token
+   *
+   * If there is not token yet that should be used with the Colony, this is the canonical way to create one.
+   *
+   * This is a supercharged ERC20 token contract, that not only has a permissioned `mint` function (that can be used from the colony) but also supports Metatransactions. In order to fully use its permissioned system with a colony, some extra steps have to be taken. See the [Colony Creation Guide](../../guides/colony-creation.md).
+   *
+   * @remarks
+   * The token deployed with this function is locked by default. Call `unlockToken()` on the Colony at a later point to unlock it.
+   *
+   * @returns The colony's address
+   */
   deployToken(name: string, symbol: string, decimals = 18) {
     return this.createTxCreator(
       this.networkClient,

@@ -14,10 +14,11 @@ import {
   utils,
 } from 'ethers';
 import { fetch } from 'cross-fetch';
+import { MetadataType } from '@colony/colony-event-metadata-parser';
 
 import { MotionCreatedEventObject } from '@colony/colony-js/extras';
 import { Colony } from './Colony';
-import { MetadataType, MetadataValue } from '../ipfs';
+import { MetadataValue } from '../ipfs';
 import { extractEvent } from '../utils';
 import { ParsedLogTransactionReceipt } from '../types';
 import { IPFS_METADATA_EVENTS } from '../ipfs/IpfsMetadata';
