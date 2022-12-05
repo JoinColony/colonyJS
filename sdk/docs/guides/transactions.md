@@ -1,3 +1,9 @@
+---
+description: A guide on how to create transactions within Colony. You can create motions and even gasless MetaTransactions in a very straightforward and concise way.
+
+sidebar_position: 0
+---
+
 # How to create transactions
 
 Within Colony, there are a few ways to do an action. As a colony is a permissioned contract, not everyone can just do anything they like, users (or contracts) have to have the right permission in the relevant team to do so.
