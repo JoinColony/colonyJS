@@ -21,13 +21,20 @@ import {
   DomainMetadataEventObject,
   ExtensionInstalledEventObject,
   FundingPotAddedEventObject,
+  RecoveryRoleSetEventObject,
 } from '@colony/colony-js/extras';
 import {
   AnnotationMetadata,
   DomainMetadata,
   MetadataType,
 } from '@colony/colony-event-metadata-parser';
-import { BigNumberish, BytesLike, ContractReceipt } from 'ethers';
+import {
+  BigNumber,
+  BigNumberish,
+  BytesLike,
+  ContractReceipt,
+  utils,
+} from 'ethers';
 
 import type { Expand, Parameters, ParametersFrom2 } from '../types';
 
@@ -755,12 +762,30 @@ export class Colony {
     );
   }
 
-  // TODO: consider using ColonyClient.setRoles in an improved abstraction
-  setAdministrationRole(address: string, teamId: BigNumberish, set: boolean) {
+  setRoles(
+    address: string,
+    roles: ColonyRole | ColonyRole[],
+    teamId: BigNumberish = Id.RootDomain,
+  ) {
     return this.createPermissionedTxCreator(
       this.colonyClient,
-      'setAdministrationRole',
-      [address, teamId, set],
+      'setUserRoles',
+      async () => {
+        const oldRolesHex = await this.colonyClient.getUserRoles(
+          address,
+          teamId,
+        );
+        const oldRoles = parseInt(oldRolesHex, 16);
+        // TODO: export the colonyRoles2Hex helper from ColonyJS
+        /* eslint-disable no-bitwise */
+        const newRoles =
+          ([] as ColonyRole[])
+            .concat(roles)
+            .reduce((acc, current) => acc | (1 << current), 0) | oldRoles;
+        /* eslint-enable no-bitwise */
+        const hexRoles = utils.hexZeroPad(`0x${newRoles}`, 32);
+        return [address, teamId, hexRoles] as [string, BigNumber, string];
+      },
       {
         roles: ColonyRole.Architecture,
         domain: teamId,
@@ -771,16 +796,36 @@ export class Colony {
           'ColonyRoleSet',
           receipt,
         ),
+        ...extractEvent<RecoveryRoleSetEventObject>('RecoveryRoleSet', receipt),
       }),
     );
   }
 
-  // TODO: consider using ColonyClient.setRoles in an improved abstraction
-  setFundingRole(address: string, teamId: BigNumberish, set: boolean) {
+  unsetRoles(
+    address: string,
+    roles: ColonyRole | ColonyRole[],
+    teamId: BigNumberish = Id.RootDomain,
+  ) {
     return this.createPermissionedTxCreator(
       this.colonyClient,
-      'setFundingRole',
-      [address, teamId, set],
+      'setUserRoles',
+      async () => {
+        const oldRolesHex = await this.colonyClient.getUserRoles(
+          address,
+          teamId,
+        );
+        const oldRoles = parseInt(oldRolesHex, 16);
+        // TODO: export the colonyRoles2Hex helper from ColonyJS
+        /* eslint-disable no-bitwise */
+        const newRoles =
+          ([] as ColonyRole[])
+            .concat(roles)
+            .reduce((acc, current) => acc & ~(1 << current), 0b11111) &
+          oldRoles;
+        /* eslint-enable no-bitwise */
+        const hexRoles = utils.hexZeroPad(`0x${newRoles}`, 32);
+        return [address, teamId, hexRoles] as [string, BigNumber, string];
+      },
       {
         roles: ColonyRole.Architecture,
         domain: teamId,
@@ -791,6 +836,7 @@ export class Colony {
           'ColonyRoleSet',
           receipt,
         ),
+        ...extractEvent<RecoveryRoleSetEventObject>('RecoveryRoleSet', receipt),
       }),
     );
   }

@@ -1,6 +1,6 @@
 import { providers, Wallet } from 'ethers';
 
-import { ColonyNetwork, ColonyRole, Id, SupportedExtension } from '../../src';
+import { ColonyNetwork, ColonyRole, SupportedExtension } from '../../src';
 
 const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc2/');
 
@@ -54,23 +54,17 @@ const start = async () => {
     console.error('Could not instantiate OneTx extension within Colony');
     return;
   }
-  // Give Administration role to OneTxPayment extension
+  // Give Administration and Funding roles to OneTxPayment extension
   const [{ user, setTo, role }] = await colony
-    .setAdministrationRole(colony.ext.oneTx.address, Id.RootDomain, true)
+    .setRoles(colony.ext.oneTx.address, [
+      ColonyRole.Administration,
+      ColonyRole.Funding,
+    ])
     .force();
   if (!role) {
     return;
   }
   console.info(user, setTo, ColonyRole[role]);
-  // Give Funding role to OneTxPayment extension
-  const [{ user: fundingUser, setTo: fundingSetTo, role: fundingRole }] =
-    await colony
-      .setFundingRole(colony.ext.oneTx.address, Id.RootDomain, true)
-      .force();
-  if (!fundingRole) {
-    return;
-  }
-  console.info(fundingUser, fundingSetTo, ColonyRole[fundingRole]);
 };
 
 start();
