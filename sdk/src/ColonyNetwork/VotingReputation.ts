@@ -1,5 +1,7 @@
 import {
+  ColonyRole,
   Extension,
+  getPermissionProofs,
   Id,
   MotionState,
   VotingReputationClientV7,
@@ -238,6 +240,7 @@ export class VotingReputation {
 
   /**
    * Create a motion using an encoded action
+   * @internal
    *
    * @remarks You will usually not use this function directly, but use the `send` or `motion` functions of the [[TxCreator]] within the relevant contract.
    *
@@ -427,10 +430,13 @@ export class VotingReputation {
    * Approve `amount` of the "activated" native tokens of a user for staking in a specific team
    * After a token was "activated" (approved and deposited via the native token interface) it can be used for staking motions. To stake a motion, the token amount for staking has to be approved for the domain the motion was created in. See also the example in [[VotingReputation.stakeMotion]]
    *
+   * @remarks
+   * This method can't be executed as a motion
+   *
    * @param amount - Amount of "activated" tokens to be approved for staking
    * @param teamId - Team that the approved tokens can be used in for staking motions
    *
-   * @returns A tupel of event data and contract receipt
+   * @returns A [[TxCreator]]
    *
    * **Event data**
    *
@@ -441,32 +447,31 @@ export class VotingReputation {
    * | `approvedBy` | string | The address of the Colony |
    * | `amount` | BigNumber | Amount of the token that was approved for staking |
    */
-  async approveStake(
-    amount: BigNumberish,
-    teamId: BigNumberish = Id.RootDomain,
-  ) {
-    const tx = await this.colony
-      .getInternalColonyClient()
-      .approveStake(this.votingReputationClient.address, teamId, amount);
-    const receipt = await tx.wait();
-
-    const token = await this.colony.getToken();
-
-    const data = {
-      ...extractCustomEvent<UserTokenApprovedEventObject>(
-        'UserTokenApproved',
-        receipt,
-        token.tokenLockingClient.interface,
-      ),
-    };
-
-    return [data, receipt] as [typeof data, typeof receipt];
+  approveStake(amount: BigNumberish, teamId: BigNumberish = Id.RootDomain) {
+    return this.colony.createTxCreator(
+      this.colony.getInternalColonyClient(),
+      'approveStake',
+      [this.votingReputationClient.address, teamId, amount],
+      async (receipt) => {
+        const token = await this.colony.getToken();
+        return {
+          ...extractCustomEvent<UserTokenApprovedEventObject>(
+            'UserTokenApproved',
+            receipt,
+            token.tokenLockingClient.interface,
+          ),
+        };
+      },
+      { unsupported: { motion: true, motionMeta: true } },
+    );
   }
 
   /**
    * Stake `amount` to support a motion with your vote
    *
-   * @remarks In order to stake a motion the amount to stake (or any amount higher than that) needs to be "activated" and approved for staking in the motion's team first. See below for a full example. Usually you would have more tokens "activated" or even approved for a domain than you would stake, to make this process more seamless
+   * @remarks
+   * * In order to stake a motion the amount to stake (or any amount higher than that) needs to be "activated" and approved for staking in the motion's team first. See below for a full example. Usually you would have more tokens "activated" or even approved for a domain than you would stake, to make this process more seamless
+   * * This method can't be executed as a motion
    *
    * @example
    * ```typescript
@@ -479,8 +484,8 @@ export class VotingReputation {
    *   await token.approve(w`200`);
    *   // Deposit all of approved the tokens
    *   await token.deposit(w`200`);
-   *   // Approve 150 tokens for staking in the root domain
-   *   await colony.ext.motions.approveStake(w`150`);
+   *   // Approve 150 tokens for staking in the root domain (can only be forced)
+   *   await colony.ext.motions.approveStake(w`150`).force();
    *   // Stake 100 tokens for motion with id 3
    *   await colony.ext.motions.stakeMotion(3, Vote.Yay, w`100`);
    * })();
@@ -488,7 +493,7 @@ export class VotingReputation {
    *
    * @param amount - Amount of the token to be approved
    *
-   * @returns A tupel of event data and contract receipt
+   * @returns A [[TxCreator]]
    *
    * **Event data**
    *
@@ -500,85 +505,128 @@ export class VotingReputation {
    * | `amount` | BigNumber | The amount that was staked for that vote |
    * | `eventIndex` | BigNumber | If the stake triggered a motion event, this will contain its index |
    */
-  async stakeMotion(motionId: BigNumberish, vote: Vote, amount: BigNumberish) {
-    if (!(this.colony.signerOrProvider instanceof Signer)) {
-      throw new Error('Need a signer to create a transaction');
-    }
+  stakeMotion(motionId: BigNumberish, vote: Vote, amount: BigNumberish) {
+    const getArgs = async () => {
+      if (!(this.colony.signerOrProvider instanceof Signer)) {
+        throw new Error('Need a signer to create a transaction');
+      }
 
-    const userAddress = await this.colony.signerOrProvider.getAddress();
+      const userAddress = await this.colony.signerOrProvider.getAddress();
 
-    const motionState = await this.votingReputationClient.getMotionState(
-      motionId,
-    );
-
-    if (motionState !== MotionState.Staking) {
-      throw new Error(
-        `Motion cannot be staked. It's currently in "${MotionState[motionState]}" state`,
+      const motionState = await this.votingReputationClient.getMotionState(
+        motionId,
       );
-    }
 
-    const motion = await this.getMotion(motionId);
-    const token = await this.colony.getToken();
+      if (motionState !== MotionState.Staking) {
+        throw new Error(
+          `Motion cannot be staked. It's currently in "${MotionState[motionState]}" state`,
+        );
+      }
 
-    const deposited = await token.getUserDeposit(userAddress);
-    if (deposited.lt(amount)) {
-      throw new Error('Not enough tokens deposited for staking.');
-    }
+      const motion = await this.getMotion(motionId);
+      const token = await this.colony.getToken();
 
-    const colonyApproval = await token.getUserApproval(
-      userAddress,
-      this.colony.address,
-    );
-    if (colonyApproval.lt(amount)) {
-      throw new Error('Not enough tokens approved for staking in the Colony.');
-    }
+      const deposited = await token.getUserDeposit(userAddress);
+      if (deposited.lt(amount)) {
+        throw new Error('Not enough tokens deposited for staking.');
+      }
 
-    const votingReputationApproval = await this.colony
-      .getInternalColonyClient()
-      .getApproval(userAddress, this.address, motion.domainId);
-
-    if (votingReputationApproval.lt(amount)) {
-      throw new Error(
-        `Not enough tokens approved for staking in the VotingReputation contract.`,
+      const colonyApproval = await token.getUserApproval(
+        userAddress,
+        this.colony.address,
       );
-    }
+      if (colonyApproval.lt(amount)) {
+        throw new Error(
+          'Not enough tokens approved for staking in the Colony.',
+        );
+      }
 
-    if (motion.events[0].mul(1000).lte(Date.now())) {
-      throw new Error('The staking period for this Motion has passed already.');
-    }
+      const votingReputationApproval = await this.colony
+        .getInternalColonyClient()
+        .getApproval(userAddress, this.address, motion.domainId);
 
-    const minStake = await this.getMinStake(motion, vote);
+      if (votingReputationApproval.lt(amount)) {
+        throw new Error(
+          `Not enough tokens approved for staking in the VotingReputation contract.`,
+        );
+      }
 
-    if (BigNumber.from(amount).lt(minStake)) {
-      throw new Error(
-        `The staked amount is too small. Please stake at least ${toEth(
-          minStake,
-        )}`,
+      if (motion.events[0].mul(1000).lte(Date.now())) {
+        throw new Error(
+          'The staking period for this Motion has passed already.',
+        );
+      }
+
+      const minStake = await this.getMinStake(motion, vote);
+
+      if (BigNumber.from(amount).lt(minStake)) {
+        throw new Error(
+          `The staked amount is too small. Please stake at least ${toEth(
+            minStake,
+          )}`,
+        );
+      }
+
+      const colonyClient = this.colony.getInternalColonyClient();
+
+      const { domainId, rootHash } = await this.getMotion(motionId);
+      const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+        colonyClient,
+        domainId,
+        ColonyRole.Arbitration,
+        this.address,
       );
-    }
 
-    const tx = await this.votingReputationClient.stakeMotionWithProofs(
-      motionId,
-      BigNumber.from(vote),
-      amount,
-    );
-    const receipt = await tx.wait();
+      const { skillId } = await colonyClient.getDomain(domainId);
+      const walletAddress = await this.colony.signerOrProvider.getAddress();
+      const { key, value, branchMask, siblings } =
+        await colonyClient.getReputation(skillId, walletAddress, rootHash);
 
-    const data = {
-      ...extractEvent<MotionStakedEventObject>('MotionStaked', receipt),
-      ...extractEvent<MotionEventSetEventObject>('MotionEventSet', receipt),
+      return [
+        motionId,
+        permissionDomainId,
+        childSkillIndex,
+        BigNumber.from(vote),
+        amount,
+        key,
+        value,
+        branchMask,
+        siblings,
+      ] as [
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        string,
+        string,
+        string,
+        string[],
+      ];
     };
 
-    return [data, receipt] as [typeof data, typeof receipt];
+    return this.colony.createTxCreator(
+      this.votingReputationClient,
+      'stakeMotion',
+      getArgs,
+      async (receipt) => ({
+        ...extractEvent<MotionStakedEventObject>('MotionStaked', receipt),
+        ...extractEvent<MotionEventSetEventObject>('MotionEventSet', receipt),
+      }),
+      { unsupported: { motion: true, motionMeta: true } },
+    );
   }
 
   /**
    * Submit a vote for a motion
    *
+   * @remarks
+   * This method can't be executed as a motion
+   *
    * @param motionId - The motionId of the motion to be finalized
    * @param vote - A vote for (Yay) or against (Nay) the motion
    *
-   * @returns A tupel of event data and contract receipt
+   * @returns A [[TxCreator]]
    *
    * **Event data**
    *
@@ -587,58 +635,64 @@ export class VotingReputation {
    * | `motionId` | BigNumber | ID of the motion created |
    * | `voter` | string | The address of the user who voted |
    */
-  async submitVote(motionId: BigNumberish, vote: Vote) {
-    const motionState = await this.votingReputationClient.getMotionState(
-      motionId,
-    );
-
-    if (motionState !== MotionState.Submit) {
-      throw new Error(
-        `Motion cannot be voted on at this time. It's currently in "${MotionState[motionState]}" state`,
+  submitVote(motionId: BigNumberish, vote: Vote) {
+    const getArgs = async () => {
+      const motionState = await this.votingReputationClient.getMotionState(
+        motionId,
       );
-    }
 
-    const colonyClient = this.colony.getInternalColonyClient();
-    const { domainId, rootHash } = await this.getMotion(motionId);
-    const { skillId } = await colonyClient.getDomain(domainId);
-    const userAddress = await colonyClient.signer.getAddress();
+      if (motionState !== MotionState.Submit) {
+        throw new Error(
+          `Motion cannot be voted on at this time. It's currently in "${MotionState[motionState]}" state`,
+        );
+      }
 
-    const { key, value, branchMask, siblings } =
-      await colonyClient.getReputation(skillId, userAddress, rootHash);
+      const colonyClient = this.colony.getInternalColonyClient();
+      const { domainId, rootHash } = await this.getMotion(motionId);
+      const { skillId } = await colonyClient.getDomain(domainId);
+      const userAddress = await colonyClient.signer.getAddress();
 
-    const salt = await this.createMotionSalt(motionId);
-    const hash = utils.solidityKeccak256(['bytes', 'uint256'], [salt, vote]);
+      const { key, value, branchMask, siblings } =
+        await colonyClient.getReputation(skillId, userAddress, rootHash);
 
-    const tx = await this.votingReputationClient.submitVote(
-      motionId,
-      hash,
-      key,
-      value,
-      branchMask,
-      siblings,
-    );
+      const salt = await this.createMotionSalt(motionId);
+      const hash = utils.solidityKeccak256(['bytes', 'uint256'], [salt, vote]);
 
-    const receipt = await tx.wait();
-
-    const data = {
-      ...extractEvent<MotionVoteSubmittedEventObject>(
-        'MotionVoteSubmitted',
-        receipt,
-      ),
+      return [motionId, hash, key, value, branchMask, siblings] as [
+        BigNumber,
+        string,
+        string,
+        string,
+        string,
+        string[],
+      ];
     };
 
-    return [data, receipt] as [typeof data, typeof receipt];
+    return this.colony.createTxCreator(
+      this.votingReputationClient,
+      'submitVote',
+      getArgs,
+      async (receipt) => ({
+        ...extractEvent<MotionVoteSubmittedEventObject>(
+          'MotionVoteSubmitted',
+          receipt,
+        ),
+      }),
+      { unsupported: { motion: true, motionMeta: true } },
+    );
   }
 
   /**
    * Reveal a vote for a motion
    *
-   * @remarks In order for a vote to count it has to be revealed within the reveal period. Only then rewards can be paid out to the voter.
+   * @remarks
+   * * In order for a vote to count it has to be revealed within the reveal period. Only then rewards can be paid out to the voter.
+   * * This method can't be executed as a motion
    *
    * @param motionId - The motionId of the motion to be finalized
    * @param vote - The vote that was cast. If not provided Colony SDK will try to find out which side was voted on (not recommended)
    *
-   * @returns A tupel of event data and contract receipt
+   * @returns A [[TxCreator]]
    *
    * **Event data**
    *
@@ -648,74 +702,80 @@ export class VotingReputation {
    * | `voter` | string | The address of the user who voted |
    * | `vote` | BigNumber | The vote that was cast (0 = Nay, 1 = Yay) |
    */
-  async revealVote(motionId: BigNumberish, vote?: Vote) {
-    const motionState = await this.votingReputationClient.getMotionState(
-      motionId,
-    );
-
-    if (motionState !== MotionState.Reveal) {
-      throw new Error(
-        `Motion cannot be revealed at this time. It's currently in "${MotionState[motionState]}" state`,
+  revealVote(motionId: BigNumberish, vote?: Vote) {
+    const getArgs = async () => {
+      const motionState = await this.votingReputationClient.getMotionState(
+        motionId,
       );
-    }
 
-    const colonyClient = this.colony.getInternalColonyClient();
-    const { domainId, rootHash } = await this.getMotion(motionId);
-    const { skillId } = await colonyClient.getDomain(domainId);
-    const userAddress = await colonyClient.signer.getAddress();
+      if (motionState !== MotionState.Reveal) {
+        throw new Error(
+          `Motion cannot be revealed at this time. It's currently in "${MotionState[motionState]}" state`,
+        );
+      }
 
-    const reputation = await colonyClient.getReputation(
-      skillId,
-      userAddress,
-      rootHash,
-    );
+      const colonyClient = this.colony.getInternalColonyClient();
+      const { domainId, rootHash } = await this.getMotion(motionId);
+      const { skillId } = await colonyClient.getDomain(domainId);
+      const userAddress = await colonyClient.signer.getAddress();
 
-    const salt = await this.createMotionSalt(motionId);
-    const foundVote =
-      vote || (await this.getSideVoted(motionId, salt, reputation));
-
-    if (!foundVote) {
-      throw new Error(
-        `Could not find a vote cast by ${userAddress} for motion ${motionId}`,
+      const reputation = await colonyClient.getReputation(
+        skillId,
+        userAddress,
+        rootHash,
       );
-    }
 
-    const { key, value, branchMask, siblings } = reputation;
+      const salt = await this.createMotionSalt(motionId);
+      const foundVote =
+        vote || (await this.getSideVoted(motionId, salt, reputation));
 
-    const tx = await this.votingReputationClient.revealVote(
-      motionId,
-      salt,
-      foundVote,
-      key,
-      value,
-      branchMask,
-      siblings,
-    );
+      if (!foundVote) {
+        throw new Error(
+          `Could not find a vote cast by ${userAddress} for motion ${motionId}`,
+        );
+      }
 
-    const receipt = await tx.wait();
+      const { key, value, branchMask, siblings } = reputation;
 
-    const data = {
-      ...extractEvent<MotionVoteRevealedEventObject>(
-        'MotionVoteRevealed',
-        receipt,
-      ),
+      return [
+        motionId,
+        salt,
+        BigNumber.from(foundVote),
+        key,
+        value,
+        branchMask,
+        siblings,
+      ] as [BigNumber, string, BigNumber, string, string, string, string[]];
     };
 
-    return [data, receipt] as [typeof data, typeof receipt];
+    return this.colony.createTxCreator(
+      this.votingReputationClient,
+      'revealVote',
+      getArgs,
+      async (receipt) => ({
+        ...extractEvent<MotionVoteRevealedEventObject>(
+          'MotionVoteRevealed',
+          receipt,
+        ),
+      }),
+      { unsupported: { motion: true, motionMeta: true } },
+    );
   }
 
   /**
    * Finalize a motion, executing its action
    *
-   * @remarks A motion cannot be finalized if:
-   * - The required Yay or Nay stake amount has not been reached
-   * - The staking period is not up yet
-   * - Voting is still in progress
-   * - The motion was already finalized
+   * @remarks
+   * * A motion cannot be finalized if:
+   *   - The required Yay or Nay stake amount has not been reached
+   *   - The staking period is not up yet
+   *   - Voting is still in progress
+   *   - The motion was already finalized
+   * * This method can't be executed as a motion
    *
    * @param motionId - The motionId of the motion to be finalized
    *
-   * @returns A tupel of event data and contract receipt
+   * @returns A [[TxCreator]]
    *
    * **Event data**
    *
@@ -725,25 +785,29 @@ export class VotingReputation {
    * | `action` | string | The action that was executed in case Yay won |
    * | `exectued` | boolean | Whether the action was executed (Yay won)|
    */
-  async finalizeMotion(motionId: BigNumberish) {
-    const motionState = await this.votingReputationClient.getMotionState(
-      motionId,
-    );
-
-    if (motionState !== MotionState.Finalizable) {
-      throw new Error(
-        `Motion cannot be finalized. It's currently in "${MotionState[motionState]}" state`,
+  finalizeMotion(motionId: BigNumberish) {
+    const getArgs = async () => {
+      const motionState = await this.votingReputationClient.getMotionState(
+        motionId,
       );
-    }
 
-    const tx = await this.votingReputationClient.finalizeMotion(motionId);
+      if (motionState !== MotionState.Finalizable) {
+        throw new Error(
+          `Motion cannot be finalized. It's currently in "${MotionState[motionState]}" state`,
+        );
+      }
 
-    const receipt = await tx.wait();
-
-    const data = {
-      ...extractEvent<MotionFinalizedEventObject>('MotionFinalized', receipt),
+      return [motionId] as [BigNumber];
     };
 
-    return [data, receipt] as [typeof data, typeof receipt];
+    return this.colony.createTxCreator(
+      this.votingReputationClient,
+      'finalizeMotion',
+      getArgs,
+      async (receipt) => ({
+        ...extractEvent<MotionFinalizedEventObject>('MotionFinalized', receipt),
+      }),
+      { unsupported: { motion: true, motionMeta: true } },
+    );
   }
 }

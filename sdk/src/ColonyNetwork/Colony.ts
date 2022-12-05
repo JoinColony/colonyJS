@@ -662,6 +662,9 @@ export class Colony {
    *
    * This method can execute a transaction on any Ethereum Smart Contract with the Colony address as the sender. The action needs to be encoded function data (see https://docs.ethers.io/v5/api/utils/abi/interface/#Interface--encoding). We provide some common interfaces for you to make it even easier.
    *
+   * @remarks
+   * This method can't be executed as a MetaTransaction
+   *
    * @example Mint an NFT from a Colony
    * ```typescript
    * import { ERC721 } from '@colony/sdk';
