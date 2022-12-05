@@ -46,7 +46,7 @@ import {
   getVotingReputationClient,
   VotingReputation,
 } from './VotingReputation';
-import { PermissionConfig, TxCreator } from './TxCreator';
+import { PermissionConfig, TxConfig, TxCreator } from './TxCreator';
 
 export type SupportedColonyClient = ColonyClientV10;
 export type SupportedColonyMethods = SupportedColonyClient['functions'];
@@ -141,7 +141,7 @@ export class Colony {
    * @param method - The transaction method to execute on the contract
    * @param args - The arguments for the method
    * @param eventData - A function that extracts the relevant event data from the [[ContractReceipt]]
-   * @param metadataType - The [[MetadataType]] if the event contains metadata
+   * @param txConfig - More configuration options, like [[MetadataType]] if the event contains metadata or if methods are unsupported
    * @returns A [[TxCreator]]
    */
   createTxCreator<
@@ -156,7 +156,7 @@ export class Colony {
       | Parameters<C['functions'][F]>
       | (() => Promise<Parameters<C['functions'][F]>>),
     eventData?: (receipt: ContractReceipt) => Promise<D>,
-    metadataType?: M,
+    txConfig?: TxConfig<M>,
   ) {
     return new TxCreator({
       colony: this,
@@ -165,7 +165,7 @@ export class Colony {
       method,
       args,
       eventData,
-      metadataType,
+      txConfig,
     });
   }
 
@@ -180,7 +180,7 @@ export class Colony {
    * @param args - The arguments for the method
    * @param permissionConfig - Relevant configuration for the permissioned Colony function
    * @param eventData - A function that extracts the relevant event data from the [[ContractReceipt]]
-   * @param metadataType - The [[MetadataType]] if the event contains metadata
+   * @param txConfig - More configuration options, like [[MetadataType]] if the event contains metadata or if methods are unsupported
    * @returns A permissioned [[TxCreator]]
    */
   createPermissionedTxCreator<
@@ -196,7 +196,7 @@ export class Colony {
       | (() => Promise<ParametersFrom2<C['functions'][F]>>),
     permissionConfig: PermissionConfig,
     eventData?: (receipt: ContractReceipt) => Promise<D>,
-    metadataType?: M,
+    txConfig?: TxConfig<M>,
   ) {
     return new TxCreator({
       colony: this,
@@ -206,7 +206,7 @@ export class Colony {
       args,
       permissionConfig,
       eventData,
-      metadataType,
+      txConfig,
     });
   }
 
@@ -426,7 +426,7 @@ export class Colony {
         ...extractEvent<FundingPotAddedEventObject>('FundingPotAdded', receipt),
         ...extractEvent<DomainMetadataEventObject>('DomainMetadata', receipt),
       }),
-      MetadataType.Domain,
+      { metadataType: MetadataType.Domain },
     );
   }
 
@@ -694,6 +694,17 @@ export class Colony {
       this.colonyClient,
       'makeArbitraryTransactions',
       [[target], [action], false],
+      // TODO: This event will be allowed in Colony V11
+      // async (receipt) => ({
+      //   ...extractEvent<ArbitraryTransaction>('ArbitraryTransaction', receipt),
+      // }),
+      undefined,
+      {
+        unsupported: {
+          forceMeta: true,
+          motionMeta: true,
+        },
+      },
     );
   }
 
@@ -755,7 +766,7 @@ export class Colony {
       async (receipt) => ({
         ...extractEvent<AnnotationEventObject>('Annotation', receipt),
       }),
-      MetadataType.Annotation,
+      { metadataType: MetadataType.Annotation },
     );
   }
 

@@ -53,6 +53,7 @@ Learn more about these functions in their individual documentation
 | `__namedParameters.metadataType?` | `MD` |
 | `__namedParameters.method` | `M` |
 | `__namedParameters.permissionConfig?` | `PermissionConfig` |
+| `__namedParameters.txConfig?` | `TxConfig`<`MD`\> |
 
 ## Methods
 

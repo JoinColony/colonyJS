@@ -21,7 +21,7 @@ import { IpfsMetadata, IpfsAdapter } from '../ipfs';
 import { Colony } from './Colony';
 import { ColonyLabelSuffix, MetaTxBroadCasterEndpoint } from '../constants';
 import { Expand, Parameters } from '../types';
-import { TxCreator } from './TxCreator';
+import { TxConfig, TxCreator } from './TxCreator';
 import { extractEvent } from '../utils';
 
 const { namehash } = utils;
@@ -106,7 +106,7 @@ export class ColonyNetwork {
    * @param method - The transaction method to execute on the contract
    * @param args - The arguments for the method
    * @param eventData - A function that extracts the relevant event data from the [[ContractReceipt]]
-   * @param metadataType - The [[MetadataType]] if the event contains metadata
+   * @param txConfig - More configuration options, like [[MetadataType]] if the event contains metadata or if methods are unsupported
    * @returns A [[TxCreator]]
    */
   createTxCreator<
@@ -121,7 +121,7 @@ export class ColonyNetwork {
       | Parameters<C['functions'][F]>
       | (() => Promise<Parameters<C['functions'][F]>>),
     eventData?: (receipt: ContractReceipt) => Promise<D>,
-    metadataType?: M,
+    txConfig?: TxConfig<M>,
   ) {
     return new TxCreator({
       colonyNetwork: this,
@@ -129,7 +129,7 @@ export class ColonyNetwork {
       method,
       args,
       eventData,
-      metadataType,
+      txConfig,
     });
   }
 
@@ -286,7 +286,9 @@ export class ColonyNetwork {
       async (receipt) => ({
         ...extractEvent<ColonyAddedEventObject>('ColonyAdded', receipt),
       }),
-      MetadataType.Colony,
+      {
+        metadataType: MetadataType.Colony,
+      },
     );
   }
 
