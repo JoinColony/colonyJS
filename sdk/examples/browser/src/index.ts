@@ -1,4 +1,6 @@
 const addColonyRPC = () => {
+  // If MetaMask is installed there will be an `ethereum` object on the `window`
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (window as any).ethereum.request({
     method: 'wallet_addEthereumChain',
     params: [

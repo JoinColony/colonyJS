@@ -10,6 +10,7 @@ import {
 } from './types';
 
 /** Extract event args from a contract receipt */
+// TODO: Make it possible to retrieve multiple events of the same kind
 export const extractEvent = <T>(
   eventName: string,
   receipt: ContractReceipt | ParsedLogTransactionReceipt,

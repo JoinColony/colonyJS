@@ -5,6 +5,7 @@ import {
 } from '@colony/colony-js';
 import {
   ApprovalEventObject,
+  TokenAuthorityDeployedEventObject,
   UserTokenDepositedEventObject,
   UserTokenWithdrawnEventObject,
 } from '@colony/colony-js/extras';
@@ -19,6 +20,8 @@ export class ColonyToken {
 
   private tokenClient: ColonyTokenClient;
 
+  address: string;
+
   tokenLockingClient: TokenLockingClient;
 
   // TODO: Add symbol, decimals
@@ -31,7 +34,7 @@ export class ColonyToken {
    * @remarks
    * Do not use this method directly but use [[Colony.getToken]]
    *
-   * @param colony A Colony instance
+   * @param colony - A Colony instance
    * @returns A Colony Token abstaction instance
    */
   constructor(colony: Colony, tokenLockingClient: TokenLockingClient) {
@@ -41,9 +44,20 @@ export class ColonyToken {
         `Requested token is not a token deployed with Colony. Please use the Erc20Token class`,
       );
     }
+    this.address = colonyClient.tokenClient.address;
     this.colony = colony;
     this.tokenClient = colonyClient.tokenClient;
     this.tokenLockingClient = tokenLockingClient;
+  }
+
+  /**
+   * Provide direct access to the internally used ColonyJS TokenClient client. Only use when you know what you're doing
+   * @internal
+   *
+   * @returns The internally used TokenClient
+   */
+  getInternalTokenClient(): ColonyTokenClient {
+    return this.tokenClient;
   }
 
   /**
@@ -77,7 +91,7 @@ export class ColonyToken {
    * })();
    * ```
    *
-   * @param amount Amount of the token to be minted
+   * @param amount - Amount of the token to be minted
    *
    * @returns A [[TxCreator]]
    */
@@ -108,7 +122,7 @@ export class ColonyToken {
    * })();
    * ```
    *
-   * @param amount Amount of the token to be approved
+   * @param amount - Amount of the token to be approved
    *
    * @returns A tupel of event data and contract receipt
    *
@@ -151,7 +165,7 @@ export class ColonyToken {
    * })();
    * ```
    *
-   * @param amount Amount of the token to be deposited
+   * @param amount - Amount of the token to be deposited
    *
    * @returns A tupel of event data and contract receipt
    *
@@ -196,7 +210,7 @@ export class ColonyToken {
    * })();
    * ```
    *
-   * @param amount Amount of the token to be withdrawn
+   * @param amount - Amount of the token to be withdrawn
    *
    * @returns A tupel of event data and contract receipt
    *
@@ -229,7 +243,7 @@ export class ColonyToken {
    *
    * This method will show the accumulated amount that was deposited using the [[ColonyToken.deposit]] method
    *
-   * @param user The wallet address that we want to check the deposited amount of
+   * @param user - The wallet address that we want to check the deposited amount of
    *
    * @returns The currently deposited balance of the Colony's native token
    */
@@ -246,8 +260,8 @@ export class ColonyToken {
    *
    * This method will show the accumulated amount that was approved using the [[ColonyToken.approve]] method
    *
-   * @param user The wallet address that we want to check the approved amount of
-   * @param obligator The address that has been approved to obligate the funds.
+   * @param user - The wallet address that we want to check the approved amount of
+   * @param obligator - The address that has been approved to obligate the funds.
    *
    * @returns The currently approved balance of the Colony's native token for the obligator
    */
@@ -257,5 +271,46 @@ export class ColonyToken {
       this.tokenClient.address,
       obligator,
     );
+  }
+
+  deployAuthority(allowedToTransfer?: string[]) {
+    const { colonyNetwork } = this.colony;
+    return colonyNetwork.createTxCreator(
+      colonyNetwork.networkClient,
+      'deployTokenAuthority',
+      async () => {
+        let allowed: string[] = [];
+        const tokenLockingAddress =
+          await colonyNetwork.networkClient.getTokenLocking();
+        if (!allowedToTransfer) {
+          allowed = [tokenLockingAddress];
+        } else {
+          allowed = [...allowedToTransfer, tokenLockingAddress];
+        }
+        return [this.address, this.colony.address, allowed] as [
+          string,
+          string,
+          string[],
+        ];
+      },
+      async (receipt) => ({
+        ...extractEvent<TokenAuthorityDeployedEventObject>(
+          'TokenAuthorityDeployed',
+          receipt,
+        ),
+      }),
+    );
+  }
+
+  setAuthority(tokenAuthorityAddress: string) {
+    return this.colony.createTxCreator(this.tokenClient, 'setAuthority', [
+      tokenAuthorityAddress,
+    ]);
+  }
+
+  setupColonyAsOwner() {
+    return this.colony.createTxCreator(this.tokenClient, 'setOwner', [
+      this.colony.address,
+    ]);
   }
 }

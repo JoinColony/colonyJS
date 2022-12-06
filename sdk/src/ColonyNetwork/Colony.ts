@@ -6,6 +6,8 @@ import {
   IBasicMetaTransaction,
   getChildIndex,
   getPermissionProofs,
+  isExtensionCompatible,
+  getExtensionHash,
 } from '@colony/colony-js';
 import {
   AnnotationEventObject,
@@ -13,40 +15,70 @@ import {
   ColonyFundsClaimed_address_uint256_uint256_EventObject,
   // eslint-disable-next-line max-len
   ColonyFundsMovedBetweenFundingPots_address_uint256_uint256_uint256_address_EventObject,
+  ColonyRoleSet_address_address_uint256_uint8_bool_EventObject,
   DomainAdded_uint256_EventObject,
   DomainDeprecatedEventObject,
   DomainMetadataEventObject,
+  ExtensionInstalledEventObject,
   FundingPotAddedEventObject,
+  RecoveryRoleSetEventObject,
 } from '@colony/colony-js/extras';
 import {
   AnnotationMetadata,
   DomainMetadata,
   MetadataType,
 } from '@colony/colony-event-metadata-parser';
-import { BigNumberish, BytesLike, ContractReceipt } from 'ethers';
+import {
+  BigNumber,
+  BigNumberish,
+  BytesLike,
+  ContractReceipt,
+  utils,
+} from 'ethers';
 
-import { extractEvent } from '../utils';
+import type { Expand, Parameters, ParametersFrom2 } from '../types';
+
+import { extractEvent, extractCustomEvent } from '../utils';
 import { ColonyToken } from './ColonyToken';
 import { ColonyNetwork } from './ColonyNetwork';
-import { OneTxPayment } from './OneTxPayment';
-import { VotingReputation } from './VotingReputation';
-import { Expand, Parameters, ParametersFrom2 } from '../types';
+import { getOneTxPaymentClient, OneTxPayment } from './OneTxPayment';
+import {
+  getVotingReputationClient,
+  VotingReputation,
+} from './VotingReputation';
 import { PermissionConfig, TxCreator } from './TxCreator';
 
 export type SupportedColonyClient = ColonyClientV10;
 export type SupportedColonyMethods = SupportedColonyClient['functions'];
+
+/** Extensions that are supported by Colony SDK */
+export enum SupportedExtension {
+  /** Motions & Disputes (VotingReputation) */
+  motion = 'motion',
+  /** One Transaction Payment (OneTxPayment - enabled by default in Dapp created colonies) */
+  oneTx = 'oneTx',
+}
+
+const supportedExtensionMap = {
+  [SupportedExtension.motion]: VotingReputation,
+  [SupportedExtension.oneTx]: OneTxPayment,
+} as const;
+
 export interface SupportedExtensions {
   motions?: VotingReputation;
   oneTx?: OneTxPayment;
 }
 
 export class Colony {
-  /** The currently supported Colony version. If a Colony is not on this version it has to be upgraded.
+  /**
+   * The currently supported Colony version. If a Colony is not on this version it has to be upgraded.
    * If this is not an option, Colony SDK might throw errors at certain points. Usage of ColonyJS is advised in these cases
    */
-  static SupportedVersions: 10[] = [10];
+  static supportedVersions: 10[] = [10];
 
   private colonyClient: SupportedColonyClient;
+
+  signerOrProvider: SignerOrProvider;
 
   address: string;
 
@@ -61,19 +93,17 @@ export class Colony {
 
   ext: SupportedExtensions;
 
-  signerOrProvider: SignerOrProvider;
-
   version: number;
 
   /**
    * Creates a new instance to connect to an existing Colony
+   *
    * @internal
    *
    * @remarks
    * Do not use this method directly but use [[ColonyNetwork.getColony]]
-   *
-   * @param colonyNetwork A Colony SDK `ColonyNetwork` instance
-   * @param colonyClient A ColonyJS `ColonyClient` in the latest supported version
+   * @param colonyNetwork - A Colony SDK `ColonyNetwork` instance
+   * @param colonyClient - A ColonyJS `ColonyClient` in the latest supported version
    * @returns A [[Colony]] abstaction instance
    */
   constructor(
@@ -88,18 +118,30 @@ export class Colony {
     this.version = colonyClient.clientVersion;
   }
 
+  static async init(
+    colonyNetwork: ColonyNetwork,
+    colonyClient: SupportedColonyClient,
+  ) {
+    const colony = new Colony(colonyNetwork, colonyClient);
+    await colony.updateExtensions();
+    return colony;
+  }
+
+  static getLatestSupportedVersion() {
+    return Colony.supportedVersions[Colony.supportedVersions.length - 1];
+  }
+
   /**
    * Creates a new [[TxCreator]] for non-permissioned Colony transactions
-   * @internal
    *
+   * @internal
    * @remarks
    * Do not use this method directly but rather the class methods in the Colony or extensions
-   *
-   * @param contract A ColonyJS contract
-   * @param method The transaction method to execute on the contract
-   * @param args The arguments for the method
-   * @param eventData A function that extracts the relevant event data from the [[ContractReceipt]]
-   * @param metadataType The [[MetadataType]] if the event contains metadata
+   * @param contract - A ColonyJS contract
+   * @param method - The transaction method to execute on the contract
+   * @param args - The arguments for the method
+   * @param eventData - A function that extracts the relevant event data from the [[ContractReceipt]]
+   * @param metadataType - The [[MetadataType]] if the event contains metadata
    * @returns A [[TxCreator]]
    */
   createTxCreator<
@@ -118,6 +160,7 @@ export class Colony {
   ) {
     return new TxCreator({
       colony: this,
+      colonyNetwork: this.colonyNetwork,
       contract,
       method,
       args,
@@ -128,17 +171,16 @@ export class Colony {
 
   /**
    * Creates a new [[TxCreator]] for permissioned Colony transactions
-   * @internal
    *
+   * @internal
    * @remarks
    * Do not use this method directly but rather the class methods in the Colony or extensions
-   *
-   * @param contract A ColonyJS contract
-   * @param method The transaction method to execute on the contract
-   * @param args The arguments for the method
-   * @param permissionConfig Relevant configuration for the permissioned Colony function
-   * @param eventData A function that extracts the relevant event data from the [[ContractReceipt]]
-   * @param metadataType The [[MetadataType]] if the event contains metadata
+   * @param contract - A ColonyJS contract
+   * @param method - The transaction method to execute on the contract
+   * @param args - The arguments for the method
+   * @param permissionConfig - Relevant configuration for the permissioned Colony function
+   * @param eventData - A function that extracts the relevant event data from the [[ContractReceipt]]
+   * @param metadataType - The [[MetadataType]] if the event contains metadata
    * @returns A permissioned [[TxCreator]]
    */
   createPermissionedTxCreator<
@@ -158,6 +200,7 @@ export class Colony {
   ) {
     return new TxCreator({
       colony: this,
+      colonyNetwork: this.colonyNetwork,
       contract,
       method,
       args,
@@ -169,8 +212,8 @@ export class Colony {
 
   /**
    * Provide direct access to the internally used ColonyJS client. Only use when you know what you're doing
-   * @internal
    *
+   * @internal
    * @returns The internally used ColonyClient
    */
   getInternalColonyClient(): SupportedColonyClient {
@@ -179,8 +222,8 @@ export class Colony {
 
   /**
    * Gets the colony's [[ColonyToken]]. Will instantiate it if it doesn't exist yet
-   * @internal
    *
+   * @internal
    * @returns The colony's [[ColonyToken]]
    */
   async getToken(): Promise<ColonyToken> {
@@ -196,11 +239,34 @@ export class Colony {
   }
 
   /**
-   * Installs colony extensions that can be instantiated in the callback function
-   * @internal
+   * Refresh colony extensions
+   *
+   * Call this function after a new extension was installed.
+   * It will then become available under `colony.ext`
    */
-  installExtensions(extensions: SupportedExtensions) {
-    this.ext = extensions;
+  async updateExtensions() {
+    // NOTE: Create an individual try-catch block for every extension
+    if (!this.ext.motions) {
+      try {
+        const votingReputationClient = await getVotingReputationClient(
+          this.colonyClient,
+        );
+        this.ext.motions = new VotingReputation(this, votingReputationClient);
+      } catch (e) {
+        // Ignore error here. Extension just won't be available.
+      }
+    }
+
+    if (!this.ext.oneTx) {
+      try {
+        const oneTxPaymentClient = await getOneTxPaymentClient(
+          this.colonyClient,
+        );
+        this.ext.oneTx = new OneTxPayment(this, oneTxPaymentClient);
+      } catch (e) {
+        // Ignore error here. Extension just won't be available.
+      }
+    }
   }
 
   /**
@@ -208,7 +274,6 @@ export class Colony {
    *
    * @remarks
    * The function will automatically figure out the corresponding pot for the given domain, as this is what's usually expected.
-   *
    * @example
    * Get the xDAI balance of the team number 2
    * ```typescript
@@ -219,9 +284,8 @@ export class Colony {
    * // This will format the balance as a string in eth and not wei (i.e. 1.0 vs. 1000000000000000000)
    * console.info(toEth(balance));
    * ```
-   *
-   * @param tokenAddress The address of the token to get the balance for. Default is the Colony's native token
-   * @param teamId The teamId (domainId) of the team to get the balance for. Default is the `Root` team
+   * @param tokenAddress - The address of the token to get the balance for. Default is the Colony's native token
+   * @param teamId - The teamId (domainId) of the team to get the balance for. Default is the `Root` team
    * @returns A token balance in [wei](https://gwei.io/)
    */
   async getBalance(tokenAddress?: string, teamId?: BigNumberish) {
@@ -239,7 +303,6 @@ export class Colony {
    *
    * @remarks
    * Currently you can only add domains within the `Root` domain. This restriction will be lifted soon
-   *
    * @example
    * ```typescript
    * import { TeamColor } from '@colony/sdk';
@@ -256,9 +319,7 @@ export class Colony {
    *   }).force();
    * })();
    * ```
-   *
-   * @param metadata The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[DomainMetadata]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
-   *
+   * @param metadata - The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[DomainMetadata]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
    * @returns A [[TxCreator]]
    *
    * **Event data**
@@ -295,7 +356,6 @@ export class Colony {
    *
    * @remarks
    * Currently you can only add domains within the `Root` domain. This restriction will be lifted soon
-   *
    * @returns A [[TxCreator]]
    *
    * **Event data**
@@ -375,9 +435,8 @@ export class Colony {
    *
    * Teams can be deprecated which will remove them from the UI. As they can't be deleted you can always undeprecate a team by passing `false` as the second argument.
    *
-   * @param teamId Team to be (un)deprecated
-   * @param deprecated `true`: Deprecate team; `false`: Undeprecate team
-   *
+   * @param teamId - Team to be (un)deprecated
+   * @param deprecated - `true`: Deprecate team; `false`: Undeprecate team
    * @returns A [[TxCreator]]
    *
    * **Event data**
@@ -410,9 +469,7 @@ export class Colony {
    * Gets the team for `teamId`
    *
    * @remarks Will throw if teamId does not exist
-   *
-   * @param teamId The teamId to get the team information for
-   *
+   * @param teamId - The teamId to get the team information for
    * @returns A Team object
    */
   async getTeam(
@@ -431,9 +488,7 @@ export class Colony {
    * Anyone can call this function. Claims funds _for_ the Colony that have been sent to the Colony's contract address or minted funds of the Colony's native token. This function _has_ to be called in order for the funds to appear in the Colony's treasury. You can provide a token address for the token to be claimed. Otherwise it will claim the outstanding funds of the Colony's native token
    *
    * @remarks use `ethers.constants.AddressZero` to claim ETH.
-   *
-   * @param tokenAddress The address of the token to claim the funds for. Default is the Colony's native token
-   *
+   * @param tokenAddress - The address of the token to claim the funds for. Default is the Colony's native token
    * @returns A [[TxCreator]]
    *
    * **Event data**
@@ -467,7 +522,6 @@ export class Colony {
    * After sending funds to and claiming funds for your Colony they will land in a special team, the root team. If you want to make payments from other teams (in order to award reputation in that team) you have to move the funds there first. Use this method to do so.
    *
    * @remarks Requires the `Funding` permission in the root team. As soon as teams can be nested, this requires the `Funding` permission in a team that is a parent of both teams in which funds are moved.
-   *
    * @example
    * ```typescript
    * import { Tokens, w } from '@colony/sdk';
@@ -483,11 +537,10 @@ export class Colony {
    *   ).force();
    * })();
    * ```
-   *
-   * @param amount Amount to transfer between the teams
-   * @param toTeam The team to transfer the funds to
-   * @param fromTeam The team to transfer the funds from. Default is the Root team
-   * @param tokenAddress The address of the token to be transferred. Default is the Colony's native token
+   * @param amount - Amount to transfer between the teams
+   * @param toTeam - The team to transfer the funds to
+   * @param fromTeam - The team to transfer the funds from. Default is the Root team
+   * @param tokenAddress - The address of the token to be transferred. Default is the Colony's native token
    * @returns A [[TxCreator]]
    *
    * **Event data**
@@ -577,8 +630,8 @@ export class Colony {
   /**
    * Get the reputation for a user address within a team in the Colony
    *
-   * @param userAddress The address of the account to check the reputation for
-   * @param teamId The teamId (domainId) of the team to get the reputation for. Default is the `Root` team
+   * @param userAddress - The address of the account to check the reputation for
+   * @param teamId - The teamId (domainId) of the team to get the reputation for. Default is the `Root` team
    * @returns A number quantifying the user addresses' reputation
    */
   async getReputation(userAddress: string, teamId = Id.RootDomain) {
@@ -591,7 +644,7 @@ export class Colony {
   /**
    * Get the reputation for a user address across all teams in the Colony
    *
-   * @param userAddress The address of the account to check the reputation for
+   * @param userAddress - The address of the account to check the reputation for
    * @returns An array of objects containing the following
    *
    * | Property | Description |
@@ -630,9 +683,8 @@ export class Colony {
    *   ).force();
    * })();
    * ```
-   *
-   * @param target Address of the contract to execute a method on
-   * @param action Encoded action to execute
+   * @param target - Address of the contract to execute a method on
+   * @param action - Encoded action to execute
    * @returns A [[TxCreator]]
    *
    * **No event data**
@@ -651,28 +703,26 @@ export class Colony {
    * This will annotate a transaction with an arbitrary text message. This only really works for transactions that happened within this Colony. This will upload the text string to IPFS and connect the transaction to the IPFS hash accordingly.
    *
    * @remarks If [[AnnotationMetadata]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
-   *
    * @example
    * ```typescript
    * // Immediately executing async function
    * (async function() {
    *
    *   // Create a motion to pay 10 of the native token to some (maybe your own?) address
-   *   // (forced transaction example)
    *   const [, { transactionHash }] = await colony.ext.oneTx.pay(
    *     '0xb77D57F4959eAfA0339424b83FcFaf9c15407461',
    *     w`10`,
    *   ).motion();
    *   // Annotate the motion transaction with a little explanation :)
+   *   // (forced transaction example)
    *   await colony.annotateTransaction(
    *      transactionHash,
    *      { annotationMsg: 'I am creating this motion because I think I deserve a little bonus' },
    *   ).force();
    * })();
    * ```
-   *
-   * @param txHash Transaction hash of the transaction to annotate (within the Colony)
-   * @param annotationMetadata The annotation metadata you would like to annotate the transaction with (or an IPFS CID pointing to valid metadata)
+   * @param txHash - Transaction hash of the transaction to annotate (within the Colony)
+   * @param annotationMetadata - The annotation metadata you would like to annotate the transaction with (or an IPFS CID pointing to valid metadata)
    * @returns A [[TxCreator]]
    *
    * **Event data**
@@ -706,6 +756,196 @@ export class Colony {
         ...extractEvent<AnnotationEventObject>('Annotation', receipt),
       }),
       MetadataType.Annotation,
+    );
+  }
+
+  /**
+   * Install an extension for a colony
+   *
+   * Valid extensions can be found here: [[SupportedExtension]]
+   *
+   * @remarks
+   * Be aware that some extensions need some extra setup steps (like the `initialise` method on `VotingReputation`).
+   * After an extension was installed, `colony.updateExtensions()` needs to be called (see example)
+   * @example
+   * ```typescript
+   * // Immediately executing async function
+   * (async function() {
+   *   // Install the OneTxPayment extension for Colony
+   *   // (forced transaction example)
+   *   await colony.installExtension(
+   *     SupportedExtension.oneTx,
+   *   ).force();
+   *   // Update the extensions in the colony
+   *   await colony.updateExtensions();
+   *   console.info(colony.ext.oneTx.address);
+   * })();
+   * ```
+   * @param extension - Name of the extension you'd like to install
+   * @returns A [[TxCreator]]
+   *
+   * **Event data**
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `extensionId` | string | Id (name) of the extension (e.g. `OneTxPayment`) |
+   * | `colony` | string | The address of the colony on which the extension was installed |
+   * | `version` | BigNumber | The version of the extension that was installed |
+   */
+  installExtension(extension: SupportedExtension) {
+    const Extension = supportedExtensionMap[extension];
+    const version = Extension.getLatestSupportedVersion();
+    const { extensionType } = Extension;
+    const colonyVersion = this.colonyClient.clientVersion;
+    if (!isExtensionCompatible(extensionType, version, colonyVersion)) {
+      throw new Error(
+        `v${version} of ${extensionType} extension is not compatible with colony v${colonyVersion}`,
+      );
+    }
+    return this.createTxCreator(
+      this.colonyClient,
+      'installExtension',
+      [getExtensionHash(extensionType), Extension.getLatestSupportedVersion()],
+      async (receipt) => ({
+        ...extractCustomEvent<ExtensionInstalledEventObject>(
+          'ExtensionInstalled',
+          receipt,
+          this.colonyNetwork.networkClient.interface,
+        ),
+      }),
+    );
+  }
+
+  /**
+   * Set (award) roles to a user/contract
+   *
+   * @remarks
+   * Existing roles will be kept. Use [[unsetRoles]] to remove roles
+   * @example
+   * ```typescript
+   * import { ColonyRole } from '@colony/sdk';
+   *
+   * // Immediately executing async function
+   * (async function() {
+   *   // Give Administration and Root role to address 0xb794f5ea0ba39494ce839613fffba74279579268 (in Root team)
+   *   // (forced transaction example)
+   *   await colony.setRoles(
+   *     '0xb794f5ea0ba39494ce839613fffba74279579268',
+   *     [ColonyRole.Administration, ColonyRole.Root],
+   *   ).force();
+   * })();
+   * ```
+   * @param address - Address of the wallet or contract to give the roles to
+   * @param roles - Role or array of roles to award
+   * @param teamId - Team to apply the role(s) in
+   * @returns A [[TxCreator]]
+   *
+   * **Event data**
+   * Heads up!* This event is emitted for every role that was set
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `agent` | string | The address that is responsible for triggering this event |
+   * | `user` | string | Address of the user who was awarded the role |
+   * | `domainId` | BigNumber | The team the role was awarded for |
+   * | `role` | number | The number of the role that was awarded. Use `ColonyRole[role]` to get the title of the role |
+   * | `setTo` | number | Whether the role was awarded or removed |
+   */
+  setRoles(
+    address: string,
+    roles: ColonyRole | ColonyRole[],
+    teamId: BigNumberish = Id.RootDomain,
+  ) {
+    return this.createPermissionedTxCreator(
+      this.colonyClient,
+      'setUserRoles',
+      async () => {
+        const oldRolesHex = await this.colonyClient.getUserRoles(
+          address,
+          teamId,
+        );
+        const oldRoles = parseInt(oldRolesHex, 16);
+        // TODO: export the colonyRoles2Hex helper from ColonyJS
+        /* eslint-disable no-bitwise */
+        const newRoles =
+          ([] as ColonyRole[])
+            .concat(roles)
+            .reduce((acc, current) => acc | (1 << current), 0) | oldRoles;
+        /* eslint-enable no-bitwise */
+        const hexRoles = utils.hexZeroPad(`0x${newRoles}`, 32);
+        return [address, teamId, hexRoles] as [string, BigNumber, string];
+      },
+      {
+        roles: ColonyRole.Architecture,
+        domain: teamId,
+      },
+      async (receipt) => ({
+        // eslint-disable-next-line max-len
+        ...extractEvent<ColonyRoleSet_address_address_uint256_uint8_bool_EventObject>(
+          'ColonyRoleSet',
+          receipt,
+        ),
+        ...extractEvent<RecoveryRoleSetEventObject>('RecoveryRoleSet', receipt),
+      }),
+    );
+  }
+
+  /**
+   * Unset (remove) roles from a user/contract
+   *
+   * @param address - Address of the wallet or contract to remove the roles from
+   * @param roles - Role or array of roles to remove
+   * @param teamId - Team to apply the role(s) in
+   * @returns A [[TxCreator]]
+   *
+   * **Event data**
+   * Heads up!* This event is emitted for every role that was unset
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `agent` | string | The address that is responsible for triggering this event |
+   * | `user` | string | Address of the user of which the role was removed |
+   * | `domainId` | BigNumber | The team the role was removed for |
+   * | `role` | number | The number of the role that was removed. Use `ColonyRole[role]` to get the title of the role |
+   * | `setTo` | number | Whether the role was awarded or removed |
+   */
+  unsetRoles(
+    address: string,
+    roles: ColonyRole | ColonyRole[],
+    teamId: BigNumberish = Id.RootDomain,
+  ) {
+    return this.createPermissionedTxCreator(
+      this.colonyClient,
+      'setUserRoles',
+      async () => {
+        const oldRolesHex = await this.colonyClient.getUserRoles(
+          address,
+          teamId,
+        );
+        const oldRoles = parseInt(oldRolesHex, 16);
+        // TODO: export the colonyRoles2Hex helper from ColonyJS
+        /* eslint-disable no-bitwise */
+        const newRoles =
+          ([] as ColonyRole[])
+            .concat(roles)
+            .reduce((acc, current) => acc & ~(1 << current), 0b11111) &
+          oldRoles;
+        /* eslint-enable no-bitwise */
+        const hexRoles = utils.hexZeroPad(`0x${newRoles}`, 32);
+        return [address, teamId, hexRoles] as [string, BigNumber, string];
+      },
+      {
+        roles: ColonyRole.Architecture,
+        domain: teamId,
+      },
+      async (receipt) => ({
+        // eslint-disable-next-line max-len
+        ...extractEvent<ColonyRoleSet_address_address_uint256_uint8_bool_EventObject>(
+          'ColonyRoleSet',
+          receipt,
+        ),
+        ...extractEvent<RecoveryRoleSetEventObject>('RecoveryRoleSet', receipt),
+      }),
     );
   }
 }

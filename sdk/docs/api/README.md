@@ -6,6 +6,7 @@
 
 ## Enumerations
 
+- [ColonyLabelSuffix](enums/ColonyLabelSuffix.md)
 - [ColonyRole](enums/ColonyRole.md)
 - [Extension](enums/Extension.md)
 - [Id](enums/Id.md)
@@ -13,6 +14,7 @@
 - [MetadataType](enums/MetadataType.md)
 - [MotionState](enums/MotionState.md)
 - [Network](enums/Network.md)
+- [SupportedExtension](enums/SupportedExtension.md)
 - [TeamColor](enums/TeamColor.md)
 - [Vote](enums/Vote.md)
 
@@ -23,6 +25,7 @@
 - [ColonyEventManager](classes/ColonyEventManager.md)
 - [ColonyNetwork](classes/ColonyNetwork.md)
 - [ColonyToken](classes/ColonyToken.md)
+- [OneTxPayment](classes/OneTxPayment.md)
 - [PinataAdapter](classes/PinataAdapter.md)
 - [TxCreator](classes/TxCreator.md)
 - [VotingReputation](classes/VotingReputation.md)
@@ -33,9 +36,11 @@
 - [ColonyEvent](interfaces/ColonyEvent.md)
 - [ColonyEventManagerOptions](interfaces/ColonyEventManagerOptions.md)
 - [ColonyFilter](interfaces/ColonyFilter.md)
+- [ColonyMetadata](interfaces/ColonyMetadata.md)
 - [ColonyMultiFilter](interfaces/ColonyMultiFilter.md)
 - [ColonyNetworkOptions](interfaces/ColonyNetworkOptions.md)
 - [ColonyTopic](interfaces/ColonyTopic.md)
+- [DomainMetadata](interfaces/DomainMetadata.md)
 - [Ethers6Filter](interfaces/Ethers6Filter.md)
 - [Ethers6FilterByBlockHash](interfaces/Ethers6FilterByBlockHash.md)
 - [EventSources](interfaces/EventSources.md)

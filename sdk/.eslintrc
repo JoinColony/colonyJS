@@ -5,7 +5,8 @@
         "@colony/eslint-config-colony"
     ],
     "plugins": [
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "eslint-plugin-tsdoc"
     ],
     "env": {
         "browser": true,
@@ -22,12 +23,12 @@
                 ]
             }
         ],
-        "no-unused-vars": "off",
-        "no-redeclare": "off",
-        "no-use-before-define": "off",
         "no-dupe-class-members": "off",
-        "@typescript-eslint/no-unused-vars": "error",
+        "no-redeclare": "off",
         "no-shadow": "off",
+        "no-unused-vars": "off",
+        "no-use-before-define": "off",
+        "@typescript-eslint/no-unused-vars": "error",
         "@typescript-eslint/no-shadow": [
             "error"
         ],
@@ -44,7 +45,8 @@
                     "examples/browser/src/*.ts"
                 ]
             }
-        ]
+        ],
+        "tsdoc/syntax": "warn"
     },
     "overrides": [
         {

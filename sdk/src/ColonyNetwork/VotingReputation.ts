@@ -21,7 +21,6 @@ import { extractEvent, extractCustomEvent, toEth } from '../utils';
 import { Colony, SupportedColonyClient } from './Colony';
 
 export type SupportedVotingReputationClient = VotingReputationClientV7;
-export const SUPPORTED_VOTING_REPUTATION_VERSION = 7;
 
 export type Motion = VotingReputationDataTypes.MotionStruct;
 
@@ -38,11 +37,12 @@ export const getVotingReputationClient = async (
   colonyClient: SupportedColonyClient,
 ) => {
   const votingReputationClient = await colonyClient.getExtensionClient(
-    Extension.VotingReputation,
+    VotingReputation.extensionType,
   );
 
   if (
-    votingReputationClient.clientVersion !== SUPPORTED_VOTING_REPUTATION_VERSION
+    votingReputationClient.clientVersion !==
+    VotingReputation.getLatestSupportedVersion()
   ) {
     throw new Error(
       `The installed version ${votingReputationClient.clientVersion} of the VotingReputation extension is not supported. Please upgrade the extension in your Colony`,
@@ -140,11 +140,22 @@ const REP_DIVISOR = BigNumber.from(10).pow(18);
  *
  */
 export class VotingReputation {
+  static supportedVersions: 7[] = [7];
+
+  static extensionType: Extension.IVotingReputation =
+    Extension.IVotingReputation;
+
   private colony: Colony;
 
   private votingReputationClient: SupportedVotingReputationClient;
 
   address: string;
+
+  static getLatestSupportedVersion() {
+    return VotingReputation.supportedVersions[
+      VotingReputation.supportedVersions.length - 1
+    ];
+  }
 
   constructor(
     colony: Colony,
@@ -230,9 +241,9 @@ export class VotingReputation {
    *
    * @remarks You will usually not use this function directly, but use the `send` or `motion` functions of the [[TxCreator]] within the relevant contract.
    *
-   * @param motionDomain The domain the motion will be created in
-   * @param encodedAction The encoded action as a string
-   * @param altTarget The contract to which we send the action - 0x0 for the colony (default)
+   * @param motionDomain - The domain the motion will be created in
+   * @param encodedAction - The encoded action as a string
+   * @param altTarget - The contract to which we send the action - 0x0 for the colony (default)
    *
    * @returns A Motion object
    */
@@ -261,7 +272,7 @@ export class VotingReputation {
    *
    * @remarks Will throw if motionId does not exist
    *
-   * @param motionId The motionId to get the information for
+   * @param motionId - The motionId to get the information for
    *
    * @returns A Motion object
    */
@@ -300,7 +311,7 @@ export class VotingReputation {
    *
    * @remarks Will throw if motionId does not exist
    *
-   * @param motionId The motionId to get the state for
+   * @param motionId - The motionId to get the state for
    *
    * @returns The motion state
    */
@@ -317,8 +328,8 @@ export class VotingReputation {
    *
    * @remarks To get the missing amount for activation, call [[getRemainingStakes]]
    *
-   * @param motion A Motion struct object
-   * @param vote A vote for (Yay) or against (Nay) the motion
+   * @param motion - A Motion struct object
+   * @param vote - A vote for (Yay) or against (Nay) the motion
    *
    * @returns The minimum stake amount
    */
@@ -378,7 +389,7 @@ export class VotingReputation {
   /**
    * Get the amounts remaining for Yay/Nay sides to be activated
    *
-   * @param motionId The motionId of the motion
+   * @param motionId - The motionId of the motion
    *
    * @returns An object containing the remaining amounts
    */
@@ -416,8 +427,8 @@ export class VotingReputation {
    * Approve `amount` of the "activated" native tokens of a user for staking in a specific team
    * After a token was "activated" (approved and deposited via the native token interface) it can be used for staking motions. To stake a motion, the token amount for staking has to be approved for the domain the motion was created in. See also the example in [[VotingReputation.stakeMotion]]
    *
-   * @param amount Amount of "activated" tokens to be approved for staking
-   * @param teamId Team that the approved tokens can be used in for staking motions
+   * @param amount - Amount of "activated" tokens to be approved for staking
+   * @param teamId - Team that the approved tokens can be used in for staking motions
    *
    * @returns A tupel of event data and contract receipt
    *
@@ -475,7 +486,7 @@ export class VotingReputation {
    * })();
    * ```
    *
-   * @param amount Amount of the token to be approved
+   * @param amount - Amount of the token to be approved
    *
    * @returns A tupel of event data and contract receipt
    *
@@ -564,8 +575,8 @@ export class VotingReputation {
   /**
    * Submit a vote for a motion
    *
-   * @param motionId The motionId of the motion to be finalized
-   * @param vote A vote for (Yay) or against (Nay) the motion
+   * @param motionId - The motionId of the motion to be finalized
+   * @param vote - A vote for (Yay) or against (Nay) the motion
    *
    * @returns A tupel of event data and contract receipt
    *
@@ -624,8 +635,8 @@ export class VotingReputation {
    *
    * @remarks In order for a vote to count it has to be revealed within the reveal period. Only then rewards can be paid out to the voter.
    *
-   * @param motionId The motionId of the motion to be finalized
-   * @param vote The vote that was cast. If not provided Colony SDK will try to find out which side was voted on (not recommended)
+   * @param motionId - The motionId of the motion to be finalized
+   * @param vote - The vote that was cast. If not provided Colony SDK will try to find out which side was voted on (not recommended)
    *
    * @returns A tupel of event data and contract receipt
    *
@@ -702,7 +713,7 @@ export class VotingReputation {
    * - Voting is still in progress
    * - The motion was already finalized
    *
-   * @param motionId The motionId of the motion to be finalized
+   * @param motionId - The motionId of the motion to be finalized
    *
    * @returns A tupel of event data and contract receipt
    *

@@ -102,6 +102,18 @@ You can - at any point in the lifecycle inspect the current state of a Motion. U
 
 • **address**: `string`
 
+___
+
+### extensionType
+
+▪ `Static` **extensionType**: [`IVotingReputation`](../enums/Extension.md#ivotingreputation) = `Extension.IVotingReputation`
+
+___
+
+### supportedVersions
+
+▪ `Static` **supportedVersions**: ``7``[]
+
 ## Methods
 
 ### approveStake
@@ -427,3 +439,13 @@ A tupel of event data and contract receipt
 | :------ | :------ | :------ |
 | `motionId` | BigNumber | ID of the motion created |
 | `voter` | string | The address of the user who voted |
+
+___
+
+### getLatestSupportedVersion
+
+▸ `Static` **getLatestSupportedVersion**(): ``7``
+
+#### Returns
+
+``7``

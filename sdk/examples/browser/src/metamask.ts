@@ -2,6 +2,7 @@ import { providers, Signer } from 'ethers';
 import { ColonyNetwork } from '../../../src';
 
 // If MetaMask is installed there will be an `ethereum` object on the `window`
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const provider = new providers.Web3Provider((window as any).ethereum);
 
 // Get the Colony's XDAI funding in the ROOT pot (id 1)

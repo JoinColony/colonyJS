@@ -18,8 +18,6 @@ import {
 import IpfsAdapter from './IpfsAdapter';
 import CloudflareReadonlyAdapter from './CloudflareReadonlyAdapter';
 
-export { MetadataType } from '@colony/colony-event-metadata-parser';
-
 const fetchRetry = wrapFetch(fetch, {
   headers: {
     Accept: 'application/json',

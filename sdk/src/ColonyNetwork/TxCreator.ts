@@ -14,13 +14,15 @@ import {
   utils,
 } from 'ethers';
 import { fetch } from 'cross-fetch';
+import { MetadataType } from '@colony/colony-event-metadata-parser';
 
 import { MotionCreatedEventObject } from '@colony/colony-js/extras';
 import { Colony } from './Colony';
-import { MetadataType, MetadataValue } from '../ipfs';
+import { MetadataValue } from '../ipfs';
 import { extractEvent } from '../utils';
 import { ParsedLogTransactionReceipt } from '../types';
 import { IPFS_METADATA_EVENTS } from '../ipfs/IpfsMetadata';
+import { ColonyNetwork } from './ColonyNetwork';
 
 const { arrayify, solidityKeccak256, splitSignature } = utils;
 
@@ -74,7 +76,9 @@ export class TxCreator<
   E extends EventData,
   MD extends MetadataType,
 > {
-  private colony: Colony;
+  private colonyNetwork: ColonyNetwork;
+
+  private colony?: Colony;
 
   private contract: C;
 
@@ -90,6 +94,7 @@ export class TxCreator<
 
   constructor({
     colony,
+    colonyNetwork,
     contract,
     method,
     args,
@@ -97,7 +102,8 @@ export class TxCreator<
     metadataType,
     permissionConfig,
   }: {
-    colony: Colony;
+    colony?: Colony;
+    colonyNetwork: ColonyNetwork;
     contract: C;
     method: M;
     args: unknown[] | (() => Promise<unknown[]>);
@@ -106,6 +112,7 @@ export class TxCreator<
     permissionConfig?: PermissionConfig;
   }) {
     this.colony = colony;
+    this.colonyNetwork = colonyNetwork;
     this.contract = contract;
     this.method = method as string;
     this.args = args;
@@ -124,6 +131,11 @@ export class TxCreator<
     }
 
     if (this.permissionConfig) {
+      if (!this.colony) {
+        throw new Error(
+          'Permissioned transactions can only be created on a Colony',
+        );
+      }
       const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
         this.colony.getInternalColonyClient(),
         this.permissionConfig.domain,
@@ -144,12 +156,11 @@ export class TxCreator<
       const data = await this.eventData(receipt);
 
       if (this.metadataType && data.metadata) {
-        const getMetadata =
-          this.colony.colonyNetwork.ipfs.getMetadataForEvent.bind(
-            this.colony.colonyNetwork.ipfs,
-            IPFS_METADATA_EVENTS[this.metadataType],
-            data.metadata,
-          ) as () => Promise<MetadataValue<MD>>;
+        const getMetadata = this.colonyNetwork.ipfs.getMetadataForEvent.bind(
+          this.colonyNetwork.ipfs,
+          IPFS_METADATA_EVENTS[this.metadataType],
+          data.metadata,
+        ) as () => Promise<MetadataValue<MD>>;
 
         return [data, receipt as R, getMetadata];
       }
@@ -161,7 +172,7 @@ export class TxCreator<
   }
 
   private getSigner(): Signer {
-    const { signerOrProvider } = this.colony;
+    const { signerOrProvider } = this.colonyNetwork;
     if (!(signerOrProvider instanceof Signer)) {
       throw new Error('Need a signer to create a transaction');
     }
@@ -172,11 +183,9 @@ export class TxCreator<
     encodedTransaction: string,
     target: string,
   ): Promise<ParsedLogTransactionReceipt> {
-    const { colonyNetwork } = this.colony;
-
-    if (!colonyNetwork.config.metaTxBroadcasterEndpoint) {
+    if (!this.colonyNetwork.config.metaTxBroadcasterEndpoint) {
       throw new Error(
-        `No metatransaction broadcaster endpoint found for network ${colonyNetwork.network}`,
+        `No metatransaction broadcaster endpoint found for network ${this.colonyNetwork.network}`,
       );
     }
 
@@ -189,7 +198,7 @@ export class TxCreator<
 
     let chainId: number;
 
-    if (colonyNetwork.network === Network.Custom) {
+    if (this.colonyNetwork.network === Network.Custom) {
       chainId = 1;
     } else {
       const networkInfo = await provider.getNetwork();
@@ -219,7 +228,7 @@ export class TxCreator<
     };
 
     const res = await fetch(
-      `${colonyNetwork.config.metaTxBroadcasterEndpoint}/broadcast`,
+      `${this.colonyNetwork.config.metaTxBroadcasterEndpoint}/broadcast`,
       {
         method: 'POST',
         headers: {
@@ -280,6 +289,10 @@ export class TxCreator<
    * @returns A tupel of motion event data and contract receipt
    */
   async motion(motionDomain: BigNumberish = Id.RootDomain) {
+    if (!this.colony) {
+      throw new Error('Motions can only be created on a Colony');
+    }
+
     if (!this.colony.ext.motions) {
       throw new Error(
         'VotingReputation extension is not installed for this Colony',
@@ -337,6 +350,10 @@ export class TxCreator<
    * @returns A tupel of motion event data and contract receipt
    */
   async motionMeta(motionDomain: BigNumberish = Id.RootDomain) {
+    if (!this.colony) {
+      throw new Error('Motions can only be created on a Colony');
+    }
+
     if (!this.colony.ext.motions) {
       throw new Error(
         'VotingReputation extension is not installed for this Colony',
