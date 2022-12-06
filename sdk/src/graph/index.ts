@@ -26,7 +26,7 @@ export interface SubgraphClientOptions {
  *
  * The Colony Subgraph's schema and resolvers are kept up-to-date by the Colony team and can be explored here: [Colony Subgraph](https://thegraph.com/hosted-service/subgraph/joincolony/colony-xdai). There you can make test queries to the Colony Subgraph and explore it all the way down the rabbit hole :)
  *
- * @param options Define configuration options to instantiate the client with
+ * @param options - Define configuration options to instantiate the client with
  * @returns A ready-to-use `urql` GraphQL client instance
  *
  * @example

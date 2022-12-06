@@ -10,6 +10,8 @@ import {
 } from '../../../src';
 
 const { isAddress } = utils;
+// If MetaMask is installed there will be an `ethereum` object on the `window`
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const provider = new providers.Web3Provider((window as any).ethereum);
 
 let currentWalletAddress: string;

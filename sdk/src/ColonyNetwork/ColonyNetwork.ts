@@ -70,8 +70,8 @@ export class ColonyNetwork {
    * // Now you could call functions on the colonyNetwork, like `colonyNetwork.getMetaColony()`
    * ```
    *
-   * @param signerOrProvider An _ethers_ compatible Signer or Provider instance
-   * @param options Optional custom [[ColonyNetworkOptions]]
+   * @param signerOrProvider - An _ethers_ compatible Signer or Provider instance
+   * @param options - Optional custom [[ColonyNetworkOptions]]
    * @returns A ColonyNetwork abstraction instance
    */
   constructor(
@@ -102,11 +102,11 @@ export class ColonyNetwork {
    * @remarks
    * Do not use this method directly but rather the class methods in the Colony or extensions
    *
-   * @param contract A ColonyJS contract
-   * @param method The transaction method to execute on the contract
-   * @param args The arguments for the method
-   * @param eventData A function that extracts the relevant event data from the [[ContractReceipt]]
-   * @param metadataType The [[MetadataType]] if the event contains metadata
+   * @param contract - A ColonyJS contract
+   * @param method - The transaction method to execute on the contract
+   * @param args - The arguments for the method
+   * @param eventData - A function that extracts the relevant event data from the [[ContractReceipt]]
+   * @param metadataType - The [[MetadataType]] if the event contains metadata
    * @returns A [[TxCreator]]
    */
   createTxCreator<
@@ -162,7 +162,7 @@ export class ColonyNetwork {
    * })();
    * ```
    *
-   * @param metadata The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[ColonyMetadata]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
+   * @param metadata - The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[ColonyMetadata]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
    *
    * @returns A [[TxCreator]]
    *
@@ -298,7 +298,7 @@ export class ColonyNetwork {
    * @remarks
    * Colony contracts are versioned. If the deployed Colony version does not match the supported version an error will be thrown
    *
-   * @param address The Colony's address
+   * @param address - The Colony's address
    * @returns A Colony abstaction instance
    */
   async getColony(address: string): Promise<Colony> {

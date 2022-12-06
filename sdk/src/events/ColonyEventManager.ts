@@ -1,8 +1,3 @@
-/**
- * This is a description of the ColonyEventManager module
- * @module ColonyEventManager
- */
-
 import { constants, providers, EventFilter } from 'ethers';
 
 import type { Result } from 'ethers/lib/utils';
@@ -100,8 +95,8 @@ export class ColonyEventManager {
    * As opposed to the [[ColonyNetwork]] class, this constructor _needs_ an _ethers_ JsonRpcProvider (or a subclass of it) as it's
    * the only provider that supports topic filtering by multiple addresses
    *
-   * @param provider An _ethers_ `JsonRpcProvider`
-   * @param options Optional custom [[ColonyEventManagerOptions]]
+   * @param provider - An _ethers_ `JsonRpcProvider`
+   * @param options - Optional custom [[ColonyEventManagerOptions]]
    * @returns A ColonyEvents instance
    */
   constructor(
@@ -166,7 +161,7 @@ export class ColonyEventManager {
    * })();
    * ```
    *
-   * @param filter A [[ColonyFilter]]. [[ColonyMultiFilter]]s will not work
+   * @param filter - A [[ColonyFilter]]. [[ColonyMultiFilter]]s will not work
    * @returns An array of [[ColonyEvent]]s
    */
   async getEvents<T extends MetadataType>(
@@ -235,10 +230,8 @@ export class ColonyEventManager {
    * })();
    * ```
    *
-   * @param filters An array of [[ColonyMultiFilter]]s. Normal [[ColonyFilter]]s will not work
-   * @param options You can define `fromBlock` and `toBlock` only once for all the filters given
-   * @param options.fromBlock Starting block in which to look for this event - inclusive (default: 'latest')
-   * @param options.toBlock Ending block in which to look for this event - inclusive (default: 'latest')
+   * @param filters - An array of [[ColonyMultiFilter]]s. Normal [[ColonyFilter]]s will not work
+   * @param options - You can define `fromBlock` and `toBlock` only once for all the filters given (default for both is `latest`)
    * @returns An array of [[ColonyEvent]]s
    */
   async getMultiEvents<T extends MetadataType>(
@@ -337,15 +330,15 @@ export class ColonyEventManager {
    * );
    * ```
    *
-   * @typeParam T Needs to be a valid [[EventSource]] (i.e. from `colonyEvents.eventSources`)
-   * @typeParam N An event signature as defined in the _ethers_ contract's [`filters`](https://docs.ethers.io/v5/api/contract/contract/#Contract--filters) object.
+   * @typeParam T - Needs to be a valid [[EventSource]] (i.e. from `colonyEvents.eventSources`)
+   * @typeParam N - An event signature as defined in the _ethers_ contract's [`filters`](https://docs.ethers.io/v5/api/contract/contract/#Contract--filters) object.
    * See the [ColonyJS documentation](https://colony.gitbook.io/colony/colonyjs) for a list of all available contracts and events
    *
-   * @param contract A valid [[EventSource]]
-   * @param eventName A valid event signature from the contract's `filters` object
-   * @param address Address of the contract that can emit this event
-   * @param params Parameters to filter by for the event. Has to be indexed in the contract (see _ethers_ [Event Filters](https://docs.ethers.io/v5/api/contract/contract/#Contract--filters))
-   * @param options You can define `fromBlock` and `toBlock` only once for all the filters given
+   * @param contract - A valid [[EventSource]]
+   * @param eventName - A valid event signature from the contract's `filters` object
+   * @param address - Address of the contract that can emit this event
+   * @param params - Parameters to filter by for the event. Has to be indexed in the contract (see _ethers_ [Event Filters](https://docs.ethers.io/v5/api/contract/contract/#Contract--filters))
+   * @param options - You can define `fromBlock` and `toBlock` only once for all the filters given (default for both is `latest`)
    * @returns A [[ColonyFilter]]
    */
   createFilter<
@@ -409,13 +402,13 @@ export class ColonyEventManager {
    * );
    * ```
    *
-   * @typeParam T Needs to be a valid [[EventSource]] (i.e. from `colonyEvents.eventSources`)
-   * @typeParam N An event signature as defined in the _ethers_ contract's [`filters`](https://docs.ethers.io/v5/api/contract/contract/#Contract--filters) object.
+   * @typeParam T - Needs to be a valid [[EventSource]] (i.e. from `colonyEvents.eventSources`)
+   * @typeParam N - An event signature as defined in the _ethers_ contract's [`filters`](https://docs.ethers.io/v5/api/contract/contract/#Contract--filters) object.
    * See the [ColonyJS documentation](https://colony.gitbook.io/colony/colonyjs) for a list of all available contracts and events
    *
-   * @param contract A valid [[EventSource]]
-   * @param eventNames A list of valid event signatures from the contract's `filters` object
-   * @param address Address of the contract that can emit this event
+   * @param contract - A valid [[EventSource]]
+   * @param eventNames - A list of valid event signatures from the contract's `filters` object
+   * @param address - Address of the contract that can emit this event
    * @returns A [[ColonyMultiFilter]]
    */
   createMultiFilter<

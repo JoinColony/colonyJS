@@ -92,10 +92,10 @@ export class OneTxPayment {
    * })();
    * ```
    *
-   * @param recipient Wallet address of account to send the funds to (also awarded reputation when sending the native token)
-   * @param amount Amount to pay in wei
-   * @param tokenAddress The address of the token to make the payment in. Default is the Colony's native token
-   * @param teamId The team to use to send the funds from. Has to have funding of at least the amount you need to send. See [[Colony.moveFundsToTeam]]. Defaults to the Colony's root team
+   * @param recipient - Wallet address of account to send the funds to (also awarded reputation when sending the native token)
+   * @param amount - Amount to pay in wei
+   * @param tokenAddress - The address of the token to make the payment in. Default is the Colony's native token
+   * @param teamId - The team to use to send the funds from. Has to have funding of at least the amount you need to send. See [[Colony.moveFundsToTeam]]. Defaults to the Colony's root team
    * @returns A [[TxCreator]]
    *
    * **Event data**

@@ -5,7 +5,7 @@ export default interface IpfsAdapter {
   /**
    * Should return the whole URL to an IPFS resource on the corresponding gateway (e.g. https://my-ipfs-gateway/ipfs/QmXxxxXXxxXxXxXxxxXXxxxXxXXx).
    *
-   * @param cid An IPFS hash (CID)
+   * @param cid - An IPFS hash (CID)
    * @returns The URL to an ipfs resource
    */
   getIpfsUrl(cid: string): string;
@@ -15,7 +15,7 @@ export default interface IpfsAdapter {
    *
    * @remarks This function should ideally **pin** your data on the relevant service.
    *
-   * @param jsonString JSON string to upload (and pin) to IPFS
+   * @param jsonString - JSON string to upload (and pin) to IPFS
    * @returns Promise to IPFS hash (CID)
    */
   uploadJson(jsonString: string): Promise<string>;

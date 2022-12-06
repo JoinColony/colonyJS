@@ -34,7 +34,7 @@ export class ColonyToken {
    * @remarks
    * Do not use this method directly but use [[Colony.getToken]]
    *
-   * @param colony A Colony instance
+   * @param colony - A Colony instance
    * @returns A Colony Token abstaction instance
    */
   constructor(colony: Colony, tokenLockingClient: TokenLockingClient) {
@@ -91,7 +91,7 @@ export class ColonyToken {
    * })();
    * ```
    *
-   * @param amount Amount of the token to be minted
+   * @param amount - Amount of the token to be minted
    *
    * @returns A [[TxCreator]]
    */
@@ -122,7 +122,7 @@ export class ColonyToken {
    * })();
    * ```
    *
-   * @param amount Amount of the token to be approved
+   * @param amount - Amount of the token to be approved
    *
    * @returns A tupel of event data and contract receipt
    *
@@ -165,7 +165,7 @@ export class ColonyToken {
    * })();
    * ```
    *
-   * @param amount Amount of the token to be deposited
+   * @param amount - Amount of the token to be deposited
    *
    * @returns A tupel of event data and contract receipt
    *
@@ -210,7 +210,7 @@ export class ColonyToken {
    * })();
    * ```
    *
-   * @param amount Amount of the token to be withdrawn
+   * @param amount - Amount of the token to be withdrawn
    *
    * @returns A tupel of event data and contract receipt
    *
@@ -243,7 +243,7 @@ export class ColonyToken {
    *
    * This method will show the accumulated amount that was deposited using the [[ColonyToken.deposit]] method
    *
-   * @param user The wallet address that we want to check the deposited amount of
+   * @param user - The wallet address that we want to check the deposited amount of
    *
    * @returns The currently deposited balance of the Colony's native token
    */
@@ -260,8 +260,8 @@ export class ColonyToken {
    *
    * This method will show the accumulated amount that was approved using the [[ColonyToken.approve]] method
    *
-   * @param user The wallet address that we want to check the approved amount of
-   * @param obligator The address that has been approved to obligate the funds.
+   * @param user - The wallet address that we want to check the approved amount of
+   * @param obligator - The address that has been approved to obligate the funds.
    *
    * @returns The currently approved balance of the Colony's native token for the obligator
    */

@@ -371,8 +371,8 @@ Valid extensions can be found here: [SupportedExtension](../enums/SupportedExten
 
 **`Remarks`**
 
-* Be aware that some extensions need some extra setup steps (like the `initialise` method on `VotingReputation`).
-* After an extension was installed, `colony.updateExtensions()` needs to be called (see example)
+Be aware that some extensions need some extra setup steps (like the `initialise` method on `VotingReputation`).
+After an extension was installed, `colony.updateExtensions()` needs to be called (see example)
 
 **`Example`**
 
@@ -558,7 +558,7 @@ import { ColonyRole } from '@colony/sdk';
 A [TxCreator](TxCreator.md)
 
 **Event data**
-*Heads up!* This event is emitted for every role that was set
+Heads up!* This event is emitted for every role that was set
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -591,7 +591,7 @@ Unset (remove) roles from a user/contract
 A [TxCreator](TxCreator.md)
 
 **Event data**
-*Heads up!* This event is emitted for every role that was unset
+Heads up!* This event is emitted for every role that was unset
 
 | Property | Type | Description |
 | :------ | :------ | :------ |

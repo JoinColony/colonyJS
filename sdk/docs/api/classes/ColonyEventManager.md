@@ -89,7 +89,7 @@ Filter for all `DomainAdded` events between block 21830000 and 21840000 (across 
 | `eventName` | `N` | A valid event signature from the contract's `filters` object |
 | `address?` | `string` | Address of the contract that can emit this event |
 | `params?` | `Parameters`<`T`[``"filters"``][`N`]\> | Parameters to filter by for the event. Has to be indexed in the contract (see _ethers_ [Event Filters](https://docs.ethers.io/v5/api/contract/contract/#Contract--filters)) |
-| `options?` | `Object` | You can define `fromBlock` and `toBlock` only once for all the filters given |
+| `options?` | `Object` | You can define `fromBlock` and `toBlock` only once for all the filters given (default for both is `latest`) |
 | `options.fromBlock?` | `BlockTag` | - |
 | `options.toBlock?` | `BlockTag` | - |
 
@@ -238,9 +238,9 @@ const domainMetadata = colonyEvents.createMultiFilter(
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `filters` | [`ColonyMultiFilter`](../interfaces/ColonyMultiFilter.md)[] | An array of [ColonyMultiFilter](../interfaces/ColonyMultiFilter.md)s. Normal [ColonyFilter](../interfaces/ColonyFilter.md)s will not work |
-| `options` | `Object` | You can define `fromBlock` and `toBlock` only once for all the filters given |
-| `options.fromBlock?` | `BlockTag` | Starting block in which to look for this event - inclusive (default: 'latest') |
-| `options.toBlock?` | `BlockTag` | Ending block in which to look for this event - inclusive (default: 'latest') |
+| `options` | `Object` | You can define `fromBlock` and `toBlock` only once for all the filters given (default for both is `latest`) |
+| `options.fromBlock?` | `BlockTag` | - |
+| `options.toBlock?` | `BlockTag` | - |
 
 #### Returns
 
