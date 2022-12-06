@@ -41,15 +41,21 @@ import type { Expand, Parameters, ParametersFrom2 } from '../types';
 import { extractEvent, extractCustomEvent } from '../utils';
 import { ColonyToken } from './ColonyToken';
 import { ColonyNetwork } from './ColonyNetwork';
-import { OneTxPayment } from './OneTxPayment';
-import { VotingReputation } from './VotingReputation';
+import { getOneTxPaymentClient, OneTxPayment } from './OneTxPayment';
+import {
+  getVotingReputationClient,
+  VotingReputation,
+} from './VotingReputation';
 import { PermissionConfig, TxCreator } from './TxCreator';
 
 export type SupportedColonyClient = ColonyClientV10;
 export type SupportedColonyMethods = SupportedColonyClient['functions'];
 
+/** Extensions that are supported by Colony SDK */
 export enum SupportedExtension {
+  /** Motions & Disputes (VotingReputation) */
   motion = 'motion',
+  /** One Transaction Payment (OneTxPayment - enabled by default in Dapp created colonies) */
   oneTx = 'oneTx',
 }
 
@@ -109,6 +115,15 @@ export class Colony {
     this.address = colonyClient.address;
     this.ext = {};
     this.version = colonyClient.clientVersion;
+  }
+
+  static async init(
+    colonyNetwork: ColonyNetwork,
+    colonyClient: SupportedColonyClient,
+  ) {
+    const colony = new Colony(colonyNetwork, colonyClient);
+    await colony.updateExtensions();
+    return colony;
   }
 
   static getLatestSupportedVersion() {
@@ -225,11 +240,34 @@ export class Colony {
   }
 
   /**
-   * Installs colony extensions that can be instantiated in the callback function
-   * @internal
+   * Refresh colony extensions
+   *
+   * Call this function after a new extension was installed.
+   * It will then become available under `colony.ext`
    */
-  installExtensions(extensions: SupportedExtensions) {
-    this.ext = extensions;
+  async updateExtensions() {
+    // NOTE: Create an individual try-catch block for every extension
+    if (!this.ext.motions) {
+      try {
+        const votingReputationClient = await getVotingReputationClient(
+          this.colonyClient,
+        );
+        this.ext.motions = new VotingReputation(this, votingReputationClient);
+      } catch (e) {
+        // Ignore error here. Extension just won't be available.
+      }
+    }
+
+    if (!this.ext.oneTx) {
+      try {
+        const oneTxPaymentClient = await getOneTxPaymentClient(
+          this.colonyClient,
+        );
+        this.ext.oneTx = new OneTxPayment(this, oneTxPaymentClient);
+      } catch (e) {
+        // Ignore error here. Extension just won't be available.
+      }
+    }
   }
 
   /**
@@ -687,12 +725,12 @@ export class Colony {
    * (async function() {
    *
    *   // Create a motion to pay 10 of the native token to some (maybe your own?) address
-   *   // (forced transaction example)
    *   const [, { transactionHash }] = await colony.ext.oneTx.pay(
    *     '0xb77D57F4959eAfA0339424b83FcFaf9c15407461',
    *     w`10`,
    *   ).motion();
    *   // Annotate the motion transaction with a little explanation :)
+   *   // (forced transaction example)
    *   await colony.annotateTransaction(
    *      transactionHash,
    *      { annotationMsg: 'I am creating this motion because I think I deserve a little bonus' },
@@ -738,6 +776,41 @@ export class Colony {
     );
   }
 
+  /**
+   * Install an extension for a colony
+   *
+   * Valid extensions can be found here: [[SupportedExtension]]
+   *
+   * @remarks
+   * * Be aware that some extensions need some extra setup steps (like the `initialise` method on `VotingReputation`).
+   * * After an extension was installed, `colony.updateExtensions()` needs to be called (see example)
+   *
+   * @example
+   * ```typescript
+   * // Immediately executing async function
+   * (async function() {
+   *   // Install the OneTxPayment extension for Colony
+   *   // (forced transaction example)
+   *   await colony.installExtension(
+   *     SupportedExtension.oneTx,
+   *   ).force();
+   *   // Update the extensions in the colony
+   *   await colony.updateExtensions();
+   *   console.info(colony.ext.oneTx.address);
+   * })();
+   * ```
+   *
+   * @param extension Name of the extension you'd like to install
+   * @returns A [[TxCreator]]
+   *
+   * **Event data**
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `extensionId` | string | Id (name) of the extension (e.g. `OneTxPayment`) |
+   * | `colony` | string | The address of the colony on which the extension was installed |
+   * | `version` | BigNumber | The version of the extension that was installed |
+   */
   installExtension(extension: SupportedExtension) {
     const Extension = supportedExtensionMap[extension];
     const version = Extension.getLatestSupportedVersion();
@@ -762,6 +835,43 @@ export class Colony {
     );
   }
 
+  /**
+   * Set (award) roles to a user/contract
+   *
+   * @remarks
+   * Existing roles will be kept. Use [[unsetRoles]] to remove roles
+   *
+   * @example
+   * ```typescript
+   * import { ColonyRole } from '@colony/sdk';
+   *
+   * // Immediately executing async function
+   * (async function() {
+   *   // Give Administration and Root role to address 0xb794f5ea0ba39494ce839613fffba74279579268 (in Root team)
+   *   // (forced transaction example)
+   *   await colony.setRoles(
+   *     '0xb794f5ea0ba39494ce839613fffba74279579268',
+   *     [ColonyRole.Administration, ColonyRole.Root],
+   *   ).force();
+   * })();
+   * ```
+   *
+   * @param address Address of the wallet or contract to give the roles to
+   * @param roles Role or array of roles to award
+   * @param teamId Team to apply the role(s) in
+   * @returns A [[TxCreator]]
+   *
+   * **Event data**
+   * *Heads up!* This event is emitted for every role that was set
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `agent` | string | The address that is responsible for triggering this event |
+   * | `user` | string | Address of the user who was awarded the role |
+   * | `domainId` | BigNumber | The team the role was awarded for |
+   * | `role` | number | The number of the role that was awarded. Use `ColonyRole[role]` to get the title of the role |
+   * | `setTo` | number | Whether the role was awarded or removed |
+   */
   setRoles(
     address: string,
     roles: ColonyRole | ColonyRole[],
@@ -801,6 +911,25 @@ export class Colony {
     );
   }
 
+  /**
+   * Unset (remove) roles from a user/contract
+   *
+   * @param address Address of the wallet or contract to remove the roles from
+   * @param roles Role or array of roles to remove
+   * @param teamId Team to apply the role(s) in
+   * @returns A [[TxCreator]]
+   *
+   * **Event data**
+   * *Heads up!* This event is emitted for every role that was unset
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `agent` | string | The address that is responsible for triggering this event |
+   * | `user` | string | Address of the user of which the role was removed |
+   * | `domainId` | BigNumber | The team the role was removed for |
+   * | `role` | number | The number of the role that was removed. Use `ColonyRole[role]` to get the title of the role |
+   * | `setTo` | number | Whether the role was awarded or removed |
+   */
   unsetRoles(
     address: string,
     roles: ColonyRole | ColonyRole[],

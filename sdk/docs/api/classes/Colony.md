@@ -70,12 +70,12 @@ If [AnnotationMetadata](../interfaces/AnnotationMetadata.md) is provided directl
 (async function() {
 
   // Create a motion to pay 10 of the native token to some (maybe your own?) address
-  // (forced transaction example)
   const [, { transactionHash }] = await colony.ext.oneTx.pay(
     '0xb77D57F4959eAfA0339424b83FcFaf9c15407461',
     w`10`,
   ).motion();
   // Annotate the motion transaction with a little explanation :)
+  // (forced transaction example)
   await colony.annotateTransaction(
      transactionHash,
      { annotationMsg: 'I am creating this motion because I think I deserve a little bonus' },
@@ -365,15 +365,50 @@ ___
 
 ▸ **installExtension**(`extension`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"installExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
+Install an extension for a colony
+
+Valid extensions can be found here: [SupportedExtension](../enums/SupportedExtension.md)
+
+**`Remarks`**
+
+* Be aware that some extensions need some extra setup steps (like the `initialise` method on `VotingReputation`).
+* After an extension was installed, `colony.updateExtensions()` needs to be called (see example)
+
+**`Example`**
+
+```typescript
+// Immediately executing async function
+(async function() {
+  // Install the OneTxPayment extension for Colony
+  // (forced transaction example)
+  await colony.installExtension(
+    SupportedExtension.oneTx,
+  ).force();
+  // Update the extensions in the colony
+  await colony.updateExtensions();
+  console.info(colony.ext.oneTx.address);
+})();
+```
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `extension` | [`SupportedExtension`](../enums/SupportedExtension.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `extension` | [`SupportedExtension`](../enums/SupportedExtension.md) | Name of the extension you'd like to install |
 
 #### Returns
 
 [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"installExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+A [TxCreator](TxCreator.md)
+
+**Event data**
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `extensionId` | string | Id (name) of the extension (e.g. `OneTxPayment`) |
+| `colony` | string | The address of the colony on which the extension was installed |
+| `version` | BigNumber | The version of the extension that was installed |
 
 ___
 
@@ -486,17 +521,52 @@ ___
 
 ▸ **setRoles**(`address`, `roles`, `teamId?`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"setUserRoles"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `role?`: `number` ; `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
+Set (award) roles to a user/contract
+
+**`Remarks`**
+
+Existing roles will be kept. Use [unsetRoles](Colony.md#unsetroles) to remove roles
+
+**`Example`**
+
+```typescript
+import { ColonyRole } from '@colony/sdk';
+
+// Immediately executing async function
+(async function() {
+  // Give Administration and Root role to address 0xb794f5ea0ba39494ce839613fffba74279579268 (in Root team)
+  // (forced transaction example)
+  await colony.setRoles(
+    '0xb794f5ea0ba39494ce839613fffba74279579268',
+    [ColonyRole.Administration, ColonyRole.Root],
+  ).force();
+})();
+```
+
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `address` | `string` | `undefined` |
-| `roles` | [`ColonyRole`](../enums/ColonyRole.md) \| [`ColonyRole`](../enums/ColonyRole.md)[] | `undefined` |
-| `teamId` | `BigNumberish` | `Id.RootDomain` |
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `address` | `string` | `undefined` | Address of the wallet or contract to give the roles to |
+| `roles` | [`ColonyRole`](../enums/ColonyRole.md) \| [`ColonyRole`](../enums/ColonyRole.md)[] | `undefined` | Role or array of roles to award |
+| `teamId` | `BigNumberish` | `Id.RootDomain` | Team to apply the role(s) in |
 
 #### Returns
 
 [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"setUserRoles"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `role?`: `number` ; `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+A [TxCreator](TxCreator.md)
+
+**Event data**
+*Heads up!* This event is emitted for every role that was set
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `agent` | string | The address that is responsible for triggering this event |
+| `user` | string | Address of the user who was awarded the role |
+| `domainId` | BigNumber | The team the role was awarded for |
+| `role` | number | The number of the role that was awarded. Use `ColonyRole[role]` to get the title of the role |
+| `setTo` | number | Whether the role was awarded or removed |
 
 ___
 
@@ -504,17 +574,47 @@ ___
 
 ▸ **unsetRoles**(`address`, `roles`, `teamId?`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"setUserRoles"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `role?`: `number` ; `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
+Unset (remove) roles from a user/contract
+
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `address` | `string` | `undefined` |
-| `roles` | [`ColonyRole`](../enums/ColonyRole.md) \| [`ColonyRole`](../enums/ColonyRole.md)[] | `undefined` |
-| `teamId` | `BigNumberish` | `Id.RootDomain` |
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `address` | `string` | `undefined` | Address of the wallet or contract to remove the roles from |
+| `roles` | [`ColonyRole`](../enums/ColonyRole.md) \| [`ColonyRole`](../enums/ColonyRole.md)[] | `undefined` | Role or array of roles to remove |
+| `teamId` | `BigNumberish` | `Id.RootDomain` | Team to apply the role(s) in |
 
 #### Returns
 
 [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"setUserRoles"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `role?`: `number` ; `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+A [TxCreator](TxCreator.md)
+
+**Event data**
+*Heads up!* This event is emitted for every role that was unset
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `agent` | string | The address that is responsible for triggering this event |
+| `user` | string | Address of the user of which the role was removed |
+| `domainId` | BigNumber | The team the role was removed for |
+| `role` | number | The number of the role that was removed. Use `ColonyRole[role]` to get the title of the role |
+| `setTo` | number | Whether the role was awarded or removed |
+
+___
+
+### updateExtensions
+
+▸ **updateExtensions**(): `Promise`<`void`\>
+
+Refresh colony extensions
+
+Call this function after a new extension was installed.
+It will then become available under `colony.ext`
+
+#### Returns
+
+`Promise`<`void`\>
 
 ___
 
@@ -525,3 +625,20 @@ ___
 #### Returns
 
 ``10``
+
+___
+
+### init
+
+▸ `Static` **init**(`colonyNetwork`, `colonyClient`): `Promise`<[`Colony`](Colony.md)\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `colonyNetwork` | [`ColonyNetwork`](ColonyNetwork.md) |
+| `colonyClient` | `ColonyClientV10` |
+
+#### Returns
+
+`Promise`<[`Colony`](Colony.md)\>

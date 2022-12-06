@@ -27,7 +27,7 @@ const start = async () => {
   }
   console.info('Colony address', colonyAddress);
   // Instantiate colony and token
-  let colony = await colonyNetwork.getColony(colonyAddress);
+  const colony = await colonyNetwork.getColony(colonyAddress);
   const token = await colony.getToken();
   // Deploy TokanAuthority
   const [{ tokenAuthorityAddress }] = await token
@@ -49,7 +49,7 @@ const start = async () => {
   console.info('ExtensionId', extensionId);
   console.info('Extension version', version);
   // Intantiate Colony again to update the extensions
-  colony = await colonyNetwork.getColony(colonyAddress);
+  await colony.updateExtensions();
   if (!colony.ext.oneTx) {
     console.error('Could not instantiate OneTx extension within Colony');
     return;

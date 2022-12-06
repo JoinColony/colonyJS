@@ -18,12 +18,7 @@ import {
 } from '@colony/colony-event-metadata-parser';
 
 import { IpfsMetadata, IpfsAdapter } from '../ipfs';
-import { Colony, SupportedExtensions } from './Colony';
-import {
-  getVotingReputationClient,
-  VotingReputation,
-} from './VotingReputation';
-import { getOneTxPaymentClient, OneTxPayment } from './OneTxPayment';
+import { Colony } from './Colony';
 import { ColonyLabelSuffix, MetaTxBroadCasterEndpoint } from '../constants';
 import { Expand, Parameters } from '../types';
 import { TxCreator } from './TxCreator';
@@ -315,30 +310,7 @@ export class ColonyNetwork {
       );
     }
 
-    const colony = new Colony(this, colonyClient);
-
-    const extensions: SupportedExtensions = {};
-
-    // NOTE: Create an individual try-catch block for every extension
-    try {
-      const votingReputationClient = await getVotingReputationClient(
-        colonyClient,
-      );
-      extensions.motions = new VotingReputation(colony, votingReputationClient);
-    } catch (e) {
-      // Ignore error here. Extension just won't be available.
-    }
-
-    try {
-      const oneTxPaymentClient = await getOneTxPaymentClient(colonyClient);
-      extensions.oneTx = new OneTxPayment(colony, oneTxPaymentClient);
-    } catch (e) {
-      // Ignore error here. Extension just won't be available.
-    }
-
-    colony.installExtensions(extensions);
-
-    return colony;
+    return Colony.init(this, colonyClient);
   }
 
   /**

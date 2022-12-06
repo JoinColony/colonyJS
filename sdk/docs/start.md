@@ -42,7 +42,7 @@ import { providers } from 'ethers';
 import { ColonyNetwork, toEth } from '@colony/sdk';
 
 // If MetaMask is installed there will be an `ethereum` object on the `window`
-// NOTE: Make sure MetaMask is connected to Gnosis chain (see https://www.xdaichain.com/for-users/wallets/metamask/metamask-setup)
+// NOTE: Make sure MetaMask is connected to Gnosis chain (see https://docs.gnosischain.com/tools/wallets/metamask)
 const provider = new providers.Web3Provider(window.ethereum);
 
 // Get the Colony's XDAI funding in the ROOT pot (id 1)
