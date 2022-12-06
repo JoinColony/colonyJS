@@ -29,7 +29,7 @@ const start = async () => {
   // Instantiate colony and token
   const colony = await colonyNetwork.getColony(colonyAddress);
   const token = await colony.getToken();
-  // Deploy TokanAuthority
+  // Deploy TokenAuthority
   const [{ tokenAuthorityAddress }] = await token
     .deployAuthority([colonyAddress])
     .force();
