@@ -32,6 +32,16 @@ export interface PermissionConfig {
   address?: string;
 }
 
+export interface TxConfig<M> {
+  metadataType?: M;
+  unsupported?: {
+    force?: boolean;
+    motion?: boolean;
+    forceMeta?: boolean;
+    motionMeta?: boolean;
+  };
+}
+
 interface EventData {
   metadata?: string;
 }
@@ -88,9 +98,9 @@ export class TxCreator<
 
   private eventData?: (receipt: ContractReceipt) => Promise<E>;
 
-  private metadataType?: MD;
-
   private permissionConfig?: PermissionConfig;
+
+  private txConfig?: TxConfig<MD>;
 
   constructor({
     colony,
@@ -99,8 +109,8 @@ export class TxCreator<
     method,
     args,
     eventData,
-    metadataType,
     permissionConfig,
+    txConfig,
   }: {
     colony?: Colony;
     colonyNetwork: ColonyNetwork;
@@ -110,6 +120,7 @@ export class TxCreator<
     eventData?: (receipt: ContractReceipt) => Promise<E>;
     metadataType?: MD;
     permissionConfig?: PermissionConfig;
+    txConfig?: TxConfig<MD>;
   }) {
     this.colony = colony;
     this.colonyNetwork = colonyNetwork;
@@ -117,8 +128,8 @@ export class TxCreator<
     this.method = method as string;
     this.args = args;
     this.eventData = eventData;
-    this.metadataType = metadataType;
     this.permissionConfig = permissionConfig;
+    this.txConfig = txConfig;
   }
 
   private async getArgs() {
@@ -155,10 +166,10 @@ export class TxCreator<
     if (this.eventData) {
       const data = await this.eventData(receipt);
 
-      if (this.metadataType && data.metadata) {
+      if (this.txConfig?.metadataType && data.metadata) {
         const getMetadata = this.colonyNetwork.ipfs.getMetadataForEvent.bind(
           this.colonyNetwork.ipfs,
-          IPFS_METADATA_EVENTS[this.metadataType],
+          IPFS_METADATA_EVENTS[this.txConfig.metadataType],
           data.metadata,
         ) as () => Promise<MetadataValue<MD>>;
 
@@ -269,6 +280,10 @@ export class TxCreator<
    * @returns A tupel of event data and contract receipt (and a function to retrieve metadata if applicable)
    */
   async force() {
+    if (this.txConfig?.unsupported?.force) {
+      throw new Error(`force() is not allowed for ${this.method}`);
+    }
+
     const args = await this.getArgs();
 
     const tx = (await this.contract.functions[this.method].apply(
@@ -289,6 +304,10 @@ export class TxCreator<
    * @returns A tupel of motion event data and contract receipt
    */
   async motion(motionDomain: BigNumberish = Id.RootDomain) {
+    if (this.txConfig?.unsupported?.motion) {
+      throw new Error(`motion() is not allowed for ${this.method}`);
+    }
+
     if (!this.colony) {
       throw new Error('Motions can only be created on a Colony');
     }
@@ -327,6 +346,10 @@ export class TxCreator<
    * @returns A tupel of event data and contract receipt (and a function to retrieve metadata if applicable)
    */
   async forceMeta() {
+    if (this.txConfig?.unsupported?.forceMeta) {
+      throw new Error(`forceMeta() is not allowed for ${this.method}`);
+    }
+
     const args = await this.getArgs();
 
     const encodedTransaction = this.contract.interface.encodeFunctionData(
@@ -350,6 +373,10 @@ export class TxCreator<
    * @returns A tupel of motion event data and contract receipt
    */
   async motionMeta(motionDomain: BigNumberish = Id.RootDomain) {
+    if (this.txConfig?.unsupported?.motionMeta) {
+      throw new Error(`motionMeta() is not allowed for ${this.method}`);
+    }
+
     if (!this.colony) {
       throw new Error('Motions can only be created on a Colony');
     }

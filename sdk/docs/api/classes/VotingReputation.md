@@ -118,10 +118,14 @@ ___
 
 ### approveStake
 
-▸ **approveStake**(`amount`, `teamId?`): `Promise`<[{ `amount?`: `BigNumber` ; `approvedBy?`: `string` ; `token?`: `string` ; `user?`: `string`  }, `ContractReceipt`]\>
+▸ **approveStake**(`amount`, `teamId?`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"approveStake"``, { `amount?`: `BigNumber` ; `approvedBy?`: `string` ; `token?`: `string` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Approve `amount` of the "activated" native tokens of a user for staking in a specific team
 After a token was "activated" (approved and deposited via the native token interface) it can be used for staking motions. To stake a motion, the token amount for staking has to be approved for the domain the motion was created in. See also the example in [VotingReputation.stakeMotion](VotingReputation.md#stakemotion)
+
+**`Remarks`**
+
+This method can't be executed as a motion
 
 #### Parameters
 
@@ -132,9 +136,9 @@ After a token was "activated" (approved and deposited via the native token inter
 
 #### Returns
 
-`Promise`<[{ `amount?`: `BigNumber` ; `approvedBy?`: `string` ; `token?`: `string` ; `user?`: `string`  }, `ContractReceipt`]\>
+[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"approveStake"``, { `amount?`: `BigNumber` ; `approvedBy?`: `string` ; `token?`: `string` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
-A tupel of event data and contract receipt
+A [TxCreator](TxCreator.md)
 
 **Event data**
 
@@ -147,45 +151,20 @@ A tupel of event data and contract receipt
 
 ___
 
-### createMotion
-
-▸ **createMotion**(`motionDomain`, `encodedAction`, `altTarget?`): `Promise`<[{ `creator?`: `string` ; `domainId?`: `BigNumber` ; `motionId?`: `BigNumber`  }, `ContractReceipt`]\>
-
-Create a motion using an encoded action
-
-**`Remarks`**
-
-You will usually not use this function directly, but use the `send` or `motion` functions of the [TxCreator](TxCreator.md) within the relevant contract.
-
-#### Parameters
-
-| Name | Type | Default value | Description |
-| :------ | :------ | :------ | :------ |
-| `motionDomain` | `BigNumberish` | `undefined` | The domain the motion will be created in |
-| `encodedAction` | `string` | `undefined` | The encoded action as a string |
-| `altTarget` | `string` | `'0x0'` | The contract to which we send the action - 0x0 for the colony (default) |
-
-#### Returns
-
-`Promise`<[{ `creator?`: `string` ; `domainId?`: `BigNumber` ; `motionId?`: `BigNumber`  }, `ContractReceipt`]\>
-
-A Motion object
-
-___
-
 ### finalizeMotion
 
-▸ **finalizeMotion**(`motionId`): `Promise`<[{ `action?`: `string` ; `executed?`: `boolean` ; `motionId?`: `BigNumber`  }, `ContractReceipt`]\>
+▸ **finalizeMotion**(`motionId`): [`TxCreator`](TxCreator.md)<`VotingReputationClientV7`, ``"finalizeMotion"``, { `action?`: `string` ; `executed?`: `boolean` ; `motionId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Finalize a motion, executing its action
 
 **`Remarks`**
 
-A motion cannot be finalized if:
-- The required Yay or Nay stake amount has not been reached
-- The staking period is not up yet
-- Voting is still in progress
-- The motion was already finalized
+* A motion cannot be finalized if:
+  - The required Yay or Nay stake amount has not been reached
+  - The staking period is not up yet
+  - Voting is still in progress
+  - The motion was already finalized
+* This method can't be executed as a motion
 
 #### Parameters
 
@@ -195,9 +174,9 @@ A motion cannot be finalized if:
 
 #### Returns
 
-`Promise`<[{ `action?`: `string` ; `executed?`: `boolean` ; `motionId?`: `BigNumber`  }, `ContractReceipt`]\>
+[`TxCreator`](TxCreator.md)<`VotingReputationClientV7`, ``"finalizeMotion"``, { `action?`: `string` ; `executed?`: `boolean` ; `motionId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
-A tupel of event data and contract receipt
+A [TxCreator](TxCreator.md)
 
 **Event data**
 
@@ -328,13 +307,14 @@ ___
 
 ### revealVote
 
-▸ **revealVote**(`motionId`, `vote?`): `Promise`<[{ `motionId?`: `BigNumber` ; `vote?`: `BigNumber` ; `voter?`: `string`  }, `ContractReceipt`]\>
+▸ **revealVote**(`motionId`, `vote?`): [`TxCreator`](TxCreator.md)<`VotingReputationClientV7`, ``"revealVote"``, { `motionId?`: `BigNumber` ; `vote?`: `BigNumber` ; `voter?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Reveal a vote for a motion
 
 **`Remarks`**
 
-In order for a vote to count it has to be revealed within the reveal period. Only then rewards can be paid out to the voter.
+* In order for a vote to count it has to be revealed within the reveal period. Only then rewards can be paid out to the voter.
+* This method can't be executed as a motion
 
 #### Parameters
 
@@ -345,9 +325,9 @@ In order for a vote to count it has to be revealed within the reveal period. Onl
 
 #### Returns
 
-`Promise`<[{ `motionId?`: `BigNumber` ; `vote?`: `BigNumber` ; `voter?`: `string`  }, `ContractReceipt`]\>
+[`TxCreator`](TxCreator.md)<`VotingReputationClientV7`, ``"revealVote"``, { `motionId?`: `BigNumber` ; `vote?`: `BigNumber` ; `voter?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
-A tupel of event data and contract receipt
+A [TxCreator](TxCreator.md)
 
 **Event data**
 
@@ -361,13 +341,14 @@ ___
 
 ### stakeMotion
 
-▸ **stakeMotion**(`motionId`, `vote`, `amount`): `Promise`<[{ `amount?`: `BigNumber` ; `eventIndex?`: `BigNumber` ; `motionId?`: `BigNumber` ; `staker?`: `string` ; `vote?`: `BigNumber`  }, `ContractReceipt`]\>
+▸ **stakeMotion**(`motionId`, `vote`, `amount`): [`TxCreator`](TxCreator.md)<`VotingReputationClientV7`, ``"stakeMotion"``, { `amount?`: `BigNumber` ; `eventIndex?`: `BigNumber` ; `motionId?`: `BigNumber` ; `staker?`: `string` ; `vote?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Stake `amount` to support a motion with your vote
 
 **`Remarks`**
 
-In order to stake a motion the amount to stake (or any amount higher than that) needs to be "activated" and approved for staking in the motion's team first. See below for a full example. Usually you would have more tokens "activated" or even approved for a domain than you would stake, to make this process more seamless
+* In order to stake a motion the amount to stake (or any amount higher than that) needs to be "activated" and approved for staking in the motion's team first. See below for a full example. Usually you would have more tokens "activated" or even approved for a domain than you would stake, to make this process more seamless
+* This method can't be executed as a motion
 
 **`Example`**
 
@@ -381,8 +362,8 @@ import { Vote, w } from '@colony/sdk';
   await token.approve(w`200`);
   // Deposit all of approved the tokens
   await token.deposit(w`200`);
-  // Approve 150 tokens for staking in the root domain
-  await colony.ext.motions.approveStake(w`150`);
+  // Approve 150 tokens for staking in the root domain (can only be forced)
+  await colony.ext.motions.approveStake(w`150`).force();
   // Stake 100 tokens for motion with id 3
   await colony.ext.motions.stakeMotion(3, Vote.Yay, w`100`);
 })();
@@ -398,9 +379,9 @@ import { Vote, w } from '@colony/sdk';
 
 #### Returns
 
-`Promise`<[{ `amount?`: `BigNumber` ; `eventIndex?`: `BigNumber` ; `motionId?`: `BigNumber` ; `staker?`: `string` ; `vote?`: `BigNumber`  }, `ContractReceipt`]\>
+[`TxCreator`](TxCreator.md)<`VotingReputationClientV7`, ``"stakeMotion"``, { `amount?`: `BigNumber` ; `eventIndex?`: `BigNumber` ; `motionId?`: `BigNumber` ; `staker?`: `string` ; `vote?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
-A tupel of event data and contract receipt
+A [TxCreator](TxCreator.md)
 
 **Event data**
 
@@ -416,9 +397,13 @@ ___
 
 ### submitVote
 
-▸ **submitVote**(`motionId`, `vote`): `Promise`<[{ `motionId?`: `BigNumber` ; `voter?`: `string`  }, `ContractReceipt`]\>
+▸ **submitVote**(`motionId`, `vote`): [`TxCreator`](TxCreator.md)<`VotingReputationClientV7`, ``"submitVote"``, { `motionId?`: `BigNumber` ; `voter?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Submit a vote for a motion
+
+**`Remarks`**
+
+This method can't be executed as a motion
 
 #### Parameters
 
@@ -429,9 +414,9 @@ Submit a vote for a motion
 
 #### Returns
 
-`Promise`<[{ `motionId?`: `BigNumber` ; `voter?`: `string`  }, `ContractReceipt`]\>
+[`TxCreator`](TxCreator.md)<`VotingReputationClientV7`, ``"submitVote"``, { `motionId?`: `BigNumber` ; `voter?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
-A tupel of event data and contract receipt
+A [TxCreator](TxCreator.md)
 
 **Event data**
 
