@@ -2218,9 +2218,9 @@ original function
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `address` | `string` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `address` | `string` | Address we want to look up |
 
 #### Returns
 

@@ -77,7 +77,7 @@ export interface ColonyNetworkClient extends IColonyNetwork {
    * We patch the original function to fix this problem. On any other network it will return the
    * original function
    *
-   * @param addr - Address we want to look up
+   * @param address - Address we want to look up
    *
    * @returns an ENS name in the form of `[username].user.joincolony.eth` or `[colonyName].colony.joincolony.eth`
    */
