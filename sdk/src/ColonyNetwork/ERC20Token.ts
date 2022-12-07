@@ -1,31 +1,26 @@
 import {
-  ColonyTokenClient,
+  Erc20TokenClient,
   TokenClientType,
   TokenLockingClient,
 } from '@colony/colony-js';
 import {
   ApprovalEventObject,
-  TokenAuthorityDeployedEventObject,
   UserTokenDepositedEventObject,
   UserTokenWithdrawnEventObject,
 } from '@colony/colony-js/extras';
 
 import type { BigNumberish } from 'ethers';
 import { extractEvent } from '../utils';
-
 import { Colony } from './Colony';
 
-export class ColonyToken {
+export class ERC20Token {
   private colony: Colony;
 
-  private tokenClient: ColonyTokenClient;
+  private tokenClient: Erc20TokenClient;
+
+  private tokenLockingClient: TokenLockingClient;
 
   address: string;
-
-  tokenLockingClient: TokenLockingClient;
-
-  // TODO: Add symbol, decimals
-  // Get symbol in colonyJS. Use async getToken function
 
   /**
    * Creates a new instance of a Colony's native Token
@@ -39,9 +34,9 @@ export class ColonyToken {
    */
   constructor(colony: Colony, tokenLockingClient: TokenLockingClient) {
     const colonyClient = colony.getInternalColonyClient();
-    if (colonyClient.tokenClient.tokenClientType !== TokenClientType.Colony) {
+    if (colonyClient.tokenClient.tokenClientType !== TokenClientType.Erc20) {
       throw new Error(
-        `Requested token is not a token deployed with Colony. Please use the Erc20Token class`,
+        `Requested token is a token deployed with Colony. Please use the ColonyToken class`,
       );
     }
     this.address = colonyClient.tokenClient.address;
@@ -56,8 +51,17 @@ export class ColonyToken {
    *
    * @returns The internally used TokenClient
    */
-  getInternalTokenClient(): ColonyTokenClient {
+  getInternalTokenClient(): Erc20TokenClient {
     return this.tokenClient;
+  }
+
+  /**
+   * Gets the token's name
+   *
+   * @returns The token's name (e.g. Colony Network Token)
+   */
+  async name() {
+    return this.tokenClient.name();
   }
 
   /**
@@ -70,37 +74,12 @@ export class ColonyToken {
   }
 
   /**
-   * Mints `amount` of a Colony's native token.
+   * Gets the token's decimals
    *
-   * @remarks
-   * Only works for tokens deployed with Colony (not imported tokens). Note that most tokens use 18 decimals, so add a bunch of zeros or use our `w` or `toWei` functions (see example). Also not that for tokens to be available in the Colony after funding, you need to call the [[Colony.claimFunds]] method after minting.
-   *
-   * @example
-   * ```typescript
-   * import { w } from '@colony/sdk';
-   *
-   * // Immediately executing async function
-   * (async function() {
-   *   const token = await colony.getToken();
-   *   // Mint 100 tokens of the Colony's native token
-   *   // (forced transaction example)
-   *   await token.mint(w`100`).force();
-   *   // Claim the minted tokens for the Colony
-   *   // (forced transaction example)
-   *   await colony.claimFunds().force();
-   * })();
-   * ```
-   *
-   * @param amount - Amount of the token to be minted
-   *
-   * @returns A [[TxCreator]]
+   * @returns The token's decimals (e.g. 18)
    */
-  mint(amount: BigNumberish) {
-    return this.colony.createColonyTxCreator(
-      this.colony.getInternalColonyClient(),
-      'mintTokens',
-      [amount],
-    );
+  async decimals() {
+    return this.tokenClient.decimals();
   }
 
   /**
@@ -134,16 +113,15 @@ export class ColonyToken {
    * | `guy` | string | Address of the TokenLocking contract |
    * | `wad` | BigNumber | Amount that was approved |
    */
-  async approve(amount: BigNumberish) {
-    const tx = await this.tokenClient.approve(
-      this.tokenLockingClient.address,
-      amount,
+  approve(amount: BigNumberish) {
+    return this.colony.colonyNetwork.createTxCreator(
+      this.tokenClient,
+      'approve',
+      [this.tokenLockingClient.address, amount],
+      async (receipt) => ({
+        ...extractEvent<ApprovalEventObject>('Approval', receipt),
+      }),
     );
-    const receipt = await tx.wait();
-    const data = {
-      ...extractEvent<ApprovalEventObject>('Approval', receipt),
-    };
-    return [data, receipt] as [typeof data, typeof receipt];
   }
 
   /**
@@ -271,46 +249,5 @@ export class ColonyToken {
       this.tokenClient.address,
       obligator,
     );
-  }
-
-  deployAuthority(allowedToTransfer?: string[]) {
-    const { colonyNetwork } = this.colony;
-    return colonyNetwork.createMetaTxCreator(
-      colonyNetwork.networkClient,
-      'deployTokenAuthority',
-      async () => {
-        let allowed: string[] = [];
-        const tokenLockingAddress =
-          await colonyNetwork.networkClient.getTokenLocking();
-        if (!allowedToTransfer) {
-          allowed = [tokenLockingAddress];
-        } else {
-          allowed = [...allowedToTransfer, tokenLockingAddress];
-        }
-        return [this.address, this.colony.address, allowed] as [
-          string,
-          string,
-          string[],
-        ];
-      },
-      async (receipt) => ({
-        ...extractEvent<TokenAuthorityDeployedEventObject>(
-          'TokenAuthorityDeployed',
-          receipt,
-        ),
-      }),
-    );
-  }
-
-  setAuthority(tokenAuthorityAddress: string) {
-    return this.colony.createColonyTxCreator(this.tokenClient, 'setAuthority', [
-      tokenAuthorityAddress,
-    ]);
-  }
-
-  setupColonyAsOwner() {
-    return this.colony.createColonyTxCreator(this.tokenClient, 'setOwner', [
-      this.colony.address,
-    ]);
   }
 }

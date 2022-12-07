@@ -19,9 +19,9 @@ The exact lifecycle is determined by the parameters that were set when the `Voti
 
 #### Creating a Motion
 
-See [TxCreator.motion](TxCreator.md#motion) or [TxCreator.motionMeta](TxCreator.md#motionmeta).
+See [ColonyTxCreator.motion](ColonyTxCreator.md#motion) or [ColonyTxCreator.motionMeta](ColonyTxCreator.md#motionmeta).
 
-Anyone within a Colony can start a motion. In Colony SDK, this is as easy as sending a transaction of the same kind. There the `action` (the contract transaction) for the Motion will be defined. This is essentially nothing else than an encoded contract function string alongside its parameters (see for detailed info [here](https://medium.com/linum-labs/a-technical-primer-on-using-encoded-function-calls-50e2b9939223) - but don't worry. In Colony SDK this will all be taken care of by the [TxCreator](TxCreator.md)).
+Anyone within a Colony can start a motion. In Colony SDK, this is as easy as sending a transaction of the same kind. There the `action` (the contract transaction) for the Motion will be defined. This is essentially nothing else than an encoded contract function string alongside its parameters (see for detailed info [here](https://medium.com/linum-labs/a-technical-primer-on-using-encoded-function-calls-50e2b9939223) - but don't worry. In Colony SDK this will all be taken care of by the [ColonyTxCreator](ColonyTxCreator.md)).
 
  #### Staking
 
@@ -118,7 +118,7 @@ ___
 
 ### approveStake
 
-▸ **approveStake**(`amount`, `teamId?`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"approveStake"``, { `amount?`: `BigNumber` ; `approvedBy?`: `string` ; `token?`: `string` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **approveStake**(`amount`, `teamId?`): [`MetaTxCreator`](MetaTxCreator.md)<`ColonyClientV10`, ``"approveStake"``, { `amount?`: `BigNumber` ; `approvedBy?`: `string` ; `token?`: `string` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Approve `amount` of the "activated" native tokens of a user for staking in a specific team
 After a token was "activated" (approved and deposited via the native token interface) it can be used for staking motions. To stake a motion, the token amount for staking has to be approved for the domain the motion was created in. See also the example in [VotingReputation.stakeMotion](VotingReputation.md#stakemotion)
@@ -136,9 +136,9 @@ This method can't be executed as a motion
 
 #### Returns
 
-[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"approveStake"``, { `amount?`: `BigNumber` ; `approvedBy?`: `string` ; `token?`: `string` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`MetaTxCreator`](MetaTxCreator.md)<`ColonyClientV10`, ``"approveStake"``, { `amount?`: `BigNumber` ; `approvedBy?`: `string` ; `token?`: `string` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
-A [TxCreator](TxCreator.md)
+A transaction creator
 
 **Event data**
 
@@ -153,7 +153,7 @@ ___
 
 ### finalizeMotion
 
-▸ **finalizeMotion**(`motionId`): [`TxCreator`](TxCreator.md)<`VotingReputationClientV7`, ``"finalizeMotion"``, { `action?`: `string` ; `executed?`: `boolean` ; `motionId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **finalizeMotion**(`motionId`): [`MetaTxCreator`](MetaTxCreator.md)<`VotingReputationClientV7`, ``"finalizeMotion"``, { `action?`: `string` ; `executed?`: `boolean` ; `motionId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Finalize a motion, executing its action
 
@@ -174,9 +174,9 @@ Finalize a motion, executing its action
 
 #### Returns
 
-[`TxCreator`](TxCreator.md)<`VotingReputationClientV7`, ``"finalizeMotion"``, { `action?`: `string` ; `executed?`: `boolean` ; `motionId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`MetaTxCreator`](MetaTxCreator.md)<`VotingReputationClientV7`, ``"finalizeMotion"``, { `action?`: `string` ; `executed?`: `boolean` ; `motionId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
-A [TxCreator](TxCreator.md)
+A transaction creator
 
 **Event data**
 
@@ -307,7 +307,7 @@ ___
 
 ### revealVote
 
-▸ **revealVote**(`motionId`, `vote?`): [`TxCreator`](TxCreator.md)<`VotingReputationClientV7`, ``"revealVote"``, { `motionId?`: `BigNumber` ; `vote?`: `BigNumber` ; `voter?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **revealVote**(`motionId`, `vote?`): [`MetaTxCreator`](MetaTxCreator.md)<`VotingReputationClientV7`, ``"revealVote"``, { `motionId?`: `BigNumber` ; `vote?`: `BigNumber` ; `voter?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Reveal a vote for a motion
 
@@ -325,9 +325,9 @@ Reveal a vote for a motion
 
 #### Returns
 
-[`TxCreator`](TxCreator.md)<`VotingReputationClientV7`, ``"revealVote"``, { `motionId?`: `BigNumber` ; `vote?`: `BigNumber` ; `voter?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`MetaTxCreator`](MetaTxCreator.md)<`VotingReputationClientV7`, ``"revealVote"``, { `motionId?`: `BigNumber` ; `vote?`: `BigNumber` ; `voter?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
-A [TxCreator](TxCreator.md)
+A transaction creator
 
 **Event data**
 
@@ -341,7 +341,7 @@ ___
 
 ### stakeMotion
 
-▸ **stakeMotion**(`motionId`, `vote`, `amount`): [`TxCreator`](TxCreator.md)<`VotingReputationClientV7`, ``"stakeMotion"``, { `amount?`: `BigNumber` ; `eventIndex?`: `BigNumber` ; `motionId?`: `BigNumber` ; `staker?`: `string` ; `vote?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **stakeMotion**(`motionId`, `vote`, `amount`): [`MetaTxCreator`](MetaTxCreator.md)<`VotingReputationClientV7`, ``"stakeMotion"``, { `amount?`: `BigNumber` ; `eventIndex?`: `BigNumber` ; `motionId?`: `BigNumber` ; `staker?`: `string` ; `vote?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Stake `amount` to support a motion with your vote
 
@@ -379,9 +379,9 @@ import { Vote, w } from '@colony/sdk';
 
 #### Returns
 
-[`TxCreator`](TxCreator.md)<`VotingReputationClientV7`, ``"stakeMotion"``, { `amount?`: `BigNumber` ; `eventIndex?`: `BigNumber` ; `motionId?`: `BigNumber` ; `staker?`: `string` ; `vote?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`MetaTxCreator`](MetaTxCreator.md)<`VotingReputationClientV7`, ``"stakeMotion"``, { `amount?`: `BigNumber` ; `eventIndex?`: `BigNumber` ; `motionId?`: `BigNumber` ; `staker?`: `string` ; `vote?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
-A [TxCreator](TxCreator.md)
+A transaction creator
 
 **Event data**
 
@@ -397,7 +397,7 @@ ___
 
 ### submitVote
 
-▸ **submitVote**(`motionId`, `vote`): [`TxCreator`](TxCreator.md)<`VotingReputationClientV7`, ``"submitVote"``, { `motionId?`: `BigNumber` ; `voter?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **submitVote**(`motionId`, `vote`): [`MetaTxCreator`](MetaTxCreator.md)<`VotingReputationClientV7`, ``"submitVote"``, { `motionId?`: `BigNumber` ; `voter?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Submit a vote for a motion
 
@@ -414,9 +414,9 @@ This method can't be executed as a motion
 
 #### Returns
 
-[`TxCreator`](TxCreator.md)<`VotingReputationClientV7`, ``"submitVote"``, { `motionId?`: `BigNumber` ; `voter?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`MetaTxCreator`](MetaTxCreator.md)<`VotingReputationClientV7`, ``"submitVote"``, { `motionId?`: `BigNumber` ; `voter?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
-A [TxCreator](TxCreator.md)
+A transaction creator
 
 **Event data**
 

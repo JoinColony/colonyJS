@@ -53,7 +53,7 @@ If this is not an option, Colony SDK might throw errors at certain points. Usage
 
 ### annotateTransaction
 
-▸ **annotateTransaction**(`txHash`, `annotationMetadata`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, [`Annotation`](../enums/MetadataType.md#annotation)\>
+▸ **annotateTransaction**(`txHash`, `annotationMetadata`): [`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, [`Annotation`](../enums/MetadataType.md#annotation)\>
 
 Annotate a transaction with IPFS metadata to provide extra information
 
@@ -92,9 +92,9 @@ If [AnnotationMetadata](../interfaces/AnnotationMetadata.md) is provided directl
 
 #### Returns
 
-[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, [`Annotation`](../enums/MetadataType.md#annotation)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, [`Annotation`](../enums/MetadataType.md#annotation)\>
 
-A [TxCreator](TxCreator.md)
+A transaction creator
 
 **Event data**
 
@@ -108,7 +108,7 @@ ___
 
 ### claimFunds
 
-▸ **claimFunds**(`tokenAddress?`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"claimColonyFunds"``, { `fee?`: `BigNumber` ; `payoutRemainder?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **claimFunds**(`tokenAddress?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"claimColonyFunds"``, { `fee?`: `BigNumber` ; `payoutRemainder?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Claim outstanding Colony funds
 
@@ -126,9 +126,9 @@ use `ethers.constants.AddressZero` to claim ETH.
 
 #### Returns
 
-[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"claimColonyFunds"``, { `fee?`: `BigNumber` ; `payoutRemainder?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"claimColonyFunds"``, { `fee?`: `BigNumber` ; `payoutRemainder?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
-A [TxCreator](TxCreator.md)
+A transaction creator
 
 **Event data**
 
@@ -143,7 +143,7 @@ ___
 
 ### createTeam
 
-▸ **createTeam**(`metadata`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"addDomain(uint256,uint256,uint256,string)"``, { `domainId`: `BigNumber` ; `fundingPotId`: `BigNumber` ; `metadata`: `string`  }, [`Domain`](../enums/MetadataType.md#domain)\>
+▸ **createTeam**(`metadata`): [`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"addDomain(uint256,uint256,uint256,string)"``, { `domainId`: `BigNumber` ; `fundingPotId`: `BigNumber` ; `metadata`: `string`  }, [`Domain`](../enums/MetadataType.md#domain)\>
 
 Create a team (domain) within a Colony with team details as metadata
 
@@ -177,9 +177,9 @@ import { TeamColor } from '@colony/sdk';
 
 #### Returns
 
-[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"addDomain(uint256,uint256,uint256,string)"``, { `domainId`: `BigNumber` ; `fundingPotId`: `BigNumber` ; `metadata`: `string`  }, [`Domain`](../enums/MetadataType.md#domain)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"addDomain(uint256,uint256,uint256,string)"``, { `domainId`: `BigNumber` ; `fundingPotId`: `BigNumber` ; `metadata`: `string`  }, [`Domain`](../enums/MetadataType.md#domain)\>
 
-A [TxCreator](TxCreator.md)
+A transaction creator
 
 **Event data**
 
@@ -198,7 +198,7 @@ A [TxCreator](TxCreator.md)
 | `domainColor` | string | The color assigned to this team |
 | `domainPurpose` | string | The purpose for this team (a broad description) |
 
-▸ **createTeam**(): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"addDomain(uint256,uint256,uint256,string)"``, { `domainId`: `BigNumber` ; `fundingPotId`: `BigNumber` ; `metadata`: `undefined`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **createTeam**(): [`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"addDomain(uint256,uint256,uint256,string)"``, { `domainId`: `BigNumber` ; `fundingPotId`: `BigNumber` ; `metadata`: `undefined`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Create a team (domain) within a Colony with no metadata attached
 
@@ -208,9 +208,9 @@ Currently you can only add domains within the `Root` domain. This restriction wi
 
 #### Returns
 
-[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"addDomain(uint256,uint256,uint256,string)"``, { `domainId`: `BigNumber` ; `fundingPotId`: `BigNumber` ; `metadata`: `undefined`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"addDomain(uint256,uint256,uint256,string)"``, { `domainId`: `BigNumber` ; `fundingPotId`: `BigNumber` ; `metadata`: `undefined`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
-A [TxCreator](TxCreator.md)
+A transaction creator
 
 **Event data**
 
@@ -224,7 +224,7 @@ ___
 
 ### deprecateTeam
 
-▸ **deprecateTeam**(`teamId`, `deprecated`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"deprecateDomain"``, { `agent?`: `string` ; `deprecated?`: `boolean` ; `domainId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **deprecateTeam**(`teamId`, `deprecated`): [`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"deprecateDomain"``, { `agent?`: `string` ; `deprecated?`: `boolean` ; `domainId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Deprecate (remove) or undeprecate a team
 
@@ -239,9 +239,9 @@ Teams can be deprecated which will remove them from the UI. As they can't be del
 
 #### Returns
 
-[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"deprecateDomain"``, { `agent?`: `string` ; `deprecated?`: `boolean` ; `domainId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"deprecateDomain"``, { `agent?`: `string` ; `deprecated?`: `boolean` ; `domainId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
-A [TxCreator](TxCreator.md)
+A transaction creator
 
 **Event data**
 
@@ -363,7 +363,7 @@ ___
 
 ### installExtension
 
-▸ **installExtension**(`extension`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"installExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **installExtension**(`extension`): [`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"installExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Install an extension for a colony
 
@@ -398,9 +398,9 @@ After an extension was installed, `colony.updateExtensions()` needs to be called
 
 #### Returns
 
-[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"installExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"installExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
-A [TxCreator](TxCreator.md)
+A transaction creator
 
 **Event data**
 
@@ -414,7 +414,7 @@ ___
 
 ### makeArbitraryTransaction
 
-▸ **makeArbitraryTransaction**(`target`, `action`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"makeArbitraryTransactions"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **makeArbitraryTransaction**(`target`, `action`): [`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"makeArbitraryTransactions"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
 
 Execute an arbitrary transaction in the name of the Colony
 
@@ -457,9 +457,9 @@ const encodedAction = ERC721.encodeFunctionData(
 
 #### Returns
 
-[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"makeArbitraryTransactions"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"makeArbitraryTransactions"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
 
-A [TxCreator](TxCreator.md)
+A transaction creator
 
 **No event data**
 
@@ -467,7 +467,7 @@ ___
 
 ### moveFundsToTeam
 
-▸ **moveFundsToTeam**(`amount`, `toTeam`, `fromTeam?`, `tokenAddress?`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `fromPot?`: `BigNumber` ; `toPot?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **moveFundsToTeam**(`amount`, `toTeam`, `fromTeam?`, `tokenAddress?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `fromPot?`: `BigNumber` ; `toPot?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Move funds from one team to another
 
@@ -505,9 +505,9 @@ import { Tokens, w } from '@colony/sdk';
 
 #### Returns
 
-[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `fromPot?`: `BigNumber` ; `toPot?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `fromPot?`: `BigNumber` ; `toPot?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
-A [TxCreator](TxCreator.md)
+A transaction creator
 
 **Event data**
 
@@ -523,7 +523,7 @@ ___
 
 ### setRoles
 
-▸ **setRoles**(`address`, `roles`, `teamId?`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"setUserRoles"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `role?`: `number` ; `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **setRoles**(`address`, `roles`, `teamId?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"setUserRoles"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `role?`: `number` ; `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Set (award) roles to a user/contract
 
@@ -557,9 +557,9 @@ import { ColonyRole } from '@colony/sdk';
 
 #### Returns
 
-[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"setUserRoles"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `role?`: `number` ; `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"setUserRoles"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `role?`: `number` ; `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
-A [TxCreator](TxCreator.md)
+A transaction creator
 
 **Event data**
 Heads up!* This event is emitted for every role that was set
@@ -576,7 +576,7 @@ ___
 
 ### unsetRoles
 
-▸ **unsetRoles**(`address`, `roles`, `teamId?`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"setUserRoles"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `role?`: `number` ; `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **unsetRoles**(`address`, `roles`, `teamId?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"setUserRoles"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `role?`: `number` ; `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Unset (remove) roles from a user/contract
 
@@ -590,9 +590,9 @@ Unset (remove) roles from a user/contract
 
 #### Returns
 
-[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"setUserRoles"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `role?`: `number` ; `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"setUserRoles"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `role?`: `number` ; `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
-A [TxCreator](TxCreator.md)
+A transaction creator
 
 **Event data**
 Heads up!* This event is emitted for every role that was unset

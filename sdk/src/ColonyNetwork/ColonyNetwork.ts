@@ -18,10 +18,10 @@ import {
 } from '@colony/colony-event-metadata-parser';
 
 import { IpfsMetadata, IpfsAdapter } from '../ipfs';
+import { BaseContract, TxConfig, TxCreator, MetaTxCreator } from '../TxCreator';
 import { Colony } from './Colony';
 import { ColonyLabelSuffix, MetaTxBroadCasterEndpoint } from '../constants';
 import { Expand, Parameters } from '../types';
-import { TxConfig, TxCreator } from './TxCreator';
 import { extractEvent } from '../utils';
 
 const { namehash } = utils;
@@ -96,7 +96,7 @@ export class ColonyNetwork {
   }
 
   /**
-   * Creates a new [[TxCreator]] ColonyNetwork transactions
+   * Creates a new [[TxCreator]] for non-meta, non-motion transactions
    * @internal
    *
    * @remarks
@@ -110,7 +110,7 @@ export class ColonyNetwork {
    * @returns A [[TxCreator]]
    */
   createTxCreator<
-    C extends IBasicMetaTransaction,
+    C extends BaseContract,
     F extends keyof C['functions'],
     D extends Record<string, unknown>,
     M extends MetadataType,
@@ -124,6 +124,44 @@ export class ColonyNetwork {
     txConfig?: TxConfig<M>,
   ) {
     return new TxCreator({
+      colonyNetwork: this,
+      contract,
+      method,
+      args,
+      eventData,
+      txConfig,
+    });
+  }
+
+  /**
+   * Creates a new [[MetaTxCreator]] for possibly meta, non-motion transactions
+   * @internal
+   *
+   * @remarks
+   * Do not use this method directly but rather the class methods in the Colony or extensions
+   *
+   * @param contract - A ColonyJS contract
+   * @param method - The transaction method to execute on the contract
+   * @param args - The arguments for the method
+   * @param eventData - A function that extracts the relevant event data from the [[ContractReceipt]]
+   * @param txConfig - More configuration options, like [[MetadataType]] if the event contains metadata or if methods are unsupported
+   * @returns A [[MetaTxCreator]]
+   */
+  createMetaTxCreator<
+    C extends IBasicMetaTransaction,
+    F extends keyof C['functions'],
+    D extends Record<string, unknown>,
+    M extends MetadataType,
+  >(
+    contract: C,
+    method: F,
+    args:
+      | Parameters<C['functions'][F]>
+      | (() => Promise<Parameters<C['functions'][F]>>),
+    eventData?: (receipt: ContractReceipt) => Promise<D>,
+    txConfig?: TxConfig<M>,
+  ) {
+    return new MetaTxCreator({
       colonyNetwork: this,
       contract,
       method,
@@ -164,7 +202,7 @@ export class ColonyNetwork {
    *
    * @param metadata - The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[ColonyMetadata]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
    *
-   * @returns A [[TxCreator]]
+   * @returns A transaction creator
    *
    * **Event data**
    *
@@ -187,7 +225,7 @@ export class ColonyNetwork {
     tokenAddress: string,
     label: string,
     metadata: ColonyMetadata | string,
-  ): TxCreator<
+  ): MetaTxCreator<
     ColonyNetworkClient,
     'createColony(address,uint256,string,string)',
     Expand<ColonyAddedEventObject & ColonyMetadataEventObject>,
@@ -215,7 +253,7 @@ export class ColonyNetwork {
    * })();
    * ```
    *
-   * @returns A [[TxCreator]]
+   * @returns A transaction creator
    *
    * **Event data**
    *
@@ -228,7 +266,7 @@ export class ColonyNetwork {
   createColony(
     tokenAddress: string,
     label: string,
-  ): TxCreator<
+  ): MetaTxCreator<
     ColonyNetworkClient,
     'createColony(address,uint256,string)',
     Expand<ColonyAddedEventObject & { metadata?: undefined }>,
@@ -254,7 +292,7 @@ export class ColonyNetwork {
     };
 
     if (!metadata) {
-      return this.createTxCreator(
+      return this.createMetaTxCreator(
         this.networkClient,
         'createColony(address,uint256,string)',
         checkLabel,
@@ -264,7 +302,7 @@ export class ColonyNetwork {
       );
     }
 
-    return this.createTxCreator(
+    return this.createMetaTxCreator(
       this.networkClient,
       'createColony(address,uint256,string,string)',
       async () => {
@@ -370,10 +408,10 @@ export class ColonyNetwork {
    * @remarks
    * The token deployed with this function is locked by default. Call `unlockToken()` on the Colony at a later point to unlock it.
    *
-   * @returns The colony's address
+   * @returns A transaction creator
    */
   deployToken(name: string, symbol: string, decimals = 18) {
-    return this.createTxCreator(
+    return this.createMetaTxCreator(
       this.networkClient,
       'deployTokenViaNetwork',
       [name, symbol, decimals],

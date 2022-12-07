@@ -25,6 +25,8 @@
 - [ColonyEventManager](classes/ColonyEventManager.md)
 - [ColonyNetwork](classes/ColonyNetwork.md)
 - [ColonyToken](classes/ColonyToken.md)
+- [ColonyTxCreator](classes/ColonyTxCreator.md)
+- [MetaTxCreator](classes/MetaTxCreator.md)
 - [OneTxPayment](classes/OneTxPayment.md)
 - [PinataAdapter](classes/PinataAdapter.md)
 - [TxCreator](classes/TxCreator.md)
@@ -33,6 +35,7 @@
 ## Interfaces
 
 - [AnnotationMetadata](interfaces/AnnotationMetadata.md)
+- [BaseContract](interfaces/BaseContract.md)
 - [ColonyEvent](interfaces/ColonyEvent.md)
 - [ColonyEventManagerOptions](interfaces/ColonyEventManagerOptions.md)
 - [ColonyFilter](interfaces/ColonyFilter.md)
@@ -45,9 +48,13 @@
 - [Ethers6FilterByBlockHash](interfaces/Ethers6FilterByBlockHash.md)
 - [EventSources](interfaces/EventSources.md)
 - [IpfsAdapter](interfaces/IpfsAdapter.md)
+- [MetaTxBaseContract](interfaces/MetaTxBaseContract.md)
 - [NetworkClientOptions](interfaces/NetworkClientOptions.md)
 - [ParsedLogTransactionReceipt](interfaces/ParsedLogTransactionReceipt.md)
+- [PermissionConfig](interfaces/PermissionConfig.md)
 - [SupportedExtensions](interfaces/SupportedExtensions.md)
+- [TxConfig](interfaces/TxConfig.md)
+- [TxCreatorConfig](interfaces/TxCreatorConfig.md)
 
 ## Type Aliases
 

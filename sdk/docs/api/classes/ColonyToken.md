@@ -61,7 +61,7 @@ ___
 
 ### deployAuthority
 
-▸ **deployAuthority**(`allowedToTransfer?`): [`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"deployTokenAuthority"``, { `tokenAuthorityAddress?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **deployAuthority**(`allowedToTransfer?`): [`MetaTxCreator`](MetaTxCreator.md)<`ColonyNetworkClient`, ``"deployTokenAuthority"``, { `tokenAuthorityAddress?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 #### Parameters
 
@@ -71,7 +71,7 @@ ___
 
 #### Returns
 
-[`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"deployTokenAuthority"``, { `tokenAuthorityAddress?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`MetaTxCreator`](MetaTxCreator.md)<`ColonyNetworkClient`, ``"deployTokenAuthority"``, { `tokenAuthorityAddress?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 ___
 
@@ -167,7 +167,7 @@ ___
 
 ### mint
 
-▸ **mint**(`amount`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"mintTokens"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **mint**(`amount`): [`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"mintTokens"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
 
 Mints `amount` of a Colony's native token.
 
@@ -200,7 +200,7 @@ import { w } from '@colony/sdk';
 
 #### Returns
 
-[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"mintTokens"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"mintTokens"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
 
 A [TxCreator](TxCreator.md)
 
@@ -208,7 +208,7 @@ ___
 
 ### setAuthority
 
-▸ **setAuthority**(`tokenAuthorityAddress`): [`TxCreator`](TxCreator.md)<`ColonyTokenClient`, ``"setAuthority"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **setAuthority**(`tokenAuthorityAddress`): [`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyTokenClient`, ``"setAuthority"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
 
 #### Parameters
 
@@ -218,17 +218,17 @@ ___
 
 #### Returns
 
-[`TxCreator`](TxCreator.md)<`ColonyTokenClient`, ``"setAuthority"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyTokenClient`, ``"setAuthority"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
 
 ___
 
 ### setupColonyAsOwner
 
-▸ **setupColonyAsOwner**(): [`TxCreator`](TxCreator.md)<`ColonyTokenClient`, ``"setOwner"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **setupColonyAsOwner**(): [`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyTokenClient`, ``"setOwner"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
 
 #### Returns
 
-[`TxCreator`](TxCreator.md)<`ColonyTokenClient`, ``"setOwner"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyTokenClient`, ``"setOwner"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
 
 ___
 

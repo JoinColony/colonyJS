@@ -64,7 +64,7 @@ ___
 
 ### createColony
 
-▸ **createColony**(`tokenAddress`, `label`, `metadata`): [`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"createColony(address,uint256,string,string)"``, { `agent`: `string` ; `colonyAddress`: `string` ; `colonyId`: `BigNumber` ; `metadata`: `string` ; `token`: `string`  }, [`Colony`](../enums/MetadataType.md#colony)\>
+▸ **createColony**(`tokenAddress`, `label`, `metadata`): [`MetaTxCreator`](MetaTxCreator.md)<`ColonyNetworkClient`, ``"createColony(address,uint256,string,string)"``, { `agent`: `string` ; `colonyAddress`: `string` ; `colonyId`: `BigNumber` ; `metadata`: `string` ; `token`: `string`  }, [`Colony`](../enums/MetadataType.md#colony)\>
 
 Create a new Colony with metadata
 
@@ -106,9 +106,9 @@ import { Tokens } from '@colony/sdk';
 
 #### Returns
 
-[`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"createColony(address,uint256,string,string)"``, { `agent`: `string` ; `colonyAddress`: `string` ; `colonyId`: `BigNumber` ; `metadata`: `string` ; `token`: `string`  }, [`Colony`](../enums/MetadataType.md#colony)\>
+[`MetaTxCreator`](MetaTxCreator.md)<`ColonyNetworkClient`, ``"createColony(address,uint256,string,string)"``, { `agent`: `string` ; `colonyAddress`: `string` ; `colonyId`: `BigNumber` ; `metadata`: `string` ; `token`: `string`  }, [`Colony`](../enums/MetadataType.md#colony)\>
 
-A [TxCreator](TxCreator.md)
+A transaction creator
 
 **Event data**
 
@@ -127,7 +127,7 @@ A [TxCreator](TxCreator.md)
 | `colonyAvatarHash` | string | An IPFS hash for a Colony logo (make it 200x200px) |
 | `colonyTokens` | string[] | A list of additional tokens that should be in the colony's "address book" |
 
-▸ **createColony**(`tokenAddress`, `label`): [`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"createColony(address,uint256,string)"``, { `colonyAddress`: `string` ; `colonyId`: `BigNumber` ; `metadata?`: `undefined` ; `token`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **createColony**(`tokenAddress`, `label`): [`MetaTxCreator`](MetaTxCreator.md)<`ColonyNetworkClient`, ``"createColony(address,uint256,string)"``, { `colonyAddress`: `string` ; `colonyId`: `BigNumber` ; `metadata?`: `undefined` ; `token`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Create a new Colony without metadata
 
@@ -160,9 +160,9 @@ There is more to creating a fully functional colony that can be used within the 
 
 #### Returns
 
-[`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"createColony(address,uint256,string)"``, { `colonyAddress`: `string` ; `colonyId`: `BigNumber` ; `metadata?`: `undefined` ; `token`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`MetaTxCreator`](MetaTxCreator.md)<`ColonyNetworkClient`, ``"createColony(address,uint256,string)"``, { `colonyAddress`: `string` ; `colonyId`: `BigNumber` ; `metadata?`: `undefined` ; `token`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
-A [TxCreator](TxCreator.md)
+A transaction creator
 
 **Event data**
 
@@ -176,7 +176,7 @@ ___
 
 ### deployToken
 
-▸ **deployToken**(`name`, `symbol`, `decimals?`): [`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"deployTokenViaNetwork"``, { `tokenAddress?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **deployToken**(`name`, `symbol`, `decimals?`): [`MetaTxCreator`](MetaTxCreator.md)<`ColonyNetworkClient`, ``"deployTokenViaNetwork"``, { `tokenAddress?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Deploy a "special" colony ERC20 token
 
@@ -198,9 +198,9 @@ The token deployed with this function is locked by default. Call `unlockToken()`
 
 #### Returns
 
-[`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"deployTokenViaNetwork"``, { `tokenAddress?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`MetaTxCreator`](MetaTxCreator.md)<`ColonyNetworkClient`, ``"deployTokenViaNetwork"``, { `tokenAddress?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
-The colony's address
+A transaction creator
 
 ___
 
