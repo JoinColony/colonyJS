@@ -18,13 +18,13 @@ So what does this mean? Let's look at an example. We would like to create a team
 // Immediately executing async function
 (async function() {
   // Create a new team (domain) within our colony (using sheer force ;) )
-  const [{ domainId }] = await colony.createTeam().force();
+  const [{ domainId }] = await colony.createTeam().tx();
 })();
 ```
 
-**Note the `force()` at the end.** That's where we tell Colony SDK to create a transaction that will take its action immediately, given we have the right permissions.
+**Note the `tx()` at the end.** That's where we tell Colony SDK to create a transaction that will take its action immediately, given we have the right permissions.
 
-If we wanted to create a motion instead (see [VotingReputation](../api/classes/VotingReputation.md)) to create a new team, we'd replace `force()` with `motion(motionTeam)`:
+If we wanted to create a motion instead (see [VotingReputation](../api/classes/VotingReputation.md)) to create a new team, we'd replace `tx()` with `motion(motionTeam)`:
 
 ```typescript
 import { Id } from '@colony/sdk';
@@ -42,7 +42,7 @@ Note that you have to supply a `motionTeam` when creating a motion. This is the 
 
 ## Creating gasless transactions and motions (MetaTransactions)
 
-Colony SDK supports another way of sending off transactions or motions which we call *MetaTransactions*. These are gasless transactions (which makes them entirely free for the user) and are signed by the user who wants to issue them and send off by a Colony server. To send a MetaTransaction, just use `forceMeta()` instead of `force()` and `motionMeta()` instead of `motion()`. The wallet then needs to sign a message instead of a transaction, which will be transferred to the Colony MetaTransaction broadcaster. The broadcaster will send back a transaction id from which the receipt and event data will be retrieved as usual.
+Colony SDK supports another way of sending off transactions or motions which we call *MetaTransactions*. These are gasless transactions (which makes them entirely free for the user) and are signed by the user who wants to issue them and send off by a Colony server. To send a MetaTransaction, just use `metaTx()` instead of `tx()` and `metaMotion()` instead of `motion()`. The wallet then needs to sign a message instead of a transaction, which will be transferred to the Colony MetaTransaction broadcaster. The broadcaster will send back a transaction id from which the receipt and event data will be retrieved as usual.
 
 Here's an example on how to file a motion through a metatransaction:
 
@@ -51,7 +51,7 @@ import { Id } from '@colony/sdk';
 // Immediately executing async function
 (async function() {
   // Create a motion in the Root team to create a new team using a metatransaction
-  const [{ motionId }] = await colony.createTeam().motionMeta();
+  const [{ motionId }] = await colony.createTeam().metaMotion();
 })();
 ```
 
@@ -59,14 +59,14 @@ import { Id } from '@colony/sdk';
 
 Okay, what did we learn? Here's a little overview:
 
-### Force a transaction
+### Create an immediate action
 
-- [TxCreator.force](../api/classes/TxCreator.md#force): force a Colony transaction, knowing you have the permissions to do so
-- [TxCreator.forceMeta](../api/classes/TxCreator.md#forcemeta): same as `force()`, but send as a gasless metatransaction
+- [TxCreator.tx](../api/classes/TxCreator.md#tx): create ("force") a Colony transaction, knowing you have the permissions to do so
+- [TxCreator.metaTx](../api/classes/TxCreator.md#metatx): same as `tx()`, but send as a gasless metatransaction
 
 ### Create a motion to trigger an action once it passes
 
 - [TxCreator.motion](../api/classes/TxCreator.md#motion): create a motion (needs the motion's domain as a parameter)
-- [TxCreator.motionMeta](../api/classes/TxCreator.md#motionmeta): same as `motion()`, but sends a gasless metatransaction
+- [TxCreator.metaMotion](../api/classes/TxCreator.md#metamotion): same as `motion()`, but sends a gasless metatransaction
 
 Also refer to the [TxCreator](../api/classes/TxCreator.md) documentation if you'd like to learn more.

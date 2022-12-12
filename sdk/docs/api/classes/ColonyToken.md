@@ -1,24 +1,51 @@
 # Class: ColonyToken
 
+## Hierarchy
+
+- `ERC20Token`
+
+  ↳ **`ColonyToken`**
+
+## Constructors
+
+### constructor
+
+• **new ColonyToken**(`colonyNetwork`, `token`)
+
+Creates a new instance of a Colony deployed Token
+
+**`Remarks`**
+
+This does not deploy a new token, only connects to an exisiting one
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `colonyNetwork` | [`ColonyNetwork`](ColonyNetwork.md) | A [ColonyNetwork](ColonyNetwork.md) instance |
+| `token` | `string` \| `MetaTxToken` | A token address or a full contract (like on a colony token client) |
+
+#### Overrides
+
+ERC20Token.constructor
+
 ## Properties
 
 ### address
 
 • **address**: `string`
 
-___
+#### Inherited from
 
-### tokenLockingClient
-
-• **tokenLockingClient**: `TokenLockingClient`
+ERC20Token.address
 
 ## Methods
 
 ### approve
 
-▸ **approve**(`amount`): `Promise`<[{ `guy?`: `string` ; `src?`: `string` ; `wad?`: `BigNumber`  }, `ContractReceipt`]\>
+▸ **approve**(`amount`, `spender?`): [`TxCreator`](TxCreator.md)<`TokenERC20`, ``"approve"``, { `guy?`: `string` ; `src?`: `string` ; `wad?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
-Approve `amount` of the wallet owners holdings of the Colony's native token.
+Approve `amount` of the wallet owners holdings of the specified token
 
 In order for the wallet owner to stake tokens, that amount has to be approved and deposited into the Colony first. In the dapp the process is called "Activation" of a certain amount of the Colony's native token. The wallet must hold at least the amount of the token that will be approved.
 
@@ -29,11 +56,10 @@ import { w } from '@colony/sdk';
 
 // Immediately executing async function
 (async function() {
-  const token = await colony.getToken();
   // Approve 100 tokens to be "activated"
-  await token.approve(w`100`);
+  await colony.token.approve(w`100`).force();
   // Deposit the tokens
-  await token.deposit(w`100`);
+  await colonyNetwork.locking.deposit(token.address, w`100`).force();
 })();
 ```
 
@@ -42,12 +68,13 @@ import { w } from '@colony/sdk';
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `amount` | `BigNumberish` | Amount of the token to be approved |
+| `spender?` | `string` | Spender to approve the amount for. Defaults to the Colony Network |
 
 #### Returns
 
-`Promise`<[{ `guy?`: `string` ; `src?`: `string` ; `wad?`: `BigNumber`  }, `ContractReceipt`]\>
+[`TxCreator`](TxCreator.md)<`TokenERC20`, ``"approve"``, { `guy?`: `string` ; `src?`: `string` ; `wad?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
-A tupel of event data and contract receipt
+A transaction creator
 
 **Event data**
 
@@ -57,178 +84,125 @@ A tupel of event data and contract receipt
 | `guy` | string | Address of the TokenLocking contract |
 | `wad` | BigNumber | Amount that was approved |
 
-___
+#### Inherited from
 
-### deployAuthority
-
-▸ **deployAuthority**(`allowedToTransfer?`): [`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"deployTokenAuthority"``, { `tokenAuthorityAddress?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `allowedToTransfer?` | `string`[] |
-
-#### Returns
-
-[`TxCreator`](TxCreator.md)<`ColonyNetworkClient`, ``"deployTokenAuthority"``, { `tokenAuthorityAddress?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+ERC20Token.approve
 
 ___
 
-### deposit
+### decimals
 
-▸ **deposit**(`amount`): `Promise`<[{ `amount?`: `BigNumber` ; `token?`: `string` ; `user?`: `string`  }, `ContractReceipt`]\>
+▸ **decimals**(): `Promise`<`number`\>
 
-Deposit `amount` of the wallet owners holdings of the Colony's native token into the Colony.
-
-In order for the wallet owner to stake tokens, that amount has to be approved and deposited into the Colony first. In the dapp the process is called "Activation" of a certain amount of the Colony's native token. The wallet must hold at least the amount of the token that will be deposited.
-
-**`Example`**
-
-```typescript
-import { w } from '@colony/sdk';
-
-// Immediately executing async function
-(async function() {
-  const token = await colony.getToken();
-  // Approve 100 tokens to be "activated"
-  await token.approve(w`100`);
-  // Deposit the tokens
-  await token.deposit(w`100`);
-})();
-```
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `amount` | `BigNumberish` | Amount of the token to be deposited |
+Gets the token's decimals
 
 #### Returns
 
-`Promise`<[{ `amount?`: `BigNumber` ; `token?`: `string` ; `user?`: `string`  }, `ContractReceipt`]\>
+`Promise`<`number`\>
 
-A tupel of event data and contract receipt
+The token's decimals (e.g. 18)
 
-**Event data**
+#### Inherited from
 
-| Property | Type | Description |
-| :------ | :------ | :------ |
-| `token` | string | The address of the Colony's native token |
-| `user` | string | The address that deposited the tokens from their wallet |
-| `amount` | BigNumber | Amount that was deposited |
+ERC20Token.decimals
 
 ___
 
-### getUserApproval
+### name
 
-▸ **getUserApproval**(`user`, `obligator`): `Promise`<`BigNumber`\>
+▸ **name**(): `Promise`<`string`\>
 
-Get the wallet owner's approved balance of the Colony's native token for an obliator (i.e. an extension)
-
-This method will show the accumulated amount that was approved using the [ColonyToken.approve](ColonyToken.md#approve) method
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `user` | `string` | The wallet address that we want to check the approved amount of |
-| `obligator` | `string` | The address that has been approved to obligate the funds. |
+Gets the token's name
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`<`string`\>
 
-The currently approved balance of the Colony's native token for the obligator
+The token's name (e.g. Colony Network Token)
 
-___
+#### Inherited from
 
-### getUserDeposit
-
-▸ **getUserDeposit**(`user`): `Promise`<`BigNumber`\>
-
-Get the wallet owner's deposited and locked balance of the Colony's native token.
-
-This method will show the accumulated amount that was deposited using the [ColonyToken.deposit](ColonyToken.md#deposit) method
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `user` | `string` | The wallet address that we want to check the deposited amount of |
-
-#### Returns
-
-`Promise`<`BigNumber`\>
-
-The currently deposited balance of the Colony's native token
-
-___
-
-### mint
-
-▸ **mint**(`amount`): [`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"mintTokens"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
-
-Mints `amount` of a Colony's native token.
-
-**`Remarks`**
-
-Only works for tokens deployed with Colony (not imported tokens). Note that most tokens use 18 decimals, so add a bunch of zeros or use our `w` or `toWei` functions (see example). Also not that for tokens to be available in the Colony after funding, you need to call the [Colony.claimFunds](Colony.md#claimfunds) method after minting.
-
-**`Example`**
-
-```typescript
-import { w } from '@colony/sdk';
-
-// Immediately executing async function
-(async function() {
-  const token = await colony.getToken();
-  // Mint 100 tokens of the Colony's native token
-  // (forced transaction example)
-  await token.mint(w`100`).force();
-  // Claim the minted tokens for the Colony
-  // (forced transaction example)
-  await colony.claimFunds().force();
-})();
-```
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `amount` | `BigNumberish` | Amount of the token to be minted |
-
-#### Returns
-
-[`TxCreator`](TxCreator.md)<`ColonyClientV10`, ``"mintTokens"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
-
-A [TxCreator](TxCreator.md)
+ERC20Token.name
 
 ___
 
 ### setAuthority
 
-▸ **setAuthority**(`tokenAuthorityAddress`): [`TxCreator`](TxCreator.md)<`ColonyTokenClient`, ``"setAuthority"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **setAuthority**(`tokenAuthorityAddress`): [`MetaTxCreator`](MetaTxCreator.md)<`MetaTxToken`, ``"setAuthority"``, { `authority?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+Sets the address of the TokenAuthority for this token
+
+Set the TokenAuthority for this token. Only has to be done once, after the TokenAuthority has been deployed. See [Colony.deployTokenAuthority](Colony.md#deploytokenauthority) for more information.
+
+**`Remarks`**
+
+Only works for native tokens deployed with Colony (not imported tokens).
+
+**`Example`**
+
+```typescript
+import { w } from '@colony/sdk';
+
+// Immediately executing async function
+(async function() {
+  // Deploy the TokenAuthority contract
+  // (forced transaction example)
+  const [{ tokenAuthorityAddress }] = await colony.deployTokenAuthority().tx();
+  // Set the TokenAuthority for this token
+  // (forced transaction example)
+  await colony.token.setAuthority(tokenAuthorityAddress).tx();
+})();
+```
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `tokenAuthorityAddress` | `string` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `tokenAuthorityAddress` | `string` | Address of the TokenAuthority contract |
 
 #### Returns
 
-[`TxCreator`](TxCreator.md)<`ColonyTokenClient`, ``"setAuthority"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
+[`MetaTxCreator`](MetaTxCreator.md)<`MetaTxToken`, ``"setAuthority"``, { `authority?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+A transaction creator
+
+**Event data**
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `authority` | string | The address of the tokenAuthority that has been set |
 
 ___
 
-### setupColonyAsOwner
+### setOwner
 
-▸ **setupColonyAsOwner**(): [`TxCreator`](TxCreator.md)<`ColonyTokenClient`, ``"setOwner"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **setOwner**(`address`): [`MetaTxCreator`](MetaTxCreator.md)<`MetaTxToken`, ``"setOwner"``, { `owner?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+Sets the owner of the token
+
+Set the owner address for this token. Should usually be the colony. This will allow the Colony to always affect certain token parameters, event without the TokenAuthority deployed or used
+
+**`Remarks`**
+
+Only works for native tokens deployed with Colony (not imported tokens).
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `address` | `string` | Address to set as the owner of the token (usually the colony) |
 
 #### Returns
 
-[`TxCreator`](TxCreator.md)<`ColonyTokenClient`, ``"setOwner"``, `Record`<`string`, `unknown`\>, [`MetadataType`](../enums/MetadataType.md)\>
+[`MetaTxCreator`](MetaTxCreator.md)<`MetaTxToken`, ``"setOwner"``, { `owner?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+A transaction creator
+
+**Event data**
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `owner` | string | The address of the owner that has been set |
 
 ___
 
@@ -244,45 +218,6 @@ Gets the token's symbol
 
 The token's symbol (e.g. CLNY)
 
-___
+#### Inherited from
 
-### withdraw
-
-▸ **withdraw**(`amount`): `Promise`<[{ `amount?`: `BigNumber` ; `token?`: `string` ; `user?`: `string`  }, `ContractReceipt`]\>
-
-Withdraw `amount` of the wallet owners holdings of the Colony's native token from the Colony.
-
-Does the opposite of `deposit` and frees the deposited tokens back to the wallet address.
-
-**`Example`**
-
-```typescript
-import { w } from '@colony/sdk';
-
-// Immediately executing async function
-(async function() {
-  const token = await colony.getToken();
-  // Withdraw 100 tokens that were previously deposited
-  await token.withdraw(w`100`);
-})();
-```
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `amount` | `BigNumberish` | Amount of the token to be withdrawn |
-
-#### Returns
-
-`Promise`<[{ `amount?`: `BigNumber` ; `token?`: `string` ; `user?`: `string`  }, `ContractReceipt`]\>
-
-A tupel of event data and contract receipt
-
-**Event data**
-
-| Property | Type | Description |
-| :------ | :------ | :------ |
-| `token` | string | The address of the Colony's native token |
-| `user` | string | The address that withdrew the tokens from their wallet |
-| `amount` | BigNumber | Amount that was withdrawn |
+ERC20Token.symbol

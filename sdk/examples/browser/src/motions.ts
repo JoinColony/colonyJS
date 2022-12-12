@@ -30,7 +30,7 @@ const connect = async () => {
 const connectColony = async (colonyAddress: string) => {
   const signer = await connect();
   currentWalletAddress = await signer.getAddress();
-  colonyNetwork = new ColonyNetwork(signer);
+  colonyNetwork = await ColonyNetwork.init(signer);
   // Get an instance of the MetaColony
   colony = await colonyNetwork.getColony(colonyAddress);
 };
@@ -71,33 +71,33 @@ const getMotion = async (motionId: BigNumberish) => {
 
 const approveForStaking = async (amount: string) => {
   // Approve tokens for staking in the root domain
-  await colony.ext.motions?.approveStake(toWei(amount));
+  await colony.ext.motions?.approveStake(toWei(amount)).tx();
 };
 
 const stakeYay = async (amount: BigNumber) => {
-  await colony.ext.motions?.stakeMotion(currentMotion, Vote.Yay, amount);
+  await colony.ext.motions?.stakeMotion(currentMotion, Vote.Yay, amount).tx();
 };
 
 const stakeNay = async (amount: BigNumber) => {
-  await colony.ext.motions?.stakeMotion(currentMotion, Vote.Nay, amount);
+  await colony.ext.motions?.stakeMotion(currentMotion, Vote.Nay, amount).tx();
 };
 
 const voteYay = async () => {
-  await colony.ext.motions?.submitVote(currentMotion, Vote.Yay);
+  await colony.ext.motions?.submitVote(currentMotion, Vote.Yay).tx();
   sideVoted = Vote.Yay;
 };
 
 const voteNay = async () => {
-  await colony.ext.motions?.submitVote(currentMotion, Vote.Nay);
+  await colony.ext.motions?.submitVote(currentMotion, Vote.Nay).tx();
   sideVoted = Vote.Nay;
 };
 
 const revealVote = async () => {
-  await colony.ext.motions?.revealVote(currentMotion, sideVoted);
+  await colony.ext.motions?.revealVote(currentMotion, sideVoted).tx();
 };
 
 const finalize = async () => {
-  await colony.ext.motions?.finalizeMotion(currentMotion);
+  await colony.ext.motions?.finalizeMotion(currentMotion).tx();
 };
 
 // Some setup to display the UI

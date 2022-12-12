@@ -32,7 +32,7 @@ const getWallet = () => {
 // Instantiate a colony client, connected to the local MetaColony and Reputation Oracle
 const connectMetaColony = async (networkAddress: string) => {
   const signer = getWallet();
-  colonyNetwork = new ColonyNetwork(signer, {
+  colonyNetwork = await ColonyNetwork.init(signer, {
     networkClientOptions: {
       networkAddress,
       reputationOracleEndpoint: 'http://localhost:3000',
@@ -53,18 +53,17 @@ const installVotingReputation = async () => {
     throw new Error('OneTxPayment extension not installed');
   }
   // Mint CLNY and fund the Colony with it
-  const token = await metaColony.getToken();
-  await token.mint(w`500`).force();
+  await metaColony.mint(w`500`).tx();
   // Claim the CLNY for the MetaColony (important!)
-  await metaColony.claimFunds().force();
+  await metaColony.claimFunds().tx();
   // Pay some CLNY each to two addresses (we are going to use the first for staking)
   // This will also give these addresses reputation in the ROOT team
   await metaColony.ext.oneTx
     .pay('0xb77D57F4959eAfA0339424b83FcFaf9c15407461', w`100`)
-    .force();
+    .tx();
   await metaColony.ext.oneTx
     .pay('0x9df24e73f40b2a911eb254a8825103723e13209c', w`20`)
-    .force();
+    .tx();
 };
 
 const createPaymentMotion = async (amount: string): Promise<BigNumber> => {
@@ -107,40 +106,43 @@ const getMotion = async (motionId: BigNumberish) => {
 };
 
 const approveForStaking = async () => {
-  const token = await metaColony.getToken();
   // This will activate 20 tokens for Motion staking, for the user address 0xb77D57F4959eAfA0339424b83FcFaf9c15407461.
   // Essentially you first "activate" them for use in the Colony in general and then approve some amount of that for staking in the VotingReputation extension
-  await token.approve(w`20`);
+  await metaColony.token.approve(w`20`).tx();
   // Deposit all of approved the tokens
-  await token.deposit(w`20`);
+  await colonyNetwork.locking.deposit(metaColony.token.address, w`20`).tx();
   // Approve 20 tokens for staking in the root domain
-  await metaColony.ext.motions?.approveStake(w`20`);
+  await metaColony.ext.motions?.approveStake(w`20`).tx();
 };
 
 const stakeYay = async (amount: BigNumber) => {
-  await metaColony.ext.motions?.stakeMotion(currentMotion, Vote.Yay, amount);
+  await metaColony.ext.motions
+    ?.stakeMotion(currentMotion, Vote.Yay, amount)
+    .tx();
 };
 
 const stakeNay = async (amount: BigNumber) => {
-  await metaColony.ext.motions?.stakeMotion(currentMotion, Vote.Nay, amount);
+  await metaColony.ext.motions
+    ?.stakeMotion(currentMotion, Vote.Nay, amount)
+    .tx();
 };
 
 const voteYay = async () => {
-  await metaColony.ext.motions?.submitVote(currentMotion, Vote.Yay);
+  await metaColony.ext.motions?.submitVote(currentMotion, Vote.Yay).tx();
 };
 
 const voteNay = async () => {
-  await metaColony.ext.motions?.submitVote(currentMotion, Vote.Nay);
+  await metaColony.ext.motions?.submitVote(currentMotion, Vote.Nay).tx();
 };
 
 const revealVote = async () => {
   await jumpIntoTheFuture(7 * 60);
-  await metaColony.ext.motions?.revealVote(currentMotion);
+  await metaColony.ext.motions?.revealVote(currentMotion).tx();
 };
 
 const finalize = async () => {
   await jumpIntoTheFuture(7 * 60);
-  await metaColony.ext.motions?.finalizeMotion(currentMotion);
+  await metaColony.ext.motions?.finalizeMotion(currentMotion).tx();
 };
 
 // We're using Ganache's evm_increaseTime and evm_mine methods to first increase the block time artificially by one hour and then force a block to mine. This will trigger the local reputation oracle/miner to award the pending reputation.

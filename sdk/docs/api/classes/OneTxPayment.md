@@ -47,7 +47,7 @@ ___
 
 ### pay
 
-▸ **pay**(`recipient`, `amount`, `teamId?`, `tokenAddress?`): [`TxCreator`](TxCreator.md)<`OneTxPaymentClientV3`, ``"makePaymentFundedFromDomain"``, { `agent?`: `string` ; `fundamentalId?`: `BigNumber` ; `nPayouts?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **pay**(`recipient`, `amount`, `teamId?`, `tokenAddress?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`OneTxPaymentClientV3`, ``"makePaymentFundedFromDomain"``, { `agent?`: `string` ; `fundamentalId?`: `BigNumber` ; `nPayouts?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Make a payment to a single address using a single token
 
@@ -69,7 +69,7 @@ import { Id, Tokens, w } from '@colony/sdk';
      w`10`,
      Id.RootDomain,
      Tokens.Gnosis.XDAI,
-  ).force();
+  ).tx();
 })();
 ```
 
@@ -84,9 +84,9 @@ import { Id, Tokens, w } from '@colony/sdk';
 
 #### Returns
 
-[`TxCreator`](TxCreator.md)<`OneTxPaymentClientV3`, ``"makePaymentFundedFromDomain"``, { `agent?`: `string` ; `fundamentalId?`: `BigNumber` ; `nPayouts?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`OneTxPaymentClientV3`, ``"makePaymentFundedFromDomain"``, { `agent?`: `string` ; `fundamentalId?`: `BigNumber` ; `nPayouts?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
-A [TxCreator](TxCreator.md)
+A transaction creator
 
 **Event data**
 

@@ -88,7 +88,7 @@ export class OneTxPayment {
    *      w`10`,
    *      Id.RootDomain,
    *      Tokens.Gnosis.XDAI,
-   *   ).force();
+   *   ).tx();
    * })();
    * ```
    *
@@ -96,7 +96,7 @@ export class OneTxPayment {
    * @param amount - Amount to pay in wei
    * @param tokenAddress - The address of the token to make the payment in. Default is the Colony's native token
    * @param teamId - The team to use to send the funds from. Has to have funding of at least the amount you need to send. See [[Colony.moveFundsToTeam]]. Defaults to the Colony's root team
-   * @returns A [[TxCreator]]
+   * @returns A transaction creator
    *
    * **Event data**
    *
@@ -117,7 +117,7 @@ export class OneTxPayment {
 
     const setTokenAddress = tokenAddress || colonyClient.tokenClient.address;
 
-    return this.colony.createTxCreator(
+    return this.colony.createColonyTxCreator(
       this.oneTxPaymentClient,
       'makePaymentFundedFromDomain',
       async () => {

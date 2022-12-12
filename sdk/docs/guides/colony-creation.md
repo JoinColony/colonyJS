@@ -27,7 +27,7 @@ To deploy a token, call the `deployToken` method on `ColonyNetwork`:
 // Create token to be used with Colony
 const [{ tokenAddress }] = await colonyNetwork
   .deployToken('Test token', 'TOT')
-  .force();
+  .tx();
 console.info('Token address', tokenAddress);
 ```
 
@@ -41,7 +41,7 @@ The most important step. Here the actualy colony contract will be deployed. This
 // Create actual colony (deploys Colony contract)
 const [{ colonyAddress }] = await colonyNetwork
   .createColony(tokenAddress, 'colonytestname')
-  .force();
+  .tx();
 ```
 
 Here a label for the colony can be assigned. These are unique, so pick one that's not already taken. The `createColony` method will check that. Alternatively, the `colonyNetwork.getColonyAddress(label)` function can be used.
@@ -54,7 +54,7 @@ Let's instantiate the colony (this is the code used to instantiate an existing c
 
 ```typescript
 const colony = await colonyNetwork.getColony(colonyAddress);
-const token = await colony.getToken();
+const { token } = colony;
 ```
 
 ## Step 4 (optional) - Deploy the token authority
@@ -65,7 +65,7 @@ The token authority is a contract that glues the token and the colony together a
 // Deploy TokenAuthority
 const [{ tokenAuthorityAddress }] = await token
   .deployAuthority([colonyAddress])
-  .force();
+  .tx();
 // Set the token's authority to the freshly deployed one
 await token.setAuthority(tokenAuthorityAddress).force();
 ```
@@ -78,14 +78,14 @@ As mentioned earlier, this step is technically optional as well but if the colon
 ```typescript
 const [{ extensionId, version }] = await colony
   .installExtension(SupportedExtension.oneTx)
-  .force();
+  .tx();
 await colony.updateExtensions();
 const [{ user, setTo, role }] = await colony
   .setRoles(colony.ext.oneTx.address, [
     ColonyRole.Administration,
     ColonyRole.Funding,
   ])
-  .force();
+  .tx();
 ```
 
 Here we install the extension using the `installExtension` method. This extension is an own contract that was deployed in this transaction. To get its address, we re-initialize the extensions on the colony using `updateExtensions`. After that, `oneTx` will be available on `colony.ext`.

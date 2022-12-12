@@ -7,6 +7,7 @@ export type {
 } from '@colony/colony-event-metadata-parser';
 
 export * from './ColonyNetwork';
+export * from './TxCreator';
 export * from './events';
 export * from './ipfs';
 export * from './constants';

@@ -8,6 +8,7 @@ import {
   getPermissionProofs,
   isExtensionCompatible,
   getExtensionHash,
+  TokenClientType,
 } from '@colony/colony-js';
 import {
   AnnotationEventObject,
@@ -22,6 +23,8 @@ import {
   ExtensionInstalledEventObject,
   FundingPotAddedEventObject,
   RecoveryRoleSetEventObject,
+  TokenAuthorityDeployedEventObject,
+  TokensMintedEventObject,
 } from '@colony/colony-js/extras';
 import {
   AnnotationMetadata,
@@ -38,15 +41,17 @@ import {
 
 import type { Expand, Parameters, ParametersFrom2 } from '../types';
 
+import { PermissionConfig, TxConfig, ColonyTxCreator } from '../TxCreator';
 import { extractEvent, extractCustomEvent } from '../utils';
 import { ColonyToken } from './ColonyToken';
+import { ERC20Token } from './ERC20Token';
 import { ColonyNetwork } from './ColonyNetwork';
 import { getOneTxPaymentClient, OneTxPayment } from './OneTxPayment';
 import {
   getVotingReputationClient,
   VotingReputation,
 } from './VotingReputation';
-import { PermissionConfig, TxConfig, TxCreator } from './TxCreator';
+import { ERC2612Token } from './ERC2612Token';
 
 export type SupportedColonyClient = ColonyClientV10;
 export type SupportedColonyMethods = SupportedColonyClient['functions'];
@@ -86,10 +91,8 @@ export class Colony {
 
   /**
    * An instance of the Colony's native token
-   *
-   * Currently only Tokens deployed via Colony are supported (no external, imported tokens) in Colony SDK. All other kinds will throw an error
    */
-  colonyToken?: ColonyToken;
+  token: ColonyToken | ERC20Token | ERC2612Token;
 
   ext: SupportedExtensions;
 
@@ -115,6 +118,32 @@ export class Colony {
     this.signerOrProvider = colonyClient.signer || colonyClient.provider;
     this.address = colonyClient.address;
     this.ext = {};
+    switch (colonyClient.tokenClient.tokenClientType) {
+      case TokenClientType.Erc20: {
+        this.token = new ERC20Token(
+          this.colonyNetwork,
+          colonyClient.tokenClient,
+        );
+        break;
+      }
+      case TokenClientType.Colony: {
+        this.token = new ColonyToken(
+          this.colonyNetwork,
+          colonyClient.tokenClient,
+        );
+        break;
+      }
+      case TokenClientType.Erc2612: {
+        this.token = new ERC2612Token(
+          this.colonyNetwork,
+          colonyClient.tokenClient,
+        );
+        break;
+      }
+      default: {
+        throw new Error('Your token is not supported in Colony SDK (yet).');
+      }
+    }
     this.version = colonyClient.clientVersion;
   }
 
@@ -132,7 +161,7 @@ export class Colony {
   }
 
   /**
-   * Creates a new [[TxCreator]] for non-permissioned Colony transactions
+   * Creates a new [[ColonyTxCreator]] for non-permissioned Colony transactions
    *
    * @internal
    * @remarks
@@ -142,9 +171,9 @@ export class Colony {
    * @param args - The arguments for the method
    * @param eventData - A function that extracts the relevant event data from the [[ContractReceipt]]
    * @param txConfig - More configuration options, like [[MetadataType]] if the event contains metadata or if methods are unsupported
-   * @returns A [[TxCreator]]
+   * @returns A [[ColonyTxCreator]]
    */
-  createTxCreator<
+  createColonyTxCreator<
     C extends IBasicMetaTransaction,
     F extends keyof C['functions'],
     D extends Record<string, unknown>,
@@ -158,7 +187,7 @@ export class Colony {
     eventData?: (receipt: ContractReceipt) => Promise<D>,
     txConfig?: TxConfig<M>,
   ) {
-    return new TxCreator({
+    return new ColonyTxCreator({
       colony: this,
       colonyNetwork: this.colonyNetwork,
       contract,
@@ -170,7 +199,7 @@ export class Colony {
   }
 
   /**
-   * Creates a new [[TxCreator]] for permissioned Colony transactions
+   * Creates a new [[ColonyTxCreator]] for permissioned Colony transactions
    *
    * @internal
    * @remarks
@@ -181,9 +210,9 @@ export class Colony {
    * @param permissionConfig - Relevant configuration for the permissioned Colony function
    * @param eventData - A function that extracts the relevant event data from the [[ContractReceipt]]
    * @param txConfig - More configuration options, like [[MetadataType]] if the event contains metadata or if methods are unsupported
-   * @returns A permissioned [[TxCreator]]
+   * @returns A permissioned [[ColonyTxCreator]]
    */
-  createPermissionedTxCreator<
+  createPermissionedColonyTxCreator<
     C extends IBasicMetaTransaction,
     F extends keyof C['functions'],
     D extends Record<string, unknown>,
@@ -198,7 +227,7 @@ export class Colony {
     eventData?: (receipt: ContractReceipt) => Promise<D>,
     txConfig?: TxConfig<M>,
   ) {
-    return new TxCreator({
+    return new ColonyTxCreator({
       colony: this,
       colonyNetwork: this.colonyNetwork,
       contract,
@@ -218,24 +247,6 @@ export class Colony {
    */
   getInternalColonyClient(): SupportedColonyClient {
     return this.colonyClient;
-  }
-
-  /**
-   * Gets the colony's [[ColonyToken]]. Will instantiate it if it doesn't exist yet
-   *
-   * @internal
-   * @returns The colony's [[ColonyToken]]
-   */
-  async getToken(): Promise<ColonyToken> {
-    if (this.colonyToken) {
-      return this.colonyToken;
-    }
-    const tokenLockingClient =
-      // eslint-disable-next-line max-len
-      await this.getInternalColonyClient().networkClient.getTokenLockingClient();
-    const token = new ColonyToken(this, tokenLockingClient);
-    this.colonyToken = token;
-    return this.colonyToken;
   }
 
   /**
@@ -316,11 +327,11 @@ export class Colony {
    *     domainName: 'Butter-passers',
    *     domainColor: TeamColor.Gold,
    *     domainPurpose: 'To pass butter',
-   *   }).force();
+   *   }).tx();
    * })();
    * ```
    * @param metadata - The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[DomainMetadata]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
-   * @returns A [[TxCreator]]
+   * @returns A transaction creator
    *
    * **Event data**
    *
@@ -341,7 +352,7 @@ export class Colony {
    */
   createTeam(
     metadata: DomainMetadata | string,
-  ): TxCreator<
+  ): ColonyTxCreator<
     SupportedColonyClient,
     'addDomain(uint256,uint256,uint256,string)',
     Expand<
@@ -356,7 +367,7 @@ export class Colony {
    *
    * @remarks
    * Currently you can only add domains within the `Root` domain. This restriction will be lifted soon
-   * @returns A [[TxCreator]]
+   * @returns A transaction creator
    *
    * **Event data**
    *
@@ -366,7 +377,7 @@ export class Colony {
    * | `domainId` | BigNumber | Integer domain id of the created team |
    * | `fundingPotId` | BigNumber | Integer id of the corresponding funding pot |
    */
-  createTeam(): TxCreator<
+  createTeam(): ColonyTxCreator<
     SupportedColonyClient,
     'addDomain(uint256,uint256,uint256,string)',
     Expand<
@@ -378,7 +389,7 @@ export class Colony {
 
   createTeam(metadata?: DomainMetadata | string) {
     if (!metadata) {
-      return this.createPermissionedTxCreator(
+      return this.createPermissionedColonyTxCreator(
         this.colonyClient,
         'addDomain(uint256,uint256,uint256)',
         [Id.RootDomain],
@@ -399,7 +410,7 @@ export class Colony {
       );
     }
 
-    return this.createPermissionedTxCreator(
+    return this.createPermissionedColonyTxCreator(
       this.colonyClient,
       'addDomain(uint256,uint256,uint256,string)',
       async () => {
@@ -437,7 +448,7 @@ export class Colony {
    *
    * @param teamId - Team to be (un)deprecated
    * @param deprecated - `true`: Deprecate team; `false`: Undeprecate team
-   * @returns A [[TxCreator]]
+   * @returns A transaction creator
    *
    * **Event data**
    *
@@ -448,7 +459,7 @@ export class Colony {
    * | `deprecated` | bool | Whether the team was deprecated or not |
    */
   deprecateTeam(teamId: BigNumberish, deprecated: boolean) {
-    return this.createPermissionedTxCreator(
+    return this.createPermissionedColonyTxCreator(
       this.colonyClient,
       'deprecateDomain',
       [teamId, deprecated],
@@ -489,7 +500,7 @@ export class Colony {
    *
    * @remarks use `ethers.constants.AddressZero` to claim ETH.
    * @param tokenAddress - The address of the token to claim the funds for. Default is the Colony's native token
-   * @returns A [[TxCreator]]
+   * @returns A transaction creator
    *
    * **Event data**
    *
@@ -503,7 +514,7 @@ export class Colony {
   claimFunds(tokenAddress?: string) {
     const token = tokenAddress || this.colonyClient.tokenClient.address;
 
-    return this.createTxCreator(
+    return this.createColonyTxCreator(
       this.colonyClient,
       'claimColonyFunds',
       [token],
@@ -534,14 +545,14 @@ export class Colony {
    *      w`10`,
    *      2,
    *      3,
-   *   ).force();
+   *   ).tx();
    * })();
    * ```
    * @param amount - Amount to transfer between the teams
    * @param toTeam - The team to transfer the funds to
    * @param fromTeam - The team to transfer the funds from. Default is the Root team
    * @param tokenAddress - The address of the token to be transferred. Default is the Colony's native token
-   * @returns A [[TxCreator]]
+   * @returns A transaction creator
    *
    * **Event data**
    *
@@ -564,7 +575,7 @@ export class Colony {
     const setTokenAddress =
       tokenAddress || this.colonyClient.tokenClient.address;
 
-    return this.createTxCreator(
+    return this.createColonyTxCreator(
       this.colonyClient,
       // eslint-disable-next-line max-len
       'moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)',
@@ -683,17 +694,17 @@ export class Colony {
    *      '0x06012c8cf97BEaD5deAe237070F9587f8E7A266d',
    *      // encoded transaction from above
    *      encodedAction
-   *   ).force();
+   *   ).tx();
    * })();
    * ```
    * @param target - Address of the contract to execute a method on
    * @param action - Encoded action to execute
-   * @returns A [[TxCreator]]
+   * @returns A transaction creator
    *
    * **No event data**
    */
   makeArbitraryTransaction(target: string, action: BytesLike) {
-    return this.createTxCreator(
+    return this.createColonyTxCreator(
       this.colonyClient,
       'makeArbitraryTransactions',
       [[target], [action], false],
@@ -701,13 +712,6 @@ export class Colony {
       // async (receipt) => ({
       //   ...extractEvent<ArbitraryTransaction>('ArbitraryTransaction', receipt),
       // }),
-      undefined,
-      {
-        unsupported: {
-          forceMeta: true,
-          motionMeta: true,
-        },
-      },
     );
   }
 
@@ -732,12 +736,12 @@ export class Colony {
    *   await colony.annotateTransaction(
    *      transactionHash,
    *      { annotationMsg: 'I am creating this motion because I think I deserve a little bonus' },
-   *   ).force();
+   *   ).tx();
    * })();
    * ```
    * @param txHash - Transaction hash of the transaction to annotate (within the Colony)
    * @param annotationMetadata - The annotation metadata you would like to annotate the transaction with (or an IPFS CID pointing to valid metadata)
-   * @returns A [[TxCreator]]
+   * @returns A transaction creator
    *
    * **Event data**
    *
@@ -751,7 +755,7 @@ export class Colony {
     txHash: string,
     annotationMetadata: AnnotationMetadata | string,
   ) {
-    return this.createTxCreator(
+    return this.createColonyTxCreator(
       this.colonyClient,
       'annotateTransaction',
       async () => {
@@ -789,14 +793,14 @@ export class Colony {
    *   // (forced transaction example)
    *   await colony.installExtension(
    *     SupportedExtension.oneTx,
-   *   ).force();
+   *   ).tx();
    *   // Update the extensions in the colony
    *   await colony.updateExtensions();
    *   console.info(colony.ext.oneTx.address);
    * })();
    * ```
    * @param extension - Name of the extension you'd like to install
-   * @returns A [[TxCreator]]
+   * @returns A transaction creator
    *
    * **Event data**
    *
@@ -816,7 +820,7 @@ export class Colony {
         `v${version} of ${extensionType} extension is not compatible with colony v${colonyVersion}`,
       );
     }
-    return this.createTxCreator(
+    return this.createColonyTxCreator(
       this.colonyClient,
       'installExtension',
       [getExtensionHash(extensionType), Extension.getLatestSupportedVersion()],
@@ -846,13 +850,13 @@ export class Colony {
    *   await colony.setRoles(
    *     '0xb794f5ea0ba39494ce839613fffba74279579268',
    *     [ColonyRole.Administration, ColonyRole.Root],
-   *   ).force();
+   *   ).tx();
    * })();
    * ```
    * @param address - Address of the wallet or contract to give the roles to
    * @param roles - Role or array of roles to award
    * @param teamId - Team to apply the role(s) in
-   * @returns A [[TxCreator]]
+   * @returns A transaction creator
    *
    * **Event data**
    * Heads up!* This event is emitted for every role that was set
@@ -870,7 +874,7 @@ export class Colony {
     roles: ColonyRole | ColonyRole[],
     teamId: BigNumberish = Id.RootDomain,
   ) {
-    return this.createPermissionedTxCreator(
+    return this.createPermissionedColonyTxCreator(
       this.colonyClient,
       'setUserRoles',
       async () => {
@@ -910,7 +914,8 @@ export class Colony {
    * @param address - Address of the wallet or contract to remove the roles from
    * @param roles - Role or array of roles to remove
    * @param teamId - Team to apply the role(s) in
-   * @returns A [[TxCreator]]
+   *
+   * @returns A transaction creator
    *
    * **Event data**
    * Heads up!* This event is emitted for every role that was unset
@@ -928,7 +933,7 @@ export class Colony {
     roles: ColonyRole | ColonyRole[],
     teamId: BigNumberish = Id.RootDomain,
   ) {
-    return this.createPermissionedTxCreator(
+    return this.createPermissionedColonyTxCreator(
       this.colonyClient,
       'setUserRoles',
       async () => {
@@ -959,6 +964,97 @@ export class Colony {
           receipt,
         ),
         ...extractEvent<RecoveryRoleSetEventObject>('RecoveryRoleSet', receipt),
+      }),
+    );
+  }
+
+  /**
+   * Mints `amount` of a Colony's native token.
+   *
+   * @remarks
+   * Only works for native tokens deployed with Colony (not imported tokens). Note that most tokens use 18 decimals, so add a bunch of zeros or use our `w` or `toWei` functions (see example). Also not that for tokens to be available in the Colony after funding, you need to call the [[Colony.claimFunds]] method after minting.
+   *
+   * @example
+   * ```typescript
+   * import { w } from '@colony/sdk';
+   *
+   * // Immediately executing async function
+   * (async function() {
+   *   // Mint 100 tokens of the Colony's native token
+   *   // (forced transaction example)
+   *   await colony.mint(w`100`).tx();
+   *   // Claim the minted tokens for the Colony
+   *   // (forced transaction example)
+   *   await colony.claimFunds().tx();
+   * })();
+   * ```
+   *
+   * @param amount - Amount of the token to be minted
+   *
+   * @returns A transaction creator
+   *
+   * **Event data**
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `agent` | string | The address that is responsible for triggering this event |
+   * | `who` | string | Address the tokens were minted for (usually the colony) |
+   * | `amount` | BigNumber | Amount that was minted |
+   */
+  mint(amount: BigNumberish) {
+    return this.createColonyTxCreator(
+      this.colonyClient,
+      'mintTokens',
+      [amount],
+      async (receipt) => ({
+        ...extractEvent<TokensMintedEventObject>('TokensMinted', receipt),
+      }),
+    );
+  }
+
+  /**
+   * Deploys the so called TokenAuthority for the colony's native token
+   *
+   * The TokenAuthority determines which addresses are allowed to do certain token actions like minting, or transferring them even though they are locked.
+   * By default only the Colony can transfer a locked token. In the first argument you can specify a list of additional (excluding the colony) addresses that are allowed to transfer a locked token
+   *
+   * @remarks
+   * Only works for native tokens deployed with Colony (not imported tokens).
+   *
+   * @param allowedToTransfer - List of addresses (excluding the colony) that can transfer the token when it's locked
+   *
+   * @returns A transaction creator
+   *
+   * **Event data**
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `tokenAuthorityAddress` | string | The address of the newly deployed TokenAuthority contract |
+   */
+  deployTokenAuthority(allowedToTransfer?: string[]) {
+    return this.colonyNetwork.createMetaTxCreator(
+      this.colonyNetwork.networkClient,
+      'deployTokenAuthority',
+      async () => {
+        let allowed: string[] = [];
+        const tokenLockingAddress =
+          await this.colonyNetwork.networkClient.getTokenLocking();
+        if (!allowedToTransfer) {
+          allowed = [tokenLockingAddress];
+        } else {
+          allowed = [...allowedToTransfer, tokenLockingAddress];
+        }
+        return [this.token.address, this.address, allowed] as [
+          string,
+          string,
+          string[],
+        ];
+      },
+      async (receipt) => ({
+        ...extractEvent<TokenAuthorityDeployedEventObject>(
+          'TokenAuthorityDeployed',
+          receipt,
+        ),
       }),
     );
   }

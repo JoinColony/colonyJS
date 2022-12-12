@@ -2,17 +2,11 @@
 
 An umbrella API for all kinds of transactions
 
-The `TxCreator` allows for a simple API to cover all the different cases of transactions within Colony. Once a `TxCreator` is created using a method on the base contracts (e.g. [Colony](Colony.md) or extensions like [VotingReputation](VotingReputation.md)), there are four options available:
+The `TxCreator` allows for a simple API to cover all the different cases of transactions within the Colony Network. This is the base class of the TxCreator that only supports the `force()` action and no metatransactions.
 
-## Force a transaction
+## Create a standard transaction ("force" in dApp)
 
-- [TxCreator.force](TxCreator.md#force): force a Colony transaction, knowing you have the permissions to do so
-- [TxCreator.forceMeta](TxCreator.md#forcemeta): same as `force()`, but send as a gasless metatransaction
-
-## Create a motion to trigger an action once it passes
-
-- [TxCreator.motion](TxCreator.md#motion): create a motion (needs the motion's domain as a parameter)
-- [TxCreator.motionMeta](TxCreator.md#motionmeta): same as `motion()`, but sends a gasless metatransaction
+- [TxCreator.tx](TxCreator.md#tx): force a Colony transaction, knowing you have the permissions to do so
 
 Learn more about these functions in their individual documentation
 
@@ -20,10 +14,16 @@ Learn more about these functions in their individual documentation
 
 | Name | Type |
 | :------ | :------ |
-| `C` | extends `BaseContract` |
+| `C` | extends [`BaseContract`](../interfaces/BaseContract.md) |
 | `M` | extends keyof `C`[``"functions"``] |
 | `E` | extends `EventData` |
 | `MD` | extends [`MetadataType`](../enums/MetadataType.md) |
+
+## Hierarchy
+
+- **`TxCreator`**
+
+  ↳ [`MetaTxCreator`](MetaTxCreator.md)
 
 ## Constructors
 
@@ -35,7 +35,7 @@ Learn more about these functions in their individual documentation
 
 | Name | Type |
 | :------ | :------ |
-| `C` | extends `BaseContract` |
+| `C` | extends [`BaseContract`](../interfaces/BaseContract.md) |
 | `M` | extends `string` \| `number` \| `symbol` |
 | `E` | extends `EventData` |
 | `MD` | extends [`MetadataType`](../enums/MetadataType.md) |
@@ -46,22 +46,20 @@ Learn more about these functions in their individual documentation
 | :------ | :------ |
 | `__namedParameters` | `Object` |
 | `__namedParameters.args` | `unknown`[] \| () => `Promise`<`unknown`[]\> |
-| `__namedParameters.colony?` | [`Colony`](Colony.md) |
 | `__namedParameters.colonyNetwork` | [`ColonyNetwork`](ColonyNetwork.md) |
 | `__namedParameters.contract` | `C` |
 | `__namedParameters.eventData?` | (`receipt`: `ContractReceipt`) => `Promise`<`E`\> |
 | `__namedParameters.metadataType?` | `MD` |
 | `__namedParameters.method` | `M` |
-| `__namedParameters.permissionConfig?` | `PermissionConfig` |
-| `__namedParameters.txConfig?` | `TxConfig`<`MD`\> |
+| `__namedParameters.txConfig?` | [`TxConfig`](../interfaces/TxConfig.md)<`MD`\> |
 
 ## Methods
 
-### force
+### tx
 
-▸ **force**(): `Promise`<[`E`, `ContractReceipt`, () => `Promise`<`ReturnType`<{ `None`: () => `void` ; `annotation`: (`res`: `string`) => `string` = getAnnotationMsgFromResponse; `colony`: (`res`: `string`) => [`ColonyMetadata`](../interfaces/ColonyMetadata.md) = getColonyMetadataFromResponse; `decision`: (`res`: `string`) => `DecisionMetadata` = getDecisionDetailsFromResponse; `domain`: (`res`: `string`) => [`DomainMetadata`](../interfaces/DomainMetadata.md) = getDomainMetadataFromResponse; `misc`: (`res`: `string`) => `MiscMetadata` = getMiscDataFromResponse }[`MD`]\>\>] \| [`E`, `ContractReceipt`]\>
+▸ **tx**(): `Promise`<[`E`, `ContractReceipt`, () => `Promise`<`ReturnType`<{ `None`: () => `void` ; `annotation`: (`res`: `string`) => `string` = getAnnotationMsgFromResponse; `colony`: (`res`: `string`) => [`ColonyMetadata`](../interfaces/ColonyMetadata.md) = getColonyMetadataFromResponse; `decision`: (`res`: `string`) => `DecisionMetadata` = getDecisionDetailsFromResponse; `domain`: (`res`: `string`) => [`DomainMetadata`](../interfaces/DomainMetadata.md) = getDomainMetadataFromResponse; `misc`: (`res`: `string`) => `MiscMetadata` = getMiscDataFromResponse }[`MD`]\>\>] \| [`E`, `ContractReceipt`]\>
 
-Forces an action
+Create a standard transaction ("force" in dApp)
 
 **`Remarks`**
 
@@ -72,73 +70,3 @@ The user sending this transaction has to have the appropriate permissions to do 
 `Promise`<[`E`, `ContractReceipt`, () => `Promise`<`ReturnType`<{ `None`: () => `void` ; `annotation`: (`res`: `string`) => `string` = getAnnotationMsgFromResponse; `colony`: (`res`: `string`) => [`ColonyMetadata`](../interfaces/ColonyMetadata.md) = getColonyMetadataFromResponse; `decision`: (`res`: `string`) => `DecisionMetadata` = getDecisionDetailsFromResponse; `domain`: (`res`: `string`) => [`DomainMetadata`](../interfaces/DomainMetadata.md) = getDomainMetadataFromResponse; `misc`: (`res`: `string`) => `MiscMetadata` = getMiscDataFromResponse }[`MD`]\>\>] \| [`E`, `ContractReceipt`]\>
 
 A tupel of event data and contract receipt (and a function to retrieve metadata if applicable)
-
-___
-
-### forceMeta
-
-▸ **forceMeta**(): `Promise`<[`E`, [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md), () => `Promise`<`ReturnType`<{ `None`: () => `void` ; `annotation`: (`res`: `string`) => `string` = getAnnotationMsgFromResponse; `colony`: (`res`: `string`) => [`ColonyMetadata`](../interfaces/ColonyMetadata.md) = getColonyMetadataFromResponse; `decision`: (`res`: `string`) => `DecisionMetadata` = getDecisionDetailsFromResponse; `domain`: (`res`: `string`) => [`DomainMetadata`](../interfaces/DomainMetadata.md) = getDomainMetadataFromResponse; `misc`: (`res`: `string`) => `MiscMetadata` = getMiscDataFromResponse }[`MD`]\>\>] \| [`E`, [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md)]\>
-
-Forces an action using a gasless metatransaction
-
-**`Remarks`**
-
-The user sending this transaction has to have the appropriate permissions to do so. Learn more about permissions in Colony [here](/develop/dev-learning/permissions).
-
-#### Returns
-
-`Promise`<[`E`, [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md), () => `Promise`<`ReturnType`<{ `None`: () => `void` ; `annotation`: (`res`: `string`) => `string` = getAnnotationMsgFromResponse; `colony`: (`res`: `string`) => [`ColonyMetadata`](../interfaces/ColonyMetadata.md) = getColonyMetadataFromResponse; `decision`: (`res`: `string`) => `DecisionMetadata` = getDecisionDetailsFromResponse; `domain`: (`res`: `string`) => [`DomainMetadata`](../interfaces/DomainMetadata.md) = getDomainMetadataFromResponse; `misc`: (`res`: `string`) => `MiscMetadata` = getMiscDataFromResponse }[`MD`]\>\>] \| [`E`, [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md)]\>
-
-A tupel of event data and contract receipt (and a function to retrieve metadata if applicable)
-
-___
-
-### motion
-
-▸ **motion**(`motionDomain?`): `Promise`<[{ `creator?`: `string` ; `domainId?`: `BigNumber` ; `motionId?`: `BigNumber`  }, `ContractReceipt`]\>
-
-Creates a motion for an action
-
-You can specify a team (domain) this motion should be created in. It will be created in the Root team by default.
-
-**`Remarks`**
-
-This will only work if the [VotingReputation](VotingReputation.md) extension is installed for the Colony that's being acted on
-
-#### Parameters
-
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `motionDomain` | `BigNumberish` | `Id.RootDomain` |
-
-#### Returns
-
-`Promise`<[{ `creator?`: `string` ; `domainId?`: `BigNumber` ; `motionId?`: `BigNumber`  }, `ContractReceipt`]\>
-
-A tupel of motion event data and contract receipt
-
-___
-
-### motionMeta
-
-▸ **motionMeta**(`motionDomain?`): `Promise`<[{ `creator?`: `string` ; `domainId?`: `BigNumber` ; `motionId?`: `BigNumber`  }, [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md)]\>
-
-Creates a motion for an action
-
-You can specify a team (domain) this motion should be created in. It will be created in the Root team by default.
-
-**`Remarks`**
-
-This will only work if the [VotingReputation](VotingReputation.md) extension is installed for the Colony that's being acted on
-
-#### Parameters
-
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `motionDomain` | `BigNumberish` | `Id.RootDomain` |
-
-#### Returns
-
-`Promise`<[{ `creator?`: `string` ; `domainId?`: `BigNumber` ; `motionId?`: `BigNumber`  }, [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md)]\>
-
-A tupel of motion event data and contract receipt

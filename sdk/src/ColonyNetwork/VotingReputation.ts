@@ -7,7 +7,7 @@ import {
   VotingReputationClientV7,
 } from '@colony/colony-js';
 
-import {
+import type {
   VotingReputationDataTypes,
   MotionEventSetEventObject,
   MotionFinalizedEventObject,
@@ -76,9 +76,9 @@ const REP_DIVISOR = BigNumber.from(10).pow(18);
  *
  * #### Creating a Motion
  *
- * See [[TxCreator.motion]] or [[TxCreator.motionMeta]].
+ * See [[ColonyTxCreator.motion]] or [[ColonyTxCreator.metaMotion]].
  *
- * Anyone within a Colony can start a motion. In Colony SDK, this is as easy as sending a transaction of the same kind. There the `action` (the contract transaction) for the Motion will be defined. This is essentially nothing else than an encoded contract function string alongside its parameters (see for detailed info [here](https://medium.com/linum-labs/a-technical-primer-on-using-encoded-function-calls-50e2b9939223) - but don't worry. In Colony SDK this will all be taken care of by the [[TxCreator]]).
+ * Anyone within a Colony can start a motion. In Colony SDK, this is as easy as sending a transaction of the same kind. There the `action` (the contract transaction) for the Motion will be defined. This is essentially nothing else than an encoded contract function string alongside its parameters (see for detailed info [here](https://medium.com/linum-labs/a-technical-primer-on-using-encoded-function-calls-50e2b9939223) - but don't worry. In Colony SDK this will all be taken care of by the [[ColonyTxCreator]]).
  *
  *  #### Staking
  *
@@ -242,7 +242,7 @@ export class VotingReputation {
    * Create a motion using an encoded action
    * @internal
    *
-   * @remarks You will usually not use this function directly, but use the `send` or `motion` functions of the [[TxCreator]] within the relevant contract.
+   * @remarks You will usually not use this function directly, but use the `send` or `motion` functions of the [[ColonyTxCreator]] within the relevant contract.
    *
    * @param motionDomain - The domain the motion will be created in
    * @param encodedAction - The encoded action as a string
@@ -436,7 +436,7 @@ export class VotingReputation {
    * @param amount - Amount of "activated" tokens to be approved for staking
    * @param teamId - Team that the approved tokens can be used in for staking motions
    *
-   * @returns A [[TxCreator]]
+   * @returns A transaction creator
    *
    * **Event data**
    *
@@ -448,21 +448,18 @@ export class VotingReputation {
    * | `amount` | BigNumber | Amount of the token that was approved for staking |
    */
   approveStake(amount: BigNumberish, teamId: BigNumberish = Id.RootDomain) {
-    return this.colony.createTxCreator(
+    return this.colony.colonyNetwork.createMetaTxCreator(
       this.colony.getInternalColonyClient(),
       'approveStake',
       [this.votingReputationClient.address, teamId, amount],
-      async (receipt) => {
-        const token = await this.colony.getToken();
-        return {
-          ...extractCustomEvent<UserTokenApprovedEventObject>(
-            'UserTokenApproved',
-            receipt,
-            token.tokenLockingClient.interface,
-          ),
-        };
-      },
-      { unsupported: { motion: true, motionMeta: true } },
+      async (receipt) => ({
+        ...extractCustomEvent<UserTokenApprovedEventObject>(
+          'UserTokenApproved',
+          receipt,
+          this.colony.colonyNetwork.locking.getInternalTokenLockingClient()
+            .interface,
+        ),
+      }),
     );
   }
 
@@ -485,7 +482,7 @@ export class VotingReputation {
    *   // Deposit all of approved the tokens
    *   await token.deposit(w`200`);
    *   // Approve 150 tokens for staking in the root domain (can only be forced)
-   *   await colony.ext.motions.approveStake(w`150`).force();
+   *   await colony.ext.motions.approveStake(w`150`).tx();
    *   // Stake 100 tokens for motion with id 3
    *   await colony.ext.motions.stakeMotion(3, Vote.Yay, w`100`);
    * })();
@@ -493,7 +490,7 @@ export class VotingReputation {
    *
    * @param amount - Amount of the token to be approved
    *
-   * @returns A [[TxCreator]]
+   * @returns A transaction creator
    *
    * **Event data**
    *
@@ -524,17 +521,21 @@ export class VotingReputation {
       }
 
       const motion = await this.getMotion(motionId);
-      const token = await this.colony.getToken();
 
-      const deposited = await token.getUserDeposit(userAddress);
+      const deposited = await this.colony.colonyNetwork.locking.getUserDeposit(
+        this.colony.token.address,
+        userAddress,
+      );
       if (deposited.lt(amount)) {
         throw new Error('Not enough tokens deposited for staking.');
       }
 
-      const colonyApproval = await token.getUserApproval(
-        userAddress,
-        this.colony.address,
-      );
+      const colonyApproval =
+        await this.colony.colonyNetwork.locking.getUserApproval(
+          this.colony.token.address,
+          userAddress,
+          this.colony.address,
+        );
       if (colonyApproval.lt(amount)) {
         throw new Error(
           'Not enough tokens approved for staking in the Colony.',
@@ -605,7 +606,7 @@ export class VotingReputation {
       ];
     };
 
-    return this.colony.createTxCreator(
+    return this.colony.colonyNetwork.createMetaTxCreator(
       this.votingReputationClient,
       'stakeMotion',
       getArgs,
@@ -613,7 +614,6 @@ export class VotingReputation {
         ...extractEvent<MotionStakedEventObject>('MotionStaked', receipt),
         ...extractEvent<MotionEventSetEventObject>('MotionEventSet', receipt),
       }),
-      { unsupported: { motion: true, motionMeta: true } },
     );
   }
 
@@ -626,7 +626,7 @@ export class VotingReputation {
    * @param motionId - The motionId of the motion to be finalized
    * @param vote - A vote for (Yay) or against (Nay) the motion
    *
-   * @returns A [[TxCreator]]
+   * @returns A transaction creator
    *
    * **Event data**
    *
@@ -668,7 +668,7 @@ export class VotingReputation {
       ];
     };
 
-    return this.colony.createTxCreator(
+    return this.colony.colonyNetwork.createMetaTxCreator(
       this.votingReputationClient,
       'submitVote',
       getArgs,
@@ -678,7 +678,6 @@ export class VotingReputation {
           receipt,
         ),
       }),
-      { unsupported: { motion: true, motionMeta: true } },
     );
   }
 
@@ -692,7 +691,7 @@ export class VotingReputation {
    * @param motionId - The motionId of the motion to be finalized
    * @param vote - The vote that was cast. If not provided Colony SDK will try to find out which side was voted on (not recommended)
    *
-   * @returns A [[TxCreator]]
+   * @returns A transaction creator
    *
    * **Event data**
    *
@@ -748,7 +747,7 @@ export class VotingReputation {
       ] as [BigNumber, string, BigNumber, string, string, string, string[]];
     };
 
-    return this.colony.createTxCreator(
+    return this.colony.colonyNetwork.createMetaTxCreator(
       this.votingReputationClient,
       'revealVote',
       getArgs,
@@ -758,7 +757,6 @@ export class VotingReputation {
           receipt,
         ),
       }),
-      { unsupported: { motion: true, motionMeta: true } },
     );
   }
 
@@ -775,7 +773,7 @@ export class VotingReputation {
    *
    * @param motionId - The motionId of the motion to be finalized
    *
-   * @returns A [[TxCreator]]
+   * @returns A transaction creator
    *
    * **Event data**
    *
@@ -800,14 +798,13 @@ export class VotingReputation {
       return [motionId] as [BigNumber];
     };
 
-    return this.colony.createTxCreator(
+    return this.colony.colonyNetwork.createMetaTxCreator(
       this.votingReputationClient,
       'finalizeMotion',
       getArgs,
       async (receipt) => ({
         ...extractEvent<MotionFinalizedEventObject>('MotionFinalized', receipt),
       }),
-      { unsupported: { motion: true, motionMeta: true } },
     );
   }
 }
