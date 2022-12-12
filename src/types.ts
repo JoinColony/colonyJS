@@ -126,6 +126,7 @@ export enum TokenClientType {
   Colony = 'Colony',
   ColonyLegacy = 'ColonyLegacy',
   Erc20 = 'Erc20',
+  Erc2612 = 'Erc2612',
   Sai = 'Sai',
 }
 

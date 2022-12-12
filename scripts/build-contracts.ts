@@ -110,7 +110,11 @@ const TOKEN_CONTRACTS = [
   'MetaTxToken',
   // Legacy Colony token
   'Token',
+  // Default ERC20 token
   'TokenERC20',
+  // ERC20 + permit
+  'TokenERC2612',
+  // "NFT"
   'TokenERC721',
   // Special ABI for SAI (not strictly ERC20?)
   'TokenSAI',

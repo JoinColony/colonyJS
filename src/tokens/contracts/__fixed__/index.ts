@@ -2,5 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { TokenERC20 } from "./TokenERC20";
+export type { TokenERC2612 } from "./TokenERC2612";
 export type { TokenERC721 } from "./TokenERC721";
 export type { TokenSAI } from "./TokenSAI";

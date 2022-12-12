@@ -13,6 +13,8 @@ import {
   Token,
   TokenERC20__factory as TokenERC20Factory,
   TokenERC20,
+  TokenERC2612__factory as TokenERC2612Factory,
+  TokenERC2612,
   TokenSAI__factory as TokenSAIFactory,
   TokenSAI,
 } from '../tokens';
@@ -107,10 +109,19 @@ export interface DaiTokenClient extends TokenSAI {
   getTokenInfo(): Promise<TokenInfo>;
 }
 
+export interface Erc2612TokenClient extends TokenERC2612 {
+  clientType: ClientType.TokenClient;
+  tokenClientType: TokenClientType.Erc2612;
+
+  /** Get the standard ERC20 token information */
+  getTokenInfo(): Promise<TokenInfo>;
+}
+
 export type TokenClient =
   | ColonyTokenClient
   | LegacyColonyTokenClient
   | Erc20TokenClient
+  | Erc2612TokenClient
   | DaiTokenClient;
 
 async function checkTokenAuthorityCompatibility(
@@ -164,6 +175,7 @@ const getTokenClient = async (
   let tokenClient: TokenClient;
   let isColonyToken = true;
   let isMetaTxToken = true;
+  let isEip2612Token = true;
 
   tokenClient = MetaTxTokenFactory.connect(
     address,
@@ -196,6 +208,14 @@ const getTokenClient = async (
     isMetaTxToken = false;
   }
 
+  try {
+    // NOTE: Casting will be unnecessary when MetaTxToken supports "nonces"
+    await (tokenClient as unknown as Erc2612TokenClient).nonces(AddressZero);
+  } catch {
+    isEip2612Token = false;
+  }
+
+  // NOTE: The following is horrible. But that's just how things are with tokens rn.
   if (isColonyToken) {
     if (!isMetaTxToken) {
       tokenClient = TokenFactory.connect(
@@ -216,6 +236,13 @@ const getTokenClient = async (
     ) as DaiTokenClient;
 
     tokenClient.tokenClientType = TokenClientType.Sai;
+  } else if (isEip2612Token) {
+    tokenClient = TokenERC2612Factory.connect(
+      address,
+      signerOrProvider,
+    ) as Erc2612TokenClient;
+
+    tokenClient.tokenClientType = TokenClientType.Erc2612;
   } else {
     tokenClient = TokenERC20Factory.connect(
       address,

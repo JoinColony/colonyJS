@@ -8,6 +8,8 @@ export type { latest };
 export * as factories from "./factories";
 export type { TokenERC20 } from "./__fixed__/TokenERC20";
 export { TokenERC20__factory } from "./factories/__fixed__/TokenERC20__factory";
+export type { TokenERC2612 } from "./__fixed__/TokenERC2612";
+export { TokenERC2612__factory } from "./factories/__fixed__/TokenERC2612__factory";
 export type { TokenERC721 } from "./__fixed__/TokenERC721";
 export { TokenERC721__factory } from "./factories/__fixed__/TokenERC721__factory";
 export type { TokenSAI } from "./__fixed__/TokenSAI";

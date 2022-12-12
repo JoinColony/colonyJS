@@ -22,6 +22,7 @@ export type {
   TokenClient,
   ColonyTokenClient,
   Erc20TokenClient,
+  Erc2612TokenClient,
   DaiTokenClient,
 } from './clients/TokenClient';
 

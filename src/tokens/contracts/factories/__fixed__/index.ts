@@ -2,5 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 export { TokenERC20__factory } from "./TokenERC20__factory";
+export { TokenERC2612__factory } from "./TokenERC2612__factory";
 export { TokenERC721__factory } from "./TokenERC721__factory";
 export { TokenSAI__factory } from "./TokenSAI__factory";

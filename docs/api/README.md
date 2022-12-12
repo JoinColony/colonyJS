@@ -41,6 +41,7 @@
 - [ColonyTokenClient](interfaces/ColonyTokenClient.md)
 - [DaiTokenClient](interfaces/DaiTokenClient.md)
 - [Erc20TokenClient](interfaces/Erc20TokenClient.md)
+- [Erc2612TokenClient](interfaces/Erc2612TokenClient.md)
 - [EvaluatedExpenditureClientV1](interfaces/EvaluatedExpenditureClientV1.md)
 - [EvaluatedExpenditureClientV2](interfaces/EvaluatedExpenditureClientV2.md)
 - [IBasicMetaTransaction](interfaces/IBasicMetaTransaction.md)
@@ -169,7 +170,7 @@ ___
 
 ### TokenClient
 
-Ƭ **TokenClient**: [`ColonyTokenClient`](interfaces/ColonyTokenClient.md) \| `LegacyColonyTokenClient` \| [`Erc20TokenClient`](interfaces/Erc20TokenClient.md) \| [`DaiTokenClient`](interfaces/DaiTokenClient.md)
+Ƭ **TokenClient**: [`ColonyTokenClient`](interfaces/ColonyTokenClient.md) \| `LegacyColonyTokenClient` \| [`Erc20TokenClient`](interfaces/Erc20TokenClient.md) \| [`Erc2612TokenClient`](interfaces/Erc2612TokenClient.md) \| [`DaiTokenClient`](interfaces/DaiTokenClient.md)
 
 ___
 

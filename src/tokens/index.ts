@@ -25,4 +25,7 @@ export type { MetaTxToken as ColonyToken } from './contracts';
 export { TokenERC20__factory as ERC20TokenFactory } from './contracts';
 export type { TokenERC20 as ERC20Token } from './contracts';
 
+export { TokenERC2612__factory as ERC2612TokenFactory } from './contracts';
+export type { TokenERC2612 as ERC2612Token } from './contracts';
+
 export * from './contracts';

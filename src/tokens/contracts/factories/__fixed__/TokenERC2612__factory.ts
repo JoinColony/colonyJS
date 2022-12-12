@@ -5,9 +5,9 @@
 import { Contract, Signer, utils } from "ethers";
 import type { Provider } from "@ethersproject/providers";
 import type {
-  TokenERC20,
-  TokenERC20Interface,
-} from "../../__fixed__/TokenERC20";
+  TokenERC2612,
+  TokenERC2612Interface,
+} from "../../__fixed__/TokenERC2612";
 
 const _abi = [
   {
@@ -248,17 +248,92 @@ const _abi = [
     stateMutability: "nonpayable",
     type: "function",
   },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "owner",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "value",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "deadline",
+        type: "uint256",
+      },
+      {
+        internalType: "uint8",
+        name: "v",
+        type: "uint8",
+      },
+      {
+        internalType: "bytes32",
+        name: "r",
+        type: "bytes32",
+      },
+      {
+        internalType: "bytes32",
+        name: "s",
+        type: "bytes32",
+      },
+    ],
+    name: "permit",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "DOMAIN_SEPARATOR",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "owner",
+        type: "address",
+      },
+    ],
+    name: "nonces",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
 ];
 
-export class TokenERC20__factory {
+export class TokenERC2612__factory {
   static readonly abi = _abi;
-  static createInterface(): TokenERC20Interface {
-    return new utils.Interface(_abi) as TokenERC20Interface;
+  static createInterface(): TokenERC2612Interface {
+    return new utils.Interface(_abi) as TokenERC2612Interface;
   }
   static connect(
     address: string,
     signerOrProvider: Signer | Provider
-  ): TokenERC20 {
-    return new Contract(address, _abi, signerOrProvider) as TokenERC20;
+  ): TokenERC2612 {
+    return new Contract(address, _abi, signerOrProvider) as TokenERC2612;
   }
 }
