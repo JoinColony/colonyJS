@@ -69,7 +69,7 @@ import { Id, Tokens, w } from '@colony/sdk';
      w`10`,
      Id.RootDomain,
      Tokens.Gnosis.XDAI,
-  ).force();
+  ).tx();
 })();
 ```
 

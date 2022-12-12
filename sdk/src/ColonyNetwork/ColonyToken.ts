@@ -1,53 +1,41 @@
 import {
-  ColonyTokenClient,
-  TokenClientType,
-  TokenLockingClient,
-} from '@colony/colony-js';
-import {
-  ApprovalEventObject,
-  TokenAuthorityDeployedEventObject,
-  UserTokenDepositedEventObject,
-  UserTokenWithdrawnEventObject,
+  LogSetAuthorityEventObject,
+  LogSetOwnerEventObject,
 } from '@colony/colony-js/extras';
+import {
+  ColonyToken as ColonyTokenType,
+  ColonyTokenFactory,
+} from '@colony/colony-js/tokens';
 
-import type { BigNumberish } from 'ethers';
 import { extractEvent } from '../utils';
 
-import { Colony } from './Colony';
+import { ColonyNetwork } from './ColonyNetwork';
+import { ERC20Token } from './ERC20Token';
 
-export class ColonyToken {
-  private colony: Colony;
-
-  private tokenClient: ColonyTokenClient;
-
-  address: string;
-
-  tokenLockingClient: TokenLockingClient;
-
-  // TODO: Add symbol, decimals
-  // Get symbol in colonyJS. Use async getToken function
+export class ColonyToken extends ERC20Token {
+  protected tokenClient: ColonyTokenType;
 
   /**
-   * Creates a new instance of a Colony's native Token
-   * @internal
+   * Creates a new instance of a Colony deployed Token
    *
-   * @remarks
-   * Do not use this method directly but use [[Colony.getToken]]
+   * @remarks This does not deploy a new token, only connects to an exisiting one
    *
-   * @param colony - A Colony instance
-   * @returns A Colony Token abstaction instance
+   * @param colonyNetwork - A [[ColonyNetwork]] instance
+   * @param token - A token address or a full contract (like on a colony token client)
+   * @returns An ERC20 token abstraction instance
    */
-  constructor(colony: Colony, tokenLockingClient: TokenLockingClient) {
-    const colonyClient = colony.getInternalColonyClient();
-    if (colonyClient.tokenClient.tokenClientType !== TokenClientType.Colony) {
-      throw new Error(
-        `Requested token is not a token deployed with Colony. Please use the Erc20Token class`,
+  constructor(colonyNetwork: ColonyNetwork, token: ColonyTokenType | string) {
+    super(colonyNetwork, token);
+    if (typeof token == 'string') {
+      this.tokenClient = ColonyTokenFactory.connect(
+        token,
+        colonyNetwork.signerOrProvider,
       );
+    } else {
+      this.tokenClient = token;
     }
-    this.address = colonyClient.tokenClient.address;
-    this.colony = colony;
-    this.tokenClient = colonyClient.tokenClient;
-    this.tokenLockingClient = tokenLockingClient;
+    this.address = this.tokenClient.address;
+    this.colonyNetwork = colonyNetwork;
   }
 
   /**
@@ -56,24 +44,17 @@ export class ColonyToken {
    *
    * @returns The internally used TokenClient
    */
-  getInternalTokenClient(): ColonyTokenClient {
+  getInternalTokenClient(): ColonyTokenType {
     return this.tokenClient;
   }
 
   /**
-   * Gets the token's symbol
+   * Sets the address of the TokenAuthority for this token
    *
-   * @returns The token's symbol (e.g. CLNY)
-   */
-  async symbol() {
-    return this.tokenClient.symbol();
-  }
-
-  /**
-   * Mints `amount` of a Colony's native token.
+   * Set the TokenAuthority for this token. Only has to be done once, after the TokenAuthority has been deployed. See [[Colony.deployTokenAuthority]] for more information.
    *
    * @remarks
-   * Only works for tokens deployed with Colony (not imported tokens). Note that most tokens use 18 decimals, so add a bunch of zeros or use our `w` or `toWei` functions (see example). Also not that for tokens to be available in the Colony after funding, you need to call the [[Colony.claimFunds]] method after minting.
+   * Only works for native tokens deployed with Colony (not imported tokens).
    *
    * @example
    * ```typescript
@@ -81,236 +62,62 @@ export class ColonyToken {
    *
    * // Immediately executing async function
    * (async function() {
-   *   const token = await colony.getToken();
-   *   // Mint 100 tokens of the Colony's native token
+   *   // Deploy the TokenAuthority contract
    *   // (forced transaction example)
-   *   await token.mint(w`100`).force();
-   *   // Claim the minted tokens for the Colony
+   *   const [{ tokenAuthorityAddress }] = await colony.deployTokenAuthority().tx();
+   *   // Set the TokenAuthority for this token
    *   // (forced transaction example)
-   *   await colony.claimFunds().force();
+   *   await colony.token.setAuthority(tokenAuthorityAddress).tx();
    * })();
    * ```
    *
-   * @param amount - Amount of the token to be minted
+   * @param tokenAuthorityAddress - Address of the TokenAuthority contract
    *
-   * @returns A [[TxCreator]]
-   */
-  mint(amount: BigNumberish) {
-    return this.colony.createColonyTxCreator(
-      this.colony.getInternalColonyClient(),
-      'mintTokens',
-      [amount],
-    );
-  }
-
-  /**
-   * Approve `amount` of the wallet owners holdings of the Colony's native token.
-   *
-   * In order for the wallet owner to stake tokens, that amount has to be approved and deposited into the Colony first. In the dapp the process is called "Activation" of a certain amount of the Colony's native token. The wallet must hold at least the amount of the token that will be approved.
-   *
-   * @example
-   * ```typescript
-   * import { w } from '@colony/sdk';
-   *
-   * // Immediately executing async function
-   * (async function() {
-   *   const token = await colony.getToken();
-   *   // Approve 100 tokens to be "activated"
-   *   await token.approve(w`100`);
-   *   // Deposit the tokens
-   *   await token.deposit(w`100`);
-   * })();
-   * ```
-   *
-   * @param amount - Amount of the token to be approved
-   *
-   * @returns A tupel of event data and contract receipt
+   * @returns A transaction creator
    *
    * **Event data**
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
-   * | `src` | string | The address that approved the tokens from their wallet |
-   * | `guy` | string | Address of the TokenLocking contract |
-   * | `wad` | BigNumber | Amount that was approved |
+   * | `authority` | string | The address of the tokenAuthority that has been set |
    */
-  async approve(amount: BigNumberish) {
-    const tx = await this.tokenClient.approve(
-      this.tokenLockingClient.address,
-      amount,
-    );
-    const receipt = await tx.wait();
-    const data = {
-      ...extractEvent<ApprovalEventObject>('Approval', receipt),
-    };
-    return [data, receipt] as [typeof data, typeof receipt];
-  }
-
-  /**
-   * Deposit `amount` of the wallet owners holdings of the Colony's native token into the Colony.
-   *
-   * In order for the wallet owner to stake tokens, that amount has to be approved and deposited into the Colony first. In the dapp the process is called "Activation" of a certain amount of the Colony's native token. The wallet must hold at least the amount of the token that will be deposited.
-   *
-   * @example
-   * ```typescript
-   * import { w } from '@colony/sdk';
-   *
-   * // Immediately executing async function
-   * (async function() {
-   *   const token = await colony.getToken();
-   *   // Approve 100 tokens to be "activated"
-   *   await token.approve(w`100`);
-   *   // Deposit the tokens
-   *   await token.deposit(w`100`);
-   * })();
-   * ```
-   *
-   * @param amount - Amount of the token to be deposited
-   *
-   * @returns A tupel of event data and contract receipt
-   *
-   * **Event data**
-   *
-   * | Property | Type | Description |
-   * | :------ | :------ | :------ |
-   * | `token` | string | The address of the Colony's native token |
-   * | `user` | string | The address that deposited the tokens from their wallet |
-   * | `amount` | BigNumber | Amount that was deposited |
-   */
-  async deposit(amount: BigNumberish) {
-    const tx = await this.tokenLockingClient['deposit(address,uint256,bool)'](
-      this.tokenClient.address,
-      amount,
-      false,
-    );
-    const receipt = await tx.wait();
-    const data = {
-      ...extractEvent<UserTokenDepositedEventObject>(
-        'UserTokenDeposited',
-        receipt,
-      ),
-    };
-    return [data, receipt] as [typeof data, typeof receipt];
-  }
-
-  /**
-   * Withdraw `amount` of the wallet owners holdings of the Colony's native token from the Colony.
-   *
-   * Does the opposite of `deposit` and frees the deposited tokens back to the wallet address.
-   *
-   * @example
-   * ```typescript
-   * import { w } from '@colony/sdk';
-   *
-   * // Immediately executing async function
-   * (async function() {
-   *   const token = await colony.getToken();
-   *   // Withdraw 100 tokens that were previously deposited
-   *   await token.withdraw(w`100`);
-   * })();
-   * ```
-   *
-   * @param amount - Amount of the token to be withdrawn
-   *
-   * @returns A tupel of event data and contract receipt
-   *
-   * **Event data**
-   *
-   * | Property | Type | Description |
-   * | :------ | :------ | :------ |
-   * | `token` | string | The address of the Colony's native token |
-   * | `user` | string | The address that withdrew the tokens from their wallet |
-   * | `amount` | BigNumber | Amount that was withdrawn |
-   */
-  async withdraw(amount: BigNumberish) {
-    const tx = await this.tokenLockingClient['withdraw(address,uint256,bool)'](
-      this.tokenClient.address,
-      amount,
-      false,
-    );
-    const receipt = await tx.wait();
-    const data = {
-      ...extractEvent<UserTokenWithdrawnEventObject>(
-        'UserTokenWithdrawn',
-        receipt,
-      ),
-    };
-    return [data, receipt] as [typeof data, typeof receipt];
-  }
-
-  /**
-   * Get the wallet owner's deposited and locked balance of the Colony's native token.
-   *
-   * This method will show the accumulated amount that was deposited using the [[ColonyToken.deposit]] method
-   *
-   * @param user - The wallet address that we want to check the deposited amount of
-   *
-   * @returns The currently deposited balance of the Colony's native token
-   */
-  async getUserDeposit(user: string) {
-    const userLock = await this.tokenLockingClient.getUserLock(
-      this.tokenClient.address,
-      user,
-    );
-    return userLock.balance;
-  }
-
-  /**
-   * Get the wallet owner's approved balance of the Colony's native token for an obliator (i.e. an extension)
-   *
-   * This method will show the accumulated amount that was approved using the [[ColonyToken.approve]] method
-   *
-   * @param user - The wallet address that we want to check the approved amount of
-   * @param obligator - The address that has been approved to obligate the funds.
-   *
-   * @returns The currently approved balance of the Colony's native token for the obligator
-   */
-  async getUserApproval(user: string, obligator: string) {
-    return this.tokenLockingClient.getApproval(
-      user,
-      this.tokenClient.address,
-      obligator,
-    );
-  }
-
-  deployAuthority(allowedToTransfer?: string[]) {
-    const { colonyNetwork } = this.colony;
-    return colonyNetwork.createMetaTxCreator(
-      colonyNetwork.networkClient,
-      'deployTokenAuthority',
-      async () => {
-        let allowed: string[] = [];
-        const tokenLockingAddress =
-          await colonyNetwork.networkClient.getTokenLocking();
-        if (!allowedToTransfer) {
-          allowed = [tokenLockingAddress];
-        } else {
-          allowed = [...allowedToTransfer, tokenLockingAddress];
-        }
-        return [this.address, this.colony.address, allowed] as [
-          string,
-          string,
-          string[],
-        ];
-      },
+  setAuthority(tokenAuthorityAddress: string) {
+    return this.colonyNetwork.createMetaTxCreator(
+      this.tokenClient,
+      'setAuthority',
+      [tokenAuthorityAddress],
       async (receipt) => ({
-        ...extractEvent<TokenAuthorityDeployedEventObject>(
-          'TokenAuthorityDeployed',
-          receipt,
-        ),
+        ...extractEvent<LogSetAuthorityEventObject>('LogSetAuthority', receipt),
       }),
     );
   }
 
-  setAuthority(tokenAuthorityAddress: string) {
-    return this.colony.createColonyTxCreator(this.tokenClient, 'setAuthority', [
-      tokenAuthorityAddress,
-    ]);
-  }
-
-  setupColonyAsOwner() {
-    return this.colony.createColonyTxCreator(this.tokenClient, 'setOwner', [
-      this.colony.address,
-    ]);
+  /**
+   * Sets the owner of the token
+   *
+   * Set the owner address for this token. Should usually be the colony. This will allow the Colony to always affect certain token parameters, event without the TokenAuthority deployed or used
+   *
+   * @remarks
+   * Only works for native tokens deployed with Colony (not imported tokens).
+   *
+   * @param address - Address to set as the owner of the token (usually the colony)
+   *
+   * @returns A transaction creator
+   *
+   * **Event data**
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `owner` | string | The address of the owner that has been set |
+   */
+  setOwner(address: string) {
+    return this.colonyNetwork.createMetaTxCreator(
+      this.tokenClient,
+      'setOwner',
+      [address],
+      async (receipt) => ({
+        ...extractEvent<LogSetOwnerEventObject>('LogSetOwner', receipt),
+      }),
+    );
   }
 }

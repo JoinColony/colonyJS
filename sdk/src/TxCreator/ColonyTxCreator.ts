@@ -29,15 +29,15 @@ interface MetaMotionsConfig<C, M, E, MD> extends TxCreatorConfig<C, M, E, MD> {
  *
  * The `ColonyTxCreator` allows for a simple API to cover all the different cases of transactions within a colony. Once a `ColonyTxCreator` is created using a method on the base contracts (e.g. [[Colony]] or extensions like [[VotingReputation]]), there are four options available:
  *
- * ## Force a transaction
+ * ## Create a standard transaction ("force" in dApp)
  *
- * - [[ColonyTxCreator.force]]: force a Colony transaction, knowing you have the permissions to do so
- * - [[ColonyTxCreator.forceMeta]]: same as `force()`, but send as a gasless metatransaction
+ * - [[ColonyTxCreator.tx]]: force a Colony transaction, knowing you have the permissions to do so
+ * - [[ColonyTxCreator.metaTx]]: same as `tx()`, but send as a gasless metatransaction
  *
  * ## Create a motion to trigger an action once it passes
  *
  * - [[ColonyTxCreator.motion]]: create a motion (needs the motion's domain as a parameter)
- * - [[ColonyTxCreator.motionMeta]]: same as `motion()`, but sends a gasless metatransaction
+ * - [[ColonyTxCreator.metaMotion]]: same as `motion()`, but sends a gasless metatransaction
  *
  * Learn more about these functions in their individual documentation
  */
@@ -134,7 +134,7 @@ export class ColonyTxCreator<
    *
    * @returns A tupel of motion event data and contract receipt
    */
-  async motionMeta(motionDomain: BigNumberish = Id.RootDomain) {
+  async metaMotion(motionDomain: BigNumberish = Id.RootDomain) {
     if (!this.colony) {
       throw new Error('Motions can only be created on a Colony');
     }

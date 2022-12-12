@@ -6,7 +6,7 @@ const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc2/');
 
 // Get the Colony's CLNY funding in the ROOT team (id 1)
 const start = async () => {
-  const colonyNetwork = new ColonyNetwork(provider);
+  const colonyNetwork = await ColonyNetwork.init(provider);
   const metaColony = await colonyNetwork.getMetaColony();
   const funding = await metaColony.getBalance();
   const { address } = metaColony;

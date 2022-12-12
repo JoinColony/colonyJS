@@ -1,6 +1,11 @@
 import { providers, Wallet } from 'ethers';
 
-import { ColonyNetwork, ColonyRole, SupportedExtension } from '../../src';
+import {
+  ColonyNetwork,
+  ColonyRole,
+  ColonyToken,
+  SupportedExtension,
+} from '../../src';
 
 const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc2/');
 
@@ -9,11 +14,11 @@ const start = async () => {
   const signer = new Wallet(process.env.PRIVATE_KEY as string).connect(
     provider,
   );
-  const colonyNetwork = new ColonyNetwork(signer);
+  const colonyNetwork = await ColonyNetwork.init(signer);
   // Create token to be used with Colony
   const [{ tokenAddress }] = await colonyNetwork
     .deployToken('Test token', 'TOT')
-    .force();
+    .tx();
   console.info('Token address', tokenAddress);
   if (!tokenAddress) {
     return;
@@ -21,28 +26,27 @@ const start = async () => {
   // Create actual colony (deploys Colony contract)
   const [{ colonyAddress }] = await colonyNetwork
     .createColony(tokenAddress, 'createcolonytest3')
-    .force();
+    .tx();
   if (!colonyAddress) {
     return;
   }
   console.info('Colony address', colonyAddress);
   // Instantiate colony and token
   const colony = await colonyNetwork.getColony(colonyAddress);
-  const token = await colony.getToken();
   // Deploy TokenAuthority
-  const [{ tokenAuthorityAddress }] = await token
-    .deployAuthority([colonyAddress])
-    .force();
+  const [{ tokenAuthorityAddress }] = await colony.deployTokenAuthority().tx();
   if (!tokenAuthorityAddress) {
     return;
   }
   console.info('Token authority address', tokenAuthorityAddress);
   // Set the token's authority to the freshly deployed one
-  await token.setAuthority(tokenAuthorityAddress).force();
+  if (colony.token instanceof ColonyToken) {
+    await colony.token.setAuthority(tokenAuthorityAddress).tx();
+  }
   // Install OneTxPayment extension
   const [{ extensionId, version }] = await colony
     .installExtension(SupportedExtension.oneTx)
-    .force();
+    .tx();
   if (!extensionId || !version) {
     return;
   }
@@ -60,7 +64,7 @@ const start = async () => {
       ColonyRole.Administration,
       ColonyRole.Funding,
     ])
-    .force();
+    .tx();
   if (!role) {
     return;
   }

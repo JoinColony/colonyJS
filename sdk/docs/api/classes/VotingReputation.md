@@ -19,7 +19,7 @@ The exact lifecycle is determined by the parameters that were set when the `Voti
 
 #### Creating a Motion
 
-See [ColonyTxCreator.motion](ColonyTxCreator.md#motion) or [ColonyTxCreator.motionMeta](ColonyTxCreator.md#motionmeta).
+See [ColonyTxCreator.motion](ColonyTxCreator.md#motion) or [ColonyTxCreator.metaMotion](ColonyTxCreator.md#metamotion).
 
 Anyone within a Colony can start a motion. In Colony SDK, this is as easy as sending a transaction of the same kind. There the `action` (the contract transaction) for the Motion will be defined. This is essentially nothing else than an encoded contract function string alongside its parameters (see for detailed info [here](https://medium.com/linum-labs/a-technical-primer-on-using-encoded-function-calls-50e2b9939223) - but don't worry. In Colony SDK this will all be taken care of by the [ColonyTxCreator](ColonyTxCreator.md)).
 
@@ -363,7 +363,7 @@ import { Vote, w } from '@colony/sdk';
   // Deposit all of approved the tokens
   await token.deposit(w`200`);
   // Approve 150 tokens for staking in the root domain (can only be forced)
-  await colony.ext.motions.approveStake(w`150`).force();
+  await colony.ext.motions.approveStake(w`150`).tx();
   // Stake 100 tokens for motion with id 3
   await colony.ext.motions.stakeMotion(3, Vote.Yay, w`100`);
 })();

@@ -1,5 +1,6 @@
-import { ContractReceipt, ContractTransaction } from 'ethers';
+import { Contract, ContractReceipt, ContractTransaction } from 'ethers';
 import { MetadataType } from '@colony/colony-event-metadata-parser';
+import { fetch } from 'cross-fetch';
 
 import { MetadataValue } from '../ipfs';
 import { ParsedLogTransactionReceipt } from '../types';
@@ -31,6 +32,7 @@ export interface BaseContract {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: (...args: any[]) => Promise<any>;
   };
+  interface: Contract['interface'];
 }
 
 /**
@@ -38,9 +40,9 @@ export interface BaseContract {
  *
  * The `TxCreator` allows for a simple API to cover all the different cases of transactions within the Colony Network. This is the base class of the TxCreator that only supports the `force()` action and no metatransactions.
  *
- * ## Force a transaction
+ * ## Create a standard transaction ("force" in dApp)
  *
- * - [[TxCreator.force]]: force a Colony transaction, knowing you have the permissions to do so
+ * - [[TxCreator.tx]]: force a Colony transaction, knowing you have the permissions to do so
  *
  * Learn more about these functions in their individual documentation
  */
@@ -120,14 +122,56 @@ export class TxCreator<
     return [{} as E, receipt as R];
   }
 
+  protected async broadcastMetaTx(broadcastData: Record<string, unknown>) {
+    const signer = this.colonyNetwork.getSigner();
+    const { provider } = signer;
+
+    if (!provider) {
+      throw new Error('No provider found');
+    }
+
+    const res = await fetch(
+      `${this.colonyNetwork.config.metaTxBroadcasterEndpoint}/broadcast`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(broadcastData),
+      },
+    );
+    const parsed = await res.json();
+
+    if (parsed.status !== 'success') {
+      throw new Error(
+        `Could not send Metatransaction. Reason given: ${parsed.data.reason}`,
+      );
+    }
+
+    if (!parsed.data?.txHash) {
+      throw new Error(
+        'Could not get transaction hash from broadcaster response',
+      );
+    }
+
+    const receipt = (await provider.waitForTransaction(
+      parsed.data.txHash,
+    )) as ParsedLogTransactionReceipt;
+    receipt.parsedLogs = receipt.logs.map((log) =>
+      this.contract.interface.parseLog(log),
+    );
+
+    return receipt;
+  }
+
   /**
-   * Forces an action
+   * Create a standard transaction ("force" in dApp)
    *
    * @remarks The user sending this transaction has to have the appropriate permissions to do so. Learn more about permissions in Colony [here](/develop/dev-learning/permissions).
    *
    * @returns A tupel of event data and contract receipt (and a function to retrieve metadata if applicable)
    */
-  async force() {
+  async tx() {
     const args = await this.getArgs();
 
     const tx = (await this.contract.functions[this.method].apply(

@@ -14,16 +14,6 @@ ___
 
 ___
 
-### colonyToken
-
-• `Optional` **colonyToken**: [`ColonyToken`](ColonyToken.md)
-
-An instance of the Colony's native token
-
-Currently only Tokens deployed via Colony are supported (no external, imported tokens) in Colony SDK. All other kinds will throw an error
-
-___
-
 ### ext
 
 • **ext**: [`SupportedExtensions`](../interfaces/SupportedExtensions.md)
@@ -33,6 +23,14 @@ ___
 ### signerOrProvider
 
 • **signerOrProvider**: `SignerOrProvider`
+
+___
+
+### token
+
+• **token**: `ERC20Token` \| [`ColonyToken`](ColonyToken.md) \| `ERC2612Token`
+
+An instance of the Colony's native token
 
 ___
 
@@ -79,7 +77,7 @@ If [AnnotationMetadata](../interfaces/AnnotationMetadata.md) is provided directl
   await colony.annotateTransaction(
      transactionHash,
      { annotationMsg: 'I am creating this motion because I think I deserve a little bonus' },
-  ).force();
+  ).tx();
 })();
 ```
 
@@ -165,7 +163,7 @@ import { TeamColor } from '@colony/sdk';
     domainName: 'Butter-passers',
     domainColor: TeamColor.Gold,
     domainPurpose: 'To pass butter',
-  }).force();
+  }).tx();
 })();
 ```
 
@@ -219,6 +217,39 @@ A transaction creator
 | `agent` | string | The address that is responsible for triggering this event |
 | `domainId` | BigNumber | Integer domain id of the created team |
 | `fundingPotId` | BigNumber | Integer id of the corresponding funding pot |
+
+___
+
+### deployTokenAuthority
+
+▸ **deployTokenAuthority**(`allowedToTransfer?`): [`MetaTxCreator`](MetaTxCreator.md)<`ColonyNetworkClient`, ``"deployTokenAuthority"``, { `tokenAuthorityAddress?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+Deploys the so called TokenAuthority for the colony's native token
+
+The TokenAuthority determines which addresses are allowed to do certain token actions like minting, or transferring them even though they are locked.
+By default only the Colony can transfer a locked token. In the first argument you can specify a list of additional (excluding the colony) addresses that are allowed to transfer a locked token
+
+**`Remarks`**
+
+Only works for native tokens deployed with Colony (not imported tokens).
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `allowedToTransfer?` | `string`[] | List of addresses (excluding the colony) that can transfer the token when it's locked |
+
+#### Returns
+
+[`MetaTxCreator`](MetaTxCreator.md)<`ColonyNetworkClient`, ``"deployTokenAuthority"``, { `tokenAuthorityAddress?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+A transaction creator
+
+**Event data**
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `tokenAuthorityAddress` | string | The address of the newly deployed TokenAuthority contract |
 
 ___
 
@@ -383,7 +414,7 @@ After an extension was installed, `colony.updateExtensions()` needs to be called
   // (forced transaction example)
   await colony.installExtension(
     SupportedExtension.oneTx,
-  ).force();
+  ).tx();
   // Update the extensions in the colony
   await colony.updateExtensions();
   console.info(colony.ext.oneTx.address);
@@ -444,7 +475,7 @@ const encodedAction = ERC721.encodeFunctionData(
      '0x06012c8cf97BEaD5deAe237070F9587f8E7A266d',
      // encoded transaction from above
      encodedAction
-  ).force();
+  ).tx();
 })();
 ```
 
@@ -462,6 +493,54 @@ const encodedAction = ERC721.encodeFunctionData(
 A transaction creator
 
 **No event data**
+
+___
+
+### mint
+
+▸ **mint**(`amount`): [`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"mintTokens"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `who?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+Mints `amount` of a Colony's native token.
+
+**`Remarks`**
+
+Only works for native tokens deployed with Colony (not imported tokens). Note that most tokens use 18 decimals, so add a bunch of zeros or use our `w` or `toWei` functions (see example). Also not that for tokens to be available in the Colony after funding, you need to call the [Colony.claimFunds](Colony.md#claimfunds) method after minting.
+
+**`Example`**
+
+```typescript
+import { w } from '@colony/sdk';
+
+// Immediately executing async function
+(async function() {
+  // Mint 100 tokens of the Colony's native token
+  // (forced transaction example)
+  await colony.mint(w`100`).tx();
+  // Claim the minted tokens for the Colony
+  // (forced transaction example)
+  await colony.claimFunds().tx();
+})();
+```
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `amount` | `BigNumberish` | Amount of the token to be minted |
+
+#### Returns
+
+[`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"mintTokens"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `who?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+A transaction creator
+
+**Event data**
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `agent` | string | The address that is responsible for triggering this event |
+| `who` | string | Address the tokens were minted for (usually the colony) |
+| `amount` | BigNumber | Amount that was minted |
 
 ___
 
@@ -490,7 +569,7 @@ import { Tokens, w } from '@colony/sdk';
      w`10`,
      2,
      3,
-  ).force();
+  ).tx();
 })();
 ```
 
@@ -543,7 +622,7 @@ import { ColonyRole } from '@colony/sdk';
   await colony.setRoles(
     '0xb794f5ea0ba39494ce839613fffba74279579268',
     [ColonyRole.Administration, ColonyRole.Root],
-  ).force();
+  ).tx();
 })();
 ```
 

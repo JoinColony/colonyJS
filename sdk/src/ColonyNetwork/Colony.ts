@@ -8,6 +8,7 @@ import {
   getPermissionProofs,
   isExtensionCompatible,
   getExtensionHash,
+  TokenClientType,
 } from '@colony/colony-js';
 import {
   AnnotationEventObject,
@@ -22,6 +23,8 @@ import {
   ExtensionInstalledEventObject,
   FundingPotAddedEventObject,
   RecoveryRoleSetEventObject,
+  TokenAuthorityDeployedEventObject,
+  TokensMintedEventObject,
 } from '@colony/colony-js/extras';
 import {
   AnnotationMetadata,
@@ -41,12 +44,14 @@ import type { Expand, Parameters, ParametersFrom2 } from '../types';
 import { PermissionConfig, TxConfig, ColonyTxCreator } from '../TxCreator';
 import { extractEvent, extractCustomEvent } from '../utils';
 import { ColonyToken } from './ColonyToken';
+import { ERC20Token } from './ERC20Token';
 import { ColonyNetwork } from './ColonyNetwork';
 import { getOneTxPaymentClient, OneTxPayment } from './OneTxPayment';
 import {
   getVotingReputationClient,
   VotingReputation,
 } from './VotingReputation';
+import { ERC2612Token } from './ERC2612Token';
 
 export type SupportedColonyClient = ColonyClientV10;
 export type SupportedColonyMethods = SupportedColonyClient['functions'];
@@ -86,10 +91,8 @@ export class Colony {
 
   /**
    * An instance of the Colony's native token
-   *
-   * Currently only Tokens deployed via Colony are supported (no external, imported tokens) in Colony SDK. All other kinds will throw an error
    */
-  colonyToken?: ColonyToken;
+  token: ColonyToken | ERC20Token | ERC2612Token;
 
   ext: SupportedExtensions;
 
@@ -115,6 +118,32 @@ export class Colony {
     this.signerOrProvider = colonyClient.signer || colonyClient.provider;
     this.address = colonyClient.address;
     this.ext = {};
+    switch (colonyClient.tokenClient.tokenClientType) {
+      case TokenClientType.Erc20: {
+        this.token = new ERC20Token(
+          this.colonyNetwork,
+          colonyClient.tokenClient,
+        );
+        break;
+      }
+      case TokenClientType.Colony: {
+        this.token = new ColonyToken(
+          this.colonyNetwork,
+          colonyClient.tokenClient,
+        );
+        break;
+      }
+      case TokenClientType.Erc2612: {
+        this.token = new ERC2612Token(
+          this.colonyNetwork,
+          colonyClient.tokenClient,
+        );
+        break;
+      }
+      default: {
+        throw new Error('Your token is not supported in Colony SDK (yet).');
+      }
+    }
     this.version = colonyClient.clientVersion;
   }
 
@@ -221,24 +250,6 @@ export class Colony {
   }
 
   /**
-   * Gets the colony's [[ColonyToken]]. Will instantiate it if it doesn't exist yet
-   *
-   * @internal
-   * @returns The colony's [[ColonyToken]]
-   */
-  async getToken(): Promise<ColonyToken> {
-    if (this.colonyToken) {
-      return this.colonyToken;
-    }
-    const tokenLockingClient =
-      // eslint-disable-next-line max-len
-      await this.getInternalColonyClient().networkClient.getTokenLockingClient();
-    const token = new ColonyToken(this, tokenLockingClient);
-    this.colonyToken = token;
-    return this.colonyToken;
-  }
-
-  /**
    * Refresh colony extensions
    *
    * Call this function after a new extension was installed.
@@ -316,7 +327,7 @@ export class Colony {
    *     domainName: 'Butter-passers',
    *     domainColor: TeamColor.Gold,
    *     domainPurpose: 'To pass butter',
-   *   }).force();
+   *   }).tx();
    * })();
    * ```
    * @param metadata - The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[DomainMetadata]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
@@ -534,7 +545,7 @@ export class Colony {
    *      w`10`,
    *      2,
    *      3,
-   *   ).force();
+   *   ).tx();
    * })();
    * ```
    * @param amount - Amount to transfer between the teams
@@ -683,7 +694,7 @@ export class Colony {
    *      '0x06012c8cf97BEaD5deAe237070F9587f8E7A266d',
    *      // encoded transaction from above
    *      encodedAction
-   *   ).force();
+   *   ).tx();
    * })();
    * ```
    * @param target - Address of the contract to execute a method on
@@ -725,7 +736,7 @@ export class Colony {
    *   await colony.annotateTransaction(
    *      transactionHash,
    *      { annotationMsg: 'I am creating this motion because I think I deserve a little bonus' },
-   *   ).force();
+   *   ).tx();
    * })();
    * ```
    * @param txHash - Transaction hash of the transaction to annotate (within the Colony)
@@ -782,7 +793,7 @@ export class Colony {
    *   // (forced transaction example)
    *   await colony.installExtension(
    *     SupportedExtension.oneTx,
-   *   ).force();
+   *   ).tx();
    *   // Update the extensions in the colony
    *   await colony.updateExtensions();
    *   console.info(colony.ext.oneTx.address);
@@ -839,7 +850,7 @@ export class Colony {
    *   await colony.setRoles(
    *     '0xb794f5ea0ba39494ce839613fffba74279579268',
    *     [ColonyRole.Administration, ColonyRole.Root],
-   *   ).force();
+   *   ).tx();
    * })();
    * ```
    * @param address - Address of the wallet or contract to give the roles to
@@ -903,6 +914,7 @@ export class Colony {
    * @param address - Address of the wallet or contract to remove the roles from
    * @param roles - Role or array of roles to remove
    * @param teamId - Team to apply the role(s) in
+   *
    * @returns A transaction creator
    *
    * **Event data**
@@ -952,6 +964,97 @@ export class Colony {
           receipt,
         ),
         ...extractEvent<RecoveryRoleSetEventObject>('RecoveryRoleSet', receipt),
+      }),
+    );
+  }
+
+  /**
+   * Mints `amount` of a Colony's native token.
+   *
+   * @remarks
+   * Only works for native tokens deployed with Colony (not imported tokens). Note that most tokens use 18 decimals, so add a bunch of zeros or use our `w` or `toWei` functions (see example). Also not that for tokens to be available in the Colony after funding, you need to call the [[Colony.claimFunds]] method after minting.
+   *
+   * @example
+   * ```typescript
+   * import { w } from '@colony/sdk';
+   *
+   * // Immediately executing async function
+   * (async function() {
+   *   // Mint 100 tokens of the Colony's native token
+   *   // (forced transaction example)
+   *   await colony.mint(w`100`).tx();
+   *   // Claim the minted tokens for the Colony
+   *   // (forced transaction example)
+   *   await colony.claimFunds().tx();
+   * })();
+   * ```
+   *
+   * @param amount - Amount of the token to be minted
+   *
+   * @returns A transaction creator
+   *
+   * **Event data**
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `agent` | string | The address that is responsible for triggering this event |
+   * | `who` | string | Address the tokens were minted for (usually the colony) |
+   * | `amount` | BigNumber | Amount that was minted |
+   */
+  mint(amount: BigNumberish) {
+    return this.createColonyTxCreator(
+      this.colonyClient,
+      'mintTokens',
+      [amount],
+      async (receipt) => ({
+        ...extractEvent<TokensMintedEventObject>('TokensMinted', receipt),
+      }),
+    );
+  }
+
+  /**
+   * Deploys the so called TokenAuthority for the colony's native token
+   *
+   * The TokenAuthority determines which addresses are allowed to do certain token actions like minting, or transferring them even though they are locked.
+   * By default only the Colony can transfer a locked token. In the first argument you can specify a list of additional (excluding the colony) addresses that are allowed to transfer a locked token
+   *
+   * @remarks
+   * Only works for native tokens deployed with Colony (not imported tokens).
+   *
+   * @param allowedToTransfer - List of addresses (excluding the colony) that can transfer the token when it's locked
+   *
+   * @returns A transaction creator
+   *
+   * **Event data**
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `tokenAuthorityAddress` | string | The address of the newly deployed TokenAuthority contract |
+   */
+  deployTokenAuthority(allowedToTransfer?: string[]) {
+    return this.colonyNetwork.createMetaTxCreator(
+      this.colonyNetwork.networkClient,
+      'deployTokenAuthority',
+      async () => {
+        let allowed: string[] = [];
+        const tokenLockingAddress =
+          await this.colonyNetwork.networkClient.getTokenLocking();
+        if (!allowedToTransfer) {
+          allowed = [tokenLockingAddress];
+        } else {
+          allowed = [...allowedToTransfer, tokenLockingAddress];
+        }
+        return [this.token.address, this.address, allowed] as [
+          string,
+          string,
+          string[],
+        ];
+      },
+      async (receipt) => ({
+        ...extractEvent<TokenAuthorityDeployedEventObject>(
+          'TokenAuthorityDeployed',
+          receipt,
+        ),
       }),
     );
   }

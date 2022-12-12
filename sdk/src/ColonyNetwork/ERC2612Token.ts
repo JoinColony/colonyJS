@@ -1,32 +1,31 @@
 import { ApprovalEventObject } from '@colony/colony-js/extras';
 import {
-  ERC20Token as ERC20TokenType,
-  ERC20TokenFactory,
+  ERC2612Token as ERC2612TokenType,
+  ERC2612TokenFactory,
 } from '@colony/colony-js/tokens';
+import { BigNumberish } from 'ethers';
 
-import type { BigNumberish } from 'ethers';
 import { extractEvent } from '../utils';
+
 import { ColonyNetwork } from './ColonyNetwork';
+import { ERC20Token } from './ERC20Token';
 
-export class ERC20Token {
-  protected colonyNetwork: ColonyNetwork;
-
-  protected tokenClient: ERC20TokenType;
-
-  address: string;
+export class ERC2612Token extends ERC20Token {
+  protected tokenClient: ERC2612TokenType;
 
   /**
-   * Creates a new instance of an ERC20 Token
+   * Creates a new instance of an ERC2612 token (ERC20 with Permit extension)
    *
    * @remarks This does not deploy a new token, only connects to an exisiting one
    *
    * @param colonyNetwork - A [[ColonyNetwork]] instance
    * @param token - A token address or a full contract (like on a colony token client)
-   * @returns An ERC20 token abstraction instance
+   * @returns An ERC2612 token abstraction instance
    */
-  constructor(colonyNetwork: ColonyNetwork, token: ERC20TokenType | string) {
+  constructor(colonyNetwork: ColonyNetwork, token: ERC2612TokenType | string) {
+    super(colonyNetwork, token);
     if (typeof token == 'string') {
-      this.tokenClient = ERC20TokenFactory.connect(
+      this.tokenClient = ERC2612TokenFactory.connect(
         token,
         colonyNetwork.signerOrProvider,
       );
@@ -43,41 +42,20 @@ export class ERC20Token {
    *
    * @returns The internally used TokenClient
    */
-  getInternalTokenClient(): ERC20TokenType {
+  getInternalTokenClient(): ERC2612TokenType {
     return this.tokenClient;
   }
 
   /**
-   * Gets the token's name
+   * Permit `amount` of the wallet owners holdings of the specified token.
    *
-   * @returns The token's name (e.g. Colony Network Token)
-   */
-  async name() {
-    return this.tokenClient.name();
-  }
-
-  /**
-   * Gets the token's symbol
+   * This is the same as [[ERC20Token.approve]] but works only for gasless metatransactions. If you have a Colony-deployed token, use `approve`. This is mainly to support gasless transactions for BYOT (bring-your-own-token).
    *
-   * @returns The token's symbol (e.g. CLNY)
-   */
-  async symbol() {
-    return this.tokenClient.symbol();
-  }
-
-  /**
-   * Gets the token's decimals
-   *
-   * @returns The token's decimals (e.g. 18)
-   */
-  async decimals() {
-    return this.tokenClient.decimals();
-  }
-
-  /**
-   * Approve `amount` of the wallet owners holdings of the specified token
+   * This follows the EIP-2612 "Permit" specification. See https://eips.ethereum.org/EIPS/eip-2612.
    *
    * In order for the wallet owner to stake tokens, that amount has to be approved and deposited into the Colony first. In the dapp the process is called "Activation" of a certain amount of the Colony's native token. The wallet must hold at least the amount of the token that will be approved.
+   *
+   * @remarks Note that the arguments are turned around when comparing with the EIP2612 format.
    *
    * @example
    * ```typescript
@@ -85,8 +63,8 @@ export class ERC20Token {
    *
    * // Immediately executing async function
    * (async function() {
-   *   // Approve 100 tokens to be "activated"
-   *   await colony.token.approve(w`100`).force();
+   *   // Permit 100 tokens to be "activated"
+   *   await colony.token.permit(w`100`).metaTx();
    *   // Deposit the tokens
    *   await colonyNetwork.locking.deposit(token.address, w`100`).force();
    * })();
@@ -105,12 +83,12 @@ export class ERC20Token {
    * | `guy` | string | Address of the TokenLocking contract |
    * | `wad` | BigNumber | Amount that was approved |
    */
-  approve(amount: BigNumberish, spender?: string) {
-    const approvedSpender = spender || this.colonyNetwork.locking.address;
-    return this.colonyNetwork.createTxCreator(
+  permit(amount: BigNumberish, spender?: string) {
+    const spenderArg = spender || this.colonyNetwork.locking.address;
+    return this.colonyNetwork.createEip2612TxCreator(
       this.tokenClient,
-      'approve',
-      [approvedSpender, amount],
+      'permit',
+      [spenderArg, amount],
       async (receipt) => ({
         ...extractEvent<ApprovalEventObject>('Approval', receipt),
       }),

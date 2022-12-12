@@ -11,7 +11,7 @@ const domainData: { fundingPotId?: BigNumber; domainId?: BigNumber } = {};
 
 // Instantiate a colony client
 const getColony = async (colonyAddress: string, signer: Signer) => {
-  const colonyNetwork = new ColonyNetwork(signer, {
+  const colonyNetwork = await ColonyNetwork.init(signer, {
     ipfsAdapter: new PinataAdapter('INVALID'),
   });
   return colonyNetwork.getColony(colonyAddress);
@@ -37,7 +37,7 @@ const createTeam = async (): Promise<{
   const ipfsTestHash = 'QmTwksWE2Zn4icTvk5E7QZb1vucGNuu5GUCFZ361r8gKXM';
   const [{ domainId, fundingPotId }, , getMetadata] = await colony
     .createTeam(ipfsTestHash)
-    .force();
+    .tx();
 
   if (!domainId || !fundingPotId || !getMetadata) {
     throw new Error('Transaction event data not found');
@@ -53,7 +53,7 @@ const createTeam = async (): Promise<{
 
   const [{ domainId: deprecatedDomain }] = await colony
     .deprecateTeam(domainId, true)
-    .force();
+    .tx();
 
   console.info(`${deprecatedDomain} successfully deprecated`);
 
@@ -76,7 +76,7 @@ const moveFunds = async (): Promise<ContractReceipt> => {
   }
   const [, receipt] = await colony
     .moveFundsToTeam(w`0.66`, domainData.domainId)
-    .force();
+    .tx();
   return receipt;
 };
 
@@ -88,7 +88,7 @@ const makePayment = async (to: string): Promise<ContractReceipt> => {
   // Create payment in newly created domain
   const [, receipt] = await colony.ext.oneTx
     .pay(to, w`0.42`, domainData.domainId)
-    .force();
+    .tx();
   return receipt;
 };
 
@@ -148,8 +148,7 @@ buttonConnect.addEventListener('click', async () => {
     const cc = await getColony(inputAddress.value, signer);
     colony = cc;
     const funding = await getColonyFunding();
-    const token = await cc.getToken();
-    const tokenSymbol = await token.symbol();
+    const tokenSymbol = await cc.token.symbol();
     speak(`
             Connected to Colony with address: ${colonyAddress}.
             Colony version: ${cc.version}.

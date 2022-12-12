@@ -1,35 +1,5 @@
 # Class: ColonyNetwork
 
-## Constructors
-
-### constructor
-
-• **new ColonyNetwork**(`signerOrProvider`, `options?`)
-
-Creates a new instance to connect to the ColonyNetwork
-
-This is your main entry point to talk to the Colony Network Smart Contracts.
-From here you should be able to instantiate all the required instances for Colonies and their extensions.
-
-**`Example`**
-
-```typescript
-import { providers } from 'ethers';
-import { ColonyNetwork, Tokens } from '@colony/sdk';
-
-// Connect directly to the deployed Colony Network on Gnosis Chain
-const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc2/');
-const colonyNetwork = new ColonyNetwork(provider);
-// Now you could call functions on the colonyNetwork, like `colonyNetwork.getMetaColony()`
-```
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `signerOrProvider` | `SignerOrProvider` | An _ethers_ compatible Signer or Provider instance |
-| `options?` | [`ColonyNetworkOptions`](../interfaces/ColonyNetworkOptions.md) | Optional custom [ColonyNetworkOptions](../interfaces/ColonyNetworkOptions.md) |
-
 ## Properties
 
 ### config
@@ -41,6 +11,12 @@ ___
 ### ipfs
 
 • **ipfs**: `IpfsMetadata`
+
+___
+
+### locking
+
+• **locking**: `TokenLocking`
 
 ___
 
@@ -289,3 +265,52 @@ Use this function to instantiate a new `Colony` for the deployed MetaColony
 `Promise`<[`Colony`](Colony.md)\>
 
 A Colony abstaction instance of the MetaColony
+
+___
+
+### getSigner
+
+▸ **getSigner**(): `Signer`
+
+#### Returns
+
+`Signer`
+
+___
+
+### init
+
+▸ `Static` **init**(`signerOrProvider`, `options?`): `Promise`<[`ColonyNetwork`](ColonyNetwork.md)\>
+
+Creates a new instance to connect to the ColonyNetwork
+
+This is your main entry point to talk to the Colony Network Smart Contracts.
+From here you should be able to instantiate all the required instances for Colonies and their extensions.
+
+**`Example`**
+
+```typescript
+import { providers } from 'ethers';
+import { ColonyNetwork, Tokens } from '@colony/sdk';
+
+// Connect directly to the deployed Colony Network on Gnosis Chain
+const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc2/');
+// Immediately executing async function
+(async function() {
+  const colonyNetwork = await ColonyNetwork.init(provider);
+  // Now you could call functions on the colonyNetwork, like `colonyNetwork.getMetaColony()`
+})();
+```
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `signerOrProvider` | `SignerOrProvider` | An _ethers_ compatible Signer or Provider instance |
+| `options?` | [`ColonyNetworkOptions`](../interfaces/ColonyNetworkOptions.md) | Optional custom [ColonyNetworkOptions](../interfaces/ColonyNetworkOptions.md) |
+
+#### Returns
+
+`Promise`<[`ColonyNetwork`](ColonyNetwork.md)\>
+
+A ColonyNetwork abstraction instance

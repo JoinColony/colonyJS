@@ -21,3 +21,9 @@ ___
 #### Index signature
 
 ▪ [key: `string`]: (...`args`: `any`[]) => `Promise`<`any`\>
+
+___
+
+### interface
+
+• **interface**: `Interface`

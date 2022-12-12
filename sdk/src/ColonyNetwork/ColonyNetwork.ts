@@ -1,4 +1,10 @@
-import { BigNumberish, ContractReceipt, constants, utils } from 'ethers';
+import {
+  BigNumberish,
+  ContractReceipt,
+  constants,
+  utils,
+  Signer,
+} from 'ethers';
 import {
   ColonyNetworkClient,
   getColonyNetworkClient,
@@ -6,12 +12,14 @@ import {
   Network,
   NetworkClientOptions,
   SignerOrProvider,
+  TokenLockingClient,
 } from '@colony/colony-js';
 import {
   ColonyAddedEventObject,
   ColonyMetadataEventObject,
   TokenDeployedEventObject,
 } from '@colony/colony-js/extras';
+import { ERC2612Token as ERC2612TokenType } from '@colony/colony-js/tokens';
 import {
   ColonyMetadata,
   MetadataType,
@@ -23,6 +31,8 @@ import { Colony } from './Colony';
 import { ColonyLabelSuffix, MetaTxBroadCasterEndpoint } from '../constants';
 import { Expand, Parameters } from '../types';
 import { extractEvent } from '../utils';
+import { EIP2612TxCreator } from '../TxCreator/EIP2612TxCreator';
+import { TokenLocking } from './TokenLocking';
 
 const { namehash } = utils;
 const { AddressZero } = constants;
@@ -52,6 +62,34 @@ export class ColonyNetwork {
 
   signerOrProvider: SignerOrProvider;
 
+  locking: TokenLocking;
+
+  /**
+   * Creates a new instance to connect to the ColonyNetwork
+   * @internal
+   *
+   * Please use `ColonyNetwork.init()` instead.
+   */
+  constructor(
+    signerOrProvider: SignerOrProvider,
+    networkClient: ColonyNetworkClient,
+    tokenLockingClient: TokenLockingClient,
+    options?: ColonyNetworkOptions,
+  ) {
+    this.network = options?.networkClientOptions?.networkAddress
+      ? Network.Custom
+      : Network.Xdai;
+    this.ipfs = new IpfsMetadata(options?.ipfsAdapter);
+    this.config = {
+      metaTxBroadcasterEndpoint:
+        options?.metaTxBroadcasterEndpoint ||
+        MetaTxBroadCasterEndpoint[this.network],
+    };
+    this.locking = new TokenLocking(this, tokenLockingClient);
+    this.networkClient = networkClient;
+    this.signerOrProvider = signerOrProvider;
+  }
+
   /**
    * Creates a new instance to connect to the ColonyNetwork
    *
@@ -66,33 +104,43 @@ export class ColonyNetwork {
    *
    * // Connect directly to the deployed Colony Network on Gnosis Chain
    * const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc2/');
-   * const colonyNetwork = new ColonyNetwork(provider);
-   * // Now you could call functions on the colonyNetwork, like `colonyNetwork.getMetaColony()`
+   * // Immediately executing async function
+   * (async function() {
+   *   const colonyNetwork = await ColonyNetwork.init(provider);
+   *   // Now you could call functions on the colonyNetwork, like `colonyNetwork.getMetaColony()`
+   * })();
    * ```
    *
    * @param signerOrProvider - An _ethers_ compatible Signer or Provider instance
    * @param options - Optional custom [[ColonyNetworkOptions]]
    * @returns A ColonyNetwork abstraction instance
    */
-  constructor(
+  static async init(
     signerOrProvider: SignerOrProvider,
     options?: ColonyNetworkOptions,
   ) {
-    this.network = options?.networkClientOptions?.networkAddress
+    const network = options?.networkClientOptions?.networkAddress
       ? Network.Custom
       : Network.Xdai;
-    this.ipfs = new IpfsMetadata(options?.ipfsAdapter);
-    this.networkClient = getColonyNetworkClient(
-      this.network,
+    const networkClient = getColonyNetworkClient(
+      network,
       signerOrProvider,
       options?.networkClientOptions,
     );
-    this.config = {
-      metaTxBroadcasterEndpoint:
-        options?.metaTxBroadcasterEndpoint ||
-        MetaTxBroadCasterEndpoint[this.network],
-    };
-    this.signerOrProvider = signerOrProvider;
+    const tokenLockingClient = await networkClient.getTokenLockingClient();
+    return new ColonyNetwork(
+      signerOrProvider,
+      networkClient,
+      tokenLockingClient,
+      options,
+    );
+  }
+
+  getSigner(): Signer {
+    if (!(this.signerOrProvider instanceof Signer)) {
+      throw new Error('Need a signer to create a transaction');
+    }
+    return this.signerOrProvider;
   }
 
   /**
@@ -162,6 +210,40 @@ export class ColonyNetwork {
     txConfig?: TxConfig<M>,
   ) {
     return new MetaTxCreator({
+      colonyNetwork: this,
+      contract,
+      method,
+      args,
+      eventData,
+      txConfig,
+    });
+  }
+
+  /**
+   * Creates a new [[EIP2612TxCreator]] for EIP-2612 transactions (permit)
+   * @internal
+   *
+   * @remarks
+   * Do not use this method directly but rather the class methods in the Colony or extensions
+   *
+   * @param contract - Only a EIP-2612 compatible token contract
+   * @param method - Can only do 'permit'
+   * @param args - The arguments for the 'permit' method
+   * @param eventData - A function that extracts the relevant event data from the [[ContractReceipt]]
+   * @param txConfig - More configuration options, like [[MetadataType]] if the event contains metadata or if methods are unsupported
+   * @returns A [[MetaTxCreator]]
+   */
+  createEip2612TxCreator<
+    D extends Record<string, unknown>,
+    M extends MetadataType,
+  >(
+    contract: ERC2612TokenType,
+    method: 'permit',
+    args: [string, BigNumberish] | (() => Promise<[string, BigNumberish]>),
+    eventData?: (receipt: ContractReceipt) => Promise<D>,
+    txConfig?: TxConfig<M>,
+  ) {
+    return new EIP2612TxCreator({
       colonyNetwork: this,
       contract,
       method,

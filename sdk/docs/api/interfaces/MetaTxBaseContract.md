@@ -31,3 +31,7 @@ ___
 ### interface
 
 • **interface**: `Interface`
+
+#### Overrides
+
+[BaseContract](BaseContract.md).[interface](BaseContract.md#interface)
