@@ -1,12 +1,16 @@
 import {
   ColonyRole,
   Extension,
+  getExtensionHash,
   getPermissionProofs,
   Id,
   OneTxPaymentClientV3,
 } from '@colony/colony-js';
 
-import { OneTxPaymentMadeEventObject } from '@colony/colony-js/extras';
+import {
+  ExtensionUpgradedEventObject,
+  OneTxPaymentMadeEventObject,
+} from '@colony/colony-js/extras';
 import { BigNumber, BigNumberish } from 'ethers';
 import { extractEvent } from '../utils';
 
@@ -58,6 +62,8 @@ export class OneTxPayment {
 
   address: string;
 
+  version: number;
+
   static getLatestSupportedVersion() {
     return OneTxPayment.supportedVersion[
       OneTxPayment.supportedVersion.length - 1
@@ -68,6 +74,7 @@ export class OneTxPayment {
     this.address = oneTxPaymentClient.address;
     this.colony = colony;
     this.oneTxPaymentClient = oneTxPaymentClient;
+    this.version = oneTxPaymentClient.clientVersion;
   }
 
   /**
@@ -162,6 +169,42 @@ export class OneTxPayment {
       async (receipt) => ({
         ...extractEvent<OneTxPaymentMadeEventObject>(
           'OneTxPaymentMade',
+          receipt,
+        ),
+      }),
+    );
+  }
+
+  /**
+   * Upgrade this extension to the next or a custom version
+   *
+   * This method upgrades this extension to a specified version or, if no version is provided to the next higher version.
+   *
+   * @remarks
+   * * Only users with *Root* role are allowed to upgrade an extension (or another extension with appropriate permissions)
+   * * Downgrading of extensions is not possible
+   *
+   * @param toVersion - Specify a custom version to upgrade the extension to
+   *
+   * @returns A transaction creator
+   *
+   * **Event data**
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `extensionId` | string | Extension id (name of the extension) that was upgraded |
+   * | `oldVersion` | BigNumber | Version of the colony before the upgrade |
+   * | `newVersion` | BigNumber | Version of the colony after the upgrade |
+   */
+  upgrade(toVersion?: BigNumberish) {
+    const version = toVersion || this.version + 1;
+    return this.colony.createColonyTxCreator(
+      this.colony.getInternalColonyClient(),
+      'upgradeExtension',
+      [getExtensionHash(Extension.OneTxPayment), version],
+      async (receipt) => ({
+        ...extractEvent<ExtensionUpgradedEventObject>(
+          'ExtensionUpgraded',
           receipt,
         ),
       }),

@@ -118,11 +118,17 @@ export class ColonyTxCreator<
         ? '0x0'
         : this.contract.address;
 
-    return this.colony.ext.motions.createMotion(
-      motionDomain,
-      encodedAction,
-      altTarget,
-    );
+    const tx = await this.colony.ext.motions
+      .getInternalVotingReputationClient()
+      .createMotionWithProofs(motionDomain, altTarget, encodedAction);
+
+    const receipt = await tx.wait();
+
+    const data = {
+      ...extractEvent<MotionCreatedEventObject>('MotionCreated', receipt),
+    };
+
+    return [data, receipt] as [typeof data, typeof receipt];
   }
 
   /**

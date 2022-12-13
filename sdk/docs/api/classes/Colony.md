@@ -51,11 +51,11 @@ If this is not an option, Colony SDK might throw errors at certain points. Usage
 
 ### annotateTransaction
 
-▸ **annotateTransaction**(`txHash`, `annotationMetadata`): [`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, [`Annotation`](../enums/MetadataType.md#annotation)\>
+▸ **annotateTransaction**(`txHash`, `metadata`): [`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, [`Annotation`](../enums/MetadataType.md#annotation)\>
 
 Annotate a transaction with IPFS metadata to provide extra information
 
-This will annotate a transaction with an arbitrary text message. This only really works for transactions that happened within this Colony. This will upload the text string to IPFS and connect the transaction to the IPFS hash accordingly.
+This will annotate a transaction with an arbitrary text message. This only really works for transactions that happened within this Colony. This will connect the transaction to the (optionally generated) IPFS hash accordingly.
 
 **`Remarks`**
 
@@ -86,7 +86,7 @@ If [AnnotationMetadata](../interfaces/AnnotationMetadata.md) is provided directl
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `txHash` | `string` | Transaction hash of the transaction to annotate (within the Colony) |
-| `annotationMetadata` | `string` \| [`AnnotationMetadata`](../interfaces/AnnotationMetadata.md) | The annotation metadata you would like to annotate the transaction with (or an IPFS CID pointing to valid metadata) |
+| `metadata` | `string` \| [`AnnotationMetadata`](../interfaces/AnnotationMetadata.md) | The annotation metadata you would like to annotate the transaction with (or an IPFS CID pointing to valid metadata) |
 
 #### Returns
 
@@ -101,6 +101,49 @@ A transaction creator
 | `agent` | string | The address that is responsible for triggering this event |
 | `txHash` | BigNumber | The hash of the annotated transaction |
 | `metadata` | BigNumber | The IPFS hash (CID) of the metadata object |
+
+**Metadata** (can be obtained by calling and awaiting the `getMetadata` function)
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `annotationMsg` | string | Free form text message to annotate the transaction with |
+
+___
+
+### awardReputation
+
+▸ **awardReputation**(`address`, `amount`, `team?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"emitDomainReputationReward"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `skillId?`: `BigNumber` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+Award reputation to a user within a team
+
+Use with care. An imbalance of native tokens and reputation might influence your governance process negatively
+
+**`Remarks`**
+
+Only users with *Root* role are allowed to award reputation
+
+#### Parameters
+
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `address` | `string` | `undefined` | Address of user to award reputation |
+| `amount` | `BigNumberish` | `undefined` | Amount of reputation to award |
+| `team` | `BigNumberish` | `Id.RootDomain` | Team to award reputation in (defaults to Root team) |
+
+#### Returns
+
+[`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"emitDomainReputationReward"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `skillId?`: `BigNumber` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+A transaction creator
+
+**Event data**
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `agent` | string | The address that is responsible for triggering this event |
+| `user` | string | User who was awarded reputation |
+| `skillId` | BigNumber | Corresponding skillId to the team |
+| `amount` | BigNumber | Amount that was awarded |
 
 ___
 
@@ -281,6 +324,167 @@ A transaction creator
 | `agent` | string | The address that is responsible for triggering this event |
 | `domainId` | BigNumber | The id of the team that was (un)deprecated |
 | `deprecated` | bool | Whether the team was deprecated or not |
+
+___
+
+### editColony
+
+▸ **editColony**(`metadata`): [`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"editColony"``, { `agent?`: `string` ; `metadata?`: `string`  }, [`Colony`](../enums/MetadataType.md#colony)\>
+
+Edit a colony's metadata
+
+**`Remarks`**
+
+This will overwrite all exisiting metadata!
+
+**`Example`**
+
+```typescript
+// Immediately executing async function
+(async function() {
+  // Edit the metadata of a colony
+  // (forced transaction example)
+  // (also notice that this requires an upload-capable IPFS adapter)
+  await colony.edit({
+    colonyDisplayName: 'My super cool Colony',
+  }).tx();
+})();
+```
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `metadata` | `string` \| [`ColonyMetadata`](../interfaces/ColonyMetadata.md) | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [ColonyMetadata](../interfaces/ColonyMetadata.md) is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
+
+#### Returns
+
+[`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"editColony"``, { `agent?`: `string` ; `metadata?`: `string`  }, [`Colony`](../enums/MetadataType.md#colony)\>
+
+A transaction creator
+
+**Event data**
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `colonyId` | BigNumber | Auto-incremented integer id of the colony |
+| `colonyAddress` | string | Address of the newly deployed colony contract |
+| `token` | string | Address of the token that is used as the colony's native token |
+| `metadata` | string | IPFS CID of metadata attached to this transaction |
+
+**Metadata** (can be obtained by calling and awaiting the `getMetadata` function)
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `colonyDisplayName` | string | The name that should be displayed for the colony |
+| `colonyAvatarHash` | string | An IPFS hash for a Colony logo (make it 200x200px) |
+| `colonyTokens` | string[] | A list of additional tokens that should be in the colony's "address book" |
+
+___
+
+### editTeam
+
+▸ **editTeam**(`metadata`): [`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"editDomain"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `metadata?`: `string`  }, [`Domain`](../enums/MetadataType.md#domain)\>
+
+Edit a team (domain) within a Colony with team details as metadata
+
+**`Remarks`**
+
+This will overwrite all exisiting metadata!
+
+**`Example`**
+
+```typescript
+import { TeamColor } from '@colony/sdk';
+
+// Immediately executing async function
+(async function() {
+  // Edit team of the butter-passers
+  // (forced transaction example)
+  // (also notice that this requires an upload-capable IPFS adapter)
+  await colony.editTeam({
+    domainName: 'Purple Butter-passers',
+    domainColor: TeamColor.Purple,
+    domainPurpose: 'To pass purple butter',
+  }).tx();
+})();
+```
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `metadata` | `string` \| [`DomainMetadata`](../interfaces/DomainMetadata.md) | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [DomainMetadata](../interfaces/DomainMetadata.md) is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
+
+#### Returns
+
+[`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"editDomain"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `metadata?`: `string`  }, [`Domain`](../enums/MetadataType.md#domain)\>
+
+A transaction creator
+
+**Event data**
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `agent` | string | The address that is responsible for triggering this event |
+| `domainId` | BigNumber | Integer domain id of the created team |
+| `metadata` | string | IPFS CID of metadata attached to this transaction |
+
+**Metadata** (can be obtained by calling and awaiting the `getMetadata` function)
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `domainName` | string | The human readable name assigned to this team |
+| `domainColor` | string | The color assigned to this team |
+| `domainPurpose` | string | The purpose for this team (a broad description) |
+
+___
+
+### enterRecoveryMode
+
+▸ **enterRecoveryMode**(): [`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"enterRecoveryMode"``, { `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+Put the colony into Recovery Mode
+
+In Recovery Mode, no actions are possible on the colony. Only users who have the special *Recovery* role can put a colony into this mode
+
+**`Remarks`**
+
+Be aware that to exit Recovery Mode a quorum of 50% is needed of all users who have the *Recovery* role
+
+#### Returns
+
+[`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"enterRecoveryMode"``, { `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+A transaction creator
+
+**Event data**
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `user` | string | The address of the user who activated Recovery Mode |
+
+___
+
+### exitRecoveryMode
+
+▸ **exitRecoveryMode**(): [`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"exitRecoveryMode"``, { `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+Exit Recovery Mode
+
+In Recovery Mode, no actions are possible on the colony. Only users who have the special *Recovery* role can execute this method. If you have multiple users with the *Recovery* role, at least 50% of the users have to execute this method for the Colony to leave Recovery Mode
+
+#### Returns
+
+[`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"exitRecoveryMode"``, { `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+A transaction creator
+
+**Event data**
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `user` | string | The address of the user who initiated the exit of Recovery Mode |
 
 ___
 
@@ -653,6 +857,43 @@ Heads up!* This event is emitted for every role that was set
 
 ___
 
+### smiteReputation
+
+▸ **smiteReputation**(`address`, `amount`, `team?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"emitDomainReputationPenalty"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `skillId?`: `BigNumber` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+Smite (remove) reputation from a user within a team
+
+Use with care. An imbalance of native tokens and reputation might influence your governance process negatively
+
+**`Remarks`**
+
+Only users with *Arbitration* role are allowed to award reputation
+
+#### Parameters
+
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `address` | `string` | `undefined` | Address of user to smite reputation |
+| `amount` | `BigNumberish` | `undefined` | Amount of reputation to remove |
+| `team` | `BigNumberish` | `Id.RootDomain` | Team to remove reputation in (defaults to Root team) |
+
+#### Returns
+
+[`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"emitDomainReputationPenalty"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `skillId?`: `BigNumber` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+A transaction creator
+
+**Event data**
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `agent` | string | The address that is responsible for triggering this event |
+| `user` | string | User who was awarded reputation |
+| `skillId` | BigNumber | Corresponding skillId to the team |
+| `amount` | BigNumber | Amount that was removed (will be negative) |
+
+___
+
 ### unsetRoles
 
 ▸ **unsetRoles**(`address`, `roles`, `teamId?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"setUserRoles"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `role?`: `number` ; `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
@@ -698,6 +939,40 @@ It will then become available under `colony.ext`
 #### Returns
 
 `Promise`<`void`\>
+
+___
+
+### upgrade
+
+▸ **upgrade**(`toVersion?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"upgrade"``, { `newVersion?`: `BigNumber` ; `oldVersion?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+Upgrade a colony to the next or a custom version
+
+This method upgrades the colony to a specified version or, if no version is provided to the next higher version.
+
+**`Remarks`**
+
+* Only users with *Root* role are allowed to upgrade a colony (or an extension with appropriate permissions)
+* Downgrading of colonies is not possible
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `toVersion?` | `BigNumberish` | Specify a custom version to upgrade the colony to |
+
+#### Returns
+
+[`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"upgrade"``, { `newVersion?`: `BigNumber` ; `oldVersion?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+A transaction creator
+
+**Event data**
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `oldVersion` | BigNumber | Version of the colony before the upgrade |
+| `newVersion` | BigNumber | Version of the colony after the upgrade |
 
 ___
 

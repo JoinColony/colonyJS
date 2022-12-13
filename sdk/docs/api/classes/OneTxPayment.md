@@ -33,6 +33,12 @@ Note: if you deployed your Colony using the Dapp, the OneTxPayment extension is 
 
 ___
 
+### version
+
+• **version**: `number`
+
+___
+
 ### extensionType
 
 ▪ `Static` **extensionType**: [`OneTxPayment`](../enums/Extension.md#onetxpayment) = `Extension.OneTxPayment`
@@ -95,6 +101,41 @@ A transaction creator
 | `agent` | string | The address that is responsible for triggering this event |
 | `fundamentalId` | BigNumber | The newly added payment id |
 | `nPayouts` | BigNumber | Number of payouts in total |
+
+___
+
+### upgrade
+
+▸ **upgrade**(`toVersion?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"upgradeExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+Upgrade this extension to the next or a custom version
+
+This method upgrades this extension to a specified version or, if no version is provided to the next higher version.
+
+**`Remarks`**
+
+* Only users with *Root* role are allowed to upgrade an extension (or another extension with appropriate permissions)
+* Downgrading of extensions is not possible
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `toVersion?` | `BigNumberish` | Specify a custom version to upgrade the extension to |
+
+#### Returns
+
+[`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"upgradeExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+A transaction creator
+
+**Event data**
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `extensionId` | string | Extension id (name of the extension) that was upgraded |
+| `oldVersion` | BigNumber | Version of the colony before the upgrade |
+| `newVersion` | BigNumber | Version of the colony after the upgrade |
 
 ___
 
