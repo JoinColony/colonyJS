@@ -39,6 +39,10 @@ interface IColonyNetworkInterface extends Interface {
 
     isInRecoveryMode: TypedFunctionDescription<{ encode([]: []): string }>;
 
+    multicall: TypedFunctionDescription<{
+      encode([data]: [Arrayish[]]): string;
+    }>;
+
     numRecoveryRoles: TypedFunctionDescription<{ encode([]: []): string }>;
 
     removeRecoveryRole: TypedFunctionDescription<{
@@ -135,6 +139,26 @@ interface IColonyNetworkInterface extends Interface {
 
     createColony: TypedFunctionDescription<{
       encode([_tokenAddress]: [string]): string;
+    }>;
+
+    createColonyForFrontend: TypedFunctionDescription<{
+      encode([
+        _tokenAddress,
+        _name,
+        _symbol,
+        _decimals,
+        _version,
+        _colonyName,
+        _metadata,
+      ]: [
+        string,
+        string,
+        string,
+        BigNumberish,
+        BigNumberish,
+        string,
+        string
+      ]): string;
     }>;
 
     addColonyVersion: TypedFunctionDescription<{
@@ -657,6 +681,26 @@ export class IColonyNetwork extends Contract {
     "isInRecoveryMode()"(overrides?: TransactionOverrides): Promise<boolean>;
 
     /**
+     * The `msg.value` should not be trusted for any method callable from multicall.
+     * Call multiple functions in the current contract and return the data from all of them if they all succeed
+     * @param data The encoded function data for each of the calls to make to this contract
+     */
+    multicall(
+      data: Arrayish[],
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * The `msg.value` should not be trusted for any method callable from multicall.
+     * Call multiple functions in the current contract and return the data from all of them if they all succeed
+     * @param data The encoded function data for each of the calls to make to this contract
+     */
+    "multicall(bytes[])"(
+      data: Arrayish[],
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
      * Return number of recovery roles.
      */
     numRecoveryRoles(overrides?: TransactionOverrides): Promise<BigNumber>;
@@ -1154,6 +1198,50 @@ export class IColonyNetwork extends Contract {
       _colonyName: string,
       _orbitdb: string,
       _useExtensionManager: boolean,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * We expect this function to only be used by the dapp
+     * Creates a new colony in the network, possibly with a token and token authority, with an optional ENS name
+     * @param _colonyName The label to register (if null, no label is registered)
+     * @param _decimals The number of decimal places that 1 user-facing token can be divided up in to (optional) In the case of ETH, and most tokens, this is 18.
+     * @param _metadata The metadata associated with the new colony
+     * @param _name The name of the token (optional)
+     * @param _symbol The short 'ticket' symbol for the token (optional)
+     * @param _tokenAddress Address of an ERC20 token to serve as the colony token (optional)
+     * @param _version The version of colony to deploy (pass 0 for the current version)
+     */
+    createColonyForFrontend(
+      _tokenAddress: string,
+      _name: string,
+      _symbol: string,
+      _decimals: BigNumberish,
+      _version: BigNumberish,
+      _colonyName: string,
+      _metadata: string,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * We expect this function to only be used by the dapp
+     * Creates a new colony in the network, possibly with a token and token authority, with an optional ENS name
+     * @param _colonyName The label to register (if null, no label is registered)
+     * @param _decimals The number of decimal places that 1 user-facing token can be divided up in to (optional) In the case of ETH, and most tokens, this is 18.
+     * @param _metadata The metadata associated with the new colony
+     * @param _name The name of the token (optional)
+     * @param _symbol The short 'ticket' symbol for the token (optional)
+     * @param _tokenAddress Address of an ERC20 token to serve as the colony token (optional)
+     * @param _version The version of colony to deploy (pass 0 for the current version)
+     */
+    "createColonyForFrontend(address,string,string,uint8,uint256,string,string)"(
+      _tokenAddress: string,
+      _name: string,
+      _symbol: string,
+      _decimals: BigNumberish,
+      _version: BigNumberish,
+      _colonyName: string,
+      _metadata: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
@@ -2266,6 +2354,26 @@ export class IColonyNetwork extends Contract {
   "isInRecoveryMode()"(overrides?: TransactionOverrides): Promise<boolean>;
 
   /**
+   * The `msg.value` should not be trusted for any method callable from multicall.
+   * Call multiple functions in the current contract and return the data from all of them if they all succeed
+   * @param data The encoded function data for each of the calls to make to this contract
+   */
+  multicall(
+    data: Arrayish[],
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * The `msg.value` should not be trusted for any method callable from multicall.
+   * Call multiple functions in the current contract and return the data from all of them if they all succeed
+   * @param data The encoded function data for each of the calls to make to this contract
+   */
+  "multicall(bytes[])"(
+    data: Arrayish[],
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
    * Return number of recovery roles.
    */
   numRecoveryRoles(overrides?: TransactionOverrides): Promise<BigNumber>;
@@ -2760,6 +2868,50 @@ export class IColonyNetwork extends Contract {
     _colonyName: string,
     _orbitdb: string,
     _useExtensionManager: boolean,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * We expect this function to only be used by the dapp
+   * Creates a new colony in the network, possibly with a token and token authority, with an optional ENS name
+   * @param _colonyName The label to register (if null, no label is registered)
+   * @param _decimals The number of decimal places that 1 user-facing token can be divided up in to (optional) In the case of ETH, and most tokens, this is 18.
+   * @param _metadata The metadata associated with the new colony
+   * @param _name The name of the token (optional)
+   * @param _symbol The short 'ticket' symbol for the token (optional)
+   * @param _tokenAddress Address of an ERC20 token to serve as the colony token (optional)
+   * @param _version The version of colony to deploy (pass 0 for the current version)
+   */
+  createColonyForFrontend(
+    _tokenAddress: string,
+    _name: string,
+    _symbol: string,
+    _decimals: BigNumberish,
+    _version: BigNumberish,
+    _colonyName: string,
+    _metadata: string,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * We expect this function to only be used by the dapp
+   * Creates a new colony in the network, possibly with a token and token authority, with an optional ENS name
+   * @param _colonyName The label to register (if null, no label is registered)
+   * @param _decimals The number of decimal places that 1 user-facing token can be divided up in to (optional) In the case of ETH, and most tokens, this is 18.
+   * @param _metadata The metadata associated with the new colony
+   * @param _name The name of the token (optional)
+   * @param _symbol The short 'ticket' symbol for the token (optional)
+   * @param _tokenAddress Address of an ERC20 token to serve as the colony token (optional)
+   * @param _version The version of colony to deploy (pass 0 for the current version)
+   */
+  "createColonyForFrontend(address,string,string,uint8,uint256,string,string)"(
+    _tokenAddress: string,
+    _name: string,
+    _symbol: string,
+    _decimals: BigNumberish,
+    _version: BigNumberish,
+    _colonyName: string,
+    _metadata: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
@@ -3964,6 +4116,26 @@ export class IColonyNetwork extends Contract {
     "isInRecoveryMode()"(overrides?: TransactionOverrides): Promise<BigNumber>;
 
     /**
+     * The `msg.value` should not be trusted for any method callable from multicall.
+     * Call multiple functions in the current contract and return the data from all of them if they all succeed
+     * @param data The encoded function data for each of the calls to make to this contract
+     */
+    multicall(
+      data: Arrayish[],
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * The `msg.value` should not be trusted for any method callable from multicall.
+     * Call multiple functions in the current contract and return the data from all of them if they all succeed
+     * @param data The encoded function data for each of the calls to make to this contract
+     */
+    "multicall(bytes[])"(
+      data: Arrayish[],
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
      * Return number of recovery roles.
      */
     numRecoveryRoles(overrides?: TransactionOverrides): Promise<BigNumber>;
@@ -4425,6 +4597,50 @@ export class IColonyNetwork extends Contract {
       _colonyName: string,
       _orbitdb: string,
       _useExtensionManager: boolean,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * We expect this function to only be used by the dapp
+     * Creates a new colony in the network, possibly with a token and token authority, with an optional ENS name
+     * @param _colonyName The label to register (if null, no label is registered)
+     * @param _decimals The number of decimal places that 1 user-facing token can be divided up in to (optional) In the case of ETH, and most tokens, this is 18.
+     * @param _metadata The metadata associated with the new colony
+     * @param _name The name of the token (optional)
+     * @param _symbol The short 'ticket' symbol for the token (optional)
+     * @param _tokenAddress Address of an ERC20 token to serve as the colony token (optional)
+     * @param _version The version of colony to deploy (pass 0 for the current version)
+     */
+    createColonyForFrontend(
+      _tokenAddress: string,
+      _name: string,
+      _symbol: string,
+      _decimals: BigNumberish,
+      _version: BigNumberish,
+      _colonyName: string,
+      _metadata: string,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * We expect this function to only be used by the dapp
+     * Creates a new colony in the network, possibly with a token and token authority, with an optional ENS name
+     * @param _colonyName The label to register (if null, no label is registered)
+     * @param _decimals The number of decimal places that 1 user-facing token can be divided up in to (optional) In the case of ETH, and most tokens, this is 18.
+     * @param _metadata The metadata associated with the new colony
+     * @param _name The name of the token (optional)
+     * @param _symbol The short 'ticket' symbol for the token (optional)
+     * @param _tokenAddress Address of an ERC20 token to serve as the colony token (optional)
+     * @param _version The version of colony to deploy (pass 0 for the current version)
+     */
+    "createColonyForFrontend(address,string,string,uint8,uint256,string,string)"(
+      _tokenAddress: string,
+      _name: string,
+      _symbol: string,
+      _decimals: BigNumberish,
+      _version: BigNumberish,
+      _colonyName: string,
+      _metadata: string,
       overrides?: TransactionOverrides
     ): Promise<BigNumber>;
 

@@ -39,6 +39,10 @@ interface IColonyInterface extends Interface {
 
     isInRecoveryMode: TypedFunctionDescription<{ encode([]: []): string }>;
 
+    multicall: TypedFunctionDescription<{
+      encode([data]: [Arrayish[]]): string;
+    }>;
+
     numRecoveryRoles: TypedFunctionDescription<{ encode([]: []): string }>;
 
     removeRecoveryRole: TypedFunctionDescription<{
@@ -1477,6 +1481,26 @@ export class IColony extends Contract {
      * Is colony network in recovery mode.
      */
     "isInRecoveryMode()"(overrides?: TransactionOverrides): Promise<boolean>;
+
+    /**
+     * The `msg.value` should not be trusted for any method callable from multicall.
+     * Call multiple functions in the current contract and return the data from all of them if they all succeed
+     * @param data The encoded function data for each of the calls to make to this contract
+     */
+    multicall(
+      data: Arrayish[],
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * The `msg.value` should not be trusted for any method callable from multicall.
+     * Call multiple functions in the current contract and return the data from all of them if they all succeed
+     * @param data The encoded function data for each of the calls to make to this contract
+     */
+    "multicall(bytes[])"(
+      data: Arrayish[],
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
 
     /**
      * Return number of recovery roles.
@@ -5216,6 +5240,26 @@ export class IColony extends Contract {
    * Is colony network in recovery mode.
    */
   "isInRecoveryMode()"(overrides?: TransactionOverrides): Promise<boolean>;
+
+  /**
+   * The `msg.value` should not be trusted for any method callable from multicall.
+   * Call multiple functions in the current contract and return the data from all of them if they all succeed
+   * @param data The encoded function data for each of the calls to make to this contract
+   */
+  multicall(
+    data: Arrayish[],
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * The `msg.value` should not be trusted for any method callable from multicall.
+   * Call multiple functions in the current contract and return the data from all of them if they all succeed
+   * @param data The encoded function data for each of the calls to make to this contract
+   */
+  "multicall(bytes[])"(
+    data: Arrayish[],
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
 
   /**
    * Return number of recovery roles.
@@ -9208,6 +9252,26 @@ export class IColony extends Contract {
      * Is colony network in recovery mode.
      */
     "isInRecoveryMode()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * The `msg.value` should not be trusted for any method callable from multicall.
+     * Call multiple functions in the current contract and return the data from all of them if they all succeed
+     * @param data The encoded function data for each of the calls to make to this contract
+     */
+    multicall(
+      data: Arrayish[],
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * The `msg.value` should not be trusted for any method callable from multicall.
+     * Call multiple functions in the current contract and return the data from all of them if they all succeed
+     * @param data The encoded function data for each of the calls to make to this contract
+     */
+    "multicall(bytes[])"(
+      data: Arrayish[],
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
 
     /**
      * Return number of recovery roles.

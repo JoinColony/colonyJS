@@ -79,6 +79,8 @@ interface MetaTxTokenInterface extends Interface {
       encode([_user]: [string]): string;
     }>;
 
+    nonces: TypedFunctionDescription<{ encode([_user]: [string]): string }>;
+
     transferFrom: TypedFunctionDescription<{
       encode([src, dst, wad]: [string, string, BigNumberish]): string;
     }>;
@@ -333,6 +335,13 @@ export class MetaTxToken extends Contract {
       overrides?: TransactionOverrides
     ): Promise<BigNumber>;
 
+    nonces(_user: string, overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    "nonces(address)"(
+      _user: string,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
     transferFrom(
       src: string,
       dst: string,
@@ -572,6 +581,13 @@ export class MetaTxToken extends Contract {
   ): Promise<BigNumber>;
 
   "getMetatransactionNonce(address)"(
+    _user: string,
+    overrides?: TransactionOverrides
+  ): Promise<BigNumber>;
+
+  nonces(_user: string, overrides?: TransactionOverrides): Promise<BigNumber>;
+
+  "nonces(address)"(
     _user: string,
     overrides?: TransactionOverrides
   ): Promise<BigNumber>;
@@ -838,6 +854,13 @@ export class MetaTxToken extends Contract {
     ): Promise<BigNumber>;
 
     "getMetatransactionNonce(address)"(
+      _user: string,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    nonces(_user: string, overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    "nonces(address)"(
       _user: string,
       overrides?: TransactionOverrides
     ): Promise<BigNumber>;

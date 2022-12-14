@@ -155,6 +155,7 @@ export enum VotingReputationExtensionVersion {
   FuchsiaLightweightSpaceshipTwo = 5,
   FuchsiaLightweightSpaceshipThree = 6,
   GreenLightweightSpaceship = 7,
+  GreenLightweightSpaceshipTwo = 8,
 }
 
 const votingReputationReleaseMap = {
@@ -165,6 +166,7 @@ const votingReputationReleaseMap = {
   [VotingReputationExtensionVersion.FuchsiaLightweightSpaceshipTwo]: `flwss2`,
   [VotingReputationExtensionVersion.FuchsiaLightweightSpaceshipThree]: `flwss3`,
   [VotingReputationExtensionVersion.GreenLightweightSpaceship]: 'glwss',
+  [VotingReputationExtensionVersion.GreenLightweightSpaceshipTwo]: 'develop',
 };
 
 export const CurrentVotingReputationVersion = parseInt(
@@ -222,6 +224,14 @@ const VotingReputationExtensionVersionIncompatibilityMap: Record<
     ColonyVersion.CeruleanLightweightSpaceship,
   ],
   [VotingReputationExtensionVersion.GreenLightweightSpaceship]: [
+    ColonyVersion.GoerliGlider,
+    ColonyVersion.Glider,
+    ColonyVersion.AuburnGlider,
+    ColonyVersion.BurgundyGlider,
+    ColonyVersion.LightweightSpaceship,
+    ColonyVersion.CeruleanLightweightSpaceship,
+  ],
+  [VotingReputationExtensionVersion.GreenLightweightSpaceshipTwo]: [
     ColonyVersion.GoerliGlider,
     ColonyVersion.Glider,
     ColonyVersion.AuburnGlider,

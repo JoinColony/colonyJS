@@ -712,6 +712,25 @@ const _abi = [
     type: "function",
   },
   {
+    inputs: [
+      {
+        internalType: "bytes[]",
+        name: "data",
+        type: "bytes[]",
+      },
+    ],
+    name: "multicall",
+    outputs: [
+      {
+        internalType: "bytes[]",
+        name: "results",
+        type: "bytes[]",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "numRecoveryRoles",
     outputs: [
@@ -1278,6 +1297,60 @@ const _abi = [
       {
         internalType: "address",
         name: "_colonyAddress",
+        type: "address",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_tokenAddress",
+        type: "address",
+      },
+      {
+        internalType: "string",
+        name: "_name",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_symbol",
+        type: "string",
+      },
+      {
+        internalType: "uint8",
+        name: "_decimals",
+        type: "uint8",
+      },
+      {
+        internalType: "uint256",
+        name: "_version",
+        type: "uint256",
+      },
+      {
+        internalType: "string",
+        name: "_colonyName",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_metadata",
+        type: "string",
+      },
+    ],
+    name: "createColonyForFrontend",
+    outputs: [
+      {
+        internalType: "address",
+        name: "token",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "colony",
         type: "address",
       },
     ],
