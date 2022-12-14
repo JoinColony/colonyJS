@@ -7,20 +7,11 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-// import { ClientType } from '../../../../constants';
-// import { VotingReputation__factory as VotingReputationFactory } from '../../../../contracts/extensions/votingReputation/8/factories/VotingReputation__factory';
-// import { VotingReputation } from '../../../../contracts/extensions/votingReputation/8/VotingReputation';
-// import { ExtendedIColony } from '../../../../clients/Colony/extensions/commonExtensions';
-
-// import {
-//   getVotingReputationClientAddons,
-//   getVotingReputationClientEstimateAddons,
-// } from './VotingReputationClientAddons';
-
 import { ClientType } from '../../../../constants';
 import { VotingReputation__factory as VotingReputationFactory } from '../../../../contracts/extensions/votingReputation/8/factories/VotingReputation__factory';
 import { VotingReputation } from '../../../../contracts/extensions/votingReputation/8/VotingReputation';
 import { ExtendedIColony } from '../../../../clients/Colony/extensions/commonExtensions';
+import { VotingReputationClient as VotingReputationClient7 } from '../7/VotingReputationClient';
 
 import * as currentVersionAddons from './VotingReputationClientAddons';
 import * as version1Addons from '../1/VotingReputationClientAddons';
@@ -68,31 +59,31 @@ const getVotingReputationClient = (
 
   const addons = {
     ...version1Addons.getVotingReputationClientAddons(
-      votingReputationClient,
+      (votingReputationClient as unknown) as VotingReputationClient7,
       colonyClient,
     ),
     ...version2Addons.getVotingReputationClientAddons(
-      votingReputationClient,
+      (votingReputationClient as unknown) as VotingReputationClient7,
       colonyClient,
     ),
     ...version3Addons.getVotingReputationClientAddons(
-      votingReputationClient,
+      (votingReputationClient as unknown) as VotingReputationClient7,
       colonyClient,
     ),
     ...version4Addons.getVotingReputationClientAddons(
-      votingReputationClient,
+      (votingReputationClient as unknown) as VotingReputationClient7,
       colonyClient,
     ),
     ...version5Addons.getVotingReputationClientAddons(
-      votingReputationClient,
+      (votingReputationClient as unknown) as VotingReputationClient7,
       colonyClient,
     ),
     ...version6Addons.getVotingReputationClientAddons(
-      votingReputationClient,
+      (votingReputationClient as unknown) as VotingReputationClient7,
       colonyClient,
     ),
     ...version7Addons.getVotingReputationClientAddons(
-      votingReputationClient,
+      (votingReputationClient as unknown) as VotingReputationClient7,
       colonyClient,
     ),
     ...currentVersionAddons.getVotingReputationClientAddons(
@@ -102,31 +93,31 @@ const getVotingReputationClient = (
   };
   const addonsEstimate = {
     ...version1Addons.getVotingReputationClientEstimateAddons(
-      votingReputationClient,
+      (votingReputationClient as unknown) as VotingReputationClient7,
       colonyClient,
     ),
     ...version2Addons.getVotingReputationClientEstimateAddons(
-      votingReputationClient,
+      (votingReputationClient as unknown) as VotingReputationClient7,
       colonyClient,
     ),
     ...version3Addons.getVotingReputationClientEstimateAddons(
-      votingReputationClient,
+      (votingReputationClient as unknown) as VotingReputationClient7,
       colonyClient,
     ),
     ...version4Addons.getVotingReputationClientEstimateAddons(
-      votingReputationClient,
+      (votingReputationClient as unknown) as VotingReputationClient7,
       colonyClient,
     ),
     ...version5Addons.getVotingReputationClientEstimateAddons(
-      votingReputationClient,
+      (votingReputationClient as unknown) as VotingReputationClient7,
       colonyClient,
     ),
     ...version6Addons.getVotingReputationClientEstimateAddons(
-      votingReputationClient,
+      (votingReputationClient as unknown) as VotingReputationClient7,
       colonyClient,
     ),
     ...version7Addons.getVotingReputationClientEstimateAddons(
-      votingReputationClient,
+      (votingReputationClient as unknown) as VotingReputationClient7,
       colonyClient,
     ),
     ...currentVersionAddons.getVotingReputationClientEstimateAddons(
@@ -137,19 +128,19 @@ const getVotingReputationClient = (
 
   const encodedInterfaces = {
     ...version4EncodedInterfaces.getVotingReputationClientEncodeInterfaces(
-      votingReputationClient,
+      (votingReputationClient as unknown) as VotingReputationClient7,
       colonyClient,
     ),
     ...version5EncodedInterfaces.getVotingReputationClientEncodeInterfaces(
-      votingReputationClient,
+      (votingReputationClient as unknown) as VotingReputationClient7,
       colonyClient,
     ),
     ...version6EncodedInterfaces.getVotingReputationClientEncodeInterfaces(
-      votingReputationClient,
+      (votingReputationClient as unknown) as VotingReputationClient7,
       colonyClient,
     ),
     ...version7EncodedInterfaces.getVotingReputationClientEncodeInterfaces(
-      votingReputationClient,
+      (votingReputationClient as unknown) as VotingReputationClient7,
       colonyClient,
     ),
     // eslint-disable-next-line max-len
