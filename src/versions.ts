@@ -41,7 +41,7 @@ const colonyReleaseMap = {
   [ColonyVersion.EbonyLightweightSpaceship]: `elwss`,
   [ColonyVersion.FuchsiaLightweightSpaceship]: `flwss`,
   [ColonyVersion.GreenLightweightSpaceship]: `glwss`,
-  [ColonyVersion.GreenLightweightSpaceshipTwo]: `develop`,
+  [ColonyVersion.GreenLightweightSpaceshipTwo]: `glwss2`,
 };
 
 /**
@@ -63,12 +63,14 @@ export enum OneTxPaymentExtensionVersion {
   CeruleanLightweightSpaceship = 1,
   DandelionLightweightSpaceship = 2,
   FuchsiaLightweightSpaceship = 3,
+  GreenLightweightSpaceshipTwo = 4,
 }
 
 const oneTxPaymentReleaseMap = {
   [OneTxPaymentExtensionVersion.CeruleanLightweightSpaceship]: `clwss`,
   [OneTxPaymentExtensionVersion.DandelionLightweightSpaceship]: `dlwss`,
   [OneTxPaymentExtensionVersion.FuchsiaLightweightSpaceship]: `flwss`,
+  [OneTxPaymentExtensionVersion.GreenLightweightSpaceshipTwo]: `glwss2`,
 };
 
 export const CurrentOneTxPaymentVersion = parseInt(
@@ -87,6 +89,7 @@ const OneTxPaymentExtensionVersionIncompatibilityMap: Record<
   [OneTxPaymentExtensionVersion.CeruleanLightweightSpaceship]: [],
   [OneTxPaymentExtensionVersion.DandelionLightweightSpaceship]: [],
   [OneTxPaymentExtensionVersion.FuchsiaLightweightSpaceship]: [],
+  [OneTxPaymentExtensionVersion.GreenLightweightSpaceshipTwo]: [],
 };
 
 const OneTxPaymentExtensionVersionCompatibilityMap: Record<
@@ -107,6 +110,7 @@ export enum CoinMachineExtensionVersion {
   EbonyLightweightSpaceshipTwo = 3,
   EbonyLightweightSpaceshipThree = 4,
   FuchsiaLightweightSpaceship = 5,
+  GreenLightweightSpaceshipTwo = 6,
 }
 
 const coinMachineReleaseMap = {
@@ -115,6 +119,7 @@ const coinMachineReleaseMap = {
   [CoinMachineExtensionVersion.EbonyLightweightSpaceshipTwo]: `elwss2`,
   [CoinMachineExtensionVersion.EbonyLightweightSpaceshipThree]: `elwss3`,
   [CoinMachineExtensionVersion.FuchsiaLightweightSpaceship]: `flwss`,
+  [CoinMachineExtensionVersion.GreenLightweightSpaceshipTwo]: `glwss2`,
 };
 
 export const CurrentCoinMachineVersion = parseInt(
@@ -133,6 +138,7 @@ const CoinMachineExtensionVersionIncompatibilityMap: Record<
   [CoinMachineExtensionVersion.EbonyLightweightSpaceshipTwo]: [],
   [CoinMachineExtensionVersion.EbonyLightweightSpaceshipThree]: [],
   [CoinMachineExtensionVersion.FuchsiaLightweightSpaceship]: [],
+  [CoinMachineExtensionVersion.GreenLightweightSpaceshipTwo]: [],
 };
 
 const CoinMachineExtensionVersionCompatibilityMap: Record<
@@ -166,7 +172,7 @@ const votingReputationReleaseMap = {
   [VotingReputationExtensionVersion.FuchsiaLightweightSpaceshipTwo]: `flwss2`,
   [VotingReputationExtensionVersion.FuchsiaLightweightSpaceshipThree]: `flwss3`,
   [VotingReputationExtensionVersion.GreenLightweightSpaceship]: 'glwss',
-  [VotingReputationExtensionVersion.GreenLightweightSpaceshipTwo]: 'develop',
+  [VotingReputationExtensionVersion.GreenLightweightSpaceshipTwo]: 'glwss2',
 };
 
 export const CurrentVotingReputationVersion = parseInt(
@@ -256,11 +262,13 @@ const VotingReputationExtensionVersionCompatibilityMap: Record<
 export enum WhitelistExtensionVersion {
   EbonyLightweightSpaceship = 1,
   FuchsiaLightweightSpaceship = 2,
+  GreenLightweightSpaceshipTwo = 3,
 }
 
 const whitelistReleaseMap = {
   [WhitelistExtensionVersion.EbonyLightweightSpaceship]: `elwss`,
   [WhitelistExtensionVersion.FuchsiaLightweightSpaceship]: `flwss`,
+  [WhitelistExtensionVersion.GreenLightweightSpaceshipTwo]: `glwss2`,
 };
 
 export const CurrentWhitelistVersion = parseInt(
@@ -276,6 +284,7 @@ const WhitelistExtensionVersionIncompatibilityMap: Record<
 > = {
   [WhitelistExtensionVersion.EbonyLightweightSpaceship]: [],
   [WhitelistExtensionVersion.FuchsiaLightweightSpaceship]: [],
+  [WhitelistExtensionVersion.GreenLightweightSpaceshipTwo]: [],
 };
 
 const WhitelistExtensionVersionCompatibilityMap: Record<
