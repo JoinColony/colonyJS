@@ -10,6 +10,7 @@ sidebar_position: 0
 The Colony SDK is a community project aiming to provide a quick and easy way to get started with building on top of Colony Network contracts.
 
 The goal is to simplify the complexity of the contract's functions to serve the most popular functions using an easy-to-understand programming interface while providing sane defaults and fallbacks. We also provide various examples for various applications to get you up and building with Colony in no time!
+Since version 1.0 it covers _everything_ the dApp can do, so you'll be able to run your DAO entirely programmatically 👩‍💻
 
 If you're impatient to start building, check out the [Getting Started](getting-started/index.md) pages.
 

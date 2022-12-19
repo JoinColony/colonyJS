@@ -8,7 +8,8 @@
 
 # Colony SDK
 
-The Colony SDK is under heavy development by the community and will be an easy-to-use interface for the Colony Network contracts, providing simple functions that hide the dark magic going on under the hood of ColonyJS. It should cover the most common use cases and is constantly updated with new features.
+The Colony SDK is under heavy development by the community and will be an easy-to-use interface for the Colony Network contracts, providing simple functions that hide the dark magic going on under the hood of ColonyJS.
+It covers _everything_ the dApp can do, so you'll be able to run your DAO entirely programmatically 👩‍💻
 
 Colony SDK also includes a variety of examples to get you up and building with Colony in no time!
 
@@ -28,7 +29,7 @@ const start = async () => {
   // This will try to connect the page to MetaMask
   await provider.send('eth_requestAccounts', []);
   // Create a new connection to the Colony Network contracts using the MetaMask "wallet"
-  const colonyNetwork = new ColonyNetwork(provider.getSigner());
+  const colonyNetwork = await ColonyNetwork.init(provider.getSigner());
   // Connect to the MetaColony (this could be replaced with your own colony using `colonyNetwork.getColony(COLONY_ADDRESS)`)
   const metaColony = await colonyNetwork.getMetaColony();
   // Get the CLNY funding for the MetaColony (CLNY is it's native token)
