@@ -1,7 +1,7 @@
 ---
 description: A guide on how to create transactions within Colony. You can create motions and even gasless MetaTransactions in a very straightforward and concise way.
 
-sidebar_position: 0
+sidebar_position: 1
 ---
 
 # How to create transactions

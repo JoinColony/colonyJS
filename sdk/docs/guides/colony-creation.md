@@ -1,7 +1,7 @@
 ---
 description: A guide on how to create a colony programmatically. The deployment of a colony requires a handful of transactions for it to be up and running and fully usable. This guide explains how to go through the whole process using Colony SDK
 
-sidebar_position: 1
+sidebar_position: 2
 ---
 
 # Creating a colony
@@ -14,7 +14,7 @@ Even though deploying a Colony is technically just a matter of issuing one trans
 For a full example see [here](https://github.com/JoinColony/colonySDK/blob/main/examples/node/create.ts).
 
 :::info
-These examples assume that the user executing the transactions has funds in their wallet to pay for gas. If you'd like to use gasless transactions instead, use `forceMeta()` instead of `force()`.
+These examples assume that the user executing the transactions has funds in their wallet to pay for gas. If you'd like to use gasless transactions instead, use `metaTx()` instead of `tx()`.
 :::
 
 ## Step 1 (optional) - Creating a token
@@ -57,7 +57,7 @@ const colony = await colonyNetwork.getColony(colonyAddress);
 const { token } = colony;
 ```
 
-## Step 4 (optional) - Deploy the token authority
+## Step 4 (optional) - Deploy the token authority and set the owner
 
 The token authority is a contract that glues the token and the colony together and makes it possible for the colony to manage and move the token. The token authority can be deployed using the `deployAuthority` method on the `Token`. After that, another transaction is needed to set the token's `authority` to the one that was just deployed. If the token does not support the `setAuthority` method, this step  should be skipped.
 
@@ -67,9 +67,10 @@ const [{ tokenAuthorityAddress }] = await token
   .deployAuthority([colonyAddress])
   .tx();
 // Set the token's authority to the freshly deployed one
-await token.setAuthority(tokenAuthorityAddress).force();
+await token.setAuthority(tokenAuthorityAddress).tx();
+// Set the token's owner (the colony), to have permissions to execute authorized functions (like `mint`)
+await colony.token.setOwner(colony.address).tx();
 ```
-
 
 ## Step 5 - Install the `OneTxPayment` extension
 
@@ -90,7 +91,6 @@ const [{ user, setTo, role }] = await colony
 
 Here we install the extension using the `installExtension` method. This extension is an own contract that was deployed in this transaction. To get its address, we re-initialize the extensions on the colony using `updateExtensions`. After that, `oneTx` will be available on `colony.ext`.
 Finally, we assign the **Administration** and **Funding** roles of the colony's `Root` team to the extension that we just deployed. The OneTxPayment extension needs these permissions to function properly.
-
 
 ## That's it!
 

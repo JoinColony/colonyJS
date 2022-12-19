@@ -1,5 +1,5 @@
 ---
-sidebar_position: 0
+sidebar_position: 1
 description: A stupidly short guide to get started with Colony development
 ---
 
@@ -37,7 +37,6 @@ For browser based projects, consider using a build system like [esbuild](https:/
 :::
 
 ```javascript
-// index.js
 import { providers } from 'ethers';
 import { ColonyNetwork, toEth } from '@colony/sdk';
 
@@ -50,7 +49,7 @@ const start = async () => {
   // This will try to connect the page to MetaMask
   await provider.send('eth_requestAccounts', []);
   // Create a new connection to the Colony Network contracts using the MetaMask "wallet"
-  const colonyNetwork = new ColonyNetwork(provider.getSigner());
+  const colonyNetwork = await ColonyNetwork.init(provider.getSigner());
   // Connect to the MetaColony (this could be replaced with your own colony using `colonyNetwork.getColony(COLONY_ADDRESS)`)
   const metaColony = await colonyNetwork.getMetaColony();
   // Get the CLNY funding for the MetaColony (CLNY is it's native token)
@@ -72,7 +71,7 @@ Include the resulting bundle in an HTML file and open it in you favorite browser
 const { providers, Wallet } = require('ethers');
 const { ColonyNetwork } = require('@colony/sdk');
 
-const provider = new providers.JsonRpcProvider('https://rpc.gnosischain.com/');
+const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc2/');
 const wallet = Wallet.createRandom().connect(provider);
 
 // Get the Colony's XDAI funding in the ROOT pot (id 1)

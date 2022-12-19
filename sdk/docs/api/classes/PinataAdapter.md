@@ -1,19 +1,22 @@
 # Class: PinataAdapter
 
-PinataAdapter
+A Colony SDK IPFS adapter for Pinata (https://pinata.cloud)
 
-A Colony SDK IPFS adapter for Pinata (https://pinata.cloud). In order to use this, sign up for Pinata (if you haven't already) and generate a token. Then either supply this token when instantiating the class (example below) or provide it via the environment variable `COLONY_IPFS_PINATA_TOKEN` (when using NodeJS). Then provide an instance of this class to the [ColonyNetwork](ColonyNetwork.md) or [ColonyEventManager](ColonyEventManager.md) classes (depending on your needs).
+In order to use this, sign up for Pinata (if you haven't already) and generate a token. Then either supply this token when instantiating the class (example below) or provide it via the environment variable `COLONY_IPFS_PINATA_TOKEN` (when using NodeJS). Then provide an instance of this class to the [ColonyNetwork](ColonyNetwork.md) or [ColonyEventManager](ColonyEventManager.md) classes (depending on your needs).
 
-**`Remarks`**
-
-DO NOT CHECK IN YOUR PINATA TOKEN INTO VERSION CONTROL AND **DO NOT EMBED IT INTO YOUR FRONTEND BUNDLE**.
+:::danger Tokens are sensitive data
+Do not check in your Pinata token into version control and **DO NOT EMBED IT INTO YOUR FRONTEND BUNDLE**.
+:::
 
 **`Example`**
 
 ```typescript
 import { ColonyNetwork, PinataAdapter } from '@colony/sdk';
-const pinataAdapter = new PinataAdapter('YOUR_PINANTA_JWT_TOKEN');
-const colonyNetwork = new ColonyNetwork({ ipfsAdapter: pinataAdapter });
+const pinataAdapter = new PinataAdapter('[YOUR_PINANTA_JWT_TOKEN]');
+// Immediately executing async function
+(async function() {
+  const colonyNetwork = ColonyNetwork.init(signerOrProvider, { ipfsAdapter: pinataAdapter });
+})();
 ```
 
 ## Implements

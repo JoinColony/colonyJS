@@ -2,6 +2,7 @@ export { MotionState, NetworkClientOptions, Tokens } from '@colony/colony-js';
 export type {
   AnnotationMetadata,
   ColonyMetadata,
+  DecisionMetadata,
   DomainMetadata,
   MetadataType,
 } from '@colony/colony-event-metadata-parser';

@@ -42,6 +42,7 @@ const start = async () => {
   // Set the token's authority to the freshly deployed one
   if (colony.token instanceof ColonyToken) {
     await colony.token.setAuthority(tokenAuthorityAddress).tx();
+    await colony.token.setOwner(colony.address).tx();
   }
   // Install OneTxPayment extension
   const [{ extensionId, version }] = await colony
