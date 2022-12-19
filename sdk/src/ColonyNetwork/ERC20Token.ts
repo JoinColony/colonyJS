@@ -97,7 +97,7 @@ export class ERC20Token {
    *
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |

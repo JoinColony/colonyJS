@@ -43,6 +43,7 @@
 - [ColonyMultiFilter](interfaces/ColonyMultiFilter.md)
 - [ColonyNetworkOptions](interfaces/ColonyNetworkOptions.md)
 - [ColonyTopic](interfaces/ColonyTopic.md)
+- [DecisionMetadata](interfaces/DecisionMetadata.md)
 - [DomainMetadata](interfaces/DomainMetadata.md)
 - [Ethers6Filter](interfaces/Ethers6Filter.md)
 - [Ethers6FilterByBlockHash](interfaces/Ethers6FilterByBlockHash.md)

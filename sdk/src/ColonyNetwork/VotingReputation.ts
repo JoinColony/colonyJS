@@ -436,7 +436,7 @@ export class VotingReputation {
    * @param team - Team id to create the decision in
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
@@ -511,7 +511,7 @@ export class VotingReputation {
    * @param metadata - The annotation metadata you would like to annotate the transaction with (or an IPFS CID pointing to valid metadata)
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
@@ -519,7 +519,9 @@ export class VotingReputation {
    * | `txHash` | string | The hash of the annotated transaction |
    * | `metadata` | string | The IPFS hash (CID) of the metadata object |
    *
-   * **Metadata** (can be obtained by calling and awaiting the `getMetadata` function)
+   * #### Metadata
+   *
+   * (can be obtained by calling and awaiting the `getMetadata` function)
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
@@ -562,7 +564,7 @@ export class VotingReputation {
    *
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
@@ -616,7 +618,7 @@ export class VotingReputation {
    *
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
@@ -752,7 +754,7 @@ export class VotingReputation {
    *
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
@@ -817,7 +819,7 @@ export class VotingReputation {
    *
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
@@ -899,7 +901,7 @@ export class VotingReputation {
    *
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
@@ -945,7 +947,7 @@ export class VotingReputation {
    *
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |

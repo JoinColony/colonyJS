@@ -86,7 +86,7 @@ import { Tokens } from '@colony/sdk';
 
 A transaction creator
 
-**Event data**
+#### Event data
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -95,7 +95,9 @@ A transaction creator
 | `token` | string | Address of the token that is used as the colony's native token |
 | `metadata` | string | IPFS CID of metadata attached to this transaction |
 
-**Metadata** (can be obtained by calling and awaiting the `getMetadata` function)
+#### Metadata
+
+(can be obtained by calling and awaiting the `getMetadata` function)
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -140,7 +142,7 @@ There is more to creating a fully functional colony that can be used within the 
 
 A transaction creator
 
-**Event data**
+#### Event data
 
 | Property | Type | Description |
 | :------ | :------ | :------ |

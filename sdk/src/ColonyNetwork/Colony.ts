@@ -338,7 +338,7 @@ export class Colony {
    *
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
@@ -347,7 +347,9 @@ export class Colony {
    * | `token` | string | Address of the token that is used as the colony's native token |
    * | `metadata` | string | IPFS CID of metadata attached to this transaction |
    *
-   * **Metadata** (can be obtained by calling and awaiting the `getMetadata` function)
+   * #### Metadata
+   *
+   * (can be obtained by calling and awaiting the `getMetadata` function)
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
@@ -406,7 +408,7 @@ export class Colony {
    * @param metadata - The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[DomainMetadata]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
@@ -415,7 +417,9 @@ export class Colony {
    * | `fundingPotId` | BigNumber | Integer id of the corresponding funding pot |
    * | `metadata` | string | IPFS CID of metadata attached to this transaction |
    *
-   * **Metadata** (can be obtained by calling and awaiting the `getMetadata` function)
+   * #### Metadata
+   *
+   * (can be obtained by calling and awaiting the `getMetadata` function)
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
@@ -443,7 +447,7 @@ export class Colony {
    *
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
@@ -540,7 +544,7 @@ export class Colony {
    * @param metadata - The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[DomainMetadata]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
@@ -548,7 +552,9 @@ export class Colony {
    * | `domainId` | BigNumber | Integer domain id of the created team |
    * | `metadata` | string | IPFS CID of metadata attached to this transaction |
    *
-   * **Metadata** (can be obtained by calling and awaiting the `getMetadata` function)
+   * #### Metadata
+   *
+   * (can be obtained by calling and awaiting the `getMetadata` function)
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
@@ -592,7 +598,7 @@ export class Colony {
    * @param deprecated - `true`: Deprecate team; `false`: Undeprecate team
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
@@ -644,7 +650,7 @@ export class Colony {
    * @param tokenAddress - The address of the token to claim the funds for. Default is the Colony's native token
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
@@ -696,7 +702,7 @@ export class Colony {
    * @param tokenAddress - The address of the token to be transferred. Default is the Colony's native token
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
@@ -885,7 +891,7 @@ export class Colony {
    * @param metadata - The annotation metadata you would like to annotate the transaction with (or an IPFS CID pointing to valid metadata)
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
@@ -893,7 +899,9 @@ export class Colony {
    * | `txHash` | BigNumber | The hash of the annotated transaction |
    * | `metadata` | BigNumber | The IPFS hash (CID) of the metadata object |
    *
-   * **Metadata** (can be obtained by calling and awaiting the `getMetadata` function)
+   * #### Metadata
+   *
+   * (can be obtained by calling and awaiting the `getMetadata` function)
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
@@ -947,7 +955,7 @@ export class Colony {
    * @param extension - Name of the extension you'd like to install
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
@@ -1003,7 +1011,8 @@ export class Colony {
    * @param teamId - Team to apply the role(s) in
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
+   *
    * Heads up!* This event is emitted for every role that was set
    *
    * | Property | Type | Description |
@@ -1062,7 +1071,8 @@ export class Colony {
    *
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
+   *
    * Heads up!* This event is emitted for every role that was unset
    *
    * | Property | Type | Description |
@@ -1138,7 +1148,7 @@ export class Colony {
    *
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
@@ -1170,7 +1180,7 @@ export class Colony {
    *
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
@@ -1214,7 +1224,7 @@ export class Colony {
    *
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
@@ -1241,7 +1251,7 @@ export class Colony {
    *
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
@@ -1274,7 +1284,7 @@ export class Colony {
    *
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
@@ -1310,7 +1320,7 @@ export class Colony {
    *
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
@@ -1354,7 +1364,7 @@ export class Colony {
    *
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |

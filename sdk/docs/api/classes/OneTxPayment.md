@@ -94,7 +94,7 @@ import { Id, Tokens, w } from '@colony/sdk';
 
 A transaction creator
 
-**Event data**
+#### Event data
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -129,7 +129,7 @@ This method upgrades this extension to a specified version or, if no version is 
 
 A transaction creator
 
-**Event data**
+#### Event data
 
 | Property | Type | Description |
 | :------ | :------ | :------ |

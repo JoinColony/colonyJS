@@ -132,7 +132,7 @@ This will annotate a decision with certain metadata (see below). This only reall
 
 **`Remarks`**
 
-If DecisionMetadata is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
+If [DecisionMetadata](../interfaces/DecisionMetadata.md) is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
 
 **`Example`**
 
@@ -159,7 +159,7 @@ If DecisionMetadata is provided directly (as opposed to a [CID](https://docs.ipf
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `txHash` | `string` | Transaction hash of the transaction to annotate (within the Colony) |
-| `metadata` | `string` \| `DecisionMetadata` | The annotation metadata you would like to annotate the transaction with (or an IPFS CID pointing to valid metadata) |
+| `metadata` | `string` \| [`DecisionMetadata`](../interfaces/DecisionMetadata.md) | The annotation metadata you would like to annotate the transaction with (or an IPFS CID pointing to valid metadata) |
 
 #### Returns
 
@@ -167,7 +167,7 @@ If DecisionMetadata is provided directly (as opposed to a [CID](https://docs.ipf
 
 A transaction creator
 
-**Event data**
+#### Event data
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -175,7 +175,9 @@ A transaction creator
 | `txHash` | string | The hash of the annotated transaction |
 | `metadata` | string | The IPFS hash (CID) of the metadata object |
 
-**Metadata** (can be obtained by calling and awaiting the `getMetadata` function)
+#### Metadata
+
+(can be obtained by calling and awaiting the `getMetadata` function)
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -209,7 +211,7 @@ This method can't be executed as a motion
 
 A transaction creator
 
-**Event data**
+#### Event data
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -230,7 +232,7 @@ Keep in mind that a decision is just a motion without an on-chain action that is
 
 **`Remarks`**
 
-If DecisionMetadata is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
+If [DecisionMetadata](../interfaces/DecisionMetadata.md) is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
 
 **`Example`**
 
@@ -264,7 +266,7 @@ If DecisionMetadata is provided directly (as opposed to a [CID](https://docs.ipf
 
 A transaction creator
 
-**Event data**
+#### Event data
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -301,7 +303,7 @@ Finalize a motion, executing its action
 
 A transaction creator
 
-**Event data**
+#### Event data
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -452,7 +454,7 @@ Reveal a vote for a motion
 
 A transaction creator
 
-**Event data**
+#### Event data
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -506,7 +508,7 @@ import { Vote, w } from '@colony/sdk';
 
 A transaction creator
 
-**Event data**
+#### Event data
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -541,7 +543,7 @@ This method can't be executed as a motion
 
 A transaction creator
 
-**Event data**
+#### Event data
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -575,7 +577,7 @@ This method upgrades this extension to a specified version or, if no version is 
 
 A transaction creator
 
-**Event data**
+#### Event data
 
 | Property | Type | Description |
 | :------ | :------ | :------ |

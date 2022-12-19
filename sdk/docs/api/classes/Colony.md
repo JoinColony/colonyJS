@@ -94,7 +94,7 @@ If [AnnotationMetadata](../interfaces/AnnotationMetadata.md) is provided directl
 
 A transaction creator
 
-**Event data**
+#### Event data
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -102,7 +102,9 @@ A transaction creator
 | `txHash` | BigNumber | The hash of the annotated transaction |
 | `metadata` | BigNumber | The IPFS hash (CID) of the metadata object |
 
-**Metadata** (can be obtained by calling and awaiting the `getMetadata` function)
+#### Metadata
+
+(can be obtained by calling and awaiting the `getMetadata` function)
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -136,7 +138,7 @@ Only users with *Root* role are allowed to award reputation
 
 A transaction creator
 
-**Event data**
+#### Event data
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -171,7 +173,7 @@ use `ethers.constants.AddressZero` to claim ETH.
 
 A transaction creator
 
-**Event data**
+#### Event data
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -222,7 +224,7 @@ import { TeamColor } from '@colony/sdk';
 
 A transaction creator
 
-**Event data**
+#### Event data
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -231,7 +233,9 @@ A transaction creator
 | `fundingPotId` | BigNumber | Integer id of the corresponding funding pot |
 | `metadata` | string | IPFS CID of metadata attached to this transaction |
 
-**Metadata** (can be obtained by calling and awaiting the `getMetadata` function)
+#### Metadata
+
+(can be obtained by calling and awaiting the `getMetadata` function)
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -253,7 +257,7 @@ Currently you can only add domains within the `Root` domain. This restriction wi
 
 A transaction creator
 
-**Event data**
+#### Event data
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -288,7 +292,7 @@ Only works for native tokens deployed with Colony (not imported tokens).
 
 A transaction creator
 
-**Event data**
+#### Event data
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -317,7 +321,7 @@ Teams can be deprecated which will remove them from the UI. As they can't be del
 
 A transaction creator
 
-**Event data**
+#### Event data
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -363,7 +367,7 @@ This will overwrite all exisiting metadata!
 
 A transaction creator
 
-**Event data**
+#### Event data
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -372,7 +376,9 @@ A transaction creator
 | `token` | string | Address of the token that is used as the colony's native token |
 | `metadata` | string | IPFS CID of metadata attached to this transaction |
 
-**Metadata** (can be obtained by calling and awaiting the `getMetadata` function)
+#### Metadata
+
+(can be obtained by calling and awaiting the `getMetadata` function)
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -422,7 +428,7 @@ import { TeamColor } from '@colony/sdk';
 
 A transaction creator
 
-**Event data**
+#### Event data
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -430,7 +436,9 @@ A transaction creator
 | `domainId` | BigNumber | Integer domain id of the created team |
 | `metadata` | string | IPFS CID of metadata attached to this transaction |
 
-**Metadata** (can be obtained by calling and awaiting the `getMetadata` function)
+#### Metadata
+
+(can be obtained by calling and awaiting the `getMetadata` function)
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -458,7 +466,7 @@ Be aware that to exit Recovery Mode a quorum of 50% is needed of all users who h
 
 A transaction creator
 
-**Event data**
+#### Event data
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -480,7 +488,7 @@ In Recovery Mode, no actions are possible on the colony. Only users who have the
 
 A transaction creator
 
-**Event data**
+#### Event data
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -637,7 +645,7 @@ After an extension was installed, `colony.updateExtensions()` needs to be called
 
 A transaction creator
 
-**Event data**
+#### Event data
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -738,7 +746,7 @@ import { w } from '@colony/sdk';
 
 A transaction creator
 
-**Event data**
+#### Event data
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -792,7 +800,7 @@ import { Tokens, w } from '@colony/sdk';
 
 A transaction creator
 
-**Event data**
+#### Event data
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -844,7 +852,8 @@ import { ColonyRole } from '@colony/sdk';
 
 A transaction creator
 
-**Event data**
+#### Event data
+
 Heads up!* This event is emitted for every role that was set
 
 | Property | Type | Description |
@@ -883,7 +892,7 @@ Only users with *Arbitration* role are allowed to award reputation
 
 A transaction creator
 
-**Event data**
+#### Event data
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -914,7 +923,8 @@ Unset (remove) roles from a user/contract
 
 A transaction creator
 
-**Event data**
+#### Event data
+
 Heads up!* This event is emitted for every role that was unset
 
 | Property | Type | Description |
@@ -967,7 +977,7 @@ This method upgrades the colony to a specified version or, if no version is prov
 
 A transaction creator
 
-**Event data**
+#### Event data
 
 | Property | Type | Description |
 | :------ | :------ | :------ |

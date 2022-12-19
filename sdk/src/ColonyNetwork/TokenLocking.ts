@@ -58,7 +58,7 @@ export class TokenLocking {
    *
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
@@ -102,7 +102,7 @@ export class TokenLocking {
    *
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |

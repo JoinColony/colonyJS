@@ -286,7 +286,7 @@ export class ColonyNetwork {
    *
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
@@ -295,7 +295,9 @@ export class ColonyNetwork {
    * | `token` | string | Address of the token that is used as the colony's native token |
    * | `metadata` | string | IPFS CID of metadata attached to this transaction |
    *
-   * **Metadata** (can be obtained by calling and awaiting the `getMetadata` function)
+   * #### Metadata
+   *
+   * (can be obtained by calling and awaiting the `getMetadata` function)
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
@@ -337,7 +339,7 @@ export class ColonyNetwork {
    *
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |

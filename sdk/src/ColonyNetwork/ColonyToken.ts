@@ -75,7 +75,7 @@ export class ColonyToken extends ERC20Token {
    *
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
@@ -104,7 +104,7 @@ export class ColonyToken extends ERC20Token {
    *
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |

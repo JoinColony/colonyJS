@@ -75,7 +75,7 @@ export class ERC2612Token extends ERC20Token {
    *
    * @returns A transaction creator
    *
-   * **Event data**
+   * #### Event data
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |

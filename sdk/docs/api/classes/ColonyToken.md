@@ -76,7 +76,7 @@ import { w } from '@colony/sdk';
 
 A transaction creator
 
-**Event data**
+#### Event data
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -166,7 +166,7 @@ import { w } from '@colony/sdk';
 
 A transaction creator
 
-**Event data**
+#### Event data
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
@@ -198,7 +198,7 @@ Only works for native tokens deployed with Colony (not imported tokens).
 
 A transaction creator
 
-**Event data**
+#### Event data
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
