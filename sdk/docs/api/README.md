@@ -88,6 +88,16 @@ ___
 | :------ | :------ |
 | `K` | extends [`MetadataType`](enums/MetadataType.md) |
 
+## Variables
+
+### DecisionMotionCode
+
+• `Const` **DecisionMotionCode**: ``"0x12345678"``
+
+Identifies a motion as a decision
+
+Usually there's no need to use this directly. Use [VotingReputation.createDecision](classes/VotingReputation.md#createdecision) instead.
+
 ## Functions
 
 ### addressesAreEqual

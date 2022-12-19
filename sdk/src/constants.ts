@@ -43,3 +43,10 @@ export enum ColonyLabelSuffix {
   XdaiQa = '.colony.joincolony.colonyxdai',
   Custom = '.colony.joincolony.test',
 }
+
+/**
+ * Identifies a motion as a decision
+ *
+ * Usually there's no need to use this directly. Use [[VotingReputation.createDecision]] instead.
+ */
+export const DecisionMotionCode = '0x12345678';

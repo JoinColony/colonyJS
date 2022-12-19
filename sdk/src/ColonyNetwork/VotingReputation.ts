@@ -1,11 +1,17 @@
 import {
+  DecisionMetadata,
+  MetadataType,
+} from '@colony/colony-event-metadata-parser';
+import {
   ColonyRole,
   Extension,
+  getExtensionHash,
   getPermissionProofs,
   Id,
   MotionState,
   VotingReputationClientV7,
 } from '@colony/colony-js';
+import { getCreateMotionProofs } from '@colony/colony-js/dist/types/clients/Extensions/VotingReputation/augments/augmentsV2';
 
 import type {
   VotingReputationDataTypes,
@@ -16,11 +22,16 @@ import type {
   MotionVoteSubmittedEventObject,
   UserTokenApprovedEventObject,
   MotionCreatedEventObject,
+  ExtensionUpgradedEventObject,
+  AnnotationEventObject,
 } from '@colony/colony-js/extras';
-import { BigNumber, BigNumberish, Signer, utils } from 'ethers';
+import { constants, BigNumber, BigNumberish, Signer, utils } from 'ethers';
+import { DecisionMotionCode } from '../constants';
 import { extractEvent, extractCustomEvent, toEth } from '../utils';
 
 import { Colony, SupportedColonyClient } from './Colony';
+
+const { AddressZero } = constants;
 
 export type SupportedVotingReputationClient = VotingReputationClientV7;
 
@@ -153,6 +164,8 @@ export class VotingReputation {
 
   address: string;
 
+  version: number;
+
   static getLatestSupportedVersion() {
     return VotingReputation.supportedVersions[
       VotingReputation.supportedVersions.length - 1
@@ -166,6 +179,7 @@ export class VotingReputation {
     this.address = votingReputationClient.address;
     this.colony = colony;
     this.votingReputationClient = votingReputationClient;
+    this.version = votingReputationClient.clientVersion;
   }
 
   /**
@@ -236,38 +250,6 @@ export class VotingReputation {
    */
   getInternalVotingReputationClient(): SupportedVotingReputationClient {
     return this.votingReputationClient;
-  }
-
-  /**
-   * Create a motion using an encoded action
-   * @internal
-   *
-   * @remarks You will usually not use this function directly, but use the `send` or `motion` functions of the [[ColonyTxCreator]] within the relevant contract.
-   *
-   * @param motionDomain - The domain the motion will be created in
-   * @param encodedAction - The encoded action as a string
-   * @param altTarget - The contract to which we send the action - 0x0 for the colony (default)
-   *
-   * @returns A Motion object
-   */
-  async createMotion(
-    motionDomain: BigNumberish,
-    encodedAction: string,
-    altTarget = '0x0',
-  ) {
-    const tx = await this.votingReputationClient.createMotionWithProofs(
-      motionDomain,
-      altTarget,
-      encodedAction,
-    );
-
-    const receipt = await tx.wait();
-
-    const data = {
-      ...extractEvent<MotionCreatedEventObject>('MotionCreated', receipt),
-    };
-
-    return [data, receipt] as [typeof data, typeof receipt];
   }
 
   /**
@@ -424,6 +406,148 @@ export class VotingReputation {
       remainingToFullyNayStaked,
       remainingToFullyYayStaked,
     };
+  }
+
+  /**
+   * Annotate a decision with IPFS metadata to provide extra information
+   *
+   * Keep in mind that a decision is just a motion without an on-chain action that is being triggered once it finalizes
+   *
+   * @remarks If [[DecisionMetadata]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
+   *
+   * @example
+   * ```typescript
+   * // Immediately executing async function
+   * (async function() {
+   *
+   *   // Create an empty decision in the Root team
+   *   const [, { transactionHash }] = await colony.ext.motions.createDecision().tx();
+   *   // Annotate the decision transaction with important data
+   *   // (forced transaction example)
+   *   await colony.ext.motions.annotateDecision(
+   *      transactionHash,
+   *      {
+   *        title: 'Should we make the naked-mole-rat our official mascot?',
+   *        description: 'I think it is time',
+   *      },
+   *   ).tx();
+   * })();
+   * ```
+   * @param team - Team id to create the decision in
+   * @returns A transaction creator
+   *
+   * **Event data**
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `motionId` | BigNumber | Id of the decision (motion) |
+   * | `creator` | string | Address of the user who created the decision |
+   * | `domainId` | BigNumber | Team the decision was created in |
+   */
+  createDecision(team: BigNumberish = Id.RootDomain) {
+    return this.colony.colonyNetwork.createMetaTxCreator(
+      this.votingReputationClient,
+      'createMotion',
+      async () => {
+        const { actionCid, key, value, branchMask, siblings } =
+          await getCreateMotionProofs(
+            this.votingReputationClient,
+            team,
+            AddressZero,
+            DecisionMotionCode,
+          );
+        return [
+          team,
+          actionCid,
+          AddressZero,
+          DecisionMotionCode,
+          key,
+          value,
+          branchMask,
+          siblings,
+        ] as [
+          BigNumberish,
+          BigNumberish,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string[],
+        ];
+      },
+      async (receipt) => ({
+        ...extractEvent<MotionCreatedEventObject>('MotionCreated', receipt),
+      }),
+    );
+  }
+
+  /**
+   * Annotate a decision with IPFS metadata to provide extra information
+   *
+   * This will annotate a decision with certain metadata (see below). This only really works for transactions that happened within this Colony. This will connect the decision to the (optionally generated) IPFS hash accordingly.
+   *
+   * @remarks If [[DecisionMetadata]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
+   *
+   * @example
+   * ```typescript
+   * // Immediately executing async function
+   * (async function() {
+   *
+   *   // Create a motion to pay 10 of the native token to some (maybe your own?) address
+   *   const [, { transactionHash }] = await colony.ext.motions.createDecision().tx();
+   *   // Annotate the decision transaction with important data
+   *   // (forced transaction example)
+   *   await colony.ext.motions.annotateDecision(
+   *      transactionHash,
+   *      {
+   *        title: 'Should we make the naked-mole-rat our official mascot?',
+   *        description: 'I think it is time',
+   *      },
+   *   ).tx();
+   * })();
+   * ```
+   * @param txHash - Transaction hash of the transaction to annotate (within the Colony)
+   * @param metadata - The annotation metadata you would like to annotate the transaction with (or an IPFS CID pointing to valid metadata)
+   * @returns A transaction creator
+   *
+   * **Event data**
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `agent` | string | The address that is responsible for triggering this event |
+   * | `txHash` | string | The hash of the annotated transaction |
+   * | `metadata` | string | The IPFS hash (CID) of the metadata object |
+   *
+   * **Metadata** (can be obtained by calling and awaiting the `getMetadata` function)
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `title` | string | Title of the decision |
+   * | `description` | string | Longer description of the decision |
+   * | `motionDomainId` | number | Team the decision was created in |
+   */
+  annotateDecision(txHash: string, metadata: DecisionMetadata | string) {
+    return this.colony.colonyNetwork.createMetaTxCreator(
+      this.colony.getInternalColonyClient(),
+      'annotateTransaction',
+      async () => {
+        let cid: string;
+        if (typeof metadata == 'string') {
+          cid = metadata;
+        } else {
+          cid = await this.colony.colonyNetwork.ipfs.uploadMetadata(
+            MetadataType.Decision,
+            metadata,
+          );
+        }
+        return [txHash, cid] as [string, string];
+      },
+      async (receipt) => ({
+        ...extractEvent<AnnotationEventObject>('Annotation', receipt),
+      }),
+      { metadataType: MetadataType.Decision },
+    );
   }
 
   /**
@@ -804,6 +928,42 @@ export class VotingReputation {
       getArgs,
       async (receipt) => ({
         ...extractEvent<MotionFinalizedEventObject>('MotionFinalized', receipt),
+      }),
+    );
+  }
+
+  /**
+   * Upgrade this extension to the next or a custom version
+   *
+   * This method upgrades this extension to a specified version or, if no version is provided to the next higher version.
+   *
+   * @remarks
+   * * Only users with *Root* role are allowed to upgrade an extension (or another extension with appropriate permissions)
+   * * Downgrading of extensions is not possible
+   *
+   * @param toVersion - Specify a custom version to upgrade the extension to
+   *
+   * @returns A transaction creator
+   *
+   * **Event data**
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `extensionId` | string | Extension id (name of the extension) that was upgraded |
+   * | `oldVersion` | BigNumber | Version of the colony before the upgrade |
+   * | `newVersion` | BigNumber | Version of the colony after the upgrade |
+   */
+  upgrade(toVersion?: BigNumberish) {
+    const version = toVersion || this.version + 1;
+    return this.colony.createColonyTxCreator(
+      this.colony.getInternalColonyClient(),
+      'upgradeExtension',
+      [getExtensionHash(Extension.VotingReputation), version],
+      async (receipt) => ({
+        ...extractEvent<ExtensionUpgradedEventObject>(
+          'ExtensionUpgraded',
+          receipt,
+        ),
       }),
     );
   }

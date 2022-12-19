@@ -30,7 +30,7 @@ const fetchRetry = wrapFetch(fetch, {
 export const IPFS_METADATA_EVENTS = {
   [MetadataType.Annotation]: 'Annotation(address,bytes32,string)',
   [MetadataType.Colony]: 'ColonyMetadata(address,string)',
-  [MetadataType.Decision]: '',
+  [MetadataType.Decision]: 'Annotation(address,bytes32,string)',
   [MetadataType.Domain]: 'DomainMetadata(address,uint256,string)',
   [MetadataType.Misc]: '',
 } as const;

@@ -104,6 +104,12 @@ You can - at any point in the lifecycle inspect the current state of a Motion. U
 
 ___
 
+### version
+
+• **version**: `number`
+
+___
+
 ### extensionType
 
 ▪ `Static` **extensionType**: [`IVotingReputation`](../enums/Extension.md#ivotingreputation) = `Extension.IVotingReputation`
@@ -115,6 +121,69 @@ ___
 ▪ `Static` **supportedVersions**: ``7``[]
 
 ## Methods
+
+### annotateDecision
+
+▸ **annotateDecision**(`txHash`, `metadata`): [`MetaTxCreator`](MetaTxCreator.md)<`ColonyClientV10`, ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, [`Decision`](../enums/MetadataType.md#decision)\>
+
+Annotate a decision with IPFS metadata to provide extra information
+
+This will annotate a decision with certain metadata (see below). This only really works for transactions that happened within this Colony. This will connect the decision to the (optionally generated) IPFS hash accordingly.
+
+**`Remarks`**
+
+If DecisionMetadata is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
+
+**`Example`**
+
+```typescript
+// Immediately executing async function
+(async function() {
+
+  // Create a motion to pay 10 of the native token to some (maybe your own?) address
+  const [, { transactionHash }] = await colony.ext.motions.createDecision().tx();
+  // Annotate the decision transaction with important data
+  // (forced transaction example)
+  await colony.ext.motions.annotateDecision(
+     transactionHash,
+     {
+       title: 'Should we make the naked-mole-rat our official mascot?',
+       description: 'I think it is time',
+     },
+  ).tx();
+})();
+```
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `txHash` | `string` | Transaction hash of the transaction to annotate (within the Colony) |
+| `metadata` | `string` \| `DecisionMetadata` | The annotation metadata you would like to annotate the transaction with (or an IPFS CID pointing to valid metadata) |
+
+#### Returns
+
+[`MetaTxCreator`](MetaTxCreator.md)<`ColonyClientV10`, ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, [`Decision`](../enums/MetadataType.md#decision)\>
+
+A transaction creator
+
+**Event data**
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `agent` | string | The address that is responsible for triggering this event |
+| `txHash` | string | The hash of the annotated transaction |
+| `metadata` | string | The IPFS hash (CID) of the metadata object |
+
+**Metadata** (can be obtained by calling and awaiting the `getMetadata` function)
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `title` | string | Title of the decision |
+| `description` | string | Longer description of the decision |
+| `motionDomainId` | number | Team the decision was created in |
+
+___
 
 ### approveStake
 
@@ -148,6 +217,60 @@ A transaction creator
 | `user` | string | The address of the VotingReputation contract |
 | `approvedBy` | string | The address of the Colony |
 | `amount` | BigNumber | Amount of the token that was approved for staking |
+
+___
+
+### createDecision
+
+▸ **createDecision**(`team?`): [`MetaTxCreator`](MetaTxCreator.md)<`VotingReputationClientV7`, ``"createMotion"``, { `creator?`: `string` ; `domainId?`: `BigNumber` ; `motionId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+Annotate a decision with IPFS metadata to provide extra information
+
+Keep in mind that a decision is just a motion without an on-chain action that is being triggered once it finalizes
+
+**`Remarks`**
+
+If DecisionMetadata is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
+
+**`Example`**
+
+```typescript
+// Immediately executing async function
+(async function() {
+
+  // Create an empty decision in the Root team
+  const [, { transactionHash }] = await colony.ext.motions.createDecision().tx();
+  // Annotate the decision transaction with important data
+  // (forced transaction example)
+  await colony.ext.motions.annotateDecision(
+     transactionHash,
+     {
+       title: 'Should we make the naked-mole-rat our official mascot?',
+       description: 'I think it is time',
+     },
+  ).tx();
+})();
+```
+
+#### Parameters
+
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `team` | `BigNumberish` | `Id.RootDomain` | Team id to create the decision in |
+
+#### Returns
+
+[`MetaTxCreator`](MetaTxCreator.md)<`VotingReputationClientV7`, ``"createMotion"``, { `creator?`: `string` ; `domainId?`: `BigNumber` ; `motionId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+A transaction creator
+
+**Event data**
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `motionId` | BigNumber | Id of the decision (motion) |
+| `creator` | string | Address of the user who created the decision |
+| `domainId` | BigNumber | Team the decision was created in |
 
 ___
 
@@ -424,6 +547,41 @@ A transaction creator
 | :------ | :------ | :------ |
 | `motionId` | BigNumber | ID of the motion created |
 | `voter` | string | The address of the user who voted |
+
+___
+
+### upgrade
+
+▸ **upgrade**(`toVersion?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"upgradeExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+Upgrade this extension to the next or a custom version
+
+This method upgrades this extension to a specified version or, if no version is provided to the next higher version.
+
+**`Remarks`**
+
+* Only users with *Root* role are allowed to upgrade an extension (or another extension with appropriate permissions)
+* Downgrading of extensions is not possible
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `toVersion?` | `BigNumberish` | Specify a custom version to upgrade the extension to |
+
+#### Returns
+
+[`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV10`, ``"upgradeExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+A transaction creator
+
+**Event data**
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `extensionId` | string | Extension id (name of the extension) that was upgraded |
+| `oldVersion` | BigNumber | Version of the colony before the upgrade |
+| `newVersion` | BigNumber | Version of the colony after the upgrade |
 
 ___
 

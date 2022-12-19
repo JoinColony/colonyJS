@@ -42,9 +42,9 @@ ___
 
 ▸ **createColony**(`tokenAddress`, `label`, `metadata`): [`MetaTxCreator`](MetaTxCreator.md)<`ColonyNetworkClient`, ``"createColony(address,uint256,string,string)"``, { `agent`: `string` ; `colonyAddress`: `string` ; `colonyId`: `BigNumber` ; `metadata`: `string` ; `token`: `string`  }, [`Colony`](../enums/MetadataType.md#colony)\>
 
-Create a new Colony with metadata
+Create a new colony with metadata
 
-Creates a new Colony with IPFS metadata. To edit metadata at a later point you can call the Colony.editColony method.
+Creates a new colony with IPFS metadata. To edit metadata at a later point you can call the [Colony.editColony](Colony.md#editcolony) method.
 
 **`Remarks`**
 
@@ -68,7 +68,7 @@ import { Tokens } from '@colony/sdk';
       colonyAvatarHash: 'QmS26o1Cmsrx7iw1SSFGEcy22TVDq6VmEZ4XNjpWFyaKUe',
       // List of token addresses that the Colony should be initialized with (can be changed later) - excluding ETH and the native token from above
       colonyTokens: [Tokens.CLNY],
-  }).force();
+  }).tx();
 })();
 ```
 
@@ -107,7 +107,7 @@ A transaction creator
 
 Create a new Colony without metadata
 
-Creates a new Colony without IPFS metadata. To add metadata at a later point you can call the Colony.editColony method.
+Creates a new Colony without IPFS metadata. To add metadata at a later point you can call the [Colony.editColony](Colony.md#editcolony) method.
 
 **`Remarks`**
 
@@ -123,7 +123,7 @@ There is more to creating a fully functional colony that can be used within the 
   await colonyNetwork
     // Use USDC on Gnosis chain as the native token
     .createColony('0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83')
-    .force();
+    .tx();
 })();
 ```
 

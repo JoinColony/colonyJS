@@ -12,22 +12,28 @@ import {
 } from '@colony/colony-js';
 import {
   AnnotationEventObject,
+  ArbitraryReputationUpdateEventObject,
   ColonyDataTypes,
   ColonyFundsClaimed_address_uint256_uint256_EventObject,
   // eslint-disable-next-line max-len
   ColonyFundsMovedBetweenFundingPots_address_uint256_uint256_uint256_address_EventObject,
+  ColonyMetadataEventObject,
   ColonyRoleSet_address_address_uint256_uint8_bool_EventObject,
+  ColonyUpgraded_uint256_uint256_EventObject,
   DomainAdded_uint256_EventObject,
   DomainDeprecatedEventObject,
   DomainMetadataEventObject,
   ExtensionInstalledEventObject,
   FundingPotAddedEventObject,
+  RecoveryModeEnteredEventObject,
+  RecoveryModeExitedEventObject,
   RecoveryRoleSetEventObject,
   TokenAuthorityDeployedEventObject,
   TokensMintedEventObject,
 } from '@colony/colony-js/extras';
 import {
   AnnotationMetadata,
+  ColonyMetadata,
   DomainMetadata,
   MetadataType,
 } from '@colony/colony-event-metadata-parser';
@@ -310,10 +316,76 @@ export class Colony {
   }
 
   /**
+   * Edit a colony's metadata
+   *
+   * @remarks
+   * This will overwrite all exisiting metadata!
+   *
+   * @example
+   * ```typescript
+   * // Immediately executing async function
+   * (async function() {
+   *   // Edit the metadata of a colony
+   *   // (forced transaction example)
+   *   // (also notice that this requires an upload-capable IPFS adapter)
+   *   await colony.edit({
+   *     colonyDisplayName: 'My super cool Colony',
+   *   }).tx();
+   * })();
+   * ```
+   *
+   * @param metadata - The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[ColonyMetadata]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
+   *
+   * @returns A transaction creator
+   *
+   * **Event data**
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `colonyId` | BigNumber | Auto-incremented integer id of the colony |
+   * | `colonyAddress` | string | Address of the newly deployed colony contract |
+   * | `token` | string | Address of the token that is used as the colony's native token |
+   * | `metadata` | string | IPFS CID of metadata attached to this transaction |
+   *
+   * **Metadata** (can be obtained by calling and awaiting the `getMetadata` function)
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `colonyDisplayName` | string | The name that should be displayed for the colony |
+   * | `colonyAvatarHash` | string | An IPFS hash for a Colony logo (make it 200x200px) |
+   * | `colonyTokens` | string[] | A list of additional tokens that should be in the colony's "address book" |
+   */
+  editColony(metadata: ColonyMetadata | string) {
+    return this.createColonyTxCreator(
+      this.colonyClient,
+      'editColony',
+      async () => {
+        let cid: string;
+        if (typeof metadata == 'string') {
+          cid = metadata;
+        } else {
+          cid = await this.colonyNetwork.ipfs.uploadMetadata(
+            MetadataType.Colony,
+            metadata,
+          );
+        }
+        return [cid] as [string];
+      },
+      async (receipt) => ({
+        ...extractEvent<ColonyMetadataEventObject>('ColonyMetadata', receipt),
+      }),
+      {
+        metadataType: MetadataType.Colony,
+      },
+    );
+  }
+
+  /**
    * Create a team (domain) within a Colony with team details as metadata
    *
    * @remarks
    * Currently you can only add domains within the `Root` domain. This restriction will be lifted soon
+   *
    * @example
    * ```typescript
    * import { TeamColor } from '@colony/sdk';
@@ -330,6 +402,7 @@ export class Colony {
    *   }).tx();
    * })();
    * ```
+   *
    * @param metadata - The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[DomainMetadata]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
    * @returns A transaction creator
    *
@@ -367,6 +440,7 @@ export class Colony {
    *
    * @remarks
    * Currently you can only add domains within the `Root` domain. This restriction will be lifted soon
+   *
    * @returns A transaction creator
    *
    * **Event data**
@@ -435,6 +509,74 @@ export class Colony {
           receipt,
         ),
         ...extractEvent<FundingPotAddedEventObject>('FundingPotAdded', receipt),
+        ...extractEvent<DomainMetadataEventObject>('DomainMetadata', receipt),
+      }),
+      { metadataType: MetadataType.Domain },
+    );
+  }
+
+  /**
+   * Edit a team (domain) within a Colony with team details as metadata
+   *
+   * @remarks
+   * This will overwrite all exisiting metadata!
+   *
+   * @example
+   * ```typescript
+   * import { TeamColor } from '@colony/sdk';
+   *
+   * // Immediately executing async function
+   * (async function() {
+   *   // Edit team of the butter-passers
+   *   // (forced transaction example)
+   *   // (also notice that this requires an upload-capable IPFS adapter)
+   *   await colony.editTeam({
+   *     domainName: 'Purple Butter-passers',
+   *     domainColor: TeamColor.Purple,
+   *     domainPurpose: 'To pass purple butter',
+   *   }).tx();
+   * })();
+   * ```
+   * @param metadata - The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[DomainMetadata]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
+   * @returns A transaction creator
+   *
+   * **Event data**
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `agent` | string | The address that is responsible for triggering this event |
+   * | `domainId` | BigNumber | Integer domain id of the created team |
+   * | `metadata` | string | IPFS CID of metadata attached to this transaction |
+   *
+   * **Metadata** (can be obtained by calling and awaiting the `getMetadata` function)
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `domainName` | string | The human readable name assigned to this team |
+   * | `domainColor` | string | The color assigned to this team |
+   * | `domainPurpose` | string | The purpose for this team (a broad description) |
+   */
+  editTeam(metadata: DomainMetadata | string) {
+    return this.createPermissionedColonyTxCreator(
+      this.colonyClient,
+      'editDomain',
+      async () => {
+        let cid: string;
+        if (typeof metadata == 'string') {
+          cid = metadata;
+        } else {
+          cid = await this.colonyNetwork.ipfs.uploadMetadata(
+            MetadataType.Domain,
+            metadata,
+          );
+        }
+        return [Id.RootDomain, cid] as [BigNumberish, string];
+      },
+      {
+        roles: ColonyRole.Architecture,
+        domain: Id.RootDomain,
+      },
+      async (receipt) => ({
         ...extractEvent<DomainMetadataEventObject>('DomainMetadata', receipt),
       }),
       { metadataType: MetadataType.Domain },
@@ -718,7 +860,7 @@ export class Colony {
   /**
    * Annotate a transaction with IPFS metadata to provide extra information
    *
-   * This will annotate a transaction with an arbitrary text message. This only really works for transactions that happened within this Colony. This will upload the text string to IPFS and connect the transaction to the IPFS hash accordingly.
+   * This will annotate a transaction with an arbitrary text message. This only really works for transactions that happened within this Colony. This will connect the transaction to the (optionally generated) IPFS hash accordingly.
    *
    * @remarks If [[AnnotationMetadata]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
    * @example
@@ -740,7 +882,7 @@ export class Colony {
    * })();
    * ```
    * @param txHash - Transaction hash of the transaction to annotate (within the Colony)
-   * @param annotationMetadata - The annotation metadata you would like to annotate the transaction with (or an IPFS CID pointing to valid metadata)
+   * @param metadata - The annotation metadata you would like to annotate the transaction with (or an IPFS CID pointing to valid metadata)
    * @returns A transaction creator
    *
    * **Event data**
@@ -750,22 +892,25 @@ export class Colony {
    * | `agent` | string | The address that is responsible for triggering this event |
    * | `txHash` | BigNumber | The hash of the annotated transaction |
    * | `metadata` | BigNumber | The IPFS hash (CID) of the metadata object |
+   *
+   * **Metadata** (can be obtained by calling and awaiting the `getMetadata` function)
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `annotationMsg` | string | Free form text message to annotate the transaction with |
    */
-  annotateTransaction(
-    txHash: string,
-    annotationMetadata: AnnotationMetadata | string,
-  ) {
+  annotateTransaction(txHash: string, metadata: AnnotationMetadata | string) {
     return this.createColonyTxCreator(
       this.colonyClient,
       'annotateTransaction',
       async () => {
         let cid: string;
-        if (typeof annotationMetadata == 'string') {
-          cid = annotationMetadata;
+        if (typeof metadata == 'string') {
+          cid = metadata;
         } else {
           cid = await this.colonyNetwork.ipfs.uploadMetadata(
             MetadataType.Annotation,
-            annotationMetadata,
+            metadata,
           );
         }
         return [txHash, cid] as [string, string];
@@ -1053,6 +1198,190 @@ export class Colony {
       async (receipt) => ({
         ...extractEvent<TokenAuthorityDeployedEventObject>(
           'TokenAuthorityDeployed',
+          receipt,
+        ),
+      }),
+    );
+  }
+
+  /**
+   * Put the colony into Recovery Mode
+   *
+   * In Recovery Mode, no actions are possible on the colony. Only users who have the special *Recovery* role can put a colony into this mode
+   *
+   * @remarks
+   * Be aware that to exit Recovery Mode a quorum of 50% is needed of all users who have the *Recovery* role
+   *
+   * @returns A transaction creator
+   *
+   * **Event data**
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `user` | string | The address of the user who activated Recovery Mode |
+   */
+  enterRecoveryMode() {
+    return this.createColonyTxCreator(
+      this.colonyClient,
+      'enterRecoveryMode',
+      [],
+      async (receipt) => ({
+        ...extractEvent<RecoveryModeEnteredEventObject>(
+          'RecoveryModeEntered',
+          receipt,
+        ),
+      }),
+    );
+  }
+
+  /**
+   * Exit Recovery Mode
+   *
+   * In Recovery Mode, no actions are possible on the colony. Only users who have the special *Recovery* role can execute this method. If you have multiple users with the *Recovery* role, at least 50% of the users have to execute this method for the Colony to leave Recovery Mode
+   *
+   * @returns A transaction creator
+   *
+   * **Event data**
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `user` | string | The address of the user who initiated the exit of Recovery Mode |
+   */
+  exitRecoveryMode() {
+    return this.createColonyTxCreator(
+      this.colonyClient,
+      'exitRecoveryMode',
+      [],
+      async (receipt) => ({
+        ...extractEvent<RecoveryModeExitedEventObject>(
+          'RecoveryModeExited',
+          receipt,
+        ),
+      }),
+    );
+  }
+
+  /**
+   * Upgrade a colony to the next or a custom version
+   *
+   * This method upgrades the colony to a specified version or, if no version is provided to the next higher version.
+   *
+   * @remarks
+   * * Only users with *Root* role are allowed to upgrade a colony (or an extension with appropriate permissions)
+   * * Downgrading of colonies is not possible
+   *
+   * @param toVersion - Specify a custom version to upgrade the colony to
+   *
+   * @returns A transaction creator
+   *
+   * **Event data**
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `oldVersion` | BigNumber | Version of the colony before the upgrade |
+   * | `newVersion` | BigNumber | Version of the colony after the upgrade |
+   */
+  upgrade(toVersion?: BigNumberish) {
+    const version = toVersion || this.version + 1;
+    return this.createColonyTxCreator(
+      this.colonyClient,
+      'upgrade',
+      [version],
+      async (receipt) => ({
+        ...extractEvent<ColonyUpgraded_uint256_uint256_EventObject>(
+          'ColonyUpgraded',
+          receipt,
+        ),
+      }),
+    );
+  }
+
+  /**
+   * Award reputation to a user within a team
+   *
+   * Use with care. An imbalance of native tokens and reputation might influence your governance process negatively
+   *
+   * @remarks
+   * Only users with *Root* role are allowed to award reputation
+   *
+   * @param address - Address of user to award reputation
+   * @param amount - Amount of reputation to award
+   * @param team - Team to award reputation in (defaults to Root team)
+   *
+   * @returns A transaction creator
+   *
+   * **Event data**
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `agent` | string | The address that is responsible for triggering this event |
+   * | `user` | string | User who was awarded reputation |
+   * | `skillId` | BigNumber | Corresponding skillId to the team |
+   * | `amount` | BigNumber | Amount that was awarded |
+   */
+  awardReputation(
+    address: string,
+    amount: BigNumberish,
+    team: BigNumberish = Id.RootDomain,
+  ) {
+    if (BigNumber.from(amount).lte(0)) {
+      throw new Error('Reputation award must be bigger than 0');
+    }
+    return this.createColonyTxCreator(
+      this.colonyClient,
+      'emitDomainReputationReward',
+      [team, address, amount],
+      async (receipt) => ({
+        ...extractEvent<ArbitraryReputationUpdateEventObject>(
+          'ArbitraryReputationUpdate',
+          receipt,
+        ),
+      }),
+    );
+  }
+
+  /**
+   * Smite (remove) reputation from a user within a team
+   *
+   * Use with care. An imbalance of native tokens and reputation might influence your governance process negatively
+   *
+   * @remarks
+   * Only users with *Arbitration* role are allowed to award reputation
+   *
+   * @param address - Address of user to smite reputation
+   * @param amount - Amount of reputation to remove
+   * @param team - Team to remove reputation in (defaults to Root team)
+   *
+   * @returns A transaction creator
+   *
+   * **Event data**
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `agent` | string | The address that is responsible for triggering this event |
+   * | `user` | string | User who was awarded reputation |
+   * | `skillId` | BigNumber | Corresponding skillId to the team |
+   * | `amount` | BigNumber | Amount that was removed (will be negative) |
+   */
+  smiteReputation(
+    address: string,
+    amount: BigNumberish,
+    team: BigNumberish = Id.RootDomain,
+  ) {
+    if (BigNumber.from(amount).lte(0)) {
+      throw new Error('Reputation smite must be bigger than 0');
+    }
+    return this.createPermissionedColonyTxCreator(
+      this.colonyClient,
+      'emitDomainReputationPenalty',
+      [team, address, BigNumber.from(0).sub(amount)],
+      {
+        domain: team,
+        roles: ColonyRole.Arbitration,
+      },
+      async (receipt) => ({
+        ...extractEvent<ArbitraryReputationUpdateEventObject>(
+          'ArbitraryReputationUpdate',
           receipt,
         ),
       }),
