@@ -67,7 +67,6 @@ Include the resulting bundle in an HTML file and open it in you favorite browser
 <TabItem value="nodejs" label="In NodeJS">
 
 ```javascript
-// index.js
 const { providers, Wallet } = require('ethers');
 const { ColonyNetwork } = require('@colony/sdk');
 
@@ -77,7 +76,7 @@ const wallet = Wallet.createRandom().connect(provider);
 // Get the Colony's XDAI funding in the ROOT pot (id 1)
 const start = async () => {
   // Create a new connection to the Colony Network contracts using the MetaMask "wallet"
-  const colonyNetwork = new ColonyNetwork(wallet);
+  const colonyNetwork = await ColonyNetwork.init(wallet);
   // Connect to the MetaColony (this could be replaced with your own colony using `colonyNetwork.getColony(COLONY_ADDRESS)`)
   const metaColony = await colonyNetwork.getMetaColony();
   // Get the CLNY funding for the MetaColony (CLNY is it's native token)
