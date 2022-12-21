@@ -16,7 +16,6 @@ Colony SDK also includes a variety of examples to get you up and building with C
 ## Quickstart
 
 ```javascript
-// index.js
 import { providers } from 'ethers';
 import { ColonyNetwork, toEth } from '@colony/sdk';
 
@@ -41,7 +40,9 @@ const start = async () => {
 start();
 ```
 
-For more info, see the [docs](https://colony.gitbook.io/colony-sdk/quickstart).
+## Documentation
+
+[🖺 Click here for docs!](https://docs.colony.io/colonysdk)
 
 ## Running the examples
 

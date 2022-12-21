@@ -6,11 +6,15 @@
 
 • **address**: `string`
 
+The colony's smart contract address
+
 ___
 
 ### colonyNetwork
 
 • **colonyNetwork**: [`ColonyNetwork`](ColonyNetwork.md)
+
+A shortcut to the [ColonyNetwork](ColonyNetwork.md) instance
 
 ___
 
@@ -18,25 +22,53 @@ ___
 
 • **ext**: [`SupportedExtensions`](../interfaces/SupportedExtensions.md)
 
+Supported extensions
+
+All of the installed (and supported) colony extensions live here
+
+**`Example`**
+
+```typescript
+import { w } from '@colony/sdk';
+
+// Immediately executing async function
+(async function() {
+  // Pay someone using the OneTransactionPayment extension
+  // (forced transaction example)
+  await colony.ext.oneTx.pay(
+     '0xb77D57F4959eAfA0339424b83FcFaf9c15407461',
+     w`10`,
+  ).tx();
+})();
+```
+
 ___
 
 ### signerOrProvider
 
 • **signerOrProvider**: `SignerOrProvider`
 
+An ethers.js [Signer](https://docs.ethers.org/v5/api/signer/#Signer) or [Provider](https://docs.ethers.org/v5/api/providers/).
+
+E.g. a [Wallet](https://docs.ethers.org/v5/api/signer/#Wallet) or a [Web3Provider](https://docs.ethers.org/v5/api/providers/other/#Web3Provider) (MetaMask)
+
 ___
 
 ### token
 
-• **token**: `ERC20Token` \| [`ColonyToken`](ColonyToken.md) \| `ERC2612Token`
+• **token**: [`ERC20Token`](ERC20Token.md) \| [`ColonyToken`](ColonyToken.md) \| [`ERC2612Token`](ERC2612Token.md)
 
-An instance of the Colony's native token
+An shortcut to the colony's native token instance
 
 ___
 
 ### version
 
 • **version**: `number`
+
+Contract version
+
+Colony contracts are upgradable! Here you'll finde the currently installed version of the contract
 
 ___
 

@@ -1,18 +1,18 @@
-# Class: ColonyToken
+# Class: ERC2612Token
 
 ## Hierarchy
 
 - [`ERC20Token`](ERC20Token.md)
 
-  ↳ **`ColonyToken`**
+  ↳ **`ERC2612Token`**
 
 ## Constructors
 
 ### constructor
 
-• **new ColonyToken**(`colonyNetwork`, `token`)
+• **new ERC2612Token**(`colonyNetwork`, `token`)
 
-Creates a new instance of a Colony deployed Token
+Creates a new instance of an ERC2612 token (ERC20 with Permit extension)
 
 **`Remarks`**
 
@@ -23,7 +23,7 @@ This does not deploy a new token, only connects to an exisiting one
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `colonyNetwork` | [`ColonyNetwork`](ColonyNetwork.md) | A [ColonyNetwork](ColonyNetwork.md) instance |
-| `token` | `string` \| `MetaTxToken` | A token address or a full contract (like on a colony token client) |
+| `token` | `string` \| `TokenERC2612` | A token address or a full contract (like on a colony token client) |
 
 #### Overrides
 
@@ -126,17 +126,21 @@ The token's name (e.g. Colony Network Token)
 
 ___
 
-### setAuthority
+### permit
 
-▸ **setAuthority**(`tokenAuthorityAddress`): [`MetaTxCreator`](MetaTxCreator.md)<`MetaTxToken`, ``"setAuthority"``, { `authority?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **permit**(`amount`, `spender?`): `EIP2612TxCreator`<{ `guy?`: `string` ; `src?`: `string` ; `wad?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
-Sets the address of the TokenAuthority for this token
+Permit `amount` of the wallet owners holdings of the specified token.
 
-Set the TokenAuthority for this token. Only has to be done once, after the TokenAuthority has been deployed. See [Colony.deployTokenAuthority](Colony.md#deploytokenauthority) for more information.
+This is the same as [ERC20Token.approve](ERC20Token.md#approve) but works only for gasless metatransactions. If you have a Colony-deployed token, use `approve`. This is mainly to support gasless transactions for BYOT (bring-your-own-token).
+
+This follows the EIP-2612 "Permit" specification. See https://eips.ethereum.org/EIPS/eip-2612.
+
+In order for the wallet owner to stake tokens, that amount has to be approved and deposited into the Colony first. In the dapp the process is called "Activation" of a certain amount of the Colony's native token. The wallet must hold at least the amount of the token that will be approved.
 
 **`Remarks`**
 
-Only works for native tokens deployed with Colony (not imported tokens).
+Note that the arguments are turned around when comparing with the EIP2612 format.
 
 **`Example`**
 
@@ -145,12 +149,10 @@ import { w } from '@colony/sdk';
 
 // Immediately executing async function
 (async function() {
-  // Deploy the TokenAuthority contract
-  // (forced transaction example)
-  const [{ tokenAuthorityAddress }] = await colony.deployTokenAuthority().tx();
-  // Set the TokenAuthority for this token
-  // (forced transaction example)
-  await colony.token.setAuthority(tokenAuthorityAddress).tx();
+  // Permit 100 tokens to be "activated"
+  await colony.token.permit(w`100`).metaTx();
+  // Deposit the tokens
+  await colonyNetwork.locking.deposit(token.address, w`100`).force();
 })();
 ```
 
@@ -158,11 +160,12 @@ import { w } from '@colony/sdk';
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `tokenAuthorityAddress` | `string` | Address of the TokenAuthority contract |
+| `amount` | `BigNumberish` | Amount of the token to be approved |
+| `spender?` | `string` | Spender to approve the amount for. Defaults to the Colony Network |
 
 #### Returns
 
-[`MetaTxCreator`](MetaTxCreator.md)<`MetaTxToken`, ``"setAuthority"``, { `authority?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+`EIP2612TxCreator`<{ `guy?`: `string` ; `src?`: `string` ; `wad?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
@@ -170,39 +173,9 @@ A transaction creator
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
-| `authority` | string | The address of the tokenAuthority that has been set |
-
-___
-
-### setOwner
-
-▸ **setOwner**(`address`): [`MetaTxCreator`](MetaTxCreator.md)<`MetaTxToken`, ``"setOwner"``, { `owner?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
-
-Sets the owner of the token
-
-Set the owner address for this token. Should usually be the colony. This will allow the Colony to always affect certain token parameters, event without the TokenAuthority deployed or used
-
-**`Remarks`**
-
-Only works for native tokens deployed with Colony (not imported tokens).
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `address` | `string` | Address to set as the owner of the token (usually the colony) |
-
-#### Returns
-
-[`MetaTxCreator`](MetaTxCreator.md)<`MetaTxToken`, ``"setOwner"``, { `owner?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
-
-A transaction creator
-
-#### Event data
-
-| Property | Type | Description |
-| :------ | :------ | :------ |
-| `owner` | string | The address of the owner that has been set |
+| `src` | string | The address that approved the tokens from their wallet |
+| `guy` | string | Address of the TokenLocking contract |
+| `wad` | BigNumber | Amount that was approved |
 
 ___
 

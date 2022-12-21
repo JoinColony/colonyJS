@@ -89,19 +89,55 @@ export class Colony {
 
   private colonyClient: SupportedColonyClient;
 
+  /**
+   * An ethers.js [Signer](https://docs.ethers.org/v5/api/signer/#Signer) or [Provider](https://docs.ethers.org/v5/api/providers/).
+   *
+   * E.g. a [Wallet](https://docs.ethers.org/v5/api/signer/#Wallet) or a [Web3Provider](https://docs.ethers.org/v5/api/providers/other/#Web3Provider) (MetaMask)
+   */
   signerOrProvider: SignerOrProvider;
 
+  /**
+   * The colony's smart contract address
+   */
   address: string;
 
+  /**
+   * A shortcut to the [[ColonyNetwork]] instance
+   */
   colonyNetwork: ColonyNetwork;
 
   /**
-   * An instance of the Colony's native token
+   * An shortcut to the colony's native token instance
    */
   token: ColonyToken | ERC20Token | ERC2612Token;
 
+  /**
+   * Supported extensions
+   *
+   * All of the installed (and supported) colony extensions live here
+   *
+   * @example
+   * ```typescript
+   * import { w } from '@colony/sdk';
+   *
+   * // Immediately executing async function
+   * (async function() {
+   *   // Pay someone using the OneTransactionPayment extension
+   *   // (forced transaction example)
+   *   await colony.ext.oneTx.pay(
+   *      '0xb77D57F4959eAfA0339424b83FcFaf9c15407461',
+   *      w`10`,
+   *   ).tx();
+   * })();
+   * ```
+   */
   ext: SupportedExtensions;
 
+  /**
+   * Contract version
+   *
+   * Colony contracts are upgradable! Here you'll finde the currently installed version of the contract
+   */
   version: number;
 
   /**

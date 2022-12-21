@@ -26,6 +26,8 @@
 - [ColonyNetwork](classes/ColonyNetwork.md)
 - [ColonyToken](classes/ColonyToken.md)
 - [ColonyTxCreator](classes/ColonyTxCreator.md)
+- [ERC20Token](classes/ERC20Token.md)
+- [ERC2612Token](classes/ERC2612Token.md)
 - [MetaTxCreator](classes/MetaTxCreator.md)
 - [OneTxPayment](classes/OneTxPayment.md)
 - [PinataAdapter](classes/PinataAdapter.md)
