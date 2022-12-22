@@ -11,7 +11,7 @@ import { getColonyNetworkClient, Id, Network, Tokens } from '@colony/colony-js';
 
 const { formatEther } = utils;
 
-const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc2/');
+const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc/');
 
 const start = async () => {
   // Get a wallet instance
