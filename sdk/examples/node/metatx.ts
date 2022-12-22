@@ -1,8 +1,8 @@
 import { constants, providers, Wallet } from 'ethers';
 
-import { ColonyNetwork } from '../../src';
+import { ColonyNetwork, ColonyRpcEndpoint } from '../../src';
 
-const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc2/');
+const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
 
 // Claim ETH for the MetaColony using a Metatransaction
 const start = async () => {

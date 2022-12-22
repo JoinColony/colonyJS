@@ -8,6 +8,7 @@
 
 - [ColonyLabelSuffix](enums/ColonyLabelSuffix.md)
 - [ColonyRole](enums/ColonyRole.md)
+- [ColonyRpcEndpoint](enums/ColonyRpcEndpoint.md)
 - [Extension](enums/Extension.md)
 - [Id](enums/Id.md)
 - [MetaTxBroadCasterEndpoint](enums/MetaTxBroadCasterEndpoint.md)

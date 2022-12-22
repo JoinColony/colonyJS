@@ -14,7 +14,7 @@ ___
 
 • **Gnosis** = ``"https://xdai.colony.io/metatransaction/xdai"``
 
-The metatransaction broadcaster endpointon Gnosis chain
+The metatransaction broadcaster endpoint on Gnosis Chain
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 • **Xdai** = ``"https://xdai.colony.io/metatransaction/xdai"``
 
-The metatransaction broadcaster endpointon Gnosis chain (alias)
+The metatransaction broadcaster endpoint on Gnosis Chain (alias)
 
 ___
 
@@ -46,4 +46,4 @@ ___
 
 • **XdaiQa** = ``"https://xdai.colony.io/metatransaction/xdai"``
 
-The metatransaction broadcaster endpointaddress on Gnosis chain
+The metatransaction broadcaster endpoint on Gnosis Chain (QA environment)

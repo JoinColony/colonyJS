@@ -1,3 +1,5 @@
+import { ColonyRpcEndpoint } from '../../../src';
+
 const addColonyRPC = () => {
   // If MetaMask is installed there will be an `ethereum` object on the `window`
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -12,7 +14,7 @@ const addColonyRPC = () => {
           symbol: 'XDAI',
           decimals: 18,
         },
-        rpcUrls: ['https://xdai.colony.io/rpc2/'],
+        rpcUrls: [ColonyRpcEndpoint.Gnosis],
         blockExplorerUrls: ['https://blockscout.com/xdai/mainnet'],
       },
     ],

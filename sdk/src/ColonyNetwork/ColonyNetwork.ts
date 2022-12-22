@@ -103,7 +103,7 @@ export class ColonyNetwork {
    * import { ColonyNetwork, Tokens } from '@colony/sdk';
    *
    * // Connect directly to the deployed Colony Network on Gnosis Chain
-   * const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc2/');
+   * const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc/');
    * // Immediately executing async function
    * (async function() {
    *   const colonyNetwork = await ColonyNetwork.init(provider);

@@ -5,13 +5,28 @@ export enum MetaTxBroadCasterEndpoint {
   Mainnet = '',
   /** The metatransaction broadcaster endpoint on the Görli testnet */
   Goerli = '',
-  /** The metatransaction broadcaster endpointon Gnosis chain */
+  /** The metatransaction broadcaster endpoint on Gnosis Chain */
   Gnosis = 'https://xdai.colony.io/metatransaction/xdai',
-  /** The metatransaction broadcaster endpointon Gnosis chain (alias) */
+  /** The metatransaction broadcaster endpoint on Gnosis Chain (alias) */
   Xdai = 'https://xdai.colony.io/metatransaction/xdai',
-  /** The metatransaction broadcaster endpointaddress on Gnosis chain */
+  /** The metatransaction broadcaster endpoint on Gnosis Chain (QA environment) */
   XdaiQa = 'https://xdai.colony.io/metatransaction/xdai',
   /** The metatransaction broadcaster endpoint for a custom network */
+  Custom = '',
+}
+
+export enum ColonyRpcEndpoint {
+  /** Colony's own RPC2 endpoint for Mainnet */
+  Mainnet = '',
+  /** Colony's own RPC2 endpoint for Goerli testnet */
+  Goerli = '',
+  /** Colony's own RPC2 endpoint for Gnosis chain */
+  Gnosis = 'https://xdai.colony.io/rpc/',
+  /** Colony's own RPC2 endpoint for Gnosis chain (alias) */
+  Xdai = 'https://xdai.colony.io/rpc/',
+  /** Colony's own RPC2 endpoint for Gnosis chain (QA environment) */
+  XdaiQa = 'https://xdai.colony.io/rpc/',
+  /** Colony's own RPC2 endpoint for a custom network */
   Custom = '',
 }
 

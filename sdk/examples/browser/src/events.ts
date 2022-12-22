@@ -1,9 +1,13 @@
 import { providers, utils } from 'ethers';
 
-import { ColonyEventManager, MetadataType } from '../../../src';
+import {
+  ColonyEventManager,
+  ColonyRpcEndpoint,
+  MetadataType,
+} from '../../../src';
 import type { ColonyEvent } from '../../../src';
 
-const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc2/');
+const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
 const { isAddress } = utils;
 
 // This event listener will only list for the `DomainAdded` event in the Colony of the user's choice. Run this and then create a Team in that Colony, to see it being picked up here

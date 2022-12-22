@@ -3,11 +3,12 @@ import { providers, Wallet } from 'ethers';
 import {
   ColonyNetwork,
   ColonyRole,
+  ColonyRpcEndpoint,
   ColonyToken,
   SupportedExtension,
 } from '../../src';
 
-const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc2/');
+const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
 
 // Deploy a Colony with everything that's needed
 const start = async () => {

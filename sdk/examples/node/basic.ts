@@ -1,8 +1,8 @@
 import { providers } from 'ethers';
 
-import { ColonyNetwork, toEth } from '../../src';
+import { ColonyNetwork, ColonyRpcEndpoint, toEth } from '../../src';
 
-const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc2/');
+const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
 
 // Get the Colony's CLNY funding in the ROOT team (id 1)
 const start = async () => {

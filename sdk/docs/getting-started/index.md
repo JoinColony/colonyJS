@@ -70,7 +70,7 @@ Include the resulting bundle in an HTML file and open it in you favorite browser
 const { providers, Wallet } = require('ethers');
 const { ColonyNetwork } = require('@colony/sdk');
 
-const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc2/');
+const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc/');
 const wallet = Wallet.createRandom().connect(provider);
 
 // Get the Colony's XDAI funding in the ROOT pot (id 1)

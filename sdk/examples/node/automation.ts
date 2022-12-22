@@ -1,8 +1,8 @@
 import { providers, Wallet } from 'ethers';
 
-import { ColonyNetwork, w } from '../../src';
+import { ColonyNetwork, ColonyRpcEndpoint, w } from '../../src';
 
-const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc2/');
+const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
 
 const start = async () => {
   // Create a new wallet from a private key. This key is stored in an environment variable called `PRIATE_KEY`

@@ -1,10 +1,10 @@
 import { providers, utils } from 'ethers';
 
-import { ColonyNetwork, Tokens } from '../../../src';
+import { ColonyNetwork, ColonyRpcEndpoint, Tokens } from '../../../src';
 
 const { formatEther, isAddress } = utils;
 
-const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc2/');
+const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
 
 // Get the Colony's CLNY funding in the root domain (on Gnosis chain)
 const getColonyFunding = async (colonyAddress: string) => {
