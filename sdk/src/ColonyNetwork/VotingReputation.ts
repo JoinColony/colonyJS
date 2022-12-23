@@ -5,14 +5,13 @@ import {
 import {
   ColonyRole,
   Extension,
+  getCreateMotionProofs,
   getExtensionHash,
   getPermissionProofs,
   Id,
   MotionState,
   VotingReputationClientV7,
 } from '@colony/colony-js';
-import { getCreateMotionProofs } from '@colony/colony-js/dist/types/clients/Extensions/VotingReputation/augments/augmentsV2';
-
 import type {
   VotingReputationDataTypes,
   MotionEventSetEventObject,
