@@ -6,6 +6,7 @@ import { MetadataValue } from '../ipfs';
 import { ParsedLogTransactionReceipt } from '../types';
 import { IPFS_METADATA_EVENTS } from '../ipfs/IpfsMetadata';
 import { ColonyNetwork } from '../ColonyNetwork';
+import { nonNullable } from '../utils';
 
 export interface TxConfig<M> {
   metadataType?: M;
@@ -157,9 +158,15 @@ export class TxCreator<
     const receipt = (await provider.waitForTransaction(
       parsed.data.txHash,
     )) as ParsedLogTransactionReceipt;
-    receipt.parsedLogs = receipt.logs.map((log) =>
-      this.contract.interface.parseLog(log),
-    );
+    receipt.parsedLogs = receipt.logs
+      .map((log) => {
+        try {
+          return this.contract.interface.parseLog(log);
+        } catch (e) {
+          return null;
+        }
+      })
+      .filter(nonNullable);
 
     return receipt;
   }

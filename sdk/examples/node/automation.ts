@@ -14,7 +14,7 @@ const start = async () => {
   const colonyNetwork = await ColonyNetwork.init(wallet);
   // Get an instance of your favourite colony
   const colony = await colonyNetwork.getColony(
-    '0x5D70776164466eB2985C5d49d9b535e4EAc95A2d',
+    '0x364B3153A24bb9ECa28B8c7aCeB15E3942eb4fc5',
   );
   // Mint 100 of the colony's native token
   await colony.mint(w`100`).metaTx();

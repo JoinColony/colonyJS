@@ -764,6 +764,12 @@ export class Colony {
       // eslint-disable-next-line max-len
       'moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)',
       async () => {
+        const domain = await this.colonyClient.getDomain(toTeam);
+        if (domain.fundingPotId.isZero()) {
+          throw new Error(
+            `Team with id ${BigNumber.from(toTeam).toString()} does not exist`,
+          );
+        }
         // Manual permission proofs are needed here
         const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
           this.colonyClient,
