@@ -3,18 +3,21 @@
 We welcome all contributions to colonyJS! Here are a few ways you can contribute:
 
 Improving the colonyJS documentation:
+
 * Adding new pages to the [colonyJS Documentation](https://docs.colony.io/colonyjs/)
 * Fixing and updating pages in the [colonyJS Documentation](https://docs.colony.io/colonyjs/)
 
 Extending the functionality of colonyJS:
+
 * New Loaders
 * New Adapters
 
 Maintaining the functionality of colonyJS:
+
 * Keeping clients in sync with [colonyNetwork](https://github.com/JoinColony/colonyNetwork)
 * Fixing bugs throughout the colonyJS packages
 
-When making a larger change, please consult with the team on [Gitter](https://gitter.im/JoinColony/colonyJS).
+When making a larger change, please consult with the team on [Discord](https://discord.gg/feVZWwysqM).
 
 ## Code of Conduct
 
