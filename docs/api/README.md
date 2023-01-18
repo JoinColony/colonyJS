@@ -152,7 +152,7 @@ ___
 
 ### EventsClient
 
-Ƭ **EventsClient**: `CoinMachineEvents` \| `IColonyEvents` \| `OneTxPaymentEvents` \| `VotingReputationEvents` \| `WhitelistEvents`
+Ƭ **EventsClient**: `CoinMachineEvents` \| `EvaluatedExpenditureEvents` \| `IColonyEvents` \| `IColonyNetworkEvents` \| `IVotingReputationEvents` \| `MetaTxTokenEvents` \| `OneTxPaymentEvents` \| `StakedExpenditureEvents` \| `StreamingPaymentsEvents` \| `TokenSupplierEvents` \| `VotingReputationEvents` \| `WhitelistEvents`
 
 ___
 
