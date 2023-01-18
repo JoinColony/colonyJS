@@ -9,8 +9,15 @@ import { TokenLockingClient as TokenLockingContractClient } from './clients/Toke
 
 import {
   CoinMachineEvents,
+  EvaluatedExpenditureEvents,
   IColonyEvents,
+  IColonyNetworkEvents,
+  IVotingReputationEvents,
+  MetaTxTokenEvents,
   OneTxPaymentEvents,
+  StakedExpenditureEvents,
+  StreamingPaymentsEvents,
+  TokenSupplierEvents,
   VotingReputationEvents,
   WhitelistEvents,
 } from './contracts';
@@ -19,8 +26,15 @@ export type SignerOrProvider = Signer | Provider;
 
 export type EventsClient =
   | CoinMachineEvents
+  | EvaluatedExpenditureEvents
   | IColonyEvents
+  | IColonyNetworkEvents
+  | IVotingReputationEvents
+  | MetaTxTokenEvents
   | OneTxPaymentEvents
+  | StakedExpenditureEvents
+  | StreamingPaymentsEvents
+  | TokenSupplierEvents
   | VotingReputationEvents
   | WhitelistEvents;
 
