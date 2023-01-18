@@ -113,6 +113,7 @@ export interface IColonyEventsInterface extends utils.Interface {
     "ColonyArchitectureRoleSet(address,bool)": EventFragment;
     "ColonyRootRoleSet(address,bool)": EventFragment;
     "ExpenditureStateChanged(address,uint256,uint256,bool[],bytes32[],bytes32)": EventFragment;
+    "ArbitraryTransaction(address,bytes,bool)": EventFragment;
   };
 
   getEvent(
@@ -293,6 +294,7 @@ export interface IColonyEventsInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "ColonyArchitectureRoleSet"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "ColonyRootRoleSet"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "ExpenditureStateChanged"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "ArbitraryTransaction"): EventFragment;
 }
 
 export interface ColonyInitialised_address_address_EventObject {
@@ -1407,6 +1409,19 @@ export type ExpenditureStateChangedEvent = TypedEvent<
 export type ExpenditureStateChangedEventFilter =
   TypedEventFilter<ExpenditureStateChangedEvent>;
 
+export interface ArbitraryTransactionEventObject {
+  target: string;
+  data: string;
+  success: boolean;
+}
+export type ArbitraryTransactionEvent = TypedEvent<
+  [string, string, boolean],
+  ArbitraryTransactionEventObject
+>;
+
+export type ArbitraryTransactionEventFilter =
+  TypedEventFilter<ArbitraryTransactionEvent>;
+
 export interface IColonyEvents extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
@@ -2041,6 +2056,17 @@ export interface IColonyEvents extends BaseContract {
       keys?: null,
       value?: null
     ): ExpenditureStateChangedEventFilter;
+
+    "ArbitraryTransaction(address,bytes,bool)"(
+      target?: null,
+      data?: null,
+      success?: null
+    ): ArbitraryTransactionEventFilter;
+    ArbitraryTransaction(
+      target?: null,
+      data?: null,
+      success?: null
+    ): ArbitraryTransactionEventFilter;
   };
 
   estimateGas: {};

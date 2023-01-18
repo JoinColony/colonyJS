@@ -3,11 +3,13 @@
 /* eslint-disable */
 export type { CoinMachineEvents } from "./CoinMachineEvents";
 export type { EvaluatedExpenditureEvents } from "./EvaluatedExpenditureEvents";
+export type { FundingQueueEvents } from "./FundingQueueEvents";
 export type { IColonyEvents } from "./IColonyEvents";
 export type { IColonyNetworkEvents } from "./IColonyNetworkEvents";
 export type { IVotingReputationEvents } from "./IVotingReputationEvents";
 export type { MetaTxTokenEvents } from "./MetaTxTokenEvents";
 export type { OneTxPaymentEvents } from "./OneTxPaymentEvents";
+export type { ReputationBootstrapperEvents } from "./ReputationBootstrapperEvents";
 export type { StakedExpenditureEvents } from "./StakedExpenditureEvents";
 export type { StreamingPaymentsEvents } from "./StreamingPaymentsEvents";
 export type { TokenSupplierEvents } from "./TokenSupplierEvents";

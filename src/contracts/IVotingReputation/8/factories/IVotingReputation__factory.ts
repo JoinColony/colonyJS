@@ -391,6 +391,25 @@ const _abi = [
     type: "function",
   },
   {
+    inputs: [
+      {
+        internalType: "bytes[]",
+        name: "",
+        type: "bytes[]",
+      },
+    ],
+    name: "multicall",
+    outputs: [
+      {
+        internalType: "bytes[]",
+        name: "results",
+        type: "bytes[]",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "uninstall",
     outputs: [],
@@ -502,87 +521,6 @@ const _abi = [
       },
     ],
     name: "createMotion",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_altTarget",
-        type: "address",
-      },
-      {
-        internalType: "bytes",
-        name: "_action",
-        type: "bytes",
-      },
-      {
-        internalType: "bytes",
-        name: "_key",
-        type: "bytes",
-      },
-      {
-        internalType: "bytes",
-        name: "_value",
-        type: "bytes",
-      },
-      {
-        internalType: "uint256",
-        name: "_branchMask",
-        type: "uint256",
-      },
-      {
-        internalType: "bytes32[]",
-        name: "_siblings",
-        type: "bytes32[]",
-      },
-    ],
-    name: "createRootMotion",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_domainId",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_childSkillIndex",
-        type: "uint256",
-      },
-      {
-        internalType: "bytes",
-        name: "_action",
-        type: "bytes",
-      },
-      {
-        internalType: "bytes",
-        name: "_key",
-        type: "bytes",
-      },
-      {
-        internalType: "bytes",
-        name: "_value",
-        type: "bytes",
-      },
-      {
-        internalType: "uint256",
-        name: "_branchMask",
-        type: "uint256",
-      },
-      {
-        internalType: "bytes32[]",
-        name: "_siblings",
-        type: "bytes32[]",
-      },
-    ],
-    name: "createDomainMotion",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

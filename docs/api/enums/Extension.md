@@ -16,6 +16,12 @@ ___
 
 ___
 
+### FundingQueue
+
+• **FundingQueue** = ``"FundingQueue"``
+
+___
+
 ### IVotingReputation
 
 • **IVotingReputation** = ``"IVotingReputation"``
@@ -25,6 +31,12 @@ ___
 ### OneTxPayment
 
 • **OneTxPayment** = ``"OneTxPayment"``
+
+___
+
+### ReputationBootstrapper
+
+• **ReputationBootstrapper** = ``"ReputationBootstrapper"``
 
 ___
 

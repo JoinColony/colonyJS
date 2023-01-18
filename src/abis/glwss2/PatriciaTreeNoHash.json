@@ -1,0 +1,214 @@
+{
+    "contractName": "PatriciaTreeNoHash",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "key",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "value",
+                    "type": "bytes"
+                }
+            ],
+            "name": "insert",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "key",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "getProof",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "branchMask",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes32[]",
+                    "name": "_siblings",
+                    "type": "bytes32[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "key",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "value",
+                    "type": "bytes"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "branchMask",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes32[]",
+                    "name": "siblings",
+                    "type": "bytes32[]"
+                }
+            ],
+            "name": "getImpliedRoot",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getRootHash",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getRootEdge",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "bytes32",
+                            "name": "node",
+                            "type": "bytes32"
+                        },
+                        {
+                            "components": [
+                                {
+                                    "internalType": "bytes32",
+                                    "name": "data",
+                                    "type": "bytes32"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "length",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "internalType": "struct Data.Label",
+                            "name": "label",
+                            "type": "tuple"
+                        }
+                    ],
+                    "internalType": "struct Data.Edge",
+                    "name": "e",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "hash",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "getNode",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "components": [
+                                {
+                                    "internalType": "bytes32",
+                                    "name": "node",
+                                    "type": "bytes32"
+                                },
+                                {
+                                    "components": [
+                                        {
+                                            "internalType": "bytes32",
+                                            "name": "data",
+                                            "type": "bytes32"
+                                        },
+                                        {
+                                            "internalType": "uint256",
+                                            "name": "length",
+                                            "type": "uint256"
+                                        }
+                                    ],
+                                    "internalType": "struct Data.Label",
+                                    "name": "label",
+                                    "type": "tuple"
+                                }
+                            ],
+                            "internalType": "struct Data.Edge[2]",
+                            "name": "children",
+                            "type": "tuple[2]"
+                        }
+                    ],
+                    "internalType": "struct Data.Node",
+                    "name": "n",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ],
+    "devdoc": {
+        "kind": "dev",
+        "methods": {
+            "getImpliedRoot(bytes32,bytes,uint256,bytes32[])": {
+                "returns": {
+                    "_0": "rootHash The calculated hash"
+                }
+            },
+            "getProof(bytes32)": {
+                "returns": {
+                    "_siblings": "Hashes of sibling edges",
+                    "branchMask": "Bitmask with high bits at the positions in the `key` where we have branch nodes (bit in key denotes direction)"
+                }
+            }
+        },
+        "version": 1
+    },
+    "userdoc": {
+        "kind": "user",
+        "methods": {
+            "getImpliedRoot(bytes32,bytes,uint256,bytes32[])": {
+                "notice": "Calculates and returns a root hash for the `key`, `value`, `branchMask` and `siblings`"
+            },
+            "getProof(bytes32)": {
+                "notice": "Returns the Merkle-proof for the given `key`"
+            },
+            "insert(bytes32,bytes)": {
+                "notice": "Insert the `key`/`value`in the appropriate place in the tree"
+            }
+        },
+        "notice": "More info at: https://github.com/chriseth/patricia-trie",
+        "version": 1
+    }
+}

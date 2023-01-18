@@ -1,0 +1,80 @@
+{
+    "contractName": "IEtherRouter",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_resolver",
+                    "type": "address"
+                }
+            ],
+            "name": "setResolver",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "owner_",
+                    "type": "address"
+                }
+            ],
+            "name": "setOwner",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "authority_",
+                    "type": "address"
+                }
+            ],
+            "name": "setAuthority",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ],
+    "devdoc": {
+        "kind": "dev",
+        "methods": {
+            "setAuthority(address)": {
+                "params": {
+                    "authority_": "Address of the new DSAuthority instance"
+                }
+            },
+            "setOwner(address)": {
+                "params": {
+                    "owner_": "Address of the new owner"
+                }
+            },
+            "setResolver(address)": {
+                "params": {
+                    "_resolver": "Address of the new Resolver"
+                }
+            }
+        },
+        "version": 1
+    },
+    "userdoc": {
+        "kind": "user",
+        "methods": {
+            "setAuthority(address)": {
+                "notice": "Sets the EtherRouter authority. Inherited from DSAuth."
+            },
+            "setOwner(address)": {
+                "notice": "Sets the EtherRouter owner. Inherited from DSAuth."
+            },
+            "setResolver(address)": {
+                "notice": "Sets the resolver address. This is used in the routing of all delegatecalls by the EtherRouter."
+            }
+        },
+        "version": 1
+    }
+}

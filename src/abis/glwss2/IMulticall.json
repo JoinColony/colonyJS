@@ -1,0 +1,48 @@
+{
+    "contractName": "IMulticall",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes[]",
+                    "name": "data",
+                    "type": "bytes[]"
+                }
+            ],
+            "name": "multicall",
+            "outputs": [
+                {
+                    "internalType": "bytes[]",
+                    "name": "results",
+                    "type": "bytes[]"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ],
+    "devdoc": {
+        "kind": "dev",
+        "methods": {
+            "multicall(bytes[])": {
+                "details": "The `msg.value` should not be trusted for any method callable from multicall.",
+                "params": {
+                    "data": "The encoded function data for each of the calls to make to this contract"
+                },
+                "returns": {
+                    "results": "The results from each of the calls passed in via data"
+                }
+            }
+        },
+        "version": 1
+    },
+    "userdoc": {
+        "kind": "user",
+        "methods": {
+            "multicall(bytes[])": {
+                "notice": "Call multiple functions in the current contract and return the data from all of them if they all succeed"
+            }
+        },
+        "version": 1
+    }
+}

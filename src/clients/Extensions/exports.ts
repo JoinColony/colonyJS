@@ -20,6 +20,13 @@ import {
   ONE_TX_PAYMENT_VERSION_LATEST,
 } from './OneTxPayment/exports';
 import {
+  getReputationBootstrapperClient,
+  reputationBootstrapperIncompatibilityMap,
+  AnyReputationBootstrapperClient,
+  ReputationBootstrapperVersion,
+  REPUTATION_BOOTSTRAPPER_VERSION_LATEST,
+} from './ReputationBootstrapper/exports';
+import {
   getVotingReputationClient,
   votingReputationIncompatibilityMap,
   AnyVotingReputationClient,
@@ -63,6 +70,13 @@ import {
 } from './TokenSupplier/exports';
 
 import getExtensionVersionClient from './ExtensionVersionClient';
+import {
+  AnyFundingQueueClient,
+  fundingQueueIncompatibilityMap,
+  FundingQueueVersion,
+  FUNDING_QUEUE_VERSION_LATEST,
+  getFundingQueueClient,
+} from './FundingQueue/exports';
 
 const { AddressZero } = constants;
 
@@ -79,9 +93,11 @@ export * from './Whitelist/exports';
 export enum Extension {
   CoinMachine = 'CoinMachine',
   EvaluatedExpenditure = 'EvaluatedExpenditure',
+  FundingQueue = 'FundingQueue',
   // The VotingReputation contract was refactored in flwss3 to also be an interface (akin to IColony)
   IVotingReputation = 'IVotingReputation',
   OneTxPayment = 'OneTxPayment',
+  ReputationBootstrapper = 'ReputationBootstrapper',
   StakedExpenditure = 'StakedExpenditure',
   StreamingPayments = 'StreamingPayments',
   TokenSupplier = 'TokenSupplier',
@@ -92,8 +108,10 @@ export enum Extension {
 export const ExtensionVersions = {
   [Extension.CoinMachine]: COIN_MACHINE_VERSION_LATEST,
   [Extension.EvaluatedExpenditure]: EVALUATED_EXPENDITURE_VERSION_LATEST,
+  [Extension.FundingQueue]: FUNDING_QUEUE_VERSION_LATEST,
   [Extension.IVotingReputation]: VOTING_REPUTATION_VERSION_LATEST,
   [Extension.OneTxPayment]: ONE_TX_PAYMENT_VERSION_LATEST,
+  [Extension.ReputationBootstrapper]: REPUTATION_BOOTSTRAPPER_VERSION_LATEST,
   [Extension.StakedExpenditure]: STAKED_EXPENDITURE_VERSION_LATEST,
   [Extension.StreamingPayments]: STREAMING_PAYMENTS_VERSION_LATEST,
   [Extension.TokenSupplier]: TOKEN_SUPPLIER_VERSION_LATEST,
@@ -104,7 +122,9 @@ export const ExtensionVersions = {
 export type ExtensionClient =
   | AnyCoinMachineClient
   | AnyEvaluatedExpenditureClient
+  | AnyFundingQueueClient
   | AnyOneTxPaymentClient
+  | AnyReputationBootstrapperClient
   | AnyStakedExpenditureClient
   | AnyStreamingPaymentsClient
   | AnyTokenSupplierClient
@@ -115,7 +135,9 @@ export type ExtensionClient =
 export type ExtensionVersion =
   | CoinMachineVersion
   | EvaluatedExpenditureVersion
+  | FundingQueueVersion
   | OneTxPaymentVersion
+  | ReputationBootstrapperVersion
   | StakedExpenditureVersion
   | StreamingPaymentsVersion
   | TokenSupplierVersion
@@ -150,6 +172,11 @@ export const isExtensionCompatible = (
         ];
       return !!map && !map.includes(colonyVersion);
     }
+    case Extension.FundingQueue: {
+      const map =
+        fundingQueueIncompatibilityMap[extensionVersion as FundingQueueVersion];
+      return !!map && !map.includes(colonyVersion);
+    }
     case Extension.IVotingReputation: {
       const map =
         votingReputationIncompatibilityMap[
@@ -160,6 +187,13 @@ export const isExtensionCompatible = (
     case Extension.OneTxPayment: {
       const map =
         oneTxPaymentIncompatibilityMap[extensionVersion as OneTxPaymentVersion];
+      return !!map && !map.includes(colonyVersion);
+    }
+    case Extension.ReputationBootstrapper: {
+      const map =
+        reputationBootstrapperIncompatibilityMap[
+          extensionVersion as ReputationBootstrapperVersion
+        ];
       return !!map && !map.includes(colonyVersion);
     }
     case Extension.StakedExpenditure: {
@@ -207,8 +241,10 @@ export const isExtensionCompatible = (
 export type GetExtensionClientReturns = {
   [Extension.CoinMachine]: AnyCoinMachineClient;
   [Extension.EvaluatedExpenditure]: AnyEvaluatedExpenditureClient;
+  [Extension.FundingQueue]: AnyFundingQueueClient;
   [Extension.IVotingReputation]: AnyVotingReputationClient;
   [Extension.OneTxPayment]: AnyOneTxPaymentClient;
+  [Extension.ReputationBootstrapper]: AnyReputationBootstrapperClient;
   [Extension.StakedExpenditure]: AnyStakedExpenditureClient;
   [Extension.StreamingPayments]: AnyStreamingPaymentsClient;
   [Extension.TokenSupplier]: AnyTokenSupplierClient;
@@ -265,6 +301,13 @@ export async function getExtensionClient(
         version as EvaluatedExpenditureVersion,
       );
     }
+    case Extension.FundingQueue: {
+      return getFundingQueueClient(
+        this,
+        address,
+        version as FundingQueueVersion,
+      );
+    }
     case Extension.IVotingReputation: {
       return getVotingReputationClient(
         this,
@@ -277,6 +320,13 @@ export async function getExtensionClient(
         this,
         address,
         version as OneTxPaymentVersion,
+      );
+    }
+    case Extension.ReputationBootstrapper: {
+      return getReputationBootstrapperClient(
+        this,
+        address,
+        version as ReputationBootstrapperVersion,
       );
     }
     case Extension.StakedExpenditure: {

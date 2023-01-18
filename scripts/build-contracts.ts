@@ -22,7 +22,8 @@ const RELEASE_MAP = {
     elwss3: 8,
     flwss: 9,
     glwss: 10,
-    latest: 11,
+    glwss2: 11,
+    latest: 12,
   },
   [Extension.CoinMachine]: {
     clwss: 1,
@@ -31,38 +32,57 @@ const RELEASE_MAP = {
     elwss3: 4,
     flwss: 5,
     glwss: 6,
-    latest: 7,
+    glwss2: 7,
+    latest: 8,
   },
   [Extension.EvaluatedExpenditure]: {
     elwss: 1,
     flwss: 2,
-    latest: 3,
+    glwss2: 3,
+    latest: 4,
+  },
+  [Extension.FundingQueue]: {
+    lwss: 1,
+    dlwss: 2,
+    flwss: 3,
+    glwss2: 4,
+    latest: 5,
   },
   [Extension.IVotingReputation]: {
     flwss3: 6,
     glwss: 7,
-    latest: 8,
+    glwss2: 8,
+    latest: 9,
   },
   [Extension.OneTxPayment]: {
     clwss: 1,
     dlwss: 2,
     flwss: 3,
-    latest: 4,
+    glwss2: 4,
+    latest: 5,
+  },
+  [Extension.ReputationBootstrapper]: {
+    glwss2: 1,
+    latest: 2,
   },
   [Extension.StakedExpenditure]: {
     glwss: 1,
-    latest: 2,
+    glwss2: 2,
+    latest: 3,
   },
   [Extension.StreamingPayments]: {
     glwss: 1,
-    latest: 2,
+    glwss2: 2,
+    latest: 3,
   },
   [Extension.TokenSupplier]: {
     lwss: 1,
     dlwss: 2,
     flwss: 3,
-    latest: 4,
+    glwss2: 4,
+    latest: 5,
   },
+  // VotingReputation got replaced by IVotingReputation, so this does not need to be updated
   [Extension.VotingReputation]: {
     clwss: 1,
     dlwss: 2,
@@ -73,7 +93,8 @@ const RELEASE_MAP = {
   [Extension.Whitelist]: {
     elwss: 1,
     flwss: 2,
-    latest: 3,
+    glwss2: 3,
+    latest: 4,
   },
 };
 
@@ -82,8 +103,10 @@ const VERSIONED_CONTRACTS = [
   Core.IColony,
   Extension.CoinMachine,
   Extension.EvaluatedExpenditure,
+  Extension.FundingQueue,
   Extension.IVotingReputation,
   Extension.OneTxPayment,
+  Extension.ReputationBootstrapper,
   Extension.StakedExpenditure,
   Extension.StreamingPayments,
   Extension.TokenSupplier,
@@ -269,9 +292,9 @@ const build = async () => {
 
   console.info(`Building release tag ${tag}...`);
 
-  await buildVersionedContracts(tag, inputDir);
-
-  if (tag === 'develop') {
+  if (tag !== 'develop') {
+    await buildVersionedContracts(tag, inputDir);
+  } else {
     buildEventsAbis(abiDir);
     await buildUnversionedContracts(inputDir);
     await buildTokenContracts(inputDir);

@@ -1,0 +1,1284 @@
+{
+    "contractName": "IReputationMiningCycle",
+    "abi": [
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "_newHash",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "_nLeaves",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "_jrh",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "_firstDisagreeIdx",
+                    "type": "uint256"
+                }
+            ],
+            "name": "BinarySearchConfirmed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "_newHash",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "_nLeaves",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "_jrh",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "BinarySearchStep",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "_newHash",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "_nLeaves",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "_jrh",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "ChallengeCompleted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "_newHash",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "_nLeaves",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "_jrh",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "HashInvalidated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "_newHash",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "_nLeaves",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "_jrh",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "JustificationRootHashConfirmed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "previousNewReputationUID",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "_disagreeStateReputationUID",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "_existingUID",
+                    "type": "bool"
+                }
+            ],
+            "name": "ProveUIDSuccess",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "int256",
+                    "name": "_agreeStateReputationValue",
+                    "type": "int256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "int256",
+                    "name": "_disagreeStateReputationValue",
+                    "type": "int256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "int256",
+                    "name": "_originReputationValue",
+                    "type": "int256"
+                }
+            ],
+            "name": "ProveValueSuccess",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "_miner",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "_newHash",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "_nLeaves",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "_jrh",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "_entryIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ReputationRootHashSubmitted",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_round",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getDisputeRound",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "firstSubmitter",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "lastResponseTimestamp",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "challengeStepCompleted",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bytes32",
+                            "name": "intermediateReputationHash",
+                            "type": "bytes32"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "intermediateReputationNLeaves",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "lowerBound",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "upperBound",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bytes32",
+                            "name": "targetHashDuringSearch",
+                            "type": "bytes32"
+                        },
+                        {
+                            "internalType": "bytes32",
+                            "name": "hash1",
+                            "type": "bytes32"
+                        },
+                        {
+                            "internalType": "bytes32",
+                            "name": "hash2",
+                            "type": "bytes32"
+                        }
+                    ],
+                    "internalType": "struct ReputationMiningCycleDataTypes.DisputedEntry[]",
+                    "name": "submissions",
+                    "type": "tuple[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_user",
+                    "type": "address"
+                }
+            ],
+            "name": "getReputationHashSubmission",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "bytes32",
+                            "name": "proposedNewRootHash",
+                            "type": "bytes32"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "nLeaves",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bytes32",
+                            "name": "jrh",
+                            "type": "bytes32"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "jrhNLeaves",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct ReputationMiningCycleDataTypes.Submission",
+                    "name": "submission",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_submitter",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_entryIndex",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "_newHash",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "getEntryHash",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "entryHash",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_miner",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_index",
+                    "type": "uint256"
+                }
+            ],
+            "name": "minerSubmittedEntryIndex",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "result",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "resetWindow",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_newHash",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_nLeaves",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "_jrh",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_entryIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "submitRootHash",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_round",
+                    "type": "uint256"
+                }
+            ],
+            "name": "challengeRoundComplete",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "complete",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_roundNumber",
+                    "type": "uint256"
+                }
+            ],
+            "name": "confirmNewHash",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_round",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_idx",
+                    "type": "uint256"
+                }
+            ],
+            "name": "invalidateHash",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_round",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_idx",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "_jhIntermediateValue",
+                    "type": "bytes"
+                },
+                {
+                    "internalType": "bytes32[]",
+                    "name": "_siblings",
+                    "type": "bytes32[]"
+                }
+            ],
+            "name": "respondToBinarySearchForChallenge",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_round",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_idx",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "_jhIntermediateValue",
+                    "type": "bytes"
+                },
+                {
+                    "internalType": "bytes32[]",
+                    "name": "_siblings",
+                    "type": "bytes32[]"
+                }
+            ],
+            "name": "confirmBinarySearchResult",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256[26]",
+                    "name": "_u",
+                    "type": "uint256[26]"
+                },
+                {
+                    "internalType": "bytes32[7]",
+                    "name": "_b32",
+                    "type": "bytes32[7]"
+                },
+                {
+                    "internalType": "bytes32[]",
+                    "name": "_reputationSiblings",
+                    "type": "bytes32[]"
+                },
+                {
+                    "internalType": "bytes32[]",
+                    "name": "_agreeStateSiblings",
+                    "type": "bytes32[]"
+                },
+                {
+                    "internalType": "bytes32[]",
+                    "name": "_disagreeStateSiblings",
+                    "type": "bytes32[]"
+                },
+                {
+                    "internalType": "bytes32[]",
+                    "name": "_userOriginReputationSiblings",
+                    "type": "bytes32[]"
+                },
+                {
+                    "internalType": "bytes32[]",
+                    "name": "_childReputationSiblings",
+                    "type": "bytes32[]"
+                },
+                {
+                    "internalType": "bytes32[]",
+                    "name": "_adjacentReputationSiblings",
+                    "type": "bytes32[]"
+                }
+            ],
+            "name": "respondToChallenge",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_round",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_index",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes32[]",
+                    "name": "_siblings1",
+                    "type": "bytes32[]"
+                },
+                {
+                    "internalType": "bytes32[]",
+                    "name": "_siblings2",
+                    "type": "bytes32[]"
+                }
+            ],
+            "name": "confirmJustificationRootHash",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_user",
+                    "type": "address"
+                },
+                {
+                    "internalType": "int256",
+                    "name": "_amount",
+                    "type": "int256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_skillId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_colonyAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint128",
+                    "name": "_nParents",
+                    "type": "uint128"
+                },
+                {
+                    "internalType": "uint128",
+                    "name": "_nChildren",
+                    "type": "uint128"
+                }
+            ],
+            "name": "appendReputationUpdateLog",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getReputationUpdateLogLength",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "nUpdates",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getReputationUpdateLogEntry",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "user",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "int256",
+                            "name": "amount",
+                            "type": "int256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "skillId",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "colony",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint128",
+                            "name": "nUpdates",
+                            "type": "uint128"
+                        },
+                        {
+                            "internalType": "uint128",
+                            "name": "nPreviousUpdates",
+                            "type": "uint128"
+                        }
+                    ],
+                    "internalType": "struct ReputationMiningCycleDataTypes.ReputationLogEntry",
+                    "name": "reputationUpdateLogEntry",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address[]",
+                    "name": "_stakers",
+                    "type": "address[]"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "_weights",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_metaColonyAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_reward",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_miningSkillId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "rewardStakersWithReputation",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getReputationMiningWindowOpenTimestamp",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "timestamp",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_tokenLocking",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_clnyToken",
+                    "type": "address"
+                }
+            ],
+            "name": "initialise",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getNUniqueSubmittedHashes",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "nUniqueSubmittedHashes",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getNInvalidatedHashes",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "nInvalidatedHashes",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getMinStake",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "minStake",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getMiningWindowDuration",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "miningWindowDuration",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getDecayConstant",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "numerator",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "denominator",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_hash",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_nLeaves",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "_jrh",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_index",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getSubmissionUser",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_hash",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_nLeaves",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "_jrh",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "getNSubmissionsForHash",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "count",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_user",
+                    "type": "address"
+                }
+            ],
+            "name": "userInvolvedInMiningCycle",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "involved",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getDisputeRewardSize",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "reward",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "enum ReputationMiningCycleDataTypes.DisputeStages",
+                    "name": "_stage",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_since",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getResponsePossible",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "possible",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ],
+    "devdoc": {
+        "kind": "dev",
+        "methods": {
+            "appendReputationUpdateLog(address,int256,uint256,address,uint128,uint128)": {
+                "params": {
+                    "_amount": "The amount by which the user's reputation is going to change. Can be positive or negative.",
+                    "_colonyAddress": "The address of the colony the reputation is being affected in",
+                    "_nChildren": "The number of child skills the skill defined by the skillId has",
+                    "_nParents": "The number of parent skills the skill defined by the skillId has",
+                    "_skillId": "The skillId of the reputation being affected",
+                    "_user": "The address of the user having their reputation changed by this log entry"
+                }
+            },
+            "challengeRoundComplete(uint256)": {
+                "params": {
+                    "_round": "The round number to check"
+                },
+                "returns": {
+                    "complete": "Boolean indicating whether the given round challenge is complete"
+                }
+            },
+            "confirmBinarySearchResult(uint256,uint256,bytes,bytes32[])": {
+                "params": {
+                    "_idx": "The index in the round that the hash we are responding on behalf of is in",
+                    "_jhIntermediateValue": "The contents of the Justification Tree at the key given by `targetLeaf` (see function description). The value of `targetLeaf` is computed locally to establish what to submit to this function.",
+                    "_round": "The round number the hash we are responding on behalf of is in",
+                    "_siblings": "The siblings of the Merkle proof that `jhIntermediateValue` is the value at key `targetLeaf`"
+                }
+            },
+            "confirmJustificationRootHash(uint256,uint256,bytes32[],bytes32[])": {
+                "details": "The majority of calls to this function will have `round` equal to `0`. The exception to this is when a submitted hash is given a bye, in which case `round` will be nonzero.Note that it is possible for this function to be required to be called in every round - the hash getting the bye can wait until they will also be awarded the bye in the next round, if one is going to exist. There is an incentive to do so from a gas-cost perspective, but they don't know for sure there's going to be a bye until the submission window has expired, so I think this is okay.",
+                "params": {
+                    "_index": "The index in the round that the hash is currently in",
+                    "_round": "The round that the hash is currently in.",
+                    "_siblings1": "The siblings for the same Merkle proof",
+                    "_siblings2": "The siblings for the same Merkle proof"
+                }
+            },
+            "confirmNewHash(uint256)": {
+                "params": {
+                    "_roundNumber": "The round number that the hash being confirmed is in as the only contendender. If only one hash was submitted, then this is zero."
+                }
+            },
+            "getDecayConstant()": {
+                "returns": {
+                    "denominator": "The denominator of the decay constant",
+                    "numerator": "The numerator of the decay constant"
+                }
+            },
+            "getDisputeRewardSize()": {
+                "returns": {
+                    "reward": "uint256 The amount of CLNY given."
+                }
+            },
+            "getDisputeRound(uint256)": {
+                "params": {
+                    "_round": "The dispute round to query"
+                },
+                "returns": {
+                    "submissions": "An array of DisputedEntrys struct for the round. See ReputationMiningCycleDataTypes for the full description of the properties."
+                }
+            },
+            "getEntryHash(address,uint256,bytes32)": {
+                "params": {
+                    "_entryIndex": "The index of the entry that they used to submit the hash",
+                    "_newHash": "The hash that they submitted",
+                    "_submitter": "The address that submitted the hash"
+                },
+                "returns": {
+                    "entryHash": "The hash for the corresponding entry"
+                }
+            },
+            "getMinStake()": {
+                "returns": {
+                    "minStake": "The minimum stake amount"
+                }
+            },
+            "getMiningWindowDuration()": {
+                "returns": {
+                    "miningWindowDuration": "Duration of the reputation mining window in seconds"
+                }
+            },
+            "getNInvalidatedHashes()": {
+                "returns": {
+                    "nInvalidatedHashes": "Number of invalidated hashes in this mining cycle"
+                }
+            },
+            "getNSubmissionsForHash(bytes32,uint256,bytes32)": {
+                "params": {
+                    "_hash": "The hash that was submitted",
+                    "_jrh": "The JRH of that was submitted",
+                    "_nLeaves": "The number of leaves that was submitted"
+                },
+                "returns": {
+                    "count": "The number of submissions - should be 0-12, as up to twelve submissions can be made"
+                }
+            },
+            "getNUniqueSubmittedHashes()": {
+                "returns": {
+                    "nUniqueSubmittedHashes": "Number of unique hash/nleaves/jrh sets in this cycle"
+                }
+            },
+            "getReputationHashSubmission(address)": {
+                "params": {
+                    "_user": "Address of the user"
+                },
+                "returns": {
+                    "submission": "the Submission struct for the submission requested. See ReputationMiningCycleDataTypes.sol for the full description."
+                }
+            },
+            "getReputationMiningWindowOpenTimestamp()": {
+                "returns": {
+                    "timestamp": "The timestamp"
+                }
+            },
+            "getReputationUpdateLogEntry(uint256)": {
+                "params": {
+                    "_id": "The reputation log members array index of the entry to get"
+                },
+                "returns": {
+                    "reputationUpdateLogEntry": "The Reputation Update Log Entry"
+                }
+            },
+            "getReputationUpdateLogLength()": {
+                "returns": {
+                    "nUpdates": "nUpdates"
+                }
+            },
+            "getResponsePossible(uint8,uint256)": {
+                "params": {
+                    "_since": "The timestamp the last response for the submission in the dispute in question was made at.",
+                    "_stage": "The dispute stage in question. Practically, this is a number that indexes in to the corresponding enum in ReputationMiningCycleDataTypes"
+                },
+                "returns": {
+                    "possible": "bool Whether the user can respond at the current time."
+                }
+            },
+            "getSubmissionUser(bytes32,uint256,bytes32,uint256)": {
+                "params": {
+                    "_hash": "The hash that was submitted",
+                    "_index": "The index of the submission - should be 0-11, as up to twelve submissions can be made.",
+                    "_jrh": "The JRH of that was submitted",
+                    "_nLeaves": "The number of leaves that was submitted"
+                },
+                "returns": {
+                    "user": "Address of the user that submitted the hash / nLeaves/ jrh at index"
+                }
+            },
+            "initialise(address,address)": {
+                "details": "This will only be called once, by ColonyNetwork, in the same transaction that deploys this contract.",
+                "params": {
+                    "_clnyToken": "Address of the CLNY token",
+                    "_tokenLocking": "Address of the TokenLocking contract"
+                }
+            },
+            "invalidateHash(uint256,uint256)": {
+                "params": {
+                    "_idx": "The index in the round that the hash being invalidated is in",
+                    "_round": "The round number the hash being invalidated is in"
+                }
+            },
+            "minerSubmittedEntryIndex(address,uint256)": {
+                "params": {
+                    "_index": "The index of the entry that they used to submit the hash",
+                    "_miner": "The address that submitted the hash"
+                },
+                "returns": {
+                    "result": "Boolean whether the entryIndex was already submitted"
+                }
+            },
+            "resetWindow()": {
+                "details": "only allowed to be called by ColonyNetwork."
+            },
+            "respondToBinarySearchForChallenge(uint256,uint256,bytes,bytes32[])": {
+                "params": {
+                    "_idx": "The index in the round that the hash we are responding on behalf of is in",
+                    "_jhIntermediateValue": "The contents of the Justification Tree at the key given by `targetLeaf` (see function description). The value of `targetLeaf` is computed locally to establish what to submit to this function.",
+                    "_round": "The round number the hash we are responding on behalf of is in",
+                    "_siblings": "The siblings of the Merkle proof that `jhIntermediateValue` is the value at key `targetLeaf`"
+                }
+            },
+            "respondToChallenge(uint256[26],bytes32[7],bytes32[],bytes32[],bytes32[],bytes32[],bytes32[],bytes32[])": {
+                "details": "note that these are all bytes32; the address should be left padded from 20 bytes to 32 bytes. Strictly, I do not believe the padding matters, but you should use 0s for your own sanity!If you know that the disagreement doesn't involve a new reputation being added, the arguments corresponding to the previous new reputation can be zeroed, as they will not be used. You must be sure that this is the case, however, otherwise you risk being found incorrect. Zeroed arguments will result in a cheaper call to this function.",
+                "params": {
+                    "_adjacentReputationSiblings": "Nonzero for updates involving insertion of a new skill. The siblings of the Merkle proof of a reputation in the agree state that ends adjacent to the new reputation",
+                    "_agreeStateSiblings": "The siblings of the Merkle proof that the last reputation state the submitted hashes agreed on is in this submitted hash's justification tree",
+                    "_b32": "A `bytes32[8]` array. The elements of this array, in order are: * 1. The colony address in the key of the reputation being changed that the disagreement is over. * 2. The skillid in the key of the reputation being changed that the disagreement is over. * 3. The user address in the key of the reputation being changed that the disagreement is over. * 4. The keccak256 hash of the key of the reputation being changed that the disagreement is over. * 5. The keccak256 hash of the key for a reputation already in the tree adjacent to the new reputation being inserted, if required. * 6. The keccak256 hash of the key of the reputation that would be origin-adjacent that proves that the origin reputation does not exist in the tree * 7. The keccak256 hash of the key of the reputation that would be child-adjacent that proves that the child reputation does not exist in the tree",
+                    "_childReputationSiblings": "Nonzero for child updates of a colony-wide global skill. The siblings of the Merkle proof of the child skill reputation of the user in the same skill this global update is for",
+                    "_disagreeStateSiblings": "The siblings of the Merkle proof that the first reputation state the submitted hashes disagreed on is in this submitted hash's justification tree",
+                    "_reputationSiblings": "The siblings of the Merkle proof that the reputation corresponding to `_reputationKey` is in the reputation state before and after the disagreement",
+                    "_u": "A `uint256[27]` array. The elements of this array, in order are: * 1. The current round of the hash being responded on behalf of * 2. The current index in the round of the hash being responded on behalf of * 3. The branchMask of the proof that the reputation is in the reputation state tree for the reputation with the disputed change * 4. The number of leaves in the last reputation state that both submitted hashes agree on * 5. The branchMask of the proof that the last reputation state the submitted hashes agreed on is in this submitted hash's justification tree * 6. The number of leaves this hash considers to be present in the first reputation state the two hashes in this challenge disagree on * 7. The branchMask of the proof that reputation root hash of the first reputation state the two hashes in this challenge disagree on is in this submitted hash's justification tree * 8. The index of the log entry that the update in question was implied by. Each log entry can imply multiple reputation updates, and so we expect the clients to pass      the log entry index corresponding to the update to avoid us having to iterate over the log. * 9. A dummy variable that should be set to 0. If nonzero, transaction will still work but be slightly more expensive. For an explanation of why this is present, look at the corresponding solidity code. * 10. Origin skill reputation branch mask. Nonzero for child reputation updates. * 11. The amount of reputation that the entry in the tree under dispute has in the agree state * 12. The UID that the entry in the tree under dispute has in the agree state * 13. The amount of reputation that the entry in the tree under dispute has in the disagree state * 14. The UID that the entry in the tree under dispute has in the disagree state * 15. The amount of reputation that the user's origin reputation entry in the tree has in the state being disputed * 16. The UID that the user's origin reputation entry in the tree has in the state being disputed * 17. The branchMask of the proof that the child reputation for the user being updated is in the agree state * 18. The amount of reputation that the child reputation for the user being updated is in the agree state * 19. The UID of the child reputation for the user being updated in the agree state * 20. A dummy variable that should be set to 0. If nonzero, transaction will still work but be slightly more expensive. For an explanation of why this is present, look at the corresponding solidity code. * 21. The branchMask of the proof that the reputation adjacent to the new reputation being inserted is in the agree state * 22. The amount of reputation that the reputation adjacent to a new reputation being inserted has in the agree state * 23. The UID of the reputation adjacent to the new reputation being inserted * 24. A dummy variable that should be set to 0. If nonzero, transaction will still work but be slightly more expensive. For an explanation of why this is present, look at the corresponding solidity code. * 25. The value of the reputation that would be origin-adjacent that proves that the origin reputation does not exist in the tree * 26. The value of the reputation that would be child-adjacent that proves that the child reputation does not exist in the tree",
+                    "_userOriginReputationSiblings": "Nonzero for child updates only. The siblings of the Merkle proof of the user's origin skill reputation added to the reputation tree in the last reputation state the submitted hashes agree on"
+                }
+            },
+            "rewardStakersWithReputation(address[],uint256[],address,uint256,uint256)": {
+                "details": "Only callable by colonyNetwork. Note that the same address might be present multiple times in `stakers` - this is acceptable, and indicates the same address backed the same hash multiple times with different entries.",
+                "params": {
+                    "_metaColonyAddress": "The address of the meta colony, which the special mining skill is earned in",
+                    "_miningSkillId": "Skill id of the special mining skill",
+                    "_reward": "The amount of reputation to be rewarded to each staker",
+                    "_stakers": "The array of stakers addresses to receive the reward.",
+                    "_weights": "The array of weights determining the proportion of reward to go to each staker"
+                }
+            },
+            "submitRootHash(bytes32,uint256,bytes32,uint256)": {
+                "params": {
+                    "_entryIndex": "The entry number for the given `newHash` and `nLeaves`",
+                    "_jrh": "The justifcation root hash for this submission",
+                    "_nLeaves": "Number of leaves in tree with root `newHash`",
+                    "_newHash": "The proposed new reputation root hash"
+                }
+            },
+            "userInvolvedInMiningCycle(address)": {
+                "params": {
+                    "_user": "The address whose involvement is being queried"
+                },
+                "returns": {
+                    "involved": "Whether the address has been involved in the current mining cycle"
+                }
+            }
+        },
+        "version": 1
+    },
+    "userdoc": {
+        "events": {
+            "ProveUIDSuccess(uint256,uint256,bool)": {
+                "notice": "Event logged when a reputation UID is proven to be correct in a challenge"
+            },
+            "ProveValueSuccess(int256,int256,int256)": {
+                "notice": "Event logged when a reputation value is proven to be correct in a challenge"
+            }
+        },
+        "kind": "user",
+        "methods": {
+            "appendReputationUpdateLog(address,int256,uint256,address,uint128,uint128)": {
+                "notice": "Add a new entry to the reputation update log."
+            },
+            "challengeRoundComplete(uint256)": {
+                "notice": "Get whether a challenge round is complete."
+            },
+            "confirmBinarySearchResult(uint256,uint256,bytes,bytes32[])": {
+                "notice": "Confirm the result of a binary search - depending on how exactly the binary search finished, the saved binary search intermediate state might be incorrect.This function ensures that the intermediate hashes saved are correct."
+            },
+            "confirmJustificationRootHash(uint256,uint256,bytes32[],bytes32[])": {
+                "notice": "Verify the Justification Root Hash (JRH) for a submitted reputation hash is plausible."
+            },
+            "confirmNewHash(uint256)": {
+                "notice": "Confirm a new reputation hash. The hash in question is either the only one that was submitted this cycle, or the last one standing after all others have been proved wrong."
+            },
+            "getDecayConstant()": {
+                "notice": "Get the reputation decay constant."
+            },
+            "getDisputeRewardSize()": {
+                "notice": "Returns the amount of CLNY given for defending a hash during the current dispute cycle"
+            },
+            "getDisputeRound(uint256)": {
+                "notice": "The getter for the disputeRounds mapping."
+            },
+            "getEntryHash(address,uint256,bytes32)": {
+                "notice": "Get the hash for the corresponding entry."
+            },
+            "getMinStake()": {
+                "notice": "Get the minimum stake of CLNY required to mine."
+            },
+            "getMiningWindowDuration()": {
+                "notice": "Get the length of the mining window in seconds."
+            },
+            "getNInvalidatedHashes()": {
+                "notice": "Get the number of hashes that have been invalidated this mining cycle."
+            },
+            "getNSubmissionsForHash(bytes32,uint256,bytes32)": {
+                "notice": "Get the number of submissions miners made of a particular hash / nLeaves / jrh combination."
+            },
+            "getNUniqueSubmittedHashes()": {
+                "notice": "Get the number of unique hash/nleaves/jrh sets that have been submitted this mining cycle."
+            },
+            "getReputationHashSubmission(address)": {
+                "notice": "The getter for the hashSubmissions mapping, which keeps track of submissions by user."
+            },
+            "getReputationMiningWindowOpenTimestamp()": {
+                "notice": "Get the timestamp that the current reputation mining window opened."
+            },
+            "getReputationUpdateLogEntry(uint256)": {
+                "notice": "Get the `ReputationLogEntry` at index `_id`."
+            },
+            "getReputationUpdateLogLength()": {
+                "notice": "Get the length of the ReputationUpdateLog stored on this instance of the ReputationMiningCycle contract."
+            },
+            "getResponsePossible(uint8,uint256)": {
+                "notice": "Returns whether the caller is able to currently respond to a dispute stage."
+            },
+            "getSubmissionUser(bytes32,uint256,bytes32,uint256)": {
+                "notice": "Get the address that made a particular submission."
+            },
+            "initialise(address,address)": {
+                "notice": "Initialise this reputation mining cycle."
+            },
+            "invalidateHash(uint256,uint256)": {
+                "notice": "Invalidate a hash that has timed out relative to its opponent its current challenge step. Note that this can be called to 'invalidate' a nonexistent hash, if the round has an odd number of entrants and so the last hash is being given a bye to the next round."
+            },
+            "minerSubmittedEntryIndex(address,uint256)": {
+                "notice": "Returns a boolean result of whether the miner has already submitted at this entry index."
+            },
+            "resetWindow()": {
+                "notice": "Resets the timestamp that the submission window opens to `now`."
+            },
+            "respondToBinarySearchForChallenge(uint256,uint256,bytes,bytes32[])": {
+                "notice": "Respond to a binary search step, to eventually discover where two submitted hashes differ in their Justification trees."
+            },
+            "respondToChallenge(uint256[26],bytes32[7],bytes32[],bytes32[],bytes32[],bytes32[],bytes32[],bytes32[])": {
+                "notice": "Respond to challenge, to establish which (if either) of the two submissions facing off are correct."
+            },
+            "rewardStakersWithReputation(address[],uint256[],address,uint256,uint256)": {
+                "notice": "Start the reputation log with the rewards for the stakers who backed the accepted new reputation root hash."
+            },
+            "submitRootHash(bytes32,uint256,bytes32,uint256)": {
+                "notice": "Submit a new reputation root hash."
+            },
+            "userInvolvedInMiningCycle(address)": {
+                "notice": "Returns whether a particular address has been involved in the current mining cycle. This might be from submitting a hash, or from defending one during a dispute."
+            }
+        },
+        "version": 1
+    }
+}
