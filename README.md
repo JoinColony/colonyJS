@@ -8,7 +8,9 @@ colonyJS is a JavaScript library with a simple and predictable interface for app
 
 ## Documentation
 
-The API reference is automatically generated using [TypeDoc](https://github.com/TypeStrong/typedoc) and can be found [here](https://colony.gitbook.io/colonyjs/reference/api). You should check out the `getColonyNetworkClient` function in `ColonyNetworkClient` and the docs for the extended colony contracts `clients/Colony/ColonyClientVX`.
+[🖺 Click here for docs!](https://docs.colony.io/colonyjs)
+
+You should check out the `getColonyNetworkClient` function in `ColonyNetworkClient` and the docs for the extended colony contracts `clients/Colony/ColonyClientVX`.
 
 ## Get Started
 
@@ -119,7 +121,7 @@ If you don't supply a `GITHUB_TOKEN` environment variable, `release-it` will ope
 
 ### To upgrade to a new colonyNetwork version
 
-Take a look at [this guide](https://colony.gitbook.io/colonyjs/guides/upgrading-the-colonynetwork-version).
+Take a look at [this guide](https://docs.colony.io/colonyjs/guides/upgrading-the-colonynetwork-version).
 
 ## License
 
