@@ -9,15 +9,22 @@ import {
   AugmentedEstimateV2,
   AugmentsV2,
 } from './augments/augmentsV2';
+import {
+  addAugments as addCreateDomainMotionAugments,
+  CreateDomainMotionAugments,
+  CreateDomainMotionEstimateGas,
+} from './augments/CreateDomainMotion';
 import { AugmentedIColony } from '../../Core/augments/commonAugments';
 
 interface VotingReputationEstimate
   extends AugmentedEstimate<VotingReputation>,
-    AugmentedEstimateV2 {}
+    AugmentedEstimateV2,
+    CreateDomainMotionEstimateGas {}
 
 export interface VotingReputationClientV5
   extends AugmentedVotingReputation<VotingReputation>,
-    AugmentsV2<VotingReputation> {
+    AugmentsV2<VotingReputation>,
+    CreateDomainMotionAugments<VotingReputation> {
   clientVersion: 5;
   estimateGas: VotingReputationEstimate;
 }
@@ -33,6 +40,7 @@ export default function getVotingReputationClient(
 
   votingReputationClient.clientVersion = 5;
   addAugments(votingReputationClient, colonyClient);
+  addCreateDomainMotionAugments(votingReputationClient);
 
   return votingReputationClient;
 }

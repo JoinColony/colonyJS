@@ -1904,6 +1904,31 @@ const _abi = [
     name: "ExpenditureStateChanged",
     type: "event",
   },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "target",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "bytes",
+        name: "data",
+        type: "bytes",
+      },
+      {
+        indexed: false,
+        internalType: "bool",
+        name: "success",
+        type: "bool",
+      },
+    ],
+    name: "ArbitraryTransaction",
+    type: "event",
+  },
 ];
 
 export class IColonyEvents__factory {

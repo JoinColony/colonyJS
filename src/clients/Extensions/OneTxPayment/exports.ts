@@ -14,8 +14,11 @@ import getOneTxPaymentClientV2, {
 import getOneTxPaymentClientV3, {
   OneTxPaymentClientV3,
 } from './OneTxPaymentClientV3';
+import getOneTxPaymentClientV4, {
+  OneTxPaymentClientV4,
+} from './OneTxPaymentClientV4';
 
-const ONE_TX_PAYMENT_VERSION_NEXT = 4;
+const ONE_TX_PAYMENT_VERSION_NEXT = 5;
 
 /** @internal */
 export const ONE_TX_PAYMENT_VERSION_LATEST = ONE_TX_PAYMENT_VERSION_NEXT - 1;
@@ -23,11 +26,13 @@ export const ONE_TX_PAYMENT_VERSION_LATEST = ONE_TX_PAYMENT_VERSION_NEXT - 1;
 export { OneTxPaymentClientV1 } from './OneTxPaymentClientV1';
 export { OneTxPaymentClientV2 } from './OneTxPaymentClientV2';
 export { OneTxPaymentClientV3 } from './OneTxPaymentClientV3';
+export { OneTxPaymentClientV4 } from './OneTxPaymentClientV4';
 
 export type AnyOneTxPaymentClient =
   | OneTxPaymentClientV1
   | OneTxPaymentClientV2
-  | OneTxPaymentClientV3;
+  | OneTxPaymentClientV3
+  | OneTxPaymentClientV4;
 
 /** @internal */
 export const ONE_TX_PAYMENT_VERSIONS = createContractVersionArray(
@@ -45,6 +50,7 @@ export const oneTxPaymentIncompatibilityMap: Record<
   1: [],
   2: [],
   3: [],
+  4: [],
 };
 
 /** @internal */
@@ -60,6 +66,8 @@ export const getOneTxPaymentClient = (
       return getOneTxPaymentClientV2(colonyClient, address);
     case 3:
       return getOneTxPaymentClientV3(colonyClient, address);
+    case 4:
+      return getOneTxPaymentClientV4(colonyClient, address);
     default:
       return assertExhaustiveSwitch(
         version,

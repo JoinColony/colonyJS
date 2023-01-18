@@ -6,6 +6,8 @@
 
 - `AugmentsV2`<`IVotingReputation`\>
 
+- `CreateDomainMotionAugments`<`IVotingReputation`\>
+
   ↳ **`VotingReputationClientV6`**
 
 ## Properties
@@ -640,6 +642,8 @@ ___
 
 ▸ **createDomainMotionWithProofs**(`_domainId`, `_action`, `overrides?`): `Promise`<`ContractTransaction`\>
 
+**`Deprecated`**
+
 Same as [createDomainMotion](VotingReputationClientV6.md#createdomainmotion), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
@@ -657,7 +661,7 @@ Always prefer this method, except when you have good reason not to.
 
 #### Inherited from
 
-AugmentedVotingReputation.createDomainMotionWithProofs
+CreateDomainMotionAugments.createDomainMotionWithProofs
 
 ___
 

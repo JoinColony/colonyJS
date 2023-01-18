@@ -27,6 +27,12 @@ ___
 
 ___
 
+### FundingQueueClient
+
+• **FundingQueueClient** = ``"FundingQueueClient"``
+
+___
+
 ### MotionTargetClient
 
 • **MotionTargetClient** = ``"MotionTargetClient"``
@@ -42,6 +48,12 @@ ___
 ### OneTxPaymentClient
 
 • **OneTxPaymentClient** = ``"OneTxPaymentClient"``
+
+___
+
+### ReputationBootstrapperClient
+
+• **ReputationBootstrapperClient** = ``"ReputationBootstrapperClient"``
 
 ___
 

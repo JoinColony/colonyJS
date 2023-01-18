@@ -9,9 +9,10 @@ import type { IColony as IColony7 } from './7';
 import type { IColony as IColony8 } from './8';
 import type { IColony as IColony9 } from './9';
 import type { IColony as IColony10 } from './10';
+import type { IColony as IColony11 } from './11';
 
 // Always adjust to the latest Colony version
-export { IColony__factory as IColonyFactory } from './10/factories/IColony__factory';
+export { IColony__factory as IColonyFactory } from './11/factories/IColony__factory';
 
 export type IColonyV1 = IColony1;
 export type IColonyV2 = IColony2;
@@ -23,6 +24,7 @@ export type IColonyV7 = IColony7;
 export type IColonyV8 = IColony8;
 export type IColonyV9 = IColony9;
 export type IColonyV10 = IColony10;
+export type IColonyV11 = IColony11;
 
 export type AnyIColony =
   | IColony1
@@ -34,4 +36,5 @@ export type AnyIColony =
   | IColony7
   | IColony8
   | IColony9
-  | IColony10;
+  | IColony10
+  | IColony11;

@@ -94,12 +94,11 @@ export interface IVotingReputationInterface extends utils.Interface {
     "getMetatransactionNonce(address)": FunctionFragment;
     "identifier()": FunctionFragment;
     "install(address)": FunctionFragment;
+    "multicall(bytes[])": FunctionFragment;
     "uninstall()": FunctionFragment;
     "version()": FunctionFragment;
     "initialise(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256)": FunctionFragment;
     "createMotion(uint256,uint256,address,bytes,bytes,bytes,uint256,bytes32[])": FunctionFragment;
-    "createRootMotion(address,bytes,bytes,bytes,uint256,bytes32[])": FunctionFragment;
-    "createDomainMotion(uint256,uint256,bytes,bytes,bytes,uint256,bytes32[])": FunctionFragment;
     "stakeMotion(uint256,uint256,uint256,uint256,uint256,bytes,bytes,uint256,bytes32[])": FunctionFragment;
     "submitVote(uint256,bytes32,bytes,bytes,uint256,bytes32[])": FunctionFragment;
     "revealVote(uint256,bytes32,uint256,bytes,bytes,uint256,bytes32[])": FunctionFragment;
@@ -139,12 +138,11 @@ export interface IVotingReputationInterface extends utils.Interface {
       | "getMetatransactionNonce"
       | "identifier"
       | "install"
+      | "multicall"
       | "uninstall"
       | "version"
       | "initialise"
       | "createMotion"
-      | "createRootMotion"
-      | "createDomainMotion"
       | "stakeMotion"
       | "submitVote"
       | "revealVote"
@@ -212,6 +210,10 @@ export interface IVotingReputationInterface extends utils.Interface {
     functionFragment: "install",
     values: [PromiseOrValue<string>]
   ): string;
+  encodeFunctionData(
+    functionFragment: "multicall",
+    values: [PromiseOrValue<BytesLike>[]]
+  ): string;
   encodeFunctionData(functionFragment: "uninstall", values?: undefined): string;
   encodeFunctionData(functionFragment: "version", values?: undefined): string;
   encodeFunctionData(
@@ -233,29 +235,6 @@ export interface IVotingReputationInterface extends utils.Interface {
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<string>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BytesLike>[]
-    ]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "createRootMotion",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BytesLike>[]
-    ]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "createDomainMotion",
-    values: [
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>,
       PromiseOrValue<BytesLike>,
       PromiseOrValue<BytesLike>,
       PromiseOrValue<BytesLike>,
@@ -449,19 +428,12 @@ export interface IVotingReputationInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "identifier", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "install", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "multicall", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "uninstall", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "version", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "initialise", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "createMotion",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "createRootMotion",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "createDomainMotion",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -771,6 +743,11 @@ export interface IVotingReputation extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    multicall(
+      arg0: PromiseOrValue<BytesLike>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     uninstall(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
@@ -815,46 +792,6 @@ export interface IVotingReputation extends BaseContract {
       _domainId: PromiseOrValue<BigNumberish>,
       _childSkillIndex: PromiseOrValue<BigNumberish>,
       _altTarget: PromiseOrValue<string>,
-      _action: PromiseOrValue<BytesLike>,
-      _key: PromiseOrValue<BytesLike>,
-      _value: PromiseOrValue<BytesLike>,
-      _branchMask: PromiseOrValue<BigNumberish>,
-      _siblings: PromiseOrValue<BytesLike>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    /**
-     * Create a motion in the root domain (DEPRECATED)
-     * @param _action A bytes array encoding a function call
-     * @param _altTarget The contract to which we send the action (0x0 for the colony)
-     * @param _branchMask The branchmask of the proof
-     * @param _key Reputation tree key for the root domain
-     * @param _siblings The siblings of the proof
-     * @param _value Reputation tree value for the root domain
-     */
-    createRootMotion(
-      _altTarget: PromiseOrValue<string>,
-      _action: PromiseOrValue<BytesLike>,
-      _key: PromiseOrValue<BytesLike>,
-      _value: PromiseOrValue<BytesLike>,
-      _branchMask: PromiseOrValue<BigNumberish>,
-      _siblings: PromiseOrValue<BytesLike>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    /**
-     * Create a motion in any domain (DEPRECATED)
-     * @param _action A bytes array encoding a function call
-     * @param _branchMask The branchmask of the proof
-     * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
-     * @param _domainId The domain where we vote on the motion
-     * @param _key Reputation tree key for the domain
-     * @param _siblings The siblings of the proof
-     * @param _value Reputation tree value for the domain
-     */
-    createDomainMotion(
-      _domainId: PromiseOrValue<BigNumberish>,
-      _childSkillIndex: PromiseOrValue<BigNumberish>,
       _action: PromiseOrValue<BytesLike>,
       _key: PromiseOrValue<BytesLike>,
       _value: PromiseOrValue<BytesLike>,
@@ -1223,6 +1160,11 @@ export interface IVotingReputation extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  multicall(
+    arg0: PromiseOrValue<BytesLike>[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   uninstall(
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
@@ -1267,46 +1209,6 @@ export interface IVotingReputation extends BaseContract {
     _domainId: PromiseOrValue<BigNumberish>,
     _childSkillIndex: PromiseOrValue<BigNumberish>,
     _altTarget: PromiseOrValue<string>,
-    _action: PromiseOrValue<BytesLike>,
-    _key: PromiseOrValue<BytesLike>,
-    _value: PromiseOrValue<BytesLike>,
-    _branchMask: PromiseOrValue<BigNumberish>,
-    _siblings: PromiseOrValue<BytesLike>[],
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  /**
-   * Create a motion in the root domain (DEPRECATED)
-   * @param _action A bytes array encoding a function call
-   * @param _altTarget The contract to which we send the action (0x0 for the colony)
-   * @param _branchMask The branchmask of the proof
-   * @param _key Reputation tree key for the root domain
-   * @param _siblings The siblings of the proof
-   * @param _value Reputation tree value for the root domain
-   */
-  createRootMotion(
-    _altTarget: PromiseOrValue<string>,
-    _action: PromiseOrValue<BytesLike>,
-    _key: PromiseOrValue<BytesLike>,
-    _value: PromiseOrValue<BytesLike>,
-    _branchMask: PromiseOrValue<BigNumberish>,
-    _siblings: PromiseOrValue<BytesLike>[],
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  /**
-   * Create a motion in any domain (DEPRECATED)
-   * @param _action A bytes array encoding a function call
-   * @param _branchMask The branchmask of the proof
-   * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
-   * @param _domainId The domain where we vote on the motion
-   * @param _key Reputation tree key for the domain
-   * @param _siblings The siblings of the proof
-   * @param _value Reputation tree value for the domain
-   */
-  createDomainMotion(
-    _domainId: PromiseOrValue<BigNumberish>,
-    _childSkillIndex: PromiseOrValue<BigNumberish>,
     _action: PromiseOrValue<BytesLike>,
     _key: PromiseOrValue<BytesLike>,
     _value: PromiseOrValue<BytesLike>,
@@ -1651,6 +1553,11 @@ export interface IVotingReputation extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    multicall(
+      arg0: PromiseOrValue<BytesLike>[],
+      overrides?: CallOverrides
+    ): Promise<string[]>;
+
     uninstall(overrides?: CallOverrides): Promise<void>;
 
     version(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1693,46 +1600,6 @@ export interface IVotingReputation extends BaseContract {
       _domainId: PromiseOrValue<BigNumberish>,
       _childSkillIndex: PromiseOrValue<BigNumberish>,
       _altTarget: PromiseOrValue<string>,
-      _action: PromiseOrValue<BytesLike>,
-      _key: PromiseOrValue<BytesLike>,
-      _value: PromiseOrValue<BytesLike>,
-      _branchMask: PromiseOrValue<BigNumberish>,
-      _siblings: PromiseOrValue<BytesLike>[],
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    /**
-     * Create a motion in the root domain (DEPRECATED)
-     * @param _action A bytes array encoding a function call
-     * @param _altTarget The contract to which we send the action (0x0 for the colony)
-     * @param _branchMask The branchmask of the proof
-     * @param _key Reputation tree key for the root domain
-     * @param _siblings The siblings of the proof
-     * @param _value Reputation tree value for the root domain
-     */
-    createRootMotion(
-      _altTarget: PromiseOrValue<string>,
-      _action: PromiseOrValue<BytesLike>,
-      _key: PromiseOrValue<BytesLike>,
-      _value: PromiseOrValue<BytesLike>,
-      _branchMask: PromiseOrValue<BigNumberish>,
-      _siblings: PromiseOrValue<BytesLike>[],
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    /**
-     * Create a motion in any domain (DEPRECATED)
-     * @param _action A bytes array encoding a function call
-     * @param _branchMask The branchmask of the proof
-     * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
-     * @param _domainId The domain where we vote on the motion
-     * @param _key Reputation tree key for the domain
-     * @param _siblings The siblings of the proof
-     * @param _value Reputation tree value for the domain
-     */
-    createDomainMotion(
-      _domainId: PromiseOrValue<BigNumberish>,
-      _childSkillIndex: PromiseOrValue<BigNumberish>,
       _action: PromiseOrValue<BytesLike>,
       _key: PromiseOrValue<BytesLike>,
       _value: PromiseOrValue<BytesLike>,
@@ -2183,6 +2050,11 @@ export interface IVotingReputation extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
+    multicall(
+      arg0: PromiseOrValue<BytesLike>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     uninstall(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
@@ -2227,46 +2099,6 @@ export interface IVotingReputation extends BaseContract {
       _domainId: PromiseOrValue<BigNumberish>,
       _childSkillIndex: PromiseOrValue<BigNumberish>,
       _altTarget: PromiseOrValue<string>,
-      _action: PromiseOrValue<BytesLike>,
-      _key: PromiseOrValue<BytesLike>,
-      _value: PromiseOrValue<BytesLike>,
-      _branchMask: PromiseOrValue<BigNumberish>,
-      _siblings: PromiseOrValue<BytesLike>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    /**
-     * Create a motion in the root domain (DEPRECATED)
-     * @param _action A bytes array encoding a function call
-     * @param _altTarget The contract to which we send the action (0x0 for the colony)
-     * @param _branchMask The branchmask of the proof
-     * @param _key Reputation tree key for the root domain
-     * @param _siblings The siblings of the proof
-     * @param _value Reputation tree value for the root domain
-     */
-    createRootMotion(
-      _altTarget: PromiseOrValue<string>,
-      _action: PromiseOrValue<BytesLike>,
-      _key: PromiseOrValue<BytesLike>,
-      _value: PromiseOrValue<BytesLike>,
-      _branchMask: PromiseOrValue<BigNumberish>,
-      _siblings: PromiseOrValue<BytesLike>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    /**
-     * Create a motion in any domain (DEPRECATED)
-     * @param _action A bytes array encoding a function call
-     * @param _branchMask The branchmask of the proof
-     * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
-     * @param _domainId The domain where we vote on the motion
-     * @param _key Reputation tree key for the domain
-     * @param _siblings The siblings of the proof
-     * @param _value Reputation tree value for the domain
-     */
-    createDomainMotion(
-      _domainId: PromiseOrValue<BigNumberish>,
-      _childSkillIndex: PromiseOrValue<BigNumberish>,
       _action: PromiseOrValue<BytesLike>,
       _key: PromiseOrValue<BytesLike>,
       _value: PromiseOrValue<BytesLike>,
@@ -2610,6 +2442,11 @@ export interface IVotingReputation extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
+    multicall(
+      arg0: PromiseOrValue<BytesLike>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
     uninstall(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
@@ -2654,46 +2491,6 @@ export interface IVotingReputation extends BaseContract {
       _domainId: PromiseOrValue<BigNumberish>,
       _childSkillIndex: PromiseOrValue<BigNumberish>,
       _altTarget: PromiseOrValue<string>,
-      _action: PromiseOrValue<BytesLike>,
-      _key: PromiseOrValue<BytesLike>,
-      _value: PromiseOrValue<BytesLike>,
-      _branchMask: PromiseOrValue<BigNumberish>,
-      _siblings: PromiseOrValue<BytesLike>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Create a motion in the root domain (DEPRECATED)
-     * @param _action A bytes array encoding a function call
-     * @param _altTarget The contract to which we send the action (0x0 for the colony)
-     * @param _branchMask The branchmask of the proof
-     * @param _key Reputation tree key for the root domain
-     * @param _siblings The siblings of the proof
-     * @param _value Reputation tree value for the root domain
-     */
-    createRootMotion(
-      _altTarget: PromiseOrValue<string>,
-      _action: PromiseOrValue<BytesLike>,
-      _key: PromiseOrValue<BytesLike>,
-      _value: PromiseOrValue<BytesLike>,
-      _branchMask: PromiseOrValue<BigNumberish>,
-      _siblings: PromiseOrValue<BytesLike>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Create a motion in any domain (DEPRECATED)
-     * @param _action A bytes array encoding a function call
-     * @param _branchMask The branchmask of the proof
-     * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
-     * @param _domainId The domain where we vote on the motion
-     * @param _key Reputation tree key for the domain
-     * @param _siblings The siblings of the proof
-     * @param _value Reputation tree value for the domain
-     */
-    createDomainMotion(
-      _domainId: PromiseOrValue<BigNumberish>,
-      _childSkillIndex: PromiseOrValue<BigNumberish>,
       _action: PromiseOrValue<BytesLike>,
       _key: PromiseOrValue<BytesLike>,
       _value: PromiseOrValue<BytesLike>,

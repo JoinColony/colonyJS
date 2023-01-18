@@ -1,10 +1,4 @@
-import {
-  constants,
-  ContractTransaction,
-  BigNumberish,
-  BigNumber,
-  BytesLike,
-} from 'ethers';
+import { ContractTransaction, BigNumberish, BigNumber } from 'ethers';
 
 import {
   AugmentedIColony,
@@ -13,30 +7,15 @@ import {
 } from '../../../Core/augments/commonAugments';
 import { ColonyRole, ClientType, TxOverrides } from '../../../../types';
 import { AnyVotingReputation } from '../../../../contracts/VotingReputation/exports';
-import { parsePermissionedAction } from '../../../../utils';
 import {
   VotingReputationEvents,
   VotingReputationEvents__factory as VotingReputationEventsFactory,
 } from '../../../../contracts';
 import { VotingReputationVersion } from '../exports';
 
-const { MaxUint256 } = constants;
-
 export type AugmentedEstimate<
   T extends AnyVotingReputation = AnyVotingReputation,
 > = T['estimateGas'] & {
-  /**
-   * Same as [[createDomainMotion]], but let colonyJS figure out the permission proofs for you.
-   * Always prefer this method, except when you have good reason not to.
-   * @param _action A bytes array encoding a function call
-   * @param _domainId The domain where we vote on the motion
-   */
-  createDomainMotionWithProofs(
-    _domainId: BigNumberish,
-    _action: BytesLike,
-    overrides?: TxOverrides,
-  ): Promise<BigNumber>;
-
   /**
    * Same as [[stakeMotion]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
@@ -96,18 +75,6 @@ export type AugmentedVotingReputation<
   estimateGas: T['estimateGas'] & AugmentedEstimate;
 
   /**
-   * Same as [[createDomainMotion]], but let colonyJS figure out the permission proofs for you.
-   * Always prefer this method, except when you have good reason not to.
-   * @param _action A bytes array encoding a function call
-   * @param _domainId The domain where we vote on the motion
-   */
-  createDomainMotionWithProofs(
-    _domainId: BigNumberish,
-    _action: BytesLike,
-    overrides?: TxOverrides,
-  ): Promise<ContractTransaction>;
-
-  /**
    * Same as [[stakeMotion]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _amount The amount of tokens being staked
@@ -147,45 +114,6 @@ export type AugmentedVotingReputation<
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
 };
-
-async function createDomainMotionWithProofs(
-  this: AugmentedVotingReputation,
-  _domainId: BigNumberish, // Domain in which the voting will take place in
-  _action: BytesLike,
-  overrides: TxOverrides = {},
-): Promise<ContractTransaction> {
-  let childSkillIdex = MaxUint256;
-  const { permissionDomainId } = parsePermissionedAction(_action);
-  // Domain in which we have permissions
-  if (!permissionDomainId.eq(_domainId)) {
-    const domainSkillIdIndex = await getChildIndex(
-      this.colonyClient,
-      permissionDomainId,
-      _domainId,
-    );
-    if (!domainSkillIdIndex.eq(BigNumber.from(-1))) {
-      childSkillIdex = BigNumber.from(domainSkillIdIndex);
-    } else {
-      throw new Error('Child skill index could not be found');
-    }
-  }
-
-  const { skillId } = await this.colonyClient.getDomain(permissionDomainId);
-  const walletAddress = await this.signer.getAddress();
-  const { key, value, branchMask, siblings } =
-    await this.colonyClient.getReputation(skillId, walletAddress);
-
-  return this.createDomainMotion(
-    _domainId,
-    childSkillIdex,
-    _action,
-    key,
-    value,
-    branchMask,
-    siblings,
-    overrides,
-  );
-}
 
 async function stakeMotionWithProofs(
   this: AugmentedVotingReputation,
@@ -275,44 +203,6 @@ async function claimRewardWithProofs(
     childSkillIndex,
     _staker,
     _vote,
-    overrides,
-  );
-}
-
-async function estimateCreateDomainMotionWithProofs(
-  this: AugmentedVotingReputation,
-  _domainId: BigNumberish, // Domain in which the voting will take place in
-  _action: BytesLike,
-  overrides: TxOverrides = {},
-): Promise<BigNumber> {
-  let childSkillIdex = MaxUint256;
-  const { permissionDomainId } = parsePermissionedAction(_action);
-  if (!permissionDomainId.eq(_domainId)) {
-    const domainSkillIdIndex = await getChildIndex(
-      this.colonyClient,
-      permissionDomainId,
-      _domainId,
-    );
-    if (!domainSkillIdIndex.eq(BigNumber.from(-1))) {
-      childSkillIdex = BigNumber.from(domainSkillIdIndex);
-    } else {
-      throw new Error('Child skill index could not be found');
-    }
-  }
-
-  const { skillId } = await this.colonyClient.getDomain(permissionDomainId);
-  const walletAddress = await this.signer.getAddress();
-  const { key, value, branchMask, siblings } =
-    await this.colonyClient.getReputation(skillId, walletAddress);
-
-  return this.estimateGas.createDomainMotion(
-    _domainId,
-    childSkillIdex,
-    _action,
-    key,
-    value,
-    branchMask,
-    siblings,
     overrides,
   );
 }
@@ -416,15 +306,10 @@ export const addAugments = <T extends AugmentedVotingReputation>(
   instance.clientType = ClientType.VotingReputationClient;
   instance.colonyClient = colonyClient;
 
-  // NOTE: this is deprecated and might be needed to be moved out of here soon
-  instance.createDomainMotionWithProofs =
-    createDomainMotionWithProofs.bind(instance);
   instance.stakeMotionWithProofs = stakeMotionWithProofs.bind(instance);
   instance.escalateMotionWithProofs = escalateMotionWithProofs.bind(instance);
   instance.claimRewardWithProofs = claimRewardWithProofs.bind(instance);
 
-  instance.estimateGas.createDomainMotionWithProofs =
-    estimateCreateDomainMotionWithProofs.bind(instance);
   instance.estimateGas.stakeMotionWithProofs =
     estimateStakeMotionWithProofs.bind(instance);
   instance.estimateGas.escalateMotionWithProofs =

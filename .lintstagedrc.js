@@ -3,6 +3,6 @@ module.exports = {
     `eslint --cache --fix ${filenames.join(' ')}`,
     'tsc -p tsconfig.json --noEmit',
     'typedoc',
-    'git add docs',
+    'git add docs/api',
   ],
 }
