@@ -4,7 +4,7 @@ import {
   getExtensionHash,
   getPermissionProofs,
   Id,
-  OneTxPaymentClientV3,
+  OneTxPaymentClientV4,
 } from '@colony/colony-js';
 
 import {
@@ -16,7 +16,7 @@ import { extractEvent } from '../utils';
 
 import { Colony, SupportedColonyClient } from './Colony';
 
-export type SupportedOneTxPaymentClient = OneTxPaymentClientV3;
+export type SupportedOneTxPaymentClient = OneTxPaymentClientV4;
 
 export const getOneTxPaymentClient = async (
   colonyClient: SupportedColonyClient,
@@ -52,7 +52,7 @@ export const getOneTxPaymentClient = async (
  * Note: if you deployed your Colony using the Dapp, the OneTxPayment extension is already installed for you
  */
 export class OneTxPayment {
-  static supportedVersion: 3[] = [3];
+  static supportedVersions: 4[] = [4];
 
   static extensionType: Extension.OneTxPayment = Extension.OneTxPayment;
 
@@ -65,8 +65,8 @@ export class OneTxPayment {
   version: number;
 
   static getLatestSupportedVersion() {
-    return OneTxPayment.supportedVersion[
-      OneTxPayment.supportedVersion.length - 1
+    return OneTxPayment.supportedVersions[
+      OneTxPayment.supportedVersions.length - 1
     ];
   }
 

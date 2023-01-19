@@ -1,5 +1,5 @@
 import {
-  ColonyClientV10,
+  ColonyClientV11,
   SignerOrProvider,
   Id,
   ColonyRole,
@@ -59,7 +59,7 @@ import {
 } from './VotingReputation';
 import { ERC2612Token } from './ERC2612Token';
 
-export type SupportedColonyClient = ColonyClientV10;
+export type SupportedColonyClient = ColonyClientV11;
 export type SupportedColonyMethods = SupportedColonyClient['functions'];
 
 /** Extensions that are supported by Colony SDK */
@@ -85,7 +85,7 @@ export class Colony {
    * The currently supported Colony version. If a Colony is not on this version it has to be upgraded.
    * If this is not an option, Colony SDK might throw errors at certain points. Usage of ColonyJS is advised in these cases
    */
-  static supportedVersions: 10[] = [10];
+  static supportedVersions: 11[] = [11];
 
   private colonyClient: SupportedColonyClient;
 

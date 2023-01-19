@@ -10,7 +10,7 @@ import {
   getPermissionProofs,
   Id,
   MotionState,
-  VotingReputationClientV7,
+  VotingReputationClientV8,
 } from '@colony/colony-js';
 import type {
   VotingReputationDataTypes,
@@ -32,7 +32,7 @@ import { Colony, SupportedColonyClient } from './Colony';
 
 const { AddressZero } = constants;
 
-export type SupportedVotingReputationClient = VotingReputationClientV7;
+export type SupportedVotingReputationClient = VotingReputationClientV8;
 
 export type Motion = VotingReputationDataTypes.MotionStruct;
 
@@ -152,7 +152,7 @@ const REP_DIVISOR = BigNumber.from(10).pow(18);
  *
  */
 export class VotingReputation {
-  static supportedVersions: 7[] = [7];
+  static supportedVersions: 8[] = [8];
 
   static extensionType: Extension.IVotingReputation =
     Extension.IVotingReputation;
