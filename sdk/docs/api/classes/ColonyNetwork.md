@@ -280,6 +280,74 @@ ___
 
 ___
 
+### getUserAddress
+
+▸ **getUserAddress**(`username`): `Promise`<``null`` \| `string`\>
+
+Get the user's addess by the username
+
+Returns the user's address that belongs to the given username. Username has to be provided without any suffix, just like it's shown in the dapp.
+Will return `null` if the given username was not registered.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `username` | `string` |
+
+#### Returns
+
+`Promise`<``null`` \| `string`\>
+
+The user's address
+
+___
+
+### getUsername
+
+▸ **getUsername**(`address`): `Promise`<``null`` \| `string`\>
+
+Get a user's username
+
+Returns the user's username (the ENS label, just like it's shown in the dapp, without any suffixes)
+Will return `null` if the user does not exist or if no label was assigned yet
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `address` | `string` |
+
+#### Returns
+
+`Promise`<``null`` \| `string`\>
+
+The user's username
+
+___
+
+### registerUsername
+
+▸ **registerUsername**(`username`): [`MetaTxCreator`](MetaTxCreator.md)<`ColonyNetworkClient`, ``"registerUserLabel"``, { `label?`: `string` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+Register a Colony-internal ENS username
+
+Registers a username for the signing address. An address can only register one username. Usernames are globally unique. This method will check whether the username was registered before.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `username` | `string` |
+
+#### Returns
+
+[`MetaTxCreator`](MetaTxCreator.md)<`ColonyNetworkClient`, ``"registerUserLabel"``, { `label?`: `string` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+A transaction creator
+
+___
+
 ### init
 
 ▸ `Static` **init**(`signerOrProvider`, `options?`): `Promise`<[`ColonyNetwork`](ColonyNetwork.md)\>

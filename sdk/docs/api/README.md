@@ -17,6 +17,7 @@
 - [Network](enums/Network.md)
 - [SupportedExtension](enums/SupportedExtension.md)
 - [TeamColor](enums/TeamColor.md)
+- [UserLabelSuffix](enums/UserLabelSuffix.md)
 - [Vote](enums/Vote.md)
 
 ## Classes

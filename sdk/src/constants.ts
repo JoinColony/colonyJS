@@ -59,6 +59,15 @@ export enum ColonyLabelSuffix {
   Custom = '.colony.joincolony.test',
 }
 
+export enum UserLabelSuffix {
+  Mainnet = '.user.joincolony.eth',
+  Goerli = '.user.joincolony.test',
+  Gnosis = '.user.joincolony.colonyxdai',
+  Xdai = '.user.joincolony.colonyxdai',
+  XdaiQa = '.user.joincolony.colonyxdai',
+  Custom = '.user.joincolony.test',
+}
+
 /**
  * Identifies a motion as a decision
  *

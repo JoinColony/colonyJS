@@ -18,6 +18,7 @@ import {
   ColonyAddedEventObject,
   ColonyMetadataEventObject,
   TokenDeployedEventObject,
+  UserLabelRegisteredEventObject,
 } from '@colony/colony-js/extras';
 import { ERC2612Token as ERC2612TokenType } from '@colony/colony-js/tokens';
 import {
@@ -28,7 +29,11 @@ import {
 import { IpfsMetadata, IpfsAdapter } from '../ipfs';
 import { BaseContract, TxConfig, TxCreator, MetaTxCreator } from '../TxCreator';
 import { Colony } from './Colony';
-import { ColonyLabelSuffix, MetaTxBroadCasterEndpoint } from '../constants';
+import {
+  ColonyLabelSuffix,
+  MetaTxBroadCasterEndpoint,
+  UserLabelSuffix,
+} from '../constants';
 import { Expand, Parameters } from '../types';
 import { extractEvent } from '../utils';
 import { EIP2612TxCreator } from '../TxCreator/EIP2612TxCreator';
@@ -363,10 +368,10 @@ export class ColonyNetwork {
     metadata?: ColonyMetadata | string,
   ) {
     const checkLabel = async () => {
-      const existingLabel = await this.getColonyAddress(label);
+      const existingAddress = await this.getColonyAddress(label);
 
-      if (existingLabel) {
-        throw new Error(`Colony label ${label} already exists`);
+      if (existingAddress) {
+        throw new Error(`Colony with label ${label} already exists`);
       }
       return [tokenAddress, Colony.getLatestSupportedVersion(), label] as [
         string,
@@ -480,6 +485,68 @@ export class ColonyNetwork {
       return address;
     }
     return null;
+  }
+
+  /**
+   * Get a user's username
+   *
+   * Returns the user's username (the ENS label, just like it's shown in the dapp, without any suffixes)
+   * Will return `null` if the user does not exist or if no label was assigned yet
+   *
+   * @returns The user's username
+   */
+  async getUsername(address: string) {
+    const ensName = await this.networkClient.lookupRegisteredENSDomain(address);
+    if (ensName) {
+      return ensName.replace(UserLabelSuffix[this.network], '');
+    }
+    return null;
+  }
+
+  /**
+   * Get the user's addess by the username
+   *
+   * Returns the user's address that belongs to the given username. Username has to be provided without any suffix, just like it's shown in the dapp.
+   * Will return `null` if the given username was not registered.
+   *
+   * @returns The user's address
+   */
+  async getUserAddress(username: string) {
+    const hash = namehash(`${username}${UserLabelSuffix[this.network]}`);
+    const address = await this.networkClient.addr(hash);
+    if (address !== AddressZero) {
+      return address;
+    }
+    return null;
+  }
+
+  /**
+   * Register a Colony-internal ENS username
+   *
+   * Registers a username for the signing address. An address can only register one username. Usernames are globally unique. This method will check whether the username was registered before.
+   *
+   * @returns A transaction creator
+   */
+  registerUsername(username: string) {
+    const checkUsername = async () => {
+      const existingAddress = await this.getColonyAddress(username);
+
+      if (existingAddress) {
+        throw new Error(`Username ${username} is already taken`);
+      }
+      return [username, ''] as [string, string];
+    };
+    return this.createMetaTxCreator(
+      this.networkClient,
+      'registerUserLabel',
+      checkUsername,
+      async (receipt) => ({
+        ...extractEvent<UserLabelRegisteredEventObject>(
+          'UserLabelRegistered',
+          receipt,
+        ),
+      }),
+    );
   }
 
   /**
