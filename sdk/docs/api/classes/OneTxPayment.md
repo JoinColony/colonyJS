@@ -55,7 +55,7 @@ ___
 
 ▸ **pay**(`recipient`, `amount`, `teamId?`, `tokenAddress?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`OneTxPaymentClientV4`, ``"makePaymentFundedFromDomain"``, { `agent?`: `string` ; `fundamentalId?`: `BigNumber` ; `nPayouts?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
-Make a payment to a single address using a single token
+Make a payment to a single or multiple addresses using one or more tokens
 
 **`Remarks`**
 
@@ -83,10 +83,10 @@ import { Id, Tokens, w } from '@colony/sdk';
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `recipient` | `string` | Wallet address of account to send the funds to (also awarded reputation when sending the native token) |
-| `amount` | `BigNumberish` | Amount to pay in wei |
+| `recipient` | `string` \| `string`[] | Wallet address of account to send the funds to (also awarded reputation when sending the native token) - can also be an array of addresses to pay |
+| `amount` | `BigNumberish` \| `BigNumberish`[] | Amount to pay in wei - can also be an array of amounts for the different tokens |
 | `teamId?` | `BigNumberish` | The team to use to send the funds from. Has to have funding of at least the amount you need to send. See [Colony.moveFundsToTeam](Colony.md#movefundstoteam). Defaults to the Colony's root team |
-| `tokenAddress?` | `string` | The address of the token to make the payment in. Default is the Colony's native token |
+| `tokenAddress?` | `string` \| `string`[] | The address of the token to make the payment in. Default is the Colony's native token - can also be an array of token addresses (needs to be the same length as `amount`) |
 
 #### Returns
 

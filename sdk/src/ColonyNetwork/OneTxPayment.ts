@@ -78,7 +78,7 @@ export class OneTxPayment {
   }
 
   /**
-   * Make a payment to a single address using a single token
+   * Make a payment to a single or multiple addresses using one or more tokens
    *
    * @remarks Requires the `OneTxPayment` extension to be installed for the Colony (this is usually the case for Colonies created via the Dapp). Note that most tokens use 18 decimals, so add a bunch of zeros or use our `w` or `toWei` functions (see example)
    *
@@ -99,9 +99,9 @@ export class OneTxPayment {
    * })();
    * ```
    *
-   * @param recipient - Wallet address of account to send the funds to (also awarded reputation when sending the native token)
-   * @param amount - Amount to pay in wei
-   * @param tokenAddress - The address of the token to make the payment in. Default is the Colony's native token
+   * @param recipient - Wallet address of account to send the funds to (also awarded reputation when sending the native token) - can also be an array of addresses to pay
+   * @param amount - Amount to pay in wei - can also be an array of amounts for the different tokens
+   * @param tokenAddress - The address of the token to make the payment in. Default is the Colony's native token - can also be an array of token addresses (needs to be the same length as `amount`)
    * @param teamId - The team to use to send the funds from. Has to have funding of at least the amount you need to send. See [[Colony.moveFundsToTeam]]. Defaults to the Colony's root team
    * @returns A transaction creator
    *
@@ -114,15 +114,27 @@ export class OneTxPayment {
    * | `nPayouts` | BigNumber | Number of payouts in total |
    */
   pay(
-    recipient: string,
-    amount: BigNumberish,
+    recipient: string | string[],
+    amount: BigNumberish | BigNumberish[],
     teamId?: BigNumberish,
-    tokenAddress?: string,
+    tokenAddress?: string | string[],
   ) {
-    const setTeamId = teamId || Id.RootDomain;
     const colonyClient = this.colony.getInternalColonyClient();
 
-    const setTokenAddress = tokenAddress || colonyClient.tokenClient.address;
+    const setReceipient = ([] as string[]).concat(recipient);
+    const setTeamId = teamId || Id.RootDomain;
+    const setTokenAddress = tokenAddress
+      ? ([] as string[]).concat(tokenAddress)
+      : [colonyClient.tokenClient.address];
+    const setAmount = ([] as BigNumberish[]).concat(amount);
+
+    if (Array.isArray(setTokenAddress) && Array.isArray(setAmount)) {
+      if (setTokenAddress.length !== setAmount.length) {
+        throw new Error(
+          'amount and tokenAddress arrays need to have the same size',
+        );
+      }
+    }
 
     return this.colony.createColonyTxCreator(
       this.oneTxPaymentClient,
@@ -148,9 +160,9 @@ export class OneTxPayment {
           extChildSkillIndex,
           userPermissionDomainId,
           userChildSkillIndex,
-          [recipient],
-          [setTokenAddress],
-          [amount],
+          setReceipient,
+          setTokenAddress,
+          setAmount,
           setTeamId,
           // Skill associated with this payment. Ignore for now
           Id.SkillIgnore,
