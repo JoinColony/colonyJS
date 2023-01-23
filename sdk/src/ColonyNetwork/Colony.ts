@@ -58,6 +58,7 @@ import {
   VotingReputation,
 } from './VotingReputation';
 import { ERC2612Token } from './ERC2612Token';
+import ColonyGraph from '../graph/ColonyGraph';
 
 export type SupportedColonyClient = ColonyClientV11;
 export type SupportedColonyMethods = SupportedColonyClient['functions'];
@@ -134,6 +135,11 @@ export class Colony {
   ext: SupportedExtensions;
 
   /**
+   * A helper class to retrieve data from the Colony graph database
+   */
+  graph: ColonyGraph;
+
+  /**
    * Contract version
    *
    * Colony contracts are upgradable! Here you'll finde the currently installed version of the contract
@@ -160,6 +166,7 @@ export class Colony {
     this.signerOrProvider = colonyClient.signer || colonyClient.provider;
     this.address = colonyClient.address;
     this.ext = {};
+    this.graph = new ColonyGraph(this);
     switch (colonyClient.tokenClient.tokenClientType) {
       case TokenClientType.Erc20: {
         this.token = new ERC20Token(

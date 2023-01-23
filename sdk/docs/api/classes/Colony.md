@@ -44,6 +44,14 @@ import { w } from '@colony/sdk';
 
 ___
 
+### graph
+
+• **graph**: `default`
+
+A helper class to retrieve data from the Colony graph database
+
+___
+
 ### signerOrProvider
 
 • **signerOrProvider**: `SignerOrProvider`

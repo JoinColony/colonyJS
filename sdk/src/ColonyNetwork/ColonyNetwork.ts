@@ -25,6 +25,9 @@ import {
   ColonyMetadata,
   MetadataType,
 } from '@colony/colony-event-metadata-parser';
+import { Client } from '@urql/core';
+
+import { createSubgraphClient, SubgraphClientOptions } from '../../src/graph';
 
 import { IpfsMetadata, IpfsAdapter } from '../ipfs';
 import { BaseContract, TxConfig, TxCreator, MetaTxCreator } from '../TxCreator';
@@ -50,6 +53,8 @@ export interface ColonyNetworkOptions {
   networkClientOptions?: NetworkClientOptions;
   /** Provide a custom metatransaction broadcaster endpoint */
   metaTxBroadcasterEndpoint?: string;
+  /** Provide custom GraphQL client options */
+  graphOptions?: SubgraphClientOptions;
 }
 
 export interface ColonyNetworkConfig {
@@ -58,6 +63,8 @@ export interface ColonyNetworkConfig {
 
 export class ColonyNetwork {
   config: ColonyNetworkConfig;
+
+  graphClient: Client;
 
   ipfs: IpfsMetadata;
 
@@ -93,6 +100,7 @@ export class ColonyNetwork {
     this.locking = new TokenLocking(this, tokenLockingClient);
     this.networkClient = networkClient;
     this.signerOrProvider = signerOrProvider;
+    this.graphClient = createSubgraphClient();
   }
 
   /**

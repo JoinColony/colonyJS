@@ -4,6 +4,14 @@ Additional options for the [ColonyNetwork](../classes/ColonyNetwork.md)
 
 ## Properties
 
+### graphOptions
+
+• `Optional` **graphOptions**: `SubgraphClientOptions`
+
+Provide custom GraphQL client options
+
+___
+
 ### ipfsAdapter
 
 • `Optional` **ipfsAdapter**: [`IpfsAdapter`](IpfsAdapter.md)

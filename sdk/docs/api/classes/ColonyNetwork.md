@@ -8,6 +8,12 @@
 
 ___
 
+### graphClient
+
+• **graphClient**: `Client`
+
+___
+
 ### ipfs
 
 • **ipfs**: `IpfsMetadata`

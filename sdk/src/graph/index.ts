@@ -87,6 +87,8 @@ export const createSubgraphClient = (options?: SubgraphClientOptions) => {
   });
 };
 
+// TODO: add createSubgraphClientWithSubscription (or something like that) which is basically the above and remove the subscription stuff from the above
+
 /**
  * The `gql` interpolation function
  *
