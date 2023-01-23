@@ -15,6 +15,9 @@ interface Domain extends DomainMetadata {
 export default class ColonyGraph {
   private colony: Colony;
 
+  /**
+   * Do not instantiate manually. Use the `graph` property on a Colony to access this class
+   */
   constructor(colony: Colony) {
     this.colony = colony;
   }

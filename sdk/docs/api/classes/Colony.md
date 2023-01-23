@@ -46,7 +46,7 @@ ___
 
 ### graph
 
-• **graph**: `default`
+• **graph**: [`ColonyGraph`](ColonyGraph.md)
 
 A helper class to retrieve data from the Colony graph database
 

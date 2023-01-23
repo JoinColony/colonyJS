@@ -10,6 +10,7 @@ export type {
 export * from './ColonyNetwork';
 export * from './TxCreator';
 export * from './events';
+export * from './graph';
 export * from './ipfs';
 export * from './constants';
 export * from './utils';

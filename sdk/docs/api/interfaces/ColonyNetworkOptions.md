@@ -6,7 +6,7 @@ Additional options for the [ColonyNetwork](../classes/ColonyNetwork.md)
 
 ### graphOptions
 
-• `Optional` **graphOptions**: `SubgraphClientOptions`
+• `Optional` **graphOptions**: [`SubgraphClientOptions`](SubgraphClientOptions.md)
 
 Provide custom GraphQL client options
 

@@ -19,6 +19,8 @@ export interface SubgraphClientOptions {
   endpointWs?: string;
 }
 
+// TODO: (v2) remove this file from package.json as separate module
+
 /**
  * Creates a Colony Subgraph client
  *
@@ -95,3 +97,5 @@ export const createSubgraphClient = (options?: SubgraphClientOptions) => {
  * This is just the passed-down [`gql`](https://formidable.com/open-source/urql/docs/api/core/#gql) function from `urlq`. This function is used to parse GraphQL queries as strings and create query objects the GraphQL client can process. Please check out it's documentation to get to know more.
  */
 export { gql } from '@urql/core';
+
+export { default as ColonyGraph } from './ColonyGraph';
