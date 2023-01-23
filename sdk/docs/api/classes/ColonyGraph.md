@@ -18,8 +18,16 @@ Do not instantiate manually. Use the `graph` property on a Colony to access this
 
 ### getTeamsWithMetadata
 
-▸ **getTeamsWithMetadata**(): `Promise`<``null`` \| `Domain`[]\>
+▸ **getTeamsWithMetadata**(): `Promise`<``null`` \| [`GraphDomain`](../interfaces/GraphDomain.md)[]\>
+
+Fetch all teams of a Colony including their Metadata
+
+**`Deprecated`**
+
+- will be replaced in v2.0
+
+This queries the Colony graph database for all teams including their metadata. The metadata is fetched from IPFS
 
 #### Returns
 
-`Promise`<``null`` \| `Domain`[]\>
+`Promise`<``null`` \| [`GraphDomain`](../interfaces/GraphDomain.md)[]\>

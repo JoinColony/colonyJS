@@ -53,6 +53,7 @@
 - [Ethers6Filter](interfaces/Ethers6Filter.md)
 - [Ethers6FilterByBlockHash](interfaces/Ethers6FilterByBlockHash.md)
 - [EventSources](interfaces/EventSources.md)
+- [GraphDomain](interfaces/GraphDomain.md)
 - [IpfsAdapter](interfaces/IpfsAdapter.md)
 - [MetaTxBaseContract](interfaces/MetaTxBaseContract.md)
 - [NetworkClientOptions](interfaces/NetworkClientOptions.md)

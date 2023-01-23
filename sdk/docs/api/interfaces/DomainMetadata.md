@@ -1,5 +1,11 @@
 # Interface: DomainMetadata
 
+## Hierarchy
+
+- **`DomainMetadata`**
+
+  ↳ [`GraphDomain`](GraphDomain.md)
+
 ## Properties
 
 ### domainColor

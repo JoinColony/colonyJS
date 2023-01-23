@@ -6,7 +6,7 @@ import { gql } from '@urql/core';
 
 import { Colony } from '../ColonyNetwork';
 
-interface Domain extends DomainMetadata {
+export interface GraphDomain extends DomainMetadata {
   id: number;
   name: string;
   metadata: string;
@@ -22,7 +22,7 @@ export default class ColonyGraph {
     this.colony = colony;
   }
 
-  /*
+  /**
    * Fetch all teams of a Colony including their Metadata
    *
    * @deprecated - will be replaced in v2.0
@@ -44,21 +44,23 @@ export default class ColonyGraph {
       .query(query, { colonyAddress })
       .toPromise();
     if (result && result.data) {
-      const metadataPromises = result.data.domains.map((domain: Domain) => {
-        if (!domain.metadata) {
-          return Promise.resolve({});
-        }
-        return this.colony.colonyNetwork.ipfs.getMetadata(
-          MetadataType.Domain,
-          domain.metadata,
-        );
-      });
+      const metadataPromises = result.data.domains.map(
+        (domain: GraphDomain) => {
+          if (!domain.metadata) {
+            return Promise.resolve({});
+          }
+          return this.colony.colonyNetwork.ipfs.getMetadata(
+            MetadataType.Domain,
+            domain.metadata,
+          );
+        },
+      );
       const metadata = await Promise.all(metadataPromises);
-      return result.data.domains.map((domain: Domain, idx: number) => ({
+      return result.data.domains.map((domain: GraphDomain, idx: number) => ({
         ...domain,
         ...metadata[idx],
         id: parseInt(domain.id as unknown as string, 10),
-      })) as Domain[];
+      })) as GraphDomain[];
     }
 
     return null;

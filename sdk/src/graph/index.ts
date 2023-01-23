@@ -98,4 +98,4 @@ export const createSubgraphClient = (options?: SubgraphClientOptions) => {
  */
 export { gql } from '@urql/core';
 
-export { default as ColonyGraph } from './ColonyGraph';
+export { default as ColonyGraph, GraphDomain } from './ColonyGraph';
