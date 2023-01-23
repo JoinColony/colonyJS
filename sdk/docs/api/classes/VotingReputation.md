@@ -276,6 +276,36 @@ A transaction creator
 
 ___
 
+### escalateMotion
+
+▸ **escalateMotion**(`motionId`, `newTeamId`): [`MetaTxCreator`](MetaTxCreator.md)<`VotingReputationClientV8`, ``"escalateMotion"``, { `domainId?`: `BigNumber` ; `escalator?`: `string` ; `motionId?`: `BigNumber` ; `newDomainId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+Escalate a motion to a parent team
+
+If all votes for a motion have been revealed but a user is not happy with the outcome, it can be escalated to a parent team (including grandparents, great-grandparents, etc.) as long as the escalation period has not passed yet.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `motionId` | `BigNumberish` | The motionId of the motion to be escalated |
+| `newTeamId` | `BigNumberish` | The id of the team the motion should be escalated to |
+
+#### Returns
+
+[`MetaTxCreator`](MetaTxCreator.md)<`VotingReputationClientV8`, ``"escalateMotion"``, { `domainId?`: `BigNumber` ; `escalator?`: `string` ; `motionId?`: `BigNumber` ; `newDomainId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+A transaction creator
+
+#### Event data
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `motionId` | BigNumber | ID of the motion to be escalated |
+| `newTeamId` | string | The ID of the team the motion should be escalated to (has to be a direct parent of the previous team) |
+
+___
+
 ### finalizeMotion
 
 ▸ **finalizeMotion**(`motionId`): [`MetaTxCreator`](MetaTxCreator.md)<`VotingReputationClientV8`, ``"finalizeMotion"``, { `action?`: `string` ; `executed?`: `boolean` ; `motionId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
@@ -458,7 +488,7 @@ A transaction creator
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
-| `motionId` | BigNumber | ID of the motion created |
+| `motionId` | BigNumber | ID of the motion to be revealed |
 | `voter` | string | The address of the user who voted |
 | `vote` | BigNumber | The vote that was cast (0 = Nay, 1 = Yay) |
 
@@ -512,7 +542,7 @@ A transaction creator
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
-| `motionId` | BigNumber | ID of the motion created |
+| `motionId` | BigNumber | ID of the motion to stake for |
 | `staker` | string | The address that staked the tokens |
 | `vote` | Vote | The vote that was staked for (Yay or Nay). See [Vote](../enums/Vote.md) |
 | `amount` | BigNumber | The amount that was staked for that vote |
@@ -547,7 +577,7 @@ A transaction creator
 
 | Property | Type | Description |
 | :------ | :------ | :------ |
-| `motionId` | BigNumber | ID of the motion created |
+| `motionId` | BigNumber | ID of the motion to submit a vote for |
 | `voter` | string | The address of the user who voted |
 
 ___

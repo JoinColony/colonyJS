@@ -5,6 +5,7 @@ import {
 import {
   ColonyRole,
   Extension,
+  getChildIndex,
   getCreateMotionProofs,
   getExtensionHash,
   getPermissionProofs,
@@ -23,6 +24,7 @@ import type {
   MotionCreatedEventObject,
   ExtensionUpgradedEventObject,
   AnnotationEventObject,
+  MotionEscalatedEventObject,
 } from '@colony/colony-js/extras';
 import { constants, BigNumber, BigNumberish, Signer, utils } from 'ethers';
 import { DecisionMotionCode } from '../constants';
@@ -621,7 +623,7 @@ export class VotingReputation {
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
-   * | `motionId` | BigNumber | ID of the motion created |
+   * | `motionId` | BigNumber | ID of the motion to stake for |
    * | `staker` | string | The address that staked the tokens |
    * | `vote` | Vote | The vote that was staked for (Yay or Nay). See [[Vote]] |
    * | `amount` | BigNumber | The amount that was staked for that vote |
@@ -757,7 +759,7 @@ export class VotingReputation {
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
-   * | `motionId` | BigNumber | ID of the motion created |
+   * | `motionId` | BigNumber | ID of the motion to submit a vote for |
    * | `voter` | string | The address of the user who voted |
    */
   submitVote(motionId: BigNumberish, vote: Vote) {
@@ -822,7 +824,7 @@ export class VotingReputation {
    *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
-   * | `motionId` | BigNumber | ID of the motion created |
+   * | `motionId` | BigNumber | ID of the motion to be revealed |
    * | `voter` | string | The address of the user who voted |
    * | `vote` | BigNumber | The vote that was cast (0 = Nay, 1 = Yay) |
    */
@@ -881,6 +883,66 @@ export class VotingReputation {
           'MotionVoteRevealed',
           receipt,
         ),
+      }),
+    );
+  }
+
+  /**
+   * Escalate a motion to a parent team
+   *
+   * If all votes for a motion have been revealed but a user is not happy with the outcome, it can be escalated to a parent team (including grandparents, great-grandparents, etc.) as long as the escalation period has not passed yet.
+   *
+   * @param motionId - The motionId of the motion to be escalated
+   * @param newTeamId - The id of the team the motion should be escalated to
+   *
+   * @returns A transaction creator
+   *
+   * #### Event data
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `motionId` | BigNumber | ID of the motion to be escalated |
+   * | `newTeamId` | string | The ID of the team the motion should be escalated to (has to be a direct parent of the previous team) |
+   */
+  escalateMotion(motionId: BigNumberish, newTeamId: BigNumberish) {
+    const getArgs = async () => {
+      const motionState = await this.votingReputationClient.getMotionState(
+        motionId,
+      );
+
+      if (motionState !== MotionState.Closed) {
+        throw new Error(
+          `Motion cannot be escalated at this time. It's currently in "${MotionState[motionState]}" state`,
+        );
+      }
+
+      const colonyClient = this.colony.getInternalColonyClient();
+      const { domainId, rootHash } = await this.getMotion(motionId);
+      const { skillId } = await colonyClient.getDomain(newTeamId);
+      const userAddress = await colonyClient.signer.getAddress();
+
+      const childIndex = await getChildIndex(colonyClient, newTeamId, domainId);
+
+      const { key, value, branchMask, siblings } =
+        await colonyClient.getReputation(skillId, userAddress, rootHash);
+
+      return [
+        motionId,
+        newTeamId,
+        childIndex,
+        key,
+        value,
+        branchMask,
+        siblings,
+      ] as [BigNumber, string, BigNumber, string, string, string, string[]];
+    };
+
+    return this.colony.colonyNetwork.createMetaTxCreator(
+      this.votingReputationClient,
+      'escalateMotion',
+      getArgs,
+      async (receipt) => ({
+        ...extractEvent<MotionEscalatedEventObject>('MotionEscalated', receipt),
       }),
     );
   }
