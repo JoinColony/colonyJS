@@ -14,10 +14,11 @@ import {
   IColonyNetwork__factory as IColonyNetworkFactory,
 } from '../contracts';
 import { getColonyClient } from './Core/exports';
-import getTokenLockingClient, {
+import {
+  getTokenLockingClient,
   TokenLockingClient,
-} from './TokenLockingClient';
-import { ColonyTokenFactory } from '../tokens';
+  ColonyTokenFactory,
+} from '../tokens';
 
 type NetworkEstimate = IColonyNetwork['estimateGas'];
 

@@ -18,3 +18,7 @@ export type { MetaTxToken } from "./latest/MetaTxToken";
 export { MetaTxToken__factory } from "./factories/latest/MetaTxToken__factory";
 export type { Token } from "./latest/Token";
 export { Token__factory } from "./factories/latest/Token__factory";
+export type { TokenAuthority } from "./latest/TokenAuthority";
+export { TokenAuthority__factory } from "./factories/latest/TokenAuthority__factory";
+export type { TokenLocking } from "./latest/TokenLocking";
+export { TokenLocking__factory } from "./factories/latest/TokenLocking__factory";

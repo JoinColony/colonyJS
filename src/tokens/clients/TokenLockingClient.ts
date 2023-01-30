@@ -1,4 +1,5 @@
-import { ClientType, SignerOrProvider } from '../types';
+import type { SignerOrProvider } from '../../types';
+import { ClientType } from '../../constants';
 
 import {
   TokenLocking,

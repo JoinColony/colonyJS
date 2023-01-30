@@ -3,3 +3,5 @@
 /* eslint-disable */
 export type { MetaTxToken } from "./MetaTxToken";
 export type { Token } from "./Token";
+export type { TokenAuthority } from "./TokenAuthority";
+export type { TokenLocking } from "./TokenLocking";

@@ -2,7 +2,7 @@ import { createContractVersionArray } from '../../utils';
 
 import { ColonyNetworkClient } from '../ColonyNetworkClient';
 import getColonyVersionClient from './ColonyVersionClient';
-import getTokenClient from '../TokenClient';
+import { getTokenClient } from '../../tokens';
 
 import getColonyClientV1, { ColonyClientV1 } from './ColonyClientV1';
 import getColonyClientV2, { ColonyClientV2 } from './ColonyClientV2';

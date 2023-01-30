@@ -1,5 +1,5 @@
 export { default as getColonyNetworkClient } from './clients/ColonyNetworkClient';
-export { default as getTokenClient } from './clients/TokenClient';
+export { default as getTokenClient } from './tokens/clients/TokenClient';
 
 export { formatColonyRoles } from './utils';
 
@@ -16,7 +16,7 @@ export type {
   NetworkClientOptions,
 } from './clients/ColonyNetworkClient';
 
-export type { TokenLockingClient } from './clients/TokenLockingClient';
+export type { TokenLockingClient } from './tokens/clients/TokenLockingClient';
 
 export type {
   TokenClient,
@@ -24,6 +24,6 @@ export type {
   Erc20TokenClient,
   Erc2612TokenClient,
   DaiTokenClient,
-} from './clients/TokenClient';
+} from './tokens/clients/TokenClient';
 
 export { IBasicMetaTransaction } from './contracts';
