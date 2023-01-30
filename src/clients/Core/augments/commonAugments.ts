@@ -6,17 +6,17 @@ import {
   constants,
 } from 'ethers';
 
-import { Id } from '../../../constants';
-import { ColonyVersion } from '../exports';
-import { AnyIColony } from '../../../contracts/IColony/exports';
-import { fetchReputationOracleData } from '../../../utils';
 import {
+  Id,
   ClientType,
   ColonyRole,
   FundingPotAssociatedType,
   ReputationMinerEndpoints,
-  TxOverrides,
-} from '../../../types';
+} from '../../../constants';
+import { ColonyVersion } from '../exports';
+import { AnyIColony } from '../../../contracts/IColony/exports';
+import { fetchReputationOracleData } from '../../../utils';
+import { TxOverrides } from '../../../types';
 
 import {
   Extension,

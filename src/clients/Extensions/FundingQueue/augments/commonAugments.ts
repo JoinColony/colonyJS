@@ -2,7 +2,7 @@ import { AugmentedIColony } from '../../../Core/augments/commonAugments';
 
 import { FundingQueueVersion } from '../exports';
 import { AnyFundingQueue } from '../../../../contracts/FundingQueue/exports';
-import { ClientType } from '../../../../types';
+import { ClientType } from '../../../../constants';
 import {
   FundingQueueEvents,
   FundingQueueEvents__factory as FundingQueueEventsFactory,

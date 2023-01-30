@@ -6,7 +6,8 @@ import {
 } from '../../../Core/augments/commonAugments';
 import { EvaluatedExpenditureVersion } from '../exports';
 import { AnyEvaluatedExpenditure } from '../../../../contracts/EvaluatedExpenditure/exports';
-import { ClientType, ColonyRole, TxOverrides } from '../../../../types';
+import { ClientType, ColonyRole } from '../../../../constants';
+import { TxOverrides } from '../../../../types';
 import {
   EvaluatedExpenditureEvents,
   EvaluatedExpenditureEvents__factory as EvaluatedExpenditureEventsFactory,

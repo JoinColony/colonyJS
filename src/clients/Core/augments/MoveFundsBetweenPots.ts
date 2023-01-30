@@ -1,6 +1,5 @@
 import { BigNumber, BigNumberish, ContractTransaction } from 'ethers';
 
-import { Id } from '../../../constants';
 import {
   IColonyV1,
   IColonyV2,
@@ -13,7 +12,8 @@ import {
   IColonyV9,
   IColonyV10,
 } from '../../../contracts/IColony/exports';
-import { ColonyRole, TxOverrides } from '../../../types';
+import { ColonyRole, Id } from '../../../constants';
+import { TxOverrides } from '../../../types';
 import {
   AugmentedIColony,
   getChildIndex,

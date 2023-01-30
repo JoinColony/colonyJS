@@ -12,7 +12,8 @@ import {
 } from '../../../Core/augments/commonAugments';
 import { StreamingPaymentsVersion } from '../exports';
 import { AnyStreamingPayments } from '../../../../contracts/StreamingPayments/exports';
-import { ClientType, ColonyRole, TxOverrides } from '../../../../types';
+import { ClientType, ColonyRole } from '../../../../constants';
+import { TxOverrides } from '../../../../types';
 import {
   StreamingPaymentsEvents,
   StreamingPaymentsEvents__factory as StreamingPaymentsEventsFactory,

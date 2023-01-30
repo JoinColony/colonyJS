@@ -1,9 +1,14 @@
 import { ContractTransaction, BigNumber, Overrides } from 'ethers';
 
-import { ClientType, Network, SignerOrProvider } from '../types';
+import {
+  ClientType,
+  ColonyNetworkAddress,
+  Network,
+  ReputationOracleEndpoint,
+} from '../constants';
+import { SignerOrProvider } from '../types';
 import { AnyColonyClient } from '../clients/Core/exports';
 
-import { ColonyNetworkAddress, ReputationOracleEndpoint } from '../constants';
 import {
   IColonyNetwork,
   IColonyNetwork__factory as IColonyNetworkFactory,

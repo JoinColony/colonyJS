@@ -13,7 +13,8 @@ import {
   IColonyV10,
 } from '../../../contracts/IColony/exports';
 
-import { ColonyRole, TxOverrides } from '../../../types';
+import { ColonyRole } from '../../../constants';
+import { TxOverrides } from '../../../types';
 import { AugmentedIColony, getPermissionProofs } from './commonAugments';
 
 // Colonies that support the early (not-overloaded) method

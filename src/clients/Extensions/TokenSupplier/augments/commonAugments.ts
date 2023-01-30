@@ -2,7 +2,7 @@ import { AugmentedIColony } from '../../../Core/augments/commonAugments';
 
 import { TokenSupplierVersion } from '../exports';
 import { AnyTokenSupplier } from '../../../../contracts/TokenSupplier/exports';
-import { ClientType } from '../../../../types';
+import { ClientType } from '../../../../constants';
 import {
   TokenSupplierEvents,
   TokenSupplierEvents__factory as TokenSupplierEventsFactory,

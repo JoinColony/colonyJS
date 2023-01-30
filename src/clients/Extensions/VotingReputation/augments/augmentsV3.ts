@@ -1,6 +1,7 @@
 import { ContractTransaction, BigNumber, BigNumberish } from 'ethers';
 
-import { ColonyRole, TxOverrides } from '../../../../types';
+import { ColonyRole } from '../../../../constants';
+import { TxOverrides } from '../../../../types';
 import { VotingReputationV7 } from '../../../../contracts/VotingReputation/exports';
 import {
   AugmentedIColony,

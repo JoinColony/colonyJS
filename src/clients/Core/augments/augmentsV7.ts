@@ -1,6 +1,7 @@
 import { ContractTransaction, BigNumber, BigNumberish } from 'ethers';
 
-import { ColonyRole, TxOverrides } from '../../../types';
+import { ColonyRole } from '../../../constants';
+import { TxOverrides } from '../../../types';
 import { IColonyV10 } from '../../../contracts/IColony/exports';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import { AugmentedIColony, getPermissionProofs } from './commonAugments';

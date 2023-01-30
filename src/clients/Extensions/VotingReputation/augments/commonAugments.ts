@@ -5,7 +5,8 @@ import {
   getPermissionProofs,
   getChildIndex,
 } from '../../../Core/augments/commonAugments';
-import { ColonyRole, ClientType, TxOverrides } from '../../../../types';
+import { ColonyRole, ClientType } from '../../../../constants';
+import { TxOverrides } from '../../../../types';
 import { AnyVotingReputation } from '../../../../contracts/VotingReputation/exports';
 import {
   VotingReputationEvents,

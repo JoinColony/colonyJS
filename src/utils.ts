@@ -2,8 +2,8 @@ import fetch from 'cross-fetch';
 import { utils, BigNumber, BigNumberish, BytesLike } from 'ethers';
 import type { LogDescription, Result } from '@ethersproject/abi';
 
-import { Id } from './constants';
-import { ReputationMinerEndpoints, ColonyRole, ColonyRoles } from './types';
+import { ColonyRole, Id, ReputationMinerEndpoints } from './constants';
+import { ColonyRoles } from './types';
 import { ColonyNetworkClient } from './clients/ColonyNetworkClient';
 
 const { isAddress } = utils;

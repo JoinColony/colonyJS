@@ -4,7 +4,8 @@ import type { Filter, Log, Provider } from '@ethersproject/abstract-provider';
 import type { LogDescription } from '@ethersproject/abi';
 
 import { AnyColonyClient } from './clients/Core/exports';
-import { ContractClient, ColonyRole, ColonyRoles } from './types';
+import { ColonyRole } from './constants';
+import { ContractClient, ColonyRoles } from './types';
 import { formatColonyRoles } from './utils';
 
 import {
