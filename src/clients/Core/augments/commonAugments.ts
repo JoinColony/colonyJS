@@ -24,7 +24,7 @@ import {
   GetExtensionClientReturns,
 } from '../../Extensions/exports';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
-import { TokenClient } from '../../TokenClient';
+import { TokenClient } from '../../../tokens';
 
 import {
   IColonyEvents,

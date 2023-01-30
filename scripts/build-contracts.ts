@@ -122,8 +122,6 @@ const UNVERSIONED_CONTRACTS = [
   'ColonyExtension',
   'IBasicMetaTransaction',
   'MotionTarget',
-  'TokenAuthority',
-  'TokenLocking',
 ];
 
 // Names of Token contracts used
@@ -141,6 +139,10 @@ const TOKEN_CONTRACTS = [
   'TokenERC721',
   // Special ABI for SAI (not strictly ERC20?)
   'TokenSAI',
+  // Token Authoriy contract
+  'TokenAuthority',
+  // Token Locking contract
+  'TokenLocking',
 ];
 
 const FIXED_DIR = resolvePath(__dirname, '../src/abis/__fixed__');

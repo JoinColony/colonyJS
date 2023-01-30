@@ -1,10 +1,6 @@
 import { constants, utils, BigNumber, ContractTransaction } from 'ethers';
-import {
-  TxOverrides,
-  ClientType,
-  SignerOrProvider,
-  TokenClientType,
-} from '../types';
+import type { TxOverrides, SignerOrProvider } from '../../types';
+import { ClientType, TokenClientType } from '../../constants';
 
 import {
   MetaTxToken__factory as MetaTxTokenFactory,
@@ -17,7 +13,7 @@ import {
   TokenERC2612,
   TokenSAI__factory as TokenSAIFactory,
   TokenSAI,
-} from '../tokens';
+} from '..';
 import { TokenAuthority__factory as TokenAuthorityFactory } from '../contracts';
 
 const { getAddress, isHexString, parseBytes32String } = utils;

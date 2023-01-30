@@ -4,5 +4,3 @@
 export { ColonyExtension__factory } from "./ColonyExtension__factory";
 export { IBasicMetaTransaction__factory } from "./IBasicMetaTransaction__factory";
 export { IColonyNetwork__factory } from "./IColonyNetwork__factory";
-export { TokenAuthority__factory } from "./TokenAuthority__factory";
-export { TokenLocking__factory } from "./TokenLocking__factory";

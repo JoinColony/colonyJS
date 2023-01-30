@@ -3,3 +3,5 @@
 /* eslint-disable */
 export { MetaTxToken__factory } from "./MetaTxToken__factory";
 export { Token__factory } from "./Token__factory";
+export { TokenAuthority__factory } from "./TokenAuthority__factory";
+export { TokenLocking__factory } from "./TokenLocking__factory";

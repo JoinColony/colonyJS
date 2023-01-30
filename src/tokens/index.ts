@@ -29,3 +29,9 @@ export { TokenERC2612__factory as ERC2612TokenFactory } from './contracts';
 export type { TokenERC2612 as ERC2612Token } from './contracts';
 
 export * from './contracts';
+
+export { default as getTokenClient, TokenClient } from './clients/TokenClient';
+export {
+  default as getTokenLockingClient,
+  TokenLockingClient,
+} from './clients/TokenLockingClient';
