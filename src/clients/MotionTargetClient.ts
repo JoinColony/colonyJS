@@ -1,6 +1,7 @@
 import { BigNumber, BytesLike, CallOverrides, utils } from 'ethers';
 
-import { ClientType, ColonyRole, SignerOrProvider } from '../types';
+import { SignerOrProvider } from '../types';
+import { ClientType, ColonyRole } from '../constants';
 
 import {
   MotionTarget,

@@ -3,7 +3,7 @@ import { readFileSync } from 'fs';
 import { Wallet, providers } from 'ethers';
 import execa, { ExecaChildProcess } from 'execa';
 
-import { Network } from '../types';
+import { Network } from '../constants';
 import getColonyNetworkClient from '../clients/ColonyNetworkClient';
 
 const NETWORK_PATH = resolvePath(__dirname, '../../vendor/colonyNetwork');

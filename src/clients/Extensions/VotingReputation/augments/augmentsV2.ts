@@ -6,7 +6,8 @@ import {
   constants,
 } from 'ethers';
 
-import { ColonyRole, TxOverrides } from '../../../../types';
+import { ColonyRole, Id } from '../../../../constants';
+import { TxOverrides } from '../../../../types';
 import { getMotionTargetClient } from '../../../Core/exports';
 import {
   VotingReputationV2,
@@ -23,7 +24,6 @@ import {
   addAugments as addCommonAugments,
   AugmentedVotingReputation,
 } from './commonAugments';
-import { Id } from '../../../../constants';
 import { parsePermissionedAction } from '../../../../utils';
 import { AnyVotingReputationClient } from '../exports';
 

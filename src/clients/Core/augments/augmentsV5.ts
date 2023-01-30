@@ -5,8 +5,8 @@ import {
   BytesLike,
 } from 'ethers';
 
-import { Id } from '../../../constants';
-import { ColonyRole, TxOverrides } from '../../../types';
+import { ColonyRole, Id } from '../../../constants';
+import { TxOverrides } from '../../../types';
 import {
   IColonyV5,
   IColonyV6,

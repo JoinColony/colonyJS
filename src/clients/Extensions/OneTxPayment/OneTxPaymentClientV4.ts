@@ -1,4 +1,4 @@
-import { ClientType } from '../../../types';
+import { ClientType } from '../../../constants';
 import { OneTxPayment__factory as OneTxPaymentFactory } from '../../../contracts/OneTxPayment/4/factories/OneTxPayment__factory';
 import { OneTxPayment } from '../../../contracts/OneTxPayment/4/OneTxPayment';
 import {

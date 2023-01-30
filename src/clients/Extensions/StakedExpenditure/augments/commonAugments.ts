@@ -11,7 +11,8 @@ import {
 } from '../../../Core/augments/commonAugments';
 import { StakedExpenditureVersion } from '../exports';
 import { AnyStakedExpenditure } from '../../../../contracts/StakedExpenditure/exports';
-import { ClientType, ColonyRole, TxOverrides } from '../../../../types';
+import { ClientType, ColonyRole } from '../../../../constants';
+import { TxOverrides } from '../../../../types';
 import {
   StakedExpenditureEvents,
   StakedExpenditureEvents__factory as StakedExpenditureEventsFactory,

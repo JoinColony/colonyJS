@@ -2,7 +2,7 @@ import { AugmentedIColony } from '../../../Core/augments/commonAugments';
 
 import { CoinMachineVersion } from '../exports';
 import { AnyCoinMachine } from '../../../../contracts/CoinMachine/exports';
-import { ClientType } from '../../../../types';
+import { ClientType } from '../../../../constants';
 import {
   CoinMachineEvents,
   CoinMachineEvents__factory as CoinMachineEventsFactory,
