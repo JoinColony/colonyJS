@@ -1,12 +1,12 @@
-# Interface: ColonyTokenClient
+# Interface: LegacyColonyTokenClient
 
-A ColonyToken has special abilities that go beyond the capabilities of an ERC20 token
+The "old", legacy Colony token without Metatransactions token
 
 ## Hierarchy
 
-- [`ColonyToken`](ColonyToken.md)
+- [`Token`](latest.Token.md)
 
-  ↳ **`ColonyTokenClient`**
+  ↳ **`LegacyColonyTokenClient`**
 
 ## Properties
 
@@ -16,7 +16,7 @@ A ColonyToken has special abilities that go beyond the capabilities of an ERC20 
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[_deployedPromise](ColonyToken.md#_deployedpromise)
+[Token](latest.Token.md).[_deployedPromise](latest.Token.md#_deployedpromise)
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[_runningEvents](ColonyToken.md#_runningevents)
+[Token](latest.Token.md).[_runningEvents](latest.Token.md#_runningevents)
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[_wrappedEmits](ColonyToken.md#_wrappedemits)
+[Token](latest.Token.md).[_wrappedEmits](latest.Token.md#_wrappedemits)
 
 ___
 
@@ -54,7 +54,7 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[address](ColonyToken.md#address)
+[Token](latest.Token.md).[address](latest.Token.md#address)
 
 ___
 
@@ -66,8 +66,6 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `DOMAIN_SEPARATOR` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `PERMIT_TYPEHASH` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `allowance` | (`src`: `PromiseOrValue`<`string`\>, `guy`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `approve` | (`guy`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 | `authority` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
@@ -75,15 +73,11 @@ ___
 | `burn(address,uint256)` | (`guy`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `burn(uint256)` | (`wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `decimals` | (`overrides?`: `CallOverrides`) => `Promise`<`number`\> |
-| `executeMetaTransaction` | (`_user`: `PromiseOrValue`<`string`\>, `_payload`: `PromiseOrValue`<`BytesLike`\>, `_sigR`: `PromiseOrValue`<`BytesLike`\>, `_sigS`: `PromiseOrValue`<`BytesLike`\>, `_sigV`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `getChainId` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getMetatransactionNonce` | (`_user`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `locked` | (`overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 | `mint(address,uint256)` | (`guy`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `mint(uint256)` | (`wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `name` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `permit` | (`owner`: `PromiseOrValue`<`string`\>, `spender`: `PromiseOrValue`<`string`\>, `value`: `PromiseOrValue`<`BigNumberish`\>, `deadline`: `PromiseOrValue`<`BigNumberish`\>, `v`: `PromiseOrValue`<`BigNumberish`\>, `r`: `PromiseOrValue`<`BytesLike`\>, `s`: `PromiseOrValue`<`BytesLike`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `setAuthority` | (`authority_`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `setOwner` | (`owner_`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `symbol` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
@@ -91,11 +85,10 @@ ___
 | `transfer` | (`dst`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 | `transferFrom` | (`src`: `PromiseOrValue`<`string`\>, `dst`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 | `unlock` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `verify` | (`_owner`: `PromiseOrValue`<`string`\>, `_nonce`: `PromiseOrValue`<`BigNumberish`\>, `_chainId`: `PromiseOrValue`<`BigNumberish`\>, `_payload`: `PromiseOrValue`<`BytesLike`\>, `_sigR`: `PromiseOrValue`<`BytesLike`\>, `_sigS`: `PromiseOrValue`<`BytesLike`\>, `_sigV`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[callStatic](ColonyToken.md#callstatic)
+[Token](latest.Token.md).[callStatic](latest.Token.md#callstatic)
 
 ___
 
@@ -111,17 +104,41 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[deployTransaction](ColonyToken.md#deploytransaction)
+[Token](latest.Token.md).[deployTransaction](latest.Token.md#deploytransaction)
 
 ___
 
 ### estimateGas
 
-• **estimateGas**: { `DOMAIN_SEPARATOR`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `PERMIT_TYPEHASH`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `allowance`: (`src`: `PromiseOrValue`<`string`\>, `guy`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `approve`: (`guy`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> ; `authority`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `balanceOf`: (`src`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `burn(address,uint256)`: (`guy`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> ; `burn(uint256)`: (`wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> ; `decimals`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `executeMetaTransaction`: (`_user`: `PromiseOrValue`<`string`\>, `_payload`: `PromiseOrValue`<`BytesLike`\>, `_sigR`: `PromiseOrValue`<`BytesLike`\>, `_sigS`: `PromiseOrValue`<`BytesLike`\>, `_sigV`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `PayableOverrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> ; `getChainId`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getMetatransactionNonce`: (`_user`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `locked`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `mint(address,uint256)`: (`guy`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> ; `mint(uint256)`: (`wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> ; `name`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `owner`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `permit`: (`owner`: `PromiseOrValue`<`string`\>, `spender`: `PromiseOrValue`<`string`\>, `value`: `PromiseOrValue`<`BigNumberish`\>, `deadline`: `PromiseOrValue`<`BigNumberish`\>, `v`: `PromiseOrValue`<`BigNumberish`\>, `r`: `PromiseOrValue`<`BytesLike`\>, `s`: `PromiseOrValue`<`BytesLike`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> ; `setAuthority`: (`authority_`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> ; `setOwner`: (`owner_`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> ; `symbol`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `totalSupply`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `transfer`: (`dst`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> ; `transferFrom`: (`src`: `PromiseOrValue`<`string`\>, `dst`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> ; `unlock`: (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> ; `verify`: (`_owner`: `PromiseOrValue`<`string`\>, `_nonce`: `PromiseOrValue`<`BigNumberish`\>, `_chainId`: `PromiseOrValue`<`BigNumberish`\>, `_payload`: `PromiseOrValue`<`BytesLike`\>, `_sigR`: `PromiseOrValue`<`BytesLike`\>, `_sigS`: `PromiseOrValue`<`BytesLike`\>, `_sigV`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\>  } & { `deployTokenAuthority`: (`colonyAddress`: `string`, `allowedToTransfer`: `string`[], `overrides?`: `TxOverrides`) => `Promise`<`BigNumber`\>  }
+• **estimateGas**: `Object`
 
-#### Overrides
+#### Type declaration
 
-[ColonyToken](ColonyToken.md).[estimateGas](ColonyToken.md#estimategas)
+| Name | Type |
+| :------ | :------ |
+| `allowance` | (`src`: `PromiseOrValue`<`string`\>, `guy`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `approve` | (`guy`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
+| `authority` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `balanceOf` | (`src`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `burn(address,uint256)` | (`guy`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
+| `burn(uint256)` | (`wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
+| `decimals` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `locked` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `mint(address,uint256)` | (`guy`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
+| `mint(uint256)` | (`wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
+| `name` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `setAuthority` | (`authority_`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
+| `setOwner` | (`owner_`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
+| `symbol` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `totalSupply` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `transfer` | (`dst`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
+| `transferFrom` | (`src`: `PromiseOrValue`<`string`\>, `dst`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
+| `unlock` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
+
+#### Inherited from
+
+[Token](latest.Token.md).[estimateGas](latest.Token.md#estimategas)
 
 ___
 
@@ -141,8 +158,6 @@ ___
 | `LogSetAuthority(address)` | (`authority?`: ``null`` \| `PromiseOrValue`<`string`\>) => `LogSetAuthorityEventFilter` |
 | `LogSetOwner` | (`owner?`: ``null`` \| `PromiseOrValue`<`string`\>) => `LogSetOwnerEventFilter` |
 | `LogSetOwner(address)` | (`owner?`: ``null`` \| `PromiseOrValue`<`string`\>) => `LogSetOwnerEventFilter` |
-| `MetaTransactionExecuted` | (`user?`: ``null``, `relayerAddress?`: ``null``, `functionSignature?`: ``null``) => `MetaTransactionExecutedEventFilter` |
-| `MetaTransactionExecuted(address,address,bytes)` | (`user?`: ``null``, `relayerAddress?`: ``null``, `functionSignature?`: ``null``) => `MetaTransactionExecutedEventFilter` |
 | `Mint` | (`guy?`: ``null`` \| `PromiseOrValue`<`string`\>, `wad?`: ``null``) => `MintEventFilter` |
 | `Mint(address,uint256)` | (`guy?`: ``null`` \| `PromiseOrValue`<`string`\>, `wad?`: ``null``) => `MintEventFilter` |
 | `Transfer` | (`src?`: ``null`` \| `PromiseOrValue`<`string`\>, `dst?`: ``null`` \| `PromiseOrValue`<`string`\>, `wad?`: ``null``) => `TransferEventFilter` |
@@ -150,7 +165,7 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[filters](ColonyToken.md#filters)
+[Token](latest.Token.md).[filters](latest.Token.md#filters)
 
 ___
 
@@ -162,8 +177,6 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `DOMAIN_SEPARATOR` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `PERMIT_TYPEHASH` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `allowance` | (`src`: `PromiseOrValue`<`string`\>, `guy`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
 | `approve` | (`guy`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `authority` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
@@ -171,15 +184,11 @@ ___
 | `burn(address,uint256)` | (`guy`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `burn(uint256)` | (`wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `decimals` | (`overrides?`: `CallOverrides`) => `Promise`<[`number`]\> |
-| `executeMetaTransaction` | (`_user`: `PromiseOrValue`<`string`\>, `_payload`: `PromiseOrValue`<`BytesLike`\>, `_sigR`: `PromiseOrValue`<`BytesLike`\>, `_sigS`: `PromiseOrValue`<`BytesLike`\>, `_sigV`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `PayableOverrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `getChainId` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
-| `getMetatransactionNonce` | (`_user`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
 | `locked` | (`overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
 | `mint(address,uint256)` | (`guy`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `mint(uint256)` | (`wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `name` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `owner` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `permit` | (`owner`: `PromiseOrValue`<`string`\>, `spender`: `PromiseOrValue`<`string`\>, `value`: `PromiseOrValue`<`BigNumberish`\>, `deadline`: `PromiseOrValue`<`BigNumberish`\>, `v`: `PromiseOrValue`<`BigNumberish`\>, `r`: `PromiseOrValue`<`BytesLike`\>, `s`: `PromiseOrValue`<`BytesLike`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `setAuthority` | (`authority_`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `setOwner` | (`owner_`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `symbol` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
@@ -187,51 +196,50 @@ ___
 | `transfer` | (`dst`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `transferFrom` | (`src`: `PromiseOrValue`<`string`\>, `dst`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `unlock` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `verify` | (`_owner`: `PromiseOrValue`<`string`\>, `_nonce`: `PromiseOrValue`<`BigNumberish`\>, `_chainId`: `PromiseOrValue`<`BigNumberish`\>, `_payload`: `PromiseOrValue`<`BytesLike`\>, `_sigR`: `PromiseOrValue`<`BytesLike`\>, `_sigS`: `PromiseOrValue`<`BytesLike`\>, `_sigV`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[functions](ColonyToken.md#functions)
+[Token](latest.Token.md).[functions](latest.Token.md#functions)
 
 ___
 
 ### interface
 
-• **interface**: `MetaTxTokenInterface`
+• **interface**: `TokenInterface`
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[interface](ColonyToken.md#interface)
+[Token](latest.Token.md).[interface](latest.Token.md#interface)
 
 ___
 
 ### off
 
-• **off**: `OnEvent`<[`ColonyTokenClient`](ColonyTokenClient.md)\>
+• **off**: `OnEvent`<[`LegacyColonyTokenClient`](LegacyColonyTokenClient.md)\>
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[off](ColonyToken.md#off)
+[Token](latest.Token.md).[off](latest.Token.md#off)
 
 ___
 
 ### on
 
-• **on**: `OnEvent`<[`ColonyTokenClient`](ColonyTokenClient.md)\>
+• **on**: `OnEvent`<[`LegacyColonyTokenClient`](LegacyColonyTokenClient.md)\>
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[on](ColonyToken.md#on)
+[Token](latest.Token.md).[on](latest.Token.md#on)
 
 ___
 
 ### once
 
-• **once**: `OnEvent`<[`ColonyTokenClient`](ColonyTokenClient.md)\>
+• **once**: `OnEvent`<[`LegacyColonyTokenClient`](LegacyColonyTokenClient.md)\>
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[once](ColonyToken.md#once)
+[Token](latest.Token.md).[once](latest.Token.md#once)
 
 ___
 
@@ -243,8 +251,6 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `DOMAIN_SEPARATOR` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `PERMIT_TYPEHASH` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `allowance` | (`src`: `PromiseOrValue`<`string`\>, `guy`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `approve` | (`guy`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `authority` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
@@ -252,15 +258,11 @@ ___
 | `burn(address,uint256)` | (`guy`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `burn(uint256)` | (`wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `decimals` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `executeMetaTransaction` | (`_user`: `PromiseOrValue`<`string`\>, `_payload`: `PromiseOrValue`<`BytesLike`\>, `_sigR`: `PromiseOrValue`<`BytesLike`\>, `_sigS`: `PromiseOrValue`<`BytesLike`\>, `_sigV`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `PayableOverrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `getChainId` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getMetatransactionNonce` | (`_user`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `locked` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `mint(address,uint256)` | (`guy`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `mint(uint256)` | (`wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `name` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `permit` | (`owner`: `PromiseOrValue`<`string`\>, `spender`: `PromiseOrValue`<`string`\>, `value`: `PromiseOrValue`<`BigNumberish`\>, `deadline`: `PromiseOrValue`<`BigNumberish`\>, `v`: `PromiseOrValue`<`BigNumberish`\>, `r`: `PromiseOrValue`<`BytesLike`\>, `s`: `PromiseOrValue`<`BytesLike`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `setAuthority` | (`authority_`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `setOwner` | (`owner_`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `symbol` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
@@ -268,11 +270,10 @@ ___
 | `transfer` | (`dst`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `transferFrom` | (`src`: `PromiseOrValue`<`string`\>, `dst`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `unlock` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `verify` | (`_owner`: `PromiseOrValue`<`string`\>, `_nonce`: `PromiseOrValue`<`BigNumberish`\>, `_chainId`: `PromiseOrValue`<`BigNumberish`\>, `_payload`: `PromiseOrValue`<`BytesLike`\>, `_sigR`: `PromiseOrValue`<`BytesLike`\>, `_sigS`: `PromiseOrValue`<`BytesLike`\>, `_sigV`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[populateTransaction](ColonyToken.md#populatetransaction)
+[Token](latest.Token.md).[populateTransaction](latest.Token.md#populatetransaction)
 
 ___
 
@@ -282,17 +283,17 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[provider](ColonyToken.md#provider)
+[Token](latest.Token.md).[provider](latest.Token.md#provider)
 
 ___
 
 ### removeListener
 
-• **removeListener**: `OnEvent`<[`ColonyTokenClient`](ColonyTokenClient.md)\>
+• **removeListener**: `OnEvent`<[`LegacyColonyTokenClient`](LegacyColonyTokenClient.md)\>
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[removeListener](ColonyToken.md#removelistener)
+[Token](latest.Token.md).[removeListener](latest.Token.md#removelistener)
 
 ___
 
@@ -302,7 +303,7 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[resolvedAddress](ColonyToken.md#resolvedaddress)
+[Token](latest.Token.md).[resolvedAddress](latest.Token.md#resolvedaddress)
 
 ___
 
@@ -312,55 +313,15 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[signer](ColonyToken.md#signer)
+[Token](latest.Token.md).[signer](latest.Token.md#signer)
 
 ___
 
 ### tokenClientType
 
-• **tokenClientType**: [`Colony`](../enums/TokenClientType.md#colony)
+• **tokenClientType**: [`ColonyLegacy`](../enums/TokenClientType.md#colonylegacy)
 
 ## Methods
-
-### DOMAIN\_SEPARATOR
-
-▸ **DOMAIN_SEPARATOR**(`overrides?`): `Promise`<`string`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
-
-#### Returns
-
-`Promise`<`string`\>
-
-#### Inherited from
-
-[ColonyToken](ColonyToken.md).[DOMAIN_SEPARATOR](ColonyToken.md#domain_separator)
-
-___
-
-### PERMIT\_TYPEHASH
-
-▸ **PERMIT_TYPEHASH**(`overrides?`): `Promise`<`string`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
-
-#### Returns
-
-`Promise`<`string`\>
-
-#### Inherited from
-
-[ColonyToken](ColonyToken.md).[PERMIT_TYPEHASH](ColonyToken.md#permit_typehash)
-
-___
 
 ### \_checkRunningEvents
 
@@ -378,7 +339,7 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[_checkRunningEvents](ColonyToken.md#_checkrunningevents)
+[Token](latest.Token.md).[_checkRunningEvents](latest.Token.md#_checkrunningevents)
 
 ___
 
@@ -398,7 +359,7 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[_deployed](ColonyToken.md#_deployed)
+[Token](latest.Token.md).[_deployed](latest.Token.md#_deployed)
 
 ___
 
@@ -420,7 +381,7 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[_wrapEvent](ColonyToken.md#_wrapevent)
+[Token](latest.Token.md).[_wrapEvent](latest.Token.md#_wrapevent)
 
 ___
 
@@ -442,7 +403,7 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[allowance](ColonyToken.md#allowance)
+[Token](latest.Token.md).[allowance](latest.Token.md#allowance)
 
 ___
 
@@ -464,13 +425,13 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[approve](ColonyToken.md#approve)
+[Token](latest.Token.md).[approve](latest.Token.md#approve)
 
 ___
 
 ### attach
 
-▸ **attach**(`addressOrName`): [`ColonyTokenClient`](ColonyTokenClient.md)
+▸ **attach**(`addressOrName`): [`LegacyColonyTokenClient`](LegacyColonyTokenClient.md)
 
 #### Parameters
 
@@ -480,11 +441,11 @@ ___
 
 #### Returns
 
-[`ColonyTokenClient`](ColonyTokenClient.md)
+[`LegacyColonyTokenClient`](LegacyColonyTokenClient.md)
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[attach](ColonyToken.md#attach)
+[Token](latest.Token.md).[attach](latest.Token.md#attach)
 
 ___
 
@@ -504,7 +465,7 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[authority](ColonyToken.md#authority)
+[Token](latest.Token.md).[authority](latest.Token.md#authority)
 
 ___
 
@@ -525,7 +486,7 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[balanceOf](ColonyToken.md#balanceof)
+[Token](latest.Token.md).[balanceOf](latest.Token.md#balanceof)
 
 ___
 
@@ -547,7 +508,7 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[burn(address,uint256)](ColonyToken.md#burn(address,uint256))
+[Token](latest.Token.md).[burn(address,uint256)](latest.Token.md#burn(address,uint256))
 
 ___
 
@@ -568,13 +529,13 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[burn(uint256)](ColonyToken.md#burn(uint256))
+[Token](latest.Token.md).[burn(uint256)](latest.Token.md#burn(uint256))
 
 ___
 
 ### connect
 
-▸ **connect**(`signerOrProvider`): [`ColonyTokenClient`](ColonyTokenClient.md)
+▸ **connect**(`signerOrProvider`): [`LegacyColonyTokenClient`](LegacyColonyTokenClient.md)
 
 #### Parameters
 
@@ -584,11 +545,11 @@ ___
 
 #### Returns
 
-[`ColonyTokenClient`](ColonyTokenClient.md)
+[`LegacyColonyTokenClient`](LegacyColonyTokenClient.md)
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[connect](ColonyToken.md#connect)
+[Token](latest.Token.md).[connect](latest.Token.md#connect)
 
 ___
 
@@ -608,47 +569,21 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[decimals](ColonyToken.md#decimals)
-
-___
-
-### deployTokenAuthority
-
-▸ **deployTokenAuthority**(`colonyAddress`, `allowedToTransfer`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-Deploy a TokenAuthority contract for this Colony for a specific token
-The TokenAuthority enables certain addresses to transfer the tokens, even if it's locked
-It also enables the assigned Colony to mint tokens
-
-**`Remarks`**
-
-Only works with tokens that allow for an authority to be set (e.g. tokens deployed with Colony)
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `colonyAddress` | `string` | The address of the Colony to install the token authority for |
-| `allowedToTransfer` | `string`[] | Addresses that are allowed to transfer the token, even if it's locked |
-| `overrides?` | `TxOverrides` | - |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
+[Token](latest.Token.md).[decimals](latest.Token.md#decimals)
 
 ___
 
 ### deployed
 
-▸ **deployed**(): `Promise`<[`ColonyTokenClient`](ColonyTokenClient.md)\>
+▸ **deployed**(): `Promise`<[`LegacyColonyTokenClient`](LegacyColonyTokenClient.md)\>
 
 #### Returns
 
-`Promise`<[`ColonyTokenClient`](ColonyTokenClient.md)\>
+`Promise`<[`LegacyColonyTokenClient`](LegacyColonyTokenClient.md)\>
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[deployed](ColonyToken.md#deployed)
+[Token](latest.Token.md).[deployed](latest.Token.md#deployed)
 
 ___
 
@@ -669,34 +604,7 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[emit](ColonyToken.md#emit)
-
-___
-
-### executeMetaTransaction
-
-▸ **executeMetaTransaction**(`_user`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_user` | `PromiseOrValue`<`string`\> | Address of user trying to do meta transaction |
-| `_payload` | `PromiseOrValue`<`BytesLike`\> | Function call to make via meta transaction |
-| `_sigR` | `PromiseOrValue`<`BytesLike`\> | R part of the signature |
-| `_sigS` | `PromiseOrValue`<`BytesLike`\> | S part of the signature |
-| `_sigV` | `PromiseOrValue`<`BigNumberish`\> | V part of the signature |
-| `overrides?` | `PayableOverrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-[ColonyToken](ColonyToken.md).[executeMetaTransaction](ColonyToken.md#executemetatransaction)
+[Token](latest.Token.md).[emit](latest.Token.md#emit)
 
 ___
 
@@ -716,48 +624,7 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[fallback](ColonyToken.md#fallback)
-
-___
-
-### getChainId
-
-▸ **getChainId**(`overrides?`): `Promise`<`BigNumber`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
-
-#### Returns
-
-`Promise`<`BigNumber`\>
-
-#### Inherited from
-
-[ColonyToken](ColonyToken.md).[getChainId](ColonyToken.md#getchainid)
-
-___
-
-### getMetatransactionNonce
-
-▸ **getMetatransactionNonce**(`_user`, `overrides?`): `Promise`<`BigNumber`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `_user` | `PromiseOrValue`<`string`\> |
-| `overrides?` | `CallOverrides` |
-
-#### Returns
-
-`Promise`<`BigNumber`\>
-
-#### Inherited from
-
-[ColonyToken](ColonyToken.md).[getMetatransactionNonce](ColonyToken.md#getmetatransactionnonce)
+[Token](latest.Token.md).[fallback](latest.Token.md#fallback)
 
 ___
 
@@ -789,7 +656,7 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[listenerCount](ColonyToken.md#listenercount)
+[Token](latest.Token.md).[listenerCount](latest.Token.md#listenercount)
 
 ___
 
@@ -815,7 +682,7 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[listeners](ColonyToken.md#listeners)
+[Token](latest.Token.md).[listeners](latest.Token.md#listeners)
 
 ▸ **listeners**(`eventName?`): `Listener`[]
 
@@ -831,7 +698,7 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[listeners](ColonyToken.md#listeners)
+[Token](latest.Token.md).[listeners](latest.Token.md#listeners)
 
 ___
 
@@ -851,7 +718,7 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[locked](ColonyToken.md#locked)
+[Token](latest.Token.md).[locked](latest.Token.md#locked)
 
 ___
 
@@ -873,7 +740,7 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[mint(address,uint256)](ColonyToken.md#mint(address,uint256))
+[Token](latest.Token.md).[mint(address,uint256)](latest.Token.md#mint(address,uint256))
 
 ___
 
@@ -894,7 +761,7 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[mint(uint256)](ColonyToken.md#mint(uint256))
+[Token](latest.Token.md).[mint(uint256)](latest.Token.md#mint(uint256))
 
 ___
 
@@ -914,7 +781,7 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[name](ColonyToken.md#name)
+[Token](latest.Token.md).[name](latest.Token.md#name)
 
 ___
 
@@ -934,34 +801,7 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[owner](ColonyToken.md#owner)
-
-___
-
-### permit
-
-▸ **permit**(`owner`, `spender`, `value`, `deadline`, `v`, `r`, `s`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `owner` | `PromiseOrValue`<`string`\> |
-| `spender` | `PromiseOrValue`<`string`\> |
-| `value` | `PromiseOrValue`<`BigNumberish`\> |
-| `deadline` | `PromiseOrValue`<`BigNumberish`\> |
-| `v` | `PromiseOrValue`<`BigNumberish`\> |
-| `r` | `PromiseOrValue`<`BytesLike`\> |
-| `s` | `PromiseOrValue`<`BytesLike`\> |
-| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-[ColonyToken](ColonyToken.md).[permit](ColonyToken.md#permit)
+[Token](latest.Token.md).[owner](latest.Token.md#owner)
 
 ___
 
@@ -989,13 +829,13 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[queryFilter](ColonyToken.md#queryfilter)
+[Token](latest.Token.md).[queryFilter](latest.Token.md#queryfilter)
 
 ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`ColonyTokenClient`](ColonyTokenClient.md)
+▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`LegacyColonyTokenClient`](LegacyColonyTokenClient.md)
 
 #### Type parameters
 
@@ -1011,13 +851,13 @@ ___
 
 #### Returns
 
-[`ColonyTokenClient`](ColonyTokenClient.md)
+[`LegacyColonyTokenClient`](LegacyColonyTokenClient.md)
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[removeAllListeners](ColonyToken.md#removealllisteners)
+[Token](latest.Token.md).[removeAllListeners](latest.Token.md#removealllisteners)
 
-▸ **removeAllListeners**(`eventName?`): [`ColonyTokenClient`](ColonyTokenClient.md)
+▸ **removeAllListeners**(`eventName?`): [`LegacyColonyTokenClient`](LegacyColonyTokenClient.md)
 
 #### Parameters
 
@@ -1027,11 +867,11 @@ ___
 
 #### Returns
 
-[`ColonyTokenClient`](ColonyTokenClient.md)
+[`LegacyColonyTokenClient`](LegacyColonyTokenClient.md)
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[removeAllListeners](ColonyToken.md#removealllisteners)
+[Token](latest.Token.md).[removeAllListeners](latest.Token.md#removealllisteners)
 
 ___
 
@@ -1052,7 +892,7 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[setAuthority](ColonyToken.md#setauthority)
+[Token](latest.Token.md).[setAuthority](latest.Token.md#setauthority)
 
 ___
 
@@ -1073,7 +913,7 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[setOwner](ColonyToken.md#setowner)
+[Token](latest.Token.md).[setOwner](latest.Token.md#setowner)
 
 ___
 
@@ -1093,7 +933,7 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[symbol](ColonyToken.md#symbol)
+[Token](latest.Token.md).[symbol](latest.Token.md#symbol)
 
 ___
 
@@ -1113,7 +953,7 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[totalSupply](ColonyToken.md#totalsupply)
+[Token](latest.Token.md).[totalSupply](latest.Token.md#totalsupply)
 
 ___
 
@@ -1135,7 +975,7 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[transfer](ColonyToken.md#transfer)
+[Token](latest.Token.md).[transfer](latest.Token.md#transfer)
 
 ___
 
@@ -1158,7 +998,7 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[transferFrom](ColonyToken.md#transferfrom)
+[Token](latest.Token.md).[transferFrom](latest.Token.md#transferfrom)
 
 ___
 
@@ -1178,31 +1018,4 @@ ___
 
 #### Inherited from
 
-[ColonyToken](ColonyToken.md).[unlock](ColonyToken.md#unlock)
-
-___
-
-### verify
-
-▸ **verify**(`_owner`, `_nonce`, `_chainId`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`boolean`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `_owner` | `PromiseOrValue`<`string`\> |
-| `_nonce` | `PromiseOrValue`<`BigNumberish`\> |
-| `_chainId` | `PromiseOrValue`<`BigNumberish`\> |
-| `_payload` | `PromiseOrValue`<`BytesLike`\> |
-| `_sigR` | `PromiseOrValue`<`BytesLike`\> |
-| `_sigS` | `PromiseOrValue`<`BytesLike`\> |
-| `_sigV` | `PromiseOrValue`<`BigNumberish`\> |
-| `overrides?` | `CallOverrides` |
-
-#### Returns
-
-`Promise`<`boolean`\>
-
-#### Inherited from
-
-[ColonyToken](ColonyToken.md).[verify](ColonyToken.md#verify)
+[Token](latest.Token.md).[unlock](latest.Token.md#unlock)

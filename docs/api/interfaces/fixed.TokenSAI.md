@@ -1,12 +1,14 @@
-# Interface: DaiTokenClient
+# Interface: TokenSAI
 
-The SAI token. It requires special treatment as it's deprecated
+[fixed](../modules/fixed.md).TokenSAI
 
 ## Hierarchy
 
-- [`TokenSAI`](fixed.TokenSAI.md)
+- `BaseContract`
 
-  ↳ **`DaiTokenClient`**
+  ↳ **`TokenSAI`**
+
+  ↳↳ [`DaiTokenClient`](DaiTokenClient.md)
 
 ## Properties
 
@@ -16,7 +18,7 @@ The SAI token. It requires special treatment as it's deprecated
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[_deployedPromise](fixed.TokenSAI.md#_deployedpromise)
+BaseContract.\_deployedPromise
 
 ___
 
@@ -30,7 +32,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[_runningEvents](fixed.TokenSAI.md#_runningevents)
+BaseContract.\_runningEvents
 
 ___
 
@@ -44,7 +46,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[_wrappedEmits](fixed.TokenSAI.md#_wrappedemits)
+BaseContract.\_wrappedEmits
 
 ___
 
@@ -54,7 +56,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[address](fixed.TokenSAI.md#address)
+BaseContract.address
 
 ___
 
@@ -76,15 +78,9 @@ ___
 | `transfer` | (`_to`: `PromiseOrValue`<`string`\>, `_value`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 | `transferFrom` | (`_from`: `PromiseOrValue`<`string`\>, `_to`: `PromiseOrValue`<`string`\>, `_value`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 
-#### Inherited from
+#### Overrides
 
-[TokenSAI](fixed.TokenSAI.md).[callStatic](fixed.TokenSAI.md#callstatic)
-
-___
-
-### clientType
-
-• **clientType**: [`TokenClient`](../enums/ClientType.md#tokenclient)
+BaseContract.callStatic
 
 ___
 
@@ -94,7 +90,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[deployTransaction](fixed.TokenSAI.md#deploytransaction)
+BaseContract.deployTransaction
 
 ___
 
@@ -116,9 +112,9 @@ ___
 | `transfer` | (`_to`: `PromiseOrValue`<`string`\>, `_value`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
 | `transferFrom` | (`_from`: `PromiseOrValue`<`string`\>, `_to`: `PromiseOrValue`<`string`\>, `_value`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
 
-#### Inherited from
+#### Overrides
 
-[TokenSAI](fixed.TokenSAI.md).[estimateGas](fixed.TokenSAI.md#estimategas)
+BaseContract.estimateGas
 
 ___
 
@@ -135,9 +131,9 @@ ___
 | `Transfer` | (`from?`: ``null`` \| `PromiseOrValue`<`string`\>, `to?`: ``null`` \| `PromiseOrValue`<`string`\>, `value?`: ``null``) => `TransferEventFilter` |
 | `Transfer(address,address,uint256)` | (`from?`: ``null`` \| `PromiseOrValue`<`string`\>, `to?`: ``null`` \| `PromiseOrValue`<`string`\>, `value?`: ``null``) => `TransferEventFilter` |
 
-#### Inherited from
+#### Overrides
 
-[TokenSAI](fixed.TokenSAI.md).[filters](fixed.TokenSAI.md#filters)
+BaseContract.filters
 
 ___
 
@@ -159,9 +155,9 @@ ___
 | `transfer` | (`_to`: `PromiseOrValue`<`string`\>, `_value`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `transferFrom` | (`_from`: `PromiseOrValue`<`string`\>, `_to`: `PromiseOrValue`<`string`\>, `_value`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 
-#### Inherited from
+#### Overrides
 
-[TokenSAI](fixed.TokenSAI.md).[functions](fixed.TokenSAI.md#functions)
+BaseContract.functions
 
 ___
 
@@ -169,39 +165,39 @@ ___
 
 • **interface**: `TokenSAIInterface`
 
-#### Inherited from
+#### Overrides
 
-[TokenSAI](fixed.TokenSAI.md).[interface](fixed.TokenSAI.md#interface)
+BaseContract.interface
 
 ___
 
 ### off
 
-• **off**: `OnEvent`<[`DaiTokenClient`](DaiTokenClient.md)\>
+• **off**: `OnEvent`<[`TokenSAI`](fixed.TokenSAI.md)\>
 
-#### Inherited from
+#### Overrides
 
-[TokenSAI](fixed.TokenSAI.md).[off](fixed.TokenSAI.md#off)
+BaseContract.off
 
 ___
 
 ### on
 
-• **on**: `OnEvent`<[`DaiTokenClient`](DaiTokenClient.md)\>
+• **on**: `OnEvent`<[`TokenSAI`](fixed.TokenSAI.md)\>
 
-#### Inherited from
+#### Overrides
 
-[TokenSAI](fixed.TokenSAI.md).[on](fixed.TokenSAI.md#on)
+BaseContract.on
 
 ___
 
 ### once
 
-• **once**: `OnEvent`<[`DaiTokenClient`](DaiTokenClient.md)\>
+• **once**: `OnEvent`<[`TokenSAI`](fixed.TokenSAI.md)\>
 
-#### Inherited from
+#### Overrides
 
-[TokenSAI](fixed.TokenSAI.md).[once](fixed.TokenSAI.md#once)
+BaseContract.once
 
 ___
 
@@ -223,9 +219,9 @@ ___
 | `transfer` | (`_to`: `PromiseOrValue`<`string`\>, `_value`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `transferFrom` | (`_from`: `PromiseOrValue`<`string`\>, `_to`: `PromiseOrValue`<`string`\>, `_value`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 
-#### Inherited from
+#### Overrides
 
-[TokenSAI](fixed.TokenSAI.md).[populateTransaction](fixed.TokenSAI.md#populatetransaction)
+BaseContract.populateTransaction
 
 ___
 
@@ -235,17 +231,17 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[provider](fixed.TokenSAI.md#provider)
+BaseContract.provider
 
 ___
 
 ### removeListener
 
-• **removeListener**: `OnEvent`<[`DaiTokenClient`](DaiTokenClient.md)\>
+• **removeListener**: `OnEvent`<[`TokenSAI`](fixed.TokenSAI.md)\>
 
-#### Inherited from
+#### Overrides
 
-[TokenSAI](fixed.TokenSAI.md).[removeListener](fixed.TokenSAI.md#removelistener)
+BaseContract.removeListener
 
 ___
 
@@ -255,7 +251,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[resolvedAddress](fixed.TokenSAI.md#resolvedaddress)
+BaseContract.resolvedAddress
 
 ___
 
@@ -265,13 +261,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[signer](fixed.TokenSAI.md#signer)
-
-___
-
-### tokenClientType
-
-• **tokenClientType**: [`Sai`](../enums/TokenClientType.md#sai)
+BaseContract.signer
 
 ## Methods
 
@@ -291,7 +281,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[_checkRunningEvents](fixed.TokenSAI.md#_checkrunningevents)
+BaseContract.\_checkRunningEvents
 
 ___
 
@@ -311,7 +301,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[_deployed](fixed.TokenSAI.md#_deployed)
+BaseContract.\_deployed
 
 ___
 
@@ -333,7 +323,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[_wrapEvent](fixed.TokenSAI.md#_wrapevent)
+BaseContract.\_wrapEvent
 
 ___
 
@@ -353,10 +343,6 @@ ___
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-[TokenSAI](fixed.TokenSAI.md).[allowance](fixed.TokenSAI.md#allowance)
-
 ___
 
 ### approve
@@ -375,15 +361,11 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-[TokenSAI](fixed.TokenSAI.md).[approve](fixed.TokenSAI.md#approve)
-
 ___
 
 ### attach
 
-▸ **attach**(`addressOrName`): [`DaiTokenClient`](DaiTokenClient.md)
+▸ **attach**(`addressOrName`): [`TokenSAI`](fixed.TokenSAI.md)
 
 #### Parameters
 
@@ -393,11 +375,11 @@ ___
 
 #### Returns
 
-[`DaiTokenClient`](DaiTokenClient.md)
+[`TokenSAI`](fixed.TokenSAI.md)
 
-#### Inherited from
+#### Overrides
 
-[TokenSAI](fixed.TokenSAI.md).[attach](fixed.TokenSAI.md#attach)
+BaseContract.attach
 
 ___
 
@@ -416,15 +398,11 @@ ___
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-[TokenSAI](fixed.TokenSAI.md).[balanceOf](fixed.TokenSAI.md#balanceof)
-
 ___
 
 ### connect
 
-▸ **connect**(`signerOrProvider`): [`DaiTokenClient`](DaiTokenClient.md)
+▸ **connect**(`signerOrProvider`): [`TokenSAI`](fixed.TokenSAI.md)
 
 #### Parameters
 
@@ -434,11 +412,11 @@ ___
 
 #### Returns
 
-[`DaiTokenClient`](DaiTokenClient.md)
+[`TokenSAI`](fixed.TokenSAI.md)
 
-#### Inherited from
+#### Overrides
 
-[TokenSAI](fixed.TokenSAI.md).[connect](fixed.TokenSAI.md#connect)
+BaseContract.connect
 
 ___
 
@@ -456,23 +434,19 @@ ___
 
 `Promise`<`number`\>
 
-#### Inherited from
-
-[TokenSAI](fixed.TokenSAI.md).[decimals](fixed.TokenSAI.md#decimals)
-
 ___
 
 ### deployed
 
-▸ **deployed**(): `Promise`<[`DaiTokenClient`](DaiTokenClient.md)\>
+▸ **deployed**(): `Promise`<[`TokenSAI`](fixed.TokenSAI.md)\>
 
 #### Returns
 
-`Promise`<[`DaiTokenClient`](DaiTokenClient.md)\>
+`Promise`<[`TokenSAI`](fixed.TokenSAI.md)\>
 
-#### Inherited from
+#### Overrides
 
-[TokenSAI](fixed.TokenSAI.md).[deployed](fixed.TokenSAI.md#deployed)
+BaseContract.deployed
 
 ___
 
@@ -493,7 +467,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[emit](fixed.TokenSAI.md#emit)
+BaseContract.emit
 
 ___
 
@@ -513,19 +487,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[fallback](fixed.TokenSAI.md#fallback)
-
-___
-
-### getTokenInfo
-
-▸ **getTokenInfo**(): `Promise`<`TokenInfo`\>
-
-Get the standard ERC20 token information
-
-#### Returns
-
-`Promise`<`TokenInfo`\>
+BaseContract.fallback
 
 ___
 
@@ -545,7 +507,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[listenerCount](fixed.TokenSAI.md#listenercount)
+BaseContract.listenerCount
 
 ___
 
@@ -569,9 +531,9 @@ ___
 
 `TypedListener`<`TEvent`\>[]
 
-#### Inherited from
+#### Overrides
 
-[TokenSAI](fixed.TokenSAI.md).[listeners](fixed.TokenSAI.md#listeners)
+BaseContract.listeners
 
 ▸ **listeners**(`eventName?`): `Listener`[]
 
@@ -585,9 +547,9 @@ ___
 
 `Listener`[]
 
-#### Inherited from
+#### Overrides
 
-[TokenSAI](fixed.TokenSAI.md).[listeners](fixed.TokenSAI.md#listeners)
+BaseContract.listeners
 
 ___
 
@@ -604,10 +566,6 @@ ___
 #### Returns
 
 `Promise`<`string`\>
-
-#### Inherited from
-
-[TokenSAI](fixed.TokenSAI.md).[name](fixed.TokenSAI.md#name)
 
 ___
 
@@ -633,15 +591,15 @@ ___
 
 `Promise`<`TEvent`[]\>
 
-#### Inherited from
+#### Overrides
 
-[TokenSAI](fixed.TokenSAI.md).[queryFilter](fixed.TokenSAI.md#queryfilter)
+BaseContract.queryFilter
 
 ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`DaiTokenClient`](DaiTokenClient.md)
+▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`TokenSAI`](fixed.TokenSAI.md)
 
 #### Type parameters
 
@@ -657,13 +615,13 @@ ___
 
 #### Returns
 
-[`DaiTokenClient`](DaiTokenClient.md)
+[`TokenSAI`](fixed.TokenSAI.md)
 
-#### Inherited from
+#### Overrides
 
-[TokenSAI](fixed.TokenSAI.md).[removeAllListeners](fixed.TokenSAI.md#removealllisteners)
+BaseContract.removeAllListeners
 
-▸ **removeAllListeners**(`eventName?`): [`DaiTokenClient`](DaiTokenClient.md)
+▸ **removeAllListeners**(`eventName?`): [`TokenSAI`](fixed.TokenSAI.md)
 
 #### Parameters
 
@@ -673,11 +631,11 @@ ___
 
 #### Returns
 
-[`DaiTokenClient`](DaiTokenClient.md)
+[`TokenSAI`](fixed.TokenSAI.md)
 
-#### Inherited from
+#### Overrides
 
-[TokenSAI](fixed.TokenSAI.md).[removeAllListeners](fixed.TokenSAI.md#removealllisteners)
+BaseContract.removeAllListeners
 
 ___
 
@@ -695,10 +653,6 @@ ___
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-[TokenSAI](fixed.TokenSAI.md).[symbol](fixed.TokenSAI.md#symbol)
-
 ___
 
 ### totalSupply
@@ -714,10 +668,6 @@ ___
 #### Returns
 
 `Promise`<`BigNumber`\>
-
-#### Inherited from
-
-[TokenSAI](fixed.TokenSAI.md).[totalSupply](fixed.TokenSAI.md#totalsupply)
 
 ___
 
@@ -737,10 +687,6 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-[TokenSAI](fixed.TokenSAI.md).[transfer](fixed.TokenSAI.md#transfer)
-
 ___
 
 ### transferFrom
@@ -759,7 +705,3 @@ ___
 #### Returns
 
 `Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-[TokenSAI](fixed.TokenSAI.md).[transferFrom](fixed.TokenSAI.md#transferfrom)
