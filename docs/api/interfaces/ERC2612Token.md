@@ -1,12 +1,12 @@
-# Interface: Erc20TokenClient
-
-A standard ERC20 token
+# Interface: ERC2612Token
 
 ## Hierarchy
 
-- [`ERC20Token`](ERC20Token.md)
+- `BaseContract`
 
-  ↳ **`Erc20TokenClient`**
+  ↳ **`ERC2612Token`**
+
+  ↳↳ [`Erc2612TokenClient`](Erc2612TokenClient.md)
 
 ## Properties
 
@@ -16,7 +16,7 @@ A standard ERC20 token
 
 #### Inherited from
 
-[ERC20Token](ERC20Token.md).[_deployedPromise](ERC20Token.md#_deployedpromise)
+BaseContract.\_deployedPromise
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 #### Inherited from
 
-[ERC20Token](ERC20Token.md).[_runningEvents](ERC20Token.md#_runningevents)
+BaseContract.\_runningEvents
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 #### Inherited from
 
-[ERC20Token](ERC20Token.md).[_wrappedEmits](ERC20Token.md#_wrappedemits)
+BaseContract.\_wrappedEmits
 
 ___
 
@@ -54,7 +54,7 @@ ___
 
 #### Inherited from
 
-[ERC20Token](ERC20Token.md).[address](ERC20Token.md#address)
+BaseContract.address
 
 ___
 
@@ -66,25 +66,22 @@ ___
 
 | Name | Type |
 | :------ | :------ |
+| `DOMAIN_SEPARATOR` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `allowance` | (`owner`: `PromiseOrValue`<`string`\>, `spender`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `approve` | (`spender`: `PromiseOrValue`<`string`\>, `amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 | `balanceOf` | (`account`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `decimals` | (`overrides?`: `CallOverrides`) => `Promise`<`number`\> |
 | `name` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `nonces` | (`owner`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `permit` | (`owner`: `PromiseOrValue`<`string`\>, `spender`: `PromiseOrValue`<`string`\>, `value`: `PromiseOrValue`<`BigNumberish`\>, `deadline`: `PromiseOrValue`<`BigNumberish`\>, `v`: `PromiseOrValue`<`BigNumberish`\>, `r`: `PromiseOrValue`<`BytesLike`\>, `s`: `PromiseOrValue`<`BytesLike`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `symbol` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `totalSupply` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `transfer` | (`to`: `PromiseOrValue`<`string`\>, `amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 | `transferFrom` | (`from`: `PromiseOrValue`<`string`\>, `to`: `PromiseOrValue`<`string`\>, `amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 
-#### Inherited from
+#### Overrides
 
-[ERC20Token](ERC20Token.md).[callStatic](ERC20Token.md#callstatic)
-
-___
-
-### clientType
-
-• **clientType**: [`TokenClient`](../enums/ClientType.md#tokenclient)
+BaseContract.callStatic
 
 ___
 
@@ -94,7 +91,7 @@ ___
 
 #### Inherited from
 
-[ERC20Token](ERC20Token.md).[deployTransaction](ERC20Token.md#deploytransaction)
+BaseContract.deployTransaction
 
 ___
 
@@ -106,19 +103,22 @@ ___
 
 | Name | Type |
 | :------ | :------ |
+| `DOMAIN_SEPARATOR` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `allowance` | (`owner`: `PromiseOrValue`<`string`\>, `spender`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `approve` | (`spender`: `PromiseOrValue`<`string`\>, `amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
 | `balanceOf` | (`account`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `decimals` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `name` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `nonces` | (`owner`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `permit` | (`owner`: `PromiseOrValue`<`string`\>, `spender`: `PromiseOrValue`<`string`\>, `value`: `PromiseOrValue`<`BigNumberish`\>, `deadline`: `PromiseOrValue`<`BigNumberish`\>, `v`: `PromiseOrValue`<`BigNumberish`\>, `r`: `PromiseOrValue`<`BytesLike`\>, `s`: `PromiseOrValue`<`BytesLike`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
 | `symbol` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `totalSupply` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `transfer` | (`to`: `PromiseOrValue`<`string`\>, `amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
 | `transferFrom` | (`from`: `PromiseOrValue`<`string`\>, `to`: `PromiseOrValue`<`string`\>, `amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
 
-#### Inherited from
+#### Overrides
 
-[ERC20Token](ERC20Token.md).[estimateGas](ERC20Token.md#estimategas)
+BaseContract.estimateGas
 
 ___
 
@@ -135,9 +135,9 @@ ___
 | `Transfer` | (`from?`: ``null`` \| `PromiseOrValue`<`string`\>, `to?`: ``null`` \| `PromiseOrValue`<`string`\>, `value?`: ``null``) => `TransferEventFilter` |
 | `Transfer(address,address,uint256)` | (`from?`: ``null`` \| `PromiseOrValue`<`string`\>, `to?`: ``null`` \| `PromiseOrValue`<`string`\>, `value?`: ``null``) => `TransferEventFilter` |
 
-#### Inherited from
+#### Overrides
 
-[ERC20Token](ERC20Token.md).[filters](ERC20Token.md#filters)
+BaseContract.filters
 
 ___
 
@@ -149,59 +149,62 @@ ___
 
 | Name | Type |
 | :------ | :------ |
+| `DOMAIN_SEPARATOR` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `allowance` | (`owner`: `PromiseOrValue`<`string`\>, `spender`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
 | `approve` | (`spender`: `PromiseOrValue`<`string`\>, `amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `balanceOf` | (`account`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
 | `decimals` | (`overrides?`: `CallOverrides`) => `Promise`<[`number`]\> |
 | `name` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
+| `nonces` | (`owner`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
+| `permit` | (`owner`: `PromiseOrValue`<`string`\>, `spender`: `PromiseOrValue`<`string`\>, `value`: `PromiseOrValue`<`BigNumberish`\>, `deadline`: `PromiseOrValue`<`BigNumberish`\>, `v`: `PromiseOrValue`<`BigNumberish`\>, `r`: `PromiseOrValue`<`BytesLike`\>, `s`: `PromiseOrValue`<`BytesLike`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `symbol` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `totalSupply` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
 | `transfer` | (`to`: `PromiseOrValue`<`string`\>, `amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `transferFrom` | (`from`: `PromiseOrValue`<`string`\>, `to`: `PromiseOrValue`<`string`\>, `amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 
-#### Inherited from
+#### Overrides
 
-[ERC20Token](ERC20Token.md).[functions](ERC20Token.md#functions)
+BaseContract.functions
 
 ___
 
 ### interface
 
-• **interface**: `TokenERC20Interface`
+• **interface**: `TokenERC2612Interface`
 
-#### Inherited from
+#### Overrides
 
-[ERC20Token](ERC20Token.md).[interface](ERC20Token.md#interface)
+BaseContract.interface
 
 ___
 
 ### off
 
-• **off**: `OnEvent`<[`Erc20TokenClient`](Erc20TokenClient.md)\>
+• **off**: `OnEvent`<[`ERC2612Token`](ERC2612Token.md)\>
 
-#### Inherited from
+#### Overrides
 
-[ERC20Token](ERC20Token.md).[off](ERC20Token.md#off)
+BaseContract.off
 
 ___
 
 ### on
 
-• **on**: `OnEvent`<[`Erc20TokenClient`](Erc20TokenClient.md)\>
+• **on**: `OnEvent`<[`ERC2612Token`](ERC2612Token.md)\>
 
-#### Inherited from
+#### Overrides
 
-[ERC20Token](ERC20Token.md).[on](ERC20Token.md#on)
+BaseContract.on
 
 ___
 
 ### once
 
-• **once**: `OnEvent`<[`Erc20TokenClient`](Erc20TokenClient.md)\>
+• **once**: `OnEvent`<[`ERC2612Token`](ERC2612Token.md)\>
 
-#### Inherited from
+#### Overrides
 
-[ERC20Token](ERC20Token.md).[once](ERC20Token.md#once)
+BaseContract.once
 
 ___
 
@@ -213,19 +216,22 @@ ___
 
 | Name | Type |
 | :------ | :------ |
+| `DOMAIN_SEPARATOR` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `allowance` | (`owner`: `PromiseOrValue`<`string`\>, `spender`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `approve` | (`spender`: `PromiseOrValue`<`string`\>, `amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `balanceOf` | (`account`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `decimals` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `name` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `nonces` | (`owner`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `permit` | (`owner`: `PromiseOrValue`<`string`\>, `spender`: `PromiseOrValue`<`string`\>, `value`: `PromiseOrValue`<`BigNumberish`\>, `deadline`: `PromiseOrValue`<`BigNumberish`\>, `v`: `PromiseOrValue`<`BigNumberish`\>, `r`: `PromiseOrValue`<`BytesLike`\>, `s`: `PromiseOrValue`<`BytesLike`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `symbol` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `totalSupply` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `transfer` | (`to`: `PromiseOrValue`<`string`\>, `amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `transferFrom` | (`from`: `PromiseOrValue`<`string`\>, `to`: `PromiseOrValue`<`string`\>, `amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 
-#### Inherited from
+#### Overrides
 
-[ERC20Token](ERC20Token.md).[populateTransaction](ERC20Token.md#populatetransaction)
+BaseContract.populateTransaction
 
 ___
 
@@ -235,17 +241,17 @@ ___
 
 #### Inherited from
 
-[ERC20Token](ERC20Token.md).[provider](ERC20Token.md#provider)
+BaseContract.provider
 
 ___
 
 ### removeListener
 
-• **removeListener**: `OnEvent`<[`Erc20TokenClient`](Erc20TokenClient.md)\>
+• **removeListener**: `OnEvent`<[`ERC2612Token`](ERC2612Token.md)\>
 
-#### Inherited from
+#### Overrides
 
-[ERC20Token](ERC20Token.md).[removeListener](ERC20Token.md#removelistener)
+BaseContract.removeListener
 
 ___
 
@@ -255,7 +261,7 @@ ___
 
 #### Inherited from
 
-[ERC20Token](ERC20Token.md).[resolvedAddress](ERC20Token.md#resolvedaddress)
+BaseContract.resolvedAddress
 
 ___
 
@@ -265,15 +271,25 @@ ___
 
 #### Inherited from
 
-[ERC20Token](ERC20Token.md).[signer](ERC20Token.md#signer)
-
-___
-
-### tokenClientType
-
-• **tokenClientType**: [`Erc20`](../enums/TokenClientType.md#erc20)
+BaseContract.signer
 
 ## Methods
+
+### DOMAIN\_SEPARATOR
+
+▸ **DOMAIN_SEPARATOR**(`overrides?`): `Promise`<`string`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`string`\>
+
+___
 
 ### \_checkRunningEvents
 
@@ -291,7 +307,7 @@ ___
 
 #### Inherited from
 
-[ERC20Token](ERC20Token.md).[_checkRunningEvents](ERC20Token.md#_checkrunningevents)
+BaseContract.\_checkRunningEvents
 
 ___
 
@@ -311,7 +327,7 @@ ___
 
 #### Inherited from
 
-[ERC20Token](ERC20Token.md).[_deployed](ERC20Token.md#_deployed)
+BaseContract.\_deployed
 
 ___
 
@@ -333,7 +349,7 @@ ___
 
 #### Inherited from
 
-[ERC20Token](ERC20Token.md).[_wrapEvent](ERC20Token.md#_wrapevent)
+BaseContract.\_wrapEvent
 
 ___
 
@@ -353,10 +369,6 @@ ___
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-[ERC20Token](ERC20Token.md).[allowance](ERC20Token.md#allowance)
-
 ___
 
 ### approve
@@ -375,15 +387,11 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-[ERC20Token](ERC20Token.md).[approve](ERC20Token.md#approve)
-
 ___
 
 ### attach
 
-▸ **attach**(`addressOrName`): [`Erc20TokenClient`](Erc20TokenClient.md)
+▸ **attach**(`addressOrName`): [`ERC2612Token`](ERC2612Token.md)
 
 #### Parameters
 
@@ -393,11 +401,11 @@ ___
 
 #### Returns
 
-[`Erc20TokenClient`](Erc20TokenClient.md)
+[`ERC2612Token`](ERC2612Token.md)
 
-#### Inherited from
+#### Overrides
 
-[ERC20Token](ERC20Token.md).[attach](ERC20Token.md#attach)
+BaseContract.attach
 
 ___
 
@@ -416,15 +424,11 @@ ___
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-[ERC20Token](ERC20Token.md).[balanceOf](ERC20Token.md#balanceof)
-
 ___
 
 ### connect
 
-▸ **connect**(`signerOrProvider`): [`Erc20TokenClient`](Erc20TokenClient.md)
+▸ **connect**(`signerOrProvider`): [`ERC2612Token`](ERC2612Token.md)
 
 #### Parameters
 
@@ -434,11 +438,11 @@ ___
 
 #### Returns
 
-[`Erc20TokenClient`](Erc20TokenClient.md)
+[`ERC2612Token`](ERC2612Token.md)
 
-#### Inherited from
+#### Overrides
 
-[ERC20Token](ERC20Token.md).[connect](ERC20Token.md#connect)
+BaseContract.connect
 
 ___
 
@@ -456,23 +460,19 @@ ___
 
 `Promise`<`number`\>
 
-#### Inherited from
-
-[ERC20Token](ERC20Token.md).[decimals](ERC20Token.md#decimals)
-
 ___
 
 ### deployed
 
-▸ **deployed**(): `Promise`<[`Erc20TokenClient`](Erc20TokenClient.md)\>
+▸ **deployed**(): `Promise`<[`ERC2612Token`](ERC2612Token.md)\>
 
 #### Returns
 
-`Promise`<[`Erc20TokenClient`](Erc20TokenClient.md)\>
+`Promise`<[`ERC2612Token`](ERC2612Token.md)\>
 
-#### Inherited from
+#### Overrides
 
-[ERC20Token](ERC20Token.md).[deployed](ERC20Token.md#deployed)
+BaseContract.deployed
 
 ___
 
@@ -493,7 +493,7 @@ ___
 
 #### Inherited from
 
-[ERC20Token](ERC20Token.md).[emit](ERC20Token.md#emit)
+BaseContract.emit
 
 ___
 
@@ -513,19 +513,7 @@ ___
 
 #### Inherited from
 
-[ERC20Token](ERC20Token.md).[fallback](ERC20Token.md#fallback)
-
-___
-
-### getTokenInfo
-
-▸ **getTokenInfo**(): `Promise`<`TokenInfo`\>
-
-Get the standard ERC20 token information
-
-#### Returns
-
-`Promise`<`TokenInfo`\>
+BaseContract.fallback
 
 ___
 
@@ -545,7 +533,7 @@ ___
 
 #### Inherited from
 
-[ERC20Token](ERC20Token.md).[listenerCount](ERC20Token.md#listenercount)
+BaseContract.listenerCount
 
 ___
 
@@ -569,9 +557,9 @@ ___
 
 `TypedListener`<`TEvent`\>[]
 
-#### Inherited from
+#### Overrides
 
-[ERC20Token](ERC20Token.md).[listeners](ERC20Token.md#listeners)
+BaseContract.listeners
 
 ▸ **listeners**(`eventName?`): `Listener`[]
 
@@ -585,9 +573,9 @@ ___
 
 `Listener`[]
 
-#### Inherited from
+#### Overrides
 
-[ERC20Token](ERC20Token.md).[listeners](ERC20Token.md#listeners)
+BaseContract.listeners
 
 ___
 
@@ -605,9 +593,45 @@ ___
 
 `Promise`<`string`\>
 
-#### Inherited from
+___
 
-[ERC20Token](ERC20Token.md).[name](ERC20Token.md#name)
+### nonces
+
+▸ **nonces**(`owner`, `overrides?`): `Promise`<`BigNumber`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `owner` | `PromiseOrValue`<`string`\> |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+___
+
+### permit
+
+▸ **permit**(`owner`, `spender`, `value`, `deadline`, `v`, `r`, `s`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `owner` | `PromiseOrValue`<`string`\> |
+| `spender` | `PromiseOrValue`<`string`\> |
+| `value` | `PromiseOrValue`<`BigNumberish`\> |
+| `deadline` | `PromiseOrValue`<`BigNumberish`\> |
+| `v` | `PromiseOrValue`<`BigNumberish`\> |
+| `r` | `PromiseOrValue`<`BytesLike`\> |
+| `s` | `PromiseOrValue`<`BytesLike`\> |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
 
 ___
 
@@ -633,15 +657,15 @@ ___
 
 `Promise`<`TEvent`[]\>
 
-#### Inherited from
+#### Overrides
 
-[ERC20Token](ERC20Token.md).[queryFilter](ERC20Token.md#queryfilter)
+BaseContract.queryFilter
 
 ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`Erc20TokenClient`](Erc20TokenClient.md)
+▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`ERC2612Token`](ERC2612Token.md)
 
 #### Type parameters
 
@@ -657,13 +681,13 @@ ___
 
 #### Returns
 
-[`Erc20TokenClient`](Erc20TokenClient.md)
+[`ERC2612Token`](ERC2612Token.md)
 
-#### Inherited from
+#### Overrides
 
-[ERC20Token](ERC20Token.md).[removeAllListeners](ERC20Token.md#removealllisteners)
+BaseContract.removeAllListeners
 
-▸ **removeAllListeners**(`eventName?`): [`Erc20TokenClient`](Erc20TokenClient.md)
+▸ **removeAllListeners**(`eventName?`): [`ERC2612Token`](ERC2612Token.md)
 
 #### Parameters
 
@@ -673,11 +697,11 @@ ___
 
 #### Returns
 
-[`Erc20TokenClient`](Erc20TokenClient.md)
+[`ERC2612Token`](ERC2612Token.md)
 
-#### Inherited from
+#### Overrides
 
-[ERC20Token](ERC20Token.md).[removeAllListeners](ERC20Token.md#removealllisteners)
+BaseContract.removeAllListeners
 
 ___
 
@@ -695,10 +719,6 @@ ___
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-[ERC20Token](ERC20Token.md).[symbol](ERC20Token.md#symbol)
-
 ___
 
 ### totalSupply
@@ -714,10 +734,6 @@ ___
 #### Returns
 
 `Promise`<`BigNumber`\>
-
-#### Inherited from
-
-[ERC20Token](ERC20Token.md).[totalSupply](ERC20Token.md#totalsupply)
 
 ___
 
@@ -737,10 +753,6 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-[ERC20Token](ERC20Token.md).[transfer](ERC20Token.md#transfer)
-
 ___
 
 ### transferFrom
@@ -759,7 +771,3 @@ ___
 #### Returns
 
 `Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-[ERC20Token](ERC20Token.md).[transferFrom](ERC20Token.md#transferfrom)

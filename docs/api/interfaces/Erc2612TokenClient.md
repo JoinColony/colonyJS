@@ -2,7 +2,7 @@
 
 ## Hierarchy
 
-- `TokenERC2612`
+- [`ERC2612Token`](ERC2612Token.md)
 
   ↳ **`Erc2612TokenClient`**
 
@@ -14,7 +14,7 @@
 
 #### Inherited from
 
-TokenERC2612.\_deployedPromise
+[ERC2612Token](ERC2612Token.md).[_deployedPromise](ERC2612Token.md#_deployedpromise)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.\_runningEvents
+[ERC2612Token](ERC2612Token.md).[_runningEvents](ERC2612Token.md#_runningevents)
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.\_wrappedEmits
+[ERC2612Token](ERC2612Token.md).[_wrappedEmits](ERC2612Token.md#_wrappedemits)
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.address
+[ERC2612Token](ERC2612Token.md).[address](ERC2612Token.md#address)
 
 ___
 
@@ -79,7 +79,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.callStatic
+[ERC2612Token](ERC2612Token.md).[callStatic](ERC2612Token.md#callstatic)
 
 ___
 
@@ -95,7 +95,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.deployTransaction
+[ERC2612Token](ERC2612Token.md).[deployTransaction](ERC2612Token.md#deploytransaction)
 
 ___
 
@@ -122,7 +122,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.estimateGas
+[ERC2612Token](ERC2612Token.md).[estimateGas](ERC2612Token.md#estimategas)
 
 ___
 
@@ -141,7 +141,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.filters
+[ERC2612Token](ERC2612Token.md).[filters](ERC2612Token.md#filters)
 
 ___
 
@@ -168,7 +168,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.functions
+[ERC2612Token](ERC2612Token.md).[functions](ERC2612Token.md#functions)
 
 ___
 
@@ -178,7 +178,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.interface
+[ERC2612Token](ERC2612Token.md).[interface](ERC2612Token.md#interface)
 
 ___
 
@@ -188,7 +188,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.off
+[ERC2612Token](ERC2612Token.md).[off](ERC2612Token.md#off)
 
 ___
 
@@ -198,7 +198,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.on
+[ERC2612Token](ERC2612Token.md).[on](ERC2612Token.md#on)
 
 ___
 
@@ -208,7 +208,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.once
+[ERC2612Token](ERC2612Token.md).[once](ERC2612Token.md#once)
 
 ___
 
@@ -235,7 +235,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.populateTransaction
+[ERC2612Token](ERC2612Token.md).[populateTransaction](ERC2612Token.md#populatetransaction)
 
 ___
 
@@ -245,7 +245,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.provider
+[ERC2612Token](ERC2612Token.md).[provider](ERC2612Token.md#provider)
 
 ___
 
@@ -255,7 +255,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.removeListener
+[ERC2612Token](ERC2612Token.md).[removeListener](ERC2612Token.md#removelistener)
 
 ___
 
@@ -265,7 +265,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.resolvedAddress
+[ERC2612Token](ERC2612Token.md).[resolvedAddress](ERC2612Token.md#resolvedaddress)
 
 ___
 
@@ -275,7 +275,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.signer
+[ERC2612Token](ERC2612Token.md).[signer](ERC2612Token.md#signer)
 
 ___
 
@@ -301,7 +301,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.DOMAIN\_SEPARATOR
+[ERC2612Token](ERC2612Token.md).[DOMAIN_SEPARATOR](ERC2612Token.md#domain_separator)
 
 ___
 
@@ -321,7 +321,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.\_checkRunningEvents
+[ERC2612Token](ERC2612Token.md).[_checkRunningEvents](ERC2612Token.md#_checkrunningevents)
 
 ___
 
@@ -341,7 +341,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.\_deployed
+[ERC2612Token](ERC2612Token.md).[_deployed](ERC2612Token.md#_deployed)
 
 ___
 
@@ -363,7 +363,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.\_wrapEvent
+[ERC2612Token](ERC2612Token.md).[_wrapEvent](ERC2612Token.md#_wrapevent)
 
 ___
 
@@ -385,7 +385,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.allowance
+[ERC2612Token](ERC2612Token.md).[allowance](ERC2612Token.md#allowance)
 
 ___
 
@@ -407,7 +407,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.approve
+[ERC2612Token](ERC2612Token.md).[approve](ERC2612Token.md#approve)
 
 ___
 
@@ -427,7 +427,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.attach
+[ERC2612Token](ERC2612Token.md).[attach](ERC2612Token.md#attach)
 
 ___
 
@@ -448,7 +448,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.balanceOf
+[ERC2612Token](ERC2612Token.md).[balanceOf](ERC2612Token.md#balanceof)
 
 ___
 
@@ -468,7 +468,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.connect
+[ERC2612Token](ERC2612Token.md).[connect](ERC2612Token.md#connect)
 
 ___
 
@@ -488,7 +488,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.decimals
+[ERC2612Token](ERC2612Token.md).[decimals](ERC2612Token.md#decimals)
 
 ___
 
@@ -502,7 +502,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.deployed
+[ERC2612Token](ERC2612Token.md).[deployed](ERC2612Token.md#deployed)
 
 ___
 
@@ -523,7 +523,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.emit
+[ERC2612Token](ERC2612Token.md).[emit](ERC2612Token.md#emit)
 
 ___
 
@@ -543,7 +543,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.fallback
+[ERC2612Token](ERC2612Token.md).[fallback](ERC2612Token.md#fallback)
 
 ___
 
@@ -575,7 +575,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.listenerCount
+[ERC2612Token](ERC2612Token.md).[listenerCount](ERC2612Token.md#listenercount)
 
 ___
 
@@ -601,7 +601,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.listeners
+[ERC2612Token](ERC2612Token.md).[listeners](ERC2612Token.md#listeners)
 
 ▸ **listeners**(`eventName?`): `Listener`[]
 
@@ -617,7 +617,7 @@ TokenERC2612.listeners
 
 #### Inherited from
 
-TokenERC2612.listeners
+[ERC2612Token](ERC2612Token.md).[listeners](ERC2612Token.md#listeners)
 
 ___
 
@@ -637,7 +637,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.name
+[ERC2612Token](ERC2612Token.md).[name](ERC2612Token.md#name)
 
 ___
 
@@ -658,7 +658,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.nonces
+[ERC2612Token](ERC2612Token.md).[nonces](ERC2612Token.md#nonces)
 
 ___
 
@@ -685,7 +685,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.permit
+[ERC2612Token](ERC2612Token.md).[permit](ERC2612Token.md#permit)
 
 ___
 
@@ -713,7 +713,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.queryFilter
+[ERC2612Token](ERC2612Token.md).[queryFilter](ERC2612Token.md#queryfilter)
 
 ___
 
@@ -739,7 +739,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.removeAllListeners
+[ERC2612Token](ERC2612Token.md).[removeAllListeners](ERC2612Token.md#removealllisteners)
 
 ▸ **removeAllListeners**(`eventName?`): [`Erc2612TokenClient`](Erc2612TokenClient.md)
 
@@ -755,7 +755,7 @@ TokenERC2612.removeAllListeners
 
 #### Inherited from
 
-TokenERC2612.removeAllListeners
+[ERC2612Token](ERC2612Token.md).[removeAllListeners](ERC2612Token.md#removealllisteners)
 
 ___
 
@@ -775,7 +775,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.symbol
+[ERC2612Token](ERC2612Token.md).[symbol](ERC2612Token.md#symbol)
 
 ___
 
@@ -795,7 +795,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.totalSupply
+[ERC2612Token](ERC2612Token.md).[totalSupply](ERC2612Token.md#totalsupply)
 
 ___
 
@@ -817,7 +817,7 @@ ___
 
 #### Inherited from
 
-TokenERC2612.transfer
+[ERC2612Token](ERC2612Token.md).[transfer](ERC2612Token.md#transfer)
 
 ___
 
@@ -840,4 +840,4 @@ ___
 
 #### Inherited from
 
-TokenERC2612.transferFrom
+[ERC2612Token](ERC2612Token.md).[transferFrom](ERC2612Token.md#transferfrom)

@@ -30,8 +30,15 @@ export type { TokenERC2612 as ERC2612Token } from './contracts';
 
 export * from './contracts';
 
-export { default as getTokenClient, TokenClient } from './clients/TokenClient';
-export {
-  default as getTokenLockingClient,
-  TokenLockingClient,
-} from './clients/TokenLockingClient';
+export { default as getTokenClient } from './clients/TokenClient';
+export type {
+  LegacyColonyTokenClient,
+  TokenClient,
+  ColonyTokenClient,
+  Erc20TokenClient,
+  Erc2612TokenClient,
+  DaiTokenClient,
+} from './clients/TokenClient';
+
+export { default as getTokenLockingClient } from './clients/TokenLockingClient';
+export type { TokenLockingClient } from './clients/TokenLockingClient';

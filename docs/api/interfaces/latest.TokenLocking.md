@@ -1,10 +1,14 @@
-# Interface: TokenLockingClient
+# Interface: TokenLocking
+
+[latest](../modules/latest.md).TokenLocking
 
 ## Hierarchy
 
-- [`TokenLocking`](latest.TokenLocking.md)
+- `BaseContract`
 
-  ↳ **`TokenLockingClient`**
+  ↳ **`TokenLocking`**
+
+  ↳↳ [`TokenLockingClient`](TokenLockingClient.md)
 
 ## Properties
 
@@ -14,7 +18,7 @@
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[_deployedPromise](latest.TokenLocking.md#_deployedpromise)
+BaseContract.\_deployedPromise
 
 ___
 
@@ -28,7 +32,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[_runningEvents](latest.TokenLocking.md#_runningevents)
+BaseContract.\_runningEvents
 
 ___
 
@@ -42,7 +46,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[_wrappedEmits](latest.TokenLocking.md#_wrappedemits)
+BaseContract.\_wrappedEmits
 
 ___
 
@@ -52,7 +56,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[address](latest.TokenLocking.md#address)
+BaseContract.address
 
 ___
 
@@ -94,15 +98,9 @@ ___
 | `withdraw(address,uint256)` | (`_token`: `PromiseOrValue`<`string`\>, `_amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `withdraw(address,uint256,bool)` | (`_token`: `PromiseOrValue`<`string`\>, `_amount`: `PromiseOrValue`<`BigNumberish`\>, `_force`: `PromiseOrValue`<`boolean`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 
-#### Inherited from
+#### Overrides
 
-[TokenLocking](latest.TokenLocking.md).[callStatic](latest.TokenLocking.md#callstatic)
-
-___
-
-### clientType
-
-• **clientType**: [`TokenLockingClient`](../enums/ClientType.md#tokenlockingclient)
+BaseContract.callStatic
 
 ___
 
@@ -112,7 +110,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[deployTransaction](latest.TokenLocking.md#deploytransaction)
+BaseContract.deployTransaction
 
 ___
 
@@ -154,9 +152,9 @@ ___
 | `withdraw(address,uint256)` | (`_token`: `PromiseOrValue`<`string`\>, `_amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
 | `withdraw(address,uint256,bool)` | (`_token`: `PromiseOrValue`<`string`\>, `_amount`: `PromiseOrValue`<`BigNumberish`\>, `_force`: `PromiseOrValue`<`boolean`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
 
-#### Inherited from
+#### Overrides
 
-[TokenLocking](latest.TokenLocking.md).[estimateGas](latest.TokenLocking.md#estimategas)
+BaseContract.estimateGas
 
 ___
 
@@ -197,9 +195,9 @@ ___
 | `UserTokenWithdrawn` | (`token?`: ``null``, `user?`: ``null``, `amount?`: ``null``) => `UserTokenWithdrawnEventFilter` |
 | `UserTokenWithdrawn(address,address,uint256)` | (`token?`: ``null``, `user?`: ``null``, `amount?`: ``null``) => `UserTokenWithdrawnEventFilter` |
 
-#### Inherited from
+#### Overrides
 
-[TokenLocking](latest.TokenLocking.md).[filters](latest.TokenLocking.md#filters)
+BaseContract.filters
 
 ___
 
@@ -241,9 +239,9 @@ ___
 | `withdraw(address,uint256)` | (`_token`: `PromiseOrValue`<`string`\>, `_amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `withdraw(address,uint256,bool)` | (`_token`: `PromiseOrValue`<`string`\>, `_amount`: `PromiseOrValue`<`BigNumberish`\>, `_force`: `PromiseOrValue`<`boolean`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 
-#### Inherited from
+#### Overrides
 
-[TokenLocking](latest.TokenLocking.md).[functions](latest.TokenLocking.md#functions)
+BaseContract.functions
 
 ___
 
@@ -251,39 +249,39 @@ ___
 
 • **interface**: `TokenLockingInterface`
 
-#### Inherited from
+#### Overrides
 
-[TokenLocking](latest.TokenLocking.md).[interface](latest.TokenLocking.md#interface)
+BaseContract.interface
 
 ___
 
 ### off
 
-• **off**: `OnEvent`<[`TokenLockingClient`](TokenLockingClient.md)\>
+• **off**: `OnEvent`<[`TokenLocking`](latest.TokenLocking.md)\>
 
-#### Inherited from
+#### Overrides
 
-[TokenLocking](latest.TokenLocking.md).[off](latest.TokenLocking.md#off)
+BaseContract.off
 
 ___
 
 ### on
 
-• **on**: `OnEvent`<[`TokenLockingClient`](TokenLockingClient.md)\>
+• **on**: `OnEvent`<[`TokenLocking`](latest.TokenLocking.md)\>
 
-#### Inherited from
+#### Overrides
 
-[TokenLocking](latest.TokenLocking.md).[on](latest.TokenLocking.md#on)
+BaseContract.on
 
 ___
 
 ### once
 
-• **once**: `OnEvent`<[`TokenLockingClient`](TokenLockingClient.md)\>
+• **once**: `OnEvent`<[`TokenLocking`](latest.TokenLocking.md)\>
 
-#### Inherited from
+#### Overrides
 
-[TokenLocking](latest.TokenLocking.md).[once](latest.TokenLocking.md#once)
+BaseContract.once
 
 ___
 
@@ -325,9 +323,9 @@ ___
 | `withdraw(address,uint256)` | (`_token`: `PromiseOrValue`<`string`\>, `_amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `withdraw(address,uint256,bool)` | (`_token`: `PromiseOrValue`<`string`\>, `_amount`: `PromiseOrValue`<`BigNumberish`\>, `_force`: `PromiseOrValue`<`boolean`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 
-#### Inherited from
+#### Overrides
 
-[TokenLocking](latest.TokenLocking.md).[populateTransaction](latest.TokenLocking.md#populatetransaction)
+BaseContract.populateTransaction
 
 ___
 
@@ -337,17 +335,17 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[provider](latest.TokenLocking.md#provider)
+BaseContract.provider
 
 ___
 
 ### removeListener
 
-• **removeListener**: `OnEvent`<[`TokenLockingClient`](TokenLockingClient.md)\>
+• **removeListener**: `OnEvent`<[`TokenLocking`](latest.TokenLocking.md)\>
 
-#### Inherited from
+#### Overrides
 
-[TokenLocking](latest.TokenLocking.md).[removeListener](latest.TokenLocking.md#removelistener)
+BaseContract.removeListener
 
 ___
 
@@ -357,7 +355,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[resolvedAddress](latest.TokenLocking.md#resolvedaddress)
+BaseContract.resolvedAddress
 
 ___
 
@@ -367,7 +365,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[signer](latest.TokenLocking.md#signer)
+BaseContract.signer
 
 ## Methods
 
@@ -387,7 +385,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[_checkRunningEvents](latest.TokenLocking.md#_checkrunningevents)
+BaseContract.\_checkRunningEvents
 
 ___
 
@@ -407,7 +405,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[_deployed](latest.TokenLocking.md#_deployed)
+BaseContract.\_deployed
 
 ___
 
@@ -429,7 +427,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[_wrapEvent](latest.TokenLocking.md#_wrapevent)
+BaseContract.\_wrapEvent
 
 ___
 
@@ -450,15 +448,11 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-[TokenLocking](latest.TokenLocking.md).[approveStake](latest.TokenLocking.md#approvestake)
-
 ___
 
 ### attach
 
-▸ **attach**(`addressOrName`): [`TokenLockingClient`](TokenLockingClient.md)
+▸ **attach**(`addressOrName`): [`TokenLocking`](latest.TokenLocking.md)
 
 #### Parameters
 
@@ -468,11 +462,11 @@ ___
 
 #### Returns
 
-[`TokenLockingClient`](TokenLockingClient.md)
+[`TokenLocking`](latest.TokenLocking.md)
 
-#### Inherited from
+#### Overrides
 
-[TokenLocking](latest.TokenLocking.md).[attach](latest.TokenLocking.md#attach)
+BaseContract.attach
 
 ___
 
@@ -490,15 +484,11 @@ ___
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-[TokenLocking](latest.TokenLocking.md).[authority](latest.TokenLocking.md#authority)
-
 ___
 
 ### connect
 
-▸ **connect**(`signerOrProvider`): [`TokenLockingClient`](TokenLockingClient.md)
+▸ **connect**(`signerOrProvider`): [`TokenLocking`](latest.TokenLocking.md)
 
 #### Parameters
 
@@ -508,11 +498,11 @@ ___
 
 #### Returns
 
-[`TokenLockingClient`](TokenLockingClient.md)
+[`TokenLocking`](latest.TokenLocking.md)
 
-#### Inherited from
+#### Overrides
 
-[TokenLocking](latest.TokenLocking.md).[connect](latest.TokenLocking.md#connect)
+BaseContract.connect
 
 ___
 
@@ -533,23 +523,19 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-[TokenLocking](latest.TokenLocking.md).[deobligateStake](latest.TokenLocking.md#deobligatestake)
-
 ___
 
 ### deployed
 
-▸ **deployed**(): `Promise`<[`TokenLockingClient`](TokenLockingClient.md)\>
+▸ **deployed**(): `Promise`<[`TokenLocking`](latest.TokenLocking.md)\>
 
 #### Returns
 
-`Promise`<[`TokenLockingClient`](TokenLockingClient.md)\>
+`Promise`<[`TokenLocking`](latest.TokenLocking.md)\>
 
-#### Inherited from
+#### Overrides
 
-[TokenLocking](latest.TokenLocking.md).[deployed](latest.TokenLocking.md#deployed)
+BaseContract.deployed
 
 ___
 
@@ -568,10 +554,6 @@ ___
 #### Returns
 
 `Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-[TokenLocking](latest.TokenLocking.md).[deposit(address,uint256)](latest.TokenLocking.md#deposit(address,uint256))
 
 ___
 
@@ -592,10 +574,6 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-[TokenLocking](latest.TokenLocking.md).[deposit(address,uint256,bool)](latest.TokenLocking.md#deposit(address,uint256,bool))
-
 ___
 
 ### depositFor
@@ -614,10 +592,6 @@ ___
 #### Returns
 
 `Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-[TokenLocking](latest.TokenLocking.md).[depositFor](latest.TokenLocking.md#depositfor)
 
 ___
 
@@ -638,7 +612,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[emit](latest.TokenLocking.md#emit)
+BaseContract.emit
 
 ___
 
@@ -663,10 +637,6 @@ Main function to be called when user wants to execute meta transaction. The actu
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-[TokenLocking](latest.TokenLocking.md).[executeMetaTransaction](latest.TokenLocking.md#executemetatransaction)
-
 ___
 
 ### fallback
@@ -685,7 +655,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[fallback](latest.TokenLocking.md#fallback)
+BaseContract.fallback
 
 ___
 
@@ -706,10 +676,6 @@ ___
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-[TokenLocking](latest.TokenLocking.md).[getApproval](latest.TokenLocking.md#getapproval)
-
 ___
 
 ### getChainId
@@ -725,10 +691,6 @@ ___
 #### Returns
 
 `Promise`<`BigNumber`\>
-
-#### Inherited from
-
-[TokenLocking](latest.TokenLocking.md).[getChainId](latest.TokenLocking.md#getchainid)
 
 ___
 
@@ -746,10 +708,6 @@ ___
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-[TokenLocking](latest.TokenLocking.md).[getColonyNetwork](latest.TokenLocking.md#getcolonynetwork)
-
 ___
 
 ### getMetatransactionNonce
@@ -766,10 +724,6 @@ ___
 #### Returns
 
 `Promise`<`BigNumber`\>
-
-#### Inherited from
-
-[TokenLocking](latest.TokenLocking.md).[getMetatransactionNonce](latest.TokenLocking.md#getmetatransactionnonce)
 
 ___
 
@@ -790,10 +744,6 @@ ___
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-[TokenLocking](latest.TokenLocking.md).[getObligation](latest.TokenLocking.md#getobligation)
-
 ___
 
 ### getTotalLockCount
@@ -810,10 +760,6 @@ ___
 #### Returns
 
 `Promise`<`BigNumber`\>
-
-#### Inherited from
-
-[TokenLocking](latest.TokenLocking.md).[getTotalLockCount](latest.TokenLocking.md#gettotallockcount)
 
 ___
 
@@ -833,10 +779,6 @@ ___
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-[TokenLocking](latest.TokenLocking.md).[getTotalObligation](latest.TokenLocking.md#gettotalobligation)
-
 ___
 
 ### getUserLock
@@ -854,10 +796,6 @@ ___
 #### Returns
 
 `Promise`<`LockStructOutput`\>
-
-#### Inherited from
-
-[TokenLocking](latest.TokenLocking.md).[getUserLock](latest.TokenLocking.md#getuserlock)
 
 ___
 
@@ -877,10 +815,6 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-[TokenLocking](latest.TokenLocking.md).[incrementLockCounterTo](latest.TokenLocking.md#incrementlockcounterto)
-
 ___
 
 ### listenerCount
@@ -899,7 +833,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[listenerCount](latest.TokenLocking.md#listenercount)
+BaseContract.listenerCount
 
 ___
 
@@ -923,9 +857,9 @@ ___
 
 `TypedListener`<`TEvent`\>[]
 
-#### Inherited from
+#### Overrides
 
-[TokenLocking](latest.TokenLocking.md).[listeners](latest.TokenLocking.md#listeners)
+BaseContract.listeners
 
 ▸ **listeners**(`eventName?`): `Listener`[]
 
@@ -939,9 +873,9 @@ ___
 
 `Listener`[]
 
-#### Inherited from
+#### Overrides
 
-[TokenLocking](latest.TokenLocking.md).[listeners](latest.TokenLocking.md#listeners)
+BaseContract.listeners
 
 ___
 
@@ -959,10 +893,6 @@ ___
 #### Returns
 
 `Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-[TokenLocking](latest.TokenLocking.md).[lockToken](latest.TokenLocking.md#locktoken)
 
 ___
 
@@ -983,10 +913,6 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-[TokenLocking](latest.TokenLocking.md).[obligateStake](latest.TokenLocking.md#obligatestake)
-
 ___
 
 ### owner
@@ -1002,10 +928,6 @@ ___
 #### Returns
 
 `Promise`<`string`\>
-
-#### Inherited from
-
-[TokenLocking](latest.TokenLocking.md).[owner](latest.TokenLocking.md#owner)
 
 ___
 
@@ -1031,15 +953,15 @@ ___
 
 `Promise`<`TEvent`[]\>
 
-#### Inherited from
+#### Overrides
 
-[TokenLocking](latest.TokenLocking.md).[queryFilter](latest.TokenLocking.md#queryfilter)
+BaseContract.queryFilter
 
 ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`TokenLockingClient`](TokenLockingClient.md)
+▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`TokenLocking`](latest.TokenLocking.md)
 
 #### Type parameters
 
@@ -1055,13 +977,13 @@ ___
 
 #### Returns
 
-[`TokenLockingClient`](TokenLockingClient.md)
+[`TokenLocking`](latest.TokenLocking.md)
 
-#### Inherited from
+#### Overrides
 
-[TokenLocking](latest.TokenLocking.md).[removeAllListeners](latest.TokenLocking.md#removealllisteners)
+BaseContract.removeAllListeners
 
-▸ **removeAllListeners**(`eventName?`): [`TokenLockingClient`](TokenLockingClient.md)
+▸ **removeAllListeners**(`eventName?`): [`TokenLocking`](latest.TokenLocking.md)
 
 #### Parameters
 
@@ -1071,11 +993,11 @@ ___
 
 #### Returns
 
-[`TokenLockingClient`](TokenLockingClient.md)
+[`TokenLocking`](latest.TokenLocking.md)
 
-#### Inherited from
+#### Overrides
 
-[TokenLocking](latest.TokenLocking.md).[removeAllListeners](latest.TokenLocking.md#removealllisteners)
+BaseContract.removeAllListeners
 
 ___
 
@@ -1095,10 +1017,6 @@ ___
 
 `Promise`<`void`\>
 
-#### Inherited from
-
-[TokenLocking](latest.TokenLocking.md).[reward](latest.TokenLocking.md#reward)
-
 ___
 
 ### setAuthority
@@ -1115,10 +1033,6 @@ ___
 #### Returns
 
 `Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-[TokenLocking](latest.TokenLocking.md).[setAuthority](latest.TokenLocking.md#setauthority)
 
 ___
 
@@ -1137,10 +1051,6 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-[TokenLocking](latest.TokenLocking.md).[setColonyNetwork](latest.TokenLocking.md#setcolonynetwork)
-
 ___
 
 ### setOwner
@@ -1157,10 +1067,6 @@ ___
 #### Returns
 
 `Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-[TokenLocking](latest.TokenLocking.md).[setOwner](latest.TokenLocking.md#setowner)
 
 ___
 
@@ -1182,10 +1088,6 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-[TokenLocking](latest.TokenLocking.md).[transfer](latest.TokenLocking.md#transfer)
-
 ___
 
 ### transferStake
@@ -1206,10 +1108,6 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-[TokenLocking](latest.TokenLocking.md).[transferStake](latest.TokenLocking.md#transferstake)
-
 ___
 
 ### unlockTokenForUser
@@ -1228,10 +1126,6 @@ ___
 #### Returns
 
 `Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-[TokenLocking](latest.TokenLocking.md).[unlockTokenForUser](latest.TokenLocking.md#unlocktokenforuser)
 
 ___
 
@@ -1256,10 +1150,6 @@ ___
 
 `Promise`<`boolean`\>
 
-#### Inherited from
-
-[TokenLocking](latest.TokenLocking.md).[verify](latest.TokenLocking.md#verify)
-
 ___
 
 ### withdraw(address,uint256)
@@ -1277,10 +1167,6 @@ ___
 #### Returns
 
 `Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-[TokenLocking](latest.TokenLocking.md).[withdraw(address,uint256)](latest.TokenLocking.md#withdraw(address,uint256))
 
 ___
 
@@ -1300,7 +1186,3 @@ ___
 #### Returns
 
 `Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-[TokenLocking](latest.TokenLocking.md).[withdraw(address,uint256,bool)](latest.TokenLocking.md#withdraw(address,uint256,bool))
