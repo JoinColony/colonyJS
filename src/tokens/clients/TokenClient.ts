@@ -40,18 +40,18 @@ export interface ColonyTokenClient extends MetaTxToken {
   tokenClientType: TokenClientType.Colony;
 
   /**
-   * Deploy a TokenAuthority contract for this Colony for a specific token
+   * Deploy a TokenAuthority contract for a specific token
    * The TokenAuthority enables certain addresses to transfer the tokens, even if it's locked
-   * It also enables the assigned Colony to mint tokens
+   * It also enables an assigned address to mint tokens
    *
    * @remarks
    * Only works with tokens that allow for an authority to be set (e.g. tokens deployed with Colony)
    *
-   * @param colonyAddress The address of the Colony to install the token authority for
+   * @param allowedToMint Address that is allowed to mint tokens (in most cases this is the Colony)
    * @param allowedToTransfer Addresses that are allowed to transfer the token, even if it's locked
    */
   deployTokenAuthority(
-    colonyAddress: string,
+    allowedToMint: string,
     allowedToTransfer: string[],
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
@@ -60,18 +60,18 @@ export interface ColonyTokenClient extends MetaTxToken {
 
   estimateGas: MetaTxToken['estimateGas'] & {
     /**
-     * Deploy a TokenAuthority contract for this Colony for a specific token
+     * Deploy a TokenAuthority contract for a specific token
      * The TokenAuthority enables certain addresses to transfer the tokens, even if it's locked
-     * It also enables the assigned Colony to mint tokens
+     * It also enables an assigned address to mint tokens
      *
      * @remarks
      * Only works with tokens that allow for an authority to be set (e.g. tokens deployed with Colony)
      *
-     * @param colonyAddress The address of the Colony to install the token authority for
+     * @param allowedToMint Address that is allowed to mint tokens (in most cases this is the Colony)
      * @param allowedToTransfer Addresses that are allowed to transfer the token, even if it's locked
      */
     deployTokenAuthority(
-      colonyAddress: string,
+      allowedToMint: string,
       allowedToTransfer: string[],
       overrides?: TxOverrides,
     ): Promise<BigNumber>;
