@@ -42,3 +42,5 @@ export type {
 
 export { default as getTokenLockingClient } from './clients/TokenLockingClient';
 export type { TokenLockingClient } from './clients/TokenLockingClient';
+
+export { ClientType, TokenClientType } from '../constants';
