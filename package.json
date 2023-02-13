@@ -46,7 +46,6 @@
     "compile-cjs": "tsc -p tsconfig.build.json --module commonjs --outDir dist/cjs",
     "compile-esm": "tsc -p tsconfig.build.json --module es2015 --outDir dist/esm",
     "compile-types": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --outDir dist/types",
-    "extract-contract-abis": "ts-node -P scripts/tsconfig-scripts.json scripts/extract-contract-abis.ts",
     "lint": "eslint --ext .ts src scripts",
     "no-git-changes": "./scripts/no-git-changes.sh",
     "release": "npm test && npm run build && release-it",
