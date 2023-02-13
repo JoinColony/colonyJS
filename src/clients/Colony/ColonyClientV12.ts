@@ -42,6 +42,8 @@ import { addEncodeInterfaces } from './interfaces/encodeInterfacesV12';
 import { getAllAbiEvents, getAbiFunctions } from '../../utils';
 import { ColonyVersion } from '../../versions';
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
 type ColonyExtensions = Omit<
   ExtendedIColony<IColony>,
   'moveFundsBetweenPotsWithProofs'
@@ -57,6 +59,8 @@ type ColonyExtensions = Omit<
   ColonyExtensionsV11<PreviousIColony> &
   ColonyExtensionsV12<IColony>;
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
 export type ColonyClientV12 = ColonyExtensions & {
   clientVersion: ColonyVersion.GreenLightweightSpaceshipThree;
   estimate: ExtendedIColony<IColony>['estimate'] & ExtendedEstimateV12;
