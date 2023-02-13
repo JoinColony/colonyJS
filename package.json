@@ -76,7 +76,6 @@
     "eslint-plugin-prettier": "^4.2.1",
     "ethers": "5.7.2",
     "execa": "^5.1.1",
-    "fast-glob": "^3.2.11",
     "husky": "^8.0.2",
     "jest": "^27.5.1",
     "lint-staged": "^13.0.4",
