@@ -145,8 +145,9 @@ const TOKEN_CONTRACTS = [
   'TokenLocking',
 ];
 
-const FIXED_DIR = resolvePath(__dirname, '../src/abis/__fixed__');
-const DYNAMIC_DIR = resolvePath(__dirname, '../src/abis/__dynamic__');
+const ABI_DIR = resolvePath(__dirname, '../abis/abis');
+const FIXED_DIR = resolvePath(ABI_DIR, '__fixed__');
+const DYNAMIC_DIR = resolvePath(ABI_DIR, '__dynamic__');
 const OUT_ROOT_DIR = resolvePath(__dirname, '../src/contracts');
 const OUT_TOKEN_DIR = resolvePath(__dirname, '../src/tokens/contracts');
 
@@ -289,15 +290,14 @@ const build = async () => {
   const { tag } = args;
 
   const inputTag = tag === 'develop' ? 'latest' : tag;
-  const abiDir = resolvePath(__dirname, `../src/abis`);
-  const inputDir = resolvePath(abiDir, inputTag);
+  const inputDir = resolvePath(ABI_DIR, inputTag);
 
   console.info(`Building release tag ${tag}...`);
 
   if (tag !== 'develop') {
     await buildVersionedContracts(tag, inputDir);
   } else {
-    buildEventsAbis(abiDir);
+    buildEventsAbis(ABI_DIR);
     await buildUnversionedContracts(inputDir);
     await buildTokenContracts(inputDir);
   }
