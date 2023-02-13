@@ -8,55 +8,8 @@ When the ColonyNetwork contracts are updated to new versions, ColonyJS _will_ ne
 
 ## Generating the contract ABIs
 
-First we need to create the relevant contract ABIs and store them in the ColonyJS repo (these are just `.json` files containing information about the contract interfaces. We will be generating them in the `colonyNetwork` repo which is a submodule of ColonyjS.&#x20;
+Follow the guide here to generate the contact ABIs for a specific colonyNetwork version tag: https://github.com/JoinColony/abis.
 
-Make sure you have the correct node version
-
-```bash
-nvm use
-```
-
-Go into the `vendor/colonyNetwork` subdirectory and check out the correct tag for the latest ColonyNetwork version (here `glwss`):
-
-```bash
-cd vendor/colonyNetwork
-git checkout glwss
-```
-
-Update all git submodules and install all dependencies (see also [this guide](https://colony.gitbook.io/colony-network/quick-start)):
-
-```bash
-git submodule update --recursive
-npm ci
-```
-
-Prepare the token submodule (and delete any existing build artifacts):
-
-```bash
-cd lib/colonyToken
-npm ci # again, make sure you're running the correct node version (with nvm)
-rm -rf build/contracts/*.json # to remove any prior builds
-git reset --hard # to recover the pinned (checked in) contracts
-npx truffle compile
-```
-
-You will need Docker installed and running to compile the contracts. It is however possible to disable Docker for the builds, see [here](https://colony.gitbook.io/colony-network/quick-start) for more information.
-
-Then back in the `vendor/colonyNetwork` submodule:
-
-```bash
-rm -rf build/contracts/*.json # to remove any prior builds
-npx truffle compile
-```
-
-Now we should have all the necessary contract ABIs ready. Next we extract those using a helper script within ColonyJS. Execute the following script. For the tag name use the tag checked out in the `colonyNetwork` directory (here `glwss`):
-
-```bash
-cd ../.. # go back to the colonyJS root folder
-npm run extract-contract-abis -- -t=glwss
-```
-
-That process should be  fairly quick. A directory called `src/abis/glwss` should have been created, containing all the required ABIs for the next version (and more).
 
 ## Building the TypeChain typings
 
