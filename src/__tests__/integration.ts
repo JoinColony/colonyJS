@@ -1,79 +1,24 @@
-import { resolve as resolvePath } from 'path';
-import { readFileSync } from 'fs';
-import { Wallet, providers } from 'ethers';
-import execa, { ExecaChildProcess } from 'execa';
+import { providers } from 'ethers';
+import type { JsonRpcProvider } from '@ethersproject/providers';
 
 import { Network } from '../constants';
 import getColonyNetworkClient from '../clients/ColonyNetworkClient';
 
-const NETWORK_PATH = resolvePath(__dirname, '../../vendor/colonyNetwork');
-
-let deployed: { etherRouterAddress: string };
-let ganache: ExecaChildProcess;
-let wallet1: Wallet;
-// Array of tupels [address, privateKey]
-let ganacheAccounts: Array<[string, string]>;
+let provider: JsonRpcProvider;
 
 beforeAll(async () => {
-  ganache = execa('bash', ['./scripts/start-blockchain-client.sh'], {
-    cwd: NETWORK_PATH,
-  });
-  await new Promise((resolve, reject) => {
-    if (ganache.stdout && ganache.stderr) {
-      ganache.stderr.on('data', (err) => reject(new Error(err)));
-      ganache.stdout.on('data', (data) => {
-        if (data.toString().includes('8545')) {
-          resolve(data);
-        }
-      });
-    } else {
-      reject(new Error('Something went wrong'));
-    }
-  });
-
-  const provider = new providers.JsonRpcProvider('http://localhost:8545');
-
-  await execa('npm', ['run', 'provision:token:contracts'], {
-    cwd: NETWORK_PATH,
-  });
-
-  await execa('truffle', ['deploy'], {
-    cwd: NETWORK_PATH,
-    preferLocal: true,
-    localDir: NETWORK_PATH,
-  });
-
-  deployed = JSON.parse(
-    readFileSync(
-      resolvePath(NETWORK_PATH, 'etherrouter-address.json'),
-    ).toString(),
-  );
-
-  ganacheAccounts = Object.entries(
-    JSON.parse(
-      readFileSync(
-        resolvePath(NETWORK_PATH, 'ganache-accounts.json'),
-      ).toString(),
-    ).private_keys,
-  );
-
-  wallet1 = new Wallet(ganacheAccounts[0][1], provider);
-}, 10 * 60 * 1000);
-
-afterAll(() => {
-  ganache.kill('SIGKILL');
+  provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc/');
 });
 
 describe('ColonyNetwork', () => {
   it('Can get the colony network', async () => {
     const colonyNetworkClient = getColonyNetworkClient(
-      Network.Custom,
-      wallet1,
-      {
-        networkAddress: deployed.etherRouterAddress,
-      },
+      Network.Gnosis,
+      provider,
     );
-    const colonyCount = await colonyNetworkClient.getColonyCount();
-    expect(colonyCount.toNumber()).toEqual(1);
+    const metaColonyAddress = await colonyNetworkClient.getMetaColony();
+    expect(metaColonyAddress).toEqual(
+      '0xCFD3aa1EbC6119D80Ed47955a87A9d9C281A97B3',
+    );
   });
 });
