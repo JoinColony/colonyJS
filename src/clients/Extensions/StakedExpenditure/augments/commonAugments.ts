@@ -16,7 +16,7 @@ import { TxOverrides } from '../../../../types';
 import {
   StakedExpenditureEvents,
   StakedExpenditureEvents__factory as StakedExpenditureEventsFactory,
-} from '../../../../contracts';
+} from '../../../../contracts/events';
 import {
   IColonyV4,
   IColonyV5,

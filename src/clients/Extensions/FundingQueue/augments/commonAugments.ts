@@ -6,7 +6,7 @@ import { ClientType } from '../../../../constants';
 import {
   FundingQueueEvents,
   FundingQueueEvents__factory as FundingQueueEventsFactory,
-} from '../../../../contracts';
+} from '../../../../contracts/events';
 
 export type AugmentedFundingQueue<T extends AnyFundingQueue = AnyFundingQueue> =
   T & {

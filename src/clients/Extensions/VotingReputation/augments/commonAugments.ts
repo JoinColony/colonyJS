@@ -11,7 +11,7 @@ import { AnyVotingReputation } from '../../../../contracts/VotingReputation/expo
 import {
   VotingReputationEvents,
   VotingReputationEvents__factory as VotingReputationEventsFactory,
-} from '../../../../contracts';
+} from '../../../../contracts/events';
 import { VotingReputationVersion } from '../exports';
 
 export type AugmentedEstimate<

@@ -4,7 +4,7 @@ The SAI token. It requires special treatment as it's deprecated
 
 ## Hierarchy
 
-- [`TokenSAI`](fixed.TokenSAI.md)
+- `TokenSAI`
 
   ↳ **`DaiTokenClient`**
 
@@ -16,7 +16,7 @@ The SAI token. It requires special treatment as it's deprecated
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[_deployedPromise](fixed.TokenSAI.md#_deployedpromise)
+TokenSAI.\_deployedPromise
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[_runningEvents](fixed.TokenSAI.md#_runningevents)
+TokenSAI.\_runningEvents
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[_wrappedEmits](fixed.TokenSAI.md#_wrappedemits)
+TokenSAI.\_wrappedEmits
 
 ___
 
@@ -54,7 +54,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[address](fixed.TokenSAI.md#address)
+TokenSAI.address
 
 ___
 
@@ -78,7 +78,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[callStatic](fixed.TokenSAI.md#callstatic)
+TokenSAI.callStatic
 
 ___
 
@@ -94,7 +94,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[deployTransaction](fixed.TokenSAI.md#deploytransaction)
+TokenSAI.deployTransaction
 
 ___
 
@@ -118,7 +118,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[estimateGas](fixed.TokenSAI.md#estimategas)
+TokenSAI.estimateGas
 
 ___
 
@@ -137,7 +137,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[filters](fixed.TokenSAI.md#filters)
+TokenSAI.filters
 
 ___
 
@@ -161,7 +161,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[functions](fixed.TokenSAI.md#functions)
+TokenSAI.functions
 
 ___
 
@@ -171,7 +171,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[interface](fixed.TokenSAI.md#interface)
+TokenSAI.interface
 
 ___
 
@@ -181,7 +181,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[off](fixed.TokenSAI.md#off)
+TokenSAI.off
 
 ___
 
@@ -191,7 +191,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[on](fixed.TokenSAI.md#on)
+TokenSAI.on
 
 ___
 
@@ -201,7 +201,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[once](fixed.TokenSAI.md#once)
+TokenSAI.once
 
 ___
 
@@ -225,7 +225,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[populateTransaction](fixed.TokenSAI.md#populatetransaction)
+TokenSAI.populateTransaction
 
 ___
 
@@ -235,7 +235,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[provider](fixed.TokenSAI.md#provider)
+TokenSAI.provider
 
 ___
 
@@ -245,7 +245,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[removeListener](fixed.TokenSAI.md#removelistener)
+TokenSAI.removeListener
 
 ___
 
@@ -255,7 +255,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[resolvedAddress](fixed.TokenSAI.md#resolvedaddress)
+TokenSAI.resolvedAddress
 
 ___
 
@@ -265,7 +265,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[signer](fixed.TokenSAI.md#signer)
+TokenSAI.signer
 
 ___
 
@@ -291,7 +291,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[_checkRunningEvents](fixed.TokenSAI.md#_checkrunningevents)
+TokenSAI.\_checkRunningEvents
 
 ___
 
@@ -311,7 +311,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[_deployed](fixed.TokenSAI.md#_deployed)
+TokenSAI.\_deployed
 
 ___
 
@@ -333,7 +333,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[_wrapEvent](fixed.TokenSAI.md#_wrapevent)
+TokenSAI.\_wrapEvent
 
 ___
 
@@ -355,7 +355,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[allowance](fixed.TokenSAI.md#allowance)
+TokenSAI.allowance
 
 ___
 
@@ -377,7 +377,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[approve](fixed.TokenSAI.md#approve)
+TokenSAI.approve
 
 ___
 
@@ -397,7 +397,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[attach](fixed.TokenSAI.md#attach)
+TokenSAI.attach
 
 ___
 
@@ -418,7 +418,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[balanceOf](fixed.TokenSAI.md#balanceof)
+TokenSAI.balanceOf
 
 ___
 
@@ -438,7 +438,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[connect](fixed.TokenSAI.md#connect)
+TokenSAI.connect
 
 ___
 
@@ -458,7 +458,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[decimals](fixed.TokenSAI.md#decimals)
+TokenSAI.decimals
 
 ___
 
@@ -472,7 +472,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[deployed](fixed.TokenSAI.md#deployed)
+TokenSAI.deployed
 
 ___
 
@@ -493,7 +493,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[emit](fixed.TokenSAI.md#emit)
+TokenSAI.emit
 
 ___
 
@@ -513,7 +513,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[fallback](fixed.TokenSAI.md#fallback)
+TokenSAI.fallback
 
 ___
 
@@ -545,7 +545,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[listenerCount](fixed.TokenSAI.md#listenercount)
+TokenSAI.listenerCount
 
 ___
 
@@ -571,7 +571,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[listeners](fixed.TokenSAI.md#listeners)
+TokenSAI.listeners
 
 ▸ **listeners**(`eventName?`): `Listener`[]
 
@@ -587,7 +587,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[listeners](fixed.TokenSAI.md#listeners)
+TokenSAI.listeners
 
 ___
 
@@ -607,7 +607,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[name](fixed.TokenSAI.md#name)
+TokenSAI.name
 
 ___
 
@@ -635,7 +635,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[queryFilter](fixed.TokenSAI.md#queryfilter)
+TokenSAI.queryFilter
 
 ___
 
@@ -661,7 +661,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[removeAllListeners](fixed.TokenSAI.md#removealllisteners)
+TokenSAI.removeAllListeners
 
 ▸ **removeAllListeners**(`eventName?`): [`DaiTokenClient`](DaiTokenClient.md)
 
@@ -677,7 +677,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[removeAllListeners](fixed.TokenSAI.md#removealllisteners)
+TokenSAI.removeAllListeners
 
 ___
 
@@ -697,7 +697,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[symbol](fixed.TokenSAI.md#symbol)
+TokenSAI.symbol
 
 ___
 
@@ -717,7 +717,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[totalSupply](fixed.TokenSAI.md#totalsupply)
+TokenSAI.totalSupply
 
 ___
 
@@ -739,7 +739,7 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[transfer](fixed.TokenSAI.md#transfer)
+TokenSAI.transfer
 
 ___
 
@@ -762,4 +762,4 @@ ___
 
 #### Inherited from
 
-[TokenSAI](fixed.TokenSAI.md).[transferFrom](fixed.TokenSAI.md#transferfrom)
+TokenSAI.transferFrom

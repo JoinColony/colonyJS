@@ -12,7 +12,7 @@ import { TxOverrides } from '../../../../types';
 import {
   OneTxPaymentEvents,
   OneTxPaymentEvents__factory as OneTxPaymentEventsFactory,
-} from '../../../../contracts';
+} from '../../../../contracts/events';
 
 export type AugmentedEstimate<T extends AnyOneTxPayment = AnyOneTxPayment> =
   T['estimateGas'] & {

@@ -2,11 +2,10 @@ import { BigNumber, BytesLike, CallOverrides, utils } from 'ethers';
 
 import { SignerOrProvider } from '../types';
 import { ClientType, ColonyRole } from '../constants';
-
 import {
   MotionTarget,
   MotionTarget__factory as MotionTargetFactory,
-} from '../contracts';
+} from '../contracts/static';
 import { nonNullable } from '../utils';
 
 export interface MotionTargetClient extends MotionTarget {

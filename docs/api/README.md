@@ -4,8 +4,6 @@
 
 - [Tokens](modules/Tokens.md)
 - [factories](modules/factories.md)
-- [fixed](modules/fixed.md)
-- [latest](modules/latest.md)
 
 ## Enumerations
 
@@ -69,6 +67,9 @@
 - [StakedExpenditureClientV2](interfaces/StakedExpenditureClientV2.md)
 - [StreamingPaymentsClientV1](interfaces/StreamingPaymentsClientV1.md)
 - [StreamingPaymentsClientV2](interfaces/StreamingPaymentsClientV2.md)
+- [Token](interfaces/Token.md)
+- [TokenAuthority](interfaces/TokenAuthority.md)
+- [TokenLocking](interfaces/TokenLocking.md)
 - [TokenLockingClient](interfaces/TokenLockingClient.md)
 - [TokenSupplierClientV1](interfaces/TokenSupplierClientV1.md)
 - [TokenSupplierClientV2](interfaces/TokenSupplierClientV2.md)
@@ -100,87 +101,21 @@ Renames and re-exports [ColonyTokenFactory](classes/ColonyTokenFactory.md)
 
 ___
 
-### Token
-
-Re-exports [Token](interfaces/latest.Token.md)
-
-___
-
-### TokenAuthority
-
-Re-exports [TokenAuthority](interfaces/latest.TokenAuthority.md)
-
-___
-
 ### TokenAuthority\_\_factory
 
-Re-exports [TokenAuthority__factory](classes/factories.latest.TokenAuthority__factory.md)
-
-___
-
-### TokenERC20
-
-Renames and re-exports [ERC20Token](interfaces/ERC20Token.md)
-
-___
-
-### TokenERC20\_\_factory
-
-Renames and re-exports [ERC20TokenFactory](classes/ERC20TokenFactory.md)
-
-___
-
-### TokenERC2612
-
-Renames and re-exports [ERC2612Token](interfaces/ERC2612Token.md)
-
-___
-
-### TokenERC2612\_\_factory
-
-Renames and re-exports [ERC2612TokenFactory](classes/ERC2612TokenFactory.md)
-
-___
-
-### TokenERC721
-
-Re-exports [TokenERC721](interfaces/fixed.TokenERC721.md)
-
-___
-
-### TokenERC721\_\_factory
-
-Re-exports [TokenERC721__factory](classes/factories.fixed.TokenERC721__factory.md)
-
-___
-
-### TokenLocking
-
-Re-exports [TokenLocking](interfaces/latest.TokenLocking.md)
+Re-exports [TokenAuthority__factory](classes/factories.TokenAuthority__factory.md)
 
 ___
 
 ### TokenLocking\_\_factory
 
-Re-exports [TokenLocking__factory](classes/factories.latest.TokenLocking__factory.md)
-
-___
-
-### TokenSAI
-
-Re-exports [TokenSAI](interfaces/fixed.TokenSAI.md)
-
-___
-
-### TokenSAI\_\_factory
-
-Re-exports [TokenSAI__factory](classes/factories.fixed.TokenSAI__factory.md)
+Re-exports [TokenLocking__factory](classes/factories.TokenLocking__factory.md)
 
 ___
 
 ### Token\_\_factory
 
-Re-exports [Token__factory](classes/factories.latest.Token__factory.md)
+Re-exports [Token__factory](classes/factories.Token__factory.md)
 
 ## Type Aliases
 

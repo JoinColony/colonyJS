@@ -6,7 +6,7 @@ import { ClientType } from '../../../../constants';
 import {
   ReputationBootstrapperEvents,
   ReputationBootstrapperEvents__factory as ReputationBootstrapperEventsFactory,
-} from '../../../../contracts';
+} from '../../../../contracts/events';
 
 export type AugmentedReputationBootstrapper<
   T extends AnyReputationBootstrapper = AnyReputationBootstrapper,
