@@ -1,19 +1,7 @@
-import {
-  ColonyClientV11,
-  SignerOrProvider,
-  Id,
-  ColonyRole,
-  IBasicMetaTransaction,
-  getChildIndex,
-  getPermissionProofs,
-  isExtensionCompatible,
-  getExtensionHash,
-  TokenClientType,
-} from '@colony/colony-js';
-import {
+import type {
   AnnotationEventObject,
   ArbitraryReputationUpdateEventObject,
-  ColonyDataTypes,
+  ArbitraryTransactionEventObject,
   ColonyFundsClaimed_address_uint256_uint256_EventObject,
   // eslint-disable-next-line max-len
   ColonyFundsMovedBetweenFundingPots_address_uint256_uint256_uint256_address_EventObject,
@@ -30,7 +18,21 @@ import {
   RecoveryRoleSetEventObject,
   TokenAuthorityDeployedEventObject,
   TokensMintedEventObject,
-} from '@colony/colony-js/extras';
+} from '@colony/colony-js/events';
+import type { ColonyDataTypes } from '@colony/colony-js/extras';
+
+import {
+  ColonyClientV12,
+  SignerOrProvider,
+  Id,
+  ColonyRole,
+  IBasicMetaTransaction,
+  getChildIndex,
+  getPermissionProofs,
+  isExtensionCompatible,
+  getExtensionHash,
+  TokenClientType,
+} from '@colony/colony-js';
 import {
   AnnotationMetadata,
   ColonyMetadata,
@@ -60,7 +62,7 @@ import {
 import { ERC2612Token } from './ERC2612Token';
 import ColonyGraph from '../graph/ColonyGraph';
 
-export type SupportedColonyClient = ColonyClientV11;
+export type SupportedColonyClient = ColonyClientV12;
 export type SupportedColonyMethods = SupportedColonyClient['functions'];
 
 /** Extensions that are supported by Colony SDK */
@@ -86,7 +88,7 @@ export class Colony {
    * The currently supported Colony version. If a Colony is not on this version it has to be upgraded.
    * If this is not an option, Colony SDK might throw errors at certain points. Usage of ColonyJS is advised in these cases
    */
-  static supportedVersions: 11[] = [11];
+  static supportedVersions: 12[] = [12];
 
   private colonyClient: SupportedColonyClient;
 
@@ -905,10 +907,12 @@ export class Colony {
       this.colonyClient,
       'makeArbitraryTransactions',
       [[target], [action], false],
-      // TODO: This event will be allowed in Colony V11
-      // async (receipt) => ({
-      //   ...extractEvent<ArbitraryTransaction>('ArbitraryTransaction', receipt),
-      // }),
+      async (receipt) => ({
+        ...extractEvent<ArbitraryTransactionEventObject>(
+          'ArbitraryTransaction',
+          receipt,
+        ),
+      }),
     );
   }
 

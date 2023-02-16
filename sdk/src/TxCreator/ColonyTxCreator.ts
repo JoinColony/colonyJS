@@ -1,3 +1,5 @@
+import type { MotionCreatedEventObject } from '@colony/colony-js/events';
+
 import {
   ColonyRole,
   getPermissionProofs,
@@ -7,7 +9,6 @@ import {
 import { BigNumberish } from 'ethers';
 import { MetadataType } from '@colony/colony-event-metadata-parser';
 
-import { MotionCreatedEventObject } from '@colony/colony-js/extras';
 import { Colony } from '../ColonyNetwork';
 import { extractEvent } from '../utils';
 import { TxCreatorConfig, EventData } from './TxCreator';

@@ -1,3 +1,8 @@
+import type {
+  ExtensionUpgradedEventObject,
+  OneTxPaymentMadeEventObject,
+} from '@colony/colony-js/events';
+
 import {
   ColonyRole,
   Extension,
@@ -6,14 +11,9 @@ import {
   Id,
   OneTxPaymentClientV4,
 } from '@colony/colony-js';
-
-import {
-  ExtensionUpgradedEventObject,
-  OneTxPaymentMadeEventObject,
-} from '@colony/colony-js/extras';
 import { BigNumber, BigNumberish } from 'ethers';
-import { extractEvent } from '../utils';
 
+import { extractEvent } from '../utils';
 import { Colony, SupportedColonyClient } from './Colony';
 
 export type SupportedOneTxPaymentClient = OneTxPaymentClientV4;

@@ -1,3 +1,11 @@
+import type {
+  ColonyAddedEventObject,
+  ColonyMetadataEventObject,
+  TokenDeployedEventObject,
+  UserLabelRegisteredEventObject,
+} from '@colony/colony-js/events';
+import type { ERC2612Token as ERC2612TokenType } from '@colony/colony-js/tokens';
+
 import {
   BigNumberish,
   ContractReceipt,
@@ -14,13 +22,6 @@ import {
   SignerOrProvider,
   TokenLockingClient,
 } from '@colony/colony-js';
-import {
-  ColonyAddedEventObject,
-  ColonyMetadataEventObject,
-  TokenDeployedEventObject,
-  UserLabelRegisteredEventObject,
-} from '@colony/colony-js/extras';
-import { ERC2612Token as ERC2612TokenType } from '@colony/colony-js/tokens';
 import {
   ColonyMetadata,
   MetadataType,

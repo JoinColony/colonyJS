@@ -1,14 +1,14 @@
-import {
+import type {
   LogSetAuthorityEventObject,
   LogSetOwnerEventObject,
-} from '@colony/colony-js/extras';
+} from '@colony/colony-js/events';
+
 import {
   ColonyToken as ColonyTokenType,
   ColonyTokenFactory,
 } from '@colony/colony-js/tokens';
 
 import { extractEvent } from '../utils';
-
 import { ColonyNetwork } from './ColonyNetwork';
 import { ERC20Token } from './ERC20Token';
 

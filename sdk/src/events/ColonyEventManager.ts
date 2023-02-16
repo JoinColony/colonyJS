@@ -11,7 +11,7 @@ import {
   OneTxPaymentEvents__factory,
   VotingReputationEvents,
   VotingReputationEvents__factory,
-} from '@colony/colony-js/extras';
+} from '@colony/colony-js/events';
 import type { MetadataType } from '@colony/colony-event-metadata-parser';
 
 import type { Ethers6Filter } from '../types';

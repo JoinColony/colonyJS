@@ -1,3 +1,17 @@
+import type {
+  MotionEventSetEventObject,
+  MotionFinalizedEventObject,
+  MotionStakedEventObject,
+  MotionVoteRevealedEventObject,
+  MotionVoteSubmittedEventObject,
+  UserTokenApprovedEventObject,
+  MotionCreatedEventObject,
+  ExtensionUpgradedEventObject,
+  AnnotationEventObject,
+  MotionEscalatedEventObject,
+} from '@colony/colony-js/events';
+import type { VotingReputationDataTypes } from '@colony/colony-js/extras';
+
 import {
   DecisionMetadata,
   MetadataType,
@@ -13,23 +27,10 @@ import {
   MotionState,
   VotingReputationClientV8,
 } from '@colony/colony-js';
-import type {
-  VotingReputationDataTypes,
-  MotionEventSetEventObject,
-  MotionFinalizedEventObject,
-  MotionStakedEventObject,
-  MotionVoteRevealedEventObject,
-  MotionVoteSubmittedEventObject,
-  UserTokenApprovedEventObject,
-  MotionCreatedEventObject,
-  ExtensionUpgradedEventObject,
-  AnnotationEventObject,
-  MotionEscalatedEventObject,
-} from '@colony/colony-js/extras';
 import { constants, BigNumber, BigNumberish, Signer, utils } from 'ethers';
+
 import { DecisionMotionCode } from '../constants';
 import { extractEvent, extractCustomEvent, toEth } from '../utils';
-
 import { Colony, SupportedColonyClient } from './Colony';
 
 const { AddressZero } = constants;

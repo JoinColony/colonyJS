@@ -1,9 +1,10 @@
+import type {
+  UserTokenDeposited_address_address_uint256_EventObject,
+  UserTokenWithdrawnEventObject,
+} from '@colony/colony-js/events';
+
 import { BigNumberish } from 'ethers';
 import { TokenLockingClient } from '@colony/colony-js/';
-import {
-  UserTokenDepositedEventObject,
-  UserTokenWithdrawnEventObject,
-} from '@colony/colony-js/extras';
 
 import { extractEvent } from '../utils';
 import { ColonyNetwork } from './ColonyNetwork';
@@ -72,7 +73,7 @@ export class TokenLocking {
       'deposit(address,uint256,bool)',
       [tokenAddress, amount, false],
       async (receipt) => ({
-        ...extractEvent<UserTokenDepositedEventObject>(
+        ...extractEvent<UserTokenDeposited_address_address_uint256_EventObject>(
           'UserTokenDeposited',
           receipt,
         ),

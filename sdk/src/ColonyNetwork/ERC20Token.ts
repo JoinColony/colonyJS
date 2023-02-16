@@ -1,10 +1,11 @@
-import { ApprovalEventObject } from '@colony/colony-js/extras';
+import type { ApprovalEventObject } from '@colony/colony-js/events';
+
 import {
   ERC20Token as ERC20TokenType,
   ERC20TokenFactory,
 } from '@colony/colony-js/tokens';
-
 import type { BigNumberish } from 'ethers';
+
 import { extractEvent } from '../utils';
 import { ColonyNetwork } from './ColonyNetwork';
 
