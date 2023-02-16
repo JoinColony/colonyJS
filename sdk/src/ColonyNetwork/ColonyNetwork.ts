@@ -28,7 +28,7 @@ import {
 } from '@colony/colony-event-metadata-parser';
 import { Client } from '@urql/core';
 
-import { createSubgraphClient, SubgraphClientOptions } from '../../src/graph';
+import { createSubgraphClient, SubgraphClientOptions } from '../graph';
 
 import { IpfsMetadata, IpfsAdapter } from '../ipfs';
 import { BaseContract, TxConfig, TxCreator, MetaTxCreator } from '../TxCreator';
