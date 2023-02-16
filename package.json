@@ -10,6 +10,10 @@
       "import": "./dist/esm/extras/index.js",
       "require": "./dist/cjs/extras/index.js"
     },
+    "./events": {
+      "import": "./dist/esm/events/index.js",
+      "require": "./dist/cjs/events/index.js"
+    },
     "./tokens": {
       "import": "./dist/esm/tokens/index.js",
       "require": "./dist/cjs/tokens/index.js"
@@ -21,6 +25,9 @@
         "dist/types/index.d.ts"
       ],
       "extras": [
+        "dist/types/extras/index.d.ts"
+      ],
+      "events": [
         "dist/types/extras/index.d.ts"
       ],
       "tokens": [
