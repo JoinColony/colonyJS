@@ -38,6 +38,7 @@
 - [ColonyClientV1](interfaces/ColonyClientV1.md)
 - [ColonyClientV10](interfaces/ColonyClientV10.md)
 - [ColonyClientV11](interfaces/ColonyClientV11.md)
+- [ColonyClientV12](interfaces/ColonyClientV12.md)
 - [ColonyClientV2](interfaces/ColonyClientV2.md)
 - [ColonyClientV3](interfaces/ColonyClientV3.md)
 - [ColonyClientV4](interfaces/ColonyClientV4.md)
@@ -127,7 +128,7 @@ ___
 
 ### AnyColonyClient
 
-Ƭ **AnyColonyClient**: [`ColonyClientV1`](interfaces/ColonyClientV1.md) \| [`ColonyClientV2`](interfaces/ColonyClientV2.md) \| [`ColonyClientV3`](interfaces/ColonyClientV3.md) \| [`ColonyClientV4`](interfaces/ColonyClientV4.md) \| [`ColonyClientV5`](interfaces/ColonyClientV5.md) \| [`ColonyClientV6`](interfaces/ColonyClientV6.md) \| [`ColonyClientV7`](interfaces/ColonyClientV7.md) \| [`ColonyClientV8`](interfaces/ColonyClientV8.md) \| [`ColonyClientV9`](interfaces/ColonyClientV9.md) \| [`ColonyClientV10`](interfaces/ColonyClientV10.md) \| [`ColonyClientV11`](interfaces/ColonyClientV11.md)
+Ƭ **AnyColonyClient**: [`ColonyClientV1`](interfaces/ColonyClientV1.md) \| [`ColonyClientV2`](interfaces/ColonyClientV2.md) \| [`ColonyClientV3`](interfaces/ColonyClientV3.md) \| [`ColonyClientV4`](interfaces/ColonyClientV4.md) \| [`ColonyClientV5`](interfaces/ColonyClientV5.md) \| [`ColonyClientV6`](interfaces/ColonyClientV6.md) \| [`ColonyClientV7`](interfaces/ColonyClientV7.md) \| [`ColonyClientV8`](interfaces/ColonyClientV8.md) \| [`ColonyClientV9`](interfaces/ColonyClientV9.md) \| [`ColonyClientV10`](interfaces/ColonyClientV10.md) \| [`ColonyClientV11`](interfaces/ColonyClientV11.md) \| [`ColonyClientV12`](interfaces/ColonyClientV12.md)
 
 ___
 
@@ -681,7 +682,7 @@ Returns `true` if an extension version is compatible with the given colony versi
 | :------ | :------ | :------ |
 | `extension` | [`Extension`](enums/Extension.md) | A valid `Extension` contract name |
 | `extensionVersion` | `ExtensionVersion` | The version of the extension to check against the colony |
-| `colonyVersion` | ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` | The version of the colony to check for |
+| `colonyVersion` | ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12`` | The version of the colony to check for |
 
 #### Returns
 

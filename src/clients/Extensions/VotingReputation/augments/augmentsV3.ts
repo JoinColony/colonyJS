@@ -2,7 +2,10 @@ import { ContractTransaction, BigNumber, BigNumberish } from 'ethers';
 
 import { ColonyRole } from '../../../../constants';
 import { TxOverrides } from '../../../../types';
-import { VotingReputationV7 } from '../../../../contracts/VotingReputation/exports';
+import {
+  VotingReputationV7,
+  VotingReputationV8,
+} from '../../../../contracts/VotingReputation/exports';
 import {
   AugmentedIColony,
   getPermissionProofs,
@@ -13,7 +16,7 @@ import {
   AugmentedVotingReputation,
 } from './commonAugments';
 
-type ValidVotingReputation = VotingReputationV7;
+type ValidVotingReputation = VotingReputationV7 | VotingReputationV8;
 
 export interface AugmentedEstimateV3 {
   /**

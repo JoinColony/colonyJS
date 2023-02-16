@@ -5,8 +5,6 @@ import execa from 'execa';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
-const LATEST_TAG = 'glwss2';
-
 /*
  * Colony Network contract release tags
  *
@@ -25,8 +23,11 @@ const LATEST_TAG = 'glwss2';
  * flwss3
  * glwss
  * glwss2
+ * glwss3
  *
  */
+
+const LATEST_TAG = 'glwss3';
 
 // Map versioned contracts to network release tags
 const RELEASE_MAP = {
@@ -42,6 +43,7 @@ const RELEASE_MAP = {
     flwss: 9,
     glwss: 10,
     glwss2: 11,
+    glwss3: 12,
   },
   CoinMachine: {
     clwss: 1,

@@ -2,7 +2,12 @@ import { ContractTransaction, BigNumber, BigNumberish } from 'ethers';
 
 import { ColonyRole } from '../../../constants';
 import { TxOverrides } from '../../../types';
-import { IColonyV9, IColonyV10 } from '../../../contracts/IColony/exports';
+import {
+  IColonyV9,
+  IColonyV10,
+  IColonyV11,
+  IColonyV12,
+} from '../../../contracts/IColony/exports';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import { AugmentedIColony, getPermissionProofs } from './commonAugments';
 import { ColonyAugmentsV3 } from './augmentsV3';
@@ -13,7 +18,7 @@ import {
   AugmentedEstimateV5,
 } from './augmentsV5';
 
-type ValidColony = IColonyV9 | IColonyV10;
+type ValidColony = IColonyV9 | IColonyV10 | IColonyV11 | IColonyV12;
 
 /*
  * Estimates

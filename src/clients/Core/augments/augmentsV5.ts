@@ -14,6 +14,8 @@ import {
   IColonyV8,
   IColonyV9,
   IColonyV10,
+  IColonyV11,
+  IColonyV12,
 } from '../../../contracts/IColony/exports';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import { AugmentedIColony, getPermissionProofs } from './commonAugments';
@@ -38,7 +40,9 @@ type ValidColony =
   | IColonyV7
   | IColonyV8
   | IColonyV9
-  | IColonyV10;
+  | IColonyV10
+  | IColonyV11
+  | IColonyV12;
 
 /*
  * Estimates

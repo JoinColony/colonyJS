@@ -15,6 +15,7 @@ import getColonyClientV8, { ColonyClientV8 } from './ColonyClientV8';
 import getColonyClientV9, { ColonyClientV9 } from './ColonyClientV9';
 import getColonyClientV10, { ColonyClientV10 } from './ColonyClientV10';
 import getColonyClientV11, { ColonyClientV11 } from './ColonyClientV11';
+import getColonyClientV12, { ColonyClientV12 } from './ColonyClientV12';
 
 export { ColonyClientV1 } from './ColonyClientV1';
 export { ColonyClientV2 } from './ColonyClientV2';
@@ -27,6 +28,7 @@ export { ColonyClientV8 } from './ColonyClientV8';
 export { ColonyClientV9 } from './ColonyClientV9';
 export { ColonyClientV10 } from './ColonyClientV10';
 export { ColonyClientV11 } from './ColonyClientV11';
+export { ColonyClientV12 } from './ColonyClientV12';
 
 export type AnyColonyClient =
   | ColonyClientV1
@@ -39,7 +41,8 @@ export type AnyColonyClient =
   | ColonyClientV8
   | ColonyClientV9
   | ColonyClientV10
-  | ColonyClientV11;
+  | ColonyClientV11
+  | ColonyClientV12;
 
 /** Versioned core contract names */
 export enum Core {
@@ -47,7 +50,7 @@ export enum Core {
 }
 
 // This is the latest IColony version + 1. It's for generating types and compatibility maps
-const COLONY_VERSION_NEXT = 12;
+const COLONY_VERSION_NEXT = 13;
 
 export const COLONY_VERSION_LATEST = COLONY_VERSION_NEXT - 1;
 
@@ -168,6 +171,14 @@ export async function getColonyClient(
     }
     case 11: {
       colonyClient = getColonyClientV11.call(
+        this,
+        colonyAddress,
+        signerOrProvider,
+      );
+      break;
+    }
+    case 12: {
+      colonyClient = getColonyClientV12.call(
         this,
         colonyAddress,
         signerOrProvider,
