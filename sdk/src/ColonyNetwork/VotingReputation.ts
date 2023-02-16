@@ -1031,4 +1031,46 @@ export class VotingReputation {
       }),
     );
   }
+
+  /**
+   * Get the initialized configuration options
+   *
+   * Get the configuration options that were set when the extension was initialized.
+   * For more information on the individual values see https://docs.colony.io/use/governance/motions-and-disputes/parameters
+   *
+   * @returns The extensions configuration options
+   */
+  async getInitializationOptions() {
+    const promises = [
+      this.votingReputationClient.getTotalStakeFraction(), // requiredStake
+      this.votingReputationClient.getVoterRewardFraction(), // voterReward
+      this.votingReputationClient.getUserMinStakeFraction(), // minimumUserStake
+      this.votingReputationClient.getMaxVoteFraction(), // endVoteThreshold
+      this.votingReputationClient.getStakePeriod(), // stakePhaseDuration
+      this.votingReputationClient.getSubmitPeriod(), // votingPhaseDuration
+      this.votingReputationClient.getRevealPeriod(), // revealPhaseDuration
+      this.votingReputationClient.getEscalationPeriod(), // escalationPhaseDuration
+    ];
+    const [
+      requiredStake,
+      voterReward,
+      minimumUserStake,
+      endVoteThreshold,
+      stakePhaseDuration,
+      votingPhaseDuration,
+      revealPhaseDuration,
+      escalationPhaseDuration,
+    ] = await Promise.all(promises);
+
+    return {
+      requiredStake,
+      voterReward,
+      minimumUserStake,
+      endVoteThreshold,
+      stakePhaseDuration,
+      votingPhaseDuration,
+      revealPhaseDuration,
+      escalationPhaseDuration,
+    };
+  }
 }

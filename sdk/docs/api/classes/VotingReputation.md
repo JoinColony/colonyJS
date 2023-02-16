@@ -343,6 +343,23 @@ A transaction creator
 
 ___
 
+### getInitializationOptions
+
+▸ **getInitializationOptions**(): `Promise`<{ `endVoteThreshold`: `BigNumber` ; `escalationPhaseDuration`: `BigNumber` ; `minimumUserStake`: `BigNumber` ; `requiredStake`: `BigNumber` ; `revealPhaseDuration`: `BigNumber` ; `stakePhaseDuration`: `BigNumber` ; `voterReward`: `BigNumber` ; `votingPhaseDuration`: `BigNumber`  }\>
+
+Get the initialized configuration options
+
+Get the configuration options that were set when the extension was initialized.
+For more information on the individual values see https://docs.colony.io/use/governance/motions-and-disputes/parameters
+
+#### Returns
+
+`Promise`<{ `endVoteThreshold`: `BigNumber` ; `escalationPhaseDuration`: `BigNumber` ; `minimumUserStake`: `BigNumber` ; `requiredStake`: `BigNumber` ; `revealPhaseDuration`: `BigNumber` ; `stakePhaseDuration`: `BigNumber` ; `voterReward`: `BigNumber` ; `votingPhaseDuration`: `BigNumber`  }\>
+
+The extensions configuration options
+
+___
+
 ### getMinStake
 
 ▸ **getMinStake**(`motion`, `vote`): `Promise`<`BigNumber`\>
