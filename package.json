@@ -28,7 +28,7 @@
         "dist/types/extras/index.d.ts"
       ],
       "events": [
-        "dist/types/extras/index.d.ts"
+        "dist/types/events/index.d.ts"
       ],
       "tokens": [
         "dist/types/tokens/index.d.ts"
