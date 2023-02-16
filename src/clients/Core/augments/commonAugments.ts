@@ -29,7 +29,7 @@ import { TokenClient } from '../../../tokens';
 import {
   IColonyEvents,
   IColonyEvents__factory as IColonyEventsFactory,
-} from '../../../contracts';
+} from '../../../contracts/events';
 
 const { MaxUint256 } = constants;
 

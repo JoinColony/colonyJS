@@ -4,7 +4,7 @@ The "old", legacy Colony token without Metatransactions token
 
 ## Hierarchy
 
-- [`Token`](latest.Token.md)
+- [`Token`](Token.md)
 
   ↳ **`LegacyColonyTokenClient`**
 
@@ -16,7 +16,7 @@ The "old", legacy Colony token without Metatransactions token
 
 #### Inherited from
 
-[Token](latest.Token.md).[_deployedPromise](latest.Token.md#_deployedpromise)
+[Token](Token.md).[_deployedPromise](Token.md#_deployedpromise)
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[_runningEvents](latest.Token.md#_runningevents)
+[Token](Token.md).[_runningEvents](Token.md#_runningevents)
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[_wrappedEmits](latest.Token.md#_wrappedemits)
+[Token](Token.md).[_wrappedEmits](Token.md#_wrappedemits)
 
 ___
 
@@ -54,7 +54,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[address](latest.Token.md#address)
+[Token](Token.md).[address](Token.md#address)
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[callStatic](latest.Token.md#callstatic)
+[Token](Token.md).[callStatic](Token.md#callstatic)
 
 ___
 
@@ -104,7 +104,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[deployTransaction](latest.Token.md#deploytransaction)
+[Token](Token.md).[deployTransaction](Token.md#deploytransaction)
 
 ___
 
@@ -138,7 +138,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[estimateGas](latest.Token.md#estimategas)
+[Token](Token.md).[estimateGas](Token.md#estimategas)
 
 ___
 
@@ -165,7 +165,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[filters](latest.Token.md#filters)
+[Token](Token.md).[filters](Token.md#filters)
 
 ___
 
@@ -199,7 +199,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[functions](latest.Token.md#functions)
+[Token](Token.md).[functions](Token.md#functions)
 
 ___
 
@@ -209,7 +209,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[interface](latest.Token.md#interface)
+[Token](Token.md).[interface](Token.md#interface)
 
 ___
 
@@ -219,7 +219,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[off](latest.Token.md#off)
+[Token](Token.md).[off](Token.md#off)
 
 ___
 
@@ -229,7 +229,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[on](latest.Token.md#on)
+[Token](Token.md).[on](Token.md#on)
 
 ___
 
@@ -239,7 +239,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[once](latest.Token.md#once)
+[Token](Token.md).[once](Token.md#once)
 
 ___
 
@@ -273,7 +273,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[populateTransaction](latest.Token.md#populatetransaction)
+[Token](Token.md).[populateTransaction](Token.md#populatetransaction)
 
 ___
 
@@ -283,7 +283,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[provider](latest.Token.md#provider)
+[Token](Token.md).[provider](Token.md#provider)
 
 ___
 
@@ -293,7 +293,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[removeListener](latest.Token.md#removelistener)
+[Token](Token.md).[removeListener](Token.md#removelistener)
 
 ___
 
@@ -303,7 +303,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[resolvedAddress](latest.Token.md#resolvedaddress)
+[Token](Token.md).[resolvedAddress](Token.md#resolvedaddress)
 
 ___
 
@@ -313,7 +313,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[signer](latest.Token.md#signer)
+[Token](Token.md).[signer](Token.md#signer)
 
 ___
 
@@ -339,7 +339,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[_checkRunningEvents](latest.Token.md#_checkrunningevents)
+[Token](Token.md).[_checkRunningEvents](Token.md#_checkrunningevents)
 
 ___
 
@@ -359,7 +359,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[_deployed](latest.Token.md#_deployed)
+[Token](Token.md).[_deployed](Token.md#_deployed)
 
 ___
 
@@ -381,7 +381,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[_wrapEvent](latest.Token.md#_wrapevent)
+[Token](Token.md).[_wrapEvent](Token.md#_wrapevent)
 
 ___
 
@@ -403,7 +403,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[allowance](latest.Token.md#allowance)
+[Token](Token.md).[allowance](Token.md#allowance)
 
 ___
 
@@ -425,7 +425,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[approve](latest.Token.md#approve)
+[Token](Token.md).[approve](Token.md#approve)
 
 ___
 
@@ -445,7 +445,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[attach](latest.Token.md#attach)
+[Token](Token.md).[attach](Token.md#attach)
 
 ___
 
@@ -465,7 +465,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[authority](latest.Token.md#authority)
+[Token](Token.md).[authority](Token.md#authority)
 
 ___
 
@@ -486,7 +486,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[balanceOf](latest.Token.md#balanceof)
+[Token](Token.md).[balanceOf](Token.md#balanceof)
 
 ___
 
@@ -508,7 +508,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[burn(address,uint256)](latest.Token.md#burn(address,uint256))
+[Token](Token.md).[burn(address,uint256)](Token.md#burn(address,uint256))
 
 ___
 
@@ -529,7 +529,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[burn(uint256)](latest.Token.md#burn(uint256))
+[Token](Token.md).[burn(uint256)](Token.md#burn(uint256))
 
 ___
 
@@ -549,7 +549,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[connect](latest.Token.md#connect)
+[Token](Token.md).[connect](Token.md#connect)
 
 ___
 
@@ -569,7 +569,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[decimals](latest.Token.md#decimals)
+[Token](Token.md).[decimals](Token.md#decimals)
 
 ___
 
@@ -583,7 +583,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[deployed](latest.Token.md#deployed)
+[Token](Token.md).[deployed](Token.md#deployed)
 
 ___
 
@@ -604,7 +604,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[emit](latest.Token.md#emit)
+[Token](Token.md).[emit](Token.md#emit)
 
 ___
 
@@ -624,7 +624,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[fallback](latest.Token.md#fallback)
+[Token](Token.md).[fallback](Token.md#fallback)
 
 ___
 
@@ -656,7 +656,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[listenerCount](latest.Token.md#listenercount)
+[Token](Token.md).[listenerCount](Token.md#listenercount)
 
 ___
 
@@ -682,7 +682,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[listeners](latest.Token.md#listeners)
+[Token](Token.md).[listeners](Token.md#listeners)
 
 ▸ **listeners**(`eventName?`): `Listener`[]
 
@@ -698,7 +698,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[listeners](latest.Token.md#listeners)
+[Token](Token.md).[listeners](Token.md#listeners)
 
 ___
 
@@ -718,7 +718,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[locked](latest.Token.md#locked)
+[Token](Token.md).[locked](Token.md#locked)
 
 ___
 
@@ -740,7 +740,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[mint(address,uint256)](latest.Token.md#mint(address,uint256))
+[Token](Token.md).[mint(address,uint256)](Token.md#mint(address,uint256))
 
 ___
 
@@ -761,7 +761,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[mint(uint256)](latest.Token.md#mint(uint256))
+[Token](Token.md).[mint(uint256)](Token.md#mint(uint256))
 
 ___
 
@@ -781,7 +781,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[name](latest.Token.md#name)
+[Token](Token.md).[name](Token.md#name)
 
 ___
 
@@ -801,7 +801,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[owner](latest.Token.md#owner)
+[Token](Token.md).[owner](Token.md#owner)
 
 ___
 
@@ -829,7 +829,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[queryFilter](latest.Token.md#queryfilter)
+[Token](Token.md).[queryFilter](Token.md#queryfilter)
 
 ___
 
@@ -855,7 +855,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[removeAllListeners](latest.Token.md#removealllisteners)
+[Token](Token.md).[removeAllListeners](Token.md#removealllisteners)
 
 ▸ **removeAllListeners**(`eventName?`): [`LegacyColonyTokenClient`](LegacyColonyTokenClient.md)
 
@@ -871,7 +871,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[removeAllListeners](latest.Token.md#removealllisteners)
+[Token](Token.md).[removeAllListeners](Token.md#removealllisteners)
 
 ___
 
@@ -892,7 +892,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[setAuthority](latest.Token.md#setauthority)
+[Token](Token.md).[setAuthority](Token.md#setauthority)
 
 ___
 
@@ -913,7 +913,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[setOwner](latest.Token.md#setowner)
+[Token](Token.md).[setOwner](Token.md#setowner)
 
 ___
 
@@ -933,7 +933,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[symbol](latest.Token.md#symbol)
+[Token](Token.md).[symbol](Token.md#symbol)
 
 ___
 
@@ -953,7 +953,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[totalSupply](latest.Token.md#totalsupply)
+[Token](Token.md).[totalSupply](Token.md#totalsupply)
 
 ___
 
@@ -975,7 +975,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[transfer](latest.Token.md#transfer)
+[Token](Token.md).[transfer](Token.md#transfer)
 
 ___
 
@@ -998,7 +998,7 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[transferFrom](latest.Token.md#transferfrom)
+[Token](Token.md).[transferFrom](Token.md#transferfrom)
 
 ___
 
@@ -1018,4 +1018,4 @@ ___
 
 #### Inherited from
 
-[Token](latest.Token.md).[unlock](latest.Token.md#unlock)
+[Token](Token.md).[unlock](Token.md#unlock)

@@ -78,6 +78,7 @@ ___
 | `createColony(address,uint256,string)` | (`_tokenAddress`: `PromiseOrValue`<`string`\>, `_version`: `PromiseOrValue`<`BigNumberish`\>, `_colonyName`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `createColony(address,uint256,string,string)` | (`_tokenAddress`: `PromiseOrValue`<`string`\>, `_version`: `PromiseOrValue`<`BigNumberish`\>, `_colonyName`: `PromiseOrValue`<`string`\>, `_metadata`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `createColony(address,uint256,string,string,bool)` | (`_tokenAddress`: `PromiseOrValue`<`string`\>, `_version`: `PromiseOrValue`<`BigNumberish`\>, `_colonyName`: `PromiseOrValue`<`string`\>, `_orbitdb`: `PromiseOrValue`<`string`\>, `_useExtensionManager`: `PromiseOrValue`<`boolean`\>, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `createColonyForFrontend` | (`_tokenAddress`: `PromiseOrValue`<`string`\>, `_name`: `PromiseOrValue`<`string`\>, `_symbol`: `PromiseOrValue`<`string`\>, `_decimals`: `PromiseOrValue`<`BigNumberish`\>, `_version`: `PromiseOrValue`<`BigNumberish`\>, `_colonyName`: `PromiseOrValue`<`string`\>, `_metadata`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<[`string`, `string`] & { `colony`: `string` ; `token`: `string`  }\> |
 | `createMetaColony` | (`_tokenAddress`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `deployTokenAuthority` | (`_token`: `PromiseOrValue`<`string`\>, `_colony`: `PromiseOrValue`<`string`\>, `_allowedToTransfer`: `PromiseOrValue`<`string`\>[], `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `deployTokenViaNetwork` | (`_name`: `PromiseOrValue`<`string`\>, `_symbol`: `PromiseOrValue`<`string`\>, `_decimals`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
@@ -122,6 +123,7 @@ ___
 | `isColony` | (`_colony`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 | `isInRecoveryMode` | (`overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 | `lookupRegisteredENSDomain` | (`_addr`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `multicall` | (`data`: `PromiseOrValue`<`BytesLike`\>[], `overrides?`: `CallOverrides`) => `Promise`<`string`[]\> |
 | `numRecoveryRoles` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `punishStakers` | (`_stakers`: `PromiseOrValue`<`string`\>[], `_amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `registerColonyLabel` | (`_colonyName`: `PromiseOrValue`<`string`\>, `_orbitdb`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
@@ -280,6 +282,7 @@ ___
 | `createColony(address,uint256,string)` | (`_tokenAddress`: `PromiseOrValue`<`string`\>, `_version`: `PromiseOrValue`<`BigNumberish`\>, `_colonyName`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `createColony(address,uint256,string,string)` | (`_tokenAddress`: `PromiseOrValue`<`string`\>, `_version`: `PromiseOrValue`<`BigNumberish`\>, `_colonyName`: `PromiseOrValue`<`string`\>, `_metadata`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `createColony(address,uint256,string,string,bool)` | (`_tokenAddress`: `PromiseOrValue`<`string`\>, `_version`: `PromiseOrValue`<`BigNumberish`\>, `_colonyName`: `PromiseOrValue`<`string`\>, `_orbitdb`: `PromiseOrValue`<`string`\>, `_useExtensionManager`: `PromiseOrValue`<`boolean`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `createColonyForFrontend` | (`_tokenAddress`: `PromiseOrValue`<`string`\>, `_name`: `PromiseOrValue`<`string`\>, `_symbol`: `PromiseOrValue`<`string`\>, `_decimals`: `PromiseOrValue`<`BigNumberish`\>, `_version`: `PromiseOrValue`<`BigNumberish`\>, `_colonyName`: `PromiseOrValue`<`string`\>, `_metadata`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `createMetaColony` | (`_tokenAddress`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `deployTokenAuthority` | (`_token`: `PromiseOrValue`<`string`\>, `_colony`: `PromiseOrValue`<`string`\>, `_allowedToTransfer`: `PromiseOrValue`<`string`\>[], `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `deployTokenViaNetwork` | (`_name`: `PromiseOrValue`<`string`\>, `_symbol`: `PromiseOrValue`<`string`\>, `_decimals`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
@@ -324,6 +327,7 @@ ___
 | `isColony` | (`_colony`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`] & { `_addressIsColony`: `boolean`  }\> |
 | `isInRecoveryMode` | (`overrides?`: `CallOverrides`) => `Promise`<[`boolean`] & { `inRecoveryMode`: `boolean`  }\> |
 | `lookupRegisteredENSDomain` | (`_addr`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_domain`: `string`  }\> |
+| `multicall` | (`data`: `PromiseOrValue`<`BytesLike`\>[], `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `numRecoveryRoles` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `numRoles`: `BigNumber`  }\> |
 | `punishStakers` | (`_stakers`: `PromiseOrValue`<`string`\>[], `_amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `registerColonyLabel` | (`_colonyName`: `PromiseOrValue`<`string`\>, `_orbitdb`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
@@ -425,6 +429,7 @@ ___
 | `createColony(address,uint256,string)` | (`_tokenAddress`: `PromiseOrValue`<`string`\>, `_version`: `PromiseOrValue`<`BigNumberish`\>, `_colonyName`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `createColony(address,uint256,string,string)` | (`_tokenAddress`: `PromiseOrValue`<`string`\>, `_version`: `PromiseOrValue`<`BigNumberish`\>, `_colonyName`: `PromiseOrValue`<`string`\>, `_metadata`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `createColony(address,uint256,string,string,bool)` | (`_tokenAddress`: `PromiseOrValue`<`string`\>, `_version`: `PromiseOrValue`<`BigNumberish`\>, `_colonyName`: `PromiseOrValue`<`string`\>, `_orbitdb`: `PromiseOrValue`<`string`\>, `_useExtensionManager`: `PromiseOrValue`<`boolean`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `createColonyForFrontend` | (`_tokenAddress`: `PromiseOrValue`<`string`\>, `_name`: `PromiseOrValue`<`string`\>, `_symbol`: `PromiseOrValue`<`string`\>, `_decimals`: `PromiseOrValue`<`BigNumberish`\>, `_version`: `PromiseOrValue`<`BigNumberish`\>, `_colonyName`: `PromiseOrValue`<`string`\>, `_metadata`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `createMetaColony` | (`_tokenAddress`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `deployTokenAuthority` | (`_token`: `PromiseOrValue`<`string`\>, `_colony`: `PromiseOrValue`<`string`\>, `_allowedToTransfer`: `PromiseOrValue`<`string`\>[], `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `deployTokenViaNetwork` | (`_name`: `PromiseOrValue`<`string`\>, `_symbol`: `PromiseOrValue`<`string`\>, `_decimals`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
@@ -469,6 +474,7 @@ ___
 | `isColony` | (`_colony`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `isInRecoveryMode` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `lookupRegisteredENSDomain` | (`_addr`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `multicall` | (`data`: `PromiseOrValue`<`BytesLike`\>[], `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `numRecoveryRoles` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `punishStakers` | (`_stakers`: `PromiseOrValue`<`string`\>[], `_amount`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `registerColonyLabel` | (`_colonyName`: `PromiseOrValue`<`string`\>, `_orbitdb`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
@@ -992,6 +998,36 @@ Overload of the simpler `createColony` -- creates a new colony in the network wi
 #### Inherited from
 
 IColonyNetwork.createColony(address,uint256,string,string,bool)
+
+___
+
+### createColonyForFrontend
+
+▸ **createColonyForFrontend**(`_tokenAddress`, `_name`, `_symbol`, `_decimals`, `_version`, `_colonyName`, `_metadata`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+We expect this function to only be used by the dapp
+Creates a new colony in the network, possibly with a token and token authority, with an optional ENS name
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_tokenAddress` | `PromiseOrValue`<`string`\> | Address of an ERC20 token to serve as the colony token (optional) |
+| `_name` | `PromiseOrValue`<`string`\> | The name of the token (optional) |
+| `_symbol` | `PromiseOrValue`<`string`\> | The short 'ticket' symbol for the token (optional) |
+| `_decimals` | `PromiseOrValue`<`BigNumberish`\> | The number of decimal places that 1 user-facing token can be divided up in to (optional) In the case of ETH, and most tokens, this is 18. |
+| `_version` | `PromiseOrValue`<`BigNumberish`\> | The version of colony to deploy (pass 0 for the current version) |
+| `_colonyName` | `PromiseOrValue`<`string`\> | The label to register (if null, no label is registered) |
+| `_metadata` | `PromiseOrValue`<`string`\> | The metadata associated with the new colony |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+IColonyNetwork.createColonyForFrontend
 
 ___
 
@@ -2227,6 +2263,30 @@ original function
 `Promise`<`string`\>
 
 an ENS name in the form of `[username].user.joincolony.eth` or `[colonyName].colony.joincolony.eth`
+
+___
+
+### multicall
+
+▸ **multicall**(`data`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+The `msg.value` should not be trusted for any method callable from multicall.
+Call multiple functions in the current contract and return the data from all of them if they all succeed
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `data` | `PromiseOrValue`<`BytesLike`\>[] | The encoded function data for each of the calls to make to this contract |
+| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+IColonyNetwork.multicall
 
 ___
 

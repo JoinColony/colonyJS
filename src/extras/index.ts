@@ -24,7 +24,7 @@ export {
   RecoveryModeExitApprovedEventFilter,
   RecoveryModeExitApprovedEvent,
   RecoveryStorageSlotSetEventObject,
-} from '../contracts/__dynamic__/IColonyNetworkEvents';
+} from '../contracts/events/IColonyNetworkEvents';
 
 // Again, all ColonyExtensions have those so we export them from the OG contract
 export {
@@ -37,14 +37,14 @@ export {
   LogSetAuthorityEvent,
   ExtensionInitialisedEventFilter,
   LogSetOwnerEventObject,
-} from '../contracts/latest/ColonyExtension';
+} from '../contracts/ColonyExtension';
 
-export * from '../tokens/contracts/latest/TokenLocking';
+export * from '../tokens/contracts/TokenLocking';
 
-export * from '../contracts/__dynamic__/CoinMachineEvents';
-export * from '../contracts/__dynamic__/IColonyEvents';
-export * from '../contracts/__dynamic__/IColonyNetworkEvents';
-export * from '../contracts/__dynamic__/MetaTxTokenEvents';
-export * from '../contracts/__dynamic__/OneTxPaymentEvents';
-export * from '../contracts/__dynamic__/VotingReputationEvents';
-export * from '../contracts/__dynamic__/WhitelistEvents';
+export * from '../contracts/events/CoinMachineEvents';
+export * from '../contracts/events/IColonyEvents';
+export * from '../contracts/events/IColonyNetworkEvents';
+export * from '../contracts/events/MetaTxTokenEvents';
+export * from '../contracts/events/OneTxPaymentEvents';
+export * from '../contracts/events/VotingReputationEvents';
+export * from '../contracts/events/WhitelistEvents';

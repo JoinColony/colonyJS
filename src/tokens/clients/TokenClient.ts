@@ -1,20 +1,23 @@
 import { constants, utils, BigNumber, ContractTransaction } from 'ethers';
-import type { TxOverrides, SignerOrProvider } from '../../types';
-import { ClientType, TokenClientType } from '../../constants';
 
+import type { TxOverrides, SignerOrProvider } from '../../types';
+
+import { ClientType, TokenClientType } from '../../constants';
 import {
   MetaTxToken__factory as MetaTxTokenFactory,
   MetaTxToken,
   Token__factory as TokenFactory,
   Token,
+  TokenAuthority__factory as TokenAuthorityFactory,
+} from '../contracts';
+import {
   TokenERC20__factory as TokenERC20Factory,
   TokenERC20,
   TokenERC2612__factory as TokenERC2612Factory,
   TokenERC2612,
   TokenSAI__factory as TokenSAIFactory,
   TokenSAI,
-} from '..';
-import { TokenAuthority__factory as TokenAuthorityFactory } from '../contracts';
+} from '../contracts/static';
 
 const { getAddress, isHexString, parseBytes32String } = utils;
 const { AddressZero } = constants;

@@ -22,7 +22,7 @@ import {
   TokenSupplierEvents,
   VotingReputationEvents,
   WhitelistEvents,
-} from './contracts';
+} from './contracts/events';
 
 export type SignerOrProvider = Signer | Provider;
 

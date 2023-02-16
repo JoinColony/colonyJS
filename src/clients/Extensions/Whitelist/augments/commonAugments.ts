@@ -6,7 +6,7 @@ import { ClientType } from '../../../../constants';
 import {
   WhitelistEvents,
   WhitelistEvents__factory as WhitelistEventsFactory,
-} from '../../../../contracts';
+} from '../../../../contracts/events';
 
 export type AugmentedWhitelist<T extends AnyWhitelist = AnyWhitelist> = T & {
   clientType: ClientType.WhitelistClient;

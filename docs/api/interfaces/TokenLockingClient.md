@@ -2,7 +2,7 @@
 
 ## Hierarchy
 
-- [`TokenLocking`](latest.TokenLocking.md)
+- [`TokenLocking`](TokenLocking.md)
 
   ↳ **`TokenLockingClient`**
 
@@ -14,7 +14,7 @@
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[_deployedPromise](latest.TokenLocking.md#_deployedpromise)
+[TokenLocking](TokenLocking.md).[_deployedPromise](TokenLocking.md#_deployedpromise)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[_runningEvents](latest.TokenLocking.md#_runningevents)
+[TokenLocking](TokenLocking.md).[_runningEvents](TokenLocking.md#_runningevents)
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[_wrappedEmits](latest.TokenLocking.md#_wrappedemits)
+[TokenLocking](TokenLocking.md).[_wrappedEmits](TokenLocking.md#_wrappedemits)
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[address](latest.TokenLocking.md#address)
+[TokenLocking](TokenLocking.md).[address](TokenLocking.md#address)
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[callStatic](latest.TokenLocking.md#callstatic)
+[TokenLocking](TokenLocking.md).[callStatic](TokenLocking.md#callstatic)
 
 ___
 
@@ -112,7 +112,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[deployTransaction](latest.TokenLocking.md#deploytransaction)
+[TokenLocking](TokenLocking.md).[deployTransaction](TokenLocking.md#deploytransaction)
 
 ___
 
@@ -156,7 +156,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[estimateGas](latest.TokenLocking.md#estimategas)
+[TokenLocking](TokenLocking.md).[estimateGas](TokenLocking.md#estimategas)
 
 ___
 
@@ -199,7 +199,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[filters](latest.TokenLocking.md#filters)
+[TokenLocking](TokenLocking.md).[filters](TokenLocking.md#filters)
 
 ___
 
@@ -243,7 +243,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[functions](latest.TokenLocking.md#functions)
+[TokenLocking](TokenLocking.md).[functions](TokenLocking.md#functions)
 
 ___
 
@@ -253,7 +253,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[interface](latest.TokenLocking.md#interface)
+[TokenLocking](TokenLocking.md).[interface](TokenLocking.md#interface)
 
 ___
 
@@ -263,7 +263,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[off](latest.TokenLocking.md#off)
+[TokenLocking](TokenLocking.md).[off](TokenLocking.md#off)
 
 ___
 
@@ -273,7 +273,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[on](latest.TokenLocking.md#on)
+[TokenLocking](TokenLocking.md).[on](TokenLocking.md#on)
 
 ___
 
@@ -283,7 +283,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[once](latest.TokenLocking.md#once)
+[TokenLocking](TokenLocking.md).[once](TokenLocking.md#once)
 
 ___
 
@@ -327,7 +327,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[populateTransaction](latest.TokenLocking.md#populatetransaction)
+[TokenLocking](TokenLocking.md).[populateTransaction](TokenLocking.md#populatetransaction)
 
 ___
 
@@ -337,7 +337,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[provider](latest.TokenLocking.md#provider)
+[TokenLocking](TokenLocking.md).[provider](TokenLocking.md#provider)
 
 ___
 
@@ -347,7 +347,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[removeListener](latest.TokenLocking.md#removelistener)
+[TokenLocking](TokenLocking.md).[removeListener](TokenLocking.md#removelistener)
 
 ___
 
@@ -357,7 +357,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[resolvedAddress](latest.TokenLocking.md#resolvedaddress)
+[TokenLocking](TokenLocking.md).[resolvedAddress](TokenLocking.md#resolvedaddress)
 
 ___
 
@@ -367,7 +367,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[signer](latest.TokenLocking.md#signer)
+[TokenLocking](TokenLocking.md).[signer](TokenLocking.md#signer)
 
 ## Methods
 
@@ -387,7 +387,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[_checkRunningEvents](latest.TokenLocking.md#_checkrunningevents)
+[TokenLocking](TokenLocking.md).[_checkRunningEvents](TokenLocking.md#_checkrunningevents)
 
 ___
 
@@ -407,7 +407,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[_deployed](latest.TokenLocking.md#_deployed)
+[TokenLocking](TokenLocking.md).[_deployed](TokenLocking.md#_deployed)
 
 ___
 
@@ -429,7 +429,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[_wrapEvent](latest.TokenLocking.md#_wrapevent)
+[TokenLocking](TokenLocking.md).[_wrapEvent](TokenLocking.md#_wrapevent)
 
 ___
 
@@ -452,7 +452,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[approveStake](latest.TokenLocking.md#approvestake)
+[TokenLocking](TokenLocking.md).[approveStake](TokenLocking.md#approvestake)
 
 ___
 
@@ -472,7 +472,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[attach](latest.TokenLocking.md#attach)
+[TokenLocking](TokenLocking.md).[attach](TokenLocking.md#attach)
 
 ___
 
@@ -492,7 +492,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[authority](latest.TokenLocking.md#authority)
+[TokenLocking](TokenLocking.md).[authority](TokenLocking.md#authority)
 
 ___
 
@@ -512,7 +512,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[connect](latest.TokenLocking.md#connect)
+[TokenLocking](TokenLocking.md).[connect](TokenLocking.md#connect)
 
 ___
 
@@ -535,7 +535,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[deobligateStake](latest.TokenLocking.md#deobligatestake)
+[TokenLocking](TokenLocking.md).[deobligateStake](TokenLocking.md#deobligatestake)
 
 ___
 
@@ -549,7 +549,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[deployed](latest.TokenLocking.md#deployed)
+[TokenLocking](TokenLocking.md).[deployed](TokenLocking.md#deployed)
 
 ___
 
@@ -571,7 +571,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[deposit(address,uint256)](latest.TokenLocking.md#deposit(address,uint256))
+[TokenLocking](TokenLocking.md).[deposit(address,uint256)](TokenLocking.md#deposit(address,uint256))
 
 ___
 
@@ -594,7 +594,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[deposit(address,uint256,bool)](latest.TokenLocking.md#deposit(address,uint256,bool))
+[TokenLocking](TokenLocking.md).[deposit(address,uint256,bool)](TokenLocking.md#deposit(address,uint256,bool))
 
 ___
 
@@ -617,7 +617,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[depositFor](latest.TokenLocking.md#depositfor)
+[TokenLocking](TokenLocking.md).[depositFor](TokenLocking.md#depositfor)
 
 ___
 
@@ -638,7 +638,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[emit](latest.TokenLocking.md#emit)
+[TokenLocking](TokenLocking.md).[emit](TokenLocking.md#emit)
 
 ___
 
@@ -665,7 +665,7 @@ Main function to be called when user wants to execute meta transaction. The actu
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[executeMetaTransaction](latest.TokenLocking.md#executemetatransaction)
+[TokenLocking](TokenLocking.md).[executeMetaTransaction](TokenLocking.md#executemetatransaction)
 
 ___
 
@@ -685,7 +685,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[fallback](latest.TokenLocking.md#fallback)
+[TokenLocking](TokenLocking.md).[fallback](TokenLocking.md#fallback)
 
 ___
 
@@ -708,7 +708,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[getApproval](latest.TokenLocking.md#getapproval)
+[TokenLocking](TokenLocking.md).[getApproval](TokenLocking.md#getapproval)
 
 ___
 
@@ -728,7 +728,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[getChainId](latest.TokenLocking.md#getchainid)
+[TokenLocking](TokenLocking.md).[getChainId](TokenLocking.md#getchainid)
 
 ___
 
@@ -748,7 +748,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[getColonyNetwork](latest.TokenLocking.md#getcolonynetwork)
+[TokenLocking](TokenLocking.md).[getColonyNetwork](TokenLocking.md#getcolonynetwork)
 
 ___
 
@@ -769,7 +769,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[getMetatransactionNonce](latest.TokenLocking.md#getmetatransactionnonce)
+[TokenLocking](TokenLocking.md).[getMetatransactionNonce](TokenLocking.md#getmetatransactionnonce)
 
 ___
 
@@ -792,7 +792,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[getObligation](latest.TokenLocking.md#getobligation)
+[TokenLocking](TokenLocking.md).[getObligation](TokenLocking.md#getobligation)
 
 ___
 
@@ -813,7 +813,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[getTotalLockCount](latest.TokenLocking.md#gettotallockcount)
+[TokenLocking](TokenLocking.md).[getTotalLockCount](TokenLocking.md#gettotallockcount)
 
 ___
 
@@ -835,7 +835,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[getTotalObligation](latest.TokenLocking.md#gettotalobligation)
+[TokenLocking](TokenLocking.md).[getTotalObligation](TokenLocking.md#gettotalobligation)
 
 ___
 
@@ -857,7 +857,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[getUserLock](latest.TokenLocking.md#getuserlock)
+[TokenLocking](TokenLocking.md).[getUserLock](TokenLocking.md#getuserlock)
 
 ___
 
@@ -879,7 +879,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[incrementLockCounterTo](latest.TokenLocking.md#incrementlockcounterto)
+[TokenLocking](TokenLocking.md).[incrementLockCounterTo](TokenLocking.md#incrementlockcounterto)
 
 ___
 
@@ -899,7 +899,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[listenerCount](latest.TokenLocking.md#listenercount)
+[TokenLocking](TokenLocking.md).[listenerCount](TokenLocking.md#listenercount)
 
 ___
 
@@ -925,7 +925,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[listeners](latest.TokenLocking.md#listeners)
+[TokenLocking](TokenLocking.md).[listeners](TokenLocking.md#listeners)
 
 ▸ **listeners**(`eventName?`): `Listener`[]
 
@@ -941,7 +941,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[listeners](latest.TokenLocking.md#listeners)
+[TokenLocking](TokenLocking.md).[listeners](TokenLocking.md#listeners)
 
 ___
 
@@ -962,7 +962,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[lockToken](latest.TokenLocking.md#locktoken)
+[TokenLocking](TokenLocking.md).[lockToken](TokenLocking.md#locktoken)
 
 ___
 
@@ -985,7 +985,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[obligateStake](latest.TokenLocking.md#obligatestake)
+[TokenLocking](TokenLocking.md).[obligateStake](TokenLocking.md#obligatestake)
 
 ___
 
@@ -1005,7 +1005,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[owner](latest.TokenLocking.md#owner)
+[TokenLocking](TokenLocking.md).[owner](TokenLocking.md#owner)
 
 ___
 
@@ -1033,7 +1033,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[queryFilter](latest.TokenLocking.md#queryfilter)
+[TokenLocking](TokenLocking.md).[queryFilter](TokenLocking.md#queryfilter)
 
 ___
 
@@ -1059,7 +1059,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[removeAllListeners](latest.TokenLocking.md#removealllisteners)
+[TokenLocking](TokenLocking.md).[removeAllListeners](TokenLocking.md#removealllisteners)
 
 ▸ **removeAllListeners**(`eventName?`): [`TokenLockingClient`](TokenLockingClient.md)
 
@@ -1075,7 +1075,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[removeAllListeners](latest.TokenLocking.md#removealllisteners)
+[TokenLocking](TokenLocking.md).[removeAllListeners](TokenLocking.md#removealllisteners)
 
 ___
 
@@ -1097,7 +1097,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[reward](latest.TokenLocking.md#reward)
+[TokenLocking](TokenLocking.md).[reward](TokenLocking.md#reward)
 
 ___
 
@@ -1118,7 +1118,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[setAuthority](latest.TokenLocking.md#setauthority)
+[TokenLocking](TokenLocking.md).[setAuthority](TokenLocking.md#setauthority)
 
 ___
 
@@ -1139,7 +1139,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[setColonyNetwork](latest.TokenLocking.md#setcolonynetwork)
+[TokenLocking](TokenLocking.md).[setColonyNetwork](TokenLocking.md#setcolonynetwork)
 
 ___
 
@@ -1160,7 +1160,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[setOwner](latest.TokenLocking.md#setowner)
+[TokenLocking](TokenLocking.md).[setOwner](TokenLocking.md#setowner)
 
 ___
 
@@ -1184,7 +1184,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[transfer](latest.TokenLocking.md#transfer)
+[TokenLocking](TokenLocking.md).[transfer](TokenLocking.md#transfer)
 
 ___
 
@@ -1208,7 +1208,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[transferStake](latest.TokenLocking.md#transferstake)
+[TokenLocking](TokenLocking.md).[transferStake](TokenLocking.md#transferstake)
 
 ___
 
@@ -1231,7 +1231,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[unlockTokenForUser](latest.TokenLocking.md#unlocktokenforuser)
+[TokenLocking](TokenLocking.md).[unlockTokenForUser](TokenLocking.md#unlocktokenforuser)
 
 ___
 
@@ -1258,7 +1258,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[verify](latest.TokenLocking.md#verify)
+[TokenLocking](TokenLocking.md).[verify](TokenLocking.md#verify)
 
 ___
 
@@ -1280,7 +1280,7 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[withdraw(address,uint256)](latest.TokenLocking.md#withdraw(address,uint256))
+[TokenLocking](TokenLocking.md).[withdraw(address,uint256)](TokenLocking.md#withdraw(address,uint256))
 
 ___
 
@@ -1303,4 +1303,4 @@ ___
 
 #### Inherited from
 
-[TokenLocking](latest.TokenLocking.md).[withdraw(address,uint256,bool)](latest.TokenLocking.md#withdraw(address,uint256,bool))
+[TokenLocking](TokenLocking.md).[withdraw(address,uint256,bool)](TokenLocking.md#withdraw(address,uint256,bool))

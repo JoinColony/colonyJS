@@ -11,7 +11,7 @@ import { TxOverrides } from '../../../../types';
 import {
   EvaluatedExpenditureEvents,
   EvaluatedExpenditureEvents__factory as EvaluatedExpenditureEventsFactory,
-} from '../../../../contracts';
+} from '../../../../contracts/events';
 import {
   IColonyV4,
   IColonyV5,

@@ -6,7 +6,7 @@ import { ClientType } from '../../../../constants';
 import {
   CoinMachineEvents,
   CoinMachineEvents__factory as CoinMachineEventsFactory,
-} from '../../../../contracts';
+} from '../../../../contracts/events';
 
 export type AugmentedCoinMachine<T extends AnyCoinMachine = AnyCoinMachine> =
   T & {

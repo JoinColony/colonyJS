@@ -6,7 +6,7 @@ import { ClientType } from '../../../../constants';
 import {
   TokenSupplierEvents,
   TokenSupplierEvents__factory as TokenSupplierEventsFactory,
-} from '../../../../contracts';
+} from '../../../../contracts/events';
 
 export type AugmentedTokenSupplier<
   T extends AnyTokenSupplier = AnyTokenSupplier,

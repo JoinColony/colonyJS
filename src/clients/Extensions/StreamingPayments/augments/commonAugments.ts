@@ -17,7 +17,7 @@ import { TxOverrides } from '../../../../types';
 import {
   StreamingPaymentsEvents,
   StreamingPaymentsEvents__factory as StreamingPaymentsEventsFactory,
-} from '../../../../contracts';
+} from '../../../../contracts/events';
 import {
   IColonyV4,
   IColonyV5,
