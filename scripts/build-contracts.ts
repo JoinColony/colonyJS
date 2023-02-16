@@ -166,9 +166,9 @@ const OUT_TOKEN_DIR = resolvePath(__dirname, '../src/tokens/contracts');
 const OUT_TOKEN_STATIC_DIR = resolvePath(OUT_TOKEN_DIR, 'static');
 
 const EVENTS_CONTRACTS = [
+  ...TOKEN_CONTRACTS,
   ...VERSIONED_CONTRACTS,
   ...UPGRADABLE_CONTRACTS,
-  'MetaTxToken',
 ];
 
 const rm = promisify(rimraf);

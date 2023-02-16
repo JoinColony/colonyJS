@@ -12,6 +12,8 @@ export type { OneTxPaymentEvents } from "./OneTxPaymentEvents";
 export type { ReputationBootstrapperEvents } from "./ReputationBootstrapperEvents";
 export type { StakedExpenditureEvents } from "./StakedExpenditureEvents";
 export type { StreamingPaymentsEvents } from "./StreamingPaymentsEvents";
+export type { TokenEvents } from "./TokenEvents";
+export type { TokenLockingEvents } from "./TokenLockingEvents";
 export type { TokenSupplierEvents } from "./TokenSupplierEvents";
 export type { VotingReputationEvents } from "./VotingReputationEvents";
 export type { WhitelistEvents } from "./WhitelistEvents";
@@ -27,6 +29,8 @@ export { OneTxPaymentEvents__factory } from "./factories/OneTxPaymentEvents__fac
 export { ReputationBootstrapperEvents__factory } from "./factories/ReputationBootstrapperEvents__factory";
 export { StakedExpenditureEvents__factory } from "./factories/StakedExpenditureEvents__factory";
 export { StreamingPaymentsEvents__factory } from "./factories/StreamingPaymentsEvents__factory";
+export { TokenEvents__factory } from "./factories/TokenEvents__factory";
+export { TokenLockingEvents__factory } from "./factories/TokenLockingEvents__factory";
 export { TokenSupplierEvents__factory } from "./factories/TokenSupplierEvents__factory";
 export { VotingReputationEvents__factory } from "./factories/VotingReputationEvents__factory";
 export { WhitelistEvents__factory } from "./factories/WhitelistEvents__factory";

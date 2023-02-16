@@ -12,6 +12,8 @@ export { OneTxPaymentEvents__factory } from "./OneTxPaymentEvents__factory";
 export { ReputationBootstrapperEvents__factory } from "./ReputationBootstrapperEvents__factory";
 export { StakedExpenditureEvents__factory } from "./StakedExpenditureEvents__factory";
 export { StreamingPaymentsEvents__factory } from "./StreamingPaymentsEvents__factory";
+export { TokenEvents__factory } from "./TokenEvents__factory";
+export { TokenLockingEvents__factory } from "./TokenLockingEvents__factory";
 export { TokenSupplierEvents__factory } from "./TokenSupplierEvents__factory";
 export { VotingReputationEvents__factory } from "./VotingReputationEvents__factory";
 export { WhitelistEvents__factory } from "./WhitelistEvents__factory";
