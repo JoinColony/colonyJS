@@ -7,19 +7,12 @@
     ".": {
       "import": "./dist/esm/index.js",
       "require": "./dist/cjs/index.js"
-    },
-    "./extras": {
-      "import": "./dist/esm/extras/index.js",
-      "require": "./dist/cjs/extras/index.js"
     }
   },
   "typesVersions": {
     "*": {
       "*": [
         "dist/types/index.d.ts"
-      ],
-      "extras": [
-        "dist/types/extras/index.d.ts"
       ]
     }
   },
@@ -30,7 +23,7 @@
   ],
   "license": "GPL-3.0-only",
   "engines": {
-    "node": "^14.18",
+    "node": "^14 || ^16",
     "npm": "^8"
   },
   "scripts": {
