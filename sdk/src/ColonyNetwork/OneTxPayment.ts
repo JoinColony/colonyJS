@@ -125,16 +125,28 @@ export class OneTxPayment {
     const setTeamId = teamId || Id.RootDomain;
     const setTokenAddress = tokenAddress
       ? ([] as string[]).concat(tokenAddress)
-      : [colonyClient.tokenClient.address];
+      : Array(setReceipient.length).fill(colonyClient.tokenClient.address);
     const setAmount = ([] as BigNumberish[]).concat(amount);
 
-    if (Array.isArray(setTokenAddress) && Array.isArray(setAmount)) {
-      if (setTokenAddress.length !== setAmount.length) {
-        throw new Error(
-          'amount and tokenAddress arrays need to have the same size',
-        );
-      }
+    if (recipient.length !== setAmount.length) {
+      throw new Error('recipient and amount arrays need to have the same size');
     }
+
+    if (setTokenAddress.length !== setAmount.length) {
+      throw new Error(
+        'amount and tokenAddress arrays need to have the same size',
+      );
+    }
+
+    // The list of recipients has to be orderd in ascending order.
+    // So we have to reorder the amounts and tokens as well
+    // TODO: technically, the list of tokens for a user also has to be sorted in ascending order.
+    // Let's cross that bridge when we get to it
+    const indices = Array.from(setReceipient.keys());
+    indices.sort((a, b) => setReceipient[a].localeCompare(setReceipient[b]));
+    const sortedRecipients = indices.map((i) => setReceipient[i]);
+    const sortedAmounts = indices.map((i) => setAmount[i]);
+    const sortedTokens = indices.map((i) => setTokenAddress[i]);
 
     return this.colony.createColonyTxCreator(
       this.oneTxPaymentClient,
@@ -160,9 +172,9 @@ export class OneTxPayment {
           extChildSkillIndex,
           userPermissionDomainId,
           userChildSkillIndex,
-          setReceipient,
-          setTokenAddress,
-          setAmount,
+          sortedRecipients,
+          sortedTokens,
+          sortedAmounts,
           setTeamId,
           // Skill associated with this payment. Ignore for now
           Id.SkillIgnore,
