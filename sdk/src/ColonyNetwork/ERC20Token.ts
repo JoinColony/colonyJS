@@ -1,4 +1,7 @@
-import type { ApprovalEventObject } from '@colony/colony-js/events';
+import {
+  ApprovalEventObject,
+  TransferEventObject,
+} from '@colony/colony-js/events';
 
 import {
   ERC20Token as ERC20TokenType,
@@ -49,7 +52,7 @@ export class ERC20Token {
   }
 
   /**
-   * Gets the token's name
+   * Returns the token's name
    *
    * @returns The token's name (e.g. Colony Network Token)
    */
@@ -58,7 +61,7 @@ export class ERC20Token {
   }
 
   /**
-   * Gets the token's symbol
+   * Returns the token's symbol
    *
    * @returns The token's symbol (e.g. CLNY)
    */
@@ -67,12 +70,89 @@ export class ERC20Token {
   }
 
   /**
-   * Gets the token's decimals
+   * Returns the token's decimals
    *
    * @returns The token's decimals (e.g. 18)
    */
   async decimals() {
     return this.tokenClient.decimals();
+  }
+
+  /**
+   * Returns the total token supply
+   *
+   * @returns The token's total supply
+   */
+  async totalSupply() {
+    return this.tokenClient.totalSupply();
+  }
+
+  /**
+   * Returns the account balance of another account with address `owner`
+   *
+   * @returns The account balance of the corresponding address
+   */
+  async balanceOf(owner: string) {
+    return this.tokenClient.balanceOf(owner);
+  }
+
+  /**
+   * Returns the amount which `spender` is still allowed to withdraw from `owner`
+   *
+   * @returns The allowance amount
+   */
+  async allowance(owner: string, spender: string) {
+    return this.tokenClient.allowance(owner, spender);
+  }
+
+  /**
+   * Transfers `value` amount of tokens to address `to` from the currently used wallet
+   *
+   * @returns A transaction creator
+   *
+   * #### Event data
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `src` | string | The address that transferred the tokens from their wallet |
+   * | `dst` | string | Address of the recipient of the tokens |
+   * | `wad` | BigNumber | Amount that was transferred |
+   */
+  transfer(to: string, value: BigNumberish) {
+    return this.colonyNetwork.createTxCreator(
+      this.tokenClient,
+      'transfer',
+      [to, value],
+      async (receipt) => ({
+        ...extractEvent<TransferEventObject>('Transfer', receipt),
+      }),
+    );
+  }
+
+  /**
+   * Transfers `value` amount of tokens from address `from` to address `to`
+   *
+   * The transferFrom method is used for a withdraw workflow, allowing contracts to transfer tokens on your behalf. This can be used for example to allow a contract to transfer tokens on your behalf and/or to charge fees in sub-currencies
+   *
+   * @returns A transaction creator
+   *
+   * #### Event data
+   *
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `src` | string | The address that transferred the tokens from their wallet |
+   * | `dst` | string | Address of the recipient of the tokens |
+   * | `wad` | BigNumber | Amount that was transferred |
+   */
+  transferFrom(from: string, to: string, value: BigNumberish) {
+    return this.colonyNetwork.createTxCreator(
+      this.tokenClient,
+      'transferFrom',
+      [from, to, value],
+      async (receipt) => ({
+        ...extractEvent<TransferEventObject>('Transfer', receipt),
+      }),
+    );
   }
 
   /**

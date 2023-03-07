@@ -41,6 +41,31 @@ This does not deploy a new token, only connects to an exisiting one
 
 ## Methods
 
+### allowance
+
+▸ **allowance**(`owner`, `spender`): `Promise`<`BigNumber`\>
+
+Returns the amount which `spender` is still allowed to withdraw from `owner`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `owner` | `string` |
+| `spender` | `string` |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+The allowance amount
+
+#### Inherited from
+
+[ERC20Token](ERC20Token.md).[allowance](ERC20Token.md#allowance)
+
+___
+
 ### approve
 
 ▸ **approve**(`amount`, `spender?`): [`TxCreator`](TxCreator.md)<`TokenERC20`, ``"approve"``, { `guy?`: `string` ; `src?`: `string` ; `wad?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
@@ -90,11 +115,35 @@ A transaction creator
 
 ___
 
+### balanceOf
+
+▸ **balanceOf**(`owner`): `Promise`<`BigNumber`\>
+
+Returns the account balance of another account with address `owner`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `owner` | `string` |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+The account balance of the corresponding address
+
+#### Inherited from
+
+[ERC20Token](ERC20Token.md).[balanceOf](ERC20Token.md#balanceof)
+
+___
+
 ### decimals
 
 ▸ **decimals**(): `Promise`<`number`\>
 
-Gets the token's decimals
+Returns the token's decimals
 
 #### Returns
 
@@ -112,7 +161,7 @@ ___
 
 ▸ **name**(): `Promise`<`string`\>
 
-Gets the token's name
+Returns the token's name
 
 #### Returns
 
@@ -210,7 +259,7 @@ ___
 
 ▸ **symbol**(): `Promise`<`string`\>
 
-Gets the token's symbol
+Returns the token's symbol
 
 #### Returns
 
@@ -221,3 +270,90 @@ The token's symbol (e.g. CLNY)
 #### Inherited from
 
 [ERC20Token](ERC20Token.md).[symbol](ERC20Token.md#symbol)
+
+___
+
+### totalSupply
+
+▸ **totalSupply**(): `Promise`<`BigNumber`\>
+
+Returns the total token supply
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+The token's total supply
+
+#### Inherited from
+
+[ERC20Token](ERC20Token.md).[totalSupply](ERC20Token.md#totalsupply)
+
+___
+
+### transfer
+
+▸ **transfer**(`to`, `value`): [`TxCreator`](TxCreator.md)<`TokenERC20`, ``"transfer"``, { `dst?`: `string` ; `src?`: `string` ; `wad?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+Transfers `value` amount of tokens to address `to` from the currently used wallet
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `to` | `string` |
+| `value` | `BigNumberish` |
+
+#### Returns
+
+[`TxCreator`](TxCreator.md)<`TokenERC20`, ``"transfer"``, { `dst?`: `string` ; `src?`: `string` ; `wad?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+A transaction creator
+
+#### Event data
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `src` | string | The address that transferred the tokens from their wallet |
+| `dst` | string | Address of the recipient of the tokens |
+| `wad` | BigNumber | Amount that was transferred |
+
+#### Inherited from
+
+[ERC20Token](ERC20Token.md).[transfer](ERC20Token.md#transfer)
+
+___
+
+### transferFrom
+
+▸ **transferFrom**(`from`, `to`, `value`): [`TxCreator`](TxCreator.md)<`TokenERC20`, ``"transferFrom"``, { `dst?`: `string` ; `src?`: `string` ; `wad?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+Transfers `value` amount of tokens from address `from` to address `to`
+
+The transferFrom method is used for a withdraw workflow, allowing contracts to transfer tokens on your behalf. This can be used for example to allow a contract to transfer tokens on your behalf and/or to charge fees in sub-currencies
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `from` | `string` |
+| `to` | `string` |
+| `value` | `BigNumberish` |
+
+#### Returns
+
+[`TxCreator`](TxCreator.md)<`TokenERC20`, ``"transferFrom"``, { `dst?`: `string` ; `src?`: `string` ; `wad?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+
+A transaction creator
+
+#### Event data
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `src` | string | The address that transferred the tokens from their wallet |
+| `dst` | string | Address of the recipient of the tokens |
+| `wad` | BigNumber | Amount that was transferred |
+
+#### Inherited from
+
+[ERC20Token](ERC20Token.md).[transferFrom](ERC20Token.md#transferfrom)
