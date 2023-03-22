@@ -1041,6 +1041,40 @@ export class Colony {
   }
 
   /**
+   * Get roles for a user/contract/wallet in a Colony and domain
+   *
+   * @example
+   * ```typescript
+   * import { ColonyRole } from '@colony/sdk';
+   *
+   * // Immediately executing async function
+   * (async function() {
+   *   // Get roles for the given user address for the team 2
+   *   const roles = await colony.getRoles('0xb794f5ea0ba39494ce839613fffba74279579268', 2);
+   *   // Check if user has 'Administration' role
+   *   if (roles.includes(ColonyRole.Administration)) {
+   *     console.log('Hoooray, user is admin');
+   *   }
+   * })();
+   * ```
+   * @param address - Address of the wallet or contract to check the roles of
+   * @param teamId - Team in which to check the roles of given user
+   * @returns An array of [[ColonyRole]]s
+   */
+  async getRoles(address: string, teamId: BigNumberish = Id.RootDomain) {
+    const roleString = await this.colonyClient.getUserRoles(address, teamId);
+    const rolesNum = parseInt(roleString, 16);
+    const roles = [] as ColonyRole[];
+    for (let i = 0; i < ColonyRole.LAST_ROLE; i += 1) {
+      // eslint-disable-next-line no-bitwise
+      if (rolesNum & (1 << i)) {
+        roles.push(i as ColonyRole);
+      }
+    }
+    return roles;
+  }
+
+  /**
    * Set (award) roles to a user/contract
    *
    * @remarks

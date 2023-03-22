@@ -620,6 +620,43 @@ An array of objects containing the following
 
 ___
 
+### getRoles
+
+▸ **getRoles**(`address`, `teamId?`): `Promise`<[`ColonyRole`](../enums/ColonyRole.md)[]\>
+
+Get roles for a user/contract/wallet in a Colony and domain
+
+**`Example`**
+
+```typescript
+import { ColonyRole } from '@colony/sdk';
+
+// Immediately executing async function
+(async function() {
+  // Get roles for the given user address for the team 2
+  const roles = await colony.getRoles('0xb794f5ea0ba39494ce839613fffba74279579268', 2);
+  // Check if user has 'Administration' role
+  if (roles.includes(ColonyRole.Administration)) {
+    console.log('Hoooray, user is admin');
+  }
+})();
+```
+
+#### Parameters
+
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `address` | `string` | `undefined` | Address of the wallet or contract to check the roles of |
+| `teamId` | `BigNumberish` | `Id.RootDomain` | Team in which to check the roles of given user |
+
+#### Returns
+
+`Promise`<[`ColonyRole`](../enums/ColonyRole.md)[]\>
+
+An array of [ColonyRole](../enums/ColonyRole.md)s
+
+___
+
 ### getTeam
 
 ▸ **getTeam**(`teamId`): `Promise`<`DomainStructOutput`\>
