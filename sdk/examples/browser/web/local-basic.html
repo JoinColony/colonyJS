@@ -1,15 +1,36 @@
 <!DOCTYPE html>
 <html>
-  <body>
+
+<head>
+  <link href="index.css" rel="stylesheet">
+</head>
+
+<body>
+  <main class="container">
     <h1>Colony SDK browser demo - local deployment - check the MetaColony's funding</h1>
-  </body>
-  <p><b>First make sure that the Colony contracts are deployed locally and the Reputation Oracle is set up. See <a href="https://colony.gitbook.io/colony-network/guides/deploying-colony-locally" target="_blank">here</a> for more information</b></p>
-  <p>We'll be using wallet address 0xb77D57F4959eAfA0339424b83FcFaf9c15407461 to connect to the <b>locally deployed MetaColony</b>. Any transaction will automatically be signed as we have the private key hardcoded. No connection to MetaMask is needed.</p>
-  <p>Let's check the CLNY funding for the local <b>MetaColony</b>. <i style="color:red">Make sure to provide the correct address given in the `etherrouter-address.json` in the `colonyNetwork` directory.</i></p>
-  <label for="address">EtherRouter address:</label>
-  <input type="text" id="address" />
-  <button type="button" id="button">Check</button>
-  <p style="color:red" id="error"></p>
-  <p style="color:blue" id="result"></p>
+    <p><b>First make sure that the Colony contracts are deployed locally and the Reputation Oracle is set up. See <a
+          href="https://colony.gitbook.io/colony-network/guides/deploying-colony-locally" target="_blank">here</a> for
+        more
+        information</b></p>
+    <p>We'll be using wallet address 0xb77D57F4959eAfA0339424b83FcFaf9c15407461 to connect to the <b>locally deployed
+        MetaColony</b>. Any transaction will automatically be signed as we have the private key hardcoded. No connection
+      to
+      MetaMask is needed.</p>
+    <p>Let's check the CLNY funding for the local <b>MetaColony</b>. <i style="color:red">Make sure to provide the
+        correct
+        address given in the `etherrouter-address.json` in the `colonyNetwork` directory.</i></p>
+    <label for="address">EtherRouter address:</label>
+    <input type="text" id="address" />
+    <button type="button" id="button">Check</button>
+    <article>
+      <header>
+        <b>Message</b>
+      </header>
+      <p style="color:red" id="error"></p>
+      <p id="result"></p>
+    </article>
+  </main>
   <script src="local-basic.js"></script>
+</body>
+
 </html>

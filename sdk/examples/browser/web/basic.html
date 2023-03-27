@@ -1,13 +1,27 @@
 <!DOCTYPE html>
 <html>
-  <body>
+
+<head>
+  <link href="index.css" rel="stylesheet">
+</head>
+
+<body>
+  <main class="container">
     <h1>Colony SDK browser demo - basic</h1>
-  </body>
-  <p>Let's check the CLNY funding for a Colony</p>
-  <label for="address">Colony address:</label>
-  <input type="text" id="address" />
-  <button type="button" id="button">Check</button>
-  <p style="color:red" id="error"></p>
-  <p style="color:blue" id="result"></p>
+    <p>Let's check the CLNY funding for a Colony</p>
+    <label for="address">Colony address:
+      <input type="text" id="address" />
+    </label>
+    <button type="button" id="button">Check</button>
+    <article>
+      <header>
+        <b>Message</b>
+      </header>
+      <p style="color:red" id="error"></p>
+      <p id="result"></p>
+    </article>
+  </main>
   <script src="basic.js"></script>
+</body>
+
 </html>

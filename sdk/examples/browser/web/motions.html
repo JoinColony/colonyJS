@@ -1,34 +1,64 @@
 <!DOCTYPE html>
 <html>
-  <body>
+
+<head>
+  <link href="index.css" rel="stylesheet">
+</head>
+
+<body>
+  <main class="container">
     <h1>Colony SDK browser demo - Motion workflow</h1>
-  </body>
-  <p>Using wallet address <tt id="current-wallet-address"></tt></p>
-  <p><b>1) Let's connect to the Colony first</b> <i style="color:red">For testing, it is beneficial to set the period length of the motion phases to very low values (e.g. 2 minutes)</i></p>
-  <input type="text" id="address" placeholder="Colony address" />
-  <button type="button" id="button_connect">Connect</button>
-  <p><b>2) Now we approve some of the CLNY of the above wallet for the Colony and the <tt>VotingReputation</tt> staking, which will remove it from the user's wallet</b> (you only need to do this <b>once</b> for this example)</p>
-  <input type="number" id="stake_clny_amount" placeholder="Amount to approve" />
-  <button type="button" id="button_stake_clny">Approve funds for Colony</button>
-  <p><b>3) Then, we create a motion to pay some of the native token to Carol:</b> <tt>0x42b9f8673a9187952a5dF24132eEa04268a14BCC</tt> (this will also incur reputation if the motion passes) <i style="color:red">(must be less than the amount that is in the Colony's root team!)</i></p>
-  <input type="number" max="100" id="payment_amount" placeholder="Motion payment amount" />
-  <button type="button" id="button_create_motion">Create motion</button>
-  <p><b>4) Next, we look at the motion more closely</b></p>
-  <input type="text" id="motion_id" placeholder="Motion ID" />
-  <button type="button" id="button_get_motion">Get motion</button>
-  <p>You will see the domainId in which the motion was created, the altTarget (which is the OneTxPayment extension in this case, as we want to execute the `pay` function on it), the encoded action and the stakes remaining for activation.</p>
-  <p><b>5) Okay, now we're ready to stake.</b> Feel free to stake any amount, then get the motion again and see how it goes up :)</p>
-  <input type="number" required max="20" id="stake_amount" placeholder="Stake amount" />
-  <button type="button" id="button_stake_yay">Stake for Yay</button>
-  <button type="button" id="button_stake_nay">Stake for Nay</button>
-  <p><b>6) We can also simulate voting.</b> For that, we activate both sides by staking the required amount on both sides from a single address. That usually won't happen in the wild (except if someone wants to force voting for some reason). Stake on both sides and then get the motion data to see if <tt>remainingYayStakes</tt> and <tt>remainingNayStakes</tt> are both <tt>0.0</tt></p>
-  <button type="button" id="button_vote_yay">Vote for Yay</button>
-  <button type="button" id="button_vote_nay">Vote for Nay</button>
-  <p><b>7) Reveal the vote</b> After the voting phase is over the votes can be revealed. Only if a vote is revealed it is counted and the voting reward is paid out</p>
-  <button type="button" id="button_reveal">Reveal vote</button>
-  <p><b>8) If the motion was successful, we can finalize it.</b> In our example we can only finalize it if we wait long enough after staking was only activated for Yay or if we voted for Yay.</p>
-  <button type="button" id="button_finalize">Finalize</button>
-  <p style="color:red" id="error"></p>
-  <p style="color:blue" id="result"></p>
+    <p>Using wallet address <tt id="current-wallet-address"></tt></p>
+    <p><b>1) Let's connect to the Colony first</b> <i style="color:red">For testing, it is beneficial to set the period
+        length of the motion phases to very low values (e.g. 2 minutes)</i></p>
+    <input type="text" id="address" placeholder="Colony address" />
+    <button type="button" id="button_connect">Connect</button>
+    <p><b>2) Now we approve some of the CLNY of the above wallet for the Colony and the <tt>VotingReputation</tt>
+        staking,
+        which will remove it from the user's wallet</b> (you only need to do this <b>once</b> for this example)</p>
+    <input type="number" id="stake_clny_amount" placeholder="Amount to approve" />
+    <button type="button" id="button_stake_clny">Approve funds for Colony</button>
+    <p><b>3) Then, we create a motion to pay some of the native token to Carol:</b>
+      <tt>0x42b9f8673a9187952a5dF24132eEa04268a14BCC</tt> (this will also incur reputation if the motion passes) <i
+        style="color:red">(must be less than the amount that is in the Colony's root team!)</i>
+    </p>
+    <input type="number" max="100" id="payment_amount" placeholder="Motion payment amount" />
+    <button type="button" id="button_create_motion">Create motion</button>
+    <p><b>4) Next, we look at the motion more closely</b></p>
+    <input type="text" id="motion_id" placeholder="Motion ID" />
+    <button type="button" id="button_get_motion">Get motion</button>
+    <p>You will see the domainId in which the motion was created, the altTarget (which is the OneTxPayment extension in
+      this case, as we want to execute the `pay` function on it), the encoded action and the stakes remaining for
+      activation.</p>
+    <p><b>5) Okay, now we're ready to stake.</b> Feel free to stake any amount, then get the motion again and see how it
+      goes up :)</p>
+    <input type="number" required max="20" id="stake_amount" placeholder="Stake amount" />
+    <button type="button" id="button_stake_yay">Stake for Yay</button>
+    <button type="button" id="button_stake_nay">Stake for Nay</button>
+    <p><b>6) We can also simulate voting.</b> For that, we activate both sides by staking the required amount on both
+      sides from a single address. That usually won't happen in the wild (except if someone wants to force voting for
+      some
+      reason). Stake on both sides and then get the motion data to see if <tt>remainingYayStakes</tt> and
+      <tt>remainingNayStakes</tt> are both <tt>0.0</tt>
+    </p>
+    <button type="button" id="button_vote_yay">Vote for Yay</button>
+    <button type="button" id="button_vote_nay">Vote for Nay</button>
+    <p><b>7) Reveal the vote</b> After the voting phase is over the votes can be revealed. Only if a vote is revealed it
+      is counted and the voting reward is paid out</p>
+    <button type="button" id="button_reveal">Reveal vote</button>
+    <p><b>8) If the motion was successful, we can finalize it.</b> In our example we can only finalize it if we wait
+      long
+      enough after staking was only activated for Yay or if we voted for Yay.</p>
+    <button type="button" id="button_finalize">Finalize</button>
+    <article>
+      <header>
+        <b>Message</b>
+      </header>
+      <p style="color:red" id="error"></p>
+      <p id="result"></p>
+    </article>
+  </main>
   <script src="motions.js"></script>
+</body>
+
 </html>

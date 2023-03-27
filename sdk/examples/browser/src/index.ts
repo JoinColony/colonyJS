@@ -1,3 +1,5 @@
+import '@picocss/pico';
+
 import { ColonyRpcEndpoint } from '../../../src';
 
 const addColonyRPC = () => {

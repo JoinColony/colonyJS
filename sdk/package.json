@@ -14,6 +14,7 @@
   },
   "devDependencies": {
     "@colony/eslint-config-colony": "^9.0.2",
+    "@picocss/pico": "^1.5.7",
     "@types/inquirer": "^8.2.1",
     "@types/ws": "^8.5.3",
     "@types/yargs": "^17.0.10",

@@ -1,48 +1,107 @@
 <!DOCTYPE html>
 <html>
-  <body>
+
+<head>
+  <link href="index.css" rel="stylesheet">
+</head>
+
+<body>
+  <main class="container">
     <h1>Colony SDK browser demo - local deployment - Motion workflow</h1>
-  </body>
-  <p><b>First make sure that the <a href="https://colony.gitbook.io/colony-network/guides/deploying-colony-locally" target="_blank">Colony contracts are deployed locally</a> and the <a href="https://colony.gitbook.io/colony-network/guides/reputation-oracle-setup">Reputation Oracle is set up</a>.</b></p>
-  <p>We'll be using wallet address <tt>0xb77D57F4959eAfA0339424b83FcFaf9c15407461</tt> to connect to the <b>locally deployed MetaColony</b>. This address was used to deploy the MetaColony locally and is the "owner" of it. Any transaction will automatically be signed as we have the private key hardcoded. No connection to MetaMask is needed.</p>
-  <p><b>1) Let's connect to the ColonyNetwork first</b> <i style="color:red">Paste in the address from the `etherrouter-address.json` in the `colonyNetwork` directory</i></p>
-  <p>This will also set up the Motions&Disputes extension in the MetaColony with testing settings as well as distribute an initial amount of reputation and CLNY to the two addresses we're using for this example: <tt>0xb77D57F4959eAfA0339424b83FcFaf9c15407461</tt> and <tt>0x9df24e73f40b2a911eb254a8825103723e13209c</tt>.</p>
-  <input type="text" id="address" placeholder="EtherRouter address" />
-  <button type="button" id="button_connect">Connect</button>
-  <p><b>2) Now we install the <tt>VotingReputation</tt> extension and bootstrap some reputation</b> (you only need to do this <b>once</b> for this example)</p>
-  <button type="button" id="button_bootstrap">Bootstrap</button>
-  <p><b>3) Now we approve some of the CLNY of <tt>0xb77D57F4959eAfA0339424b83FcFaf9c15407461</tt> for the Colony and the <tt>VotingReputation</tt> staking, which will remove it from the user's wallet</b> (you only need to do this <b>once</b> for this example)</p>
-  <button type="button" id="button_stake_clny">Approve funds for Colony</button>
-  <p><b>4) Jump forward in time</b> - When we connected to the Colony above, the two addresses mentioned were awarded some reputation. It is awarded in cycles; in our case it's set to 1 hour. As we have full control over our local blockchain, Ganache allows us to travel to the future! Fasten your seatbelts, here we go <i style="color:red">(take a look at the console for the reputation oracle!)</i>!</p>
-  <p><b>Instructions:</b>
+    <p><b>First make sure that the <a href="https://colony.gitbook.io/colony-network/guides/deploying-colony-locally"
+          target="_blank">Colony contracts are deployed locally</a> and the <a
+          href="https://colony.gitbook.io/colony-network/guides/reputation-oracle-setup">Reputation Oracle is set
+          up</a>.</b></p>
+    <p>We'll be using wallet address <tt>0xb77D57F4959eAfA0339424b83FcFaf9c15407461</tt> to connect to the <b>locally
+        deployed MetaColony</b>. This address was used to deploy the MetaColony locally and is the "owner" of it. Any
+      transaction will automatically be signed as we have the private key hardcoded. No connection to MetaMask is
+      needed.
+    </p>
+    <p><b>1) Let's connect to the ColonyNetwork first</b> <i style="color:red">Paste in the address from the
+        `etherrouter-address.json` in the `colonyNetwork` directory</i></p>
+    <p>This will also set up the Motions&Disputes extension in the MetaColony with testing settings as well as
+      distribute
+      an initial amount of reputation and CLNY to the two addresses we're using for this example:
+      <tt>0xb77D57F4959eAfA0339424b83FcFaf9c15407461</tt> and <tt>0x9df24e73f40b2a911eb254a8825103723e13209c</tt>.
+    </p>
+    <input type="text" id="address" placeholder="EtherRouter address" />
+    <button type="button" id="button_connect">Connect</button>
+    <p><b>2) Now we install the <tt>VotingReputation</tt> extension and bootstrap some reputation</b> (you only need to
+      do
+      this <b>once</b> for this example)</p>
+    <button type="button" id="button_bootstrap">Bootstrap</button>
+    <p><b>3) Now we approve some of the CLNY of <tt>0xb77D57F4959eAfA0339424b83FcFaf9c15407461</tt> for the Colony and
+        the
+        <tt>VotingReputation</tt> staking, which will remove it from the user's wallet</b> (you only need to do this
+      <b>once</b> for this example)
+    </p>
+    <button type="button" id="button_stake_clny">Approve funds for Colony</button>
+    <p><b>4) Jump forward in time</b> - When we connected to the Colony above, the two addresses mentioned were awarded
+      some reputation. It is awarded in cycles; in our case it's set to 1 hour. As we have full control over our local
+      blockchain, Ganache allows us to travel to the future! Fasten your seatbelts, here we go <i
+        style="color:red">(take
+        a look at the console for the reputation oracle!)</i>!</p>
+    <p><b>Instructions:</b>
     <ul>
       <li>i) Press the button</li>
-      <li>ii) Wait for the message <pre>✅ New reputation hash confirmed</pre> to appear in your console (reputation oracle)</li>
+      <li>ii) Wait for the message <pre>✅ New reputation hash confirmed</pre> to appear in your console (reputation
+        oracle)</li>
       <li>iii) Press the button <b>again</b></li>
       <li>iv) Wait for the above message <b>again</b></li>
       <li>v) Then go to the next step</li>
     </ul>
-  <button type="button" id="button_jump">Goooooooo</button>
-  <p>Note: We're using Ganache's <a href="https://github.com/trufflesuite/ganache/blob/develop/src/chains/ethereum/ethereum/RPC-METHODS.md#evm_increasetime" target="_blank">evm_increaseTime</a> and <a href="https://github.com/trufflesuite/ganache/blob/develop/src/chains/ethereum/ethereum/RPC-METHODS.md#evm_mine" target="_blank">evm_mine</a> methods to first increase the block time artificially by one hour and then force a block to mine. This will trigger the local reputation oracle/miner to award the pending reputation. We have to do that twice, if the reputation oracle was just started for the first time.</p>
-  <p><b>5) Then, we create a motion to pay some CLNY to a third address:</b> <tt>0x27ff0c145e191c22c75cd123c679c3e1f58a4469</tt> (this will also incur reputation if the motion passes) <i style="color:red">(make it less than <b>100</b>!)</i></p>
-  <input type="number" max="100" id="payment_amount" placeholder="Motion payment amount" />
-  <button type="button" id="button_create_motion">Create motion</button>
-  <p><b>6) Next, we look at the motion more closely</b></p>
-  <input type="text" id="motion_id" placeholder="Motion ID" />
-  <button type="button" id="button_get_motion">Get motion</button>
-  <p>You will see the domainId in which the motion was created, the altTarget (which is the OneTxPayment extension in this case, as we want to execute the `pay` function on it), the encoded action and the stakes remaining for activation.</p>
-  <p><b>7) Okay, now we're ready to stake.</b> Feel free to stake any amount, then get the motion again and see how it goes up :)</p>
-  <input type="number" required max="20" id="stake_amount" placeholder="Stake amount" />
-  <button type="button" id="button_stake_yay">Stake for Yay</button>
-  <button type="button" id="button_stake_nay">Stake for Nay</button>
-  <p><b>8) We can also simulate voting.</b> For that, we activate both sides by staking the required amount on both sides from a single address. That usually won't happen in the wild (except if someone wants to force voting for some reason). Stake on both sides and then get the motion data to see if <tt>remainingYayStakes</tt> and <tt>remainingNayStakes</tt> are both <tt>0.0</tt></p>
-  <button type="button" id="button_vote_yay">Vote for Yay</button>
-  <button type="button" id="button_vote_nay">Vote for Nay</button>
-  <p><b>9) Reveal the vote</b> After the voting phase is over (<i style="color:red">you will need to wait ~6 minutes</i> - we are forwarding time again for that), the votes can be revealed. Only if a vote is revealed it is counted and the voting reward is paid out</p>
-  <button type="button" id="button_reveal">Reveal vote</button>
-  <p><b>10) If the motion was successful, we can finalize it.</b> In our example we can only finalize it if we wait long enough (~6min - the time is forwarded again when you press the button) after staking was only activated for Yay or if we voted for Yay.</p>
-  <button type="button" id="button_finalize">Finalize</button>
-  <p style="color:red" id="error"></p>
-  <p style="color:blue" id="result"></p>
+    <button type="button" id="button_jump">Goooooooo</button>
+    <p>Note: We're using Ganache's <a
+        href="https://github.com/trufflesuite/ganache/blob/develop/src/chains/ethereum/ethereum/RPC-METHODS.md#evm_increasetime"
+        target="_blank">evm_increaseTime</a> and <a
+        href="https://github.com/trufflesuite/ganache/blob/develop/src/chains/ethereum/ethereum/RPC-METHODS.md#evm_mine"
+        target="_blank">evm_mine</a> methods to first increase the block time artificially by one hour and then force a
+      block to mine. This will trigger the local reputation oracle/miner to award the pending reputation. We have to do
+      that twice, if the reputation oracle was just started for the first time.</p>
+    <p><b>5) Then, we create a motion to pay some CLNY to a third address:</b>
+      <tt>0x27ff0c145e191c22c75cd123c679c3e1f58a4469</tt> (this will also incur reputation if the motion passes) <i
+        style="color:red">(make it less than <b>100</b>!)</i>
+    </p>
+    <input type="number" max="100" id="payment_amount" placeholder="Motion payment amount" />
+    <button type="button" id="button_create_motion">Create motion</button>
+    <p><b>6) Next, we look at the motion more closely</b></p>
+    <input type="text" id="motion_id" placeholder="Motion ID" />
+    <button type="button" id="button_get_motion">Get motion</button>
+    <p>You will see the domainId in which the motion was created, the altTarget (which is the OneTxPayment extension in
+      this case, as we want to execute the `pay` function on it), the encoded action and the stakes remaining for
+      activation.</p>
+    <p><b>7) Okay, now we're ready to stake.</b> Feel free to stake any amount, then get the motion again and see how it
+      goes up :)</p>
+    <input type="number" required max="20" id="stake_amount" placeholder="Stake amount" />
+    <button type="button" id="button_stake_yay">Stake for Yay</button>
+    <button type="button" id="button_stake_nay">Stake for Nay</button>
+    <p><b>8) We can also simulate voting.</b> For that, we activate both sides by staking the required amount on both
+      sides from a single address. That usually won't happen in the wild (except if someone wants to force voting for
+      some
+      reason). Stake on both sides and then get the motion data to see if <tt>remainingYayStakes</tt> and
+      <tt>remainingNayStakes</tt> are both <tt>0.0</tt>
+    </p>
+    <button type="button" id="button_vote_yay">Vote for Yay</button>
+    <button type="button" id="button_vote_nay">Vote for Nay</button>
+    <p><b>9) Reveal the vote</b> After the voting phase is over (<i style="color:red">you will need to wait ~6
+        minutes</i>
+      - we are forwarding time again for that), the votes can be revealed. Only if a vote is revealed it is counted and
+      the voting reward is paid out</p>
+    <button type="button" id="button_reveal">Reveal vote</button>
+    <p><b>10) If the motion was successful, we can finalize it.</b> In our example we can only finalize it if we wait
+      long
+      enough (~6min - the time is forwarded again when you press the button) after staking was only activated for Yay or
+      if we voted for Yay.</p>
+    <button type="button" id="button_finalize">Finalize</button>
+    <article>
+      <header>
+        <b>Message</b>
+      </header>
+      <p style="color:red" id="error"></p>
+      <p id="result"></p>
+    </article>
+  </main>
   <script src="local-motions.js"></script>
+</body>
+
 </html>

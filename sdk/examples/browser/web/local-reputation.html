@@ -1,33 +1,63 @@
 <!DOCTYPE html>
 <html>
-  <body>
-    <h1>Colony SDK browser demo - local deployment - make a payment in the MetaColony and check the user's reputation</h1>
-  </body>
-  <p><b>First make sure that the <a href="https://colony.gitbook.io/colony-network/guides/deploying-colony-locally" target="_blank">Colony contracts are deployed locally</a> and the <a href="https://colony.gitbook.io/colony-network/guides/reputation-oracle-setup">Reputation Oracle is set up</a>.</b></p>
-  <p>We'll be using wallet address 0xb77D57F4959eAfA0339424b83FcFaf9c15407461 to connect to the <b>locally deployed MetaColony</b>. This address was used to deploy the MetaColony locally and is the "owner" of it. Any transaction will automatically be signed as we have the private key hardcoded. No connection to MetaMask is needed.</p>
-  <p><b>1) Let's connect to the ColonyNetwork first</b> <i style="color:red">Paste in the address from the `etherrouter-address.json` in the `colonyNetwork` directory</i></p>
-  <input type="text" id="address" placeholder="EtherRouter address" />
-  <button type="button" id="button_connect">Connect</button>
-  <p><b>2) Then, we mint some CLNY and fund the MetaColony with it</b> <i style="color:red">(make it at least <b>10</b>!)</i></p>
-  <input type="number" min="10" id="funding_amount" placeholder="CLNY amount" />
-  <button type="button" id="button_fund">Fund</button>
-  <p><b>3) Next, we pay someone for a task in the MetaColony's root team</b> (in the MetaColony's native token CLNY - that's important!)</p>
-  <input type="text" id="recipient" placeholder="Recipient" />
-  <button type="button" id="button_pay">Pay 10 CLNY</button>
-  <p><b>4) Jump forward in time</b> - Reputation is awarded in cycles. In our case it's set to 1 hour. As we have full control over our local blockchain, Ganache allows us to travel to the future! Fasten your seatbelts, here we</p>
-  <p><b>Instructions:</b>
+
+<head>
+  <link href="index.css" rel="stylesheet">
+</head>
+
+<body>
+  <main class="container">
+    <h1>Colony SDK browser demo - local deployment - make a payment in the MetaColony and check the user's reputation
+    </h1>
+    <p><b>First make sure that the <a href="https://colony.gitbook.io/colony-network/guides/deploying-colony-locally"
+          target="_blank">Colony contracts are deployed locally</a> and the <a
+          href="https://colony.gitbook.io/colony-network/guides/reputation-oracle-setup">Reputation Oracle is set
+          up</a>.</b></p>
+    <p>We'll be using wallet address 0xb77D57F4959eAfA0339424b83FcFaf9c15407461 to connect to the <b>locally deployed
+        MetaColony</b>. This address was used to deploy the MetaColony locally and is the "owner" of it. Any transaction
+      will automatically be signed as we have the private key hardcoded. No connection to MetaMask is needed.</p>
+    <p><b>1) Let's connect to the ColonyNetwork first</b> <i style="color:red">Paste in the address from the
+        `etherrouter-address.json` in the `colonyNetwork` directory</i></p>
+    <input type="text" id="address" placeholder="EtherRouter address" />
+    <button type="button" id="button_connect">Connect</button>
+    <p><b>2) Then, we mint some CLNY and fund the MetaColony with it</b> <i style="color:red">(make it at least
+        <b>10</b>!)</i></p>
+    <input type="number" min="10" id="funding_amount" placeholder="CLNY amount" />
+    <button type="button" id="button_fund">Fund</button>
+    <p><b>3) Next, we pay someone for a task in the MetaColony's root team</b> (in the MetaColony's native token CLNY -
+      that's important!)</p>
+    <input type="text" id="recipient" placeholder="Recipient" />
+    <button type="button" id="button_pay">Pay 10 CLNY</button>
+    <p><b>4) Jump forward in time</b> - Reputation is awarded in cycles. In our case it's set to 1 hour. As we have full
+      control over our local blockchain, Ganache allows us to travel to the future! Fasten your seatbelts, here we</p>
+    <p><b>Instructions:</b>
     <ul>
       <li>i) Press the button</li>
-      <li>ii) Wait for the message <pre>✅ New reputation hash confirmed</pre> to appear in your console (reputation oracle)</li>
+      <li>ii) Wait for the message <pre>✅ New reputation hash confirmed</pre> to appear in your console (reputation
+        oracle)</li>
       <li>iii) Press the button <b>again</b></li>
       <li>iv) Wait for the above message <b>again</b></li>
       <li>v) Then go to the next step</li>
     </ul>
-  <button type="button" id="button_jump">Goooooooo</button>
-  <p>Note: We're using Ganache's <a href="https://github.com/trufflesuite/ganache/blob/develop/src/chains/ethereum/ethereum/RPC-METHODS.md#evm_increasetime" target="_blank">evm_increaseTime</a> and <a href="https://github.com/trufflesuite/ganache/blob/develop/src/chains/ethereum/ethereum/RPC-METHODS.md#evm_mine" target="_blank">evm_mine</a> methods to first increase the block time artificially by one hour and then force a block to mine. This will trigger the local reputation oracle/miner to award the pending reputation. We have to do that twice, if the reputation oracle was just started for the first time.</p>
-  <p><b>5) Ask the oracle for the user's reputation</b></p>
-  <button type="button" id="button_get_reputation">Tell me!</button>
-  <p style="color:red" id="error"></p>
-  <p style="color:blue" id="result"></p>
+    <button type="button" id="button_jump">Goooooooo</button>
+    <p>Note: We're using Ganache's <a
+        href="https://github.com/trufflesuite/ganache/blob/develop/src/chains/ethereum/ethereum/RPC-METHODS.md#evm_increasetime"
+        target="_blank">evm_increaseTime</a> and <a
+        href="https://github.com/trufflesuite/ganache/blob/develop/src/chains/ethereum/ethereum/RPC-METHODS.md#evm_mine"
+        target="_blank">evm_mine</a> methods to first increase the block time artificially by one hour and then force a
+      block to mine. This will trigger the local reputation oracle/miner to award the pending reputation. We have to do
+      that twice, if the reputation oracle was just started for the first time.</p>
+    <p><b>5) Ask the oracle for the user's reputation</b></p>
+    <button type="button" id="button_get_reputation">Tell me!</button>
+    <article>
+      <header>
+        <b>Message</b>
+      </header>
+      <p style="color:red" id="error"></p>
+      <p id="result"></p>
+    </article>
+  </main>
   <script src="local-reputation.js"></script>
+</body>
+
 </html>
