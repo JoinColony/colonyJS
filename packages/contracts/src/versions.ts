@@ -1,28 +1,27 @@
-/*
- * Colony Network contract release tags
- *
- * glider-rc.1
- * glider
- * auburn-glider
- * burgundy-glider
- * lwss
- * clwss
- * dlwss
- * elwss
- * elwss2
- * elwss3
- * flwss
- * flwss2
- * flwss3
- * glwss
- * glwss2
- * glwss3
- *
- */
+/** Colony Network contract release tags */
+export const RELEASES = [
+  'glider-rc.1',
+  'glider',
+  'auburn-glider',
+  'burgundy-glider',
+  'lwss',
+  'clwss',
+  'dlwss',
+  'elwss',
+  'elwss2',
+  'elwss3',
+  'flwss',
+  'flwss2',
+  'flwss3',
+  'glwss',
+  'glwss2',
+  'glwss3',
+];
 
-export const LATEST_TAG = 'glwss3';
+/** Latest release tag */
+export const LATEST_TAG = RELEASES[RELEASES.length - 1];
 
-// Map versioned contracts to network release tags
+/** Map versioned contracts to network release tags */
 export const RELEASE_MAP = {
   IColony: {
     'glider-rc.1': 1,
