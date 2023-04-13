@@ -1,4 +1,6 @@
 import { BigNumberish, ContractReceipt, utils } from 'ethers';
+import { ColonyRole } from '@colony/colony-js';
+
 import type { Log } from '@ethersproject/abstract-provider';
 import type { JsonRpcProvider } from '@ethersproject/providers';
 import type { Interface } from '@ethersproject/abi';
@@ -120,3 +122,29 @@ export const toWei = (num: string) => utils.parseEther(num);
  * ```
  */
 export const w = (str: TemplateStringsArray) => toWei(str[0]);
+
+/**
+ * Parses a binary role integer into a [[ColonyRole]] array
+ *
+ * When getting multiple roles from contract methods or events they are
+ * usually formatted as a binary number. Here the least significant bit is
+ * the role with the index 0 (Recovery).
+ *
+ * E.g. 5 = 0b00101 equals Recovery and Arbitration
+ *
+ * This function parses these binary integers into a [[ColonyRole]] array.
+ *
+ * @param roles - A hex string (e.g. 0x3 = 0b11 equals Recovery and Root roles)
+ *
+ */
+export const parseRoles = (roles: string) => {
+  const rolesNum = parseInt(roles, 16);
+  const result = [] as ColonyRole[];
+  for (let i = 0; i < ColonyRole.LAST_ROLE; i += 1) {
+    // eslint-disable-next-line no-bitwise
+    if (rolesNum & (1 << i)) {
+      result.push(i as ColonyRole);
+    }
+  }
+  return result;
+};

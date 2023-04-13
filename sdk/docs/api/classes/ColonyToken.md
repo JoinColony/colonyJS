@@ -177,7 +177,7 @@ ___
 
 ### setAuthority
 
-▸ **setAuthority**(`tokenAuthorityAddress`): [`MetaTxCreator`](MetaTxCreator.md)<`MetaTxToken`, ``"setAuthority"``, { `authority?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **setAuthority**(`address`): [`MetaTxCreator`](MetaTxCreator.md)<`MetaTxToken`, ``"setAuthority"``, { `authority?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Sets the address of the TokenAuthority for this token
 
@@ -207,7 +207,7 @@ import { w } from '@colony/sdk';
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `tokenAuthorityAddress` | `string` | Address of the TokenAuthority contract |
+| `address` | `string` | Address of the TokenAuthority contract |
 
 #### Returns
 

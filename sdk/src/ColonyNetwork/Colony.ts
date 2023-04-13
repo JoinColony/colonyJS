@@ -50,7 +50,7 @@ import {
 import type { Expand, Parameters, ParametersFrom2 } from '../types';
 
 import { PermissionConfig, TxConfig, ColonyTxCreator } from '../TxCreator';
-import { extractEvent, extractCustomEvent } from '../utils';
+import { extractEvent, extractCustomEvent, parseRoles } from '../utils';
 import { ColonyToken } from './ColonyToken';
 import { ERC20Token } from './ERC20Token';
 import { ColonyNetwork } from './ColonyNetwork';
@@ -1063,15 +1063,7 @@ export class Colony {
    */
   async getRoles(address: string, teamId: BigNumberish = Id.RootDomain) {
     const roleString = await this.colonyClient.getUserRoles(address, teamId);
-    const rolesNum = parseInt(roleString, 16);
-    const roles = [] as ColonyRole[];
-    for (let i = 0; i < ColonyRole.LAST_ROLE; i += 1) {
-      // eslint-disable-next-line no-bitwise
-      if (rolesNum & (1 << i)) {
-        roles.push(i as ColonyRole);
-      }
-    }
-    return roles;
+    return parseRoles(roleString);
   }
 
   /**
@@ -1131,7 +1123,7 @@ export class Colony {
             .concat(roles)
             .reduce((acc, current) => acc | (1 << current), 0) | oldRoles;
         /* eslint-enable no-bitwise */
-        const hexRoles = utils.hexZeroPad(`0x${newRoles}`, 32);
+        const hexRoles = utils.hexZeroPad(`0x${newRoles.toString(16)}`, 32);
         return [address, teamId, hexRoles] as [string, BigNumber, string];
       },
       {
@@ -1192,7 +1184,7 @@ export class Colony {
             .reduce((acc, current) => acc & ~(1 << current), 0b11111) &
           oldRoles;
         /* eslint-enable no-bitwise */
-        const hexRoles = utils.hexZeroPad(`0x${newRoles}`, 32);
+        const hexRoles = utils.hexZeroPad(`0x${newRoles.toString(16)}`, 32);
         return [address, teamId, hexRoles] as [string, BigNumber, string];
       },
       {

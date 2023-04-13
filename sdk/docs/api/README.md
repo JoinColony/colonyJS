@@ -324,6 +324,32 @@ value is NonNullable<T\>
 
 ___
 
+### parseRoles
+
+▸ **parseRoles**(`roles`): [`ColonyRole`](enums/ColonyRole.md)[]
+
+Parses a binary role integer into a [ColonyRole](enums/ColonyRole.md) array
+
+When getting multiple roles from contract methods or events they are
+usually formatted as a binary number. Here the least significant bit is
+the role with the index 0 (Recovery).
+
+E.g. 5 = 0b00101 equals Recovery and Arbitration
+
+This function parses these binary integers into a [ColonyRole](enums/ColonyRole.md) array.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `roles` | `string` | A hex string (e.g. 0x3 = 0b11 equals Recovery and Root roles) |
+
+#### Returns
+
+[`ColonyRole`](enums/ColonyRole.md)[]
+
+___
+
 ### toEth
 
 ▸ **toEth**(`num`): `string`
