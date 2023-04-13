@@ -71,7 +71,7 @@ export class ColonyToken extends ERC20Token {
    * })();
    * ```
    *
-   * @param tokenAuthorityAddress - Address of the TokenAuthority contract
+   * @param address - Address of the TokenAuthority contract
    *
    * @returns A transaction creator
    *
@@ -81,11 +81,11 @@ export class ColonyToken extends ERC20Token {
    * | :------ | :------ | :------ |
    * | `authority` | string | The address of the tokenAuthority that has been set |
    */
-  setAuthority(tokenAuthorityAddress: string) {
+  setAuthority(address: string) {
     return this.colonyNetwork.createMetaTxCreator(
       this.tokenClient,
       'setAuthority',
-      [tokenAuthorityAddress],
+      [address],
       async (receipt) => ({
         ...extractEvent<LogSetAuthorityEventObject>('LogSetAuthority', receipt),
       }),

@@ -1,6 +1,7 @@
 import type {
   ColonyAddedEventObject,
   ColonyMetadataEventObject,
+  TokenAuthorityDeployedEventObject,
   TokenDeployedEventObject,
   UserLabelRegisteredEventObject,
 } from '@colony/colony-js/events';
@@ -60,6 +61,15 @@ export interface ColonyNetworkOptions {
 
 export interface ColonyNetworkConfig {
   metaTxBroadcasterEndpoint?: string;
+}
+
+export interface TokenData {
+  /** The token's name (e.g. Colony Network Token) */
+  name: string;
+  /** The token's symbol (e.g. CLNY) */
+  symbol: string;
+  /** The token's decimals (defaults to 18) */
+  decimals?: number;
 }
 
 export class ColonyNetwork {
@@ -273,7 +283,8 @@ export class ColonyNetwork {
    * Creates a new colony with IPFS metadata. To edit metadata at a later point you can call the [[Colony.editColony]] method.
    *
    * @remarks
-   * There is more to creating a fully functional colony that can be used within the dapp than just calling this function. See the [Colony Creation Guide](../../guides/colony-creation.md).
+   * There is more to creating a fully functional colony that can be used within the dapp than just calling this function.
+   * See the [Colony Creation Guide](../../guides/colony-creation.md).
    *
    * @example
    * ```typescript
@@ -285,17 +296,21 @@ export class ColonyNetwork {
    *   // (forced transaction example)
    *   // (also notice that this requires an upload-capable IPFS adapter)
    *   await colonyNetwork.createColony(
-   *     // Use USDC on Gnosis chain as the native token
-   *     '0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83', {
+   *     // Create a new token ('COOL') for this Colony
+   *     { name: 'Cool token', symbol: 'COOL' },
+   *     'coolony',
+   *     {
    *       colonyDisplayName: 'Cool Colony',
    *       // IPFS hash to an image file
    *       colonyAvatarHash: 'QmS26o1Cmsrx7iw1SSFGEcy22TVDq6VmEZ4XNjpWFyaKUe',
    *       // List of token addresses that the Colony should be initialized with (can be changed later) - excluding ETH and the native token from above
-   *       colonyTokens: [Tokens.CLNY],
-   *   }).tx();
+   *       colonyTokens: [Tokens.Gnosis.CLNY],
+   *     }).tx();
    * })();
    * ```
    *
+   * @param token - Create a new ERC20-compatible token by passing in its name and symbol or use an existing token by passing in its contract address
+   * @param label - The Colony's label. This is going to be part of the URL to look up the Colony within the dApp
    * @param metadata - The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[ColonyMetadata]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
    *
    * @returns A transaction creator
@@ -306,7 +321,9 @@ export class ColonyNetwork {
    * | :------ | :------ | :------ |
    * | `colonyId` | BigNumber | Auto-incremented integer id of the colony |
    * | `colonyAddress` | string | Address of the newly deployed colony contract |
-   * | `token` | string | Address of the token that is used as the colony's native token |
+   * | `tokenAddress` | string | Address of the token that is used as the colony's native token |
+   * | `tokenAuthorityAddress` | string | Address of the token authority (the token's permission manager) contract |
+   * | `token` | string | Alias of `token`
    * | `metadata` | string | IPFS CID of metadata attached to this transaction |
    *
    * #### Metadata
@@ -320,13 +337,18 @@ export class ColonyNetwork {
    * | `colonyTokens` | string[] | A list of additional tokens that should be in the colony's "address book" |
    */
   createColony(
-    tokenAddress: string,
+    token: string | TokenData,
     label: string,
     metadata: ColonyMetadata | string,
   ): MetaTxCreator<
     ColonyNetworkClient,
-    'createColony(address,uint256,string,string)',
-    Expand<ColonyAddedEventObject & ColonyMetadataEventObject>,
+    'createColonyForFrontend',
+    Expand<
+      TokenDeployedEventObject &
+        ColonyAddedEventObject &
+        TokenAuthorityDeployedEventObject &
+        ColonyMetadataEventObject
+    >,
     MetadataType.Colony
   >;
 
@@ -336,7 +358,8 @@ export class ColonyNetwork {
    * Creates a new Colony without IPFS metadata. To add metadata at a later point you can call the [[Colony.editColony]] method.
    *
    * @remarks
-   * There is more to creating a fully functional colony that can be used within the dapp than just calling this function. See the [Colony Creation Guide](../../guides/colony-creation.md).
+   * There is more to creating a fully functional colony that can be used within the dapp than just calling this function.
+   * See the [Colony Creation Guide](../../guides/colony-creation.md).
    *
    * @example
    * ```typescript
@@ -346,10 +369,13 @@ export class ColonyNetwork {
    *   // (forced transaction example)
    *   await colonyNetwork
    *     // Use USDC on Gnosis chain as the native token
-   *     .createColony('0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83')
+   *     .createColony('0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83', 'coolony')
    *     .tx();
    * })();
    * ```
+   *
+   * @param token - Create a new ERC20-compatible token by passing in its name and symbol or use an existing token by passing in its contract address
+   * @param label - The Colony's label. This is going to be part of the URL to look up the Colony within the dApp
    *
    * @returns A transaction creator
    *
@@ -359,32 +385,73 @@ export class ColonyNetwork {
    * | :------ | :------ | :------ |
    * | `colonyId` | BigNumber | Auto-incremented integer id of the colony |
    * | `colonyAddress` | string | Address of the newly deployed colony contract |
-   * | `token` | string | Address of the token that is used as the colony's native token |
+   * | `tokenAddress` | string | Address of the token that is used as the colony's native token |
+   * | `tokenAuthorityAddress` | string | Address of the token authority (the token's permission manager) contract |
+   * | `token` | string | Alias of `token`
    */
   createColony(
-    tokenAddress: string,
+    token: string | TokenData,
     label: string,
   ): MetaTxCreator<
     ColonyNetworkClient,
-    'createColony(address,uint256,string)',
-    Expand<ColonyAddedEventObject & { metadata?: undefined }>,
+    'createColonyForFrontend',
+    Expand<
+      TokenDeployedEventObject &
+        ColonyAddedEventObject &
+        TokenAuthorityDeployedEventObject & { metadata?: undefined }
+    >,
     MetadataType
   >;
 
   createColony(
-    tokenAddress: string,
+    token: string | TokenData,
     label: string,
     metadata?: ColonyMetadata | string,
   ) {
-    const checkLabel = async () => {
+    const prepareArgs = async () => {
       const existingAddress = await this.getColonyAddress(label);
 
       if (existingAddress) {
         throw new Error(`Colony with label ${label} already exists`);
       }
-      return [tokenAddress, Colony.getLatestSupportedVersion(), label] as [
+
+      // TODO: check all arguments for existance
+
+      if (typeof token != 'string') {
+        if (!token.name) {
+          throw new Error('Token name is required');
+        }
+        if (!token.symbol) {
+          throw new Error('Token symbol is required');
+        }
+        // TODO: check decimals type
+
+        return [
+          AddressZero,
+          token.name,
+          token.symbol,
+          token.decimals || 18,
+          0,
+          label,
+          '',
+        ] as [
+          string,
+          string,
+          string,
+          BigNumberish,
+          BigNumberish,
+          string,
+          string,
+        ];
+      }
+
+      return [token, '', '', 0, 0, label, ''] as [
+        string,
+        string,
         string,
         BigNumberish,
+        BigNumberish,
+        string,
         string,
       ];
     };
@@ -392,35 +459,41 @@ export class ColonyNetwork {
     if (!metadata) {
       return this.createMetaTxCreator(
         this.networkClient,
-        'createColony(address,uint256,string)',
-        checkLabel,
+        'createColonyForFrontend',
+        prepareArgs,
         async (receipt) => ({
+          ...extractEvent<TokenDeployedEventObject>('TokenDeployed', receipt),
           ...extractEvent<ColonyAddedEventObject>('ColonyAdded', receipt),
+          ...extractEvent<TokenAuthorityDeployedEventObject>(
+            'TokenAuthorityDeployed',
+            receipt,
+          ),
         }),
       );
     }
 
     return this.createMetaTxCreator(
       this.networkClient,
-      'createColony(address,uint256,string,string)',
+      'createColonyForFrontend',
       async () => {
-        await checkLabel();
-
-        let cid: string;
+        const args = await prepareArgs();
         if (typeof metadata == 'string') {
-          cid = metadata;
+          args[6] = metadata;
         } else {
-          cid = await this.ipfs.uploadMetadata(MetadataType.Colony, metadata);
+          args[6] = await this.ipfs.uploadMetadata(
+            MetadataType.Colony,
+            metadata,
+          );
         }
-        return [
-          tokenAddress,
-          Colony.getLatestSupportedVersion(),
-          label,
-          cid,
-        ] as [string, BigNumberish, string, string];
+        return args;
       },
       async (receipt) => ({
+        ...extractEvent<TokenDeployedEventObject>('TokenDeployed', receipt),
         ...extractEvent<ColonyAddedEventObject>('ColonyAdded', receipt),
+        ...extractEvent<TokenAuthorityDeployedEventObject>(
+          'TokenAuthorityDeployed',
+          receipt,
+        ),
       }),
       {
         metadataType: MetadataType.Colony,
@@ -559,11 +632,11 @@ export class ColonyNetwork {
   }
 
   /**
-   * Deploy a "special" colony ERC20 token
+   * Deploy a "special" Colony ERC20 token
    *
    * If there is not token yet that should be used with the Colony, this is the canonical way to create one.
    *
-   * This is a supercharged ERC20 token contract, that not only has a permissioned `mint` function (that can be used from the colony) but also supports Metatransactions. In order to fully use its permissioned system with a colony, some extra steps have to be taken. See the [Colony Creation Guide](../../guides/colony-creation.md).
+   * This is a supercharged ERC20 token contract, that not only has a permissioned `mint` function (that can be used from the colony) but also supports Metatransactions. In order to fully use its permissioned system with a Colony, some extra steps have to be taken. See the [Colony Creation Guide](../../guides/colony-creation.md).
    *
    * @remarks
    * The token deployed with this function is locked by default. Call `unlockToken()` on the Colony at a later point to unlock it.

@@ -17,38 +17,33 @@ For a full example see [here](https://github.com/JoinColony/colonySDK/blob/main/
 These examples assume that the user executing the transactions has funds in their wallet to pay for gas. If you'd like to use gasless transactions instead, use `metaTx()` instead of `tx()`.
 :::
 
-## Step 1 (optional) - Creating a token
-
-If you don't have a token contract deployed yet that you wish to use as the native token in your colony, deploying it using the Colony Network is highly recommended. That will give you a better integration and control over your token from your colony (e.g. using the `mintTokens` function on the colony).
-
-To deploy a token, call the `deployToken` method on `ColonyNetwork`:
-
-```typescript
-// Create token to be used with Colony
-const [{ tokenAddress }] = await colonyNetwork
-  .deployToken('Test token', 'TOT')
-  .tx();
-console.info('Token address', tokenAddress);
-```
-
-One can specify the token name, its symbol and even its decimals (even though it's recommended to leave that at the default value). This will deploy a special ERC20 token that integrates well with Colony (e.g. it supports permissions, minting and gasless transactions out of the box). For its contract code see [here](https://github.com/JoinColony/colonyNetwork/blob/develop/contracts/metaTxToken/MetaTxToken.sol).
-
-## Step 2 - Deploying the colony contract
+## Step 1 - Deploying the Colony contract (and optionally its token)
 
 The most important step. Here the actualy colony contract will be deployed. This happens by executing a contract method on the `ColonyNetwork` (as opposed to a deploy-transaction):
 
 ```typescript
 // Create actual colony (deploys Colony contract)
-const [{ colonyAddress }] = await colonyNetwork
-  .createColony(tokenAddress, 'colonytestname')
+const [{ colonyAddress, tokenAddress, tokenAuthorityAddress }] = await colonyNetwork
+  .createColony({ name: 'Test token', symbol: 'TOT' }, 'colonytestname')
   .tx();
 ```
 
-Here a label for the colony can be assigned. These are unique, so pick one that's not already taken. The `createColony` method will check that. Alternatively, the `colonyNetwork.getColonyAddress(label)` function can be used.
+One can specify the token name, its symbol and even its decimals (even though it's recommended to leave that at the default value). This will deploy a special ERC20 token that integrates well with Colony (e.g. it supports permissions, minting and gasless transactions out of the box). For its contract code see [here](https://github.com/JoinColony/colonyNetwork/blob/develop/contracts/metaTxToken/MetaTxToken.sol).
+
+You can also use an already existing token. For that, instead of passing in the token's details as the first argument, just use the token's address (it needs to be in the same chain your Colony is deployed in), like so:
+
+```typescript
+// Use USDC on Gnosis chain as the native token
+const [{ colonyAddress }] = await colonyNetwork
+  .createColony('0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83', 'anothertestname')
+  .tx();
+```
+
+As the second argument a label for the Colony is assigned. These are unique, so pick one that's not already taken. The `createColony` method will check that. Alternatively, the `colonyNetwork.getColonyAddress(label)` function can be used. The label is used by the dApp as a short name and for looking up the Colony's address.
 
 **If the own token was used and no extension installation is desired we would be done here. This is not recommended though, as one will at least need the `OneTxPayment` extension to properly use Colony at this stage.
 
-## Step 3 - Instantiate the Colony for the first time
+## Step 2 - Instantiate the Colony for the first time
 
 Let's instantiate the colony (this is the code used to instantiate an existing colony) and the token:
 
@@ -57,22 +52,18 @@ const colony = await colonyNetwork.getColony(colonyAddress);
 const { token } = colony;
 ```
 
-## Step 4 (optional) - Deploy the token authority and set the owner
+## Step 3 - Set the Colony as owner of the token
 
-The token authority is a contract that glues the token and the colony together and makes it possible for the colony to manage and move the token. The token authority can be deployed using the `deployAuthority` method on the `Token`. After that, another transaction is needed to set the token's `authority` to the one that was just deployed. If the token does not support the `setAuthority` method, this step  should be skipped.
+The token authority is a contract that glues the token and the colony together and makes it possible for the colony to manage and move the token. The first transaction is needed to set the token's `authority` to the one that was just deployed. After that we set the Colony to one of the token's "owners", so that it has permissions to access extra token functions (like `mint`). If your token was newly created in step 1 you will want to do this! If the token does not support the `setAuthority` method, this step should be skipped. 
 
 ```typescript
-// Deploy TokenAuthority
-const [{ tokenAuthorityAddress }] = await token
-  .deployAuthority([colonyAddress])
-  .tx();
-// Set the token's authority to the freshly deployed one
+// Set the token's authority to the freshly deployed one (see step 1)
 await token.setAuthority(tokenAuthorityAddress).tx();
 // Set the token's owner (the colony), to have permissions to execute authorized functions (like `mint`)
 await colony.token.setOwner(colony.address).tx();
 ```
 
-## Step 5 - Install the `OneTxPayment` extension
+## Step 4 - Install the `OneTxPayment` extension
 
 As mentioned earlier, this step is technically optional as well but if the colony is supposed to be used productively, a form of payment extension is needed. Currently only the `OneTxPayment` extension is supported. Install it like so:
 
