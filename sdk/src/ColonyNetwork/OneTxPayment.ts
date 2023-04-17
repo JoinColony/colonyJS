@@ -128,7 +128,7 @@ export class OneTxPayment {
       : Array(setReceipient.length).fill(colonyClient.tokenClient.address);
     const setAmount = ([] as BigNumberish[]).concat(amount);
 
-    if (recipient.length !== setAmount.length) {
+    if (setReceipient.length !== setAmount.length) {
       throw new Error('recipient and amount arrays need to have the same size');
     }
 
