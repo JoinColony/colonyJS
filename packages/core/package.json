@@ -28,6 +28,10 @@
     "./dist",
     "README.md"
   ],
+  "engines": {
+    "node": "^16.14",
+    "npm": "^8"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/JoinColony/colonyJS.git"
@@ -38,6 +42,8 @@
     "url": "https://github.com/JoinColony/colonyJS/issues"
   },
   "homepage": "https://docs.colony.io/develop",
-  "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "@ethersproject/abstract-provider": "^5.7.0",
+    "ethers": "^5.7.2"
+  }
 }
