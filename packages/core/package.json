@@ -1,0 +1,43 @@
+{
+  "name": "@colony/core",
+  "version": "0.1.0",
+  "description": "Colony core package",
+  "scripts": {
+    "build": "npm run clean && npm run compile-cjs && npm run compile-esm && npm run compile-types",
+    "clean": "rimraf ./dist",
+    "compile-cjs": "tsc -p tsconfig.build.json --module commonjs --outDir dist/cjs",
+    "compile-esm": "tsc -p tsconfig.build.json --module es2015 --outDir dist/esm",
+    "compile-types": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --outDir dist/types",
+    "lint": "eslint --ext .ts src",
+    "typecheck": "tsc --noEmit"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/types/index.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "./dist",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoinColony/colonyJS.git"
+  },
+  "author": "Christian Maniewski <code@chmanie.com>",
+  "license": "GPL-3.0-only",
+  "bugs": {
+    "url": "https://github.com/JoinColony/colonyJS/issues"
+  },
+  "homepage": "https://docs.colony.io/develop",
+  "dependencies": {},
+  "devDependencies": {}
+}
