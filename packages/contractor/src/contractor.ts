@@ -144,7 +144,7 @@ const buildLatestTokentContracts = async (
     cwd: CWD,
     filesToProcess: files,
     allFiles: files,
-    outDir: resolvePath(outputDir, 'tokens'),
+    outDir: resolvePath(outputDir),
     target: plugin,
   });
 };
@@ -159,7 +159,7 @@ const buildStaticTokenContracts = async (outputDir: string, plugin: string) => {
     cwd: CWD,
     filesToProcess: files,
     allFiles: files,
-    outDir: resolvePath(outputDir, 'tokens', 'static'),
+    outDir: resolvePath(outputDir, 'static'),
     target: plugin,
   });
 };
@@ -182,50 +182,68 @@ const buildEventsContracts = async (outputDir: string, plugin: string) => {
 const buildTag = async (tag: string, outputDir: string, plugin: string) => {
   const versionDir = resolvePath(VERSIONED_DIR, tag);
 
-  console.info(`Building release tag ${tag} for ${plugin}...`);
-
   await buildVersionedContracts(versionDir, tag, outputDir, plugin);
 
   if (tag === LATEST_TAG) {
     await buildLatestContracts(versionDir, outputDir, plugin);
-    await buildLatestTokentContracts(versionDir, outputDir, plugin);
     await buildEventsContracts(outputDir, plugin);
   }
 };
 
-const buildStatic = async (outputDir: string, plugin: string) => {
-  await buildStaticContracts(outputDir, plugin);
+const buildTokenContracts = async (outputDir: string, plugin: string) => {
+  const versionDir = resolvePath(VERSIONED_DIR, LATEST_TAG);
+  await buildLatestTokentContracts(versionDir, outputDir, plugin);
   await buildStaticTokenContracts(outputDir, plugin);
 };
 
 const start = async () => {
-  const { argv } = yargs(hideBin(process.argv)).options({
-    tag: { alias: 't', type: 'string', default: LATEST_TAG },
-    out: { alias: 'o', type: 'string', default: './dist' },
-    plugin: {
+  const { argv } = yargs(hideBin(process.argv))
+    .command('colony', 'Make Colony contracts', {
+      tag: {
+        alias: 't',
+        type: 'string',
+        default: LATEST_TAG,
+      },
+    })
+    .command('tokens', 'Make Token contracts')
+    .demandCommand(1)
+    .option('out', { alias: 'o', type: 'string', default: './dist' })
+    .option('plugin', {
       alias: 'p',
       type: 'string',
       default: 'ethers-v5',
       choices: ['ethers-v5', 'ethers-v6'],
-    },
-    clean: { alias: 'c', type: 'boolean', default: true },
-  });
+    })
+    .option('clean', { alias: 'c', type: 'boolean', default: true })
+    .strict();
+
   const args = await argv;
-  const { clean, out, plugin, tag } = args;
+  const { clean, out, plugin, tag, _ } = args;
+  const [command] = _;
 
   const outputDir = resolvePath(process.cwd(), out);
   if (clean) {
     await rimraf(outputDir);
   }
 
-  if (tag === 'ALL') {
-    await buildStatic(outputDir, plugin);
-    await Promise.all(
-      RELEASES.map((release) => buildTag(release, outputDir, plugin)),
-    );
-  } else {
-    await buildStatic(outputDir, plugin);
-    await buildTag(tag, outputDir, plugin);
+  switch (command) {
+    case 'colony': {
+      if (tag === 'ALL') {
+        await buildStaticContracts(outputDir, plugin);
+        await Promise.all(
+          RELEASES.map((release) => buildTag(release, outputDir, plugin)),
+        );
+      } else {
+        await buildStaticContracts(outputDir, plugin);
+        await buildTag(tag as string, outputDir, plugin);
+      }
+      break;
+    }
+    case 'tokens': {
+      await buildTokenContracts(outputDir, plugin);
+      break;
+    }
+    default:
   }
 };
 

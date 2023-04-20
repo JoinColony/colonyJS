@@ -6,7 +6,8 @@
     "clean": "rimraf ./bin",
     "build": "npm run clean && tsc --module commonjs --outDir bin",
     "lint": "eslint --ext .ts src scripts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "prepublish": "npm run build"
   },
   "bin": {
     "contractor": "./bin/contractor.js"
@@ -15,6 +16,10 @@
     "./bin",
     "README.md"
   ],
+  "engines": {
+    "node": "^16.14",
+    "npm": "^8"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/JoinColony/colonyJS.git"
