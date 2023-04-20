@@ -1,17 +1,17 @@
 import { ContractTransaction, BigNumberish, BigNumber } from 'ethers';
 
+import { ColonyRole, ClientType } from '../../../../constants';
+import { TxOverrides } from '../../../../types';
+import {
+  VotingReputationEvents,
+  VotingReputationEvents__factory as VotingReputationEventsFactory,
+} from '../../../../contracts/events';
 import {
   AugmentedIColony,
   getPermissionProofs,
   getChildIndex,
 } from '../../../Core/augments/commonAugments';
-import { ColonyRole, ClientType } from '../../../../constants';
-import { TxOverrides } from '../../../../types';
-import { AnyVotingReputation } from '../../../../contracts/VotingReputation/exports';
-import {
-  VotingReputationEvents,
-  VotingReputationEvents__factory as VotingReputationEventsFactory,
-} from '../../../../contracts/events';
+import { AnyVotingReputation } from '../contracts';
 import { VotingReputationVersion } from '../exports';
 
 export type AugmentedEstimate<

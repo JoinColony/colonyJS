@@ -5,18 +5,16 @@ import {
   BytesLike,
 } from 'ethers';
 
-import {
-  AugmentedIColony,
-  getPermissionProofs,
-} from '../../../Core/augments/commonAugments';
-import { StakedExpenditureVersion } from '../exports';
-import { AnyStakedExpenditure } from '../../../../contracts/StakedExpenditure/exports';
 import { ClientType, ColonyRole } from '../../../../constants';
 import { TxOverrides } from '../../../../types';
 import {
   StakedExpenditureEvents,
   StakedExpenditureEvents__factory as StakedExpenditureEventsFactory,
 } from '../../../../contracts/events';
+import {
+  AugmentedIColony,
+  getPermissionProofs,
+} from '../../../Core/augments/commonAugments';
 import {
   IColonyV4,
   IColonyV5,
@@ -25,7 +23,9 @@ import {
   IColonyV8,
   IColonyV9,
   IColonyV10,
-} from '../../../../contracts/IColony/exports';
+} from '../../../Core/contracts';
+import { StakedExpenditureVersion } from '../exports';
+import { AnyStakedExpenditure } from '../contracts';
 
 export type ValidColony =
   | IColonyV4

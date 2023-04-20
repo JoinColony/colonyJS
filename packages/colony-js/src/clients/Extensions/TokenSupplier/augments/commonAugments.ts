@@ -1,12 +1,11 @@
-import { AugmentedIColony } from '../../../Core/augments/commonAugments';
-
-import { TokenSupplierVersion } from '../exports';
-import { AnyTokenSupplier } from '../../../../contracts/TokenSupplier/exports';
 import { ClientType } from '../../../../constants';
 import {
   TokenSupplierEvents,
   TokenSupplierEvents__factory as TokenSupplierEventsFactory,
 } from '../../../../contracts/events';
+import { AugmentedIColony } from '../../../Core/augments/commonAugments';
+import { TokenSupplierVersion } from '../exports';
+import { AnyTokenSupplier } from '../contracts';
 
 export type AugmentedTokenSupplier<
   T extends AnyTokenSupplier = AnyTokenSupplier,

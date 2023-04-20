@@ -1,5 +1,7 @@
 import { BigNumber, BigNumberish, ContractTransaction } from 'ethers';
 
+import { ColonyRole } from '../../../constants';
+import { TxOverrides } from '../../../types';
 import {
   IColonyV1,
   IColonyV2,
@@ -11,10 +13,9 @@ import {
   IColonyV8,
   IColonyV9,
   IColonyV10,
-} from '../../../contracts/IColony/exports';
-
-import { ColonyRole } from '../../../constants';
-import { TxOverrides } from '../../../types';
+  IColonyV11,
+  IColonyV12,
+} from '../contracts';
 import { AugmentedIColony, getPermissionProofs } from './commonAugments';
 
 // Colonies that support the early (not-overloaded) method
@@ -27,7 +28,9 @@ type ValidColonyB =
   | IColonyV7
   | IColonyV8
   | IColonyV9
-  | IColonyV10;
+  | IColonyV10
+  | IColonyV11
+  | IColonyV12;
 
 export interface AddDomainEstimateGasA {
   /**

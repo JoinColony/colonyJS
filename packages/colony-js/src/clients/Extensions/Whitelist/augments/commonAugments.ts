@@ -1,12 +1,11 @@
-import { AugmentedIColony } from '../../../Core/augments/commonAugments';
-
-import { WhitelistVersion } from '../exports';
-import { AnyWhitelist } from '../../../../contracts/Whitelist/exports';
 import { ClientType } from '../../../../constants';
 import {
   WhitelistEvents,
   WhitelistEvents__factory as WhitelistEventsFactory,
 } from '../../../../contracts/events';
+import { AugmentedIColony } from '../../../Core/augments/commonAugments';
+import { WhitelistVersion } from '../exports';
+import { AnyWhitelist } from '../contracts';
 
 export type AugmentedWhitelist<T extends AnyWhitelist = AnyWhitelist> = T & {
   clientType: ClientType.WhitelistClient;

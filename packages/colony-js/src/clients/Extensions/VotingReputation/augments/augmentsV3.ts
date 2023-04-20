@@ -3,14 +3,10 @@ import { ContractTransaction, BigNumber, BigNumberish } from 'ethers';
 import { ColonyRole } from '../../../../constants';
 import { TxOverrides } from '../../../../types';
 import {
-  VotingReputationV7,
-  VotingReputationV8,
-} from '../../../../contracts/VotingReputation/exports';
-import {
   AugmentedIColony,
   getPermissionProofs,
 } from '../../../Core/augments/commonAugments';
-
+import { VotingReputationV7, VotingReputationV8 } from '../contracts';
 import {
   addAugments as addCommonAugments,
   AugmentedVotingReputation,

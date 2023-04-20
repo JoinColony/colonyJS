@@ -6,7 +6,8 @@ import {
 } from 'ethers';
 
 import { ColonyRole, Id } from '../../../constants';
-import { TxOverrides } from '../../../types';
+import type { TxOverrides } from '../../../types';
+import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import {
   IColonyV5,
   IColonyV6,
@@ -16,8 +17,7 @@ import {
   IColonyV10,
   IColonyV11,
   IColonyV12,
-} from '../../../contracts/IColony/exports';
-import { ColonyNetworkClient } from '../../ColonyNetworkClient';
+} from '../contracts';
 import { AugmentedIColony, getPermissionProofs } from './commonAugments';
 import { ColonyAugmentsV3 } from './augmentsV3';
 import {

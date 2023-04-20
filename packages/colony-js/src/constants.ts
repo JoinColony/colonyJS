@@ -32,6 +32,7 @@ export enum ReputationOracleEndpoint {
 }
 
 /** Shortcut to common token addresses */
+// TODO: add more tokens like USDC, USDT?
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace Tokens {
   /** Tokens deployed on Mainnet */

@@ -1,12 +1,8 @@
 import { BigNumber, BigNumberish, ContractTransaction } from 'ethers';
 
-import {
-  IColonyV1,
-  IColonyV2,
-  IColonyV3,
-} from '../../../contracts/IColony/exports';
 import { ColonyRole } from '../../../constants';
 import { TxOverrides } from '../../../types';
+import { IColonyV1, IColonyV2, IColonyV3 } from '../contracts';
 import { AugmentedIColony, getPermissionProofs } from './commonAugments';
 
 // Colonies that support this method

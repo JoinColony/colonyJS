@@ -15,13 +15,13 @@ export default function getReputationBootstrapperClient(
   colonyClient: AugmentedIColony,
   address: string,
 ): ReputationBootstrapperClientV1 {
-  const whitelistClient = ReputationBootstrapperFactory.connect(
+  const reputationBootstrapperClient = ReputationBootstrapperFactory.connect(
     address,
     colonyClient.signer || colonyClient.provider,
   ) as ReputationBootstrapperClientV1;
 
-  whitelistClient.clientVersion = 1;
-  addAugments(whitelistClient, colonyClient);
+  reputationBootstrapperClient.clientVersion = 1;
+  addAugments(reputationBootstrapperClient, colonyClient);
 
-  return whitelistClient;
+  return reputationBootstrapperClient;
 }

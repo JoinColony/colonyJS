@@ -8,7 +8,9 @@ import {
 
 import { ColonyRole, Id } from '../../../../constants';
 import { TxOverrides } from '../../../../types';
+import { parsePermissionedAction } from '../../../../utils';
 import { getMotionTargetClient } from '../../../Core/exports';
+import { AugmentedIColony } from '../../../Core/augments/commonAugments';
 import {
   VotingReputationV2,
   VotingReputationV3,
@@ -17,15 +19,12 @@ import {
   VotingReputationV6,
   VotingReputationV7,
   VotingReputationV8,
-} from '../../../../contracts/VotingReputation/exports';
-import { AugmentedIColony } from '../../../Core/augments/commonAugments';
-
+} from '../contracts';
+import { AnyVotingReputationClient } from '../exports';
 import {
   addAugments as addCommonAugments,
   AugmentedVotingReputation,
 } from './commonAugments';
-import { parsePermissionedAction } from '../../../../utils';
-import { AnyVotingReputationClient } from '../exports';
 
 const { AddressZero, MaxUint256 } = constants;
 

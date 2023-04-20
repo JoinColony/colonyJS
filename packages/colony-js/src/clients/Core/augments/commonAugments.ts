@@ -5,6 +5,7 @@ import {
   BigNumberish,
   constants,
 } from 'ethers';
+import { TokenClient } from '@colony/tokens';
 
 import {
   Id,
@@ -13,23 +14,20 @@ import {
   FundingPotAssociatedType,
   ReputationMinerEndpoints,
 } from '../../../constants';
-import { ColonyVersion } from '../exports';
-import { AnyIColony } from '../../../contracts/IColony/exports';
 import { fetchReputationOracleData } from '../../../utils';
 import { TxOverrides } from '../../../types';
-
+import {
+  IColonyEvents,
+  IColonyEvents__factory as IColonyEventsFactory,
+} from '../../../contracts/events';
 import {
   Extension,
   getExtensionClient,
   GetExtensionClientReturns,
 } from '../../Extensions/exports';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
-import { TokenClient } from '../../../tokens';
-
-import {
-  IColonyEvents,
-  IColonyEvents__factory as IColonyEventsFactory,
-} from '../../../contracts/events';
+import { ColonyVersion } from '../exports';
+import { AnyIColony } from '../contracts';
 
 const { MaxUint256 } = constants;
 

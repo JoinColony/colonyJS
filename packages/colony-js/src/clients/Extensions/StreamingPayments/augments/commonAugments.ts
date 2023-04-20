@@ -5,19 +5,17 @@ import {
   constants,
 } from 'ethers';
 
-import {
-  AugmentedIColony,
-  getMultiPermissionProofs,
-  getPermissionProofs,
-} from '../../../Core/augments/commonAugments';
-import { StreamingPaymentsVersion } from '../exports';
-import { AnyStreamingPayments } from '../../../../contracts/StreamingPayments/exports';
 import { ClientType, ColonyRole } from '../../../../constants';
 import { TxOverrides } from '../../../../types';
 import {
   StreamingPaymentsEvents,
   StreamingPaymentsEvents__factory as StreamingPaymentsEventsFactory,
 } from '../../../../contracts/events';
+import {
+  AugmentedIColony,
+  getMultiPermissionProofs,
+  getPermissionProofs,
+} from '../../../Core/augments/commonAugments';
 import {
   IColonyV4,
   IColonyV5,
@@ -26,7 +24,9 @@ import {
   IColonyV8,
   IColonyV9,
   IColonyV10,
-} from '../../../../contracts/IColony/exports';
+} from '../../../Core/contracts';
+import { StreamingPaymentsVersion } from '../exports';
+import { AnyStreamingPayments } from '../contracts';
 
 const { MaxUint256 } = constants;
 

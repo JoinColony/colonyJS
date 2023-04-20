@@ -9,7 +9,7 @@
     "esModuleInterop": true,
     "strict": true,
     "target": "es6",
-    "types": ["node", "jest"],
+    "types": ["jest"],
     "rootDir": "./src"
   },
   "include": ["src/**/*"],

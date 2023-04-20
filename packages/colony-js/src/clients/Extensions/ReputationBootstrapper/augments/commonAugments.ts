@@ -1,12 +1,11 @@
-import { AugmentedIColony } from '../../../Core/augments/commonAugments';
-
-import { ReputationBootstrapperVersion } from '../exports';
-import { AnyReputationBootstrapper } from '../../../../contracts/ReputationBootstrapper/exports';
 import { ClientType } from '../../../../constants';
 import {
   ReputationBootstrapperEvents,
   ReputationBootstrapperEvents__factory as ReputationBootstrapperEventsFactory,
 } from '../../../../contracts/events';
+import { AugmentedIColony } from '../../../Core/augments/commonAugments';
+import { ReputationBootstrapperVersion } from '../exports';
+import { AnyReputationBootstrapper } from '../contracts';
 
 export type AugmentedReputationBootstrapper<
   T extends AnyReputationBootstrapper = AnyReputationBootstrapper,

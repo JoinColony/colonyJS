@@ -1,13 +1,15 @@
 import type { Overrides, Signer } from 'ethers';
 import type { Provider } from '@ethersproject/abstract-provider';
+import type {
+  TokenClient as TokenContractClient,
+  TokenLockingClient as TokenLockingContractClient,
+} from '@colony/tokens';
 
 import type { ColonyRole } from './constants';
 
 import { AnyColonyClient } from './clients/Core/exports';
 import { ExtensionClient } from './clients/Extensions/exports';
 import { ColonyNetworkClient } from './clients/ColonyNetworkClient';
-import { TokenClient as TokenContractClient } from './tokens/clients/TokenClient';
-import { TokenLockingClient as TokenLockingContractClient } from './tokens/clients/TokenLockingClient';
 
 import {
   CoinMachineEvents,

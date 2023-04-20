@@ -1,12 +1,12 @@
-import { AugmentedIColony } from '../../../Core/augments/commonAugments';
-
-import { FundingQueueVersion } from '../exports';
-import { AnyFundingQueue } from '../../../../contracts/FundingQueue/exports';
 import { ClientType } from '../../../../constants';
 import {
   FundingQueueEvents,
   FundingQueueEvents__factory as FundingQueueEventsFactory,
 } from '../../../../contracts/events';
+import { AugmentedIColony } from '../../../Core/augments/commonAugments';
+
+import { FundingQueueVersion } from '../exports';
+import { AnyFundingQueue } from '../contracts';
 
 export type AugmentedFundingQueue<T extends AnyFundingQueue = AnyFundingQueue> =
   T & {
@@ -16,11 +16,11 @@ export type AugmentedFundingQueue<T extends AnyFundingQueue = AnyFundingQueue> =
     colonyClient: AugmentedIColony;
 
     /**
-     * The whitelistEvents contract supports all events across all versions.
+     * The fundingQueueEvents contract supports all events across all versions.
      * Isn't that amazing?
      * It's an ethers contract with only events to filter
      */
-    whitelistEvents: FundingQueueEvents;
+    fundingQueueEvents: FundingQueueEvents;
   };
 
 export const addAugments = <T extends AugmentedFundingQueue>(
@@ -31,7 +31,7 @@ export const addAugments = <T extends AugmentedFundingQueue>(
   instance.clientType = ClientType.FundingQueueClient;
   instance.colonyClient = colonyClient;
 
-  instance.whitelistEvents = FundingQueueEventsFactory.connect(
+  instance.fundingQueueEvents = FundingQueueEventsFactory.connect(
     instance.address,
     instance.signer || instance.provider,
   );

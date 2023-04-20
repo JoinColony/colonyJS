@@ -1,5 +1,8 @@
 import { ContractTransaction, BigNumber, BigNumberish } from 'ethers';
 
+import { ColonyRole } from '../../../constants';
+import { TxOverrides } from '../../../types';
+import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import {
   IColonyV4,
   IColonyV5,
@@ -10,10 +13,7 @@ import {
   IColonyV10,
   IColonyV11,
   IColonyV12,
-} from '../../../contracts/IColony/exports';
-import { ColonyRole } from '../../../constants';
-import { TxOverrides } from '../../../types';
-import { ColonyNetworkClient } from '../../ColonyNetworkClient';
+} from '../contracts';
 import { getPermissionProofs, AugmentedIColony } from './commonAugments';
 import {
   addAugments as addAugmentsV3,

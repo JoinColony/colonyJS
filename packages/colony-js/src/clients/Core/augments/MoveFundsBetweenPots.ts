@@ -1,5 +1,7 @@
 import { BigNumber, BigNumberish, ContractTransaction } from 'ethers';
 
+import { ColonyRole, Id } from '../../../constants';
+import { TxOverrides } from '../../../types';
 import {
   IColonyV1,
   IColonyV2,
@@ -11,9 +13,9 @@ import {
   IColonyV8,
   IColonyV9,
   IColonyV10,
-} from '../../../contracts/IColony/exports';
-import { ColonyRole, Id } from '../../../constants';
-import { TxOverrides } from '../../../types';
+  IColonyV11,
+  IColonyV12,
+} from '../contracts';
 import {
   AugmentedIColony,
   getChildIndex,
@@ -31,7 +33,13 @@ type ValidColonyA =
   | IColonyV6;
 
 // Colonies that support the later (overloaded) methods
-type ValidColonyB = IColonyV7 | IColonyV8 | IColonyV9 | IColonyV10;
+type ValidColonyB =
+  | IColonyV7
+  | IColonyV8
+  | IColonyV9
+  | IColonyV10
+  | IColonyV11
+  | IColonyV12;
 
 const getMoveFundsPermissionProofsA = async (
   contract: AugmentedIColony,

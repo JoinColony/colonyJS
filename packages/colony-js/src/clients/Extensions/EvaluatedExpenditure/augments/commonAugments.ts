@@ -1,17 +1,15 @@
 import { BigNumberish, BigNumber, ContractTransaction } from 'ethers';
 
-import {
-  AugmentedIColony,
-  getPermissionProofs,
-} from '../../../Core/augments/commonAugments';
-import { EvaluatedExpenditureVersion } from '../exports';
-import { AnyEvaluatedExpenditure } from '../../../../contracts/EvaluatedExpenditure/exports';
 import { ClientType, ColonyRole } from '../../../../constants';
-import { TxOverrides } from '../../../../types';
 import {
   EvaluatedExpenditureEvents,
   EvaluatedExpenditureEvents__factory as EvaluatedExpenditureEventsFactory,
 } from '../../../../contracts/events';
+import { TxOverrides } from '../../../../types';
+import {
+  AugmentedIColony,
+  getPermissionProofs,
+} from '../../../Core/augments/commonAugments';
 import {
   IColonyV4,
   IColonyV5,
@@ -20,7 +18,9 @@ import {
   IColonyV8,
   IColonyV9,
   IColonyV10,
-} from '../../../../contracts/IColony/exports';
+} from '../../../Core/contracts';
+import { EvaluatedExpenditureVersion } from '../exports';
+import { AnyEvaluatedExpenditure } from '../contracts';
 
 export type ValidColony =
   | IColonyV4

@@ -14,6 +14,4 @@ export type {
   NetworkClientOptions,
 } from './clients/ColonyNetworkClient';
 
-export * from './tokens';
-
 export { IBasicMetaTransaction } from './contracts';

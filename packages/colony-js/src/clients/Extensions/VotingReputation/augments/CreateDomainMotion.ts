@@ -6,6 +6,9 @@ import {
   constants,
 } from 'ethers';
 
+import { TxOverrides } from '../../../../types';
+import { parsePermissionedAction } from '../../../../utils';
+import { getChildIndex } from '../../../Core/augments/commonAugments';
 import {
   VotingReputationV1,
   VotingReputationV2,
@@ -14,10 +17,7 @@ import {
   VotingReputationV5,
   VotingReputationV6,
   VotingReputationV7,
-} from '../../../../contracts/VotingReputation/exports';
-import { TxOverrides } from '../../../../types';
-import { parsePermissionedAction } from '../../../../utils';
-import { getChildIndex } from '../../../Core/augments/commonAugments';
+} from '../contracts';
 import { AugmentedVotingReputation } from './commonAugments';
 
 // VotingReputation versions that support this method

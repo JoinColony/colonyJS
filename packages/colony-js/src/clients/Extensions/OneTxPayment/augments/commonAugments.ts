@@ -1,18 +1,17 @@
 import { ContractTransaction, BigNumberish, BigNumber } from 'ethers';
 
-import {
-  AugmentedIColony,
-  getMultiPermissionProofs,
-} from '../../../Core/augments/commonAugments';
-
-import { OneTxPaymentVersion } from '../exports';
-import { AnyOneTxPayment } from '../../../../contracts/OneTxPayment/exports';
 import { ClientType, ColonyRole } from '../../../../constants';
 import { TxOverrides } from '../../../../types';
 import {
   OneTxPaymentEvents,
   OneTxPaymentEvents__factory as OneTxPaymentEventsFactory,
 } from '../../../../contracts/events';
+import {
+  AugmentedIColony,
+  getMultiPermissionProofs,
+} from '../../../Core/augments/commonAugments';
+import { OneTxPaymentVersion } from '../exports';
+import { AnyOneTxPayment } from '../contracts';
 
 export type AugmentedEstimate<T extends AnyOneTxPayment = AnyOneTxPayment> =
   T['estimateGas'] & {
