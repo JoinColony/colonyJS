@@ -1,12 +1,21 @@
 {
   "name": "@colony/colony-js-mono",
   "version": "6.3.6",
-  "license": "GPL-3.0-only",
+  "scripts": {},
   "engines": {
     "node": "^16.14",
     "npm": "^8"
   },
-  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoinColony/colonyJS.git"
+  },
+  "author": "Christian Maniewski <code@chmanie.com>",
+  "license": "GPL-3.0-only",
+  "bugs": {
+    "url": "https://github.com/JoinColony/colonyJS/issues"
+  },
+  "homepage": "https://docs.colony.io/develop",
   "devDependencies": {
     "@colony/abis": "^0.1.3",
     "@colony/eslint-config-colony": "^9.1.0",
