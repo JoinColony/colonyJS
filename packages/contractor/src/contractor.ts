@@ -60,6 +60,7 @@ const STATIC_DIR = resolvePath(ABI_DIR, 'static');
 const EVENTS_DIR = resolvePath(ABI_DIR, 'events');
 
 const EVENTS_CONTRACTS = [
+  'ColonyExtension',
   ...TOKEN_CONTRACTS,
   ...VERSIONED_CONTRACTS,
   ...UPGRADABLE_CONTRACTS,
@@ -174,7 +175,7 @@ const buildEventsContracts = async (outputDir: string, plugin: string) => {
     cwd: CWD,
     filesToProcess: files,
     allFiles: files,
-    outDir: resolvePath(outputDir, 'events'),
+    outDir: resolvePath(outputDir),
     target: plugin,
   });
 };
@@ -186,7 +187,6 @@ const buildTag = async (tag: string, outputDir: string, plugin: string) => {
 
   if (tag === LATEST_TAG) {
     await buildLatestContracts(versionDir, outputDir, plugin);
-    await buildEventsContracts(outputDir, plugin);
   }
 };
 
@@ -205,7 +205,8 @@ const start = async () => {
         default: LATEST_TAG,
       },
     })
-    .command('tokens', 'Make Token contracts')
+    .command('tokens', 'Make token contracts')
+    .command('events', 'Make events contracts')
     .demandCommand(1)
     .option('out', { alias: 'o', type: 'string', default: './dist' })
     .option('plugin', {
@@ -241,6 +242,10 @@ const start = async () => {
     }
     case 'tokens': {
       await buildTokenContracts(outputDir, plugin);
+      break;
+    }
+    case 'events': {
+      await buildEventsContracts(outputDir, plugin);
       break;
     }
     default:
