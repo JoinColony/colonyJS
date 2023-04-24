@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "lib": ["es2018", "dom"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "noImplicitAny": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "target": "es2015",
+    "types": ["node"],
+    "rootDir": "./"
+  },
+  "include": ["src/**/*", "examples/**/*"],
+  "exclude": ["node_modules"]
+}

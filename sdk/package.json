@@ -1,0 +1,94 @@
+{
+  "name": "@colony/sdk",
+  "version": "1.6.0",
+  "license": "GPL-3.0-only",
+  "dependencies": {
+    "@colony/colony-event-metadata-parser": "^2.0.0",
+    "@colony/colony-js": "^6.3.5",
+    "@urql/core": "^2.5.0",
+    "cross-fetch": "^3.1.5",
+    "fetch-retry": "^5.0.2",
+    "graphql": "^16.5.0",
+    "isomorphic-ws": "^4.0.1",
+    "subscriptions-transport-ws": "^0.11.0"
+  },
+  "devDependencies": {
+    "@colony/eslint-config-colony": "^9.0.2",
+    "@picocss/pico": "^1.5.7",
+    "@types/inquirer": "^8.2.1",
+    "@types/ws": "^8.5.3",
+    "@types/yargs": "^17.0.10",
+    "@typescript-eslint/eslint-plugin": "^5.36.2",
+    "@typescript-eslint/parser": "^5.36.2",
+    "esbuild": "^0.14.27",
+    "eslint": "^8.12.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-tsdoc": "^0.2.17",
+    "ethers": "^5.7.1",
+    "fast-glob": "^3.2.11",
+    "husky": "^7.0.4",
+    "inquirer": "^8.2.4",
+    "lint-staged": "^12.4.0",
+    "prettier": "^2.6.1",
+    "release-it": "^15.4.1",
+    "rimraf": "^3.0.2",
+    "ts-node": "^10.7.0",
+    "typedoc": "^0.23.13",
+    "typedoc-plugin-markdown": "^3.13.5",
+    "typescript": "^4.7.4",
+    "wonka": "^4.0.15",
+    "yargs": "^17.5.1"
+  },
+  "peerDependencies": {
+    "ethers": "^5.6.1"
+  },
+  "scripts": {
+    "examples:node": "ts-node examples/node/index.ts",
+    "examples:browser": "esbuild --bundle examples/browser/src/*.ts --servedir=examples/browser/web",
+    "build": "npm run clean && npm run compile-cjs && npm run compile-esm && npm run compile-types && npm run build-docs",
+    "build-docs": "typedoc",
+    "build-examples": "esbuild --bundle examples/browser/src/*.ts --outdir=examples/browser/web --minify",
+    "clean": "rimraf ./dist",
+    "compile-cjs": "tsc -p tsconfig.build.json --module commonjs --outDir dist/cjs",
+    "compile-esm": "tsc -p tsconfig.build.json --module es2015 --outDir dist/esm",
+    "compile-types": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --outDir dist/types",
+    "lint": "eslint --ext .ts src examples",
+    "no-git-changes": "./scripts/no-git-changes.sh",
+    "prepare": "husky install",
+    "release": "npm test && npm run build && release-it",
+    "test": "npm run lint && npm run typecheck",
+    "typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": "^16.0.0"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    },
+    "./graph": {
+      "import": "./dist/esm/graph/index.js",
+      "require": "./dist/cjs/graph/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/types/index.d.ts"
+      ],
+      "graph": [
+        "dist/types/graph/index.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ]
+}
