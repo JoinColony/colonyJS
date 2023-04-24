@@ -1,8 +1,9 @@
-import { ClientType } from '../../../../constants';
 import {
   WhitelistEvents,
   WhitelistEvents__factory as WhitelistEventsFactory,
-} from '../../../../contracts/events';
+} from '@colony/events';
+
+import { ClientType } from '../../../../constants';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments';
 import { WhitelistVersion } from '../exports';
 import { AnyWhitelist } from '../contracts';

@@ -1,11 +1,11 @@
 import { ContractTransaction, BigNumberish, BigNumber } from 'ethers';
-
-import { ColonyRole, ClientType } from '../../../../constants';
-import { TxOverrides } from '../../../../types';
 import {
   VotingReputationEvents,
   VotingReputationEvents__factory as VotingReputationEventsFactory,
-} from '../../../../contracts/events';
+} from '@colony/events';
+
+import { ColonyRole, ClientType } from '../../../../constants';
+import { TxOverrides } from '../../../../types';
 import {
   AugmentedIColony,
   getPermissionProofs,

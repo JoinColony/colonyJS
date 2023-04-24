@@ -63,12 +63,14 @@
     "compile-esm": "tsc -p tsconfig.build.json --module es2015 --outDir dist/esm",
     "compile-types": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --outDir dist/types",
     "lint": "eslint --ext .ts src",
+    "prepare": "npm run build-contracts",
+    "prepublishOnly": "npm run build-contracts && npm run test && npm run build",
     "test": "npm run lint && npm run typecheck && jest '[^integration].ts'",
     "test-ci": "npm run lint && npm run typecheck && jest",
-    "typecheck": "tsc --noEmit",
-    "prepublishOnly": "npm run build-contracts && npm run test && npm run build"
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
+    "@colony/events": "^0.1.0",
     "@colony/contractor": "^0.1.0",
     "@ethersproject/abi": "^5.7.0",
     "@ethersproject/abstract-provider": "^5.7.0",

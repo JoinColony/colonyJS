@@ -3,7 +3,6 @@
 ## Namespaces
 
 - [Tokens](modules/Tokens.md)
-- [factories](modules/factories.md)
 
 ## Enumerations
 
@@ -19,12 +18,6 @@
 - [ReputationMinerEndpoints](enums/ReputationMinerEndpoints.md)
 - [ReputationOracleEndpoint](enums/ReputationOracleEndpoint.md)
 - [TokenClientType](enums/TokenClientType.md)
-
-## Classes
-
-- [ColonyTokenFactory](classes/ColonyTokenFactory.md)
-- [ERC20TokenFactory](classes/ERC20TokenFactory.md)
-- [ERC2612TokenFactory](classes/ERC2612TokenFactory.md)
 
 ## Interfaces
 
@@ -48,17 +41,10 @@
 - [ColonyClientV8](interfaces/ColonyClientV8.md)
 - [ColonyClientV9](interfaces/ColonyClientV9.md)
 - [ColonyNetworkClient](interfaces/ColonyNetworkClient.md)
-- [ColonyToken](interfaces/ColonyToken.md)
-- [ColonyTokenClient](interfaces/ColonyTokenClient.md)
-- [DaiTokenClient](interfaces/DaiTokenClient.md)
-- [ERC20Token](interfaces/ERC20Token.md)
-- [ERC2612Token](interfaces/ERC2612Token.md)
-- [Erc20TokenClient](interfaces/Erc20TokenClient.md)
-- [Erc2612TokenClient](interfaces/Erc2612TokenClient.md)
 - [EvaluatedExpenditureClientV1](interfaces/EvaluatedExpenditureClientV1.md)
 - [EvaluatedExpenditureClientV2](interfaces/EvaluatedExpenditureClientV2.md)
+- [EvaluatedExpenditureClientV3](interfaces/EvaluatedExpenditureClientV3.md)
 - [IBasicMetaTransaction](interfaces/IBasicMetaTransaction.md)
-- [LegacyColonyTokenClient](interfaces/LegacyColonyTokenClient.md)
 - [NetworkClientOptions](interfaces/NetworkClientOptions.md)
 - [OneTxPaymentClientV1](interfaces/OneTxPaymentClientV1.md)
 - [OneTxPaymentClientV2](interfaces/OneTxPaymentClientV2.md)
@@ -68,10 +54,6 @@
 - [StakedExpenditureClientV2](interfaces/StakedExpenditureClientV2.md)
 - [StreamingPaymentsClientV1](interfaces/StreamingPaymentsClientV1.md)
 - [StreamingPaymentsClientV2](interfaces/StreamingPaymentsClientV2.md)
-- [Token](interfaces/Token.md)
-- [TokenAuthority](interfaces/TokenAuthority.md)
-- [TokenLocking](interfaces/TokenLocking.md)
-- [TokenLockingClient](interfaces/TokenLockingClient.md)
 - [TokenSupplierClientV1](interfaces/TokenSupplierClientV1.md)
 - [TokenSupplierClientV2](interfaces/TokenSupplierClientV2.md)
 - [TokenSupplierClientV3](interfaces/TokenSupplierClientV3.md)
@@ -87,36 +69,6 @@
 - [WhitelistClientV1](interfaces/WhitelistClientV1.md)
 - [WhitelistClientV2](interfaces/WhitelistClientV2.md)
 - [WhitelistClientV3](interfaces/WhitelistClientV3.md)
-
-## References
-
-### MetaTxToken
-
-Renames and re-exports [ColonyToken](interfaces/ColonyToken.md)
-
-___
-
-### MetaTxToken\_\_factory
-
-Renames and re-exports [ColonyTokenFactory](classes/ColonyTokenFactory.md)
-
-___
-
-### TokenAuthority\_\_factory
-
-Re-exports [TokenAuthority__factory](classes/factories.TokenAuthority__factory.md)
-
-___
-
-### TokenLocking\_\_factory
-
-Re-exports [TokenLocking__factory](classes/factories.TokenLocking__factory.md)
-
-___
-
-### Token\_\_factory
-
-Re-exports [Token__factory](classes/factories.Token__factory.md)
 
 ## Type Aliases
 
@@ -134,7 +86,7 @@ ___
 
 ### AnyEvaluatedExpenditureClient
 
-Ƭ **AnyEvaluatedExpenditureClient**: [`EvaluatedExpenditureClientV1`](interfaces/EvaluatedExpenditureClientV1.md) \| [`EvaluatedExpenditureClientV2`](interfaces/EvaluatedExpenditureClientV2.md)
+Ƭ **AnyEvaluatedExpenditureClient**: [`EvaluatedExpenditureClientV1`](interfaces/EvaluatedExpenditureClientV1.md) \| [`EvaluatedExpenditureClientV2`](interfaces/EvaluatedExpenditureClientV2.md) \| [`EvaluatedExpenditureClientV3`](interfaces/EvaluatedExpenditureClientV3.md)
 
 ___
 
@@ -184,7 +136,7 @@ ___
 
 ### ContractClient
 
-Ƭ **ContractClient**: [`AnyColonyClient`](README.md#anycolonyclient) \| [`ColonyNetworkClient`](interfaces/ColonyNetworkClient.md) \| [`EventsClient`](README.md#eventsclient) \| [`ExtensionClient`](README.md#extensionclient) \| [`TokenClient`](README.md#tokenclient) \| [`TokenLockingClient`](interfaces/TokenLockingClient.md)
+Ƭ **ContractClient**: [`AnyColonyClient`](README.md#anycolonyclient) \| [`ColonyNetworkClient`](interfaces/ColonyNetworkClient.md) \| [`EventsClient`](README.md#eventsclient) \| [`ExtensionClient`](README.md#extensionclient) \| `TokenContractClient` \| `TokenLockingContractClient`
 
 ___
 
@@ -221,12 +173,6 @@ ___
 
 ___
 
-### TokenClient
-
-Ƭ **TokenClient**: [`ColonyTokenClient`](interfaces/ColonyTokenClient.md) \| [`LegacyColonyTokenClient`](interfaces/LegacyColonyTokenClient.md) \| [`Erc20TokenClient`](interfaces/Erc20TokenClient.md) \| [`Erc2612TokenClient`](interfaces/Erc2612TokenClient.md) \| [`DaiTokenClient`](interfaces/DaiTokenClient.md)
-
-___
-
 ### UserRoles
 
 Ƭ **UserRoles**: `Object`
@@ -245,18 +191,6 @@ All domains the user with `address` has roles in
 ### COLONY\_VERSION\_LATEST
 
 • `Const` **COLONY\_VERSION\_LATEST**: `number`
-
-___
-
-### ERC20
-
-• `Const` **ERC20**: `TokenERC20Interface`
-
-___
-
-### ERC721
-
-• `Const` **ERC721**: `TokenERC721Interface`
 
 ___
 
@@ -632,40 +566,6 @@ See [[`FundingPotAssociatedType`]] for details
 `Promise`<`BigNumberish`\>
 
 The associated domainId
-
-___
-
-### getTokenClient
-
-▸ **getTokenClient**(`address`, `signerOrProvider`): `Promise`<[`TokenClient`](README.md#tokenclient)\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `address` | `string` |
-| `signerOrProvider` | [`SignerOrProvider`](README.md#signerorprovider) |
-
-#### Returns
-
-`Promise`<[`TokenClient`](README.md#tokenclient)\>
-
-___
-
-### getTokenLockingClient
-
-▸ **getTokenLockingClient**(`address`, `signerOrProvider`): [`TokenLockingClient`](interfaces/TokenLockingClient.md)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `address` | `string` |
-| `signerOrProvider` | [`SignerOrProvider`](README.md#signerorprovider) |
-
-#### Returns
-
-[`TokenLockingClient`](interfaces/TokenLockingClient.md)
 
 ___
 

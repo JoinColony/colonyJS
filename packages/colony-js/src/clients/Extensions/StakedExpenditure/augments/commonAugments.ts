@@ -4,13 +4,13 @@ import {
   ContractTransaction,
   BytesLike,
 } from 'ethers';
-
-import { ClientType, ColonyRole } from '../../../../constants';
-import { TxOverrides } from '../../../../types';
 import {
   StakedExpenditureEvents,
   StakedExpenditureEvents__factory as StakedExpenditureEventsFactory,
-} from '../../../../contracts/events';
+} from '@colony/events';
+
+import { ClientType, ColonyRole } from '../../../../constants';
+import { TxOverrides } from '../../../../types';
 import {
   AugmentedIColony,
   getPermissionProofs,

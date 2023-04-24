@@ -1,8 +1,9 @@
-import { ClientType } from '../../../../constants';
 import {
   CoinMachineEvents,
   CoinMachineEvents__factory as CoinMachineEventsFactory,
-} from '../../../../contracts/events';
+} from '@colony/events';
+
+import { ClientType } from '../../../../constants';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments';
 import { CoinMachineVersion } from '../exports';
 import { AnyCoinMachine } from '../contracts';

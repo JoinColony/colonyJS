@@ -1,8 +1,9 @@
-import { ClientType } from '../../../../constants';
 import {
   TokenSupplierEvents,
   TokenSupplierEvents__factory as TokenSupplierEventsFactory,
-} from '../../../../contracts/events';
+} from '@colony/events';
+
+import { ClientType } from '../../../../constants';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments';
 import { TokenSupplierVersion } from '../exports';
 import { AnyTokenSupplier } from '../contracts';

@@ -1,8 +1,9 @@
-import { ClientType } from '../../../../constants';
 import {
   FundingQueueEvents,
   FundingQueueEvents__factory as FundingQueueEventsFactory,
-} from '../../../../contracts/events';
+} from '@colony/events';
+
+import { ClientType } from '../../../../constants';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments';
 
 import { FundingQueueVersion } from '../exports';

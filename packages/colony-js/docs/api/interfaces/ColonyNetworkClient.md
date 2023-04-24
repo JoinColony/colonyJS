@@ -2005,13 +2005,13 @@ ___
 
 ### getTokenLockingClient
 
-▸ **getTokenLockingClient**(): `Promise`<[`TokenLockingClient`](TokenLockingClient.md)\>
+▸ **getTokenLockingClient**(): `Promise`<`TokenLockingClient`\>
 
 Gets the TokenLockingClient
 
 #### Returns
 
-`Promise`<[`TokenLockingClient`](TokenLockingClient.md)\>
+`Promise`<`TokenLockingClient`\>
 
 an initialized version of the TokenLockingClient
 

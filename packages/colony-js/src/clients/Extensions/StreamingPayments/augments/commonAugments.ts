@@ -4,13 +4,13 @@ import {
   ContractTransaction,
   constants,
 } from 'ethers';
-
-import { ClientType, ColonyRole } from '../../../../constants';
-import { TxOverrides } from '../../../../types';
 import {
   StreamingPaymentsEvents,
   StreamingPaymentsEvents__factory as StreamingPaymentsEventsFactory,
-} from '../../../../contracts/events';
+} from '@colony/events';
+
+import { ClientType, ColonyRole } from '../../../../constants';
+import { TxOverrides } from '../../../../types';
 import {
   AugmentedIColony,
   getMultiPermissionProofs,

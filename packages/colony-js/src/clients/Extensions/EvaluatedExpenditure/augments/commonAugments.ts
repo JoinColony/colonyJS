@@ -1,10 +1,10 @@
 import { BigNumberish, BigNumber, ContractTransaction } from 'ethers';
-
-import { ClientType, ColonyRole } from '../../../../constants';
 import {
   EvaluatedExpenditureEvents,
   EvaluatedExpenditureEvents__factory as EvaluatedExpenditureEventsFactory,
-} from '../../../../contracts/events';
+} from '@colony/events';
+
+import { ClientType, ColonyRole } from '../../../../constants';
 import { TxOverrides } from '../../../../types';
 import {
   AugmentedIColony,

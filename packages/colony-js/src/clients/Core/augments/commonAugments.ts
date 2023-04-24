@@ -5,6 +5,10 @@ import {
   BigNumberish,
   constants,
 } from 'ethers';
+import {
+  IColonyEvents,
+  IColonyEvents__factory as IColonyEventsFactory,
+} from '@colony/events';
 import { TokenClient } from '@colony/tokens';
 
 import {
@@ -16,10 +20,6 @@ import {
 } from '../../../constants';
 import { fetchReputationOracleData } from '../../../utils';
 import { TxOverrides } from '../../../types';
-import {
-  IColonyEvents,
-  IColonyEvents__factory as IColonyEventsFactory,
-} from '../../../contracts/events';
 import {
   Extension,
   getExtensionClient,
