@@ -19,28 +19,6 @@
     "@typescript-eslint/no-shadow": ["error"],
     "import/extensions": "off",
     "import/no-unresolved": "off",
-    "import/prefer-default-export": "off",
-    "import/no-extraneous-dependencies": ["error", {
-        "devDependencies": ["scripts/*.ts", "src/__tests__/*.ts"]
-    }]
-  },
-  "overrides": [
-    {
-      "files": [
-        "**/__tests__/*.ts"
-      ],
-      "env": {
-        "jest": true
-      }
-    },
-    {
-        "files": [
-            "**/contracts/**/*.ts"
-        ],
-        "rules": {
-            "eslint-comments/disable-enable-pair": "off",
-            "eslint-comments/no-unlimited-disable": "off"
-        }
-    }
-  ]
+    "import/prefer-default-export": "off"
+  }
 }
