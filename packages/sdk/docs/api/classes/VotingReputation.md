@@ -87,14 +87,15 @@ You can - at any point in the lifecycle inspect the current state of a Motion. U
 
 ### constructor
 
-• **new VotingReputation**(`colony`, `votingReputationClient`)
+• **new VotingReputation**(`colony`, `votingReputationContract`, `deployedVersion`)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `colony` | [`Colony`](Colony.md) |
-| `votingReputationClient` | `VotingReputationClientV8` |
+| `votingReputationContract` | `IVotingReputation` |
+| `deployedVersion` | ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` |
 
 ## Properties
 
@@ -106,7 +107,7 @@ ___
 
 ### version
 
-• **version**: `number`
+• **version**: ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8``
 
 ___
 
@@ -118,13 +119,13 @@ ___
 
 ### supportedVersions
 
-▪ `Static` **supportedVersions**: ``8``[]
+▪ `Static` **supportedVersions**: (``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8``)[]
 
 ## Methods
 
 ### annotateDecision
 
-▸ **annotateDecision**(`txHash`, `metadata`): [`MetaTxCreator`](MetaTxCreator.md)<`ColonyClientV12`, ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, [`Decision`](../enums/MetadataType.md#decision)\>
+▸ **annotateDecision**(`txHash`, `metadata`): [`MetaTxCreator`](MetaTxCreator.md)<`IColony`, ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, [`Decision`](../enums/MetadataType.md#decision)\>
 
 Annotate a decision with IPFS metadata to provide extra information
 
@@ -163,7 +164,7 @@ If [DecisionMetadata](../interfaces/DecisionMetadata.md) is provided directly (a
 
 #### Returns
 
-[`MetaTxCreator`](MetaTxCreator.md)<`ColonyClientV12`, ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, [`Decision`](../enums/MetadataType.md#decision)\>
+[`MetaTxCreator`](MetaTxCreator.md)<`IColony`, ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, [`Decision`](../enums/MetadataType.md#decision)\>
 
 A transaction creator
 
@@ -189,7 +190,7 @@ ___
 
 ### approveStake
 
-▸ **approveStake**(`amount`, `teamId?`): [`MetaTxCreator`](MetaTxCreator.md)<`ColonyClientV12`, ``"approveStake"``, { `amount?`: `BigNumber` ; `approvedBy?`: `string` ; `token?`: `string` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **approveStake**(`amount`, `teamId?`): [`MetaTxCreator`](MetaTxCreator.md)<`IColony`, ``"approveStake"``, { `amount?`: `BigNumber` ; `approvedBy?`: `string` ; `token?`: `string` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Approve `amount` of the "activated" native tokens of a user for staking in a specific team
 After a token was "activated" (approved and deposited via the native token interface) it can be used for staking motions. To stake a motion, the token amount for staking has to be approved for the domain the motion was created in. See also the example in [VotingReputation.stakeMotion](VotingReputation.md#stakemotion)
@@ -207,7 +208,7 @@ This method can't be executed as a motion
 
 #### Returns
 
-[`MetaTxCreator`](MetaTxCreator.md)<`ColonyClientV12`, ``"approveStake"``, { `amount?`: `BigNumber` ; `approvedBy?`: `string` ; `token?`: `string` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`MetaTxCreator`](MetaTxCreator.md)<`IColony`, ``"approveStake"``, { `amount?`: `BigNumber` ; `approvedBy?`: `string` ; `token?`: `string` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
@@ -224,7 +225,7 @@ ___
 
 ### createDecision
 
-▸ **createDecision**(`team?`): [`MetaTxCreator`](MetaTxCreator.md)<`VotingReputationClientV8`, ``"createMotion"``, { `creator?`: `string` ; `domainId?`: `BigNumber` ; `motionId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **createDecision**(`team?`): [`MetaTxCreator`](MetaTxCreator.md)<`IVotingReputation`, ``"createMotion"``, { `creator?`: `string` ; `domainId?`: `BigNumber` ; `motionId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Annotate a decision with IPFS metadata to provide extra information
 
@@ -262,7 +263,7 @@ If [DecisionMetadata](../interfaces/DecisionMetadata.md) is provided directly (a
 
 #### Returns
 
-[`MetaTxCreator`](MetaTxCreator.md)<`VotingReputationClientV8`, ``"createMotion"``, { `creator?`: `string` ; `domainId?`: `BigNumber` ; `motionId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`MetaTxCreator`](MetaTxCreator.md)<`IVotingReputation`, ``"createMotion"``, { `creator?`: `string` ; `domainId?`: `BigNumber` ; `motionId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
@@ -278,7 +279,7 @@ ___
 
 ### escalateMotion
 
-▸ **escalateMotion**(`motionId`, `newTeamId`): [`MetaTxCreator`](MetaTxCreator.md)<`VotingReputationClientV8`, ``"escalateMotion"``, { `domainId?`: `BigNumber` ; `escalator?`: `string` ; `motionId?`: `BigNumber` ; `newDomainId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **escalateMotion**(`motionId`, `newTeamId`): [`MetaTxCreator`](MetaTxCreator.md)<`IVotingReputation`, ``"escalateMotion"``, { `domainId?`: `BigNumber` ; `escalator?`: `string` ; `motionId?`: `BigNumber` ; `newDomainId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Escalate a motion to a parent team
 
@@ -293,7 +294,7 @@ If all votes for a motion have been revealed but a user is not happy with the ou
 
 #### Returns
 
-[`MetaTxCreator`](MetaTxCreator.md)<`VotingReputationClientV8`, ``"escalateMotion"``, { `domainId?`: `BigNumber` ; `escalator?`: `string` ; `motionId?`: `BigNumber` ; `newDomainId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`MetaTxCreator`](MetaTxCreator.md)<`IVotingReputation`, ``"escalateMotion"``, { `domainId?`: `BigNumber` ; `escalator?`: `string` ; `motionId?`: `BigNumber` ; `newDomainId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
@@ -308,7 +309,7 @@ ___
 
 ### finalizeMotion
 
-▸ **finalizeMotion**(`motionId`): [`MetaTxCreator`](MetaTxCreator.md)<`VotingReputationClientV8`, ``"finalizeMotion"``, { `action?`: `string` ; `executed?`: `boolean` ; `motionId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **finalizeMotion**(`motionId`): [`MetaTxCreator`](MetaTxCreator.md)<`IVotingReputation`, ``"finalizeMotion"``, { `action?`: `string` ; `executed?`: `boolean` ; `motionId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Finalize a motion, executing its action
 
@@ -329,7 +330,7 @@ Finalize a motion, executing its action
 
 #### Returns
 
-[`MetaTxCreator`](MetaTxCreator.md)<`VotingReputationClientV8`, ``"finalizeMotion"``, { `action?`: `string` ; `executed?`: `boolean` ; `motionId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`MetaTxCreator`](MetaTxCreator.md)<`IVotingReputation`, ``"finalizeMotion"``, { `action?`: `string` ; `executed?`: `boolean` ; `motionId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
@@ -479,7 +480,7 @@ ___
 
 ### revealVote
 
-▸ **revealVote**(`motionId`, `vote?`): [`MetaTxCreator`](MetaTxCreator.md)<`VotingReputationClientV8`, ``"revealVote"``, { `motionId?`: `BigNumber` ; `vote?`: `BigNumber` ; `voter?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **revealVote**(`motionId`, `vote?`): [`MetaTxCreator`](MetaTxCreator.md)<`IVotingReputation`, ``"revealVote"``, { `motionId?`: `BigNumber` ; `vote?`: `BigNumber` ; `voter?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Reveal a vote for a motion
 
@@ -497,7 +498,7 @@ Reveal a vote for a motion
 
 #### Returns
 
-[`MetaTxCreator`](MetaTxCreator.md)<`VotingReputationClientV8`, ``"revealVote"``, { `motionId?`: `BigNumber` ; `vote?`: `BigNumber` ; `voter?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`MetaTxCreator`](MetaTxCreator.md)<`IVotingReputation`, ``"revealVote"``, { `motionId?`: `BigNumber` ; `vote?`: `BigNumber` ; `voter?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
@@ -513,7 +514,7 @@ ___
 
 ### stakeMotion
 
-▸ **stakeMotion**(`motionId`, `vote`, `amount`): [`MetaTxCreator`](MetaTxCreator.md)<`VotingReputationClientV8`, ``"stakeMotion"``, { `amount?`: `BigNumber` ; `eventIndex?`: `BigNumber` ; `motionId?`: `BigNumber` ; `staker?`: `string` ; `vote?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **stakeMotion**(`motionId`, `vote`, `amount`): [`MetaTxCreator`](MetaTxCreator.md)<`IVotingReputation`, ``"stakeMotion"``, { `amount?`: `BigNumber` ; `eventIndex?`: `BigNumber` ; `motionId?`: `BigNumber` ; `staker?`: `string` ; `vote?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Stake `amount` to support a motion with your vote
 
@@ -551,7 +552,7 @@ import { Vote, w } from '@colony/sdk';
 
 #### Returns
 
-[`MetaTxCreator`](MetaTxCreator.md)<`VotingReputationClientV8`, ``"stakeMotion"``, { `amount?`: `BigNumber` ; `eventIndex?`: `BigNumber` ; `motionId?`: `BigNumber` ; `staker?`: `string` ; `vote?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`MetaTxCreator`](MetaTxCreator.md)<`IVotingReputation`, ``"stakeMotion"``, { `amount?`: `BigNumber` ; `eventIndex?`: `BigNumber` ; `motionId?`: `BigNumber` ; `staker?`: `string` ; `vote?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
@@ -569,7 +570,7 @@ ___
 
 ### submitVote
 
-▸ **submitVote**(`motionId`, `vote`): [`MetaTxCreator`](MetaTxCreator.md)<`VotingReputationClientV8`, ``"submitVote"``, { `motionId?`: `BigNumber` ; `voter?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **submitVote**(`motionId`, `vote`): [`MetaTxCreator`](MetaTxCreator.md)<`IVotingReputation`, ``"submitVote"``, { `motionId?`: `BigNumber` ; `voter?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Submit a vote for a motion
 
@@ -586,7 +587,7 @@ This method can't be executed as a motion
 
 #### Returns
 
-[`MetaTxCreator`](MetaTxCreator.md)<`VotingReputationClientV8`, ``"submitVote"``, { `motionId?`: `BigNumber` ; `voter?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`MetaTxCreator`](MetaTxCreator.md)<`IVotingReputation`, ``"submitVote"``, { `motionId?`: `BigNumber` ; `voter?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
@@ -601,7 +602,7 @@ ___
 
 ### upgrade
 
-▸ **upgrade**(`toVersion?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV12`, ``"upgradeExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **upgrade**(`toVersion?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"upgradeExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Upgrade this extension to the next or a custom version
 
@@ -620,7 +621,7 @@ This method upgrades this extension to a specified version or, if no version is 
 
 #### Returns
 
-[`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV12`, ``"upgradeExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"upgradeExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
@@ -634,10 +635,26 @@ A transaction creator
 
 ___
 
-### getLatestSupportedVersion
+### connect
 
-▸ `Static` **getLatestSupportedVersion**(): ``8``
+▸ `Static` **connect**(`colony`): `Promise`<[`VotingReputation`](VotingReputation.md)\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `colony` | [`Colony`](Colony.md) |
 
 #### Returns
 
-``8``
+`Promise`<[`VotingReputation`](VotingReputation.md)\>
+
+___
+
+### getLatestSupportedVersion
+
+▸ `Static` **getLatestSupportedVersion**(): ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8``
+
+#### Returns
+
+``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8``

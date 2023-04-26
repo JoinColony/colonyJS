@@ -1,7 +1,6 @@
 import { providers, Wallet } from 'ethers';
-import { ColonyRole } from '@colony/colony-js';
 
-import { ColonyNetwork, ColonyRpcEndpoint } from '../../src';
+import { ColonyRole, ColonyNetwork, ColonyRpcEndpoint } from '../../src';
 
 const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
 
@@ -15,16 +14,16 @@ const signer = new Wallet(process.env.PRIVATE_KEY as string).connect(provider);
 
 // Set the Administration and Funding permissions for the OneTxPayment extension of a Colony
 const start = async () => {
-  const colonyNetwork = await ColonyNetwork.init(signer);
+  const colonyNetwork = new ColonyNetwork(signer);
   const colony = await colonyNetwork.getColony(
     '0xA6fD5655c1249f1349D0917E732813Ebd9439A54',
   );
-  // await colony
-  //   .setRoles('0xA75b108808584A15ceEbF8f6CAc19EaD91cAbCd2', [
-  //     ColonyRole.Administration,
-  //     ColonyRole.Funding,
-  //   ])
-  //   .tx();
+  await colony
+    .setRoles('0xA75b108808584A15ceEbF8f6CAc19EaD91cAbCd2', [
+      ColonyRole.Administration,
+      ColonyRole.Funding,
+    ])
+    .tx();
   const roles = await colony.getRoles(
     '0xA75b108808584A15ceEbF8f6CAc19EaD91cAbCd2',
   );

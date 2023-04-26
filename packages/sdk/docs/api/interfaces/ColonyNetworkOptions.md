@@ -4,6 +4,12 @@ Additional options for the [ColonyNetwork](../classes/ColonyNetwork.md)
 
 ## Properties
 
+### customNetworkAddress
+
+• `Optional` **customNetworkAddress**: `string`
+
+___
+
 ### graphOptions
 
 • `Optional` **graphOptions**: [`SubgraphClientOptions`](SubgraphClientOptions.md)
@@ -28,8 +34,12 @@ Provide a custom metatransaction broadcaster endpoint
 
 ___
 
-### networkClientOptions
+### network
 
-• `Optional` **networkClientOptions**: [`NetworkClientOptions`](NetworkClientOptions.md)
+• `Optional` **network**: `Network`
 
-Provide custom [NetworkClientOptions](NetworkClientOptions.md) for the ColonyJS client
+___
+
+### reputationOracleEndpoint
+
+• `Optional` **reputationOracleEndpoint**: `string`

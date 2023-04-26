@@ -30,7 +30,7 @@ const connect = async () => {
 const connectColony = async (colonyAddress: string) => {
   const signer = await connect();
   currentWalletAddress = await signer.getAddress();
-  colonyNetwork = await ColonyNetwork.init(signer);
+  colonyNetwork = new ColonyNetwork(signer);
   // Get an instance of the MetaColony
   colony = await colonyNetwork.getColony(colonyAddress);
 };

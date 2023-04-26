@@ -1,9 +1,9 @@
-import { IBasicMetaTransaction, Network } from '@colony/colony-js';
+import { Network } from '@colony/core';
 import { utils } from 'ethers';
 import { MetadataType } from '@colony/colony-event-metadata-parser';
 
 import { ParsedLogTransactionReceipt } from '../types';
-
+import { IBasicMetaTransaction } from '../contracts';
 import { BaseContract, EventData, TxCreator } from './TxCreator';
 
 const { arrayify, solidityKeccak256, splitSignature } = utils;

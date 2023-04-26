@@ -1,10 +1,10 @@
 import type {
   UserTokenDeposited_address_address_uint256_EventObject,
   UserTokenWithdrawnEventObject,
-} from '@colony/colony-js/events';
+} from '@colony/events';
 
 import { BigNumberish } from 'ethers';
-import { TokenLockingClient } from '@colony/colony-js/';
+import { type TokenLockingClient, getTokenLockingClient } from '@colony/tokens';
 
 import { extractEvent } from '../utils';
 import { ColonyNetwork } from './ColonyNetwork';
@@ -14,25 +14,25 @@ export class TokenLocking {
 
   private colonyNetwork: ColonyNetwork;
 
-  private tokenLockingClient: TokenLockingClient;
+  private tokenLockingContract: TokenLockingClient;
 
-  constructor(
-    colonyNetwork: ColonyNetwork,
-    tokenLockingClient: TokenLockingClient,
-  ) {
-    this.address = tokenLockingClient.address;
+  constructor(colonyNetwork: ColonyNetwork, address: string) {
+    this.address = address;
     this.colonyNetwork = colonyNetwork;
-    this.tokenLockingClient = tokenLockingClient;
+    this.tokenLockingContract = getTokenLockingClient(
+      this.address,
+      colonyNetwork.signerOrProvider,
+    );
   }
 
   /**
-   * Provide direct access to the internally used TokenLocking client. Only use when you know what you're doing
+   * Provide direct access to the internally used TokenLocking contract. Only use when you know what you're doing
    *
    * @internal
-   * @returns The internally used TokenLockingClient
+   * @returns The internally used TokenLockingContract
    */
-  getInternalTokenLockingClient(): TokenLockingClient {
-    return this.tokenLockingClient;
+  getInternalTokenLockingContract(): TokenLockingClient {
+    return this.tokenLockingContract;
   }
 
   /**
@@ -69,7 +69,7 @@ export class TokenLocking {
    */
   deposit(tokenAddress: string, amount: BigNumberish) {
     return this.colonyNetwork.createMetaTxCreator(
-      this.tokenLockingClient,
+      this.tokenLockingContract,
       'deposit(address,uint256,bool)',
       [tokenAddress, amount, false],
       async (receipt) => ({
@@ -113,7 +113,7 @@ export class TokenLocking {
    */
   withdraw(tokenAddress: string, amount: BigNumberish) {
     return this.colonyNetwork.createMetaTxCreator(
-      this.tokenLockingClient,
+      this.tokenLockingContract,
       'withdraw(address,uint256,bool)',
       [tokenAddress, amount, false],
       async (receipt) => ({
@@ -136,7 +136,7 @@ export class TokenLocking {
    * @returns The currently deposited balance of the Colony's native token
    */
   async getUserDeposit(tokenAddress: string, user: string) {
-    const userLock = await this.tokenLockingClient.getUserLock(
+    const userLock = await this.tokenLockingContract.getUserLock(
       tokenAddress,
       user,
     );
@@ -155,6 +155,6 @@ export class TokenLocking {
    * @returns The currently approved balance of the Colony's native token for the obligator
    */
   async getUserApproval(tokenAddress: string, user: string, obligator: string) {
-    return this.tokenLockingClient.getApproval(user, tokenAddress, obligator);
+    return this.tokenLockingContract.getApproval(user, tokenAddress, obligator);
   }
 }

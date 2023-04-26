@@ -1,5 +1,35 @@
 # Class: ColonyNetwork
 
+## Constructors
+
+### constructor
+
+• **new ColonyNetwork**(`signerOrProvider`, `options?`)
+
+Creates a new instance of the ColonyNetwork
+
+This is your main entry point to talk to the Colony Network Smart Contracts.
+From here you should be able to instantiate all the required instances for Colonies and their extensions.
+
+**`Example`**
+
+```typescript
+import { providers } from 'ethers';
+import { ColonyNetwork, Tokens } from '@colony/sdk';
+
+// Connect directly to the deployed Colony Network on Gnosis Chain
+const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc/');
+const colonyNetwork = new ColonyNetwork(provider);
+// Now you could call functions on the colonyNetwork, like `colonyNetwork.getMetaColony()`
+```
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `signerOrProvider` | `SignerOrProvider` | An _ethers_ compatible Signer or Provider instance |
+| `options?` | [`ColonyNetworkOptions`](../interfaces/ColonyNetworkOptions.md) | Optional custom [ColonyNetworkOptions](../interfaces/ColonyNetworkOptions.md) |
+
 ## Properties
 
 ### config
@@ -20,21 +50,9 @@ ___
 
 ___
 
-### locking
-
-• **locking**: `TokenLocking`
-
-___
-
 ### network
 
-• **network**: [`Network`](../enums/Network.md)
-
-___
-
-### networkClient
-
-• **networkClient**: `ColonyNetworkClient`
+• **network**: `Network`
 
 ___
 
@@ -42,11 +60,15 @@ ___
 
 • **signerOrProvider**: `SignerOrProvider`
 
+An ethers.js [Signer](https://docs.ethers.org/v5/api/signer/#Signer) or [Provider](https://docs.ethers.org/v5/api/providers/).
+
+E.g. a [Wallet](https://docs.ethers.org/v5/api/signer/#Wallet) or a [Web3Provider](https://docs.ethers.org/v5/api/providers/other/#Web3Provider) (MetaMask)
+
 ## Methods
 
 ### createColony
 
-▸ **createColony**(`token`, `label`, `metadata`): [`MetaTxCreator`](MetaTxCreator.md)<`ColonyNetworkClient`, ``"createColonyForFrontend"``, { `agent`: `string` ; `colonyAddress`: `string` ; `colonyId`: `BigNumber` ; `metadata`: `string` ; `token`: `string` ; `tokenAddress`: `string` ; `tokenAuthorityAddress`: `string`  }, [`Colony`](../enums/MetadataType.md#colony)\>
+▸ **createColony**(`token`, `label`, `metadata`): [`MetaTxCreator`](MetaTxCreator.md)<`IColonyNetwork`, ``"createColonyForFrontend"``, { `agent`: `string` ; `colonyAddress`: `string` ; `colonyId`: `BigNumber` ; `metadata`: `string` ; `token`: `string` ; `tokenAddress`: `string` ; `tokenAuthorityAddress`: `string`  }, [`Colony`](../enums/MetadataType.md#colony)\>
 
 Create a new colony with metadata
 
@@ -91,7 +113,7 @@ import { Tokens } from '@colony/sdk';
 
 #### Returns
 
-[`MetaTxCreator`](MetaTxCreator.md)<`ColonyNetworkClient`, ``"createColonyForFrontend"``, { `agent`: `string` ; `colonyAddress`: `string` ; `colonyId`: `BigNumber` ; `metadata`: `string` ; `token`: `string` ; `tokenAddress`: `string` ; `tokenAuthorityAddress`: `string`  }, [`Colony`](../enums/MetadataType.md#colony)\>
+[`MetaTxCreator`](MetaTxCreator.md)<`IColonyNetwork`, ``"createColonyForFrontend"``, { `agent`: `string` ; `colonyAddress`: `string` ; `colonyId`: `BigNumber` ; `metadata`: `string` ; `token`: `string` ; `tokenAddress`: `string` ; `tokenAuthorityAddress`: `string`  }, [`Colony`](../enums/MetadataType.md#colony)\>
 
 A transaction creator
 
@@ -116,7 +138,7 @@ A transaction creator
 | `colonyAvatarHash` | string | An IPFS hash for a Colony logo (make it 200x200px) |
 | `colonyTokens` | string[] | A list of additional tokens that should be in the colony's "address book" |
 
-▸ **createColony**(`token`, `label`): [`MetaTxCreator`](MetaTxCreator.md)<`ColonyNetworkClient`, ``"createColonyForFrontend"``, { `colonyAddress`: `string` ; `colonyId`: `BigNumber` ; `metadata?`: `undefined` ; `token`: `string` ; `tokenAddress`: `string` ; `tokenAuthorityAddress`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **createColony**(`token`, `label`): [`MetaTxCreator`](MetaTxCreator.md)<`IColonyNetwork`, ``"createColonyForFrontend"``, { `colonyAddress`: `string` ; `colonyId`: `BigNumber` ; `metadata?`: `undefined` ; `token`: `string` ; `tokenAddress`: `string` ; `tokenAuthorityAddress`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Create a new Colony without metadata
 
@@ -150,7 +172,7 @@ See the [Colony Creation Guide](../../guides/colony-creation.md).
 
 #### Returns
 
-[`MetaTxCreator`](MetaTxCreator.md)<`ColonyNetworkClient`, ``"createColonyForFrontend"``, { `colonyAddress`: `string` ; `colonyId`: `BigNumber` ; `metadata?`: `undefined` ; `token`: `string` ; `tokenAddress`: `string` ; `tokenAuthorityAddress`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`MetaTxCreator`](MetaTxCreator.md)<`IColonyNetwork`, ``"createColonyForFrontend"``, { `colonyAddress`: `string` ; `colonyId`: `BigNumber` ; `metadata?`: `undefined` ; `token`: `string` ; `tokenAddress`: `string` ; `tokenAuthorityAddress`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
@@ -168,7 +190,7 @@ ___
 
 ### deployToken
 
-▸ **deployToken**(`name`, `symbol`, `decimals?`): [`MetaTxCreator`](MetaTxCreator.md)<`ColonyNetworkClient`, ``"deployTokenViaNetwork"``, { `tokenAddress?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **deployToken**(`name`, `symbol`, `decimals?`): [`MetaTxCreator`](MetaTxCreator.md)<`IColonyNetwork`, ``"deployTokenViaNetwork"``, { `tokenAddress?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Deploy a "special" Colony ERC20 token
 
@@ -190,7 +212,7 @@ The token deployed with this function is locked by default. Call `unlockToken()`
 
 #### Returns
 
-[`MetaTxCreator`](MetaTxCreator.md)<`ColonyNetworkClient`, ``"deployTokenViaNetwork"``, { `tokenAddress?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`MetaTxCreator`](MetaTxCreator.md)<`IColonyNetwork`, ``"deployTokenViaNetwork"``, { `tokenAddress?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
@@ -294,6 +316,16 @@ ___
 
 ___
 
+### getTokenLocking
+
+▸ **getTokenLocking**(): `Promise`<`TokenLocking`\>
+
+#### Returns
+
+`Promise`<`TokenLocking`\>
+
+___
+
 ### getUserAddress
 
 ▸ **getUserAddress**(`username`): `Promise`<``null`` \| `string`\>
@@ -342,7 +374,7 @@ ___
 
 ### registerUsername
 
-▸ **registerUsername**(`username`): [`MetaTxCreator`](MetaTxCreator.md)<`ColonyNetworkClient`, ``"registerUserLabel"``, { `label?`: `string` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **registerUsername**(`username`): [`MetaTxCreator`](MetaTxCreator.md)<`IColonyNetwork`, ``"registerUserLabel"``, { `label?`: `string` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Register a Colony-internal ENS username
 
@@ -356,45 +388,6 @@ Registers a username for the signing address. An address can only register one u
 
 #### Returns
 
-[`MetaTxCreator`](MetaTxCreator.md)<`ColonyNetworkClient`, ``"registerUserLabel"``, { `label?`: `string` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`MetaTxCreator`](MetaTxCreator.md)<`IColonyNetwork`, ``"registerUserLabel"``, { `label?`: `string` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
-
-___
-
-### init
-
-▸ `Static` **init**(`signerOrProvider`, `options?`): `Promise`<[`ColonyNetwork`](ColonyNetwork.md)\>
-
-Creates a new instance to connect to the ColonyNetwork
-
-This is your main entry point to talk to the Colony Network Smart Contracts.
-From here you should be able to instantiate all the required instances for Colonies and their extensions.
-
-**`Example`**
-
-```typescript
-import { providers } from 'ethers';
-import { ColonyNetwork, Tokens } from '@colony/sdk';
-
-// Connect directly to the deployed Colony Network on Gnosis Chain
-const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc/');
-// Immediately executing async function
-(async function() {
-  const colonyNetwork = await ColonyNetwork.init(provider);
-  // Now you could call functions on the colonyNetwork, like `colonyNetwork.getMetaColony()`
-})();
-```
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `signerOrProvider` | `SignerOrProvider` | An _ethers_ compatible Signer or Provider instance |
-| `options?` | [`ColonyNetworkOptions`](../interfaces/ColonyNetworkOptions.md) | Optional custom [ColonyNetworkOptions](../interfaces/ColonyNetworkOptions.md) |
-
-#### Returns
-
-`Promise`<[`ColonyNetwork`](ColonyNetwork.md)\>
-
-A ColonyNetwork abstraction instance

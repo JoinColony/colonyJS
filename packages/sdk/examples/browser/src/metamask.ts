@@ -7,7 +7,7 @@ const provider = new providers.Web3Provider((window as any).ethereum);
 
 // Get the Colony's XDAI funding in the ROOT pot (id 1)
 const getMetaColony = async (signer: Signer) => {
-  const colonyNetwork = await ColonyNetwork.init(signer);
+  const colonyNetwork = new ColonyNetwork(signer);
   return colonyNetwork.getMetaColony();
 };
 

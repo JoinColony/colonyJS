@@ -1,11 +1,11 @@
-import type { MotionCreatedEventObject } from '@colony/colony-js/events';
+import type { MotionCreatedEventObject } from '@colony/events';
 
 import {
   ColonyRole,
   getPermissionProofs,
   getCreateMotionProofs,
   Id,
-} from '@colony/colony-js';
+} from '@colony/core';
 import { BigNumberish } from 'ethers';
 import { MetadataType } from '@colony/colony-event-metadata-parser';
 
@@ -74,7 +74,8 @@ export class ColonyTxCreator<
         );
       }
       const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
-        this.colony.getInternalColonyClient(),
+        this.colonyNetwork.getInternalNetworkContract(),
+        this.colony.getInternalColonyContract(),
         this.permissionConfig.domain,
         this.permissionConfig.roles,
         this.permissionConfig.address,
@@ -119,9 +120,29 @@ export class ColonyTxCreator<
         ? '0x0'
         : this.contract.address;
 
+    const { actionCid, key, value, branchMask, siblings } =
+      await getCreateMotionProofs(
+        this.colonyNetwork.getInternalNetworkContract(),
+        this.colony.getInternalColonyContract(),
+        this.colony.reputation,
+        this.colony.ext.motions.getInternalVotingReputationContract(),
+        motionDomain,
+        altTarget,
+        encodedAction,
+      );
+
     const tx = await this.colony.ext.motions
-      .getInternalVotingReputationClient()
-      .createMotionWithProofs(motionDomain, altTarget, encodedAction);
+      .getInternalVotingReputationContract()
+      .createMotion(
+        motionDomain,
+        actionCid,
+        altTarget,
+        encodedAction,
+        key,
+        value,
+        branchMask,
+        siblings,
+      );
 
     const receipt = await tx.wait();
 
@@ -166,11 +187,14 @@ export class ColonyTxCreator<
         : this.contract.address;
 
     const votingReputationClient =
-      this.colony.ext.motions.getInternalVotingReputationClient();
+      this.colony.ext.motions.getInternalVotingReputationContract();
 
     const { actionCid, key, value, branchMask, siblings } =
       await getCreateMotionProofs(
-        votingReputationClient,
+        this.colonyNetwork.getInternalNetworkContract(),
+        this.colony.getInternalColonyContract(),
+        this.colony.reputation,
+        this.colony.ext.motions.getInternalVotingReputationContract(),
         motionDomain,
         altTarget,
         encodedAction,

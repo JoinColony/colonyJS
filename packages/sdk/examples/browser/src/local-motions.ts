@@ -32,11 +32,9 @@ const getWallet = () => {
 // Instantiate a colony client, connected to the local MetaColony and Reputation Oracle
 const connectMetaColony = async (networkAddress: string) => {
   const signer = getWallet();
-  colonyNetwork = await ColonyNetwork.init(signer, {
-    networkClientOptions: {
-      networkAddress,
-      reputationOracleEndpoint: 'http://localhost:3000',
-    },
+  colonyNetwork = new ColonyNetwork(signer, {
+    customNetworkAddress: networkAddress,
+    reputationOracleEndpoint: 'http://localhost:3000',
   });
   // Get an instance of the MetaColony
   metaColony = await colonyNetwork.getMetaColony();
@@ -110,7 +108,8 @@ const approveForStaking = async () => {
   // Essentially you first "activate" them for use in the Colony in general and then approve some amount of that for staking in the VotingReputation extension
   await metaColony.token.approve(w`20`).tx();
   // Deposit all of approved the tokens
-  await colonyNetwork.locking.deposit(metaColony.token.address, w`20`).tx();
+  const tokenLocking = await colonyNetwork.getTokenLocking();
+  await tokenLocking.deposit(metaColony.token.address, w`20`).tx();
   // Approve 20 tokens for staking in the root domain
   await metaColony.ext.motions?.approveStake(w`20`).tx();
 };

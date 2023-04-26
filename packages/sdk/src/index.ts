@@ -1,4 +1,3 @@
-export { MotionState, NetworkClientOptions, Tokens } from '@colony/colony-js';
 export type {
   AnnotationMetadata,
   ColonyMetadata,
@@ -7,13 +6,28 @@ export type {
   MetadataType,
 } from '@colony/colony-event-metadata-parser';
 
+// FIXME: export much more from core (what could be helpful)
+export {
+  ColonyRole,
+  ColonyRpcEndpoint,
+  Extension,
+  ExtensionVersions,
+  isExtensionCompatible,
+  Id,
+  MotionState,
+  Tokens,
+  addressesAreEqual,
+  toEth,
+  toWei,
+  w,
+} from '@colony/core';
+
 export * from './ColonyNetwork';
 export * from './TxCreator';
-export * from './events';
-export * from './graph';
-export * from './ipfs';
 export * from './constants';
-export * from './utils';
+export * from './events';
+export * from './ipfs';
+export * from './graph';
 
 export type {
   Ethers6Filter,

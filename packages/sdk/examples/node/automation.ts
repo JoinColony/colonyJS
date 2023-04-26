@@ -15,7 +15,7 @@ const start = async () => {
   );
 
   // Initialize the Colony Network
-  const colonyNetwork = await ColonyNetwork.init(wallet);
+  const colonyNetwork = new ColonyNetwork(wallet);
   // Get an instance of your favourite colony
   const colony = await colonyNetwork.getColony(
     '0x364B3153A24bb9ECa28B8c7aCeB15E3942eb4fc5',

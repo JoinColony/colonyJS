@@ -1,43 +1,31 @@
 import type {
   ExtensionUpgradedEventObject,
   OneTxPaymentMadeEventObject,
-} from '@colony/colony-js/events';
+} from '@colony/events';
 
 import {
-  ColonyRole,
+  type OneTxPaymentVersion,
   Extension,
+  ColonyRole,
+  Id,
   getExtensionHash,
   getPermissionProofs,
-  Id,
-  OneTxPaymentClientV4,
-} from '@colony/colony-js';
-import { BigNumber, BigNumberish } from 'ethers';
+  isExtensionCompatible,
+} from '@colony/core';
+import { BigNumber, BigNumberish, constants } from 'ethers';
 
 import { extractEvent } from '../utils';
-import { Colony, SupportedColonyClient } from './Colony';
+import {
+  OneTxPayment as OneTxPaymentContract,
+  OneTxPayment__factory as OneTxPaymentFactory,
+} from '../contracts/OneTxPayment/4';
+import { Colony } from './Colony';
 
-export type SupportedOneTxPaymentClient = OneTxPaymentClientV4;
+const { AddressZero } = constants;
 
-export const getOneTxPaymentClient = async (
-  colonyClient: SupportedColonyClient,
-) => {
-  const oneTxPaymentClient = await colonyClient.getExtensionClient(
-    OneTxPayment.extensionType,
-  );
+export type SupportedOneTxPaymentContract = OneTxPaymentContract;
 
-  // TODO: Support more versions?
-  if (
-    oneTxPaymentClient.clientVersion !==
-    OneTxPayment.getLatestSupportedVersion()
-  ) {
-    throw new Error(
-      `The installed version ${oneTxPaymentClient.clientVersion} of the OneTxPayment extension is not supported. Please upgrade the extension in your Colony`,
-    );
-  }
-
-  return oneTxPaymentClient;
-};
-
+// FIXME: docs (annotate all properties)
 /**
  * ## `OneTxPayment` (One Transaction Payment)
  *
@@ -52,17 +40,55 @@ export const getOneTxPaymentClient = async (
  * Note: if you deployed your Colony using the Dapp, the OneTxPayment extension is already installed for you
  */
 export class OneTxPayment {
-  static supportedVersions: 4[] = [4];
+  static supportedVersions: OneTxPaymentVersion[] = [4];
 
   static extensionType: Extension.OneTxPayment = Extension.OneTxPayment;
 
+  static async connect(colony: Colony) {
+    const address = await colony.colonyNetwork
+      .getInternalNetworkContract()
+      .getExtensionInstallation(
+        getExtensionHash(OneTxPayment.extensionType),
+        colony.address,
+      );
+    if (address === AddressZero) {
+      throw new Error(
+        `${OneTxPayment.extensionType} extension is not installed for this Colony`,
+      );
+    }
+    const oneTxPaymentContract = OneTxPaymentFactory.connect(
+      address,
+      colony.colonyNetwork.signerOrProvider,
+    );
+    const deployedVersion = (
+      await oneTxPaymentContract.version()
+    ).toNumber() as OneTxPaymentVersion;
+    if (OneTxPayment.supportedVersions.includes(deployedVersion)) {
+      throw new Error(
+        `Version ${deployedVersion} of the ${OneTxPayment.extensionType} contract is not supported in the SDK as of now`,
+      );
+    }
+    if (
+      !isExtensionCompatible(
+        Extension.OneTxPayment,
+        deployedVersion,
+        colony.version,
+      )
+    ) {
+      throw new Error(
+        `Version ${deployedVersion} of the ${OneTxPayment.extensionType} contract is not compatible with the installed Colony contract version ${colony.version}`,
+      );
+    }
+    return new OneTxPayment(colony, oneTxPaymentContract, deployedVersion);
+  }
+
   private colony: Colony;
 
-  private oneTxPaymentClient: SupportedOneTxPaymentClient;
+  private oneTxPaymentContract: SupportedOneTxPaymentContract;
 
   address: string;
 
-  version: number;
+  version: OneTxPaymentVersion;
 
   static getLatestSupportedVersion() {
     return OneTxPayment.supportedVersions[
@@ -70,11 +96,25 @@ export class OneTxPayment {
     ];
   }
 
-  constructor(colony: Colony, oneTxPaymentClient: SupportedOneTxPaymentClient) {
-    this.address = oneTxPaymentClient.address;
+  constructor(
+    colony: Colony,
+    oneTxPaymentContract: SupportedOneTxPaymentContract,
+    deployedVersion: OneTxPaymentVersion,
+  ) {
+    this.address = oneTxPaymentContract.address;
     this.colony = colony;
-    this.oneTxPaymentClient = oneTxPaymentClient;
-    this.version = oneTxPaymentClient.clientVersion;
+    this.oneTxPaymentContract = oneTxPaymentContract;
+    this.version = deployedVersion;
+  }
+
+  /**
+   * Provide direct access to the internally used OneTxPayment contract. Only use when you know what you're doing
+   * @internal
+   *
+   * @returns The internally used OneTxPaymentContract
+   */
+  getInternalVotingReputationContract(): SupportedOneTxPaymentContract {
+    return this.oneTxPaymentContract;
   }
 
   /**
@@ -119,13 +159,11 @@ export class OneTxPayment {
     teamId?: BigNumberish,
     tokenAddress?: string | string[],
   ) {
-    const colonyClient = this.colony.getInternalColonyClient();
-
     const setReceipient = ([] as string[]).concat(recipient);
     const setTeamId = teamId || Id.RootDomain;
     const setTokenAddress = tokenAddress
       ? ([] as string[]).concat(tokenAddress)
-      : Array(setReceipient.length).fill(colonyClient.tokenClient.address);
+      : Array(setReceipient.length).fill(this.colony.token.address);
     const setAmount = ([] as BigNumberish[]).concat(amount);
 
     if (setReceipient.length !== setAmount.length) {
@@ -149,23 +187,26 @@ export class OneTxPayment {
     const sortedTokens = indices.map((i) => setTokenAddress[i]);
 
     return this.colony.createColonyTxCreator(
-      this.oneTxPaymentClient,
+      this.oneTxPaymentContract,
       'makePaymentFundedFromDomain',
       async () => {
         // Manual permission proofs are needed here
         const [extPermissionDomainId, extChildSkillIndex] =
           await getPermissionProofs(
-            colonyClient,
+            this.colony.colonyNetwork.getInternalNetworkContract(),
+            this.colony.getInternalColonyContract(),
             setTeamId,
             [ColonyRole.Administration, ColonyRole.Funding],
-            this.oneTxPaymentClient.address,
+            this.oneTxPaymentContract.address,
           );
 
         const [userPermissionDomainId, userChildSkillIndex] =
-          await getPermissionProofs(colonyClient, setTeamId, [
-            ColonyRole.Administration,
-            ColonyRole.Funding,
-          ]);
+          await getPermissionProofs(
+            this.colony.colonyNetwork.getInternalNetworkContract(),
+            this.colony.getInternalColonyContract(),
+            setTeamId,
+            [ColonyRole.Administration, ColonyRole.Funding],
+          );
 
         return [
           extPermissionDomainId,
@@ -223,7 +264,7 @@ export class OneTxPayment {
   upgrade(toVersion?: BigNumberish) {
     const version = toVersion || this.version + 1;
     return this.colony.createColonyTxCreator(
-      this.colony.getInternalColonyClient(),
+      this.colony.getInternalColonyContract(),
       'upgradeExtension',
       [getExtensionHash(Extension.OneTxPayment), version],
       async (receipt) => ({

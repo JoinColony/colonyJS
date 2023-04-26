@@ -11,7 +11,7 @@ const domainData: { fundingPotId?: BigNumber; domainId?: BigNumber } = {};
 
 // Instantiate a colony client
 const getColony = async (colonyAddress: string, signer: Signer) => {
-  const colonyNetwork = await ColonyNetwork.init(signer, {
+  const colonyNetwork = new ColonyNetwork(signer, {
     ipfsAdapter: new PinataAdapter('INVALID'),
   });
   return colonyNetwork.getColony(colonyAddress);

@@ -8,7 +8,7 @@ const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
 
 // Get the Colony's CLNY funding in the root domain (on Gnosis chain)
 const getColonyFunding = async (colonyAddress: string) => {
-  const colonyNetwork = await ColonyNetwork.init(provider);
+  const colonyNetwork = new ColonyNetwork(provider);
   const colony = await colonyNetwork.getColony(colonyAddress);
   const funding = await colony.getBalance(Tokens.Gnosis.CLNY);
   return formatEther(funding);

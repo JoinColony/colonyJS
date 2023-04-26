@@ -1,21 +1,22 @@
-import { constants, providers, EventFilter } from 'ethers';
-
-import type { Result } from 'ethers/lib/utils';
+import type { Result } from '@ethersproject/abi';
 import type { BlockTag } from '@ethersproject/abstract-provider';
-import {
-  IColonyEvents,
-  IColonyEvents__factory,
-  IColonyNetworkEvents,
-  IColonyNetworkEvents__factory,
-  OneTxPaymentEvents,
-  OneTxPaymentEvents__factory,
-  VotingReputationEvents,
-  VotingReputationEvents__factory,
-} from '@colony/colony-js/events';
 import type { MetadataType } from '@colony/colony-event-metadata-parser';
 
+import { constants, providers, EventFilter } from 'ethers';
+import { addressesAreEqual } from '@colony/core';
+import {
+  type IColonyEvents,
+  type IColonyNetworkEvents,
+  type OneTxPaymentEvents,
+  type VotingReputationEvents,
+  ColonyEventsFactory,
+  ColonyNetworkEventsFactory,
+  OneTxPaymentEventsFactory,
+  VotingReputationEventsFactory,
+} from '@colony/events';
+
 import type { Ethers6Filter } from '../types';
-import { addressesAreEqual, getLogs, nonNullable } from '../utils';
+import { getLogs, nonNullable } from '../utils';
 import {
   IpfsAdapter,
   IpfsMetadata,
@@ -104,16 +105,16 @@ export class ColonyEventManager {
     options?: ColonyEventManagerOptions,
   ) {
     this.eventSources = {
-      Colony: IColonyEvents__factory.connect(constants.AddressZero, provider),
-      ColonyNetwork: IColonyNetworkEvents__factory.connect(
+      Colony: ColonyEventsFactory.connect(constants.AddressZero, provider),
+      ColonyNetwork: ColonyNetworkEventsFactory.connect(
         constants.AddressZero,
         provider,
       ),
-      OneTxPayment: OneTxPaymentEvents__factory.connect(
+      OneTxPayment: OneTxPaymentEventsFactory.connect(
         constants.AddressZero,
         provider,
       ),
-      VotingReputation: VotingReputationEvents__factory.connect(
+      VotingReputation: VotingReputationEventsFactory.connect(
         constants.AddressZero,
         provider,
       ),
@@ -357,9 +358,9 @@ export class ColonyEventManager {
   // We split up the type definition and the actual implementation to relax the TypeScript strictness a little bit for the implementation so it won't go crazy.
   createFilter(
     contract: EventSource,
-    eventName: keyof typeof contract['filters'],
+    eventName: keyof (typeof contract)['filters'],
     address?: string,
-    params?: Parameters<typeof contract['filters'][typeof eventName]>,
+    params?: Parameters<(typeof contract)['filters'][typeof eventName]>,
     options: { fromBlock?: BlockTag; toBlock?: BlockTag } = {},
   ): ColonyFilter {
     // Create standard filter

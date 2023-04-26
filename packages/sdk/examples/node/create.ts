@@ -21,7 +21,7 @@ const start = async () => {
   const signer = new Wallet(process.env.PRIVATE_KEY as string).connect(
     provider,
   );
-  const colonyNetwork = await ColonyNetwork.init(signer);
+  const colonyNetwork = new ColonyNetwork(signer);
 
   // ** 1st transaction **
 

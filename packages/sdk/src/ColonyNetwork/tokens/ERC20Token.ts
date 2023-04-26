@@ -1,16 +1,13 @@
-import {
-  ApprovalEventObject,
-  TransferEventObject,
-} from '@colony/colony-js/events';
+import type { BigNumber, BigNumberish } from 'ethers';
+import type { ApprovalEventObject, TransferEventObject } from '@colony/events';
 
 import {
   ERC20Token as ERC20TokenType,
   ERC20TokenFactory,
-} from '@colony/colony-js/tokens';
-import type { BigNumberish } from 'ethers';
+} from '@colony/tokens';
 
-import { extractEvent } from '../utils';
-import { ColonyNetwork } from './ColonyNetwork';
+import { extractEvent } from '../../utils';
+import { ColonyNetwork } from '../ColonyNetwork';
 
 export class ERC20Token {
   protected colonyNetwork: ColonyNetwork;
@@ -187,11 +184,14 @@ export class ERC20Token {
    * | `wad` | BigNumber | Amount that was approved |
    */
   approve(amount: BigNumberish, spender?: string) {
-    const approvedSpender = spender || this.colonyNetwork.locking.address;
     return this.colonyNetwork.createTxCreator(
       this.tokenClient,
       'approve',
-      [approvedSpender, amount],
+      async () => {
+        const tokenLocking = await this.colonyNetwork.getTokenLocking();
+        const approvedSpender = spender || tokenLocking.address;
+        return [approvedSpender, amount] as [string, BigNumber];
+      },
       async (receipt) => ({
         ...extractEvent<ApprovalEventObject>('Approval', receipt),
       }),

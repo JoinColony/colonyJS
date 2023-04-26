@@ -1,9 +1,9 @@
-import { Network } from '@colony/colony-js';
-import { ERC2612Token as ERC2612TokenType } from '@colony/colony-js/tokens';
+import type { TypedDataSigner } from '@ethersproject/abstract-signer';
+
+import { Network } from '@colony/core';
+import { ERC2612Token as ERC2612TokenType } from '@colony/tokens';
 import { BigNumberish, Signer, utils } from 'ethers';
 import { MetadataType } from '@colony/colony-event-metadata-parser';
-
-import type { TypedDataSigner } from '@ethersproject/abstract-signer';
 
 import { ParsedLogTransactionReceipt } from '../types';
 

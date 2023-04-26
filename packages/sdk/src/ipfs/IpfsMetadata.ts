@@ -55,9 +55,9 @@ const IPFS_METADATA_ENCODERS = {
 } as const;
 
 export type MetadataEvent<K extends MetadataType> =
-  typeof IPFS_METADATA_EVENTS[K];
+  (typeof IPFS_METADATA_EVENTS)[K];
 export type MetadataValue<K extends MetadataType> = ReturnType<
-  typeof IPFS_METADATA_PARSERS[K]
+  (typeof IPFS_METADATA_PARSERS)[K]
 >;
 
 /**
@@ -144,7 +144,7 @@ export class IpfsMetadata {
 
   async uploadMetadata<T extends MetadataType>(
     type: T,
-    data: Parameters<typeof IPFS_METADATA_ENCODERS[T]>[0],
+    data: Parameters<(typeof IPFS_METADATA_ENCODERS)[T]>[0],
   ) {
     const str = IPFS_METADATA_ENCODERS[type](
       // @ts-expect-error Is it possible to type this properly without repeating all the checks from the parser library?

@@ -6,18 +6,14 @@
 
 ## Enumerations
 
-- [ColonyLabelSuffix](enums/ColonyLabelSuffix.md)
 - [ColonyRole](enums/ColonyRole.md)
 - [ColonyRpcEndpoint](enums/ColonyRpcEndpoint.md)
 - [Extension](enums/Extension.md)
 - [Id](enums/Id.md)
-- [MetaTxBroadCasterEndpoint](enums/MetaTxBroadCasterEndpoint.md)
 - [MetadataType](enums/MetadataType.md)
 - [MotionState](enums/MotionState.md)
-- [Network](enums/Network.md)
 - [SupportedExtension](enums/SupportedExtension.md)
 - [TeamColor](enums/TeamColor.md)
-- [UserLabelSuffix](enums/UserLabelSuffix.md)
 - [Vote](enums/Vote.md)
 
 ## Classes
@@ -56,7 +52,6 @@
 - [GraphDomain](interfaces/GraphDomain.md)
 - [IpfsAdapter](interfaces/IpfsAdapter.md)
 - [MetaTxBaseContract](interfaces/MetaTxBaseContract.md)
-- [NetworkClientOptions](interfaces/NetworkClientOptions.md)
 - [ParsedLogTransactionReceipt](interfaces/ParsedLogTransactionReceipt.md)
 - [PermissionConfig](interfaces/PermissionConfig.md)
 - [SubgraphClientOptions](interfaces/SubgraphClientOptions.md)
@@ -96,15 +91,33 @@ ___
 | :------ | :------ |
 | `K` | extends [`MetadataType`](enums/MetadataType.md) |
 
+___
+
+### Token
+
+Ƭ **Token**: [`ColonyToken`](classes/ColonyToken.md) \| [`ERC20Token`](classes/ERC20Token.md) \| [`ERC2612Token`](classes/ERC2612Token.md)
+
 ## Variables
 
-### DecisionMotionCode
+### ExtensionVersions
 
-• `Const` **DecisionMotionCode**: ``"0x12345678"``
+• `Const` **ExtensionVersions**: `Object`
 
-Identifies a motion as a decision
+#### Type declaration
 
-Usually there's no need to use this directly. Use [VotingReputation.createDecision](classes/VotingReputation.md#createdecision) instead.
+| Name | Type |
+| :------ | :------ |
+| `CoinMachine` | ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` |
+| `EvaluatedExpenditure` | ``2`` \| ``1`` \| ``3`` |
+| `FundingQueue` | ``2`` \| ``1`` \| ``3`` \| ``4`` |
+| `IVotingReputation` | ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``8`` \| ``5`` \| ``6`` \| ``7`` |
+| `OneTxPayment` | ``2`` \| ``1`` \| ``3`` \| ``4`` |
+| `ReputationBootstrapper` | ``1`` |
+| `StakedExpenditure` | ``2`` \| ``1`` |
+| `StreamingPayments` | ``2`` \| ``1`` |
+| `TokenSupplier` | ``2`` \| ``1`` \| ``3`` \| ``4`` |
+| `VotingReputation` | ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``8`` \| ``5`` \| ``6`` \| ``7`` |
+| `Whitelist` | ``2`` \| ``1`` \| ``3`` |
 
 ## Functions
 
@@ -187,73 +200,20 @@ A ready-to-use `urql` GraphQL client instance
 
 ___
 
-### extractCustomEvent
+### getToken
 
-▸ **extractCustomEvent**<`T`\>(`eventName`, `receipt`, `iface`): `undefined` \| `T`
-
-Manually extract an event using the interface (e.g. if emitting contract is a different one than the calling contract)
-
-#### Type parameters
-
-| Name |
-| :------ |
-| `T` |
+▸ **getToken**(`colonyNetwork`, `address`): `Promise`<[`ERC20Token`](classes/ERC20Token.md)\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `eventName` | `string` |
-| `receipt` | `ContractReceipt` \| [`ParsedLogTransactionReceipt`](interfaces/ParsedLogTransactionReceipt.md) |
-| `iface` | `Interface` |
+| `colonyNetwork` | [`ColonyNetwork`](classes/ColonyNetwork.md) |
+| `address` | `string` |
 
 #### Returns
 
-`undefined` \| `T`
-
-___
-
-### extractEvent
-
-▸ **extractEvent**<`T`\>(`eventName`, `receipt`): `undefined` \| `T`
-
-Extract event args from a contract receipt
-
-#### Type parameters
-
-| Name |
-| :------ |
-| `T` |
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `eventName` | `string` |
-| `receipt` | `ContractReceipt` \| [`ParsedLogTransactionReceipt`](interfaces/ParsedLogTransactionReceipt.md) |
-
-#### Returns
-
-`undefined` \| `T`
-
-___
-
-### getLogs
-
-▸ **getLogs**(`filter`, `provider`): `Promise`<`Log`[]\>
-
-Version of `getLogs` that also supports filtering for multiple addresses
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `filter` | [`Ethers6Filter`](interfaces/Ethers6Filter.md) \| [`Ethers6FilterByBlockHash`](interfaces/Ethers6FilterByBlockHash.md) \| `Promise`<[`Ethers6Filter`](interfaces/Ethers6Filter.md) \| [`Ethers6FilterByBlockHash`](interfaces/Ethers6FilterByBlockHash.md)\> |
-| `provider` | `JsonRpcProvider` |
-
-#### Returns
-
-`Promise`<`Log`[]\>
+`Promise`<[`ERC20Token`](classes/ERC20Token.md)\>
 
 ___
 
@@ -300,53 +260,26 @@ ___
 
 ___
 
-### nonNullable
+### isExtensionCompatible
 
-▸ **nonNullable**<`T`\>(`value`): value is NonNullable<T\>
+▸ **isExtensionCompatible**(`extension`, `extensionVersion`, `colonyVersion`): `boolean`
 
-Use this to filter empty undefinied values from arrays in a type-safe way
-
-#### Type parameters
-
-| Name |
-| :------ |
-| `T` |
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `value` | `T` |
-
-#### Returns
-
-value is NonNullable<T\>
-
-___
-
-### parseRoles
-
-▸ **parseRoles**(`roles`): [`ColonyRole`](enums/ColonyRole.md)[]
-
-Parses a binary role integer into a [ColonyRole](enums/ColonyRole.md) array
-
-When getting multiple roles from contract methods or events they are
-usually formatted as a binary number. Here the least significant bit is
-the role with the index 0 (Recovery).
-
-E.g. 5 = 0b00101 equals Recovery and Arbitration
-
-This function parses these binary integers into a [ColonyRole](enums/ColonyRole.md) array.
+Checks the compatibility of an extension version with a colony version it requests to be installed in
+Returns `true` if an extension version is compatible with the given colony version
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `roles` | `string` | A hex string (e.g. 0x3 = 0b11 equals Recovery and Root roles) |
+| `extension` | [`Extension`](enums/Extension.md) | A valid `Extension` contract name |
+| `extensionVersion` | `ExtensionVersion` | The version of the extension to check against the colony |
+| `colonyVersion` | ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12`` | The version of the colony to check for |
 
 #### Returns
 
-[`ColonyRole`](enums/ColonyRole.md)[]
+`boolean`
+
+indication whether extension in given version is compatible with colony at the given version
 
 ___
 

@@ -1,13 +1,13 @@
-import type { ApprovalEventObject } from '@colony/colony-js/events';
+import type { ApprovalEventObject } from '@colony/events';
 
+import { BigNumber, BigNumberish } from 'ethers';
 import {
   ERC2612Token as ERC2612TokenType,
   ERC2612TokenFactory,
-} from '@colony/colony-js/tokens';
-import { BigNumberish } from 'ethers';
+} from '@colony/tokens';
 
-import { extractEvent } from '../utils';
-import { ColonyNetwork } from './ColonyNetwork';
+import { extractEvent } from '../../utils';
+import { ColonyNetwork } from '../ColonyNetwork';
 import { ERC20Token } from './ERC20Token';
 
 export class ERC2612Token extends ERC20Token {
@@ -84,11 +84,14 @@ export class ERC2612Token extends ERC20Token {
    * | `wad` | BigNumber | Amount that was approved |
    */
   permit(amount: BigNumberish, spender?: string) {
-    const spenderArg = spender || this.colonyNetwork.locking.address;
     return this.colonyNetwork.createEip2612TxCreator(
       this.tokenClient,
       'permit',
-      [spenderArg, amount],
+      async () => {
+        const tokenLocking = await this.colonyNetwork.getTokenLocking();
+        const spenderArg = spender || tokenLocking.address;
+        return [spenderArg, amount] as [string, BigNumber];
+      },
       async (receipt) => ({
         ...extractEvent<ApprovalEventObject>('Approval', receipt),
       }),

@@ -9,33 +9,42 @@ import type {
   ExtensionUpgradedEventObject,
   AnnotationEventObject,
   MotionEscalatedEventObject,
-} from '@colony/colony-js/events';
-import type { VotingReputationDataTypes } from '@colony/colony-js/extras';
+} from '@colony/events';
 
 import {
   DecisionMetadata,
   MetadataType,
 } from '@colony/colony-event-metadata-parser';
 import {
-  ColonyRole,
+  type ReputationClient,
+  type VotingReputationVersion,
   Extension,
+  Id,
+  MotionState,
+  DecisionMotionCode,
+  ColonyRole,
   getChildIndex,
   getCreateMotionProofs,
   getExtensionHash,
   getPermissionProofs,
-  Id,
-  MotionState,
-  VotingReputationClientV8,
-} from '@colony/colony-js';
-import { constants, BigNumber, BigNumberish, Signer, utils } from 'ethers';
+  isExtensionCompatible,
+  toEth,
+} from '@colony/core';
+import { constants, BigNumber, BigNumberish, utils } from 'ethers';
 
-import { DecisionMotionCode } from '../constants';
-import { extractEvent, extractCustomEvent, toEth } from '../utils';
-import { Colony, SupportedColonyClient } from './Colony';
+import type { VotingReputationDataTypes } from '../contracts/IVotingReputation/8/IVotingReputation';
+
+import {
+  IVotingReputation as VotingReputationContract,
+  IVotingReputation__factory as VotingReputationFactory,
+} from '../contracts/IVotingReputation/8';
+
+import { extractEvent, extractCustomEvent } from '../utils';
+import { Colony } from './Colony';
 
 const { AddressZero } = constants;
 
-export type SupportedVotingReputationClient = VotingReputationClientV8;
+export type SupportedVotingReputationContract = VotingReputationContract;
 
 export type Motion = VotingReputationDataTypes.MotionStruct;
 
@@ -45,27 +54,8 @@ export enum Vote {
 }
 
 type ReputationData = Awaited<
-  ReturnType<SupportedColonyClient['getReputation']>
+  ReturnType<ReputationClient['getReputationWithProofs']>
 >;
-
-export const getVotingReputationClient = async (
-  colonyClient: SupportedColonyClient,
-) => {
-  const votingReputationClient = await colonyClient.getExtensionClient(
-    VotingReputation.extensionType,
-  );
-
-  if (
-    votingReputationClient.clientVersion !==
-    VotingReputation.getLatestSupportedVersion()
-  ) {
-    throw new Error(
-      `The installed version ${votingReputationClient.clientVersion} of the VotingReputation extension is not supported. Please upgrade the extension in your Colony`,
-    );
-  }
-
-  return votingReputationClient;
-};
 
 const REP_DIVISOR = BigNumber.from(10).pow(18);
 
@@ -155,18 +145,61 @@ const REP_DIVISOR = BigNumber.from(10).pow(18);
  *
  */
 export class VotingReputation {
-  static supportedVersions: 8[] = [8];
+  static supportedVersions: VotingReputationVersion[] = [8];
 
   static extensionType: Extension.IVotingReputation =
     Extension.IVotingReputation;
 
+  // TODO: This could be abstracted in the future
+  static async connect(colony: Colony) {
+    const address = await colony.colonyNetwork
+      .getInternalNetworkContract()
+      .getExtensionInstallation(
+        getExtensionHash(VotingReputation.extensionType),
+        colony.address,
+      );
+    if (address === AddressZero) {
+      throw new Error(
+        `${VotingReputation.extensionType} extension is not installed for this Colony`,
+      );
+    }
+    const votingReputationContract = VotingReputationFactory.connect(
+      address,
+      colony.colonyNetwork.signerOrProvider,
+    );
+    const deployedVersion = (
+      await votingReputationContract.version()
+    ).toNumber() as VotingReputationVersion;
+    if (VotingReputation.supportedVersions.includes(deployedVersion)) {
+      throw new Error(
+        `Version ${deployedVersion} of the ${VotingReputation.extensionType} contract is not supported in the SDK as of now`,
+      );
+    }
+    if (
+      !isExtensionCompatible(
+        Extension.VotingReputation,
+        deployedVersion,
+        colony.version,
+      )
+    ) {
+      throw new Error(
+        `Version ${deployedVersion} of the ${VotingReputation.extensionType} contract is not compatible with the installed Colony contract version ${colony.version}`,
+      );
+    }
+    return new VotingReputation(
+      colony,
+      votingReputationContract,
+      deployedVersion,
+    );
+  }
+
   private colony: Colony;
 
-  private votingReputationClient: SupportedVotingReputationClient;
+  private votingReputationContract: SupportedVotingReputationContract;
 
   address: string;
 
-  version: number;
+  version: VotingReputationVersion;
 
   static getLatestSupportedVersion() {
     return VotingReputation.supportedVersions[
@@ -176,19 +209,20 @@ export class VotingReputation {
 
   constructor(
     colony: Colony,
-    votingReputationClient: SupportedVotingReputationClient,
+    votingReputationContract: SupportedVotingReputationContract,
+    deployedVersion: VotingReputationVersion,
   ) {
-    this.address = votingReputationClient.address;
+    this.address = votingReputationContract.address;
     this.colony = colony;
-    this.votingReputationClient = votingReputationClient;
-    this.version = votingReputationClient.clientVersion;
+    this.votingReputationContract = votingReputationContract;
+    this.version = deployedVersion;
   }
 
   /**
    * Have the user sign a message to create a salt for casting and revealing a vote
    */
   private async createMotionSalt(motionId: BigNumberish) {
-    const { address } = this.votingReputationClient;
+    const { address } = this.votingReputationContract;
     const motionNumber = BigNumber.from(motionId).toNumber();
     /*
      * NOTE We need this to be all in one line (no new lines, or line breaks) since
@@ -197,7 +231,7 @@ export class VotingReputation {
      */
     const message = `Sign this message to generate 'salt' entropy. Extension Address: ${address} Motion ID: ${motionNumber}`;
     const signature = await this.colony
-      .getInternalColonyClient()
+      .getInternalColonyContract()
       .signer.signMessage(message);
     return utils.keccak256(signature);
   }
@@ -213,7 +247,7 @@ export class VotingReputation {
     const { key, value, branchMask, siblings } = reputation;
     let sideVoted;
     try {
-      await this.votingReputationClient.estimateGas.revealVote(
+      await this.votingReputationContract.estimateGas.revealVote(
         motionId,
         salt,
         0,
@@ -226,7 +260,7 @@ export class VotingReputation {
     } catch (nayErr) {
       if ((nayErr as Error).message.includes('voting-rep-secret-no-match')) {
         try {
-          await this.votingReputationClient.estimateGas.revealVote(
+          await this.votingReputationContract.estimateGas.revealVote(
             motionId,
             salt,
             1,
@@ -245,13 +279,13 @@ export class VotingReputation {
   }
 
   /**
-   * Provide direct access to the internally used ColonyJS client. Only use when you know what you're doing
+   * Provide direct access to the internally used VotingReputation contract. Only use when you know what you're doing
    * @internal
    *
-   * @returns The internally used VotingReputationClient
+   * @returns The internally used VotingReputationContract
    */
-  getInternalVotingReputationClient(): SupportedVotingReputationClient {
-    return this.votingReputationClient;
+  getInternalVotingReputationContract(): SupportedVotingReputationContract {
+    return this.votingReputationContract;
   }
 
   /**
@@ -264,11 +298,11 @@ export class VotingReputation {
    * @returns A Motion object
    */
   async getMotion(motionId: BigNumberish) {
-    const motionCount = await this.votingReputationClient.getMotionCount();
+    const motionCount = await this.votingReputationContract.getMotionCount();
     if (motionCount.lt(motionId)) {
       throw new Error(`Motion with id ${motionId} does not exist`);
     }
-    return this.votingReputationClient.getMotion(motionId);
+    return this.votingReputationContract.getMotion(motionId);
   }
 
   /**
@@ -303,11 +337,11 @@ export class VotingReputation {
    * @returns The motion state
    */
   async getMotionState(motionId: BigNumberish) {
-    const motionCount = await this.votingReputationClient.getMotionCount();
+    const motionCount = await this.votingReputationContract.getMotionCount();
     if (motionCount.lt(motionId)) {
       throw new Error(`Motion with id ${motionId} does not exist`);
     }
-    return this.votingReputationClient.getMotionState(motionId);
+    return this.votingReputationContract.getMotionState(motionId);
   }
 
   /**
@@ -334,10 +368,10 @@ export class VotingReputation {
     // Fraction of the total amount that is required to be staked for either side
     // (Yay or Nay) to be activated
     const totalStakeFraction =
-      await this.votingReputationClient.getTotalStakeFraction();
+      await this.votingReputationContract.getTotalStakeFraction();
     // Fraction of the total amount that has to be staked per transaction
     const userMinStakeFraction =
-      await this.votingReputationClient.getUserMinStakeFraction();
+      await this.votingReputationContract.getUserMinStakeFraction();
     // Total amount that is needed for activation
     const requiredStakeForActivation = BigNumber.from(skillRep)
       .mul(totalStakeFraction)
@@ -389,7 +423,7 @@ export class VotingReputation {
     // Fraction of the total amount that is required to be staked for either side
     // (Yay or Nay) to be activated
     const totalStakeFraction =
-      await this.votingReputationClient.getTotalStakeFraction();
+      await this.votingReputationContract.getTotalStakeFraction();
     // Fraction of the total amount that has to be staked per transaction
     // Total amount that is needed for activation
     const requiredStakeForActivation = skillRep
@@ -448,12 +482,15 @@ export class VotingReputation {
    */
   createDecision(team: BigNumberish = Id.RootDomain) {
     return this.colony.colonyNetwork.createMetaTxCreator(
-      this.votingReputationClient,
+      this.votingReputationContract,
       'createMotion',
       async () => {
         const { actionCid, key, value, branchMask, siblings } =
           await getCreateMotionProofs(
-            this.votingReputationClient,
+            this.colony.colonyNetwork.getInternalNetworkContract(),
+            this.colony.getInternalColonyContract(),
+            this.colony.reputation,
+            this.votingReputationContract,
             team,
             AddressZero,
             DecisionMotionCode,
@@ -533,7 +570,7 @@ export class VotingReputation {
    */
   annotateDecision(txHash: string, metadata: DecisionMetadata | string) {
     return this.colony.colonyNetwork.createMetaTxCreator(
-      this.colony.getInternalColonyClient(),
+      this.colony.getInternalColonyContract(),
       'annotateTransaction',
       async () => {
         let cid: string;
@@ -577,17 +614,19 @@ export class VotingReputation {
    */
   approveStake(amount: BigNumberish, teamId: BigNumberish = Id.RootDomain) {
     return this.colony.colonyNetwork.createMetaTxCreator(
-      this.colony.getInternalColonyClient(),
+      this.colony.getInternalColonyContract(),
       'approveStake',
-      [this.votingReputationClient.address, teamId, amount],
-      async (receipt) => ({
-        ...extractCustomEvent<UserTokenApprovedEventObject>(
-          'UserTokenApproved',
-          receipt,
-          this.colony.colonyNetwork.locking.getInternalTokenLockingClient()
-            .interface,
-        ),
-      }),
+      [this.votingReputationContract.address, teamId, amount],
+      async (receipt) => {
+        const tokenLocking = await this.colony.colonyNetwork.getTokenLocking();
+        return {
+          ...extractCustomEvent<UserTokenApprovedEventObject>(
+            'UserTokenApproved',
+            receipt,
+            tokenLocking.getInternalTokenLockingContract().interface,
+          ),
+        };
+      },
     );
   }
 
@@ -632,13 +671,11 @@ export class VotingReputation {
    */
   stakeMotion(motionId: BigNumberish, vote: Vote, amount: BigNumberish) {
     const getArgs = async () => {
-      if (!(this.colony.signerOrProvider instanceof Signer)) {
-        throw new Error('Need a signer to create a transaction');
-      }
+      const userAddress = await this.colony.colonyNetwork
+        .getSigner()
+        .getAddress();
 
-      const userAddress = await this.colony.signerOrProvider.getAddress();
-
-      const motionState = await this.votingReputationClient.getMotionState(
+      const motionState = await this.votingReputationContract.getMotionState(
         motionId,
       );
 
@@ -649,8 +686,9 @@ export class VotingReputation {
       }
 
       const motion = await this.getMotion(motionId);
+      const tokenLocking = await this.colony.colonyNetwork.getTokenLocking();
 
-      const deposited = await this.colony.colonyNetwork.locking.getUserDeposit(
+      const deposited = await tokenLocking.getUserDeposit(
         this.colony.token.address,
         userAddress,
       );
@@ -658,12 +696,11 @@ export class VotingReputation {
         throw new Error('Not enough tokens deposited for staking.');
       }
 
-      const colonyApproval =
-        await this.colony.colonyNetwork.locking.getUserApproval(
-          this.colony.token.address,
-          userAddress,
-          this.colony.address,
-        );
+      const colonyApproval = await tokenLocking.getUserApproval(
+        this.colony.token.address,
+        userAddress,
+        this.colony.address,
+      );
       if (colonyApproval.lt(amount)) {
         throw new Error(
           'Not enough tokens approved for staking in the Colony.',
@@ -671,7 +708,7 @@ export class VotingReputation {
       }
 
       const votingReputationApproval = await this.colony
-        .getInternalColonyClient()
+        .getInternalColonyContract()
         .getApproval(userAddress, this.address, motion.domainId);
 
       if (votingReputationApproval.lt(amount)) {
@@ -696,20 +733,22 @@ export class VotingReputation {
         );
       }
 
-      const colonyClient = this.colony.getInternalColonyClient();
-
       const { domainId, rootHash } = await this.getMotion(motionId);
       const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
-        colonyClient,
+        this.colony.colonyNetwork.getInternalNetworkContract(),
+        this.colony.getInternalColonyContract(),
         domainId,
         ColonyRole.Arbitration,
         this.address,
       );
 
-      const { skillId } = await colonyClient.getDomain(domainId);
-      const walletAddress = await this.colony.signerOrProvider.getAddress();
+      const { skillId } = await this.colony.getTeam(domainId);
       const { key, value, branchMask, siblings } =
-        await colonyClient.getReputation(skillId, walletAddress, rootHash);
+        await this.colony.reputation.getReputationWithProofs(
+          skillId,
+          userAddress,
+          rootHash,
+        );
 
       return [
         motionId,
@@ -735,7 +774,7 @@ export class VotingReputation {
     };
 
     return this.colony.colonyNetwork.createMetaTxCreator(
-      this.votingReputationClient,
+      this.votingReputationContract,
       'stakeMotion',
       getArgs,
       async (receipt) => ({
@@ -765,7 +804,7 @@ export class VotingReputation {
    */
   submitVote(motionId: BigNumberish, vote: Vote) {
     const getArgs = async () => {
-      const motionState = await this.votingReputationClient.getMotionState(
+      const motionState = await this.votingReputationContract.getMotionState(
         motionId,
       );
 
@@ -775,13 +814,18 @@ export class VotingReputation {
         );
       }
 
-      const colonyClient = this.colony.getInternalColonyClient();
       const { domainId, rootHash } = await this.getMotion(motionId);
-      const { skillId } = await colonyClient.getDomain(domainId);
-      const userAddress = await colonyClient.signer.getAddress();
+      const { skillId } = await this.colony.getTeam(domainId);
+      const userAddress = await this.colony.colonyNetwork
+        .getSigner()
+        .getAddress();
 
       const { key, value, branchMask, siblings } =
-        await colonyClient.getReputation(skillId, userAddress, rootHash);
+        await this.colony.reputation.getReputationWithProofs(
+          skillId,
+          userAddress,
+          rootHash,
+        );
 
       const salt = await this.createMotionSalt(motionId);
       const hash = utils.solidityKeccak256(['bytes', 'uint256'], [salt, vote]);
@@ -797,7 +841,7 @@ export class VotingReputation {
     };
 
     return this.colony.colonyNetwork.createMetaTxCreator(
-      this.votingReputationClient,
+      this.votingReputationContract,
       'submitVote',
       getArgs,
       async (receipt) => ({
@@ -831,7 +875,7 @@ export class VotingReputation {
    */
   revealVote(motionId: BigNumberish, vote?: Vote) {
     const getArgs = async () => {
-      const motionState = await this.votingReputationClient.getMotionState(
+      const motionState = await this.votingReputationContract.getMotionState(
         motionId,
       );
 
@@ -841,12 +885,13 @@ export class VotingReputation {
         );
       }
 
-      const colonyClient = this.colony.getInternalColonyClient();
       const { domainId, rootHash } = await this.getMotion(motionId);
-      const { skillId } = await colonyClient.getDomain(domainId);
-      const userAddress = await colonyClient.signer.getAddress();
+      const { skillId } = await this.colony.getTeam(domainId);
+      const userAddress = await this.colony.colonyNetwork
+        .getSigner()
+        .getAddress();
 
-      const reputation = await colonyClient.getReputation(
+      const reputation = await this.colony.reputation.getReputationWithProofs(
         skillId,
         userAddress,
         rootHash,
@@ -876,7 +921,7 @@ export class VotingReputation {
     };
 
     return this.colony.colonyNetwork.createMetaTxCreator(
-      this.votingReputationClient,
+      this.votingReputationContract,
       'revealVote',
       getArgs,
       async (receipt) => ({
@@ -907,7 +952,7 @@ export class VotingReputation {
    */
   escalateMotion(motionId: BigNumberish, newTeamId: BigNumberish) {
     const getArgs = async () => {
-      const motionState = await this.votingReputationClient.getMotionState(
+      const motionState = await this.votingReputationContract.getMotionState(
         motionId,
       );
 
@@ -917,15 +962,25 @@ export class VotingReputation {
         );
       }
 
-      const colonyClient = this.colony.getInternalColonyClient();
       const { domainId, rootHash } = await this.getMotion(motionId);
-      const { skillId } = await colonyClient.getDomain(newTeamId);
-      const userAddress = await colonyClient.signer.getAddress();
+      const { skillId } = await this.colony.getTeam(newTeamId);
+      const userAddress = await this.colony.colonyNetwork
+        .getSigner()
+        .getAddress();
 
-      const childIndex = await getChildIndex(colonyClient, newTeamId, domainId);
+      const childIndex = await getChildIndex(
+        this.colony.colonyNetwork.getInternalNetworkContract(),
+        this.colony.getInternalColonyContract(),
+        newTeamId,
+        domainId,
+      );
 
       const { key, value, branchMask, siblings } =
-        await colonyClient.getReputation(skillId, userAddress, rootHash);
+        await this.colony.reputation.getReputationWithProofs(
+          skillId,
+          userAddress,
+          rootHash,
+        );
 
       return [
         motionId,
@@ -939,7 +994,7 @@ export class VotingReputation {
     };
 
     return this.colony.colonyNetwork.createMetaTxCreator(
-      this.votingReputationClient,
+      this.votingReputationContract,
       'escalateMotion',
       getArgs,
       async (receipt) => ({
@@ -973,7 +1028,7 @@ export class VotingReputation {
    */
   finalizeMotion(motionId: BigNumberish) {
     const getArgs = async () => {
-      const motionState = await this.votingReputationClient.getMotionState(
+      const motionState = await this.votingReputationContract.getMotionState(
         motionId,
       );
 
@@ -987,7 +1042,7 @@ export class VotingReputation {
     };
 
     return this.colony.colonyNetwork.createMetaTxCreator(
-      this.votingReputationClient,
+      this.votingReputationContract,
       'finalizeMotion',
       getArgs,
       async (receipt) => ({
@@ -1020,7 +1075,7 @@ export class VotingReputation {
   upgrade(toVersion?: BigNumberish) {
     const version = toVersion || this.version + 1;
     return this.colony.createColonyTxCreator(
-      this.colony.getInternalColonyClient(),
+      this.colony.getInternalColonyContract(),
       'upgradeExtension',
       [getExtensionHash(Extension.VotingReputation), version],
       async (receipt) => ({
@@ -1042,14 +1097,14 @@ export class VotingReputation {
    */
   async getInitializationOptions() {
     const promises = [
-      this.votingReputationClient.getTotalStakeFraction(), // requiredStake
-      this.votingReputationClient.getVoterRewardFraction(), // voterReward
-      this.votingReputationClient.getUserMinStakeFraction(), // minimumUserStake
-      this.votingReputationClient.getMaxVoteFraction(), // endVoteThreshold
-      this.votingReputationClient.getStakePeriod(), // stakePhaseDuration
-      this.votingReputationClient.getSubmitPeriod(), // votingPhaseDuration
-      this.votingReputationClient.getRevealPeriod(), // revealPhaseDuration
-      this.votingReputationClient.getEscalationPeriod(), // escalationPhaseDuration
+      this.votingReputationContract.getTotalStakeFraction(), // requiredStake
+      this.votingReputationContract.getVoterRewardFraction(), // voterReward
+      this.votingReputationContract.getUserMinStakeFraction(), // minimumUserStake
+      this.votingReputationContract.getMaxVoteFraction(), // endVoteThreshold
+      this.votingReputationContract.getStakePeriod(), // stakePhaseDuration
+      this.votingReputationContract.getSubmitPeriod(), // votingPhaseDuration
+      this.votingReputationContract.getRevealPeriod(), // revealPhaseDuration
+      this.votingReputationContract.getEscalationPeriod(), // escalationPhaseDuration
     ];
     const [
       requiredStake,

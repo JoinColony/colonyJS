@@ -16,14 +16,15 @@ Note: if you deployed your Colony using the Dapp, the OneTxPayment extension is 
 
 ### constructor
 
-• **new OneTxPayment**(`colony`, `oneTxPaymentClient`)
+• **new OneTxPayment**(`colony`, `oneTxPaymentContract`, `deployedVersion`)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `colony` | [`Colony`](Colony.md) |
-| `oneTxPaymentClient` | `OneTxPaymentClientV4` |
+| `oneTxPaymentContract` | `OneTxPayment` |
+| `deployedVersion` | ``2`` \| ``1`` \| ``3`` \| ``4`` |
 
 ## Properties
 
@@ -35,7 +36,7 @@ ___
 
 ### version
 
-• **version**: `number`
+• **version**: ``2`` \| ``1`` \| ``3`` \| ``4``
 
 ___
 
@@ -47,13 +48,13 @@ ___
 
 ### supportedVersions
 
-▪ `Static` **supportedVersions**: ``4``[]
+▪ `Static` **supportedVersions**: (``2`` \| ``1`` \| ``3`` \| ``4``)[]
 
 ## Methods
 
 ### pay
 
-▸ **pay**(`recipient`, `amount`, `teamId?`, `tokenAddress?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`OneTxPaymentClientV4`, ``"makePaymentFundedFromDomain"``, { `agent?`: `string` ; `fundamentalId?`: `BigNumber` ; `nPayouts?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **pay**(`recipient`, `amount`, `teamId?`, `tokenAddress?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`OneTxPayment`, ``"makePaymentFundedFromDomain"``, { `agent?`: `string` ; `fundamentalId?`: `BigNumber` ; `nPayouts?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Make a payment to a single or multiple addresses using one or more tokens
 
@@ -90,7 +91,7 @@ import { Id, Tokens, w } from '@colony/sdk';
 
 #### Returns
 
-[`ColonyTxCreator`](ColonyTxCreator.md)<`OneTxPaymentClientV4`, ``"makePaymentFundedFromDomain"``, { `agent?`: `string` ; `fundamentalId?`: `BigNumber` ; `nPayouts?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`OneTxPayment`, ``"makePaymentFundedFromDomain"``, { `agent?`: `string` ; `fundamentalId?`: `BigNumber` ; `nPayouts?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
@@ -106,7 +107,7 @@ ___
 
 ### upgrade
 
-▸ **upgrade**(`toVersion?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV12`, ``"upgradeExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **upgrade**(`toVersion?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"upgradeExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Upgrade this extension to the next or a custom version
 
@@ -125,7 +126,7 @@ This method upgrades this extension to a specified version or, if no version is 
 
 #### Returns
 
-[`ColonyTxCreator`](ColonyTxCreator.md)<`ColonyClientV12`, ``"upgradeExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"upgradeExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
@@ -139,10 +140,26 @@ A transaction creator
 
 ___
 
-### getLatestSupportedVersion
+### connect
 
-▸ `Static` **getLatestSupportedVersion**(): ``4``
+▸ `Static` **connect**(`colony`): `Promise`<[`OneTxPayment`](OneTxPayment.md)\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `colony` | [`Colony`](Colony.md) |
 
 #### Returns
 
-``4``
+`Promise`<[`OneTxPayment`](OneTxPayment.md)\>
+
+___
+
+### getLatestSupportedVersion
+
+▸ `Static` **getLatestSupportedVersion**(): ``2`` \| ``1`` \| ``3`` \| ``4``
+
+#### Returns
+
+``2`` \| ``1`` \| ``3`` \| ``4``

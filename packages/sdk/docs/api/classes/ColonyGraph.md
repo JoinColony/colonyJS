@@ -24,7 +24,7 @@ Fetch all teams of a Colony including their Metadata
 
 **`Deprecated`**
 
-- will be replaced in v2.0
+- will be replaced when new Colony GraphQL server is public
 
 This queries the Colony graph database for all teams including their metadata. The metadata is fetched from IPFS
 

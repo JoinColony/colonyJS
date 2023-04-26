@@ -1,15 +1,15 @@
 import type {
   LogSetAuthorityEventObject,
   LogSetOwnerEventObject,
-} from '@colony/colony-js/events';
+} from '@colony/events';
 
 import {
   ColonyToken as ColonyTokenType,
   ColonyTokenFactory,
-} from '@colony/colony-js/tokens';
+} from '@colony/tokens';
 
-import { extractEvent } from '../utils';
-import { ColonyNetwork } from './ColonyNetwork';
+import { extractEvent } from '../../utils';
+import { ColonyNetwork } from '../ColonyNetwork';
 import { ERC20Token } from './ERC20Token';
 
 export class ColonyToken extends ERC20Token {
@@ -39,7 +39,7 @@ export class ColonyToken extends ERC20Token {
   }
 
   /**
-   * Provide direct access to the internally used ColonyJS TokenClient client. Only use when you know what you're doing
+   * Provide direct access to the internally used ethers Token contract. Only use when you know what you're doing
    * @internal
    *
    * @returns The internally used TokenClient

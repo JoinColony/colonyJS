@@ -4,7 +4,7 @@
   "license": "GPL-3.0-only",
   "dependencies": {
     "@colony/colony-event-metadata-parser": "^2.0.0",
-    "@colony/colony-js": "^6.3.5",
+    "@colony/tokens": "^0.1.1",
     "@urql/core": "^2.5.0",
     "cross-fetch": "^3.1.5",
     "fetch-retry": "^5.0.2",
@@ -13,8 +13,16 @@
     "subscriptions-transport-ws": "^0.11.0"
   },
   "devDependencies": {
+    "@colony/contractor": "^0.1.0",
+    "@colony/core": "^0.1.0",
+    "@colony/events": "^0.1.0",
+    "@ethersproject/abi": "^5.7.0",
+    "@ethersproject/abstract-provider": "^5.7.0",
+    "@ethersproject/abstract-signer": "^5.7.0",
+    "@ethersproject/providers": "^5.7.2",
     "@picocss/pico": "^1.5.7",
     "@types/inquirer": "^8.2.1",
+    "@types/node": "^18.15.11",
     "@types/ws": "^8.5.3",
     "@types/yargs": "^17.0.10",
     "esbuild": "^0.14.27",
@@ -30,11 +38,12 @@
     "yargs": "^17.5.1"
   },
   "peerDependencies": {
-    "ethers": "^5.6.1"
+    "ethers": "^5.1.3"
   },
   "scripts": {
     "examples:node": "ts-node examples/node/index.ts",
     "examples:browser": "esbuild --bundle examples/browser/src/*.ts --servedir=examples/browser/web",
+    "build-contracts": "contractor colony -o ./src/contracts",
     "build": "npm run clean && npm run compile-cjs && npm run compile-esm && npm run compile-types && npm run build-docs",
     "build-docs": "typedoc",
     "build-examples": "esbuild --bundle examples/browser/src/*.ts --outdir=examples/browser/web --minify",
@@ -44,6 +53,8 @@
     "compile-types": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --outDir dist/types",
     "lint": "eslint --ext .ts src examples",
     "no-git-changes": "./scripts/no-git-changes.sh",
+    "prepare": "npm run build-contracts",
+    "prepublishOnly": "npm run build-contracts && npm run test && npm run build",
     "release": "npm test && npm run build && release-it",
     "test": "npm run lint && npm run typecheck",
     "typecheck": "tsc --noEmit"

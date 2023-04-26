@@ -18,27 +18,8 @@ import type {
   RecoveryRoleSetEventObject,
   TokenAuthorityDeployedEventObject,
   TokensMintedEventObject,
-} from '@colony/colony-js/events';
-import type { ColonyDataTypes } from '@colony/colony-js/extras';
+} from '@colony/events';
 
-import {
-  ColonyClientV12,
-  SignerOrProvider,
-  Id,
-  ColonyRole,
-  IBasicMetaTransaction,
-  getChildIndex,
-  getPermissionProofs,
-  isExtensionCompatible,
-  getExtensionHash,
-  TokenClientType,
-} from '@colony/colony-js';
-import {
-  AnnotationMetadata,
-  ColonyMetadata,
-  DomainMetadata,
-  MetadataType,
-} from '@colony/colony-event-metadata-parser';
 import {
   BigNumber,
   BigNumberish,
@@ -46,24 +27,42 @@ import {
   ContractReceipt,
   utils,
 } from 'ethers';
+import {
+  type ColonyVersion,
+  Id,
+  ColonyRole,
+  ReputationClient,
+  getChildIndex,
+  getExtensionHash,
+  getPermissionProofs,
+  isExtensionCompatible,
+  hex2ColonyRoles,
+} from '@colony/core';
+import {
+  type AnnotationMetadata,
+  type ColonyMetadata,
+  type DomainMetadata,
+  MetadataType,
+} from '@colony/colony-event-metadata-parser';
 
 import type { Expand, Parameters, ParametersFrom2 } from '../types';
+import type { ColonyDataTypes } from '../contracts/IColony/12/IColony';
+import type { IBasicMetaTransaction } from '../contracts/IBasicMetaTransaction';
 
-import { PermissionConfig, TxConfig, ColonyTxCreator } from '../TxCreator';
-import { extractEvent, extractCustomEvent, parseRoles } from '../utils';
-import { ColonyToken } from './ColonyToken';
-import { ERC20Token } from './ERC20Token';
-import { ColonyNetwork } from './ColonyNetwork';
-import { getOneTxPaymentClient, OneTxPayment } from './OneTxPayment';
 import {
-  getVotingReputationClient,
-  VotingReputation,
-} from './VotingReputation';
-import { ERC2612Token } from './ERC2612Token';
+  IColony as ColonyContract,
+  IColony__factory as ColonyFactory,
+} from '../contracts/IColony/12';
+import { PermissionConfig, TxConfig, ColonyTxCreator } from '../TxCreator';
+import { extractEvent, extractCustomEvent } from '../utils';
+import { ColonyNetwork } from './ColonyNetwork';
+import { OneTxPayment } from './OneTxPayment';
+import { Token, getToken } from './tokens';
+import { VotingReputation } from './VotingReputation';
 import ColonyGraph from '../graph/ColonyGraph';
 
-export type SupportedColonyClient = ColonyClientV12;
-export type SupportedColonyMethods = SupportedColonyClient['functions'];
+export type SupportedColonyContract = ColonyContract;
+export type SupportedColonyMethods = SupportedColonyContract['functions'];
 
 /** Extensions that are supported by Colony SDK */
 export enum SupportedExtension {
@@ -88,16 +87,39 @@ export class Colony {
    * The currently supported Colony version. If a Colony is not on this version it has to be upgraded.
    * If this is not an option, Colony SDK might throw errors at certain points. Usage of ColonyJS is advised in these cases
    */
-  static supportedVersions: 12[] = [12];
+  static supportedVersions: ColonyVersion[] = [12];
 
-  private colonyClient: SupportedColonyClient;
+  // FIXME: docs
+  static async connect(colonyNetwork: ColonyNetwork, address: string) {
+    const colonyContract = ColonyFactory.connect(
+      address,
+      colonyNetwork.signerOrProvider,
+    );
+    const deployedVersion = (
+      await colonyContract.version()
+    ).toNumber() as ColonyVersion;
+    if (Colony.supportedVersions.includes(deployedVersion)) {
+      throw new Error(
+        `Version ${deployedVersion} of the Colony contract is not supported in the SDK as of now`,
+      );
+    }
+    const tokenAddress = await colonyContract.getToken();
+    const token = await getToken(colonyNetwork, tokenAddress);
+    const colony = new Colony(
+      colonyNetwork,
+      colonyContract,
+      token,
+      deployedVersion,
+    );
+    await colony.updateExtensions();
+    return colony;
+  }
 
-  /**
-   * An ethers.js [Signer](https://docs.ethers.org/v5/api/signer/#Signer) or [Provider](https://docs.ethers.org/v5/api/providers/).
-   *
-   * E.g. a [Wallet](https://docs.ethers.org/v5/api/signer/#Wallet) or a [Web3Provider](https://docs.ethers.org/v5/api/providers/other/#Web3Provider) (MetaMask)
-   */
-  signerOrProvider: SignerOrProvider;
+  static getLatestSupportedVersion() {
+    return Colony.supportedVersions[Colony.supportedVersions.length - 1];
+  }
+
+  private colony: SupportedColonyContract;
 
   /**
    * The colony's smart contract address
@@ -110,9 +132,14 @@ export class Colony {
   colonyNetwork: ColonyNetwork;
 
   /**
+   * The client to fetch reputation for this Colony
+   */
+  reputation: ReputationClient;
+
+  /**
    * An shortcut to the colony's native token instance
    */
-  token: ColonyToken | ERC20Token | ERC2612Token;
+  token: Token;
 
   /**
    * Supported extensions
@@ -146,7 +173,7 @@ export class Colony {
    *
    * Colony contracts are upgradable! Here you'll finde the currently installed version of the contract
    */
-  version: number;
+  version: ColonyVersion;
 
   /**
    * Creates a new instance to connect to an existing Colony
@@ -156,59 +183,28 @@ export class Colony {
    * @remarks
    * Do not use this method directly but use [[ColonyNetwork.getColony]]
    * @param colonyNetwork - A Colony SDK `ColonyNetwork` instance
-   * @param colonyClient - A ColonyJS `ColonyClient` in the latest supported version
+   * @param colony - A ColonyJS `ColonyClient` in the latest supported version
    * @returns A [[Colony]] abstaction instance
    */
   constructor(
     colonyNetwork: ColonyNetwork,
-    colonyClient: SupportedColonyClient,
+    colony: SupportedColonyContract,
+    token: Token,
+    deployedVersion: ColonyVersion,
   ) {
-    this.colonyClient = colonyClient;
+    this.colony = colony;
     this.colonyNetwork = colonyNetwork;
-    this.signerOrProvider = colonyClient.signer || colonyClient.provider;
-    this.address = colonyClient.address;
+    this.address = colony.address;
     this.ext = {};
     this.graph = new ColonyGraph(this);
-    switch (colonyClient.tokenClient.tokenClientType) {
-      case TokenClientType.Erc20: {
-        this.token = new ERC20Token(
-          this.colonyNetwork,
-          colonyClient.tokenClient,
-        );
-        break;
-      }
-      case TokenClientType.Colony: {
-        this.token = new ColonyToken(
-          this.colonyNetwork,
-          colonyClient.tokenClient,
-        );
-        break;
-      }
-      case TokenClientType.Erc2612: {
-        this.token = new ERC2612Token(
-          this.colonyNetwork,
-          colonyClient.tokenClient,
-        );
-        break;
-      }
-      default: {
-        throw new Error('Your token is not supported in Colony SDK (yet).');
-      }
-    }
-    this.version = colonyClient.clientVersion;
-  }
-
-  static async init(
-    colonyNetwork: ColonyNetwork,
-    colonyClient: SupportedColonyClient,
-  ) {
-    const colony = new Colony(colonyNetwork, colonyClient);
-    await colony.updateExtensions();
-    return colony;
-  }
-
-  static getLatestSupportedVersion() {
-    return Colony.supportedVersions[Colony.supportedVersions.length - 1];
+    this.reputation = new ReputationClient(
+      colonyNetwork.getInternalNetworkContract(),
+      colony,
+      colonyNetwork.network,
+      { customEndpointUrl: colonyNetwork.config.reputationOracleEndpoint },
+    );
+    this.token = token;
+    this.version = deployedVersion;
   }
 
   /**
@@ -296,8 +292,8 @@ export class Colony {
    * @internal
    * @returns The internally used ColonyClient
    */
-  getInternalColonyClient(): SupportedColonyClient {
-    return this.colonyClient;
+  getInternalColonyContract(): SupportedColonyContract {
+    return this.colony;
   }
 
   /**
@@ -310,10 +306,7 @@ export class Colony {
     // NOTE: Create an individual try-catch block for every extension
     if (!this.ext.motions) {
       try {
-        const votingReputationClient = await getVotingReputationClient(
-          this.colonyClient,
-        );
-        this.ext.motions = new VotingReputation(this, votingReputationClient);
+        this.ext.motions = await VotingReputation.connect(this);
       } catch (e) {
         // Ignore error here. Extension just won't be available.
       }
@@ -321,10 +314,7 @@ export class Colony {
 
     if (!this.ext.oneTx) {
       try {
-        const oneTxPaymentClient = await getOneTxPaymentClient(
-          this.colonyClient,
-        );
-        this.ext.oneTx = new OneTxPayment(this, oneTxPaymentClient);
+        this.ext.oneTx = await OneTxPayment.connect(this);
       } catch (e) {
         // Ignore error here. Extension just won't be available.
       }
@@ -353,11 +343,11 @@ export class Colony {
   async getBalance(tokenAddress?: string, teamId?: BigNumberish) {
     let potId: BigNumberish = Id.RootPot;
     if (teamId) {
-      const { fundingPotId } = await this.colonyClient.getDomain(teamId);
+      const { fundingPotId } = await this.colony.getDomain(teamId);
       potId = fundingPotId;
     }
-    const token = tokenAddress || this.colonyClient.tokenClient.address;
-    return this.colonyClient.getFundingPotBalance(potId, token);
+    const token = tokenAddress || this.token.address;
+    return this.colony.getFundingPotBalance(potId, token);
   }
 
   /**
@@ -404,7 +394,7 @@ export class Colony {
    */
   editColony(metadata: ColonyMetadata | string) {
     return this.createColonyTxCreator(
-      this.colonyClient,
+      this.colony,
       'editColony',
       async () => {
         let cid: string;
@@ -475,7 +465,7 @@ export class Colony {
   createTeam(
     metadata: DomainMetadata | string,
   ): ColonyTxCreator<
-    SupportedColonyClient,
+    SupportedColonyContract,
     'addDomain(uint256,uint256,uint256,string)',
     Expand<
       DomainAdded_uint256_EventObject &
@@ -501,7 +491,7 @@ export class Colony {
    * | `fundingPotId` | BigNumber | Integer id of the corresponding funding pot |
    */
   createTeam(): ColonyTxCreator<
-    SupportedColonyClient,
+    SupportedColonyContract,
     'addDomain(uint256,uint256,uint256,string)',
     Expand<
       DomainAdded_uint256_EventObject &
@@ -513,7 +503,7 @@ export class Colony {
   createTeam(metadata?: DomainMetadata | string) {
     if (!metadata) {
       return this.createPermissionedColonyTxCreator(
-        this.colonyClient,
+        this.colony,
         'addDomain(uint256,uint256,uint256)',
         [Id.RootDomain],
         {
@@ -534,7 +524,7 @@ export class Colony {
     }
 
     return this.createPermissionedColonyTxCreator(
-      this.colonyClient,
+      this.colony,
       'addDomain(uint256,uint256,uint256,string)',
       async () => {
         let cid: string;
@@ -609,7 +599,7 @@ export class Colony {
    */
   editTeam(metadata: DomainMetadata | string) {
     return this.createPermissionedColonyTxCreator(
-      this.colonyClient,
+      this.colony,
       'editDomain',
       async () => {
         let cid: string;
@@ -653,7 +643,7 @@ export class Colony {
    */
   deprecateTeam(teamId: BigNumberish, deprecated: boolean) {
     return this.createPermissionedColonyTxCreator(
-      this.colonyClient,
+      this.colony,
       'deprecateDomain',
       [teamId, deprecated],
       {
@@ -679,11 +669,11 @@ export class Colony {
   async getTeam(
     teamId: BigNumberish,
   ): Promise<ColonyDataTypes.DomainStructOutput> {
-    const teamCount = await this.colonyClient.getDomainCount();
+    const teamCount = await this.colony.getDomainCount();
     if (teamCount.lt(teamId)) {
       throw new Error(`Team with id ${teamId} does not exist`);
     }
-    return this.colonyClient.getDomain(teamId);
+    return this.colony.getDomain(teamId);
   }
 
   /**
@@ -705,10 +695,10 @@ export class Colony {
    * | `payoutRemainder` | BigNumber | The remaining funds moved to the top-level domain pot |
    */
   claimFunds(tokenAddress?: string) {
-    const token = tokenAddress || this.colonyClient.tokenClient.address;
+    const token = tokenAddress || this.token.address;
 
     return this.createColonyTxCreator(
-      this.colonyClient,
+      this.colony,
       'claimColonyFunds',
       [token],
       async (receipt) => ({
@@ -765,15 +755,14 @@ export class Colony {
   ) {
     const parentTeam = Id.RootDomain;
     const setFromTeam = fromTeam || Id.RootDomain;
-    const setTokenAddress =
-      tokenAddress || this.colonyClient.tokenClient.address;
+    const setTokenAddress = tokenAddress || this.token.address;
 
     return this.createColonyTxCreator(
-      this.colonyClient,
+      this.colony,
       // eslint-disable-next-line max-len
       'moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)',
       async () => {
-        const domain = await this.colonyClient.getDomain(toTeam);
+        const domain = await this.colony.getDomain(toTeam);
         if (domain.fundingPotId.isZero()) {
           throw new Error(
             `Team with id ${BigNumber.from(toTeam).toString()} does not exist`,
@@ -781,29 +770,32 @@ export class Colony {
         }
         // Manual permission proofs are needed here
         const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
-          this.colonyClient,
+          this.colonyNetwork.getInternalNetworkContract(),
+          this.colony,
           parentTeam,
           ColonyRole.Funding,
         );
 
+        const networkClient = this.colonyNetwork.getInternalNetworkContract();
+
         const fromChildSkillIndex = await getChildIndex(
-          this.colonyClient,
+          networkClient,
+          this.colony,
           parentTeam,
           setFromTeam,
         );
 
         const toChildSkillIndex = await getChildIndex(
-          this.colonyClient,
+          networkClient,
+          this.colony,
           parentTeam,
           toTeam,
         );
 
-        const { fundingPotId: fromPot } = await this.colonyClient.getDomain(
+        const { fundingPotId: fromPot } = await this.colony.getDomain(
           setFromTeam,
         );
-        const { fundingPotId: toPot } = await this.colonyClient.getDomain(
-          toTeam,
-        );
+        const { fundingPotId: toPot } = await this.colony.getDomain(toTeam);
 
         return [
           permissionDomainId,
@@ -845,9 +837,11 @@ export class Colony {
    * @returns A number quantifying the user addresses' reputation
    */
   async getReputation(userAddress: string, teamId = Id.RootDomain) {
-    const { skillId } = await this.colonyClient.getDomain(teamId);
-    const { reputationAmount } =
-      await this.colonyClient.getReputationWithoutProofs(skillId, userAddress);
+    const { skillId } = await this.colony.getDomain(teamId);
+    const { reputationAmount } = await this.reputation.getReputation(
+      skillId,
+      userAddress,
+    );
     return reputationAmount;
   }
 
@@ -864,7 +858,7 @@ export class Colony {
    * | `reputationAmount` | The reputation amount in that domain |
    */
   async getReputationAcrossTeams(userAddress: string) {
-    return this.colonyClient.getReputationAcrossDomains(userAddress);
+    return this.reputation.getReputationAcrossDomains(userAddress);
   }
 
   /**
@@ -904,7 +898,7 @@ export class Colony {
    */
   makeArbitraryTransaction(target: string, action: BytesLike) {
     return this.createColonyTxCreator(
-      this.colonyClient,
+      this.colony,
       'makeArbitraryTransactions',
       [[target], [action], false],
       async (receipt) => ({
@@ -962,7 +956,7 @@ export class Colony {
    */
   annotateTransaction(txHash: string, metadata: AnnotationMetadata | string) {
     return this.createColonyTxCreator(
-      this.colonyClient,
+      this.colony,
       'annotateTransaction',
       async () => {
         let cid: string;
@@ -1020,21 +1014,21 @@ export class Colony {
     const Extension = supportedExtensionMap[extension];
     const version = Extension.getLatestSupportedVersion();
     const { extensionType } = Extension;
-    const colonyVersion = this.colonyClient.clientVersion;
-    if (!isExtensionCompatible(extensionType, version, colonyVersion)) {
+    if (!isExtensionCompatible(extensionType, version, this.version)) {
       throw new Error(
-        `v${version} of ${extensionType} extension is not compatible with colony v${colonyVersion}`,
+        `v${version} of ${extensionType} extension is not compatible with colony v${this.version}`,
       );
     }
+    const networkClient = this.colonyNetwork.getInternalNetworkContract();
     return this.createColonyTxCreator(
-      this.colonyClient,
+      this.colony,
       'installExtension',
       [getExtensionHash(extensionType), Extension.getLatestSupportedVersion()],
       async (receipt) => ({
         ...extractCustomEvent<ExtensionInstalledEventObject>(
           'ExtensionInstalled',
           receipt,
-          this.colonyNetwork.networkClient.interface,
+          networkClient.interface,
         ),
       }),
     );
@@ -1062,8 +1056,8 @@ export class Colony {
    * @returns An array of [[ColonyRole]]s
    */
   async getRoles(address: string, teamId: BigNumberish = Id.RootDomain) {
-    const roleString = await this.colonyClient.getUserRoles(address, teamId);
-    return parseRoles(roleString);
+    const roleString = await this.colony.getUserRoles(address, teamId);
+    return hex2ColonyRoles(roleString);
   }
 
   /**
@@ -1108,13 +1102,10 @@ export class Colony {
     teamId: BigNumberish = Id.RootDomain,
   ) {
     return this.createPermissionedColonyTxCreator(
-      this.colonyClient,
+      this.colony,
       'setUserRoles',
       async () => {
-        const oldRolesHex = await this.colonyClient.getUserRoles(
-          address,
-          teamId,
-        );
+        const oldRolesHex = await this.colony.getUserRoles(address, teamId);
         const oldRoles = parseInt(oldRolesHex, 16);
         // TODO: export the colonyRoles2Hex helper from ColonyJS
         /* eslint-disable no-bitwise */
@@ -1168,13 +1159,10 @@ export class Colony {
     teamId: BigNumberish = Id.RootDomain,
   ) {
     return this.createPermissionedColonyTxCreator(
-      this.colonyClient,
+      this.colony,
       'setUserRoles',
       async () => {
-        const oldRolesHex = await this.colonyClient.getUserRoles(
-          address,
-          teamId,
-        );
+        const oldRolesHex = await this.colony.getUserRoles(address, teamId);
         const oldRoles = parseInt(oldRolesHex, 16);
         // TODO: export the colonyRoles2Hex helper from ColonyJS
         /* eslint-disable no-bitwise */
@@ -1237,7 +1225,7 @@ export class Colony {
    */
   mint(amount: BigNumberish) {
     return this.createColonyTxCreator(
-      this.colonyClient,
+      this.colony,
       'mintTokens',
       [amount],
       async (receipt) => ({
@@ -1266,13 +1254,13 @@ export class Colony {
    * | `tokenAuthorityAddress` | string | The address of the newly deployed TokenAuthority contract |
    */
   deployTokenAuthority(allowedToTransfer?: string[]) {
+    const networkClient = this.colonyNetwork.getInternalNetworkContract();
     return this.colonyNetwork.createMetaTxCreator(
-      this.colonyNetwork.networkClient,
+      networkClient,
       'deployTokenAuthority',
       async () => {
         let allowed: string[] = [];
-        const tokenLockingAddress =
-          await this.colonyNetwork.networkClient.getTokenLocking();
+        const tokenLockingAddress = await networkClient.getTokenLocking();
         if (!allowedToTransfer) {
           allowed = [tokenLockingAddress];
         } else {
@@ -1311,7 +1299,7 @@ export class Colony {
    */
   enterRecoveryMode() {
     return this.createColonyTxCreator(
-      this.colonyClient,
+      this.colony,
       'enterRecoveryMode',
       [],
       async (receipt) => ({
@@ -1338,7 +1326,7 @@ export class Colony {
    */
   exitRecoveryMode() {
     return this.createColonyTxCreator(
-      this.colonyClient,
+      this.colony,
       'exitRecoveryMode',
       [],
       async (receipt) => ({
@@ -1373,7 +1361,7 @@ export class Colony {
   upgrade(toVersion?: BigNumberish) {
     const version = toVersion || this.version + 1;
     return this.createColonyTxCreator(
-      this.colonyClient,
+      this.colony,
       'upgrade',
       [version],
       async (receipt) => ({
@@ -1417,7 +1405,7 @@ export class Colony {
       throw new Error('Reputation award must be bigger than 0');
     }
     return this.createColonyTxCreator(
-      this.colonyClient,
+      this.colony,
       'emitDomainReputationReward',
       [team, address, amount],
       async (receipt) => ({
@@ -1461,7 +1449,7 @@ export class Colony {
       throw new Error('Reputation smite must be bigger than 0');
     }
     return this.createPermissionedColonyTxCreator(
-      this.colonyClient,
+      this.colony,
       'emitDomainReputationPenalty',
       [team, address, BigNumber.from(0).sub(amount)],
       {

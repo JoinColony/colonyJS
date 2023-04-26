@@ -4,8 +4,7 @@ import type {
   TokenAuthorityDeployedEventObject,
   TokenDeployedEventObject,
   UserLabelRegisteredEventObject,
-} from '@colony/colony-js/events';
-import type { ERC2612Token as ERC2612TokenType } from '@colony/colony-js/tokens';
+} from '@colony/events';
 
 import {
   BigNumberish,
@@ -15,30 +14,30 @@ import {
   Signer,
 } from 'ethers';
 import {
-  ColonyNetworkClient,
-  getColonyNetworkClient,
-  IBasicMetaTransaction,
+  type SignerOrProvider,
+  ColonyLabelSuffix,
+  MetaTxBroadCasterEndpoint,
   Network,
-  NetworkClientOptions,
-  SignerOrProvider,
-  TokenLockingClient,
-} from '@colony/colony-js';
+  UserLabelSuffix,
+  ReputationOracleEndpoint,
+  ColonyNetworkAddress,
+} from '@colony/core';
+import { type ERC2612Token as ERC2612TokenType } from '@colony/tokens';
 import {
   ColonyMetadata,
   MetadataType,
 } from '@colony/colony-event-metadata-parser';
 import { Client } from '@urql/core';
 
+import {
+  IColonyNetwork,
+  IColonyNetwork__factory as IColonyNetworkFactory,
+  IBasicMetaTransaction,
+} from '../contracts';
 import { createSubgraphClient, SubgraphClientOptions } from '../graph';
-
 import { IpfsMetadata, IpfsAdapter } from '../ipfs';
 import { BaseContract, TxConfig, TxCreator, MetaTxCreator } from '../TxCreator';
 import { Colony } from './Colony';
-import {
-  ColonyLabelSuffix,
-  MetaTxBroadCasterEndpoint,
-  UserLabelSuffix,
-} from '../constants';
 import { Expand, Parameters } from '../types';
 import { extractEvent } from '../utils';
 import { EIP2612TxCreator } from '../TxCreator/EIP2612TxCreator';
@@ -49,18 +48,23 @@ const { AddressZero } = constants;
 
 /** Additional options for the [[ColonyNetwork]] */
 export interface ColonyNetworkOptions {
+  // FIXME: docs
+  customNetworkAddress?: string;
   /** Provide a custom [[IpfsAdapter]] */
   ipfsAdapter?: IpfsAdapter;
-  /** Provide custom [[NetworkClientOptions]] for the ColonyJS client */
-  networkClientOptions?: NetworkClientOptions;
+  // FIXME: docs
+  network?: Network;
   /** Provide a custom metatransaction broadcaster endpoint */
   metaTxBroadcasterEndpoint?: string;
   /** Provide custom GraphQL client options */
   graphOptions?: SubgraphClientOptions;
+  // FIXME: docs
+  reputationOracleEndpoint?: string;
 }
 
-export interface ColonyNetworkConfig {
-  metaTxBroadcasterEndpoint?: string;
+interface ColonyNetworkConfig {
+  metaTxBroadcasterEndpoint: string;
+  reputationOracleEndpoint: string;
 }
 
 export interface TokenData {
@@ -72,7 +76,12 @@ export interface TokenData {
   decimals?: number;
 }
 
+// FIXME: None of these props are annotataed!!
 export class ColonyNetwork {
+  private networkContract: IColonyNetwork;
+
+  private locking?: TokenLocking;
+
   config: ColonyNetworkConfig;
 
   graphClient: Client;
@@ -81,41 +90,15 @@ export class ColonyNetwork {
 
   network: Network;
 
-  networkClient: ColonyNetworkClient;
-
+  /**
+   * An ethers.js [Signer](https://docs.ethers.org/v5/api/signer/#Signer) or [Provider](https://docs.ethers.org/v5/api/providers/).
+   *
+   * E.g. a [Wallet](https://docs.ethers.org/v5/api/signer/#Wallet) or a [Web3Provider](https://docs.ethers.org/v5/api/providers/other/#Web3Provider) (MetaMask)
+   */
   signerOrProvider: SignerOrProvider;
 
-  locking: TokenLocking;
-
   /**
-   * Creates a new instance to connect to the ColonyNetwork
-   * @internal
-   *
-   * Please use `ColonyNetwork.init()` instead.
-   */
-  constructor(
-    signerOrProvider: SignerOrProvider,
-    networkClient: ColonyNetworkClient,
-    tokenLockingClient: TokenLockingClient,
-    options?: ColonyNetworkOptions,
-  ) {
-    this.network = options?.networkClientOptions?.networkAddress
-      ? Network.Custom
-      : Network.Xdai;
-    this.ipfs = new IpfsMetadata(options?.ipfsAdapter);
-    this.config = {
-      metaTxBroadcasterEndpoint:
-        options?.metaTxBroadcasterEndpoint ||
-        MetaTxBroadCasterEndpoint[this.network],
-    };
-    this.locking = new TokenLocking(this, tokenLockingClient);
-    this.networkClient = networkClient;
-    this.signerOrProvider = signerOrProvider;
-    this.graphClient = createSubgraphClient();
-  }
-
-  /**
-   * Creates a new instance to connect to the ColonyNetwork
+   * Creates a new instance of the ColonyNetwork
    *
    * This is your main entry point to talk to the Colony Network Smart Contracts.
    * From here you should be able to instantiate all the required instances for Colonies and their extensions.
@@ -128,36 +111,35 @@ export class ColonyNetwork {
    *
    * // Connect directly to the deployed Colony Network on Gnosis Chain
    * const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc/');
-   * // Immediately executing async function
-   * (async function() {
-   *   const colonyNetwork = await ColonyNetwork.init(provider);
-   *   // Now you could call functions on the colonyNetwork, like `colonyNetwork.getMetaColony()`
-   * })();
+   * const colonyNetwork = new ColonyNetwork(provider);
+   * // Now you could call functions on the colonyNetwork, like `colonyNetwork.getMetaColony()`
    * ```
    *
    * @param signerOrProvider - An _ethers_ compatible Signer or Provider instance
    * @param options - Optional custom [[ColonyNetworkOptions]]
    * @returns A ColonyNetwork abstraction instance
    */
-  static async init(
+  constructor(
     signerOrProvider: SignerOrProvider,
     options?: ColonyNetworkOptions,
   ) {
-    const network = options?.networkClientOptions?.networkAddress
-      ? Network.Custom
-      : Network.Xdai;
-    const networkClient = getColonyNetworkClient(
-      network,
+    this.network = options?.network || Network.Gnosis;
+    this.ipfs = new IpfsMetadata(options?.ipfsAdapter);
+    // TODO: for validation: if network is Custom, metaTxBroadcaster and reputationOracleEndpoint have to be set
+    this.config = {
+      metaTxBroadcasterEndpoint:
+        options?.metaTxBroadcasterEndpoint ||
+        MetaTxBroadCasterEndpoint[this.network],
+      reputationOracleEndpoint:
+        options?.reputationOracleEndpoint ||
+        ReputationOracleEndpoint[this.network],
+    };
+    this.networkContract = IColonyNetworkFactory.connect(
+      options?.customNetworkAddress || ColonyNetworkAddress[this.network],
       signerOrProvider,
-      options?.networkClientOptions,
     );
-    const tokenLockingClient = await networkClient.getTokenLockingClient();
-    return new ColonyNetwork(
-      signerOrProvider,
-      networkClient,
-      tokenLockingClient,
-      options,
-    );
+    this.signerOrProvider = signerOrProvider;
+    this.graphClient = createSubgraphClient();
   }
 
   getSigner(): Signer {
@@ -165,6 +147,24 @@ export class ColonyNetwork {
       throw new Error('Need a signer to create a transaction');
     }
     return this.signerOrProvider;
+  }
+
+  async getTokenLocking(): Promise<TokenLocking> {
+    if (!this.locking) {
+      const address = await this.networkContract.getTokenLocking();
+      this.locking = new TokenLocking(this, address);
+    }
+    return this.locking;
+  }
+
+  /**
+   * Provide direct access to the internally used ethers Contract. Only use when you know what you're doing
+   *
+   * @internal
+   * @returns The internally used ethers Contract
+   */
+  getInternalNetworkContract(): IColonyNetwork {
+    return this.networkContract;
   }
 
   /**
@@ -341,7 +341,7 @@ export class ColonyNetwork {
     label: string,
     metadata: ColonyMetadata | string,
   ): MetaTxCreator<
-    ColonyNetworkClient,
+    IColonyNetwork,
     'createColonyForFrontend',
     Expand<
       TokenDeployedEventObject &
@@ -393,7 +393,7 @@ export class ColonyNetwork {
     token: string | TokenData,
     label: string,
   ): MetaTxCreator<
-    ColonyNetworkClient,
+    IColonyNetwork,
     'createColonyForFrontend',
     Expand<
       TokenDeployedEventObject &
@@ -458,7 +458,7 @@ export class ColonyNetwork {
 
     if (!metadata) {
       return this.createMetaTxCreator(
-        this.networkClient,
+        this.networkContract,
         'createColonyForFrontend',
         prepareArgs,
         async (receipt) => ({
@@ -473,7 +473,7 @@ export class ColonyNetwork {
     }
 
     return this.createMetaTxCreator(
-      this.networkClient,
+      this.networkContract,
       'createColonyForFrontend',
       async () => {
         const args = await prepareArgs();
@@ -513,15 +513,7 @@ export class ColonyNetwork {
    * @returns A Colony abstaction instance
    */
   async getColony(address: string): Promise<Colony> {
-    const colonyClient = await this.networkClient.getColonyClient(address);
-
-    if (colonyClient.clientVersion !== Colony.supportedVersions[0]) {
-      throw new Error(
-        `The version of this Colony ${colonyClient.clientVersion} is not supported by Colony SDK. Please update your Colony`,
-      );
-    }
-
-    return Colony.init(this, colonyClient);
+    return Colony.connect(this, address);
   }
 
   /**
@@ -532,7 +524,7 @@ export class ColonyNetwork {
    * @returns A Colony abstaction instance of the MetaColony
    */
   async getMetaColony(): Promise<Colony> {
-    const colonyAddress = await this.networkClient.getMetaColony();
+    const colonyAddress = await this.networkContract.getMetaColony();
     return this.getColony(colonyAddress);
   }
 
@@ -545,7 +537,9 @@ export class ColonyNetwork {
    * @returns The colony's ENS label
    */
   async getColonyLabel(address: string) {
-    const ensName = await this.networkClient.lookupRegisteredENSDomain(address);
+    const ensName = await this.networkContract.lookupRegisteredENSDomain(
+      address,
+    );
     if (ensName) {
       return ensName.replace(ColonyLabelSuffix[this.network], '');
     }
@@ -562,7 +556,7 @@ export class ColonyNetwork {
    */
   async getColonyAddress(label: string) {
     const hash = namehash(`${label}${ColonyLabelSuffix[this.network]}`);
-    const address = await this.networkClient.addr(hash);
+    const address = await this.networkContract.addr(hash);
     if (address !== AddressZero) {
       return address;
     }
@@ -578,7 +572,9 @@ export class ColonyNetwork {
    * @returns The user's username
    */
   async getUsername(address: string) {
-    const ensName = await this.networkClient.lookupRegisteredENSDomain(address);
+    const ensName = await this.networkContract.lookupRegisteredENSDomain(
+      address,
+    );
     if (ensName) {
       return ensName.replace(UserLabelSuffix[this.network], '');
     }
@@ -595,7 +591,7 @@ export class ColonyNetwork {
    */
   async getUserAddress(username: string) {
     const hash = namehash(`${username}${UserLabelSuffix[this.network]}`);
-    const address = await this.networkClient.addr(hash);
+    const address = await this.networkContract.addr(hash);
     if (address !== AddressZero) {
       return address;
     }
@@ -619,7 +615,7 @@ export class ColonyNetwork {
       return [username, ''] as [string, string];
     };
     return this.createMetaTxCreator(
-      this.networkClient,
+      this.networkContract,
       'registerUserLabel',
       checkUsername,
       async (receipt) => ({
@@ -645,7 +641,7 @@ export class ColonyNetwork {
    */
   deployToken(name: string, symbol: string, decimals = 18) {
     return this.createMetaTxCreator(
-      this.networkClient,
+      this.networkContract,
       'deployTokenViaNetwork',
       [name, symbol, decimals],
       async (receipt) => ({
