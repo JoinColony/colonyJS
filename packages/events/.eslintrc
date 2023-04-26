@@ -1,0 +1,51 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "@colony/eslint-config-colony"
+    ],
+    "plugins": [
+        "@typescript-eslint",
+        "eslint-plugin-tsdoc"
+    ],
+    "env": {
+        "browser": true,
+        "node": true
+    },
+    "rules": {
+        "camelcase": [
+            "error",
+            {
+                "allow": [
+                    ".+_EventFilter$",
+                    ".+_EventObject$",
+                    ".+__factory"
+                ]
+            }
+        ],
+        "no-dupe-class-members": "off",
+        "no-redeclare": "off",
+        "no-shadow": "off",
+        "no-unused-vars": "off",
+        "no-use-before-define": "off",
+        "@typescript-eslint/no-unused-vars": "error",
+        "@typescript-eslint/no-shadow": [
+            "error"
+        ],
+        "import/extensions": "off",
+        "import/no-unresolved": "off",
+        "import/prefer-default-export": "off",
+        "tsdoc/syntax": "warn"
+    },
+    "overrides": [
+        {
+            "files": [
+                "**/contracts/**/*.ts"
+            ],
+            "rules": {
+                "eslint-comments/disable-enable-pair": "off",
+                "eslint-comments/no-unlimited-disable": "off"
+            }
+        }
+    ]
+}
