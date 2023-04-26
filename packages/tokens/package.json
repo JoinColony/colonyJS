@@ -1,6 +1,6 @@
 {
   "name": "@colony/tokens",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
@@ -43,6 +43,7 @@
     "lint": "eslint --ext .ts src",
     "test": "npm run lint && npm run typecheck",
     "typecheck": "tsc --noEmit",
+    "prepare": "npm run build-contracts",
     "prepublishOnly": "npm run build-contracts && npm run test && npm run build"
   },
   "devDependencies": {

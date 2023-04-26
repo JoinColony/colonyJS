@@ -37,7 +37,6 @@ export type {
   ColonyTokenClient,
   Erc20TokenClient,
   Erc2612TokenClient,
-  DaiTokenClient,
 } from './clients/TokenClient';
 
 export { default as getTokenLockingClient } from './clients/TokenLockingClient';
