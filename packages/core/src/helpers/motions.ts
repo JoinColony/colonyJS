@@ -15,7 +15,7 @@ const { MaxUint256 } = constants;
 
 const { AddressZero } = constants;
 
-export async function getCapabilityRolesAsArray(
+async function getCapabilityRolesAsArray(
   contract: MotionTarget,
   _sig: BytesLike,
 ): Promise<ColonyRole[]> {
@@ -37,10 +37,10 @@ export async function getCapabilityRolesAsArray(
  *
  * This gets the reputation and domain proofs for motion creation
  *
- * @param contract Any VotingReputation extension contract
- * @param domainId Domain id the motion will be created in
- * @param altTarget Target address for the motion (0x0 if Colony contract)
- * @param action The encoded action the motion will execute when finalized
+ * @param contract - Any VotingReputation extension contract
+ * @param domainId - Domain id the motion will be created in
+ * @param altTarget - Target address for the motion (0x0 if Colony contract)
+ * @param action - The encoded action the motion will execute when finalized
  *
  * @returns The necessary reputation and domain proofs to create a motion
  */

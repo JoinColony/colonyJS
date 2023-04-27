@@ -7,6 +7,15 @@ import { getChildIndex } from './network';
 const { hexDataSlice } = utils;
 const { MaxUint256 } = constants;
 
+/*
+ * Parses a permissioned action that is supposed to be executed (e.g. in a motion)
+ *
+ * The signature, as well as the domain in which the permission exists are returned
+ *
+ * @param action - Encoded action (an encoded transaction, essentially)
+ *
+ * @returns Signature, domain the permissions exists in and the index on the children array of the parent domain
+ */
 export const parsePermissionedAction = (action: BytesLike) => {
   const sig = hexDataSlice(action, 0, 3);
   const permissionDomainId = BigNumber.from(hexDataSlice(action, 4, 35));
@@ -102,10 +111,10 @@ const getMultiPermissionProofs = async (
  * * `permissionDomainId`: id of the parent domain of the required domain the user has the required permission in
  * * `childSkillIndex`: the child index for a domain inside its corresponding skills parent children array
  *
- * @param client Any ColonyClient
- * @param domainId Domain id the method needs to act in
- * @param roles Permissioning role(s) that the methods needs to function
- * @param customAddress A custom address to get the permission proofs for (defaults to the signer's address)
+ * @param client - Any ColonyClient
+ * @param domainId - Domain id the method needs to act in
+ * @param roles - Permissioning role(s) that the methods needs to function
+ * @param customAddress - A custom address to get the permission proofs for (defaults to the signer's address)
  *
  * @returns Tuple of `[permissionDomainId, childSkillIndex, permissionAddress]`
  */

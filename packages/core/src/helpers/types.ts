@@ -1,4 +1,6 @@
-import { BigNumber, BigNumberish, BaseContract } from 'ethers';
+import type { Provider } from '@ethersproject/abstract-provider';
+
+import { BigNumber, BigNumberish, Signer } from 'ethers';
 
 export interface CommonDomain {
   skillId: BigNumber;
@@ -20,6 +22,13 @@ export interface CommonPayment {
 
 export interface CommonTask {
   domainId: BigNumber;
+}
+
+// We are using the smallest possible types here to avoid conflicts with extended/modified types
+interface BaseContract {
+  address: string;
+  provider: Provider;
+  signer: Signer;
 }
 
 export interface CommonNetwork extends BaseContract {

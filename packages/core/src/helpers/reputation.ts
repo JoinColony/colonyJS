@@ -6,6 +6,7 @@ import { CommonColony, CommonNetwork } from './types';
 
 interface ReputationClientOptions {
   customEndpointUrl?: string;
+  network?: Network;
 }
 
 interface ReputationResponse {
@@ -48,14 +49,14 @@ export class ReputationClient {
   constructor(
     network: CommonNetwork,
     colony: CommonColony,
-    networkId: Network,
     config?: ReputationClientOptions,
   ) {
     this.colony = colony;
     this.network = network;
 
+    const networkName = config?.network || Network.Gnosis;
     this.endpointUrl =
-      config?.customEndpointUrl || ReputationOracleEndpoint[networkId];
+      config?.customEndpointUrl || ReputationOracleEndpoint[networkName];
   }
 
   private async getRootHash(customRootHash?: string) {
@@ -72,6 +73,29 @@ export class ReputationClient {
     return `${this.endpointUrl}/${rootHash}/${this.colony.address}`;
   }
 
+  /**
+   * Get reputation with no proofs
+   *
+   * Simply fetches the reputation for a user and a certain skillId.
+   * Get the skillId for a domain first to check reputation in a domain.
+   *
+   * @example
+   * ```typescript
+   * const reputation = new ReputationClient(networkContract, colonyContract);
+   * // Immediately executing async function
+   * (async function() {
+   *   // Use Id.RootDomain as domainId for Colony-wide reputation
+   *   const { skillId } = await colonyContract.getDomain(domainId);
+   *   const { reputationAmount } = reputation.getReputation(skillId, walletAddress);
+   * })();
+   * ```
+   *
+   * @param skillId - Skill (for corresponding domain) to check reputation in
+   * @param address - User address to check reputation for
+   * @param customRootHash - Optionally define a root hash in the reputation tree (historic point in time)
+   *
+   * @returns Reputation data
+   */
   async getReputation(
     skillId: BigNumberish,
     address: string,
@@ -89,6 +113,15 @@ export class ReputationClient {
     };
   }
 
+  /**
+   * Get reputation with proofs (e.g. to check against on-chain data)
+   *
+   * @param skillId - Skill (for corresponding domain) to check reputation in
+   * @param address - User address to check reputation for
+   * @param customRootHash - Optionally define a root hash in the reputation tree (historic point in time)
+   *
+   * @returns Reputation data
+   */
   async getReputationWithProofs(
     skillId: BigNumberish,
     address: string,
@@ -105,6 +138,14 @@ export class ReputationClient {
     };
   }
 
+  /**
+   * Get reputation for an address across all Colony domains
+   *
+   * @param address - User address to check reputation for
+   * @param customRootHash - Optionally define a root hash in the reputation tree (historic point in time)
+   *
+   * @returns Reputation data
+   */
   async getReputationAcrossDomains(address: string, customRootHash?: string) {
     const baseEndpoint = await this.getBaseEndpoint(customRootHash);
     const url = `${baseEndpoint}/${address}/all`;
@@ -143,6 +184,14 @@ export class ReputationClient {
     });
   }
 
+  /**
+   * Get a list of all users who have reputation in a domain
+   *
+   * @param skillId - Skill (for corresponding domain) to check reputation in
+   * @param customRootHash - Optionally define a root hash in the reputation tree (historic point in time)
+   *
+   * @returns Reputation data
+   */
   async getMembersReputation(skillId: BigNumberish, customRootHash?: string) {
     const baseEndpoint = await this.getBaseEndpoint(customRootHash);
     const skillIdString = BigNumber.from(skillId || 0).toString();

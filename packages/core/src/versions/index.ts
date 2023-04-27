@@ -36,7 +36,9 @@ import { WHITELIST_VERSION_LATEST, WhitelistVersion } from './Whitelist';
 
 export { isExtensionCompatible } from './helpers';
 
-/** Colony Network contract release tags */
+/**
+ * Colony Network contract release tags
+ */
 export const RELEASES = [
   'glider-rc.1',
   'glider',
@@ -56,10 +58,14 @@ export const RELEASES = [
   'glwss3',
 ];
 
-/** Latest release tag */
+/*
+ * Latest release tag
+ */
 export const LATEST_TAG = RELEASES[RELEASES.length - 1];
 
-/** Map versioned contracts to network release tags */
+/**
+ * Map versioned contracts to network release tags
+ */
 export const RELEASE_MAP = {
   IColony: {
     'glider-rc.1': 1,
@@ -138,7 +144,9 @@ export const RELEASE_MAP = {
   },
 };
 
-// FIXME: docs
+/**
+ * Latest versions of all extension contracts
+ */
 export const ExtensionVersions = {
   [Extension.CoinMachine]: COIN_MACHINE_VERSION_LATEST,
   [Extension.EvaluatedExpenditure]: EVALUATED_EXPENDITURE_VERSION_LATEST,
@@ -153,7 +161,9 @@ export const ExtensionVersions = {
   [Extension.Whitelist]: WHITELIST_VERSION_LATEST,
 };
 
-// FIXME: docs
+/**
+ * All possible extension versions
+ */
 export type ExtensionVersion =
   | CoinMachineVersion
   | EvaluatedExpenditureVersion
@@ -166,13 +176,47 @@ export type ExtensionVersion =
   | VotingReputationVersion
   | WhitelistVersion;
 
-// FIXME: docs
-export { CoinMachineVersion } from './CoinMachine';
-export { FundingQueueVersion } from './FundingQueue';
+/**
+ * All possible Colony versions
+ */
 export { ColonyVersion } from './IColony';
+/**
+ * All possible CoinMachine versions
+ */
+export { CoinMachineVersion } from './CoinMachine';
+/**
+ * All possible EvaluagtedExpenditure versions
+ */
+export { EvaluatedExpenditureVersion } from './EvaluatedExpenditure';
+/**
+ * All possible FundingQueue versions
+ */
+export { FundingQueueVersion } from './FundingQueue';
+/**
+ * All possible OneTxPayment versions
+ */
 export { OneTxPaymentVersion } from './OneTxPayment';
+/**
+ * All possible ReputationBootstrapper versions
+ */
+export { ReputationBootstrapperVersion } from './ReputationBootstrapper';
+/**
+ * All possible StakedExpenditure versions
+ */
 export { StakedExpenditureVersion } from './StakedExpenditure';
+/**
+ * All possible StreamingPayments versions
+ */
 export { StreamingPaymentsVersion } from './StreamingPayments';
+/**
+ * All possible TokenSupplier versions
+ */
 export { TokenSupplierVersion } from './TokenSupplier';
+/**
+ * All possible VotingReputation versions
+ */
 export { VotingReputationVersion } from './VotingReputation';
+/**
+ * All possible Whitelist versions
+ */
 export { WhitelistVersion } from './Whitelist';

@@ -16,7 +16,9 @@ export enum Network {
   XdaiQa = 'XdaiQa',
 }
 
-/** Addresses of the deployed ColonyNetwork EtherRouter contracts in all networks */
+/**
+ * Addresses of the deployed ColonyNetwork EtherRouter contracts in all networks
+ */
 export enum ColonyNetworkAddress {
   /** The ColonyNetwork EtherRouter address on mainnet */
   Mainnet = '0x5346D0f80e2816FaD329F2c140c870ffc3c3E2Ef',
@@ -30,7 +32,9 @@ export enum ColonyNetworkAddress {
   Custom = '',
 }
 
-/** HTTP endpoint of the official colony reputation oracle */
+/**
+ * HTTP endpoint of the official Colony reputation oracle
+ */
 export enum ReputationOracleEndpoint {
   Mainnet = 'https://colony.io/reputation/mainnet',
   Goerli = 'https://colony.io/reputation/goerli',
@@ -39,6 +43,9 @@ export enum ReputationOracleEndpoint {
   Custom = 'http://localhost:3000',
 }
 
+/**
+ * HTTP endpoint of the official Colony MetaTransaction (gasless transaction) broadcaster
+ */
 export enum MetaTxBroadCasterEndpoint {
   /** The metatransaction broadcaster endpoint on mainnet */
   Mainnet = '',
@@ -54,6 +61,9 @@ export enum MetaTxBroadCasterEndpoint {
   Custom = '',
 }
 
+/**
+ * Official Colony RPC2 endpoint (node)
+ */
 export enum ColonyRpcEndpoint {
   /** Colony's own RPC2 endpoint for Mainnet */
   Mainnet = '',
@@ -69,6 +79,9 @@ export enum ColonyRpcEndpoint {
   Custom = '',
 }
 
+/**
+ * ENS label suffix for Colonies
+ */
 export enum ColonyLabelSuffix {
   Mainnet = '.colony.joincolony.eth',
   Goerli = '.colony.joincolony.test',
@@ -78,6 +91,9 @@ export enum ColonyLabelSuffix {
   Custom = '.colony.joincolony.test',
 }
 
+/**
+ * ENS label suffix for users
+ */
 export enum UserLabelSuffix {
   Mainnet = '.user.joincolony.eth',
   Goerli = '.user.joincolony.test',
@@ -87,7 +103,9 @@ export enum UserLabelSuffix {
   Custom = '.user.joincolony.test',
 }
 
-/** Shortcut to common token addresses */
+/**
+ * Shortcut to common token addresses
+ */
 // TODO: add more tokens like USDC, USDT?
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace Tokens {
@@ -107,10 +125,14 @@ export namespace Tokens {
   }
 }
 
-/** Shortcuts to certain IDs within Colony */
+/**
+ * Shortcuts to certain IDs within Colony
+ */
 export enum Id {
   /** The id of the root-domain in all colonies */
   RootDomain = 1,
+  /** Alias of RootDomain */
+  RootTeam = 1,
   /** The id of the root fundig pot in all colonies */
   RootPot = 1,
   /** Ignore the skill id for this method (global skill 0) */
@@ -168,7 +190,9 @@ export enum ColonyRole {
   LAST_ROLE,
 }
 
-/** Extension contract names */
+/**
+ * Extension contract names
+ */
 export enum Extension {
   CoinMachine = 'CoinMachine',
   EvaluatedExpenditure = 'EvaluatedExpenditure',
