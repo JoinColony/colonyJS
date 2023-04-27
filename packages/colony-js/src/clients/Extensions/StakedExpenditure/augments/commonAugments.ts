@@ -5,16 +5,18 @@ import {
   BytesLike,
 } from 'ethers';
 import {
-  StakedExpenditureEvents,
+  type StakedExpenditureVersion,
+  type TxOverrides,
+  ColonyRole,
+  getPermissionProofs,
+} from '@colony/core';
+import {
+  type StakedExpenditureEvents,
   StakedExpenditureEvents__factory as StakedExpenditureEventsFactory,
 } from '@colony/events';
 
-import { ClientType, ColonyRole } from '../../../../constants';
-import { TxOverrides } from '../../../../types';
-import {
-  AugmentedIColony,
-  getPermissionProofs,
-} from '../../../Core/augments/commonAugments';
+import { ClientType } from '../../../../constants';
+import { AugmentedIColony } from '../../../Core/augments/commonAugments';
 import {
   IColonyV4,
   IColonyV5,
@@ -24,7 +26,6 @@ import {
   IColonyV9,
   IColonyV10,
 } from '../../../Core/contracts';
-import { StakedExpenditureVersion } from '../exports';
 import { AnyStakedExpenditure } from '../contracts';
 
 export type ValidColony =
@@ -148,6 +149,7 @@ async function makeExpenditureWithStakeWithProofs(
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     _domainId,
     ColonyRole.Administration,
@@ -176,6 +178,7 @@ async function estimateSetExpenditurePayoutModifiersWithProofs(
   overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     _domainId,
     ColonyRole.Administration,
@@ -202,6 +205,7 @@ async function cancelAndReclaimStakeWithProofs(
   const { domainId } = await this.colonyClient.getExpenditure(_expenditureId);
 
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     domainId,
     ColonyRole.Arbitration,
@@ -224,6 +228,7 @@ async function estimateCancelAndReclaimStakeWithProofs(
   const { domainId } = await this.colonyClient.getExpenditure(_expenditureId);
 
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     domainId,
     ColonyRole.Arbitration,
@@ -247,6 +252,7 @@ async function cancelAndPunishWithProofs(
   const { domainId } = await this.colonyClient.getExpenditure(_expenditureId);
 
   const [extPermissionDomainId, extChildSkillIndex] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     domainId,
     ColonyRole.Arbitration,
@@ -255,6 +261,7 @@ async function cancelAndPunishWithProofs(
 
   const [callerPermissionDomainId, callerChildSkillIndex] =
     await getPermissionProofs(
+      this.colonyClient.networkClient,
       this.colonyClient,
       domainId,
       ColonyRole.Arbitration,
@@ -280,6 +287,7 @@ async function estimateCancelAndPunishWithProofs(
   const { domainId } = await this.colonyClient.getExpenditure(_expenditureId);
 
   const [extPermissionDomainId, extChildSkillIndex] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     domainId,
     ColonyRole.Arbitration,
@@ -288,6 +296,7 @@ async function estimateCancelAndPunishWithProofs(
 
   const [callerPermissionDomainId, callerChildSkillIndex] =
     await getPermissionProofs(
+      this.colonyClient.networkClient,
       this.colonyClient,
       domainId,
       ColonyRole.Arbitration,

@@ -1,7 +1,13 @@
 import { BigNumber, BigNumberish, ContractTransaction } from 'ethers';
+import {
+  type TxOverrides,
+  ColonyRole,
+  Id,
+  getChildIndex,
+  getPermissionProofs,
+  getPotDomain,
+} from '@colony/core';
 
-import { ColonyRole, Id } from '../../../constants';
-import { TxOverrides } from '../../../types';
 import {
   IColonyV1,
   IColonyV2,
@@ -16,12 +22,7 @@ import {
   IColonyV11,
   IColonyV12,
 } from '../contracts';
-import {
-  AugmentedIColony,
-  getChildIndex,
-  getPermissionProofs,
-  getPotDomain,
-} from './commonAugments';
+import { AugmentedIColony } from './commonAugments';
 
 // Colonies that support the earlier (not-overloaded) method
 type ValidColonyA =
@@ -53,6 +54,7 @@ const getMoveFundsPermissionProofsA = async (
   const toDomainId = await getPotDomain(contract, toPotId);
   const [fromPermissionDomainId, fromChildSkillIndex] =
     await getPermissionProofs(
+      contract.networkClient,
       contract,
       fromDomainId,
       ColonyRole.Funding,
@@ -61,6 +63,7 @@ const getMoveFundsPermissionProofsA = async (
   // @TODO: once getPermissionProofs is more expensive we can just check the domain here
   // with userHasRole and then immediately get the permission proofs
   const [toPermissionDomainId, toChildSkillIndex] = await getPermissionProofs(
+    contract.networkClient,
     contract,
     toDomainId,
     ColonyRole.Funding,
@@ -81,11 +84,13 @@ const getMoveFundsPermissionProofsA = async (
     // moveFundsBetweenPots function AND nested domains
     if (hasFundingInRoot) {
       const rootFromChildSkillIndex = await getChildIndex(
+        contract.networkClient,
         contract,
         Id.RootDomain,
         fromDomainId,
       );
       const rootToChildSkillIndex = await getChildIndex(
+        contract.networkClient,
         contract,
         Id.RootDomain,
         toDomainId,
@@ -353,6 +358,7 @@ async function moveFundsBetweenPotsWithProofsB(
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     _domainId,
     ColonyRole.Funding,
@@ -362,11 +368,17 @@ async function moveFundsBetweenPotsWithProofsB(
   const toDomainId = await getPotDomain(this, _toPot);
 
   const fromChildSkillIndex = await getChildIndex(
+    this.networkClient,
     this,
     _domainId,
     fromDomainId,
   );
-  const toChildSkillIndex = await getChildIndex(this, _domainId, toDomainId);
+  const toChildSkillIndex = await getChildIndex(
+    this.networkClient,
+    this,
+    _domainId,
+    toDomainId,
+  );
 
   return this[
     // eslint-disable-next-line max-len
@@ -396,6 +408,7 @@ async function estimateMoveFundsBetweenPotsWithProofsB(
   overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     _domainId,
     ColonyRole.Funding,
@@ -405,11 +418,17 @@ async function estimateMoveFundsBetweenPotsWithProofsB(
   const toDomainId = await getPotDomain(this, _toPot);
 
   const fromChildSkillIndex = await getChildIndex(
+    this.networkClient,
     this,
     _domainId,
     fromDomainId,
   );
-  const toChildSkillIndex = await getChildIndex(this, _domainId, toDomainId);
+  const toChildSkillIndex = await getChildIndex(
+    this.networkClient,
+    this,
+    _domainId,
+    toDomainId,
+  );
 
   return this.estimateGas[
     // eslint-disable-next-line max-len

@@ -1,5 +1,6 @@
+export * from '@colony/core';
+
 export { default as getColonyNetworkClient } from './clients/ColonyNetworkClient';
-export { formatColonyRoles } from './utils';
 
 export * from './constants';
 export * from './helpers';

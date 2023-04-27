@@ -5,17 +5,18 @@ import {
   constants,
 } from 'ethers';
 import {
+  type StreamingPaymentsVersion,
+  type TxOverrides,
+  ColonyRole,
+  getPermissionProofs,
+} from '@colony/core';
+import {
   StreamingPaymentsEvents,
   StreamingPaymentsEvents__factory as StreamingPaymentsEventsFactory,
 } from '@colony/events';
 
-import { ClientType, ColonyRole } from '../../../../constants';
-import { TxOverrides } from '../../../../types';
-import {
-  AugmentedIColony,
-  getMultiPermissionProofs,
-  getPermissionProofs,
-} from '../../../Core/augments/commonAugments';
+import { ClientType } from '../../../../constants';
+import { AugmentedIColony } from '../../../Core/augments/commonAugments';
 import {
   IColonyV4,
   IColonyV5,
@@ -25,7 +26,6 @@ import {
   IColonyV9,
   IColonyV10,
 } from '../../../Core/contracts';
-import { StreamingPaymentsVersion } from '../exports';
 import { AnyStreamingPayments } from '../contracts';
 
 const { MaxUint256 } = constants;
@@ -265,9 +265,15 @@ async function createWithProofs(
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const [fundingPermissionDomainId, fundingChildSkillIndex] =
-    await getPermissionProofs(this.colonyClient, _domainId, ColonyRole.Funding);
+    await getPermissionProofs(
+      this.colonyClient.networkClient,
+      this.colonyClient,
+      _domainId,
+      ColonyRole.Funding,
+    );
   const [adminPermissionDomainId, adminChildSkillIndex] =
     await getPermissionProofs(
+      this.colonyClient.networkClient,
       this.colonyClient,
       _domainId,
       ColonyRole.Administration,
@@ -301,9 +307,15 @@ async function estimateCreateWithProofs(
   overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [fundingPermissionDomainId, fundingChildSkillIndex] =
-    await getPermissionProofs(this.colonyClient, _domainId, ColonyRole.Funding);
+    await getPermissionProofs(
+      this.colonyClient.networkClient,
+      this.colonyClient,
+      _domainId,
+      ColonyRole.Funding,
+    );
   const [adminPermissionDomainId, adminChildSkillIndex] =
     await getPermissionProofs(
+      this.colonyClient.networkClient,
       this.colonyClient,
       _domainId,
       ColonyRole.Administration,
@@ -333,7 +345,8 @@ async function claimWithProofs(
 ): Promise<ContractTransaction> {
   const { domainId } = await this.getStreamingPayment(_id);
 
-  const [permissionDomainId, childSkillIndex] = await getMultiPermissionProofs(
+  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     domainId,
     [ColonyRole.Funding, ColonyRole.Administration],
@@ -360,7 +373,8 @@ async function estimateClaimWithProofs(
 ): Promise<BigNumber> {
   const { domainId } = await this.getStreamingPayment(_id);
 
-  const [permissionDomainId, childSkillIndex] = await getMultiPermissionProofs(
+  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     domainId,
     [ColonyRole.Funding, ColonyRole.Administration],
@@ -389,6 +403,7 @@ async function addTokenWithProofs(
   const { domainId } = await this.getStreamingPayment(_id);
 
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     domainId,
     ColonyRole.Funding,
@@ -414,6 +429,7 @@ async function estimateAddTokenWithProofs(
   const { domainId } = await this.getStreamingPayment(_id);
 
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     domainId,
     ColonyRole.Funding,
@@ -439,15 +455,20 @@ async function setTokenAmountWithProofs(
   const { domainId } = await this.getStreamingPayment(_id);
 
   const [callerPermissionDomainId, callerChildSkillIndex] =
-    await getPermissionProofs(this.colonyClient, domainId, ColonyRole.Funding);
-
-  const [extPermissionDomainId, extChildSkillIndex] =
-    await getMultiPermissionProofs(
+    await getPermissionProofs(
+      this.colonyClient.networkClient,
       this.colonyClient,
       domainId,
-      [ColonyRole.Funding, ColonyRole.Administration],
-      this.address,
+      ColonyRole.Funding,
     );
+
+  const [extPermissionDomainId, extChildSkillIndex] = await getPermissionProofs(
+    this.colonyClient.networkClient,
+    this.colonyClient,
+    domainId,
+    [ColonyRole.Funding, ColonyRole.Administration],
+    this.address,
+  );
 
   return this.setTokenAmount(
     callerPermissionDomainId,
@@ -474,15 +495,20 @@ async function estimateSetTokenAmountWithProofs(
   const { domainId } = await this.getStreamingPayment(_id);
 
   const [callerPermissionDomainId, callerChildSkillIndex] =
-    await getPermissionProofs(this.colonyClient, domainId, ColonyRole.Funding);
-
-  const [extPermissionDomainId, extChildSkillIndex] =
-    await getMultiPermissionProofs(
+    await getPermissionProofs(
+      this.colonyClient.networkClient,
       this.colonyClient,
       domainId,
-      [ColonyRole.Funding, ColonyRole.Administration],
-      this.address,
+      ColonyRole.Funding,
     );
+
+  const [extPermissionDomainId, extChildSkillIndex] = await getPermissionProofs(
+    this.colonyClient.networkClient,
+    this.colonyClient,
+    domainId,
+    [ColonyRole.Funding, ColonyRole.Administration],
+    this.address,
+  );
 
   return this.estimateGas.setTokenAmount(
     callerPermissionDomainId,
@@ -508,6 +534,7 @@ async function setStartTimeWithProofs(
   const { domainId } = await this.getStreamingPayment(_id);
 
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     domainId,
     ColonyRole.Administration,
@@ -531,6 +558,7 @@ async function estimateSetStartTimeWithProofs(
   const { domainId } = await this.getStreamingPayment(_id);
 
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     domainId,
     ColonyRole.Administration,
@@ -554,6 +582,7 @@ async function setEndTimeWithProofs(
   const { domainId } = await this.getStreamingPayment(_id);
 
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     domainId,
     ColonyRole.Administration,
@@ -577,6 +606,7 @@ async function estimateSetEndTimeWithProofs(
   const { domainId } = await this.getStreamingPayment(_id);
 
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     domainId,
     ColonyRole.Administration,
@@ -599,6 +629,7 @@ async function cancelWithProofs(
   const { domainId } = await this.getStreamingPayment(_id);
 
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     domainId,
     ColonyRole.Administration,
@@ -615,6 +646,7 @@ async function estimateCancelWithProofs(
   const { domainId } = await this.getStreamingPayment(_id);
 
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     domainId,
     ColonyRole.Administration,

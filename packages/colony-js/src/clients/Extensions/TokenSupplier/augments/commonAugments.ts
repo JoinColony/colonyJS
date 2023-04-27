@@ -1,11 +1,12 @@
+import type { TokenSupplierVersion } from '@colony/core';
+
 import {
-  TokenSupplierEvents,
+  type TokenSupplierEvents,
   TokenSupplierEvents__factory as TokenSupplierEventsFactory,
 } from '@colony/events';
 
 import { ClientType } from '../../../../constants';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments';
-import { TokenSupplierVersion } from '../exports';
 import { AnyTokenSupplier } from '../contracts';
 
 export type AugmentedTokenSupplier<

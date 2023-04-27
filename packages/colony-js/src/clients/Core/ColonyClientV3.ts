@@ -1,7 +1,8 @@
+import type { SignerOrProvider } from '@colony/core';
+
 import { IColony__factory as IColonyFactory } from '../../contracts/IColony/3/factories/IColony__factory';
 import { IColony } from '../../contracts/IColony/3/IColony';
 import { ColonyNetworkClient } from '../ColonyNetworkClient';
-import { SignerOrProvider } from '../../types';
 import { AugmentedIColony, AugmentedEstimate } from './augments/commonAugments';
 import {
   addAugments,

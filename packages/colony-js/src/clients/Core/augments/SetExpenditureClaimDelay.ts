@@ -1,9 +1,12 @@
 import { BigNumber, BigNumberish, ContractTransaction } from 'ethers';
+import {
+  type TxOverrides,
+  ColonyRole,
+  getPermissionProofs,
+} from '@colony/core';
 
-import { ColonyRole } from '../../../constants';
-import { TxOverrides } from '../../../types';
 import { IColonyV4, IColonyV5, IColonyV6, IColonyV7 } from '../contracts';
-import { AugmentedIColony, getPermissionProofs } from './commonAugments';
+import { AugmentedIColony } from './commonAugments';
 
 // Colonies that support this method
 type ValidColony = IColonyV4 | IColonyV5 | IColonyV6 | IColonyV7;
@@ -55,6 +58,7 @@ async function setExpenditureClaimDelayWithProofs(
 ): Promise<ContractTransaction> {
   const { domainId } = await this.getExpenditure(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     domainId,
     ColonyRole.Arbitration,
@@ -79,6 +83,7 @@ async function estimateSetExpenditureClaimDelayWithProofs(
 ): Promise<BigNumber> {
   const { domainId } = await this.getExpenditure(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     domainId,
     ColonyRole.Arbitration,

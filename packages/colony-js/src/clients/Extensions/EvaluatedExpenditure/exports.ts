@@ -1,8 +1,7 @@
-import { ColonyVersion } from '../../../clients/Core/exports';
-import {
-  assertExhaustiveSwitch,
-  createContractVersionArray,
-} from '../../../utils';
+import type { EvaluatedExpenditureVersion } from '@colony/core';
+
+import { assertExhaustiveSwitch } from '@colony/core/utils';
+
 import { AugmentedIColony } from '../../Core/augments/commonAugments';
 import { ValidColony } from './augments/commonAugments';
 
@@ -16,12 +15,6 @@ import getEvaluatedExpenditureClientV3, {
   EvaluatedExpenditureClientV3,
 } from './EvaluatedExpenditureClientV3';
 
-const EVALUATED_EXPENDITURE_VERSION_NEXT = 4;
-
-/** @internal */
-export const EVALUATED_EXPENDITURE_VERSION_LATEST =
-  EVALUATED_EXPENDITURE_VERSION_NEXT - 1;
-
 export { EvaluatedExpenditureClientV1 } from './EvaluatedExpenditureClientV1';
 export { EvaluatedExpenditureClientV2 } from './EvaluatedExpenditureClientV2';
 export { EvaluatedExpenditureClientV3 } from './EvaluatedExpenditureClientV3';
@@ -30,24 +23,6 @@ export type AnyEvaluatedExpenditureClient =
   | EvaluatedExpenditureClientV1
   | EvaluatedExpenditureClientV2
   | EvaluatedExpenditureClientV3;
-
-/** @internal */
-export const EVALUATED_EXPENDITURE_VERSIONS = createContractVersionArray(
-  EVALUATED_EXPENDITURE_VERSION_NEXT,
-);
-/** @internal */
-export type EvaluatedExpenditureVersion =
-  typeof EVALUATED_EXPENDITURE_VERSIONS[number];
-
-/** @internal */
-export const evaluatedExpenditureIncompatibilityMap: Record<
-  EvaluatedExpenditureVersion,
-  Array<ColonyVersion>
-> = {
-  1: [1, 2, 3],
-  2: [1, 2, 3],
-  3: [1, 2, 3],
-};
 
 /** @internal */
 export const getEvaluatedExpenditureClient = (

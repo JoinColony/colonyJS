@@ -1,10 +1,13 @@
 import { ContractTransaction, BigNumber, BigNumberish } from 'ethers';
+import {
+  type TxOverrides,
+  ColonyRole,
+  getPermissionProofs,
+} from '@colony/core';
 
-import { ColonyRole } from '../../../constants';
-import { TxOverrides } from '../../../types';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import { IColonyV9, IColonyV10, IColonyV11, IColonyV12 } from '../contracts';
-import { AugmentedIColony, getPermissionProofs } from './commonAugments';
+import { AugmentedIColony } from './commonAugments';
 import { ColonyAugmentsV3 } from './augmentsV3';
 import { ColonyAugmentsV4 } from './augmentsV4';
 import {
@@ -65,6 +68,7 @@ async function deprecateDomainWithProofs(
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     _domainId,
     ColonyRole.Architecture,
@@ -88,6 +92,7 @@ async function estimateDeprecateDomainWithProofs(
   overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     _domainId,
     ColonyRole.Architecture,

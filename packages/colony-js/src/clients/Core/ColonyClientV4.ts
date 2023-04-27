@@ -1,3 +1,5 @@
+import type { SignerOrProvider } from '@colony/core';
+
 import { IColony__factory as IColonyFactory } from '../../contracts/IColony/4/factories/IColony__factory';
 import { IColony } from '../../contracts/IColony/4/IColony';
 import { ColonyNetworkClient } from '../ColonyNetworkClient';
@@ -28,8 +30,6 @@ import {
   SetExpenditurePayoutModifierEstimateGas,
   addAugments as addSetExpenditurePayoutModifierAugments,
 } from './augments/SetExpenditurePayoutModifier';
-
-import { SignerOrProvider } from '../../types';
 
 interface ColonyClientV4Estimate
   extends AugmentedEstimate<IColony>,

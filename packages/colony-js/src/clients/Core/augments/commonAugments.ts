@@ -3,33 +3,28 @@ import {
   BytesLike,
   BigNumber,
   BigNumberish,
-  constants,
 } from 'ethers';
 import {
-  IColonyEvents,
+  type IColonyEvents,
   IColonyEvents__factory as IColonyEventsFactory,
 } from '@colony/events';
 import { TokenClient } from '@colony/tokens';
 
 import {
-  Id,
-  ClientType,
+  type ColonyVersion,
+  type TxOverrides,
   ColonyRole,
-  FundingPotAssociatedType,
-  ReputationMinerEndpoints,
-} from '../../../constants';
-import { fetchReputationOracleData } from '../../../utils';
-import { TxOverrides } from '../../../types';
-import {
   Extension,
+  getPermissionProofs,
+  ReputationClient,
+} from '@colony/core';
+import { ClientType } from '../../../constants';
+import {
   getExtensionClient,
   GetExtensionClientReturns,
 } from '../../Extensions/exports';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
-import { ColonyVersion } from '../exports';
 import { AnyIColony } from '../contracts';
-
-const { MaxUint256 } = constants;
 
 export type AugmentedEstimate<T extends AnyIColony = AnyIColony> =
   T['estimateGas'] & {
@@ -149,6 +144,8 @@ export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
   clientVersion: ColonyVersion;
   /** An instance of the ColonyNetworkClient */
   networkClient: ColonyNetworkClient;
+  /** A helper client to retrieve reputation */
+  reputationClient: ReputationClient;
   /** An instance of the TokenClient for the Colony's native token */
   tokenClient: TokenClient;
 
@@ -351,129 +348,6 @@ export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
   getMembersReputation(skillId: BigNumberish): Promise<{ addresses: string[] }>;
 };
 
-export const getPotDomain = async (
-  contract: AugmentedIColony,
-  potId: BigNumberish,
-): Promise<BigNumberish> => {
-  const { associatedType, associatedTypeId } = await contract.getFundingPot(
-    potId,
-  );
-  // In case we add types to this later, we use the official colonyNetwork
-  // function available in v5+
-  if ('getDomainFromFundingPot' in contract) {
-    return contract.getDomainFromFundingPot(potId);
-  }
-  switch (associatedType) {
-    case FundingPotAssociatedType.Unassigned: {
-      // This is probably the reward pot
-      return Id.RootDomain;
-    }
-    case FundingPotAssociatedType.Domain: {
-      return associatedTypeId;
-    }
-    case FundingPotAssociatedType.Payment: {
-      const { domainId } = await contract.getPayment(associatedTypeId);
-      return domainId;
-    }
-    case FundingPotAssociatedType.Task: {
-      const { domainId } = await contract.getTask(associatedTypeId);
-      return domainId;
-    }
-    default: {
-      throw new Error(`No valid domain found for pot ${potId}`);
-    }
-  }
-};
-
-export const getChildIndex = async (
-  contract: AugmentedIColony,
-  parentDomainId: BigNumberish,
-  domainId: BigNumberish,
-): Promise<BigNumber> => {
-  if (BigNumber.from(parentDomainId).eq(BigNumber.from(domainId))) {
-    return MaxUint256;
-  }
-  const { skillId: parentSkillId } = await contract.getDomain(parentDomainId);
-  const { skillId } = await contract.getDomain(domainId);
-  const { children } = await contract.networkClient.getSkill(parentSkillId);
-  const idx = children.findIndex((childSkillId) => childSkillId.eq(skillId));
-  if (idx < 0) {
-    throw new Error(
-      `Could not find ${domainId} as a child of ${parentDomainId}`,
-    );
-  }
-  return BigNumber.from(idx);
-};
-
-// Call getPermissionProofs once for domainId and role
-// Find domains for pots
-// Find childSkillIndeces for from and to domain in domain we're acting in (domainId)
-export const getPermissionProofs = async (
-  contract: AugmentedIColony,
-  domainId: BigNumberish,
-  role: ColonyRole,
-  customAddress?: string,
-  /* [permissionDomainId, childSkillIndex] */
-): Promise<[BigNumber, BigNumber, string]> => {
-  const walletAddress = customAddress || (await contract.signer.getAddress());
-  const hasPermissionInDomain = await contract.hasUserRole(
-    walletAddress,
-    domainId,
-    role,
-  );
-  if (hasPermissionInDomain) {
-    return [BigNumber.from(domainId), MaxUint256, walletAddress];
-  }
-  // TODO: once we allow nested domains on the network level, this needs to traverse down the skill/domain tree. Use binary search
-  const foundDomainId = BigNumber.from(Id.RootDomain);
-  const hasPermissionInAParentDomain = await contract.hasUserRole(
-    walletAddress,
-    foundDomainId,
-    role,
-  );
-  if (!hasPermissionInAParentDomain) {
-    throw new Error(
-      `${walletAddress} does not have the permission ${role} in any parent domain`,
-    );
-  }
-  const idx = await getChildIndex(contract, foundDomainId, domainId);
-  if (idx.lt(0)) {
-    throw new Error(
-      `${walletAddress} does not have the permission ${role} in any parent domain`,
-    );
-  }
-  return [foundDomainId, idx, walletAddress];
-};
-
-export const getMultiPermissionProofs = async (
-  contract: AugmentedIColony,
-  domainId: BigNumberish,
-  roles: ColonyRole[],
-  customAddress?: string,
-): Promise<[BigNumber, BigNumber, string]> => {
-  const proofs = await Promise.all(
-    roles.map((role) =>
-      getPermissionProofs(contract, domainId, role, customAddress),
-    ),
-  );
-
-  // We are checking that all of the permissions resolve to the same domain and childSkillIndex
-  for (let idx = 0; idx < proofs.length; idx += 1) {
-    const [permissionDomainId, childSkillIndex, address] = proofs[idx];
-    if (
-      !permissionDomainId.eq(proofs[0][0]) ||
-      !childSkillIndex.eq(proofs[0][1])
-    ) {
-      throw new Error(
-        `${address} has to have all required roles (${roles}) in the same domain`,
-      );
-    }
-  }
-
-  // It does not need to be an array because if we get here, all the proofs are the same
-  return proofs[0];
-};
-
 async function setArchitectureRoleWithProofs(
   this: AugmentedIColony,
   _user: string,
@@ -485,12 +359,18 @@ async function setArchitectureRoleWithProofs(
   // This method has two potential permissions, so we try both of them
   try {
     proofs = await getPermissionProofs(
+      this.networkClient,
       this,
       _domainId,
       ColonyRole.Architecture,
     );
   } catch (err) {
-    proofs = await getPermissionProofs(this, _domainId, ColonyRole.Root);
+    proofs = await getPermissionProofs(
+      this.networkClient,
+      this,
+      _domainId,
+      ColonyRole.Root,
+    );
   }
   const [permissionDomainId, childSkillIndex] = proofs;
   return this.setArchitectureRole(
@@ -514,12 +394,18 @@ async function setFundingRoleWithProofs(
   // This method has two potential permissions, so we try both of them
   try {
     proofs = await getPermissionProofs(
+      this.networkClient,
       this,
       _domainId,
       ColonyRole.Architecture,
     );
   } catch (err) {
-    proofs = await getPermissionProofs(this, _domainId, ColonyRole.Root);
+    proofs = await getPermissionProofs(
+      this.networkClient,
+      this,
+      _domainId,
+      ColonyRole.Root,
+    );
   }
   const [permissionDomainId, childSkillIndex] = proofs;
   return this.setFundingRole(
@@ -543,12 +429,18 @@ async function setAdministrationRoleWithProofs(
   // This method has two potential permissions, so we try both of them
   try {
     proofs = await getPermissionProofs(
+      this.networkClient,
       this,
       _domainId,
       ColonyRole.Architecture,
     );
   } catch (err) {
-    proofs = await getPermissionProofs(this, _domainId, ColonyRole.Root);
+    proofs = await getPermissionProofs(
+      this.networkClient,
+      this,
+      _domainId,
+      ColonyRole.Root,
+    );
   }
   const [permissionDomainId, childSkillIndex] = proofs;
   return this.setAdministrationRole(
@@ -571,6 +463,7 @@ async function addPaymentWithProofs(
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     _domainId,
     ColonyRole.Administration,
@@ -594,6 +487,7 @@ async function finalizePaymentWithProofs(
 ): Promise<ContractTransaction> {
   const { domainId } = await this.getPayment(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     domainId,
     ColonyRole.Administration,
@@ -614,6 +508,7 @@ async function setPaymentRecipientWithProofs(
 ): Promise<ContractTransaction> {
   const { domainId } = await this.getPayment(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     domainId,
     ColonyRole.Administration,
@@ -635,6 +530,7 @@ async function setPaymentSkillWithProofs(
 ): Promise<ContractTransaction> {
   const { domainId } = await this.getPayment(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     domainId,
     ColonyRole.Administration,
@@ -657,6 +553,7 @@ async function setPaymentPayoutWithProofs(
 ): Promise<ContractTransaction> {
   const { domainId } = await this.getPayment(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     domainId,
     ColonyRole.Administration,
@@ -680,6 +577,7 @@ async function makeTaskWithProofs(
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     _domainId,
     ColonyRole.Administration,
@@ -702,6 +600,7 @@ async function estimateSetArchitectureRoleWithProofs(
   _setTo: boolean,
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     _domainId,
     ColonyRole.Architecture,
@@ -723,6 +622,7 @@ async function estimateSetFundingRoleWithProofs(
   overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     _domainId,
     ColonyRole.Architecture,
@@ -745,6 +645,7 @@ async function estimateSetAdministrationRoleWithProofs(
   overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     _domainId,
     ColonyRole.Architecture,
@@ -768,6 +669,7 @@ async function estimateAddPaymentWithProofs(
   _skillId: BigNumberish,
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     _domainId,
     ColonyRole.Administration,
@@ -790,6 +692,7 @@ async function estimateFinalizePaymentWithProofs(
 ): Promise<BigNumber> {
   const { domainId } = await this.getPayment(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     domainId,
     ColonyRole.Administration,
@@ -810,6 +713,7 @@ async function estimateSetPaymentRecipientWithProofs(
 ): Promise<BigNumber> {
   const { domainId } = await this.getPayment(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     domainId,
     ColonyRole.Administration,
@@ -831,6 +735,7 @@ async function estimateSetPaymentSkillWithProofs(
 ): Promise<BigNumber> {
   const { domainId } = await this.getPayment(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     domainId,
     ColonyRole.Administration,
@@ -853,6 +758,7 @@ async function estimateSetPaymentPayoutWithProofs(
 ): Promise<BigNumber> {
   const { domainId } = await this.getPayment(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     domainId,
     ColonyRole.Administration,
@@ -876,6 +782,7 @@ async function estimateMakeTaskWithProofs(
   overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     _domainId,
     ColonyRole.Administration,
@@ -891,121 +798,6 @@ async function estimateMakeTaskWithProofs(
   );
 }
 
-async function getReputation(
-  this: AugmentedIColony,
-  skillId: BigNumberish,
-  address: string,
-  customRootHash?: string,
-): Promise<{
-  key: string;
-  value: string;
-  branchMask: string;
-  siblings: string[];
-  reputationAmount: BigNumber;
-}> {
-  const result = await fetchReputationOracleData(
-    ReputationMinerEndpoints.UserReputationInSingleDomainWithProofs,
-    this.networkClient,
-    this.address,
-    address,
-    skillId,
-    customRootHash,
-  );
-
-  return {
-    ...result,
-    reputationAmount: BigNumber.from(result.reputationAmount || 0),
-  };
-}
-
-async function getReputationWithoutProofs(
-  this: AugmentedIColony,
-  skillId: BigNumberish,
-  address: string,
-  customRootHash?: string,
-): Promise<{
-  key: string;
-  value: string;
-  reputationAmount: BigNumber;
-}> {
-  const result = await fetchReputationOracleData(
-    ReputationMinerEndpoints.UserReputationInSingleDomainWithoutProofs,
-    this.networkClient,
-    this.address,
-    address,
-    skillId,
-    customRootHash,
-  );
-  return {
-    ...result,
-    reputationAmount: BigNumber.from(result.reputationAmount || 0),
-  };
-}
-
-async function getReputationAcrossDomains(
-  this: AugmentedIColony,
-  address: string,
-  customRootHash?: string,
-): Promise<
-  {
-    domainId: number;
-    skillId: number;
-    reputationAmount?: BigNumberish;
-  }[]
-> {
-  const result = await fetchReputationOracleData(
-    ReputationMinerEndpoints.UserReputationInAllDomains,
-    this.networkClient,
-    this.address,
-    address,
-    undefined,
-    customRootHash,
-  );
-
-  const domainCount = await this.getDomainCount();
-  const allColonyDomains =
-    (await Promise.all(
-      Array.from(new Array(domainCount.toNumber())).map(async (_, index) => {
-        const domainId = index + 1;
-        const domain = await this.getDomain(domainId);
-        return {
-          domainId,
-          skillId: domain.skillId.toNumber(),
-        };
-      }),
-    )) || [];
-
-  return allColonyDomains.map((domain) => {
-    let reputationAmount;
-    const skillAssignedToDomain = (result?.reputations || []).find(
-      ({ skill_id: skillId }) => skillId === domain.skillId,
-    );
-    if (skillAssignedToDomain) {
-      reputationAmount = skillAssignedToDomain?.reputationAmount;
-    }
-    return {
-      ...domain,
-      reputationAmount: reputationAmount
-        ? BigNumber.from(reputationAmount)
-        : undefined,
-    };
-  });
-}
-
-async function getMembersReputation(
-  this: AugmentedIColony,
-  skillId: BigNumberish,
-): Promise<{ addresses: string[] }> {
-  return fetchReputationOracleData(
-    ReputationMinerEndpoints.UsersWithReputationInColony,
-    this.networkClient,
-    this.address,
-    undefined,
-    skillId,
-    undefined,
-  );
-}
-
 export const addAugments = <T extends AugmentedIColony>(
   instance: T,
   networkClient: ColonyNetworkClient,
@@ -1015,6 +807,13 @@ export const addAugments = <T extends AugmentedIColony>(
   instance.networkClient = networkClient;
 
   instance.getExtensionClient = getExtensionClient.bind(instance);
+
+  instance.reputationClient = new ReputationClient(
+    instance.networkClient,
+    instance,
+    networkClient.network,
+    { customEndpointUrl: instance.networkClient.reputationOracleEndpoint },
+  );
 
   instance.setArchitectureRoleWithProofs =
     setArchitectureRoleWithProofs.bind(instance);
@@ -1054,12 +853,20 @@ export const addAugments = <T extends AugmentedIColony>(
     instance.signer || instance.provider,
   );
 
-  instance.getReputation = getReputation.bind(instance);
+  instance.getReputation =
+    instance.reputationClient.getReputationWithProofs.bind(
+      instance.reputationClient,
+    );
   instance.getReputationWithoutProofs =
-    getReputationWithoutProofs.bind(instance);
+    instance.reputationClient.getReputation.bind(instance.reputationClient);
   instance.getReputationAcrossDomains =
-    getReputationAcrossDomains.bind(instance);
-  instance.getMembersReputation = getMembersReputation.bind(instance);
+    instance.reputationClient.getReputationAcrossDomains.bind(
+      instance.reputationClient,
+    );
+  instance.getMembersReputation =
+    instance.reputationClient.getMembersReputation.bind(
+      instance.reputationClient,
+    );
 
   /* eslint-enable no-param-reassign */
   return instance;

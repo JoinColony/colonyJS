@@ -1,8 +1,7 @@
-import { ColonyVersion } from '../../../clients/Core/exports';
-import {
-  assertExhaustiveSwitch,
-  createContractVersionArray,
-} from '../../../utils';
+import type { VotingReputationVersion } from '@colony/core';
+
+import { assertExhaustiveSwitch } from '@colony/core/utils';
+
 import { AugmentedIColony } from '../../Core/augments/commonAugments';
 
 import getVotingReputationClientV1, {
@@ -30,12 +29,6 @@ import getVotingReputationClientV8, {
   VotingReputationClientV8,
 } from './VotingReputationClientV8';
 
-const VOTING_REPUTATION_VERSION_NEXT = 9;
-
-/** @internal */
-export const VOTING_REPUTATION_VERSION_LATEST =
-  VOTING_REPUTATION_VERSION_NEXT - 1;
-
 export { VotingReputationClientV1 } from './VotingReputationClientV1';
 export { VotingReputationClientV2 } from './VotingReputationClientV2';
 export { VotingReputationClientV3 } from './VotingReputationClientV3';
@@ -54,28 +47,6 @@ export type AnyVotingReputationClient =
   | VotingReputationClientV6
   | VotingReputationClientV7
   | VotingReputationClientV8;
-
-/** @internal */
-export const VOTING_REPUTATION_VERSIONS = createContractVersionArray(
-  VOTING_REPUTATION_VERSION_NEXT,
-);
-/** @internal */
-export type VotingReputationVersion = typeof VOTING_REPUTATION_VERSIONS[number];
-
-/** @internal */
-export const votingReputationIncompatibilityMap: Record<
-  VotingReputationVersion,
-  Array<ColonyVersion>
-> = {
-  1: [],
-  2: [1, 2, 3, 4, 5, 6],
-  3: [1, 2, 3, 4, 5, 6],
-  4: [1, 2, 3, 4, 5, 6],
-  5: [1, 2, 3, 4, 5, 6],
-  6: [1, 2, 3, 4, 5, 6],
-  7: [1, 2, 3, 4, 5, 6],
-  8: [1, 2, 3, 4, 5, 6],
-};
 
 /** @internal */
 export function getVotingReputationClient(

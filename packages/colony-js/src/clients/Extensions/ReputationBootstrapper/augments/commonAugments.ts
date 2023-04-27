@@ -1,11 +1,12 @@
+import type { ReputationBootstrapperVersion } from '@colony/core';
+
 import {
-  ReputationBootstrapperEvents,
+  type ReputationBootstrapperEvents,
   ReputationBootstrapperEvents__factory as ReputationBootstrapperEventsFactory,
 } from '@colony/events';
 
 import { ClientType } from '../../../../constants';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments';
-import { ReputationBootstrapperVersion } from '../exports';
 import { AnyReputationBootstrapper } from '../contracts';
 
 export type AugmentedReputationBootstrapper<

@@ -1,8 +1,7 @@
-import { ColonyVersion } from '../../../clients/Core/exports';
-import {
-  assertExhaustiveSwitch,
-  createContractVersionArray,
-} from '../../../utils';
+import type { CoinMachineVersion } from '@colony/core';
+
+import { assertExhaustiveSwitch } from '@colony/core/utils';
+
 import { AugmentedIColony } from '../../Core/augments/commonAugments';
 
 import getCoinMachineClientV1, {
@@ -27,12 +26,6 @@ import getCoinMachineClientV7, {
   CoinMachineClientV7,
 } from './CoinMachineClientV7';
 
-// This is the latest CoinMachine version + 1. It's for generating types and compatibility maps
-const COIN_MACHINE_VERSION_NEXT = 8;
-
-/** @internal */
-export const COIN_MACHINE_VERSION_LATEST = COIN_MACHINE_VERSION_NEXT - 1;
-
 export { CoinMachineClientV1 } from './CoinMachineClientV1';
 export { CoinMachineClientV2 } from './CoinMachineClientV2';
 export { CoinMachineClientV3 } from './CoinMachineClientV3';
@@ -49,27 +42,6 @@ export type AnyCoinMachineClient =
   | CoinMachineClientV5
   | CoinMachineClientV6
   | CoinMachineClientV7;
-
-/** @internal */
-const COIN_MACHINE_VERSIONS = createContractVersionArray(
-  COIN_MACHINE_VERSION_NEXT,
-);
-/** @internal */
-export type CoinMachineVersion = typeof COIN_MACHINE_VERSIONS[number];
-
-/** @internal */
-export const coinMachineIncompatibilityMap: Record<
-  CoinMachineVersion,
-  Array<ColonyVersion>
-> = {
-  1: [],
-  2: [],
-  3: [],
-  4: [],
-  5: [],
-  6: [],
-  7: [],
-};
 
 /** @internal */
 export const getCoinMachineClient = (

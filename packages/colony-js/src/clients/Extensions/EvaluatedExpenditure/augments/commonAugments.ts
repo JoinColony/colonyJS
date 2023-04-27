@@ -1,15 +1,17 @@
 import { BigNumberish, BigNumber, ContractTransaction } from 'ethers';
 import {
-  EvaluatedExpenditureEvents,
+  type EvaluatedExpenditureVersion,
+  type TxOverrides,
+  ColonyRole,
+  getPermissionProofs,
+} from '@colony/core';
+import {
+  type EvaluatedExpenditureEvents,
   EvaluatedExpenditureEvents__factory as EvaluatedExpenditureEventsFactory,
 } from '@colony/events';
 
-import { ClientType, ColonyRole } from '../../../../constants';
-import { TxOverrides } from '../../../../types';
-import {
-  AugmentedIColony,
-  getPermissionProofs,
-} from '../../../Core/augments/commonAugments';
+import { ClientType } from '../../../../constants';
+import { AugmentedIColony } from '../../../Core/augments/commonAugments';
 import {
   IColonyV4,
   IColonyV5,
@@ -19,7 +21,6 @@ import {
   IColonyV9,
   IColonyV10,
 } from '../../../Core/contracts';
-import { EvaluatedExpenditureVersion } from '../exports';
 import { AnyEvaluatedExpenditure } from '../contracts';
 
 export type ValidColony =
@@ -91,6 +92,7 @@ async function setExpenditurePayoutModifiersWithProofs(
   const { domainId } = await this.colonyClient.getExpenditure(_id);
 
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     domainId,
     ColonyRole.Arbitration,
@@ -117,6 +119,7 @@ async function estimateSetExpenditurePayoutModifiersWithProofs(
   const { domainId } = await this.colonyClient.getExpenditure(_id);
 
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     domainId,
     ColonyRole.Arbitration,

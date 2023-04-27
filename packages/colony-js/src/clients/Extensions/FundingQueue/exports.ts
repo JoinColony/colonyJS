@@ -1,8 +1,7 @@
-import { ColonyVersion } from '../../../clients/Core/exports';
-import {
-  assertExhaustiveSwitch,
-  createContractVersionArray,
-} from '../../../utils';
+import type { FundingQueueVersion } from '@colony/core';
+
+import { assertExhaustiveSwitch } from '@colony/core/utils';
+
 import { AugmentedIColony } from '../../Core/augments/commonAugments';
 
 import getFundingQueueClientV1, {
@@ -18,11 +17,6 @@ import getFundingQueueClientV4, {
   FundingQueueClientV4,
 } from './FundingQueueClientV4';
 
-const FUNDING_QUEUE_VERSION_NEXT = 5;
-
-/** @internal */
-export const FUNDING_QUEUE_VERSION_LATEST = FUNDING_QUEUE_VERSION_NEXT - 1;
-
 export { FundingQueueClientV1 } from './FundingQueueClientV1';
 export { FundingQueueClientV2 } from './FundingQueueClientV2';
 export { FundingQueueClientV3 } from './FundingQueueClientV3';
@@ -33,24 +27,6 @@ export type AnyFundingQueueClient =
   | FundingQueueClientV2
   | FundingQueueClientV3
   | FundingQueueClientV4;
-
-/** @internal */
-export const FUNDING_QUEUE_VERSIONS = createContractVersionArray(
-  FUNDING_QUEUE_VERSION_NEXT,
-);
-/** @internal */
-export type FundingQueueVersion = typeof FUNDING_QUEUE_VERSIONS[number];
-
-/** @internal */
-export const fundingQueueIncompatibilityMap: Record<
-  FundingQueueVersion,
-  Array<ColonyVersion>
-> = {
-  1: [],
-  2: [],
-  3: [],
-  4: [],
-};
 
 /** @internal */
 export const getFundingQueueClient = (

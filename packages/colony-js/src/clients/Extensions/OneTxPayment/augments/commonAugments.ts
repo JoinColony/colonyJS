@@ -1,16 +1,18 @@
+import {
+  type OneTxPaymentVersion,
+  type TxOverrides,
+  ColonyRole,
+  getPermissionProofs,
+} from '@colony/core';
+
 import { ContractTransaction, BigNumberish, BigNumber } from 'ethers';
 import {
-  OneTxPaymentEvents,
+  type OneTxPaymentEvents,
   OneTxPaymentEvents__factory as OneTxPaymentEventsFactory,
 } from '@colony/events';
 
-import { ClientType, ColonyRole } from '../../../../constants';
-import { TxOverrides } from '../../../../types';
-import {
-  AugmentedIColony,
-  getMultiPermissionProofs,
-} from '../../../Core/augments/commonAugments';
-import { OneTxPaymentVersion } from '../exports';
+import { ClientType } from '../../../../constants';
+import { AugmentedIColony } from '../../../Core/augments/commonAugments';
 import { AnyOneTxPayment } from '../contracts';
 
 export type AugmentedEstimate<T extends AnyOneTxPayment = AnyOneTxPayment> =
@@ -114,14 +116,16 @@ async function makePaymentWithProofs(
   _skillId: BigNumberish,
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
-  const [extensionPDID, extensionCSI] = await getMultiPermissionProofs(
+  const [extensionPDID, extensionCSI] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     _domainId,
     [ColonyRole.Funding, ColonyRole.Administration],
     this.address,
   );
 
-  const [userPDID, userCSI] = await getMultiPermissionProofs(
+  const [userPDID, userCSI] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     _domainId,
     [ColonyRole.Funding, ColonyRole.Administration],
@@ -150,13 +154,15 @@ async function makePaymentFundedFromDomainWithProofs(
   _skillId: BigNumberish,
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
-  const [extensionPDID, extensionCSI] = await getMultiPermissionProofs(
+  const [extensionPDID, extensionCSI] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     _domainId,
     [ColonyRole.Funding, ColonyRole.Administration],
     this.address,
   );
-  const [userPDID, userCSI] = await getMultiPermissionProofs(
+  const [userPDID, userCSI] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     _domainId,
     [ColonyRole.Funding, ColonyRole.Administration],
@@ -185,13 +191,15 @@ async function estimateMakePaymentWithProofs(
   _skillId: BigNumberish,
   overrides: TxOverrides = {},
 ): Promise<BigNumber> {
-  const [extensionPDID, extensionCSI] = await getMultiPermissionProofs(
+  const [extensionPDID, extensionCSI] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     _domainId,
     [ColonyRole.Funding, ColonyRole.Administration],
     this.address,
   );
-  const [userPDID, userCSI] = await getMultiPermissionProofs(
+  const [userPDID, userCSI] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     _domainId,
     [ColonyRole.Funding, ColonyRole.Administration],
@@ -220,13 +228,15 @@ async function estimateMakePaymentFundedFromDomainWithProofs(
   _skillId: BigNumberish,
   overrides: TxOverrides = {},
 ): Promise<BigNumber> {
-  const [extensionPDID, extensionCSI] = await getMultiPermissionProofs(
+  const [extensionPDID, extensionCSI] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     _domainId,
     [ColonyRole.Funding, ColonyRole.Administration],
     this.address,
   );
-  const [userPDID, userCSI] = await getMultiPermissionProofs(
+  const [userPDID, userCSI] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     _domainId,
     [ColonyRole.Funding, ColonyRole.Administration],

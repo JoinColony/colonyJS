@@ -1,6 +1,5 @@
+import type { ColonyVersion } from '@colony/core';
 import { getTokenClient } from '@colony/tokens';
-
-import { createContractVersionArray } from '../../utils';
 
 import { ColonyNetworkClient } from '../ColonyNetworkClient';
 import getColonyVersionClient from './ColonyVersionClient';
@@ -49,16 +48,6 @@ export type AnyColonyClient =
 export enum Core {
   IColony = 'IColony',
 }
-
-// This is the latest IColony version + 1. It's for generating types and compatibility maps
-const COLONY_VERSION_NEXT = 13;
-
-export const COLONY_VERSION_LATEST = COLONY_VERSION_NEXT - 1;
-
-/** @internal */
-export const COLONY_VERSIONS = createContractVersionArray(COLONY_VERSION_NEXT);
-/** @internal */
-export type ColonyVersion = typeof COLONY_VERSIONS[number];
 
 /** @internal */
 export async function getColonyClient(
@@ -199,6 +188,3 @@ export async function getColonyClient(
 
   return colonyClient;
 }
-
-/** @internal */
-export { default as getMotionTargetClient } from '../MotionTargetClient';

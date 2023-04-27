@@ -4,37 +4,13 @@
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js"
-    },
-    "./extras": {
-      "import": "./dist/esm/extras/index.js",
-      "require": "./dist/cjs/extras/index.js"
-    },
-    "./events": {
-      "import": "./dist/esm/events/index.js",
-      "require": "./dist/cjs/events/index.js"
-    },
-    "./tokens": {
-      "import": "./dist/esm/tokens/index.js",
-      "require": "./dist/cjs/tokens/index.js"
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/types/index.d.ts",
+      "default": "./dist/cjs/index.js"
     }
   },
-  "typesVersions": {
-    "*": {
-      "*": [
-        "dist/types/index.d.ts"
-      ],
-      "extras": [
-        "dist/types/extras/index.d.ts"
-      ],
-      "events": [
-        "dist/types/events/index.d.ts"
-      ],
-      "tokens": [
-        "dist/types/tokens/index.d.ts"
-      ]
-    }
-  },
+  "main": "./dist/cjs/index.js",
+  "types": "./dist/types/index.d.ts",
   "files": [
     "dist",
     "LICENSE",
@@ -69,8 +45,12 @@
     "test-ci": "npm run lint && npm run typecheck && jest",
     "typecheck": "tsc --noEmit"
   },
-  "devDependencies": {
+  "dependencies": {
+    "@colony/core": "^0.2.0",
     "@colony/events": "^0.1.0",
+    "@colony/tokens": "^0.1.2"
+  },
+  "devDependencies": {
     "@colony/contractor": "^0.1.0",
     "@ethersproject/abi": "^5.7.0",
     "@ethersproject/abstract-provider": "^5.7.0",
@@ -84,10 +64,5 @@
   },
   "peerDependencies": {
     "ethers": "^5.1.3"
-  },
-  "dependencies": {
-    "@colony/core": "^0.1.0",
-    "@colony/tokens": "^0.1.0",
-    "cross-fetch": "^3.1.5"
   }
 }

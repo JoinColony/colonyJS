@@ -1,10 +1,13 @@
 import { ContractTransaction, BigNumber, BigNumberish } from 'ethers';
+import {
+  type TxOverrides,
+  ColonyRole,
+  getPermissionProofs,
+} from '@colony/core';
 
-import { ColonyRole } from '../../../constants';
-import { TxOverrides } from '../../../types';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import { IColonyV10, IColonyV11, IColonyV12 } from '../contracts';
-import { AugmentedIColony, getPermissionProofs } from './commonAugments';
+import { AugmentedIColony } from './commonAugments';
 import { ColonyAugmentsV3 } from './augmentsV3';
 import { ColonyAugmentsV4 } from './augmentsV4';
 import { ColonyAugmentsV5 } from './augmentsV5';
@@ -78,6 +81,7 @@ async function setExpenditurePayoutWithProofs(
   const { domainId } = await this.getExpenditure(_id);
 
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     domainId,
     ColonyRole.Arbitration,
@@ -109,6 +113,7 @@ async function estimateSetExpenditurePayoutWithProofs(
   const { domainId } = await this.getExpenditure(_id);
 
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     domainId,
     ColonyRole.Arbitration,

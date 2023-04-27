@@ -4,9 +4,19 @@ import {
   BigNumberish,
   BytesLike,
 } from 'ethers';
+import {
+  type ExtensionVersion,
+  type TxOverrides,
+  ColonyRole,
+  Extension,
+  ExtensionVersions,
+  Id,
+  colonyRoles2Hex,
+  getExtensionHash,
+  getPermissionProofs,
+  isExtensionCompatible,
+} from '@colony/core';
 
-import { ColonyRole, Id } from '../../../constants';
-import type { TxOverrides } from '../../../types';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import {
   IColonyV5,
@@ -18,21 +28,13 @@ import {
   IColonyV11,
   IColonyV12,
 } from '../contracts';
-import { AugmentedIColony, getPermissionProofs } from './commonAugments';
+import { AugmentedIColony } from './commonAugments';
 import { ColonyAugmentsV3 } from './augmentsV3';
 import {
   addAugments as addAugmentsV4,
   ColonyAugmentsV4,
   AugmentedEstimateV4,
 } from './augmentsV4';
-import {
-  Extension,
-  ExtensionVersion,
-  isExtensionCompatible,
-  ExtensionVersions,
-} from '../../../clients/Extensions/exports';
-import { getExtensionHash } from '../../../helpers';
-import { colonyRoles2Hex } from '../../../utils';
 
 type ValidColony =
   | IColonyV5
@@ -259,6 +261,7 @@ async function emitDomainReputationPenaltyWithProofs(
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     _domainId,
     ColonyRole.Arbitration,
@@ -282,6 +285,7 @@ async function setUserRolesWithProofs(
 ): Promise<ContractTransaction> {
   const isRootDomain = _domainId === Id.RootDomain.toString();
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     _domainId,
     isRootDomain ? ColonyRole.Root : ColonyRole.Architecture,
@@ -309,6 +313,7 @@ async function transferStakeWithProofs(
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     _domainId,
     ColonyRole.Arbitration,
@@ -332,6 +337,7 @@ async function editDomainWithProofs(
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     _domainId,
     ColonyRole.Architecture,
@@ -356,6 +362,7 @@ async function setExpenditureStateWithProofs(
 ): Promise<ContractTransaction> {
   const { domainId } = await this.getExpenditure(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     domainId,
     ColonyRole.Arbitration,
@@ -433,6 +440,7 @@ async function estimateEmitDomainReputationPenaltyWithProofs(
   overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     _domainId,
     ColonyRole.Arbitration,
@@ -455,6 +463,7 @@ async function estimateSetUserRolesWithProofs(
   overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     _domainId,
     ColonyRole.Architecture,
@@ -479,6 +488,7 @@ async function estimateTransferStakeWithProofs(
   overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     _domainId,
     ColonyRole.Arbitration,
@@ -502,6 +512,7 @@ async function estimateEditDomainWithProofs(
   overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     _domainId,
     ColonyRole.Architecture,
@@ -526,6 +537,7 @@ async function estimateSetExpenditureStateWithProofs(
 ): Promise<BigNumber> {
   const { domainId } = await this.getExpenditure(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     domainId,
     ColonyRole.Arbitration,

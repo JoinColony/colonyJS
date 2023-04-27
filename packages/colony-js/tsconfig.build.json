@@ -1,4 +1,5 @@
 {
+  "include": ["src/index.ts"],
   "extends": "./tsconfig.json",
   "exclude": ["node_modules", "**/__tests__"],
   "compilerOptions": {

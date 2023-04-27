@@ -5,10 +5,12 @@ import {
   ContractTransaction,
   constants,
 } from 'ethers';
+import {
+  type TxOverrides,
+  getChildIndex,
+  parsePermissionedAction,
+} from '@colony/core';
 
-import { TxOverrides } from '../../../../types';
-import { parsePermissionedAction } from '../../../../utils';
-import { getChildIndex } from '../../../Core/augments/commonAugments';
 import {
   VotingReputationV1,
   VotingReputationV2,
@@ -78,6 +80,7 @@ async function createDomainMotionWithProofs(
   // Domain in which we have permissions
   if (!permissionDomainId.eq(_domainId)) {
     const domainSkillIdIndex = await getChildIndex(
+      this.colonyClient.networkClient,
       this.colonyClient,
       permissionDomainId,
       _domainId,
@@ -117,6 +120,7 @@ async function estimateCreateDomainMotionWithProofs(
   const { permissionDomainId } = parsePermissionedAction(_action);
   if (!permissionDomainId.eq(_domainId)) {
     const domainSkillIdIndex = await getChildIndex(
+      this.colonyClient.networkClient,
       this.colonyClient,
       permissionDomainId,
       _domainId,

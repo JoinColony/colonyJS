@@ -1,7 +1,10 @@
 import { ContractTransaction, BigNumber, BigNumberish } from 'ethers';
+import {
+  type TxOverrides,
+  ColonyRole,
+  getPermissionProofs,
+} from '@colony/core';
 
-import { ColonyRole } from '../../../constants';
-import { TxOverrides } from '../../../types';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import {
   IColonyV4,
@@ -14,7 +17,7 @@ import {
   IColonyV11,
   IColonyV12,
 } from '../contracts';
-import { getPermissionProofs, AugmentedIColony } from './commonAugments';
+import { AugmentedIColony } from './commonAugments';
 import {
   addAugments as addAugmentsV3,
   ColonyAugmentsV3,
@@ -107,6 +110,7 @@ async function hasInheritedUserRoleWithProofs(
   overrides: TxOverrides = {},
 ): Promise<boolean> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     _domainId,
     _role,
@@ -128,6 +132,7 @@ async function makeExpenditureWithProofs(
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     _domainId,
     ColonyRole.Administration,
@@ -148,6 +153,7 @@ async function transferExpenditureViaArbitrationWithProofs(
 ): Promise<ContractTransaction> {
   const { domainId } = await this.getExpenditure(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     domainId,
     ColonyRole.Arbitration,
@@ -167,6 +173,7 @@ async function estimateMakeExpenditureWithProofs(
   overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     _domainId,
     ColonyRole.Administration,
@@ -187,6 +194,7 @@ async function estimateTransferExpenditureViaArbitrationWithProofs(
 ): Promise<BigNumber> {
   const { domainId } = await this.getExpenditure(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     domainId,
     ColonyRole.Arbitration,

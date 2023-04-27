@@ -1,8 +1,7 @@
-import { ColonyVersion } from '../../../clients/Core/exports';
-import {
-  assertExhaustiveSwitch,
-  createContractVersionArray,
-} from '../../../utils';
+import type { TokenSupplierVersion } from '@colony/core';
+
+import { assertExhaustiveSwitch } from '@colony/core/utils';
+
 import { AugmentedIColony } from '../../Core/augments/commonAugments';
 
 import getTokenSupplierClientV1, {
@@ -18,11 +17,6 @@ import getTokenSupplierClientV4, {
   TokenSupplierClientV4,
 } from './TokenSupplierClientV4';
 
-const TOKEN_SUPPLIER_VERSION_NEXT = 5;
-
-/** @internal */
-export const TOKEN_SUPPLIER_VERSION_LATEST = TOKEN_SUPPLIER_VERSION_NEXT - 1;
-
 export { TokenSupplierClientV1 } from './TokenSupplierClientV1';
 export { TokenSupplierClientV2 } from './TokenSupplierClientV2';
 export { TokenSupplierClientV3 } from './TokenSupplierClientV3';
@@ -33,24 +27,6 @@ export type AnyTokenSupplierClient =
   | TokenSupplierClientV2
   | TokenSupplierClientV3
   | TokenSupplierClientV4;
-
-/** @internal */
-export const TOKEN_SUPPLIER_VERSIONS = createContractVersionArray(
-  TOKEN_SUPPLIER_VERSION_NEXT,
-);
-/** @internal */
-export type TokenSupplierVersion = typeof TOKEN_SUPPLIER_VERSIONS[number];
-
-/** @internal */
-export const tokenSupplierIncompatibilityMap: Record<
-  TokenSupplierVersion,
-  Array<ColonyVersion>
-> = {
-  1: [],
-  2: [],
-  3: [],
-  4: [],
-};
 
 /** @internal */
 export const getTokenSupplierClient = (

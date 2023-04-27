@@ -1,11 +1,11 @@
 import { ContractTransaction, BigNumber, BigNumberish } from 'ethers';
-
-import { ColonyRole } from '../../../../constants';
-import { TxOverrides } from '../../../../types';
 import {
-  AugmentedIColony,
+  type TxOverrides,
+  ColonyRole,
   getPermissionProofs,
-} from '../../../Core/augments/commonAugments';
+} from '@colony/core';
+
+import { AugmentedIColony } from '../../../Core/augments/commonAugments';
 import { VotingReputationV7, VotingReputationV8 } from '../contracts';
 import {
   addAugments as addCommonAugments,
@@ -62,6 +62,7 @@ async function claimMisalignedRewardWithProofs(
   const { domainId } = await this.getMotion(_motionId);
 
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     domainId,
     ColonyRole.Arbitration,
@@ -88,6 +89,7 @@ async function estimateClaimMisalignedRewardWithProofs(
   const { domainId } = await this.getMotion(_motionId);
 
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     domainId,
     ColonyRole.Arbitration,

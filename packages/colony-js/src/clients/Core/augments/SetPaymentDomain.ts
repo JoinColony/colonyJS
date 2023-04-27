@@ -1,9 +1,12 @@
 import { BigNumber, BigNumberish, ContractTransaction } from 'ethers';
+import {
+  type TxOverrides,
+  ColonyRole,
+  getPermissionProofs,
+} from '@colony/core';
 
-import { ColonyRole } from '../../../constants';
-import { TxOverrides } from '../../../types';
 import { IColonyV1, IColonyV2, IColonyV3 } from '../contracts';
-import { AugmentedIColony, getPermissionProofs } from './commonAugments';
+import { AugmentedIColony } from './commonAugments';
 
 // Colonies that support this method
 type ValidColony = IColonyV1 | IColonyV2 | IColonyV3;
@@ -49,6 +52,7 @@ async function setPaymentDomainWithProofs(
 ): Promise<ContractTransaction> {
   const { domainId } = await this.getPayment(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     domainId,
     ColonyRole.Administration,
@@ -70,6 +74,7 @@ async function estimateSetPaymentDomainWithProofs(
 ): Promise<BigNumber> {
   const { domainId } = await this.getPayment(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     domainId,
     ColonyRole.Administration,

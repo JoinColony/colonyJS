@@ -1,8 +1,7 @@
-import { ColonyVersion } from '../../../clients/Core/exports';
-import {
-  assertExhaustiveSwitch,
-  createContractVersionArray,
-} from '../../../utils';
+import type { OneTxPaymentVersion } from '@colony/core';
+
+import { assertExhaustiveSwitch } from '@colony/core/utils';
+
 import { AugmentedIColony } from '../../Core/augments/commonAugments';
 
 import getOneTxPaymentClientV1, {
@@ -18,11 +17,6 @@ import getOneTxPaymentClientV4, {
   OneTxPaymentClientV4,
 } from './OneTxPaymentClientV4';
 
-const ONE_TX_PAYMENT_VERSION_NEXT = 5;
-
-/** @internal */
-export const ONE_TX_PAYMENT_VERSION_LATEST = ONE_TX_PAYMENT_VERSION_NEXT - 1;
-
 export { OneTxPaymentClientV1 } from './OneTxPaymentClientV1';
 export { OneTxPaymentClientV2 } from './OneTxPaymentClientV2';
 export { OneTxPaymentClientV3 } from './OneTxPaymentClientV3';
@@ -33,25 +27,6 @@ export type AnyOneTxPaymentClient =
   | OneTxPaymentClientV2
   | OneTxPaymentClientV3
   | OneTxPaymentClientV4;
-
-/** @internal */
-export const ONE_TX_PAYMENT_VERSIONS = createContractVersionArray(
-  ONE_TX_PAYMENT_VERSION_NEXT,
-);
-
-/** @internal */
-export type OneTxPaymentVersion = typeof ONE_TX_PAYMENT_VERSIONS[number];
-
-/** @internal */
-export const oneTxPaymentIncompatibilityMap: Record<
-  OneTxPaymentVersion,
-  Array<ColonyVersion>
-> = {
-  1: [],
-  2: [],
-  3: [],
-  4: [],
-};
 
 /** @internal */
 export const getOneTxPaymentClient = (

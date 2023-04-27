@@ -1,12 +1,13 @@
+import type { FundingQueueVersion } from '@colony/core';
+
 import {
-  FundingQueueEvents,
+  type FundingQueueEvents,
   FundingQueueEvents__factory as FundingQueueEventsFactory,
 } from '@colony/events';
 
 import { ClientType } from '../../../../constants';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments';
 
-import { FundingQueueVersion } from '../exports';
 import { AnyFundingQueue } from '../contracts';
 
 export type AugmentedFundingQueue<T extends AnyFundingQueue = AnyFundingQueue> =

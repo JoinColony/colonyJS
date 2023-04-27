@@ -1,11 +1,12 @@
+import type { WhitelistVersion } from '@colony/core';
+
 import {
-  WhitelistEvents,
+  type WhitelistEvents,
   WhitelistEvents__factory as WhitelistEventsFactory,
 } from '@colony/events';
 
 import { ClientType } from '../../../../constants';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments';
-import { WhitelistVersion } from '../exports';
 import { AnyWhitelist } from '../contracts';
 
 export type AugmentedWhitelist<T extends AnyWhitelist = AnyWhitelist> = T & {

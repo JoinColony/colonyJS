@@ -1,24 +1,11 @@
-import { EventFilter, BigNumber, BigNumberish, utils, BytesLike } from 'ethers';
+import type { Filter, Log } from '@ethersproject/abstract-provider';
+import type { LogDescription, Result } from '@ethersproject/abi';
 
-import type { Filter, Log, Provider } from '@ethersproject/abstract-provider';
-import type { LogDescription } from '@ethersproject/abi';
+import { EventFilter, BigNumber } from 'ethers';
+import { ColonyRole, Id } from '@colony/core';
 
 import { AnyColonyClient } from './clients/Core/exports';
-import { ColonyRole } from './constants';
 import { ContractClient, ColonyRoles } from './types';
-import { formatColonyRoles } from './utils';
-
-import {
-  getChildIndex as exGetChildIndex,
-  getPotDomain as exGetPotDomain,
-  getPermissionProofs as origGetPermissionProofs,
-  getMultiPermissionProofs,
-} from './clients/Core/augments/commonAugments';
-
-import { getCreateMotionProofs as origGetCreateMotionProofs } from './clients/Extensions/VotingReputation/augments/augmentsV2';
-import { AnyVotingReputationClient } from './clients/Extensions/exports';
-
-const { keccak256, toUtf8Bytes } = utils;
 
 interface LogOptions {
   fromBlock?: number;
@@ -28,27 +15,113 @@ interface LogOptions {
 
 type TopicsArray = string[][];
 
-/**
- * Hashes to identify the colony extension contracts
- */
-export const getExtensionHash = (extensionName: string): string =>
-  keccak256(toUtf8Bytes(extensionName));
+interface ColonyRolesMap {
+  [userAddress: string]: {
+    [domainId: string]: Set<ColonyRole>;
+  };
+}
+
+interface ColonyRoleSetValues extends Result {
+  user: string;
+  domainId: BigNumber;
+  role: ColonyRole;
+  setTo: boolean;
+}
+
+interface RecoveryRoleSetValues extends Result {
+  user: string;
+  domainId: BigNumber;
+  role: ColonyRole;
+  setTo: boolean;
+}
 
 /**
- * Get the JavaScript timestamp for a block
+ * Format role events into an Array of all roles in the colony
  *
- * @param provider ethers compatible Provider
- * @param blockHash Hash of block to get time for
- *
- * @returns block timestamp in ms
+ * E.g.:
+ * ```typescript
+ * [{
+ *  address: 0x5346D0f80e2816FaD329F2c140c870ffc3c3E2Ef // user address
+ *  domains: [{                                         // all domains the user has a role in
+ *    domainId: 1,                                      // domainId for the roles
+ *    roles: [1, 2, 3]                                  // Array of `ColonyRole`
+ *  }]
+ * }]
+ * ```
  */
-export const getBlockTime = async (
-  provider: Provider,
-  blockHash: string,
-): Promise<number> => {
-  const { timestamp } = await provider.getBlock(blockHash);
-  // timestamp is seconds, Date wants ms
-  return timestamp * 1000;
+export const formatColonyRoles = async (
+  roleSetEvents: LogDescription[],
+  recoveryRoleSetEvents: LogDescription[],
+): Promise<ColonyRoles> => {
+  const ROOT_DOMAIN = Id.RootDomain.toString();
+  // We construct a map that holds all users with all domains and the roles as Sets
+  const rolesMap: ColonyRolesMap = roleSetEvents.length
+    ? roleSetEvents
+        /*
+         * We can't enforce the event type using TS (not easily anyway), so we
+         * have to ensure that the events we're dealing with are what we expect
+         * them to be.
+         */
+        .filter(({ name }) => name.includes('ColonyRoleSet'))
+        .reduce((colonyRolesMap: ColonyRolesMap, { args }) => {
+          const { user, domainId, role, setTo } = args as ColonyRoleSetValues;
+          const domainKey = domainId.toString();
+          if (!colonyRolesMap[user]) {
+            const roleSet: Set<ColonyRole> = setTo
+              ? new Set([role])
+              : new Set();
+            // eslint-disable-next-line no-param-reassign
+            colonyRolesMap[user] = { [domainKey]: roleSet };
+          }
+          if (!colonyRolesMap[user][domainKey] && setTo) {
+            // eslint-disable-next-line no-param-reassign
+            colonyRolesMap[user][domainKey] = new Set([role]);
+          }
+          if (setTo) {
+            colonyRolesMap[user][domainKey].add(role);
+          } else {
+            colonyRolesMap[user][domainKey].delete(role);
+          }
+          return colonyRolesMap;
+        }, {})
+    : {};
+
+  // OK, now we also collect all the RecoveryRoleSet events for this colony
+  recoveryRoleSetEvents
+    /*
+     * We can't enforce the event type using TS (not easily anyway), so we
+     * have to ensure that the events we're dealing with are what we expect
+     * them to be.
+     */
+    .filter(({ name }) => name.includes('RecoveryRoleSet'))
+    .forEach(({ args }) => {
+      const { user, setTo } = args as RecoveryRoleSetValues;
+      rolesMap[user] = rolesMap[user] || {};
+      if (rolesMap[user][ROOT_DOMAIN]) {
+        if (setTo) {
+          rolesMap[user][ROOT_DOMAIN].add(ColonyRole.Recovery);
+        } else {
+          rolesMap[user][ROOT_DOMAIN].delete(ColonyRole.Recovery);
+        }
+      } else {
+        const roleSet: Set<ColonyRole> = setTo
+          ? new Set([ColonyRole.Recovery])
+          : new Set();
+        rolesMap[user][ROOT_DOMAIN] = roleSet;
+      }
+    });
+  return Object.entries(rolesMap).map(([address, userRoles]) => {
+    const domains = Object.entries(userRoles).map(
+      ([domainId, domainRoles]) => ({
+        domainId: parseInt(domainId, 10),
+        roles: Array.from(domainRoles),
+      }),
+    );
+    return {
+      address,
+      domains,
+    };
+  });
 };
 
 /**
@@ -147,49 +220,6 @@ export const getMultipleEvents = async (
 };
 
 /**
- * Get the associated domain for a pot id
- *
- * @remarks pots can be associated with different types, like domains, payments or tasks
- * See [[`FundingPotAssociatedType`]] for details
- *
- * @param client Any ColonyClient
- * @param potId The funding pot id
- *
- * @returns The associated domainId
- */
-export const getPotDomain = async (
-  client: AnyColonyClient,
-  potId: BigNumberish,
-): Promise<BigNumberish> => exGetPotDomain(client, potId);
-
-/**
- * Get the child index for a domain inside its corresponding skills parent children array
- *
- * E.g. (the values *will* differ for you!):
- * domainId = 1
- * corresponding skillId = 2
- * parent of skillId 2:
- * ```
- * {
- *  // ...
- *  children: [2]
- * }
- * ```
- * childSkillIndex would be 0 in this case (0-position in children array)
- *
- * @param client Any ColonyClient
- * @param parentDomainId id of parent domain
- * @param domainId id of the domain
- *
- * @returns Index in the `children` array (see above)
- */
-export const getChildIndex = async (
-  client: AnyColonyClient,
-  parentDomainId: BigNumberish,
-  domainId: BigNumberish,
-): Promise<BigNumber> => exGetChildIndex(client, parentDomainId, domainId);
-
-/**
  * Get an array of all roles in the colony
  *
  * @param client Any ColonyClient
@@ -251,64 +281,3 @@ export const getHistoricColonyRoles = async (
   fromBlock?: number,
   toBlock?: number,
 ): Promise<ColonyRoles> => getColonyRoles(client, { fromBlock, toBlock });
-
-/**
- * Get the permission proofs for a user address and a certain role
- *
- * Certain methods on Colony contracts require so called "permission proofs". These are made up by
- * the `permissionDomainId` and the `childSkillIndex`. We shall attempt an explanation here.
- *
- * Domains within a colony can be nested and all the permissions in a parent domain apply for all child domains.
- * Yet at the time of calling a domain-permissioned method the contracts are unaware of the parent domain
- * a certain user has the required permission in. So when we these methods are called we have to supply them
- * the id of the parent domain the user has the permission in (it could also be the very same domain id they
- * want to act in!). Furthermore for the contracts the unidirectional chain downwards we have to supply
- * the method wuth the index of the domains associated skill in its parents children array
- * (`childSkillIndex`, see [[`getChildIndex`]]).
- * The contracts are then able to verify the permissions (the role) claimed by the caller.
- *
- * tl;dr:
- *
- * * `permissionDomainId`: id of the parent domain of the required domain the user has the required permission in
- * * `childSkillIndex`: the child index for a domain inside its corresponding skills parent children array
- *
- * @param client Any ColonyClient
- * @param domainId Domain id the method needs to act in
- * @param roles Permissioning role(s) that the methods needs to function
- * @param customAddress A custom address to get the permission proofs for (defaults to the signer's address)
- *
- * @returns Tuple of `[permissionDomainId, childSkillIndex, permissionAddress]`
- */
-export const getPermissionProofs = async (
-  client: AnyColonyClient,
-  domainId: BigNumberish,
-  roles: ColonyRole | ColonyRole[],
-  customAddress?: string,
-): Promise<[BigNumber, BigNumber, string]> => {
-  if (Array.isArray(roles)) {
-    if (roles.length === 1) {
-      return getPermissionProofs(client, domainId, roles[0], customAddress);
-    }
-    return getMultiPermissionProofs(client, domainId, roles, customAddress);
-  }
-  return origGetPermissionProofs(client, domainId, roles, customAddress);
-};
-
-/**
- * Gets the necessary proofs for motion creation
- *
- * This gets the reputation and domain proofs for motion creation
- *
- * @param client Any VotingReputationClient
- * @param domainId Domain id the motion will be created in
- * @param altTarget Target address for the motion (0x0 if Colony contract)
- * @param action The encoded action the motion will execute when finalized
- *
- * @returns The necessary reputation and domain proofs to create a motion
- */
-export const getCreateMotionProofs = (
-  client: AnyVotingReputationClient,
-  domainId: BigNumberish,
-  altTarget: string,
-  action: BytesLike,
-) => origGetCreateMotionProofs(client, domainId, altTarget, action);

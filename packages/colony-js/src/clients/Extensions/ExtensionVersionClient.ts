@@ -1,8 +1,8 @@
 // A minimal version of the Colony Extension contract that only supports the `version` method
 
-import { Contract, BigNumber } from 'ethers';
+import type { SignerOrProvider } from '@colony/core';
 
-import { SignerOrProvider } from '../../types';
+import { Contract, BigNumber } from 'ethers';
 
 interface ExtensionVersionClient extends Contract {
   version(): Promise<BigNumber>;

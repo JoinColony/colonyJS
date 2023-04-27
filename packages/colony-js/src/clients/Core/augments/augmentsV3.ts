@@ -1,7 +1,10 @@
 import { ContractTransaction, BigNumber, BigNumberish } from 'ethers';
+import {
+  type TxOverrides,
+  ColonyRole,
+  getPermissionProofs,
+} from '@colony/core';
 
-import { ColonyRole } from '../../../constants';
-import { TxOverrides } from '../../../types';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import {
   IColonyV3,
@@ -18,7 +21,6 @@ import {
 import {
   addAugments as addCommonAugments,
   AugmentedIColony,
-  getPermissionProofs,
 } from './commonAugments';
 
 type ValidColony =
@@ -80,12 +82,18 @@ async function setArbitrationRoleWithProofs(
   // This method has two potential permissions, so we try both of them
   try {
     proofs = await getPermissionProofs(
+      this.networkClient,
       this,
       _domainId,
       ColonyRole.ArchitectureSubdomain,
     );
   } catch (err) {
-    proofs = await getPermissionProofs(this, _domainId, ColonyRole.Root);
+    proofs = await getPermissionProofs(
+      this.networkClient,
+      this,
+      _domainId,
+      ColonyRole.Root,
+    );
   }
   const [permissionDomainId, childSkillIndex] = proofs;
   return this.setArbitrationRole(
@@ -106,6 +114,7 @@ async function estimateSetArbitrationRoleWithProofs(
   overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     _domainId,
     ColonyRole.Architecture,

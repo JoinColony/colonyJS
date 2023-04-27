@@ -1,7 +1,10 @@
 import { BigNumber, BigNumberish, ContractTransaction } from 'ethers';
+import {
+  type TxOverrides,
+  ColonyRole,
+  getPermissionProofs,
+} from '@colony/core';
 
-import { ColonyRole } from '../../../constants';
-import { TxOverrides } from '../../../types';
 import {
   IColonyV1,
   IColonyV2,
@@ -16,7 +19,7 @@ import {
   IColonyV11,
   IColonyV12,
 } from '../contracts';
-import { AugmentedIColony, getPermissionProofs } from './commonAugments';
+import { AugmentedIColony } from './commonAugments';
 
 // Colonies that support the early (not-overloaded) method
 type ValidColonyA = IColonyV1 | IColonyV2 | IColonyV3 | IColonyV4;
@@ -64,6 +67,7 @@ async function addDomainWithProofsA(
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     _parentDomainId,
     ColonyRole.Architecture,
@@ -82,6 +86,7 @@ async function estimateAddDomainWithProofsA(
   overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     _parentDomainId,
     ColonyRole.Architecture,
@@ -157,6 +162,7 @@ async function estimateAddDomainWithProofsB0(
   overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     _parentDomainId,
     ColonyRole.Architecture,
@@ -176,6 +182,7 @@ async function estimateAddDomainWithProofsB1(
   overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     _parentDomainId,
     ColonyRole.Architecture,
@@ -195,6 +202,7 @@ async function addDomainWithProofsB0(
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     _parentDomainId,
     ColonyRole.Architecture,
@@ -214,6 +222,7 @@ async function addDomainWithProofsB1(
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.networkClient,
     this,
     _parentDomainId,
     ColonyRole.Architecture,

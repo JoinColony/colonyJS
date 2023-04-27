@@ -1,7 +1,8 @@
-import { providers } from 'ethers';
 import type { JsonRpcProvider } from '@ethersproject/providers';
 
-import { Network } from '../constants';
+import { providers } from 'ethers';
+import { Network } from '@colony/core';
+
 import getColonyNetworkClient from '../clients/ColonyNetworkClient';
 
 let provider: JsonRpcProvider;

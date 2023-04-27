@@ -1,5 +1,11 @@
 import { ContractTransaction, BigNumber, Overrides } from 'ethers';
 import {
+  type SignerOrProvider,
+  ColonyNetworkAddress,
+  Network,
+  ReputationOracleEndpoint,
+} from '@colony/core';
+import {
   getTokenLockingClient,
   TokenLockingClient,
   ColonyTokenFactory,
@@ -9,13 +15,7 @@ import {
   IColonyNetwork,
   IColonyNetwork__factory as IColonyNetworkFactory,
 } from '../contracts';
-import {
-  ClientType,
-  ColonyNetworkAddress,
-  Network,
-  ReputationOracleEndpoint,
-} from '../constants';
-import { SignerOrProvider } from '../types';
+import { ClientType } from '../constants';
 import { AnyColonyClient } from '../clients/Core/exports';
 import { getColonyClient } from './Core/exports';
 

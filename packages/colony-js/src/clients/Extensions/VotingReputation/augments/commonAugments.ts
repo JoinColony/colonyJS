@@ -1,18 +1,19 @@
 import { ContractTransaction, BigNumberish, BigNumber } from 'ethers';
 import {
-  VotingReputationEvents,
+  type TxOverrides,
+  type VotingReputationVersion,
+  ColonyRole,
+  getChildIndex,
+  getPermissionProofs,
+} from '@colony/core';
+import {
+  type VotingReputationEvents,
   VotingReputationEvents__factory as VotingReputationEventsFactory,
 } from '@colony/events';
 
-import { ColonyRole, ClientType } from '../../../../constants';
-import { TxOverrides } from '../../../../types';
-import {
-  AugmentedIColony,
-  getPermissionProofs,
-  getChildIndex,
-} from '../../../Core/augments/commonAugments';
+import { ClientType } from '../../../../constants';
+import { AugmentedIColony } from '../../../Core/augments/commonAugments';
 import { AnyVotingReputation } from '../contracts';
-import { VotingReputationVersion } from '../exports';
 
 export type AugmentedEstimate<
   T extends AnyVotingReputation = AnyVotingReputation,
@@ -125,6 +126,7 @@ async function stakeMotionWithProofs(
 ): Promise<ContractTransaction> {
   const { domainId, rootHash } = await this.getMotion(_motionId);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     domainId,
     ColonyRole.Arbitration,
@@ -158,6 +160,7 @@ async function escalateMotionWithProofs(
 ): Promise<ContractTransaction> {
   const { domainId, rootHash } = await this.getMotion(_motionId);
   const motionDomainChildSkillIdIndex = await getChildIndex(
+    this.colonyClient.networkClient,
     this.colonyClient,
     BigNumber.from(_newDomainId),
     domainId,
@@ -192,6 +195,7 @@ async function claimRewardWithProofs(
 ): Promise<ContractTransaction> {
   const { domainId } = await this.getMotion(_motionId);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     domainId,
     ColonyRole.Arbitration,
@@ -217,6 +221,7 @@ async function estimateStakeMotionWithProofs(
 ): Promise<BigNumber> {
   const { domainId, rootHash } = await this.getMotion(_motionId);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     domainId,
     ColonyRole.Arbitration,
@@ -250,6 +255,7 @@ async function estimateEscalateMotionWithProofs(
 ): Promise<BigNumber> {
   const { domainId, rootHash } = await this.getMotion(_motionId);
   const motionDomainChildSkillIdIndex = await getChildIndex(
+    this.colonyClient.networkClient,
     this.colonyClient,
     BigNumber.from(_newDomainId),
     domainId,
@@ -284,6 +290,7 @@ async function estimateClaimRewardWithProofs(
 ): Promise<BigNumber> {
   const { domainId } = await this.getMotion(_motionId);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this.colonyClient.networkClient,
     this.colonyClient,
     domainId,
     ColonyRole.Arbitration,

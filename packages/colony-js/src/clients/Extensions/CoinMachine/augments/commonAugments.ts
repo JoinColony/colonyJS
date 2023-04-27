@@ -1,11 +1,12 @@
+import type { CoinMachineVersion } from '@colony/core';
+
 import {
-  CoinMachineEvents,
+  type CoinMachineEvents,
   CoinMachineEvents__factory as CoinMachineEventsFactory,
 } from '@colony/events';
 
 import { ClientType } from '../../../../constants';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments';
-import { CoinMachineVersion } from '../exports';
 import { AnyCoinMachine } from '../contracts';
 
 export type AugmentedCoinMachine<T extends AnyCoinMachine = AnyCoinMachine> =
