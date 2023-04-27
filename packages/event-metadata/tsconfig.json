@@ -1,17 +1,21 @@
 {
   "compilerOptions": {
-    "lib": ["es6", "dom"],
+    "lib": [
+      "es2018",
+      "dom"
+    ],
     "module": "commonjs",
-    "moduleResolution": "node",
+    "moduleResolution": "nodenext",
     "noEmit": true,
     "noImplicitAny": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "strict": true,
-    "target": "es6",
-    "types": ["node", "jest"],
-    "rootDir": "./src"
+    "target": "es2018",
+    "rootDir": "./src",
+    "skipLibCheck": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src/**/*"
+  ]
 }
