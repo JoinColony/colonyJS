@@ -1,7 +1,4 @@
-export { IColonyNetworkEvents__factory as ColonyNetworkEventsFactory } from './contracts/factories/IColonyNetworkEvents__factory';
-export { IColonyEvents__factory as ColonyEventsFactory } from './contracts/factories/IColonyEvents__factory';
-export { OneTxPaymentEvents__factory as OneTxPaymentEventsFactory } from './contracts/factories/OneTxPaymentEvents__factory';
-export { VotingReputationEvents__factory as VotingReputationEventsFactory } from './contracts/factories/VotingReputationEvents__factory';
+export * from './contracts';
 
 // We need to manually export those as they are ambiguous as they exist in multiple event contracts
 export type {

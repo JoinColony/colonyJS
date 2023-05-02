@@ -1,7 +1,8 @@
 {
-  "include": ["src/index.ts"],
+  "include": [
+    "src/index.ts"
+  ],
   "extends": "./tsconfig.json",
-  "exclude": ["node_modules"],
   "compilerOptions": {
     "noEmit": false,
     "declaration": false

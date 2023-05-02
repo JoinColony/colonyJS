@@ -4,23 +4,21 @@
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js"
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/types/index.d.ts",
+      "default": "./dist/cjs/index.js"
     }
   },
-  "typesVersions": {
-    "*": {
-      "*": [
-        "dist/types/index.d.ts"
-      ]
-    }
-  },
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
   "files": [
     "dist",
     "LICENSE",
     "README.md"
   ],
   "engines": {
-    "node": "^16.14",
+    "node": "^16",
     "npm": "^8"
   },
   "repository": {
