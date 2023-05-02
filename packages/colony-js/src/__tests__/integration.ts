@@ -1,14 +1,14 @@
 import type { JsonRpcProvider } from '@ethersproject/providers';
 
 import { providers } from 'ethers';
-import { Network } from '@colony/core';
+import { Network, ColonyRpcEndpoint } from '@colony/core';
 
 import getColonyNetworkClient from '../clients/ColonyNetworkClient';
 
 let provider: JsonRpcProvider;
 
 beforeAll(async () => {
-  provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc/');
+  provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
 });
 
 describe('ColonyNetwork', () => {
