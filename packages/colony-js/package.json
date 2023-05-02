@@ -42,8 +42,7 @@
     "lint": "eslint --ext .ts src",
     "prepare": "npm run build-contracts",
     "prepublishOnly": "npm run build-contracts && npm run test && npm run build",
-    "test": "npm run lint && npm run typecheck && jest '[^integration].ts'",
-    "test-ci": "npm run lint && npm run typecheck && jest",
+    "test": "npm run lint && npm run typecheck && jest",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
