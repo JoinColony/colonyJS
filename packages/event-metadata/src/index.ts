@@ -1,8 +1,8 @@
 import typia from 'typia';
 
-import { DataTypeMap, Metadata, MetadataType, MetadataTypeMap } from './types';
+import { DataTypeMap, Metadata, MetadataTypeMap } from './types';
 
-import { METADATA_VERSION } from './constants';
+import { MetadataType, METADATA_VERSION } from './constants';
 
 export * from './constants';
 export * from './types';

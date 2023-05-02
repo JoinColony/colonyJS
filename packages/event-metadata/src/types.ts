@@ -1,16 +1,4 @@
-/**
- * Available metadata types
- *
- * DEFAULT is usually used to indicate a generic Metadata type
- */
-export enum MetadataType {
-  DEFAULT = 'default',
-  Annotation = 'annotation',
-  Colony = 'colony',
-  Decision = 'decision',
-  Domain = 'domain',
-  Misc = 'misc',
-}
+import { MetadataType, TeamColor } from './constants';
 
 interface BaseMetadata {
   name: MetadataType;
@@ -41,7 +29,7 @@ export interface ColonyMetadata extends BaseMetadata {
 
 export interface DomainData {
   domainName?: string;
-  domainColor?: number;
+  domainColor?: TeamColor;
   domainPurpose?: string;
 }
 
