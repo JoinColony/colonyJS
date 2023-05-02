@@ -1,4 +1,4 @@
-export { MetadataType } from '@colony/event-metadata';
+export { MetadataType, TeamColor } from '@colony/event-metadata';
 
 export {
   ColonyRole,
@@ -17,7 +17,6 @@ export {
 
 export * from './ColonyNetwork';
 export * from './TxCreator';
-export * from './constants';
 export * from './events';
 export * from './ipfs';
 

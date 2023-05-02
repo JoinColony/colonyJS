@@ -12,31 +12,21 @@ Extension therefore requires Administration and Funding roles to function.
 
 Note: if you deployed your Colony using the Dapp, the OneTxPayment extension is already installed for you
 
-## Constructors
-
-### constructor
-
-• **new OneTxPayment**(`colony`, `oneTxPaymentContract`, `deployedVersion`)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `colony` | [`Colony`](Colony.md) |
-| `oneTxPaymentContract` | `OneTxPayment` |
-| `deployedVersion` | ``2`` \| ``1`` \| ``3`` \| ``4`` |
-
 ## Properties
 
 ### address
 
 • **address**: `string`
 
+The extension contract's address
+
 ___
 
 ### version
 
 • **version**: ``2`` \| ``1`` \| ``3`` \| ``4``
+
+The extension contract's version
 
 ___
 
@@ -49,6 +39,8 @@ ___
 ### supportedVersions
 
 ▪ `Static` **supportedVersions**: (``2`` \| ``1`` \| ``3`` \| ``4``)[]
+
+The currently supported OneTXPayment contract version. If the extension contract is not on this version it has to be upgraded.
 
 ## Methods
 
@@ -144,15 +136,21 @@ ___
 
 ▸ `Static` **connect**(`colony`): `Promise`<[`OneTxPayment`](OneTxPayment.md)\>
 
+Create an instance of a OneTxPayment extension client and connect the Colony to it
+
+Only supports the latest version of the OneTxPayment contract
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `colony` | [`Colony`](Colony.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `colony` | [`Colony`](Colony.md) | The Colony instance |
 
 #### Returns
 
 `Promise`<[`OneTxPayment`](OneTxPayment.md)\>
+
+A connected OneTxPayment instance
 
 ___
 

@@ -11,7 +11,16 @@ export { ColonyToken } from './ColonyToken';
 export { ERC20Token } from './ERC20Token';
 export { ERC2612Token } from './ERC2612Token';
 
-// FIXME: docs
+/**
+ * Get a properly instantiated Token contract client
+ *
+ * This method tries to auto-detect the type of the token under the given address
+ *
+ * @param colonyNetwork - A [[ColonyNetwork]] instance
+ * @param address - The token's address
+ *
+ * @returns A Token contract client
+ */
 export const getToken = async (
   colonyNetwork: ColonyNetwork,
   address: string,

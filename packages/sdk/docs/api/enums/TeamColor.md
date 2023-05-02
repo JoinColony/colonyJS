@@ -1,5 +1,7 @@
 # Enumeration: TeamColor
 
+The various team colors that the dApp supports
+
 ## Enumeration Members
 
 ### Aqua

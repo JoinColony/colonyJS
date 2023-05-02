@@ -86,7 +86,7 @@ export class Colony {
   /**
    * Create an instance of a Colony client and connect the Network to it
    *
-   * Only supports the latest version of the Colony contracts
+   * Only supports the latest version of the Colony contract
    *
    * @param colonyNetwork - The ColonyNetwork instance
    * @param address - The Colony's address
@@ -187,9 +187,6 @@ export class Colony {
    *
    * @remarks
    * Do not use this method directly but use [[ColonyNetwork.getColony]]
-   * @param colonyNetwork - A Colony SDK `ColonyNetwork` instance
-   * @param colony - A ColonyJS `ColonyClient` in the latest supported version
-   * @returns A [[Colony]] abstaction instance
    */
   constructor(
     colonyNetwork: ColonyNetwork,

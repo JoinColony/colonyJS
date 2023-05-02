@@ -25,7 +25,6 @@ const { AddressZero } = constants;
 
 export type SupportedOneTxPaymentContract = OneTxPaymentContract;
 
-// FIXME: docs (annotate all properties)
 /**
  * ## `OneTxPayment` (One Transaction Payment)
  *
@@ -40,10 +39,22 @@ export type SupportedOneTxPaymentContract = OneTxPaymentContract;
  * Note: if you deployed your Colony using the Dapp, the OneTxPayment extension is already installed for you
  */
 export class OneTxPayment {
+  /**
+   * The currently supported OneTXPayment contract version. If the extension contract is not on this version it has to be upgraded.
+   */
   static supportedVersions: OneTxPaymentVersion[] = [4];
 
   static extensionType: Extension.OneTxPayment = Extension.OneTxPayment;
 
+  /**
+   * Create an instance of a OneTxPayment extension client and connect the Colony to it
+   *
+   * Only supports the latest version of the OneTxPayment contract
+   *
+   * @param colony - The Colony instance
+   *
+   * @returns A connected OneTxPayment instance
+   */
   static async connect(colony: Colony) {
     const address = await colony.colonyNetwork
       .getInternalNetworkContract()
@@ -86,16 +97,33 @@ export class OneTxPayment {
 
   private oneTxPaymentContract: SupportedOneTxPaymentContract;
 
+  /** The extension contract's address */
   address: string;
 
+  /** The extension contract's version */
   version: OneTxPaymentVersion;
 
+  /*
+   * Get the latest supported version of the OneTxPayment extension in Colony SDK.
+   *
+   * Currently we only support one version but this might change in the future
+   *
+   * @returns The latest supported version for the OneTxPayment contract
+   */
   static getLatestSupportedVersion() {
     return OneTxPayment.supportedVersions[
       OneTxPayment.supportedVersions.length - 1
     ];
   }
 
+  /**
+   * Creates a new instance to connect to an existing OneTxPayment extension contract
+   *
+   * @internal
+   *
+   * @remarks
+   * Do not use this method directly but use [[OneTxPayment.connect]]
+   */
   constructor(
     colony: Colony,
     oneTxPaymentContract: SupportedOneTxPaymentContract,

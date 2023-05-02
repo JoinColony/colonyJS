@@ -130,16 +130,22 @@ ___
 
 ▸ **getToken**(`colonyNetwork`, `address`): `Promise`<[`ERC20Token`](classes/ERC20Token.md)\>
 
+Get a properly instantiated Token contract client
+
+This method tries to auto-detect the type of the token under the given address
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `colonyNetwork` | [`ColonyNetwork`](classes/ColonyNetwork.md) |
-| `address` | `string` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `colonyNetwork` | [`ColonyNetwork`](classes/ColonyNetwork.md) | A [ColonyNetwork](classes/ColonyNetwork.md) instance |
+| `address` | `string` | The token's address |
 
 #### Returns
 
 `Promise`<[`ERC20Token`](classes/ERC20Token.md)\>
+
+A Token contract client
 
 ___
 
