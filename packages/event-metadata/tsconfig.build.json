@@ -8,6 +8,11 @@
   ],
   "compilerOptions": {
     "noEmit": false,
-    "declaration": false
+    "declaration": false,
+    "plugins": [
+      {
+        "transform": "typia/lib/transform"
+      }
+    ]
   }
 }

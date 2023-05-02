@@ -10,10 +10,11 @@
     "noImplicitAny": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "strict": true,
     "target": "es2018",
     "rootDir": "./src",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "strict": true
   },
   "include": [
     "src/**/*"

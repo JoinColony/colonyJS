@@ -1,57 +1,113 @@
+/**
+ * Available metadata types
+ *
+ * DEFAULT is usually used to indicate a generic Metadata type
+ */
 export enum MetadataType {
-  Colony = 'colony',
-  Domain = 'domain',
+  DEFAULT = 'default',
   Annotation = 'annotation',
+  Colony = 'colony',
   Decision = 'decision',
+  Domain = 'domain',
   Misc = 'misc',
 }
 
-export interface SafeMetadata {
+interface BaseMetadata {
+  name: MetadataType;
+  version: number;
+}
+
+interface SafeInfo {
   chainId: string;
   contractAddress: string;
   moduleContractAddress: string;
   safeName: string;
 }
 
-export interface ColonyMetadata {
-  colonyName?: string;
+export interface ColonyData {
+  colonyName: string;
   colonyDisplayName?: string;
-  colonyAvatarHash?: string | null;
-  colonyTokens?: Array<string>;
-  verifiedAddresses?: Array<string>;
-  isWhitelistActivated?: boolean;
-  colonySafes?: Array<SafeMetadata>;
+  colonyAvatarHash?: string;
+  colonyTokens: Array<string>;
+  verifiedAddresses: Array<string>;
+  isWhitelistActivated: boolean;
+  colonySafes: Array<SafeInfo>;
 }
 
-export interface DomainMetadata {
+export interface ColonyMetadata extends BaseMetadata {
+  name: MetadataType.Colony;
+  data: ColonyData;
+}
+
+export interface DomainData {
   domainName?: string;
   domainColor?: number;
   domainPurpose?: string;
 }
 
-export interface AnnotationMetadata {
+export interface DomainMetadata extends BaseMetadata {
+  name: MetadataType.Domain;
+  data: DomainData;
+}
+
+export interface AnnotationData {
   annotationMsg: string;
 }
 
-export interface DecisionMetadata {
+export interface AnnotationMetadata extends BaseMetadata {
+  name: MetadataType.Annotation;
+  data: AnnotationData;
+}
+
+export interface DecisionData {
   title: string;
-  description: string;
+  description?: string;
   motionDomainId: number;
 }
 
-export interface MiscMetadata {
-  // @TODO - This is not metadata, but check if this should be included somewhere
-  // this was created to handle colonyAvatarImage
-  [key: string]: string;
+export interface DecisionMetadata extends BaseMetadata {
+  name: MetadataType.Decision;
+  data: DecisionData;
 }
 
-export interface Metadata {
-  version: number;
-  name: MetadataType;
-  data:
-    | ColonyMetadata
-    | DomainMetadata
-    | AnnotationMetadata
-    | DecisionMetadata
-    | MiscMetadata;
+export interface MiscData {
+  name: string;
+  value: string;
+}
+
+export interface MiscMetadata extends BaseMetadata {
+  name: MetadataType.Misc;
+  data: MiscData;
+}
+
+export type Data =
+  | AnnotationData
+  | ColonyData
+  | DecisionData
+  | DomainData
+  | MiscData;
+
+export type Metadata =
+  | AnnotationMetadata
+  | ColonyMetadata
+  | DecisionMetadata
+  | DomainMetadata
+  | MiscMetadata;
+
+export interface MetadataTypeMap {
+  [MetadataType.DEFAULT]: Metadata;
+  [MetadataType.Annotation]: AnnotationMetadata;
+  [MetadataType.Colony]: ColonyMetadata;
+  [MetadataType.Decision]: DecisionMetadata;
+  [MetadataType.Domain]: DomainMetadata;
+  [MetadataType.Misc]: MiscMetadata;
+}
+
+export interface DataTypeMap {
+  [MetadataType.DEFAULT]: never;
+  [MetadataType.Annotation]: AnnotationData;
+  [MetadataType.Colony]: ColonyData;
+  [MetadataType.Decision]: DecisionData;
+  [MetadataType.Domain]: DomainData;
+  [MetadataType.Misc]: MiscData;
 }

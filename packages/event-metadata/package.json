@@ -24,20 +24,22 @@
     "npm": "^8"
   },
   "scripts": {
-    "build": "npm run compile-cjs && npm run compile-esm && npm run compile-types",
+    "build": "npm run clean && npm run compile-cjs && npm run compile-esm && npm run compile-types",
+    "clean": "rimraf ./dist",
     "compile-cjs": "tsc -p tsconfig.build.json --module commonjs --outDir dist/cjs",
     "compile-esm": "tsc -p tsconfig.build.json --module es2015 --outDir dist/esm",
     "compile-types": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --outDir dist/types",
     "lint": "eslint --fix 'src/**/*.{ts,tsx}'",
     "test": "npm run lint && npm run typecheck",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
-  },
-  "devDependencies": {
-    "@types/yup": "^0.29.14"
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "prepare": "ts-patch install"
   },
   "dependencies": {
-    "react-intl": "^6.0.4",
-    "yup": "^0.29.0"
+    "typia": "^3.8.3"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.1",
+    "ts-patch": "^2.1.0"
   },
   "repository": {
     "type": "git",
