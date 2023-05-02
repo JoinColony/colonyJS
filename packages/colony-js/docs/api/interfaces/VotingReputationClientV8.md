@@ -552,7 +552,7 @@ Always prefer this method, except when you have good reason not to.
 | `_motionId` | `BigNumberish` | The id of the motion |
 | `_staker` | `string` | The staker whose reward is being claimed |
 | `_vote` | `BigNumberish` | The side being supported (0 = NAY, 1 = YAY) |
-| `overrides?` | `TxOverrides` | - |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
 
 #### Returns
 
@@ -572,7 +572,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `signerOrProvider` | `string` \| `Provider` \| `Signer` |
+| `signerOrProvider` | `string` \| `Signer` \| `Provider` |
 
 #### Returns
 
@@ -653,7 +653,7 @@ Always prefer this method, except when you have good reason not to.
 | `_domainId` | `BigNumberish` | The domain where we vote on the motion |
 | `_altTarget` | `string` | The contract to which we send the action (0x0 for the colony) |
 | `_action` | `BytesLike` | A bytes array encoding a function call |
-| `overrides?` | `TxOverrides` | - |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
 
 #### Returns
 
@@ -763,7 +763,7 @@ Always prefer this method, except when you have good reason not to.
 | :------ | :------ | :------ |
 | `_motionId` | `BigNumberish` | The id of the motion |
 | `_newDomainId` | `BigNumberish` | The desired domain of escalation |
-| `overrides?` | `TxOverrides` | - |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
 
 #### Returns
 
@@ -1660,7 +1660,7 @@ Always prefer this method, except when you have good reason not to.
 | `_motionId` | `BigNumberish` | The id of the motion |
 | `_vote` | `BigNumberish` | The side being supported (0 = NAY, 1 = YAY) |
 | `_amount` | `BigNumberish` | The amount of tokens being staked |
-| `overrides?` | `TxOverrides` | - |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
 
 #### Returns
 

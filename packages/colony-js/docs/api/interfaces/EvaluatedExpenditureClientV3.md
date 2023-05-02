@@ -437,7 +437,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `signerOrProvider` | `string` \| `Provider` \| `Signer` |
+| `signerOrProvider` | `string` \| `Signer` \| `Provider` |
 
 #### Returns
 
@@ -960,7 +960,7 @@ Always prefer this method, except when you have good reason not to.
 | `_id` | `BigNumberish` | Expenditure identifier |
 | `_slots` | `BigNumberish`[] | Array of slots to set payout modifiers |
 | `_payoutModifiers` | `BigNumberish`[] | Values (between +/- WAD) to modify the payout & reputation bonus |
-| `overrides?` | `TxOverrides` | - |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
 
 #### Returns
 

@@ -257,6 +257,18 @@ AugmentedIColony.removeListener
 
 ___
 
+### reputationClient
+
+• **reputationClient**: [`ReputationClient`](../classes/ReputationClient.md)
+
+A helper client to retrieve reputation
+
+#### Inherited from
+
+AugmentedIColony.reputationClient
+
+___
+
 ### resolvedAddress
 
 • `Readonly` **resolvedAddress**: `Promise`<`string`\>
@@ -391,7 +403,7 @@ Always prefer this method, except when you have good reason not to.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `_parentDomainId` | `BigNumberish` | Id of the domain under which the new one will be added |
-| `overrides?` | `TxOverrides` | - |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
 
 #### Returns
 
@@ -450,7 +462,7 @@ Always prefer this method, except when you have good reason not to.
 | `_amount` | `BigNumberish` | Payout amount |
 | `_domainId` | `BigNumberish` | The domain where the payment belongs |
 | `_skillId` | `BigNumberish` | The skill associated with the payment |
-| `overrides?` | `TxOverrides` | - |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
 
 #### Returns
 
@@ -732,7 +744,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `signerOrProvider` | `string` \| `Provider` \| `Signer` |
+| `signerOrProvider` | `string` \| `Signer` \| `Provider` |
 
 #### Returns
 
@@ -937,7 +949,7 @@ Always prefer this method, except when you have good reason not to.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `_id` | `BigNumberish` | Payment identifier |
-| `overrides?` | `TxOverrides` | - |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
 
 #### Returns
 
@@ -1890,7 +1902,7 @@ Always prefer this method, except when you have good reason not to.
 | `_domainId` | `BigNumberish` | The domain where the task belongs |
 | `_skillId` | `BigNumberish` | The skill associated with the task, can set to `0` for no-op |
 | `_dueDate` | `BigNumberish` | The due date of the task, can set to `0` for no-op |
-| `overrides?` | `TxOverrides` | - |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
 
 #### Returns
 
@@ -1971,7 +1983,7 @@ Always prefer this method, except when you have good reason not to.
 | `_toPot` | `BigNumberish` | Funding pot id receiving the funds |
 | `_amount` | `BigNumberish` | Amount of funds |
 | `_token` | `string` | Address of the token, `0x0` value indicates Ether |
-| `overrides?` | `TxOverrides` | - |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
 
 #### Returns
 
@@ -2263,7 +2275,7 @@ Always prefer this method, except when you have good reason not to.
 | `_user` | `string` | User we want to give an admin role to |
 | `_domainId` | `BigNumberish` | Domain in which we are giving user the role |
 | `_setTo` | `boolean` | The state of the role permission (true assign the permission, false revokes it) |
-| `overrides?` | `TxOverrides` | - |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
 
 #### Returns
 
@@ -2344,7 +2356,7 @@ Always prefer this method, except when you have good reason not to.
 | `_user` | `string` | User we want to give an arbitration role to |
 | `_domainId` | `BigNumberish` | Domain in which we are giving user the role |
 | `_setTo` | `boolean` | The state of the role permission (true assign the permission, false revokes it) |
-| `overrides?` | `TxOverrides` | - |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
 
 #### Returns
 
@@ -2397,7 +2409,7 @@ Always prefer this method, except when you have good reason not to.
 | `_user` | `string` | User we want to give an architecture role to |
 | `_domainId` | `BigNumberish` | Domain in which we are giving user the role |
 | `_setTo` | `boolean` | The state of the role permission (true assign the permission, false revokes it) |
-| `overrides?` | `TxOverrides` | - |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
 
 #### Returns
 
@@ -2450,7 +2462,7 @@ Always prefer this method, except when you have good reason not to.
 | `_user` | `string` | User we want to give an funding role to |
 | `_domainId` | `BigNumberish` | Domain in which we are giving user the role |
 | `_setTo` | `boolean` | The state of the role permission (true assign the permission, false revokes it) |
-| `overrides?` | `TxOverrides` | - |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
 
 #### Returns
 
@@ -2503,7 +2515,7 @@ Always prefer this method, except when you have good reason not to.
 | :------ | :------ | :------ |
 | `_id` | `BigNumberish` | Payment identifier |
 | `_domainId` | `BigNumberish` | Id of the new domain to set |
-| `overrides?` | `TxOverrides` | - |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
 
 #### Returns
 
@@ -2556,7 +2568,7 @@ Always prefer this method, except when you have good reason not to.
 | `_id` | `BigNumberish` | Payment identifier |
 | `_token` | `BigNumberish` | Address of the token, `0x0` value indicates Ether |
 | `_amount` | `BigNumberish` | Payout amount |
-| `overrides?` | `TxOverrides` | - |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
 
 #### Returns
 
@@ -2607,7 +2619,7 @@ Always prefer this method, except when you have good reason not to.
 | :------ | :------ | :------ |
 | `_id` | `BigNumberish` | Payment identifier |
 | `_recipient` | `string` | Address of the payment recipient |
-| `overrides?` | `TxOverrides` | - |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
 
 #### Returns
 
@@ -2658,7 +2670,7 @@ Always prefer this method, except when you have good reason not to.
 | :------ | :------ | :------ |
 | `_id` | `BigNumberish` | Payment identifier |
 | `_skillId` | `BigNumberish` | Id of the new skill to set |
-| `overrides?` | `TxOverrides` | - |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
 
 #### Returns
 

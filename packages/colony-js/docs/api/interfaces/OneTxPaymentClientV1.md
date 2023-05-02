@@ -422,7 +422,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `signerOrProvider` | `string` \| `Provider` \| `Signer` |
+| `signerOrProvider` | `string` \| `Signer` \| `Provider` |
 
 #### Returns
 
@@ -761,7 +761,7 @@ Always prefer this method, except when you have good reason not to.
 | `_amounts` | `BigNumberish`[] | The amounts of the tokens being paid out |
 | `_domainId` | `BigNumberish` | The domainId the payment should be coming from |
 | `_skillId` | `BigNumberish` | The skillId that the payment should be marked with, possibly awarding reputation in this skill. |
-| `overrides?` | `TxOverrides` | - |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
 
 #### Returns
 
@@ -789,7 +789,7 @@ Always prefer this method, except when you have good reason not to.
 | `_amounts` | `BigNumberish`[] | amounts of the tokens being paid out |
 | `_domainId` | `BigNumberish` | The domainId the payment should be coming from |
 | `_skillId` | `BigNumberish` | The skillId that the payment should be marked with, possibly awarding reputation in this skill. |
-| `overrides?` | `TxOverrides` | - |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
 
 #### Returns
 

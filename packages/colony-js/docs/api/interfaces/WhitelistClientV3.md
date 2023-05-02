@@ -517,7 +517,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `signerOrProvider` | `string` \| `Provider` \| `Signer` |
+| `signerOrProvider` | `string` \| `Signer` \| `Provider` |
 
 #### Returns
 

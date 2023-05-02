@@ -1,6 +1,6 @@
 # Enumeration: ReputationOracleEndpoint
 
-HTTP endpoint of the official colony reputation oracle
+HTTP endpoint of the official Colony reputation oracle
 
 ## Enumeration Members
 

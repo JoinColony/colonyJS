@@ -493,7 +493,7 @@ Always prefer this method, except when you have good reason not to.
 | :------ | :------ | :------ |
 | `_expenditureId` | `BigNumberish` | The id of the expenditure |
 | `_punish` | `boolean` | Whether the staker should be punished by losing an amount of reputation equal to the stake |
-| `overrides?` | `TxOverrides` | - |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
 
 #### Returns
 
@@ -542,7 +542,7 @@ Always prefer this method, except when you have good reason not to.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `_expenditureId` | `BigNumberish` | The id of the expenditure |
-| `overrides?` | `TxOverrides` | - |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
 
 #### Returns
 
@@ -562,7 +562,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `signerOrProvider` | `string` \| `Provider` \| `Signer` |
+| `signerOrProvider` | `string` \| `Signer` \| `Provider` |
 
 #### Returns
 
@@ -1000,7 +1000,7 @@ Always prefer this method, except when you have good reason not to.
 | `_value` | `BytesLike` | Reputation value indicating the total reputation in _domainId |
 | `_branchMask` | `BigNumberish` | The branchmask of the proof |
 | `_siblings` | `BytesLike`[] | The siblings of the proof |
-| `overrides?` | `TxOverrides` | - |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
 
 #### Returns
 

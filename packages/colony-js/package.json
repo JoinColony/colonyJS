@@ -1,6 +1,6 @@
 {
   "name": "@colony/colony-js",
-  "version": "6.3.6",
+  "version": "7.0.0-next.0",
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
@@ -10,6 +10,7 @@
     }
   },
   "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
   "types": "./dist/types/index.d.ts",
   "files": [
     "dist",
@@ -17,7 +18,7 @@
     "README.md"
   ],
   "engines": {
-    "node": "^16.14",
+    "node": "^16",
     "npm": "^8"
   },
   "repository": {
@@ -46,12 +47,12 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@colony/core": "^0.2.0",
+    "@colony/core": "^1.0.0",
     "@colony/events": "^0.1.0",
     "@colony/tokens": "^0.1.2"
   },
   "devDependencies": {
-    "@colony/contractor": "^0.1.0",
+    "@colony/contractor": "^0.1.1",
     "@ethersproject/abi": "^5.7.0",
     "@ethersproject/abstract-provider": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",

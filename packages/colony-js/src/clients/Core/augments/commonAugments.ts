@@ -811,7 +811,6 @@ export const addAugments = <T extends AugmentedIColony>(
   instance.reputationClient = new ReputationClient(
     instance.networkClient,
     instance,
-    networkClient.network,
     { customEndpointUrl: instance.networkClient.reputationOracleEndpoint },
   );
 

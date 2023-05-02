@@ -7,17 +7,23 @@
 ## Enumerations
 
 - [ClientType](enums/ClientType.md)
+- [ColonyLabelSuffix](enums/ColonyLabelSuffix.md)
 - [ColonyNetworkAddress](enums/ColonyNetworkAddress.md)
 - [ColonyRole](enums/ColonyRole.md)
+- [ColonyRpcEndpoint](enums/ColonyRpcEndpoint.md)
 - [Core](enums/Core.md)
 - [Extension](enums/Extension.md)
 - [FundingPotAssociatedType](enums/FundingPotAssociatedType.md)
 - [Id](enums/Id.md)
+- [MetaTxBroadCasterEndpoint](enums/MetaTxBroadCasterEndpoint.md)
 - [MotionState](enums/MotionState.md)
 - [Network](enums/Network.md)
-- [ReputationMinerEndpoints](enums/ReputationMinerEndpoints.md)
 - [ReputationOracleEndpoint](enums/ReputationOracleEndpoint.md)
-- [TokenClientType](enums/TokenClientType.md)
+- [UserLabelSuffix](enums/UserLabelSuffix.md)
+
+## Classes
+
+- [ReputationClient](classes/ReputationClient.md)
 
 ## Interfaces
 
@@ -126,11 +132,23 @@ ___
 
 ___
 
+### CoinMachineVersion
+
+Ƭ **CoinMachineVersion**: typeof `COIN_MACHINE_VERSIONS`[`number`]
+
+___
+
 ### ColonyRoles
 
 Ƭ **ColonyRoles**: [`UserRoles`](README.md#userroles)[]
 
 All users that have roles in a colony
+
+___
+
+### ColonyVersion
+
+Ƭ **ColonyVersion**: typeof `COLONY_VERSIONS`[`number`]
 
 ___
 
@@ -155,6 +173,12 @@ All roles a user has in `domainId`
 
 ___
 
+### EvaluatedExpenditureVersion
+
+Ƭ **EvaluatedExpenditureVersion**: typeof `EVALUATED_EXPENDITURE_VERSIONS`[`number`]
+
+___
+
 ### EventsClient
 
 Ƭ **EventsClient**: `CoinMachineEvents` \| `EvaluatedExpenditureEvents` \| `IColonyEvents` \| `IColonyNetworkEvents` \| `IVotingReputationEvents` \| `MetaTxTokenEvents` \| `OneTxPaymentEvents` \| `StakedExpenditureEvents` \| `StreamingPaymentsEvents` \| `TokenSupplierEvents` \| `VotingReputationEvents` \| `WhitelistEvents`
@@ -167,9 +191,51 @@ ___
 
 ___
 
+### ExtensionVersion
+
+Ƭ **ExtensionVersion**: [`CoinMachineVersion`](README.md#coinmachineversion) \| [`EvaluatedExpenditureVersion`](README.md#evaluatedexpenditureversion) \| [`FundingQueueVersion`](README.md#fundingqueueversion) \| [`OneTxPaymentVersion`](README.md#onetxpaymentversion) \| [`ReputationBootstrapperVersion`](README.md#reputationbootstrapperversion) \| [`StakedExpenditureVersion`](README.md#stakedexpenditureversion) \| `StreamingPaymentsVersion` \| [`TokenSupplierVersion`](README.md#tokensupplierversion) \| [`VotingReputationVersion`](README.md#votingreputationversion) \| [`WhitelistVersion`](README.md#whitelistversion)
+
+___
+
+### FundingQueueVersion
+
+Ƭ **FundingQueueVersion**: typeof `FUNDING_QUEUE_VERSIONS`[`number`]
+
+___
+
+### OneTxPaymentVersion
+
+Ƭ **OneTxPaymentVersion**: typeof `ONE_TX_PAYMENT_VERSIONS`[`number`]
+
+___
+
+### ReputationBootstrapperVersion
+
+Ƭ **ReputationBootstrapperVersion**: typeof `REPUTATION_BOOTSTRAPPER_VERSIONS`[`number`]
+
+___
+
 ### SignerOrProvider
 
 Ƭ **SignerOrProvider**: `Signer` \| `Provider`
+
+___
+
+### StakedExpenditureVersion
+
+Ƭ **StakedExpenditureVersion**: typeof `STAKED_EXPENDITURE_VERSIONS`[`number`]
+
+___
+
+### TokenSupplierVersion
+
+Ƭ **TokenSupplierVersion**: typeof `TOKEN_SUPPLIER_VERSIONS`[`number`]
+
+___
+
+### TxOverrides
+
+Ƭ **TxOverrides**: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }
 
 ___
 
@@ -186,11 +252,27 @@ All domains the user with `address` has roles in
 | `address` | `string` |
 | `domains` | [`DomainRoles`](README.md#domainroles)[] |
 
+___
+
+### VotingReputationVersion
+
+Ƭ **VotingReputationVersion**: typeof `VOTING_REPUTATION_VERSIONS`[`number`]
+
+___
+
+### WhitelistVersion
+
+Ƭ **WhitelistVersion**: typeof `WHITELIST_VERSIONS`[`number`]
+
 ## Variables
 
-### COLONY\_VERSION\_LATEST
+### DecisionMotionCode
 
-• `Const` **COLONY\_VERSION\_LATEST**: `number`
+• `Const` **DecisionMotionCode**: ``"0x12345678"``
+
+Identifies a motion as a decision
+
+Usually there's no need to use this directly. Use VotingReputation.createDecision instead.
 
 ___
 
@@ -202,19 +284,161 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `CoinMachine` | `number` |
-| `EvaluatedExpenditure` | `number` |
-| `FundingQueue` | `number` |
-| `IVotingReputation` | `number` |
-| `OneTxPayment` | `number` |
-| `ReputationBootstrapper` | `number` |
-| `StakedExpenditure` | `number` |
-| `StreamingPayments` | `number` |
-| `TokenSupplier` | `number` |
-| `VotingReputation` | `number` |
-| `Whitelist` | `number` |
+| `CoinMachine` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` |
+| `EvaluatedExpenditure` | ``1`` \| ``2`` \| ``3`` |
+| `FundingQueue` | ``1`` \| ``2`` \| ``3`` \| ``4`` |
+| `IVotingReputation` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` |
+| `OneTxPayment` | ``1`` \| ``2`` \| ``3`` \| ``4`` |
+| `ReputationBootstrapper` | ``1`` |
+| `StakedExpenditure` | ``1`` \| ``2`` |
+| `StreamingPayments` | ``1`` \| ``2`` |
+| `TokenSupplier` | ``1`` \| ``2`` \| ``3`` \| ``4`` |
+| `VotingReputation` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` |
+| `Whitelist` | ``1`` \| ``2`` \| ``3`` |
+
+___
+
+### LATEST\_TAG
+
+• `Const` **LATEST\_TAG**: `string`
+
+Latest release tag
+
+___
+
+### RELEASES
+
+• `Const` **RELEASES**: `string`[]
+
+Colony Network contract release tags
+
+___
+
+### RELEASE\_MAP
+
+• `Const` **RELEASE\_MAP**: `Object`
+
+Map versioned contracts to network release tags
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `CoinMachine` | { `clwss`: `number` ; `dlwss`: `number` ; `elwss2`: `number` ; `elwss3`: `number` ; `flwss`: `number` ; `glwss`: `number` ; `glwss2`: `number`  } |
+| `CoinMachine.clwss` | `number` |
+| `CoinMachine.dlwss` | `number` |
+| `CoinMachine.elwss2` | `number` |
+| `CoinMachine.elwss3` | `number` |
+| `CoinMachine.flwss` | `number` |
+| `CoinMachine.glwss` | `number` |
+| `CoinMachine.glwss2` | `number` |
+| `EvaluatedExpenditure` | { `elwss`: `number` ; `flwss`: `number` ; `glwss2`: `number`  } |
+| `EvaluatedExpenditure.elwss` | `number` |
+| `EvaluatedExpenditure.flwss` | `number` |
+| `EvaluatedExpenditure.glwss2` | `number` |
+| `FundingQueue` | { `dlwss`: `number` ; `flwss`: `number` ; `glwss2`: `number` ; `lwss`: `number`  } |
+| `FundingQueue.dlwss` | `number` |
+| `FundingQueue.flwss` | `number` |
+| `FundingQueue.glwss2` | `number` |
+| `FundingQueue.lwss` | `number` |
+| `IColony` | { `auburn-glider`: `number` ; `burgundy-glider`: `number` ; `clwss`: `number` ; `dlwss`: `number` ; `elwss3`: `number` ; `flwss`: `number` ; `glider`: `number` ; `glider-rc.1`: `number` ; `glwss`: `number` ; `glwss2`: `number` ; `glwss3`: `number` ; `lwss`: `number`  } |
+| `IColony.auburn-glider` | `number` |
+| `IColony.burgundy-glider` | `number` |
+| `IColony.clwss` | `number` |
+| `IColony.dlwss` | `number` |
+| `IColony.elwss3` | `number` |
+| `IColony.flwss` | `number` |
+| `IColony.glider` | `number` |
+| `IColony.glider-rc.1` | `number` |
+| `IColony.glwss` | `number` |
+| `IColony.glwss2` | `number` |
+| `IColony.glwss3` | `number` |
+| `IColony.lwss` | `number` |
+| `IVotingReputation` | { `flwss3`: `number` ; `glwss`: `number` ; `glwss2`: `number`  } |
+| `IVotingReputation.flwss3` | `number` |
+| `IVotingReputation.glwss` | `number` |
+| `IVotingReputation.glwss2` | `number` |
+| `OneTxPayment` | { `clwss`: `number` ; `dlwss`: `number` ; `flwss`: `number` ; `glwss2`: `number`  } |
+| `OneTxPayment.clwss` | `number` |
+| `OneTxPayment.dlwss` | `number` |
+| `OneTxPayment.flwss` | `number` |
+| `OneTxPayment.glwss2` | `number` |
+| `ReputationBootstrapper` | { `glwss2`: `number`  } |
+| `ReputationBootstrapper.glwss2` | `number` |
+| `StakedExpenditure` | { `glwss`: `number` ; `glwss2`: `number`  } |
+| `StakedExpenditure.glwss` | `number` |
+| `StakedExpenditure.glwss2` | `number` |
+| `StreamingPayments` | { `glwss`: `number` ; `glwss2`: `number`  } |
+| `StreamingPayments.glwss` | `number` |
+| `StreamingPayments.glwss2` | `number` |
+| `TokenSupplier` | { `dlwss`: `number` ; `flwss`: `number` ; `glwss2`: `number` ; `lwss`: `number`  } |
+| `TokenSupplier.dlwss` | `number` |
+| `TokenSupplier.flwss` | `number` |
+| `TokenSupplier.glwss2` | `number` |
+| `TokenSupplier.lwss` | `number` |
+| `VotingReputation` | { `clwss`: `number` ; `dlwss`: `number` ; `elwss`: `number` ; `flwss`: `number` ; `flwss2`: `number`  } |
+| `VotingReputation.clwss` | `number` |
+| `VotingReputation.dlwss` | `number` |
+| `VotingReputation.elwss` | `number` |
+| `VotingReputation.flwss` | `number` |
+| `VotingReputation.flwss2` | `number` |
+| `Whitelist` | { `elwss`: `number` ; `flwss`: `number` ; `glwss2`: `number`  } |
+| `Whitelist.elwss` | `number` |
+| `Whitelist.flwss` | `number` |
+| `Whitelist.glwss2` | `number` |
 
 ## Functions
+
+### addressesAreEqual
+
+▸ **addressesAreEqual**(`a`, `b`): `boolean`
+
+Check if two addresses are equal
+
+Addresses can be displayed using a checksum format which contains uppercase and lowercase characters.
+This function can compare addresses in either format
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `a` | `string` | Left hand side address |
+| `b` | `string` | Right hand side address |
+
+#### Returns
+
+`boolean`
+
+Whether a and b are the same address
+
+___
+
+### colonyRoles2Hex
+
+▸ **colonyRoles2Hex**(`roles`): `string`
+
+Converts Colony Roles to hex. Result is a binary number where the bits are one and the place of the role index. Then converted to hexadecimal, then padded with zeros to a lenghtof 64
+
+**`Example`**
+
+```typescript
+// Binary representation: 0b000101010
+const roles = colonyRoles2Hex([ColonyRole.Root, ColonyRole.Architecture, ColonyRole.Funding]); // '0x000000000000000000000000000000000000000000000000000000000000002a'
+```
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `roles` | [`ColonyRole`](enums/ColonyRole.md)[] | An array of Colony roles |
+
+#### Returns
+
+`string`
+
+A hexadecimal string
+
+___
 
 ### formatColonyRoles
 
@@ -269,7 +493,7 @@ ___
 
 ### getChildIndex
 
-▸ **getChildIndex**(`client`, `parentDomainId`, `domainId`): `Promise`<`BigNumber`\>
+▸ **getChildIndex**(`network`, `colony`, `parentDomainId`, `domainId`): `Promise`<`BigNumber`\>
 
 Get the child index for a domain inside its corresponding skills parent children array
 
@@ -289,7 +513,8 @@ childSkillIndex would be 0 in this case (0-position in children array)
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `client` | [`AnyColonyClient`](README.md#anycolonyclient) | Any ColonyClient |
+| `network` | `CommonNetwork` | A ColonyNetwork contract |
+| `colony` | `CommonColony` | A Colony contract |
 | `parentDomainId` | `BigNumberish` | id of parent domain |
 | `domainId` | `BigNumberish` | id of the domain |
 
@@ -360,7 +585,7 @@ ___
 
 ### getCreateMotionProofs
 
-▸ **getCreateMotionProofs**(`client`, `domainId`, `altTarget`, `action`): `Promise`<{ `actionCid`: `BigNumber` ; `branchMask`: `string` ; `key`: `string` ; `siblings`: `string`[] ; `value`: `string`  }\>
+▸ **getCreateMotionProofs**(`network`, `colony`, `reputation`, `votingReputation`, `domainId`, `altTarget`, `action`): `Promise`<{ `actionCid`: `BigNumber` ; `branchMask`: `string` ; `key`: `string` ; `siblings`: `string`[] ; `value`: `string`  }\>
 
 Gets the necessary proofs for motion creation
 
@@ -370,7 +595,10 @@ This gets the reputation and domain proofs for motion creation
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `client` | [`AnyVotingReputationClient`](README.md#anyvotingreputationclient) | Any VotingReputationClient |
+| `network` | `CommonNetwork` | - |
+| `colony` | `CommonColony` | - |
+| `reputation` | [`ReputationClient`](classes/ReputationClient.md) | - |
+| `votingReputation` | `BaseContract` | - |
 | `domainId` | `BigNumberish` | Domain id the motion will be created in |
 | `altTarget` | `string` | Target address for the motion (0x0 if Colony contract) |
 | `action` | `BytesLike` | The encoded action the motion will execute when finalized |
@@ -414,19 +642,21 @@ ___
 
 ### getExtensionHash
 
-▸ **getExtensionHash**(`extensionName`): `string`
+▸ **getExtensionHash**(`extension`): `string`
 
 Hashes to identify the colony extension contracts
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `extensionName` | `string` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `extension` | [`Extension`](enums/Extension.md) | A valid Extension name |
 
 #### Returns
 
 `string`
+
+A hash to identify the extension on the contracts
 
 ___
 
@@ -505,7 +735,7 @@ ___
 
 ### getPermissionProofs
 
-▸ **getPermissionProofs**(`client`, `domainId`, `roles`, `customAddress?`): `Promise`<[`BigNumber`, `BigNumber`, `string`]\>
+▸ **getPermissionProofs**(`network`, `colony`, `domainId`, `roles`, `customAddress?`): `Promise`<[`BigNumber`, `BigNumber`, `string`]\>
 
 Get the permission proofs for a user address and a certain role
 
@@ -530,7 +760,8 @@ tl;dr:
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `client` | [`AnyColonyClient`](README.md#anycolonyclient) | Any ColonyClient |
+| `network` | `CommonNetwork` | - |
+| `colony` | `CommonColony` | - |
 | `domainId` | `BigNumberish` | Domain id the method needs to act in |
 | `roles` | [`ColonyRole`](enums/ColonyRole.md) \| [`ColonyRole`](enums/ColonyRole.md)[] | Permissioning role(s) that the methods needs to function |
 | `customAddress?` | `string` | A custom address to get the permission proofs for (defaults to the signer's address) |
@@ -545,7 +776,7 @@ ___
 
 ### getPotDomain
 
-▸ **getPotDomain**(`client`, `potId`): `Promise`<`BigNumberish`\>
+▸ **getPotDomain**(`colony`, `potId`): `Promise`<`BigNumberish`\>
 
 Get the associated domain for a pot id
 
@@ -558,7 +789,7 @@ See [[`FundingPotAssociatedType`]] for details
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `client` | [`AnyColonyClient`](README.md#anycolonyclient) | Any ColonyClient |
+| `colony` | `CommonColony` | - |
 | `potId` | `BigNumberish` | The funding pot id |
 
 #### Returns
@@ -566,6 +797,33 @@ See [[`FundingPotAssociatedType`]] for details
 `Promise`<`BigNumberish`\>
 
 The associated domainId
+
+___
+
+### hex2ColonyRoles
+
+▸ **hex2ColonyRoles**(`hexStr`): [`ColonyRole`](enums/ColonyRole.md)[]
+
+Converts a role hex string (typically returned by a Colony contract) to Colony Roles.
+
+**`Example`**
+
+```typescript
+// Binary representation: 0b000101010
+const roles = hex2ColonyRoles('0x2a'); // [1, 3, 5]
+```
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `hexStr` | `string` | A (probably padded) hexadecimal string |
+
+#### Returns
+
+[`ColonyRole`](enums/ColonyRole.md)[]
+
+An array of Colony roles
 
 ___
 
@@ -581,7 +839,7 @@ Returns `true` if an extension version is compatible with the given colony versi
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `extension` | [`Extension`](enums/Extension.md) | A valid `Extension` contract name |
-| `extensionVersion` | `ExtensionVersion` | The version of the extension to check against the colony |
+| `extensionVersion` | [`ExtensionVersion`](README.md#extensionversion) | The version of the extension to check against the colony |
 | `colonyVersion` | ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12`` | The version of the colony to check for |
 
 #### Returns
@@ -589,3 +847,111 @@ Returns `true` if an extension version is compatible with the given colony versi
 `boolean`
 
 indication whether extension in given version is compatible with colony at the given version
+
+___
+
+### parsePermissionedAction
+
+▸ **parsePermissionedAction**(`action`): `Object`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `action` | `BytesLike` |
+
+#### Returns
+
+`Object`
+
+| Name | Type |
+| :------ | :------ |
+| `childSkillIndex` | `BigNumber` |
+| `permissionDomainId` | `BigNumber` |
+| `sig` | `string` |
+
+___
+
+### toEth
+
+▸ **toEth**(`num`): `string`
+
+Convert any number to ETH (remove 18 zeros)
+
+**`Example`**
+
+```typescript
+import { toEth } from '@colony/sdk';
+
+const oneEther = BigNumber.from("1000000000000000000");
+console.log(toEth(oneEther)); // 1.0
+```
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `num` | `BigNumberish` |
+
+#### Returns
+
+`string`
+
+___
+
+### toWei
+
+▸ **toWei**(`num`): `BigNumber`
+
+Convert any number to wei (add 18 zeros)
+
+**`Example`**
+
+```typescript
+import { toWei } from '@colony/sdk';
+
+const oneEther = '1.0';
+console.log(toWei(oneEther)); // { BigNumber: "1000000000000000000" }
+```
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `num` | `string` |
+
+#### Returns
+
+`BigNumber`
+
+___
+
+### w
+
+▸ **w**(`str`): `BigNumber`
+
+Short-hand method to convert a number to wei using JS tagged template strings
+
+See also here: http://tc39wiki.calculist.org/es6/template-strings/
+
+**`Remarks`**
+
+This is only useful in contexts where the number is hard-coded (e.g. examples)
+
+**`Example`**
+
+```typescript
+import { w } from '@colony/sdk';
+
+console.log(w`1.0`); // { BigNumber: "1000000000000000000" }
+```
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `str` | `TemplateStringsArray` |
+
+#### Returns
+
+`BigNumber`

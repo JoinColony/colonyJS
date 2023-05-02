@@ -466,7 +466,7 @@ Always prefer this method, except when you have good reason not to.
 | `_id` | `BigNumberish` | The id of the streaming payment |
 | `_token` | `string` | The address of the token |
 | `_amount` | `BigNumberish` | The amount to pay out |
-| `overrides?` | `TxOverrides` | - |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
 
 #### Returns
 
@@ -579,7 +579,7 @@ Always prefer this method, except when you have good reason not to.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `_id` | `BigNumberish` | The id of the streaming payment |
-| `overrides?` | `TxOverrides` | - |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
 
 #### Returns
 
@@ -632,7 +632,7 @@ Always prefer this method, except when you have good reason not to.
 | :------ | :------ | :------ |
 | `_id` | `BigNumberish` | The id of the streaming payment |
 | `_tokens` | `string`[] | The tokens to be paid out |
-| `overrides?` | `TxOverrides` | - |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
 
 #### Returns
 
@@ -652,7 +652,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `signerOrProvider` | `string` \| `Provider` \| `Signer` |
+| `signerOrProvider` | `string` \| `Signer` \| `Provider` |
 
 #### Returns
 
@@ -715,7 +715,7 @@ Always prefer this method, except when you have good reason not to.
 | `_recipient` | `string` | The recipient of the streaming payment |
 | `_tokens` | `string`[] | The tokens to be paid out |
 | `_amounts` | `BigNumberish`[] | The amounts to be paid out (per _interval of time) |
-| `overrides?` | `TxOverrides` | - |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
 
 #### Returns
 
@@ -1306,7 +1306,7 @@ Always prefer this method, except when you have good reason not to.
 | :------ | :------ | :------ |
 | `_id` | `BigNumberish` | The id of the streaming payment |
 | `_endTime` | `BigNumberish` | The new endTime to set |
-| `overrides?` | `TxOverrides` | - |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
 
 #### Returns
 
@@ -1378,7 +1378,7 @@ Always prefer this method, except when you have good reason not to.
 | :------ | :------ | :------ |
 | `_id` | `BigNumberish` | The id of the streaming payment |
 | `_startTime` | `BigNumberish` | The new startTime to set |
-| `overrides?` | `TxOverrides` | - |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
 
 #### Returns
 
@@ -1435,7 +1435,7 @@ Always prefer this method, except when you have good reason not to.
 | `_id` | `BigNumberish` | The id of the streaming payment |
 | `_token` | `string` | The address of the token |
 | `_amount` | `BigNumberish` | The new amount to pay out |
-| `overrides?` | `TxOverrides` | - |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
 
 #### Returns
 
