@@ -5,6 +5,9 @@ import { hideBin } from 'yargs/helpers';
 import { runTypeChain, glob } from 'typechain';
 import { LATEST_TAG, RELEASES, RELEASE_MAP } from '@colony/core';
 
+// Contracts needed in the core package
+const CORE_CONTRACTS = ['MotionTarget'];
+
 // Upgradable contract names that will be generated
 const VERSIONED_CONTRACTS = [
   'IColony',
@@ -25,8 +28,6 @@ const UPGRADABLE_CONTRACTS = ['IColonyNetwork'];
 
 // Names of non-upgradable contracts that will be generated
 const UNVERSIONED_CONTRACTS = ['ColonyExtension', 'IBasicMetaTransaction'];
-
-const STATIC_CONTRACTS = ['MotionTarget'];
 
 // Names of Token contracts used
 const TOKEN_CONTRACTS = [
@@ -56,7 +57,7 @@ const ABI_DIR = resolvePath(
   'dist',
 );
 const VERSIONED_DIR = resolvePath(ABI_DIR, 'versions');
-const STATIC_DIR = resolvePath(ABI_DIR, 'static');
+const CORE_DIR = resolvePath(ABI_DIR, 'core');
 const EVENTS_DIR = resolvePath(ABI_DIR, 'events');
 
 const EVENTS_CONTRACTS = [
@@ -74,16 +75,14 @@ const buildVersionedContracts = async (
   outputDir: string,
   plugin: string,
 ): Promise<void[]> => {
-  const promisesVersioned = VERSIONED_CONTRACTS.map(async (contractName) => {
+  const promises = VERSIONED_CONTRACTS.map(async (contractName) => {
     const availableVersions =
       RELEASE_MAP[contractName as keyof typeof RELEASE_MAP];
     if (releaseTag in availableVersions) {
       const outDir = resolvePath(
         outputDir,
         contractName,
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        String(availableVersions[releaseTag]),
+        String(availableVersions[releaseTag as keyof typeof availableVersions]),
       );
       const files = glob(CWD, [`${inputDir}/${contractName}.json`]);
 
@@ -96,14 +95,38 @@ const buildVersionedContracts = async (
       });
     }
   });
-  return Promise.all(promisesVersioned);
+  return Promise.all(promises);
 };
 
-const buildLatestContracts = async (
-  inputDir: string,
+const buildLatestVersionedContracts = async (
   outputDir: string,
   plugin: string,
 ) => {
+  const promises = VERSIONED_CONTRACTS.map(async (contractName) => {
+    const availableVersions =
+      RELEASE_MAP[contractName as keyof typeof RELEASE_MAP];
+    const [tag, version] = Object.entries(availableVersions).reduce(
+      (max, current) => (max[1] > current[1] ? max : current),
+      ['_', 0],
+    );
+
+    const outDir = resolvePath(outputDir, contractName, String(version));
+    const versionDir = resolvePath(VERSIONED_DIR, tag);
+    const files = glob(CWD, [`${versionDir}/${contractName}.json`]);
+
+    await runTypeChain({
+      cwd: CWD,
+      filesToProcess: files,
+      allFiles: files,
+      outDir,
+      target: plugin,
+    });
+  });
+  return Promise.all(promises);
+};
+
+const buildLatestContracts = async (outputDir: string, plugin: string) => {
+  const inputDir = resolvePath(VERSIONED_DIR, LATEST_TAG);
   const contractGlobs = `{${[...UPGRADABLE_CONTRACTS, ...UNVERSIONED_CONTRACTS]
     .map((c) => `${c}.json`)
     .join(',')}}`;
@@ -114,19 +137,6 @@ const buildLatestContracts = async (
     filesToProcess: files,
     allFiles: files,
     outDir: outputDir,
-    target: plugin,
-  });
-};
-
-const buildStaticContracts = async (outputDir: string, plugin: string) => {
-  const contractGlobs = `${STATIC_CONTRACTS.map((c) => `${c}.json`).join(',')}`;
-  const files = glob(CWD, [`${STATIC_DIR}/${contractGlobs}`]);
-
-  return runTypeChain({
-    cwd: CWD,
-    filesToProcess: files,
-    allFiles: files,
-    outDir: resolvePath(outputDir, 'static'),
     target: plugin,
   });
 };
@@ -154,7 +164,7 @@ const buildStaticTokenContracts = async (outputDir: string, plugin: string) => {
   const contractGlobs = `{${TOKEN_STATIC_CONTRACTS.map((c) => `${c}.json`).join(
     ',',
   )}}`;
-  const files = glob(CWD, [`${STATIC_DIR}/${contractGlobs}`]);
+  const files = glob(CWD, [`${CORE_DIR}/${contractGlobs}`]);
 
   return runTypeChain({
     cwd: CWD,
@@ -179,15 +189,31 @@ const buildEventsContracts = async (outputDir: string, plugin: string) => {
     target: plugin,
   });
 };
+const buildCoreContracts = async (outputDir: string, plugin: string) => {
+  const contractGlobs = `${CORE_CONTRACTS.map((c) => `${c}.json`).join(',')}`;
+  const files = glob(CWD, [`${CORE_DIR}/${contractGlobs}`]);
+
+  return runTypeChain({
+    cwd: CWD,
+    filesToProcess: files,
+    allFiles: files,
+    outDir: resolvePath(outputDir),
+    target: plugin,
+  });
+};
 
 const buildTag = async (tag: string, outputDir: string, plugin: string) => {
-  const versionDir = resolvePath(VERSIONED_DIR, tag);
-
-  await buildVersionedContracts(versionDir, tag, outputDir, plugin);
+  const inputDir = resolvePath(VERSIONED_DIR, tag);
+  await buildVersionedContracts(inputDir, tag, outputDir, plugin);
 
   if (tag === LATEST_TAG) {
-    await buildLatestContracts(versionDir, outputDir, plugin);
+    await buildLatestContracts(outputDir, plugin);
   }
+};
+
+const buildAllLatest = async (outputDir: string, plugin: string) => {
+  await buildLatestVersionedContracts(outputDir, plugin);
+  await buildLatestContracts(outputDir, plugin);
 };
 
 const buildTokenContracts = async (outputDir: string, plugin: string) => {
@@ -198,24 +224,38 @@ const buildTokenContracts = async (outputDir: string, plugin: string) => {
 
 const start = async () => {
   const { argv } = yargs(hideBin(process.argv))
+    .command('core', 'Make core contracts')
     .command('colony', 'Make Colony contracts', {
       tag: {
         alias: 't',
         type: 'string',
         default: LATEST_TAG,
+        describe: 'Colony Network release tag to build (e.g. glwss)',
+        choices: [...RELEASES, 'LATEST', 'ALL'],
       },
     })
     .command('tokens', 'Make token contracts')
     .command('events', 'Make events contracts')
     .demandCommand(1)
-    .option('out', { alias: 'o', type: 'string', default: './dist' })
+    .option('out', {
+      alias: 'o',
+      type: 'string',
+      default: './dist',
+      describe: 'Output directory (relative to cwd)',
+    })
     .option('plugin', {
       alias: 'p',
       type: 'string',
       default: 'ethers-v5',
       choices: ['ethers-v5', 'ethers-v6'],
+      describe: 'Typechain plugin to use',
     })
-    .option('clean', { alias: 'c', type: 'boolean', default: true })
+    .option('clean', {
+      alias: 'c',
+      type: 'boolean',
+      default: true,
+      describe: 'Remove output directory before writing to it',
+    })
     .strict();
 
   const args = await argv;
@@ -228,15 +268,19 @@ const start = async () => {
   }
 
   switch (command) {
+    case 'core': {
+      await buildCoreContracts(outputDir, plugin);
+      break;
+    }
     case 'colony': {
       if (tag === 'ALL') {
-        await buildStaticContracts(outputDir, plugin);
         await Promise.all(
           RELEASES.map((release) => buildTag(release, outputDir, plugin)),
         );
+      } else if (tag === 'LATEST') {
+        await buildTag(LATEST_TAG, outputDir, plugin);
       } else {
-        await buildStaticContracts(outputDir, plugin);
-        await buildTag(tag as string, outputDir, plugin);
+        await buildAllLatest(outputDir, plugin);
       }
       break;
     }
