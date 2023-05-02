@@ -22,6 +22,8 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - run: pnpm --filter "@colony/contractor" install --ignore-scripts
+    - run: pnpm --filter "@colony/contractor" run build
     - run: pnpm install --frozen-lockfile
     - run: npm run test
       env:
