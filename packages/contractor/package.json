@@ -1,6 +1,6 @@
 {
   "name": "@colony/contractor",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "A nifty tool that creates Colony Network TypeScript bindings",
   "scripts": {
     "clean": "rimraf ./bin",

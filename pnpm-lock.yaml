@@ -64,7 +64,7 @@ importers:
         version: link:../tokens
     devDependencies:
       '@colony/contractor':
-        specifier: ^0.1.1
+        specifier: ^1.0.0
         version: link:../contractor
       '@ethersproject/abi':
         specifier: ^5.7.0
@@ -141,7 +141,7 @@ importers:
         version: 3.1.5
     devDependencies:
       '@colony/contractor':
-        specifier: 0.1.1
+        specifier: 1.0.0
         version: link:../contractor
       '@ethersproject/abi':
         specifier: ^5.7.0
@@ -172,7 +172,7 @@ importers:
   packages/events:
     devDependencies:
       '@colony/contractor':
-        specifier: ^0.1.0
+        specifier: ^1.0.0
         version: link:../contractor
       '@ethersproject/abi':
         specifier: ^5.7.0
@@ -190,7 +190,7 @@ importers:
         specifier: ^1.0.0
         version: link:../core
       '@colony/event-metadata':
-        specifier: ^3.0.0-alpha.0
+        specifier: ^3.0.0-next.0
         version: link:../event-metadata
       '@colony/events':
         specifier: ^0.1.0
@@ -218,7 +218,7 @@ importers:
         version: 0.11.0(graphql@16.6.0)
     devDependencies:
       '@colony/contractor':
-        specifier: ^0.1.1
+        specifier: ^1.0.0
         version: link:../contractor
       '@ethersproject/abi':
         specifier: ^5.7.0
@@ -284,7 +284,7 @@ importers:
   packages/tokens:
     devDependencies:
       '@colony/contractor':
-        specifier: ^0.1.1
+        specifier: ^1.0.0
         version: link:../contractor
       '@colony/core':
         specifier: ^1.0.0

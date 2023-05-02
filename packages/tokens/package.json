@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "@colony/core": "^1.0.0",
-    "@colony/contractor": "^0.1.1",
+    "@colony/contractor": "^1.0.0",
     "@ethersproject/abi": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",
     "ethers": "^5.7.2"

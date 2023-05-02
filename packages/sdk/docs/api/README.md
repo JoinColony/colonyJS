@@ -84,6 +84,8 @@ ___
 
 • `Const` **ExtensionVersions**: `Object`
 
+Latest versions of all extension contracts
+
 #### Type declaration
 
 | Name | Type |

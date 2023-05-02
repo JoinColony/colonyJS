@@ -195,6 +195,8 @@ ___
 
 Ƭ **ExtensionVersion**: [`CoinMachineVersion`](README.md#coinmachineversion) \| [`EvaluatedExpenditureVersion`](README.md#evaluatedexpenditureversion) \| [`FundingQueueVersion`](README.md#fundingqueueversion) \| [`OneTxPaymentVersion`](README.md#onetxpaymentversion) \| [`ReputationBootstrapperVersion`](README.md#reputationbootstrapperversion) \| [`StakedExpenditureVersion`](README.md#stakedexpenditureversion) \| `StreamingPaymentsVersion` \| [`TokenSupplierVersion`](README.md#tokensupplierversion) \| [`VotingReputationVersion`](README.md#votingreputationversion) \| [`WhitelistVersion`](README.md#whitelistversion)
 
+All possible extension versions
+
 ___
 
 ### FundingQueueVersion
@@ -280,6 +282,8 @@ ___
 
 • `Const` **ExtensionVersions**: `Object`
 
+Latest versions of all extension contracts
+
 #### Type declaration
 
 | Name | Type |
@@ -301,8 +305,6 @@ ___
 ### LATEST\_TAG
 
 • `Const` **LATEST\_TAG**: `string`
-
-Latest release tag
 
 ___
 
