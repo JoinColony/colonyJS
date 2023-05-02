@@ -57,7 +57,9 @@ const createTeam = async (): Promise<{
 
   console.info(`${deprecatedDomain} successfully deprecated`);
 
-  const { domainName, domainColor, domainPurpose } = metadata;
+  const {
+    data: { domainName, domainColor, domainPurpose },
+  } = metadata;
 
   return {
     domainId,

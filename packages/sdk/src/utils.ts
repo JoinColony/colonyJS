@@ -1,5 +1,4 @@
-import { BigNumberish, ContractReceipt, utils } from 'ethers';
-import { ColonyRole } from '@colony/core';
+import { ContractReceipt } from 'ethers';
 
 import type { Log } from '@ethersproject/abstract-provider';
 import type { JsonRpcProvider } from '@ethersproject/providers';

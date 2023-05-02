@@ -1,6 +1,6 @@
-import { Network } from '@colony/core';
 import { utils } from 'ethers';
-import { MetadataType } from '@colony/colony-event-metadata-parser';
+import { Network } from '@colony/core';
+import { MetadataType } from '@colony/event-metadata';
 
 import { ParsedLogTransactionReceipt } from '../types';
 import { IBasicMetaTransaction } from '../contracts';

@@ -44,14 +44,6 @@ import { w } from '@colony/sdk';
 
 ___
 
-### graph
-
-• **graph**: [`ColonyGraph`](ColonyGraph.md)
-
-A helper class to retrieve data from the Colony graph database
-
-___
-
 ### reputation
 
 • **reputation**: `ReputationClient`
@@ -97,7 +89,7 @@ This will annotate a transaction with an arbitrary text message. This only reall
 
 **`Remarks`**
 
-If [AnnotationMetadata](../interfaces/AnnotationMetadata.md) is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
+If AnnotationMetadata is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
 
 **`Example`**
 
@@ -124,7 +116,7 @@ If [AnnotationMetadata](../interfaces/AnnotationMetadata.md) is provided directl
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `txHash` | `string` | Transaction hash of the transaction to annotate (within the Colony) |
-| `metadata` | `string` \| [`AnnotationMetadata`](../interfaces/AnnotationMetadata.md) | The annotation metadata you would like to annotate the transaction with (or an IPFS CID pointing to valid metadata) |
+| `metadata` | `string` \| `AnnotationData` | The annotation metadata you would like to annotate the transaction with (or an IPFS CID pointing to valid metadata) |
 
 #### Returns
 
@@ -254,7 +246,7 @@ import { TeamColor } from '@colony/sdk';
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `metadata` | `string` \| [`DomainMetadata`](../interfaces/DomainMetadata.md) | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [DomainMetadata](../interfaces/DomainMetadata.md) is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
+| `metadata` | `string` \| `DomainData` | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If DomainMetadata is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
 
 #### Returns
 
@@ -369,9 +361,9 @@ A transaction creator
 
 ___
 
-### editColony
+### edit
 
-▸ **editColony**(`metadata`): [`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"editColony"``, { `agent?`: `string` ; `metadata?`: `string`  }, [`Colony`](../enums/MetadataType.md#colony)\>
+▸ **edit**(`metadata`): [`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"editColony"``, { `agent?`: `string` ; `metadata?`: `string`  }, [`Colony`](../enums/MetadataType.md#colony)\>
 
 Edit a colony's metadata
 
@@ -397,7 +389,7 @@ This will overwrite all exisiting metadata!
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `metadata` | `string` \| [`ColonyMetadata`](../interfaces/ColonyMetadata.md) | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [ColonyMetadata](../interfaces/ColonyMetadata.md) is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
+| `metadata` | `string` \| `ColonyData` | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If ColonyMetadata is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
 
 #### Returns
 
@@ -458,7 +450,7 @@ import { TeamColor } from '@colony/sdk';
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `metadata` | `string` \| [`DomainMetadata`](../interfaces/DomainMetadata.md) | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [DomainMetadata](../interfaces/DomainMetadata.md) is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
+| `metadata` | `string` \| `DomainData` | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If DomainMetadata is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
 
 #### Returns
 
@@ -1065,16 +1057,22 @@ ___
 
 ▸ `Static` **connect**(`colonyNetwork`, `address`): `Promise`<[`Colony`](Colony.md)\>
 
+Create an instance of a Colony client and connect the Network to it
+
+Only supports the latest version of the Colony contracts
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `colonyNetwork` | [`ColonyNetwork`](ColonyNetwork.md) |
-| `address` | `string` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `colonyNetwork` | [`ColonyNetwork`](ColonyNetwork.md) | The ColonyNetwork instance |
+| `address` | `string` | The Colony's address |
 
 #### Returns
 
 `Promise`<[`Colony`](Colony.md)\>
+
+A connected Colony instance
 
 ___
 

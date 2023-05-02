@@ -20,6 +20,14 @@ The id of the root fundig pot in all colonies
 
 ___
 
+### RootTeam
+
+• **RootTeam** = ``1``
+
+Alias of RootDomain
+
+___
+
 ### SkillIgnore
 
 • **SkillIgnore** = ``0``

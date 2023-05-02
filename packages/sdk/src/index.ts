@@ -1,12 +1,5 @@
-export type {
-  AnnotationMetadata,
-  ColonyMetadata,
-  DecisionMetadata,
-  DomainMetadata,
-  MetadataType,
-} from '@colony/colony-event-metadata-parser';
+export { MetadataType } from '@colony/event-metadata';
 
-// FIXME: export much more from core (what could be helpful)
 export {
   ColonyRole,
   ColonyRpcEndpoint,
@@ -27,7 +20,6 @@ export * from './TxCreator';
 export * from './constants';
 export * from './events';
 export * from './ipfs';
-export * from './graph';
 
 export type {
   Ethers6Filter,

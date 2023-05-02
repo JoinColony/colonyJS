@@ -1,6 +1,5 @@
 import type { Result } from '@ethersproject/abi';
 import type { BlockTag } from '@ethersproject/abstract-provider';
-import type { MetadataType } from '@colony/colony-event-metadata-parser';
 
 import { constants, providers, EventFilter } from 'ethers';
 import { addressesAreEqual } from '@colony/core';
@@ -9,20 +8,16 @@ import {
   type IColonyNetworkEvents,
   type OneTxPaymentEvents,
   type VotingReputationEvents,
-  ColonyEventsFactory,
-  ColonyNetworkEventsFactory,
-  OneTxPaymentEventsFactory,
-  VotingReputationEventsFactory,
+  IColonyEvents__factory as ColonyEventsFactory,
+  IColonyNetworkEvents__factory as ColonyNetworkEventsFactory,
+  OneTxPaymentEvents__factory as OneTxPaymentEventsFactory,
+  VotingReputationEvents__factory as VotingReputationEventsFactory,
 } from '@colony/events';
+import { MetadataType, MetadataTypeMap } from '@colony/event-metadata';
 
 import type { Ethers6Filter } from '../types';
 import { getLogs, nonNullable } from '../utils';
-import {
-  IpfsAdapter,
-  IpfsMetadata,
-  MetadataEvent,
-  MetadataValue,
-} from '../ipfs';
+import { IpfsAdapter, IpfsMetadata, MetadataEvent } from '../ipfs';
 
 /** Valid sources for Colony emitted events. Used to map the parsed event data */
 export interface EventSources {
@@ -65,7 +60,7 @@ export interface ColonyMultiFilter {
 export interface ColonyEvent<T extends MetadataType> extends ColonyFilter {
   data: Result;
   transactionHash: string;
-  getMetadata?: () => Promise<MetadataValue<T>>;
+  getMetadata?: () => Promise<MetadataTypeMap[T]>;
 }
 
 /** Additional options for the [[ColonyEventManager]] */
@@ -184,10 +179,11 @@ export class ColonyEventManager {
             data,
             transactionHash: log.transactionHash,
             getMetadata: async () => {
-              return this.ipfs.getMetadataForEvent(
+              const result = await this.ipfs.getMetadataForEvent(
                 eventName as MetadataEvent<T>,
                 data.metadata,
-              ) as MetadataValue<T>;
+              );
+              return result as MetadataTypeMap[T];
             },
           };
         }
@@ -298,10 +294,11 @@ export class ColonyEventManager {
           return {
             ...colonyEvent,
             getMetadata: async () => {
-              return this.ipfs.getMetadataForEvent(
+              const result = await this.ipfs.getMetadataForEvent(
                 eventName as MetadataEvent<T>,
                 data.metadata,
-              ) as MetadataValue<T>;
+              );
+              return result as MetadataTypeMap[T];
             },
           };
         }

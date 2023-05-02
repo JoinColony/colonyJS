@@ -1,5 +1,7 @@
 # Enumeration: ColonyRpcEndpoint
 
+Official Colony RPC2 endpoint (node)
+
 ## Enumeration Members
 
 ### Custom

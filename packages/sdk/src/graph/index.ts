@@ -19,8 +19,6 @@ export interface SubgraphClientOptions {
   endpointWs?: string;
 }
 
-// TODO: (v2) remove this file from package.json as separate module
-
 /**
  * Creates a Colony Subgraph client
  *

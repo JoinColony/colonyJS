@@ -1,4 +1,4 @@
-export { IpfsMetadata, MetadataEvent, MetadataValue } from './IpfsMetadata';
+export { IpfsMetadata, MetadataEvent } from './IpfsMetadata';
 
 export { default as PinataAdapter } from './PinataAdapter';
 export { default as CloudflareReadonlyAdapter } from './CloudflareReadonlyAdapter';

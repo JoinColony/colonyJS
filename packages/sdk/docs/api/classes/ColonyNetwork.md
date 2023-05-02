@@ -15,10 +15,10 @@ From here you should be able to instantiate all the required instances for Colon
 
 ```typescript
 import { providers } from 'ethers';
-import { ColonyNetwork, Tokens } from '@colony/sdk';
+import { ColonyNetwork, ColonyRpcEndpoint, Tokens } from '@colony/sdk';
 
 // Connect directly to the deployed Colony Network on Gnosis Chain
-const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc/');
+const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
 const colonyNetwork = new ColonyNetwork(provider);
 // Now you could call functions on the colonyNetwork, like `colonyNetwork.getMetaColony()`
 ```
@@ -36,11 +36,7 @@ const colonyNetwork = new ColonyNetwork(provider);
 
 • **config**: `ColonyNetworkConfig`
 
-___
-
-### graphClient
-
-• **graphClient**: `Client`
+Configuration of the ColonyNetwork for later use
 
 ___
 
@@ -48,11 +44,15 @@ ___
 
 • **ipfs**: `IpfsMetadata`
 
+The IPFS adapter for Metadata. Defaults to a read-only adapter
+
 ___
 
 ### network
 
 • **network**: `Network`
+
+The network the client is connected to. Defaults to Gnosis chain
 
 ___
 
@@ -72,7 +72,7 @@ E.g. a [Wallet](https://docs.ethers.org/v5/api/signer/#Wallet) or a [Web3Provide
 
 Create a new colony with metadata
 
-Creates a new colony with IPFS metadata. To edit metadata at a later point you can call the [Colony.editColony](Colony.md#editcolony) method.
+Creates a new colony with IPFS metadata. To edit metadata at a later point you can call the Colony.editColony method.
 
 **`Remarks`**
 
@@ -109,7 +109,7 @@ import { Tokens } from '@colony/sdk';
 | :------ | :------ | :------ |
 | `token` | `string` \| `TokenData` | Create a new ERC20-compatible token by passing in its name and symbol or use an existing token by passing in its contract address |
 | `label` | `string` | The Colony's label. This is going to be part of the URL to look up the Colony within the dApp |
-| `metadata` | `string` \| [`ColonyMetadata`](../interfaces/ColonyMetadata.md) | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [ColonyMetadata](../interfaces/ColonyMetadata.md) is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
+| `metadata` | `string` \| `ColonyData` | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If ColonyMetadata is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
 
 #### Returns
 
@@ -142,7 +142,7 @@ A transaction creator
 
 Create a new Colony without metadata
 
-Creates a new Colony without IPFS metadata. To add metadata at a later point you can call the [Colony.editColony](Colony.md#editcolony) method.
+Creates a new Colony without IPFS metadata. To add metadata at a later point you can call the Colony.editColony method.
 
 **`Remarks`**
 
@@ -310,9 +310,14 @@ ___
 
 ▸ **getSigner**(): `Signer`
 
+Get the signer that was provided when the ColonyNetwork was instantiated.
+Throws if the Signer is only a (read-only) Provider
+
 #### Returns
 
 `Signer`
+
+An Ethers.js compatible Signer instance
 
 ___
 
@@ -320,9 +325,13 @@ ___
 
 ▸ **getTokenLocking**(): `Promise`<`TokenLocking`\>
 
+Fetches the TokenLocking client abstraction
+
 #### Returns
 
 `Promise`<`TokenLocking`\>
+
+A TokenLocking contract client
 
 ___
 

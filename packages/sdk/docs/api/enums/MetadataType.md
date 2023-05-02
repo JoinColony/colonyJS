@@ -1,5 +1,9 @@
 # Enumeration: MetadataType
 
+Available metadata types
+
+DEFAULT is usually used to indicate a generic Metadata type
+
 ## Enumeration Members
 
 ### Annotation
@@ -11,6 +15,12 @@ ___
 ### Colony
 
 • **Colony** = ``"colony"``
+
+___
+
+### DEFAULT
+
+• **DEFAULT** = ``"default"``
 
 ___
 

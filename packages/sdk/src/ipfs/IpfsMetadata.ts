@@ -1,19 +1,13 @@
 import fetch from 'cross-fetch';
 import wrapFetch from 'fetch-retry';
 import {
+  DataTypeMap,
   Metadata,
   MetadataType,
-  getAnnotationMsgFromResponse,
-  getColonyMetadataFromResponse,
-  getDomainMetadataFromResponse,
-  getStringForMetadataAnnotation,
-  getStringForMetadataColony,
-  getStringForMetadataDomain,
-  getDecisionDetailsFromResponse,
-  getMiscDataFromResponse,
-  getStringForMetadataDecision,
-  getStringForMetadataMisc,
-} from '@colony/colony-event-metadata-parser';
+  MetadataTypeMap,
+  createMetadataFor,
+  parseEventMetadata,
+} from '@colony/event-metadata';
 
 import IpfsAdapter from './IpfsAdapter';
 import CloudflareReadonlyAdapter from './CloudflareReadonlyAdapter';
@@ -33,32 +27,11 @@ export const IPFS_METADATA_EVENTS = {
   [MetadataType.Decision]: 'Annotation(address,bytes32,string)',
   [MetadataType.Domain]: 'DomainMetadata(address,uint256,string)',
   [MetadataType.Misc]: '',
-} as const;
-
-const IPFS_METADATA_PARSERS = {
-  [MetadataType.Annotation]: getAnnotationMsgFromResponse,
-  [MetadataType.Colony]: getColonyMetadataFromResponse,
-  [MetadataType.Domain]: getDomainMetadataFromResponse,
-  [MetadataType.Decision]: getDecisionDetailsFromResponse,
-  [MetadataType.Misc]: getMiscDataFromResponse,
-  None: () => {
-    // Deliberately empty
-  },
-} as const;
-
-const IPFS_METADATA_ENCODERS = {
-  [MetadataType.Annotation]: getStringForMetadataAnnotation,
-  [MetadataType.Colony]: getStringForMetadataColony,
-  [MetadataType.Decision]: getStringForMetadataDecision,
-  [MetadataType.Domain]: getStringForMetadataDomain,
-  [MetadataType.Misc]: getStringForMetadataMisc,
+  [MetadataType.DEFAULT]: '',
 } as const;
 
 export type MetadataEvent<K extends MetadataType> =
   (typeof IPFS_METADATA_EVENTS)[K];
-export type MetadataValue<K extends MetadataType> = ReturnType<
-  (typeof IPFS_METADATA_PARSERS)[K]
->;
 
 /**
  * IpfsMetadata
@@ -83,48 +56,28 @@ export class IpfsMetadata {
     return false;
   }
 
-  async getMetadata<K extends MetadataType>(
-    type: K,
-    cid: string,
-  ): Promise<MetadataValue<K>> {
+  async getMetadata<K extends MetadataType>(cid: string, type?: K) {
     const url = this.adapter.getIpfsUrl(cid);
     const res = await fetchRetry(url);
-    try {
-      const data = await res.text();
-      return IPFS_METADATA_PARSERS[type](data) as MetadataValue<K>;
-    } catch (e) {
-      throw new Error(
-        `Could not parse IPFS metadata. Original error: ${
-          (e as Error).message
-        }`,
-      );
-    }
+    const data = await res.json();
+    return parseEventMetadata<K>(data, type);
   }
 
   async getMetadataForEvent<T extends MetadataType, E extends MetadataEvent<T>>(
     eventName: E,
     cid: string,
-  ): Promise<MetadataValue<T>> {
+  ): Promise<MetadataTypeMap[T]> {
     const url = this.adapter.getIpfsUrl(cid);
     const res = await fetchRetry(url);
-    try {
-      const data = await res.text();
-      const entry = Object.entries(IPFS_METADATA_EVENTS).find(
-        ([, value]) => value === eventName,
-      );
-      if (!entry) {
-        throw new Error(`Not a valid MetadataEvent: ${eventName}`);
-      }
-      const metadataType = entry[0] as T;
-
-      return IPFS_METADATA_PARSERS[metadataType](data) as MetadataValue<T>;
-    } catch (e) {
-      throw new Error(
-        `Could not parse IPFS metadata. Original error: ${
-          (e as Error).message
-        }`,
-      );
+    const data = await res.json();
+    const entry = Object.entries(IPFS_METADATA_EVENTS).find(
+      ([, value]) => value === eventName,
+    );
+    if (!entry) {
+      throw new Error(`Not a valid MetadataEvent: ${eventName}`);
     }
+    const metadataType = entry[0] as T;
+    return parseEventMetadata(data, metadataType);
   }
 
   async getRawMetadata(cid: string): Promise<Metadata> {
@@ -142,14 +95,9 @@ export class IpfsMetadata {
     }
   }
 
-  async uploadMetadata<T extends MetadataType>(
-    type: T,
-    data: Parameters<(typeof IPFS_METADATA_ENCODERS)[T]>[0],
-  ) {
-    const str = IPFS_METADATA_ENCODERS[type](
-      // @ts-expect-error Is it possible to type this properly without repeating all the checks from the parser library?
-      data,
-    );
+  async uploadMetadata<T extends MetadataType>(type: T, input: DataTypeMap[T]) {
+    const data = createMetadataFor(type, input);
+    const str = JSON.stringify(data);
     return this.adapter.uploadJson(str);
   }
 }

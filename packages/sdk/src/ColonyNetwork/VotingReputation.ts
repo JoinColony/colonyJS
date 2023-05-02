@@ -11,10 +11,7 @@ import type {
   MotionEscalatedEventObject,
 } from '@colony/events';
 
-import {
-  DecisionMetadata,
-  MetadataType,
-} from '@colony/colony-event-metadata-parser';
+import { constants, BigNumber, BigNumberish, utils } from 'ethers';
 import {
   type ReputationClient,
   type VotingReputationVersion,
@@ -30,7 +27,7 @@ import {
   isExtensionCompatible,
   toEth,
 } from '@colony/core';
-import { constants, BigNumber, BigNumberish, utils } from 'ethers';
+import { DecisionData, MetadataType } from '@colony/event-metadata';
 
 import type { VotingReputationDataTypes } from '../contracts/IVotingReputation/8/IVotingReputation';
 
@@ -568,7 +565,7 @@ export class VotingReputation {
    * | `description` | string | Longer description of the decision |
    * | `motionDomainId` | number | Team the decision was created in |
    */
-  annotateDecision(txHash: string, metadata: DecisionMetadata | string) {
+  annotateDecision(txHash: string, metadata: DecisionData | string) {
     return this.colony.colonyNetwork.createMetaTxCreator(
       this.colony.getInternalColonyContract(),
       'annotateTransaction',

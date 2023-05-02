@@ -8,11 +8,13 @@ Additional options for the [ColonyNetwork](../classes/ColonyNetwork.md)
 
 • `Optional` **customNetworkAddress**: `string`
 
+A custom address for ColonyNetwork's EtherRouter contract. Useful only in manual deployments
+
 ___
 
 ### graphOptions
 
-• `Optional` **graphOptions**: [`SubgraphClientOptions`](SubgraphClientOptions.md)
+• `Optional` **graphOptions**: `SubgraphClientOptions`
 
 Provide custom GraphQL client options
 
@@ -38,8 +40,12 @@ ___
 
 • `Optional` **network**: `Network`
 
+The Network to connect to. See Network for supported networks
+
 ___
 
 ### reputationOracleEndpoint
 
 • `Optional` **reputationOracleEndpoint**: `string`
+
+A custom endpoiunt for ColonyNetwork's Reputation Oracle. Useful only in manual deployments

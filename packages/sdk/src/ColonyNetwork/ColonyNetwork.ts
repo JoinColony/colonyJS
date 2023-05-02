@@ -23,18 +23,14 @@ import {
   ColonyNetworkAddress,
 } from '@colony/core';
 import { type ERC2612Token as ERC2612TokenType } from '@colony/tokens';
-import {
-  ColonyMetadata,
-  MetadataType,
-} from '@colony/colony-event-metadata-parser';
-import { Client } from '@urql/core';
+import { ColonyData, MetadataType } from '@colony/event-metadata';
 
 import {
   IColonyNetwork,
   IColonyNetwork__factory as IColonyNetworkFactory,
   IBasicMetaTransaction,
 } from '../contracts';
-import { createSubgraphClient, SubgraphClientOptions } from '../graph';
+import { SubgraphClientOptions } from '../graph';
 import { IpfsMetadata, IpfsAdapter } from '../ipfs';
 import { BaseContract, TxConfig, TxCreator, MetaTxCreator } from '../TxCreator';
 import { Colony } from './Colony';
@@ -48,25 +44,27 @@ const { AddressZero } = constants;
 
 /** Additional options for the [[ColonyNetwork]] */
 export interface ColonyNetworkOptions {
-  // FIXME: docs
+  /** A custom address for ColonyNetwork's EtherRouter contract. Useful only in manual deployments */
   customNetworkAddress?: string;
   /** Provide a custom [[IpfsAdapter]] */
   ipfsAdapter?: IpfsAdapter;
-  // FIXME: docs
+  /** The Network to connect to. See [[Network]] for supported networks */
   network?: Network;
   /** Provide a custom metatransaction broadcaster endpoint */
   metaTxBroadcasterEndpoint?: string;
   /** Provide custom GraphQL client options */
   graphOptions?: SubgraphClientOptions;
-  // FIXME: docs
+  /** A custom endpoiunt for ColonyNetwork's Reputation Oracle. Useful only in manual deployments */
   reputationOracleEndpoint?: string;
 }
 
+/** @internal */
 interface ColonyNetworkConfig {
   metaTxBroadcasterEndpoint: string;
   reputationOracleEndpoint: string;
 }
 
+/** ERC20 Token information */
 export interface TokenData {
   /** The token's name (e.g. Colony Network Token) */
   name: string;
@@ -76,18 +74,18 @@ export interface TokenData {
   decimals?: number;
 }
 
-// FIXME: None of these props are annotataed!!
 export class ColonyNetwork {
   private networkContract: IColonyNetwork;
 
   private locking?: TokenLocking;
 
+  /** Configuration of the ColonyNetwork for later use */
   config: ColonyNetworkConfig;
 
-  graphClient: Client;
-
+  /** The IPFS adapter for Metadata. Defaults to a read-only adapter */
   ipfs: IpfsMetadata;
 
+  /** The network the client is connected to. Defaults to Gnosis chain */
   network: Network;
 
   /**
@@ -107,10 +105,10 @@ export class ColonyNetwork {
    *
    * ```typescript
    * import { providers } from 'ethers';
-   * import { ColonyNetwork, Tokens } from '@colony/sdk';
+   * import { ColonyNetwork, ColonyRpcEndpoint, Tokens } from '@colony/sdk';
    *
    * // Connect directly to the deployed Colony Network on Gnosis Chain
-   * const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc/');
+   * const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
    * const colonyNetwork = new ColonyNetwork(provider);
    * // Now you could call functions on the colonyNetwork, like `colonyNetwork.getMetaColony()`
    * ```
@@ -139,9 +137,14 @@ export class ColonyNetwork {
       signerOrProvider,
     );
     this.signerOrProvider = signerOrProvider;
-    this.graphClient = createSubgraphClient();
   }
 
+  /**
+   * Get the signer that was provided when the ColonyNetwork was instantiated.
+   * Throws if the Signer is only a (read-only) Provider
+   *
+   * @returns An Ethers.js compatible Signer instance
+   */
   getSigner(): Signer {
     if (!(this.signerOrProvider instanceof Signer)) {
       throw new Error('Need a signer to create a transaction');
@@ -149,6 +152,11 @@ export class ColonyNetwork {
     return this.signerOrProvider;
   }
 
+  /**
+   * Fetches the TokenLocking client abstraction
+   *
+   * @returns A [[TokenLocking]] contract client
+   */
   async getTokenLocking(): Promise<TokenLocking> {
     if (!this.locking) {
       const address = await this.networkContract.getTokenLocking();
@@ -339,7 +347,7 @@ export class ColonyNetwork {
   createColony(
     token: string | TokenData,
     label: string,
-    metadata: ColonyMetadata | string,
+    metadata: ColonyData | string,
   ): MetaTxCreator<
     IColonyNetwork,
     'createColonyForFrontend',
@@ -406,7 +414,7 @@ export class ColonyNetwork {
   createColony(
     token: string | TokenData,
     label: string,
-    metadata?: ColonyMetadata | string,
+    metadata?: ColonyData | string,
   ) {
     const prepareArgs = async () => {
       const existingAddress = await this.getColonyAddress(label);

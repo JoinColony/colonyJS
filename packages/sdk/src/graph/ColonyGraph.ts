@@ -1,12 +1,9 @@
-import {
-  DomainMetadata,
-  MetadataType,
-} from '@colony/colony-event-metadata-parser';
-import { gql } from '@urql/core';
+import { Client, gql } from '@urql/core';
+import { DomainData, MetadataType } from '@colony/event-metadata';
 
 import { Colony } from '../ColonyNetwork';
 
-export interface GraphDomain extends DomainMetadata {
+export interface GraphDomain extends DomainData {
   id: number;
   name: string;
   metadata: string;
@@ -15,11 +12,14 @@ export interface GraphDomain extends DomainMetadata {
 export default class ColonyGraph {
   private colony: Colony;
 
+  private graphClient: Client;
+
   /**
    * Do not instantiate manually. Use the `graph` property on a Colony to access this class
    */
-  constructor(colony: Colony) {
+  constructor(colony: Colony, graphClient: Client) {
     this.colony = colony;
+    this.graphClient = graphClient;
   }
 
   /**
@@ -40,7 +40,7 @@ export default class ColonyGraph {
       }
     `;
     const colonyAddress = this.colony.address.toLowerCase();
-    const result = await this.colony.colonyNetwork.graphClient
+    const result = await this.graphClient
       .query(query, { colonyAddress })
       .toPromise();
     if (result && result.data) {
@@ -50,8 +50,8 @@ export default class ColonyGraph {
             return Promise.resolve({});
           }
           return this.colony.colonyNetwork.ipfs.getMetadata(
-            MetadataType.Domain,
             domain.metadata,
+            MetadataType.Domain,
           );
         },
       );

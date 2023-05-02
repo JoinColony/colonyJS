@@ -1,21 +1,21 @@
 {
   "name": "@colony/sdk",
-  "version": "2.0.0-alpha.1",
+  "version": "2.0.0",
   "license": "GPL-3.0-only",
   "dependencies": {
-    "@colony/colony-event-metadata-parser": "^2.0.0",
-    "@colony/core": "^0.2.0",
+    "@colony/core": "^1.0.0",
+    "@colony/event-metadata": "^3.0.0-alpha.0",
     "@colony/events": "^0.1.0",
     "@colony/tokens": "^0.1.2",
     "@urql/core": "^2.5.0",
     "cross-fetch": "^3.1.5",
-    "fetch-retry": "^5.0.2",
+    "fetch-retry": "^5.0.4",
     "graphql": "^16.5.0",
     "isomorphic-ws": "^4.0.1",
     "subscriptions-transport-ws": "^0.11.0"
   },
   "devDependencies": {
-    "@colony/contractor": "^0.1.0",
+    "@colony/contractor": "^0.1.1",
     "@ethersproject/abi": "^5.7.0",
     "@ethersproject/abstract-provider": "^5.7.0",
     "@ethersproject/abstract-signer": "^5.7.0",
@@ -31,7 +31,7 @@
     "fast-glob": "^3.2.11",
     "inquirer": "^8.2.4",
     "prettier": "^2.6.1",
-    "ts-node": "^10.7.0",
+    "ts-node": "^10.9.1",
     "typedoc": "^0.23.13",
     "typedoc-plugin-markdown": "^3.13.5",
     "wonka": "^4.0.15",
@@ -60,28 +60,26 @@
     "typecheck": "tsc --noEmit"
   },
   "engines": {
-    "node": "^16.0.0"
+    "node": "^16",
+    "npm": "^8"
   },
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js"
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/types/index.d.ts",
+      "default": "./dist/cjs/index.js"
     },
     "./graph": {
       "import": "./dist/esm/graph/index.js",
-      "require": "./dist/cjs/graph/index.js"
+      "require": "./dist/cjs/graph/index.js",
+      "types": "./dist/types/graph/index.d.ts",
+      "default": "./dist/cjs/graph/index.js"
     }
   },
-  "typesVersions": {
-    "*": {
-      "*": [
-        "dist/types/index.d.ts"
-      ],
-      "graph": [
-        "dist/types/graph/index.d.ts"
-      ]
-    }
-  },
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
   "files": [
     "dist",
     "LICENSE",

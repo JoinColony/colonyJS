@@ -133,7 +133,7 @@ This will annotate a decision with certain metadata (see below). This only reall
 
 **`Remarks`**
 
-If [DecisionMetadata](../interfaces/DecisionMetadata.md) is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
+If DecisionMetadata is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
 
 **`Example`**
 
@@ -160,7 +160,7 @@ If [DecisionMetadata](../interfaces/DecisionMetadata.md) is provided directly (a
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `txHash` | `string` | Transaction hash of the transaction to annotate (within the Colony) |
-| `metadata` | `string` \| [`DecisionMetadata`](../interfaces/DecisionMetadata.md) | The annotation metadata you would like to annotate the transaction with (or an IPFS CID pointing to valid metadata) |
+| `metadata` | `string` \| `DecisionData` | The annotation metadata you would like to annotate the transaction with (or an IPFS CID pointing to valid metadata) |
 
 #### Returns
 
@@ -233,7 +233,7 @@ Keep in mind that a decision is just a motion without an on-chain action that is
 
 **`Remarks`**
 
-If [DecisionMetadata](../interfaces/DecisionMetadata.md) is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
+If DecisionMetadata is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
 
 **`Example`**
 

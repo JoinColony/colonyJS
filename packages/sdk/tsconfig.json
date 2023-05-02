@@ -1,17 +1,25 @@
 {
   "compilerOptions": {
-    "lib": ["es2018", "dom"],
+    "lib": [
+      "es2018"
+    ],
     "module": "commonjs",
-    "moduleResolution": "node",
+    "moduleResolution": "nodenext",
     "noEmit": true,
     "noImplicitAny": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "strict": true,
-    "target": "es2015",
-    "types": ["node"],
-    "rootDir": "./"
+    "target": "es2018",
+    "types": [
+      "node"
+    ],
+    "rootDir": "./",
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "strict": true
   },
-  "include": ["src/**/*", "examples/**/*"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src/**/*",
+    "examples/**/*"
+  ]
 }

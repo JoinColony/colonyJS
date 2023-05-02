@@ -1,13 +1,13 @@
 import type { MotionCreatedEventObject } from '@colony/events';
 
+import { BigNumberish } from 'ethers';
 import {
   ColonyRole,
   getPermissionProofs,
   getCreateMotionProofs,
   Id,
 } from '@colony/core';
-import { BigNumberish } from 'ethers';
-import { MetadataType } from '@colony/colony-event-metadata-parser';
+import { MetadataType } from '@colony/event-metadata';
 
 import { Colony } from '../ColonyNetwork';
 import { extractEvent } from '../utils';

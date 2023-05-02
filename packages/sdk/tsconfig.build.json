@@ -1,7 +1,11 @@
 {
   "extends": "./tsconfig.json",
-  "exclude": ["node_modules", "**/__tests__"],
-  "include": ["src/index.ts"],
+  "exclude": [
+    "**/__tests__"
+  ],
+  "include": [
+    "src/index.ts"
+  ],
   "compilerOptions": {
     "declaration": false,
     "noEmit": false,

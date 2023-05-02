@@ -1,8 +1,8 @@
 import { Contract, ContractReceipt, ContractTransaction } from 'ethers';
-import { MetadataType } from '@colony/colony-event-metadata-parser';
 import { fetch } from 'cross-fetch';
+import { MetadataType, MetadataTypeMap } from '@colony/event-metadata';
 
-import { MetadataValue } from '../ipfs';
+// import { MetadataValue } from '../ipfs';
 import { ParsedLogTransactionReceipt } from '../types';
 import { IPFS_METADATA_EVENTS } from '../ipfs/IpfsMetadata';
 import { ColonyNetwork } from '../ColonyNetwork';
@@ -103,7 +103,7 @@ export class TxCreator<
 
   protected async getEventData<
     R extends ContractReceipt | ParsedLogTransactionReceipt,
-  >(receipt: R): Promise<[E, R, () => Promise<MetadataValue<MD>>] | [E, R]> {
+  >(receipt: R): Promise<[E, R, () => Promise<MetadataTypeMap[MD]>] | [E, R]> {
     if (this.eventData) {
       const data = await this.eventData(receipt);
 
@@ -112,7 +112,7 @@ export class TxCreator<
           this.colonyNetwork.ipfs,
           IPFS_METADATA_EVENTS[this.txConfig.metadataType],
           data.metadata,
-        ) as () => Promise<MetadataValue<MD>>;
+        ) as () => Promise<MetadataTypeMap[MD]>;
 
         return [data, receipt as R, getMetadata];
       }

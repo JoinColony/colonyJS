@@ -20,13 +20,7 @@ import type {
   TokensMintedEventObject,
 } from '@colony/events';
 
-import {
-  BigNumber,
-  BigNumberish,
-  BytesLike,
-  ContractReceipt,
-  utils,
-} from 'ethers';
+import { BigNumber, BigNumberish, BytesLike, ContractReceipt } from 'ethers';
 import {
   type ColonyVersion,
   Id,
@@ -37,13 +31,14 @@ import {
   getPermissionProofs,
   isExtensionCompatible,
   hex2ColonyRoles,
+  colonyRoles2Hex,
 } from '@colony/core';
 import {
-  type AnnotationMetadata,
-  type ColonyMetadata,
-  type DomainMetadata,
+  type AnnotationData,
+  type ColonyData,
+  type DomainData,
   MetadataType,
-} from '@colony/colony-event-metadata-parser';
+} from '@colony/event-metadata';
 
 import type { Expand, Parameters, ParametersFrom2 } from '../types';
 import type { ColonyDataTypes } from '../contracts/IColony/12/IColony';
@@ -59,7 +54,6 @@ import { ColonyNetwork } from './ColonyNetwork';
 import { OneTxPayment } from './OneTxPayment';
 import { Token, getToken } from './tokens';
 import { VotingReputation } from './VotingReputation';
-import ColonyGraph from '../graph/ColonyGraph';
 
 export type SupportedColonyContract = ColonyContract;
 export type SupportedColonyMethods = SupportedColonyContract['functions'];
@@ -89,7 +83,16 @@ export class Colony {
    */
   static supportedVersions: ColonyVersion[] = [12];
 
-  // FIXME: docs
+  /**
+   * Create an instance of a Colony client and connect the Network to it
+   *
+   * Only supports the latest version of the Colony contracts
+   *
+   * @param colonyNetwork - The ColonyNetwork instance
+   * @param address - The Colony's address
+   *
+   * @returns A connected Colony instance
+   */
   static async connect(colonyNetwork: ColonyNetwork, address: string) {
     const colonyContract = ColonyFactory.connect(
       address,
@@ -115,6 +118,13 @@ export class Colony {
     return colony;
   }
 
+  /*
+   * Get the latest supported version of a Colony in Colony SDK.
+   *
+   * Currently we only support one version but this might change in the future
+   *
+   * @returns The latest supported version for the Colony contract
+   */
   static getLatestSupportedVersion() {
     return Colony.supportedVersions[Colony.supportedVersions.length - 1];
   }
@@ -164,11 +174,6 @@ export class Colony {
   ext: SupportedExtensions;
 
   /**
-   * A helper class to retrieve data from the Colony graph database
-   */
-  graph: ColonyGraph;
-
-  /**
    * Contract version
    *
    * Colony contracts are upgradable! Here you'll finde the currently installed version of the contract
@@ -196,11 +201,9 @@ export class Colony {
     this.colonyNetwork = colonyNetwork;
     this.address = colony.address;
     this.ext = {};
-    this.graph = new ColonyGraph(this);
     this.reputation = new ReputationClient(
       colonyNetwork.getInternalNetworkContract(),
       colony,
-      colonyNetwork.network,
       { customEndpointUrl: colonyNetwork.config.reputationOracleEndpoint },
     );
     this.token = token;
@@ -392,7 +395,7 @@ export class Colony {
    * | `colonyAvatarHash` | string | An IPFS hash for a Colony logo (make it 200x200px) |
    * | `colonyTokens` | string[] | A list of additional tokens that should be in the colony's "address book" |
    */
-  editColony(metadata: ColonyMetadata | string) {
+  edit(metadata: ColonyData | string) {
     return this.createColonyTxCreator(
       this.colony,
       'editColony',
@@ -463,7 +466,7 @@ export class Colony {
    * | `domainPurpose` | string | The purpose for this team (a broad description) |
    */
   createTeam(
-    metadata: DomainMetadata | string,
+    metadata: DomainData | string,
   ): ColonyTxCreator<
     SupportedColonyContract,
     'addDomain(uint256,uint256,uint256,string)',
@@ -500,7 +503,7 @@ export class Colony {
     MetadataType
   >;
 
-  createTeam(metadata?: DomainMetadata | string) {
+  createTeam(metadata?: DomainData | string) {
     if (!metadata) {
       return this.createPermissionedColonyTxCreator(
         this.colony,
@@ -597,7 +600,7 @@ export class Colony {
    * | `domainColor` | string | The color assigned to this team |
    * | `domainPurpose` | string | The purpose for this team (a broad description) |
    */
-  editTeam(metadata: DomainMetadata | string) {
+  editTeam(metadata: DomainData | string) {
     return this.createPermissionedColonyTxCreator(
       this.colony,
       'editDomain',
@@ -954,7 +957,7 @@ export class Colony {
    * | :------ | :------ | :------ |
    * | `annotationMsg` | string | Free form text message to annotate the transaction with |
    */
-  annotateTransaction(txHash: string, metadata: AnnotationMetadata | string) {
+  annotateTransaction(txHash: string, metadata: AnnotationData | string) {
     return this.createColonyTxCreator(
       this.colony,
       'annotateTransaction',
@@ -1105,16 +1108,11 @@ export class Colony {
       this.colony,
       'setUserRoles',
       async () => {
-        const oldRolesHex = await this.colony.getUserRoles(address, teamId);
-        const oldRoles = parseInt(oldRolesHex, 16);
-        // TODO: export the colonyRoles2Hex helper from ColonyJS
-        /* eslint-disable no-bitwise */
-        const newRoles =
-          ([] as ColonyRole[])
-            .concat(roles)
-            .reduce((acc, current) => acc | (1 << current), 0) | oldRoles;
-        /* eslint-enable no-bitwise */
-        const hexRoles = utils.hexZeroPad(`0x${newRoles.toString(16)}`, 32);
+        const oldRoles = await this.getRoles(address, teamId);
+        const newRoles = Array.from(
+          new Set([...oldRoles, ...([] as ColonyRole[]).concat(roles)]),
+        );
+        const hexRoles = colonyRoles2Hex(newRoles);
         return [address, teamId, hexRoles] as [string, BigNumber, string];
       },
       {
@@ -1162,17 +1160,11 @@ export class Colony {
       this.colony,
       'setUserRoles',
       async () => {
-        const oldRolesHex = await this.colony.getUserRoles(address, teamId);
-        const oldRoles = parseInt(oldRolesHex, 16);
-        // TODO: export the colonyRoles2Hex helper from ColonyJS
-        /* eslint-disable no-bitwise */
-        const newRoles =
-          ([] as ColonyRole[])
-            .concat(roles)
-            .reduce((acc, current) => acc & ~(1 << current), 0b11111) &
-          oldRoles;
-        /* eslint-enable no-bitwise */
-        const hexRoles = utils.hexZeroPad(`0x${newRoles.toString(16)}`, 32);
+        const oldRoles = await this.getRoles(address, teamId);
+        const newRoles = oldRoles.filter(
+          (role) => !([] as ColonyRole[]).concat(roles).includes(role),
+        );
+        const hexRoles = colonyRoles2Hex(newRoles);
         return [address, teamId, hexRoles] as [string, BigNumber, string];
       },
       {
