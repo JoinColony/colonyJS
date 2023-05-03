@@ -5,9 +5,9 @@
   "scripts": {
     "clean": "rimraf ./bin",
     "build": "npm run clean && tsc --module commonjs --outDir bin",
-    "lint": "eslint --ext .ts src scripts",
+    "lint": "eslint --ext .ts src",
     "typecheck": "tsc --noEmit",
-    "prepublish": "npm run build"
+    "prepublishOnly": "npm run lint && npm run build"
   },
   "bin": {
     "contractor": "./bin/contractor.js"

@@ -2,6 +2,8 @@
   "name": "@colony/colony-js-mono",
   "version": "1.0.0",
   "scripts": {
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
     "no-git-changes": "./scripts/no-git-changes.sh",
     "prepare": "husky install",
     "test": "pnpm -r test"

@@ -39,10 +39,9 @@
     "compile-esm": "tsc -p tsconfig.build.json --module es2015 --outDir dist/esm",
     "compile-types": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --outDir dist/types",
     "lint": "eslint --ext .ts src",
-    "test": "npm run lint && npm run typecheck",
     "typecheck": "tsc --noEmit",
     "prepare": "npm run build-contracts",
-    "prepublishOnly": "npm run build-contracts && npm run test && npm run build"
+    "prepublishOnly": "npm run build-contracts && npm run lint && npm run build"
   },
   "devDependencies": {
     "@colony/core": "^1.0.0",

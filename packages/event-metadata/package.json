@@ -29,9 +29,9 @@
     "compile-cjs": "tsc -p tsconfig.build.json --module commonjs --outDir dist/cjs",
     "compile-esm": "tsc -p tsconfig.build.json --module es2015 --outDir dist/esm",
     "compile-types": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --outDir dist/types",
-    "lint": "eslint --fix 'src/**/*.{ts,tsx}'",
-    "test": "npm run lint && npm run typecheck",
+    "lint": "eslint --ext .ts src",
     "typecheck": "tsc -p tsconfig.json --noEmit",
+    "prepublishOnly": "npm run lint && npm run build",
     "prepare": "ts-patch install"
   },
   "dependencies": {

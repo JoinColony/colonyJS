@@ -11,6 +11,7 @@
     "compile-types": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --outDir dist/types",
     "lint": "eslint --ext .ts src",
     "prepare": "npm run build-contracts",
+    "prepublishOnly": "npm run build-contracts && npm run lint && npm run build",
     "typecheck": "tsc --noEmit"
   },
   "exports": {
