@@ -4,19 +4,13 @@
 
 ColonyDapp should support legacy Metadata formats.
 Therefore, when parsing (in ColonyDapp) it is necessary to check the Metadata format version and support V1 & later versions.
+
 ```ts
 const metadataVersion = getEventMetadataVersion(ipfsMetadataObject);
 if (metadataVersion === 1) {
-/*
-* original metadata format
-*/
-...
-}
-else {
-/*
-* new metadata format
-*/
-....
+    // original metadata format
+} else {
+    // new metadata format
 }
 ```
 
