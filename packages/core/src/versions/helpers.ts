@@ -43,9 +43,9 @@ import { WhitelistVersion, whitelistIncompatibilityMap } from './Whitelist';
  * Checks the compatibility of an extension version with a colony version it requests to be installed in
  * Returns `true` if an extension version is compatible with the given colony version
  *
- * @param extension A valid `Extension` contract name
- * @param extensionVersion The version of the extension to check against the colony
- * @param colonyVersion The version of the colony to check for
+ * @param extension - A valid `Extension` contract name
+ * @param extensionVersion - The version of the extension to check against the colony
+ * @param colonyVersion - The version of the colony to check for
  *
  * @returns indication whether extension in given version is compatible with colony at the given version
  */
