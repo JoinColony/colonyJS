@@ -1,19 +1,25 @@
 import { constants, providers } from 'ethers';
 
-// eslint-disable-next-line camelcase
-import { TokenERC20__factory, TokenERC721__factory } from './contracts/static';
+import {
+  TokenERC20__factory as TokenERC20Factory,
+  TokenERC2612__factory as TokenERC2612Factory,
+  TokenERC721__factory as TokenERC721Factory,
+} from './contracts/static';
 
 const { AddressZero } = constants;
 
 // Initialize dummy ethers contracts in order to get their (typed) interfaces
-// eslint-disable-next-line camelcase
-export const ERC20 = TokenERC20__factory.connect(
+export const ERC20 = TokenERC20Factory.connect(
   AddressZero,
   new providers.BaseProvider(3656691),
 ).interface;
 
-// eslint-disable-next-line camelcase
-export const ERC721 = TokenERC721__factory.connect(
+export const ERC721 = TokenERC721Factory.connect(
+  AddressZero,
+  new providers.BaseProvider(3656691),
+).interface;
+
+export const ERC2612 = TokenERC2612Factory.connect(
   AddressZero,
   new providers.BaseProvider(3656691),
 ).interface;

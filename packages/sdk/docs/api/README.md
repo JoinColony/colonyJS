@@ -12,6 +12,7 @@
 - [Id](enums/Id.md)
 - [MetadataType](enums/MetadataType.md)
 - [MotionState](enums/MotionState.md)
+- [Network](enums/Network.md)
 - [SupportedExtension](enums/SupportedExtension.md)
 - [TeamColor](enums/TeamColor.md)
 - [Vote](enums/Vote.md)
@@ -79,6 +80,24 @@ ___
 Ƭ **Token**: [`ColonyToken`](classes/ColonyToken.md) \| [`ERC20Token`](classes/ERC20Token.md) \| [`ERC2612Token`](classes/ERC2612Token.md)
 
 ## Variables
+
+### ERC20Interface
+
+• `Const` **ERC20Interface**: `TokenERC20Interface`
+
+___
+
+### ERC2612Interface
+
+• `Const` **ERC2612Interface**: `TokenERC2612Interface`
+
+___
+
+### ERC721Interface
+
+• `Const` **ERC721Interface**: `TokenERC721Interface`
+
+___
 
 ### ExtensionVersions
 

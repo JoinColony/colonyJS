@@ -12,7 +12,7 @@ Metadata is stored on IPFS and needs to be formatted in a certain way. There are
 
 ## Manual creation of the data as JSON object
 
-To create the metadata objects manually you can use the `@colony/colony-event-metadata-parser`, package which can de(serialize) the data for you in the required format. Read more about it [here](https://github.com/JoinColony/ColonyEventMetadataParser). Once you have the stringified data, you'd upload it to IPFS using your preferred upload and pinning method.
+To create the metadata objects manually you can use the `@colony/colony-event-metadata-parser`, package which can de(serialize) the data for you in the required format. Read more about it [here](https://github.com/JoinColony/ColonyJS/packages/event-data). Once you have the stringified data, you'd upload it to IPFS using your preferred upload and pinning method.
 
 ## Let Colony SDK take care of it
 

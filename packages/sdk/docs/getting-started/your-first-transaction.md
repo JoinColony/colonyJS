@@ -25,7 +25,7 @@ const start = async () => {
   // This will try to connect the page to MetaMask
   await provider.send('eth_requestAccounts', []);
   // Create a new connection to the Colony Network contracts using the MetaMask "wallet"
-  const colonyNetwork = await ColonyNetwork.init(provider.getSigner());
+  const colonyNetwork = new ColonyNetwork(provider.getSigner());
   // Connect to a colony (replace the address with the address of the colony you'd like to use)
   // This is the devdemo colony (https://xdai.colony.io/colony/devdemo)
   const colony = await colonyNetwork.getColony('0x364B3153A24bb9ECa28B8c7aCeB15E3942eb4fc5');
@@ -36,7 +36,7 @@ start();
 
 ## Creating the team's metadata object
 
-Let's prepare some metadata for the colony details. We created a [`DomainMetadata`](../api/interfaces/DomainMetadata.md) object and stored it under the IPFS hash [`QmTwksWE2Zn4icTvk5E7QZb1vucGNuu5GUCFZ361r8gKXM`](https://gateway.pinata.cloud/ipfs/QmTwksWE2Zn4icTvk5E7QZb1vucGNuu5GUCFZ361r8gKXM):
+Let's prepare some metadata for the colony details. We created a `DomainData` object and stored it under the IPFS hash [`QmTwksWE2Zn4icTvk5E7QZb1vucGNuu5GUCFZ361r8gKXM`](https://gateway.pinata.cloud/ipfs/QmTwksWE2Zn4icTvk5E7QZb1vucGNuu5GUCFZ361r8gKXM):
 
 ```json
 {
@@ -77,7 +77,7 @@ The second entry is a receipt object. This is the `ethers` `ContractReceipt` (se
 The third entry is a function that can be called to get that metadata that was created or attached to the transaction events. This is usually not very interesting in this context as we just stored the metadata. Note that this is only available in very few functions that have metadata attached to them. Here's how you'd use this function:
 
 ```typescript
-const { domainName, domainColor, domainPurpose } = await getMetadata();
+const { data: { domainName, domainColor, domainPurpose } } = await getMetadata();
 ```
 
 Read more about metadata within Colony [here](../guides/metadata.md).

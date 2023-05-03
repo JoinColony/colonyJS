@@ -89,7 +89,7 @@ This will annotate a transaction with an arbitrary text message. This only reall
 
 **`Remarks`**
 
-If AnnotationMetadata is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
+If AnnotationData is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
 
 **`Example`**
 
@@ -246,7 +246,7 @@ import { TeamColor } from '@colony/sdk';
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `metadata` | `string` \| `DomainData` | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If DomainMetadata is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
+| `metadata` | `string` \| `DomainData` | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If DomainData is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
 
 #### Returns
 
@@ -389,7 +389,7 @@ This will overwrite all exisiting metadata!
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `metadata` | `string` \| `ColonyData` | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If ColonyMetadata is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
+| `metadata` | `string` \| `ColonyData` | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If ColonyData is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
 
 #### Returns
 
@@ -450,7 +450,7 @@ import { TeamColor } from '@colony/sdk';
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `metadata` | `string` \| `DomainData` | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If DomainMetadata is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
+| `metadata` | `string` \| `DomainData` | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If DomainData is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
 
 #### Returns
 
@@ -738,11 +738,11 @@ This method can't be executed as a MetaTransaction
 
 Mint an NFT from a Colony
 ```typescript
-import { ERC721 } from '@colony/sdk';
+import { ERC721Interface } from '@colony/sdk';
 
 // Mint an NFT for address 0xb794f5ea0ba39494ce839613fffba74279579268
 // (forced transaction example)
-const encodedAction = ERC721.encodeFunctionData(
+const encodedAction = ERC721Interface.encodeFunctionData(
  'mintTo',
  '0xb794f5ea0ba39494ce839613fffba74279579268',
 );

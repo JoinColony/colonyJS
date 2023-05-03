@@ -1,6 +1,9 @@
-import { getExtensionHash } from '@colony/core';
-
-import { Colony, OneTxPayment, VotingReputation } from '../src/ColonyNetwork';
+import {
+  Colony,
+  OneTxPayment,
+  SupportedExtension,
+  VotingReputation,
+} from '../src/ColonyNetwork';
 import {
   ColonyRole,
   Extension,
@@ -11,8 +14,6 @@ import {
 
 // Helper to set up the OneTxPayment extension. This is usually already done for Colonies deployed with the Dapp.
 export const setupOneTxPaymentExtension = async (colony: Colony) => {
-  const colonyContract = colony.getInternalColonyContract();
-
   if (!colony.ext.oneTx) {
     // Install the OneTxPaymentExtension for the Colony
     if (
@@ -30,11 +31,9 @@ export const setupOneTxPaymentExtension = async (colony: Colony) => {
         }`,
       );
     }
-    const installTx = await colonyContract.installExtension(
-      getExtensionHash(Extension.OneTxPayment),
-      ExtensionVersions[Extension.OneTxPayment],
-    );
-    await installTx.wait();
+
+    // Install the OneTxPayment extension
+    await colony.installExtension(SupportedExtension.oneTx).tx();
 
     // Refresh Colony extension installations
     await colony.updateExtensions();
@@ -53,8 +52,6 @@ export const setupOneTxPaymentExtension = async (colony: Colony) => {
 };
 
 export const setupVotingReputationExtension = async (colony: Colony) => {
-  const colonyContract = colony.getInternalColonyContract();
-
   if (!colony.ext.motions) {
     // Install the VotingReputation for the Colony
     if (
@@ -72,11 +69,9 @@ export const setupVotingReputationExtension = async (colony: Colony) => {
         }`,
       );
     }
-    const installTx = await colonyContract.installExtension(
-      getExtensionHash(Extension.VotingReputation),
-      ExtensionVersions[Extension.VotingReputation],
-    );
-    await installTx.wait();
+
+    // Install the VotingReputation extension
+    await colony.installExtension(SupportedExtension.motion).tx();
 
     // Refresh Colony extension installations
     await colony.updateExtensions();

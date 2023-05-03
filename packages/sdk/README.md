@@ -28,7 +28,7 @@ const start = async () => {
   // This will try to connect the page to MetaMask
   await provider.send('eth_requestAccounts', []);
   // Create a new connection to the Colony Network contracts using the MetaMask "wallet"
-  const colonyNetwork = await ColonyNetwork.init(provider.getSigner());
+  const colonyNetwork = new ColonyNetwork(provider.getSigner());
   // Connect to the MetaColony (this could be replaced with your own colony using `colonyNetwork.getColony(COLONY_ADDRESS)`)
   const metaColony = await colonyNetwork.getMetaColony();
   // Get the CLNY funding for the MetaColony (CLNY is it's native token)
@@ -46,15 +46,23 @@ start();
 
 ## Running the examples
 
+We are using the [pnpm](https://pnpm.io/installation) version manager for this project. Please make sure to have a current version of it installed on your system.
+
 First, clone this repo: 
 ```bash
-git clone https://github.com/JoinColony/colonySDK.git
+git clone https://github.com/JoinColony/colonyJS.git
+```
+
+Go to the `sdk` package directory:
+
+```bash
+cd colonyJS/packages/sdk
 ```
 
 Then install all the required dependencies (this will install [ethers.js](https://docs.ethers.io/v5/) and [colonyJS](https://github.com/JoinColony/colonyJS) as well as some required development dependencies):
 
 ```bash
-npm install
+pnpm install
 ```
 
 Then you can run the examples:
@@ -62,13 +70,13 @@ Then you can run the examples:
 ### Node.js
 
 ```bash
-npm run examples:node
+pnpm run examples:node
 ```
 
 ### Browser (vanilla JS example)
 
 ```bash
-npm run examples:browser
+pnpm run examples:browser
 ```
 
 ### Some notes
@@ -83,20 +91,6 @@ These examples will run on Gnosis chain. If you'd like to make transactions, you
 
 _You may find it helpful to use [Node Version Manager (`nvm`)](https://github.com/nvm-sh/nvm) to manage Node versions._
 
-### Creating a new release
+## License
 
-colonySDK is using [`release-it`](https://github.com/release-it/release-it) to create new releases. To create and publish a new release, commit your changes, then execute
-
-```bash
-npm run release -- SEMVER_TAG # SEMVER_TAG is major, minor, patch
-```
-
-If you don't supply a `GITHUB_TOKEN` environment variable, `release-it` will open a browser window and pre-populate the corresponding release input fields for you.
-
-**Frequent commits and descriptive commit messages** will help when `release-it` tries to autogenerate the changelog.
-
-### Contribute
-
-_Are you interested in contributing?_ Check out the following document for more information:
-
-- [Contributing](CONTRIBUTING.md)
+GPL-3.0

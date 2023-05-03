@@ -369,7 +369,7 @@ export class Colony {
    * })();
    * ```
    *
-   * @param metadata - The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[ColonyMetadata]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
+   * @param metadata - The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[ColonyData]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
    *
    * @returns A transaction creator
    *
@@ -440,7 +440,7 @@ export class Colony {
    * })();
    * ```
    *
-   * @param metadata - The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[DomainMetadata]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
+   * @param metadata - The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[DomainData]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
    * @returns A transaction creator
    *
    * #### Event data
@@ -576,7 +576,7 @@ export class Colony {
    *   }).tx();
    * })();
    * ```
-   * @param metadata - The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[DomainMetadata]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
+   * @param metadata - The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[DomainData]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
    * @returns A transaction creator
    *
    * #### Event data
@@ -871,11 +871,11 @@ export class Colony {
    *
    * @example Mint an NFT from a Colony
    * ```typescript
-   * import { ERC721 } from '@colony/sdk';
+   * import { ERC721Interface } from '@colony/sdk';
    *
    * // Mint an NFT for address 0xb794f5ea0ba39494ce839613fffba74279579268
    * // (forced transaction example)
-   * const encodedAction = ERC721.encodeFunctionData(
+   * const encodedAction = ERC721Interface.encodeFunctionData(
    *  'mintTo',
    *  '0xb794f5ea0ba39494ce839613fffba74279579268',
    * );
@@ -915,7 +915,7 @@ export class Colony {
    *
    * This will annotate a transaction with an arbitrary text message. This only really works for transactions that happened within this Colony. This will connect the transaction to the (optionally generated) IPFS hash accordingly.
    *
-   * @remarks If [[AnnotationMetadata]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
+   * @remarks If [[AnnotationData]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
    * @example
    * ```typescript
    * // Immediately executing async function

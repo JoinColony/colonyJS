@@ -38,9 +38,9 @@ ___
 
 ### network
 
-• `Optional` **network**: `Network`
+• `Optional` **network**: [`Network`](../enums/Network.md)
 
-The Network to connect to. See Network for supported networks
+The Network to connect to. See [Network](../enums/Network.md) for supported networks
 
 ___
 

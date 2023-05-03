@@ -50,7 +50,7 @@ ___
 
 ### network
 
-• **network**: `Network`
+• **network**: [`Network`](../enums/Network.md)
 
 The network the client is connected to. Defaults to Gnosis chain
 
@@ -72,7 +72,7 @@ E.g. a [Wallet](https://docs.ethers.org/v5/api/signer/#Wallet) or a [Web3Provide
 
 Create a new colony with metadata
 
-Creates a new colony with IPFS metadata. To edit metadata at a later point you can call the Colony.editColony method.
+Creates a new colony with IPFS metadata. To edit metadata at a later point you can call the [Colony.edit](Colony.md#edit) method.
 
 **`Remarks`**
 
@@ -109,7 +109,7 @@ import { Tokens } from '@colony/sdk';
 | :------ | :------ | :------ |
 | `token` | `string` \| `TokenData` | Create a new ERC20-compatible token by passing in its name and symbol or use an existing token by passing in its contract address |
 | `label` | `string` | The Colony's label. This is going to be part of the URL to look up the Colony within the dApp |
-| `metadata` | `string` \| `ColonyData` | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If ColonyMetadata is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
+| `metadata` | `string` \| `ColonyData` | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If ColonyData is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
 
 #### Returns
 
@@ -142,7 +142,7 @@ A transaction creator
 
 Create a new Colony without metadata
 
-Creates a new Colony without IPFS metadata. To add metadata at a later point you can call the Colony.editColony method.
+Creates a new Colony without IPFS metadata. To add metadata at a later point you can call the [Colony.edit](Colony.md#edit) method.
 
 **`Remarks`**
 

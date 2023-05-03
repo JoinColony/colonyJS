@@ -288,7 +288,7 @@ export class ColonyNetwork {
   /**
    * Create a new colony with metadata
    *
-   * Creates a new colony with IPFS metadata. To edit metadata at a later point you can call the [[Colony.editColony]] method.
+   * Creates a new colony with IPFS metadata. To edit metadata at a later point you can call the [[Colony.edit]] method.
    *
    * @remarks
    * There is more to creating a fully functional colony that can be used within the dapp than just calling this function.
@@ -319,7 +319,7 @@ export class ColonyNetwork {
    *
    * @param token - Create a new ERC20-compatible token by passing in its name and symbol or use an existing token by passing in its contract address
    * @param label - The Colony's label. This is going to be part of the URL to look up the Colony within the dApp
-   * @param metadata - The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[ColonyMetadata]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
+   * @param metadata - The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[ColonyData]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
    *
    * @returns A transaction creator
    *
@@ -363,7 +363,7 @@ export class ColonyNetwork {
   /**
    * Create a new Colony without metadata
    *
-   * Creates a new Colony without IPFS metadata. To add metadata at a later point you can call the [[Colony.editColony]] method.
+   * Creates a new Colony without IPFS metadata. To add metadata at a later point you can call the [[Colony.edit]] method.
    *
    * @remarks
    * There is more to creating a fully functional colony that can be used within the dapp than just calling this function.
