@@ -3,7 +3,7 @@ import { rimraf } from 'rimraf';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 import { runTypeChain, glob } from 'typechain';
-import { LATEST_TAG, RELEASES, RELEASE_MAP } from '@colony/core';
+import { latest as latestTag, releases, releaseMap } from '@colony/abis';
 
 // Contracts needed in the core package
 const CORE_CONTRACTS = ['MotionTarget'];
@@ -52,10 +52,7 @@ const TOKEN_STATIC_CONTRACTS = [
   'TokenSAI',
 ];
 
-const ABI_DIR = resolvePath(
-  dirname(require.resolve('@colony/abis/package.json')),
-  'dist',
-);
+const ABI_DIR = dirname(require.resolve('@colony/abis'));
 const VERSIONED_DIR = resolvePath(ABI_DIR, 'versions');
 const CORE_DIR = resolvePath(ABI_DIR, 'core');
 const EVENTS_DIR = resolvePath(ABI_DIR, 'events');
@@ -77,7 +74,7 @@ const buildVersionedContracts = async (
 ): Promise<void[]> => {
   const promises = VERSIONED_CONTRACTS.map(async (contractName) => {
     const availableVersions =
-      RELEASE_MAP[contractName as keyof typeof RELEASE_MAP];
+      releaseMap[contractName as keyof typeof releaseMap];
     if (releaseTag in availableVersions) {
       const outDir = resolvePath(
         outputDir,
@@ -104,7 +101,7 @@ const buildLatestVersionedContracts = async (
 ) => {
   const promises = VERSIONED_CONTRACTS.map(async (contractName) => {
     const availableVersions =
-      RELEASE_MAP[contractName as keyof typeof RELEASE_MAP];
+      releaseMap[contractName as keyof typeof releaseMap];
     const [tag, version] = Object.entries(availableVersions).reduce(
       (max, current) => (max[1] > current[1] ? max : current),
       ['_', 0],
@@ -126,7 +123,7 @@ const buildLatestVersionedContracts = async (
 };
 
 const buildLatestContracts = async (outputDir: string, plugin: string) => {
-  const inputDir = resolvePath(VERSIONED_DIR, LATEST_TAG);
+  const inputDir = resolvePath(VERSIONED_DIR, latestTag);
   const contractGlobs = `{${[...UPGRADABLE_CONTRACTS, ...UNVERSIONED_CONTRACTS]
     .map((c) => `${c}.json`)
     .join(',')}}`;
@@ -206,7 +203,7 @@ const buildTag = async (tag: string, outputDir: string, plugin: string) => {
   const inputDir = resolvePath(VERSIONED_DIR, tag);
   await buildVersionedContracts(inputDir, tag, outputDir, plugin);
 
-  if (tag === LATEST_TAG) {
+  if (tag === latestTag) {
     await buildLatestContracts(outputDir, plugin);
   }
 };
@@ -217,7 +214,7 @@ const buildAllLatest = async (outputDir: string, plugin: string) => {
 };
 
 const buildTokenContracts = async (outputDir: string, plugin: string) => {
-  const versionDir = resolvePath(VERSIONED_DIR, LATEST_TAG);
+  const versionDir = resolvePath(VERSIONED_DIR, latestTag);
   await buildLatestTokentContracts(versionDir, outputDir, plugin);
   await buildStaticTokenContracts(outputDir, plugin);
 };
@@ -229,9 +226,9 @@ const start = async () => {
       tag: {
         alias: 't',
         type: 'string',
-        default: LATEST_TAG,
+        default: latestTag,
         describe: 'Colony Network release tag to build (e.g. glwss)',
-        choices: [...RELEASES, 'LATEST', 'ALL'],
+        choices: [...releases, 'LATEST', 'ALL'],
       },
     })
     .command('tokens', 'Make token contracts')
@@ -275,10 +272,10 @@ const start = async () => {
     case 'colony': {
       if (tag === 'ALL') {
         await Promise.all(
-          RELEASES.map((release) => buildTag(release, outputDir, plugin)),
+          releases.map((release) => buildTag(release, outputDir, plugin)),
         );
       } else if (tag === 'LATEST') {
-        await buildTag(LATEST_TAG, outputDir, plugin);
+        await buildTag(latestTag, outputDir, plugin);
       } else {
         await buildAllLatest(outputDir, plugin);
       }
