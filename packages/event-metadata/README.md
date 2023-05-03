@@ -1,10 +1,11 @@
 # Colony Event Metadata Parser
 
-**Metadata format versions**
+## Metadata format versions
+
 ColonyDapp should support legacy Metadata formats.
 Therefore, when parsing (in ColonyDapp) it is necessary to check the Metadata format version and support V1 & later versions.
 ```ts
-const metadataVersion = getEventMetadataVersion(ipfsMetadata);
+const metadataVersion = getEventMetadataVersion(ipfsMetadataObject);
 if (metadataVersion === 1) {
 /*
 * original metadata format
@@ -19,93 +20,38 @@ else {
 }
 ```
 
-**Parsing**
-To retrieve MetaData from IPFS. (String to Object)
+## Parsing
+
+If type of Metadata object is unknown (e.g. in event logs)
 
 ```ts
-// Colony MetaData
-const colonyMetadata = getColonyMetadataFromResponse(ipfsDataJSON);
+import { parseEventMetadata, MetadataType } from '@colony/event-metadata';
 
-// Domain MetaData
-const domainMetadata = getDomainMetadataFromResponse(ipfsDataJSON);
+const anyMetadataObject = parseEventMetadata(metadataObj);
 
-// Annotation Message
-const annotation = getAnnotationMsgFromResponse(ipfsDataJSON);
-
-/////////
-// Get Avatar Image
-//
-// First get Colony Metadata
-const colonyMetadata = getColonyMetadataFromResponse(ipfsMetadata);
-
-// Then get IPFS response from avatarHash
-avatarHash = colonyMetadata?.colonyAvatarHash;
-response = await ipfs.getString(avatarHash);
-
-// Finally, get the avatar image
-avatarObject = { image: getColonyAvatarImage(response) };
-/////////
-
-
-// Generic Misc data
-// An Agreement is used as example:
-const response = await ipfsWithFallback.getString(agreementHash);
-const agreement = getNameValueFromMisc('agreement', response);
-
+if (anyMetadataObject.name === MetadataType.Colony) {
+    console.log(anyMetadataObject.data.colonyName); // 'Foo'
+}
 ```
 
-
-**Deserialising**
-Preparing Metadata to send to IPFS. (Object to String)
+ If the type is known we can provide it and it will be validated against it:
 
 ```ts
-// Colony Metadata packed and converted to string
-const metadataForIPFS = getStringForMetadataColony({
-	colonyDisplayName,
-	colonyAvatarHash: colonyAvatarIpfsHash
-	colonyTokens,
-	verifiedAddresses,
-	isWhitelistActivated,
-});
-colonyMetadataIpfsHash = yield call(ipfsUpload, metadataForIPFS);
+import { parseEventMetadata, MetadataType } from '@colony/event-metadata';
 
-// Domain Metadata packed and converted to string
-domainMetadataIpfsHash = yield  call(
-	ipfsUpload,
-	getStringForMetadataDomain({
-		domainName,
-		domainColor,
-		domainPurpose,
-}),
+const domainMetadata = parseEventMetadata(metadataObj, MetadataType.Domain);
+console.log(domainMetadata.data.domainColor); // 2
+```
 
-// Annotation message packed and converted to string
-ipfsHash = yield call(
-	ipfsUpload,
-	getStringForMetadataAnnotation({
-		annotationMsg:  annotationMessage || '',
-	}),
-);
+## Creating metadata objects
 
-// ColonyAvatarImage packed and converted to string
-colonyAvatarIpfsHash = yield call(
-	ipfsUpload,
-	getStringForColonyAvatarImage(colonyAvatarImage),
-);
+```ts
+import { createMetadataFor, MetadataType } from '@colony/event-metadata';
 
-// Pack and convert string to be used in a MiscMetadata
-// This example uploads a whitelist agreement to IPFS
-let  agreementHash = '';
-if (payload.agreement) {
-	const  miscMetadata = {
-		name:  'agreement',
-		value:  payload?.agreement,
-	};
-	agreementHash = yield  call(
-		ipfsUpload,
-		getStringForMetadataMisc(miscMetadata),
-	);
-}
-
+const colonyMetadata = createMetadataFor(MetadataType.Colony, { colonyName: 'Foo' });
+console.log(colonyMetadata.version); // 2
+console.log(colonyMetadata.name); // 'colony'
+console.log(colonyMetadata.data); // { colonyName: 'Foo' }
 ```
 
 ## License
