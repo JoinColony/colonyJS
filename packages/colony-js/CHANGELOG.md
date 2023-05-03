@@ -1,6 +1,6 @@
 # @colony/colony-js
 
-## 7.0.0-next.1
+## 7.0.0-next.0
 
 ### Major Changes
 
@@ -36,9 +36,3 @@
   - The contracts are not part of the repository anymore but will always be generated on installation or publishing of the package
   - TypeScript settings were upgraded, target is now es2018.
   - ColonyJS should now be able to be included in current CJS and ESM projects properly
-
-## 7.0.0-next.0
-
-### Major Changes
-
-- Restructuring dependencies

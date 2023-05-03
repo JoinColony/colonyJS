@@ -1,0 +1,16 @@
+{
+  "mode": "exit",
+  "tag": "next",
+  "initialVersions": {
+    "@colony/colony-js": "7.0.0-next.0",
+    "@colony/contractor": "1.0.0",
+    "@colony/core": "1.0.0",
+    "@colony/event-metadata": "3.0.0-next.0",
+    "@colony/events": "0.1.0",
+    "@colony/sdk": "2.0.0-next.0",
+    "@colony/tokens": "0.1.2"
+  },
+  "changesets": [
+    "orange-hotels-doubt"
+  ]
+}
