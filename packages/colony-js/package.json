@@ -47,7 +47,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@colony/core": "^1.0.0",
+    "@colony/core": "^1.1.0",
     "@colony/events": "^0.2.0",
     "@colony/tokens": "^0.1.2"
   },

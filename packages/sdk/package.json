@@ -1,9 +1,9 @@
 {
   "name": "@colony/sdk",
-  "version": "2.0.0-next.0",
+  "version": "2.0.0-next.1",
   "license": "GPL-3.0-only",
   "dependencies": {
-    "@colony/core": "^1.0.0",
+    "@colony/core": "^1.1.0",
     "@colony/event-metadata": "^3.0.0",
     "@colony/tokens": "^0.1.2",
     "@urql/core": "^2.5.0",

@@ -1,6 +1,6 @@
 {
   "name": "@colony/core",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Colony core package",
   "scripts": {
     "build": "npm run clean && npm run compile-cjs && npm run compile-esm && npm run compile-types",
