@@ -1,4 +1,5 @@
 import { providers, utils } from 'ethers';
+import { IColonyEvents__factory as ColonyEventsFactory } from '@colony/events';
 
 import {
   ColonyEventManager,
@@ -16,9 +17,10 @@ const setupEventListener = (
   callback: (events: ColonyEvent<MetadataType>[]) => void,
 ) => {
   const manager = new ColonyEventManager(provider);
+  const colonyEventSource = manager.createEventSource(ColonyEventsFactory);
 
   const domainEvents = manager.createMultiFilter(
-    manager.eventSources.Colony,
+    colonyEventSource,
     ['DomainAdded(address,uint256)', 'DomainMetadata(address,uint256,string)'],
     colonyAddress,
   );
@@ -29,7 +31,7 @@ const setupEventListener = (
     i += 1;
     // Only get events every 5 blocks to debounce this a little bit
     if (i === 4) {
-      const events = await manager.getMultiEvents([domainEvents], {
+      const events = await manager.getMultiEvents(domainEvents, {
         fromBlock: no - i,
         toBlock: no,
       });

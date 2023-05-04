@@ -32,9 +32,9 @@ ___
 
 ### eventSource
 
-• **eventSource**: keyof [`EventSources`](EventSources.md)
+• **eventSource**: `BaseContract`
 
-The Colony contract the event originated from
+The generated id of the contract the event originated from
 
 ___
 

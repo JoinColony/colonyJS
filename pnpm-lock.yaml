@@ -189,9 +189,6 @@ importers:
       '@colony/event-metadata':
         specifier: ^3.0.0
         version: link:../event-metadata
-      '@colony/events':
-        specifier: ^0.2.0
-        version: link:../events
       '@colony/tokens':
         specifier: ^0.1.2
         version: link:../tokens
@@ -217,6 +214,9 @@ importers:
       '@colony/contractor':
         specifier: ^1.0.0
         version: link:../contractor
+      '@colony/events':
+        specifier: ^0.2.0
+        version: link:../events
       '@ethersproject/abi':
         specifier: ^5.7.0
         version: 5.7.0

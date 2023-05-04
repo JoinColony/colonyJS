@@ -44,7 +44,6 @@
 - [ColonyTopic](interfaces/ColonyTopic.md)
 - [Ethers6Filter](interfaces/Ethers6Filter.md)
 - [Ethers6FilterByBlockHash](interfaces/Ethers6FilterByBlockHash.md)
-- [EventSources](interfaces/EventSources.md)
 - [IpfsAdapter](interfaces/IpfsAdapter.md)
 - [MetaTxBaseContract](interfaces/MetaTxBaseContract.md)
 - [ParsedLogTransactionReceipt](interfaces/ParsedLogTransactionReceipt.md)
@@ -54,14 +53,6 @@
 - [TxCreatorConfig](interfaces/TxCreatorConfig.md)
 
 ## Type Aliases
-
-### EventSource
-
-Ƭ **EventSource**: [`EventSources`](interfaces/EventSources.md)[keyof [`EventSources`](interfaces/EventSources.md)]
-
-An EventSource is essentially an _ethers_ contract, that we can keep track of
-
-___
 
 ### MetadataEvent
 

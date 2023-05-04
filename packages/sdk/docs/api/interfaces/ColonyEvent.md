@@ -1,4 +1,4 @@
-# Interface: ColonyEvent<T\>
+# Interface: ColonyEvent<M\>
 
 An Event that came from a contract within the Colony Network
 
@@ -6,7 +6,7 @@ An Event that came from a contract within the Colony Network
 
 | Name | Type |
 | :------ | :------ |
-| `T` | extends [`MetadataType`](../enums/MetadataType.md) |
+| `M` | extends [`MetadataType`](../enums/MetadataType.md) |
 
 ## Hierarchy
 
@@ -46,9 +46,9 @@ ___
 
 ### eventSource
 
-• **eventSource**: keyof [`EventSources`](EventSources.md)
+• **eventSource**: `BaseContract`
 
-The Colony contract the event originated from
+The generated id of the contract the event originated from
 
 #### Inherited from
 
@@ -68,15 +68,15 @@ ___
 
 ### getMetadata
 
-• `Optional` **getMetadata**: () => `Promise`<`MetadataTypeMap`[`T`]\>
+• `Optional` **getMetadata**: () => `Promise`<`MetadataTypeMap`[`M`]\>
 
 #### Type declaration
 
-▸ (): `Promise`<`MetadataTypeMap`[`T`]\>
+▸ (): `Promise`<`MetadataTypeMap`[`M`]\>
 
 ##### Returns
 
-`Promise`<`MetadataTypeMap`[`T`]\>
+`Promise`<`MetadataTypeMap`[`M`]\>
 
 ___
 

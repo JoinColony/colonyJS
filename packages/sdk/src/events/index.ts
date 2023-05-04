@@ -5,6 +5,4 @@ export {
   ColonyTopic,
   ColonyFilter,
   ColonyMultiFilter,
-  EventSource,
-  EventSources,
 } from './ColonyEventManager';

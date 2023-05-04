@@ -10,7 +10,7 @@ For the multi-event compatible filters the following assumptions prevail:
 
 ### address
 
-• **address**: `string`
+• `Optional` **address**: `string`
 
 ___
 

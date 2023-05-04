@@ -1,47 +1,33 @@
 import type { Result } from '@ethersproject/abi';
 import type { BlockTag } from '@ethersproject/abstract-provider';
 
-import { constants, providers, EventFilter } from 'ethers';
-import { addressesAreEqual } from '@colony/core';
-import {
-  type IColonyEvents,
-  type IColonyNetworkEvents,
-  type OneTxPaymentEvents,
-  type VotingReputationEvents,
-  IColonyEvents__factory as ColonyEventsFactory,
-  IColonyNetworkEvents__factory as ColonyNetworkEventsFactory,
-  OneTxPaymentEvents__factory as OneTxPaymentEventsFactory,
-  VotingReputationEvents__factory as VotingReputationEventsFactory,
-} from '@colony/events';
+import { constants, providers, EventFilter, BaseContract } from 'ethers';
+import { addressesAreEqual, SignerOrProvider } from '@colony/core';
 import { MetadataType, MetadataTypeMap } from '@colony/event-metadata';
 
 import type { Ethers6Filter } from '../types';
 import { getLogs, nonNullable } from '../utils';
 import { IpfsAdapter, IpfsMetadata, MetadataEvent } from '../ipfs';
 
-/** Valid sources for Colony emitted events. Used to map the parsed event data */
-export interface EventSources {
-  Colony: IColonyEvents;
-  ColonyNetwork: IColonyNetworkEvents;
-  OneTxPayment: OneTxPaymentEvents;
-  VotingReputation: VotingReputationEvents;
+interface ContractFactory<T extends BaseContract> {
+  connect(address: string, signerOrProvider: SignerOrProvider): T;
 }
-
-/** An EventSource is essentially an _ethers_ contract, that we can keep track of */
-export type EventSource = EventSources[keyof EventSources];
 
 /** A Colony extended ethers Filter to keep track of where events are coming from */
 export interface ColonyFilter extends Ethers6Filter {
-  /** The Colony contract the event originated from */
-  eventSource: keyof EventSources;
+  /** The generated id of the contract the event originated from */
+  eventSource: BaseContract;
   /** The full event signature of this event (e.g. `TokenMinted(uint256))` */
   eventName: string;
 }
 
 /** A Colony specific topic that keeps track of which contract it belongs to */
 export interface ColonyTopic {
-  eventSource: keyof EventSources;
+  /** The generated id of the contract the event originated from */
+  eventSource: BaseContract;
+  /** The full event signature of this event (e.g. `TokenMinted(uint256))` */
   eventName: string;
+  /** The encoded topic */
   topic: string;
 }
 
@@ -52,15 +38,15 @@ export interface ColonyTopic {
  * - `fromBlock` and `toBlock` are not available
  */
 export interface ColonyMultiFilter {
-  address: string;
+  address?: string;
   colonyTopics: ColonyTopic[];
 }
 
 /** An Event that came from a contract within the Colony Network */
-export interface ColonyEvent<T extends MetadataType> extends ColonyFilter {
+export interface ColonyEvent<M extends MetadataType> extends ColonyFilter {
   data: Result;
   transactionHash: string;
-  getMetadata?: () => Promise<MetadataTypeMap[T]>;
+  getMetadata?: () => Promise<MetadataTypeMap[M]>;
 }
 
 /** Additional options for the [[ColonyEventManager]] */
@@ -78,8 +64,6 @@ export interface ColonyEventManagerOptions {
  * The API is subject to change as we find more applications for this
  */
 export class ColonyEventManager {
-  eventSources: EventSources;
-
   ipfs: IpfsMetadata;
 
   provider: providers.JsonRpcProvider;
@@ -99,21 +83,6 @@ export class ColonyEventManager {
     provider: providers.JsonRpcProvider,
     options?: ColonyEventManagerOptions,
   ) {
-    this.eventSources = {
-      Colony: ColonyEventsFactory.connect(constants.AddressZero, provider),
-      ColonyNetwork: ColonyNetworkEventsFactory.connect(
-        constants.AddressZero,
-        provider,
-      ),
-      OneTxPayment: OneTxPaymentEventsFactory.connect(
-        constants.AddressZero,
-        provider,
-      ),
-      VotingReputation: VotingReputationEventsFactory.connect(
-        constants.AddressZero,
-        provider,
-      ),
-    };
     this.ipfs = new IpfsMetadata(options?.ipfsAdapter);
     this.provider = provider;
   }
@@ -130,12 +99,32 @@ export class ColonyEventManager {
     return null;
   }
 
-  private getEventSourceName(contract: EventSource) {
-    // Find contract for filter in eventSources to store the name alongside it
-    const eventSource = Object.entries(this.eventSources).find(
-      ([, c]) => c === contract,
-    );
-    return eventSource && (eventSource[0] as keyof EventSources);
+  /**
+   * Create an event source to create filters with
+   *
+   * This method can be used to instantiate contract event sources from virtually any
+   * TypeChain ContractFactory (has to have the `.connect()` method) that can then
+   * be used with the EventManager. Best to use with the contracts from `@colony/events`
+   * as they all are compatible
+   *
+   * @example
+   * Create an event source from the IColonyEventsFactory
+   * ```typescript
+   * import { ColonyEventManager } from '@colony/sdk';
+   * import { IColonyEvents__factory as ColonyEventsFactory } from '@colony/events';
+   *
+   * const manager = new ColonyEventManager(provider);
+   * // Event source that can be plugged into a filter creation method
+   * const colonyEventSource = manager.createEventSource(ColonyEventsFactory);
+   * ```
+   *
+   * @param contractFactory - A TypeChain compatible contract factory
+   * @returns An event source contract (it's just an ethers `Contract`)
+   */
+  createEventSource<T extends BaseContract>(
+    contractFactory: ContractFactory<T>,
+  ): T {
+    return contractFactory.connect(constants.AddressZero, this.provider);
   }
 
   /**
@@ -147,7 +136,7 @@ export class ColonyEventManager {
    * Retrieve and parse all `DomainAdded` events for a specific [[Colony]] contract
    * ```typescript
    * const domainAdded = colonyEvents.createFilter(
-   *   colonyEvents.eventSources.Colony,
+   *    colonyEventSource,
    *   'DomainAdded(address,uint256)',
    *   colonyAddress,
    * );
@@ -168,7 +157,7 @@ export class ColonyEventManager {
     return logs
       .map((log) => {
         const { eventSource, eventName } = filter;
-        const data = this.eventSources[eventSource].interface.decodeEventLog(
+        const data = eventSource.interface.decodeEventLog(
           eventName,
           log.data,
           log.topics,
@@ -211,12 +200,12 @@ export class ColonyEventManager {
    *
    * ```typescript
    * const domainAdded = colonyEvents.createMultiFilter(
-   *   colonyEvents.eventSources.Colony,
+   *   colonyEventSource,
    *   'DomainAdded(address,uint256)',
    *   colonyAddress,
    * );
    * const domainMetadata = colonyEvents.createMultiFilter(
-   *   colonyEvents.eventSources.Colony,
+   *   colonyEventSource,
    *   'DomainMetadata(address,uint256,string)',
    *   colonyAddress,
    * );
@@ -232,24 +221,25 @@ export class ColonyEventManager {
    * @returns An array of [[ColonyEvent]]s
    */
   async getMultiEvents<T extends MetadataType>(
-    filters: ColonyMultiFilter[],
+    filters: ColonyMultiFilter | ColonyMultiFilter[],
     options: { fromBlock?: BlockTag; toBlock?: BlockTag } = {},
   ): Promise<ColonyEvent<T>[]> {
+    const filterArray = ([] as ColonyMultiFilter[]).concat(filters);
     // Unique list of addresses
     const addresses = Array.from(
-      new Set(filters.flatMap(({ address }) => address)),
-    );
+      new Set(filterArray.flatMap(({ address }) => address)),
+    ).filter(nonNullable);
     // Unique list of topics
     const uniqueTopics = Array.from(
       new Set(
-        filters.flatMap(({ colonyTopics }) =>
+        filterArray.flatMap(({ colonyTopics }) =>
           colonyTopics.map(({ topic }) => topic),
         ),
       ),
     );
     const logs = await getLogs(
       {
-        address: addresses,
+        address: addresses.length ? addresses : undefined,
         fromBlock: options.fromBlock,
         toBlock: options.toBlock,
         topics: [uniqueTopics],
@@ -262,13 +252,16 @@ export class ColonyEventManager {
         const topic = ColonyEventManager.extractSingleTopic(log);
         // We are looking for a MultiFilter that defines this address but also
         // includes the topic that we're looking for so that we can decode it later
-        const multiFilter = filters.find(
-          ({ address, colonyTopics }) =>
-            addressesAreEqual(address, log.address) &&
+        const multiFilter = filterArray.find(({ address, colonyTopics }) => {
+          if (address && !addressesAreEqual(address, log.address)) {
+            return false;
+          }
+          return (
             colonyTopics.findIndex(
               ({ topic: filterTopic }) => filterTopic === topic,
-            ) > -1,
-        );
+            ) > -1
+          );
+        });
         if (!multiFilter) return null;
         // Now find the actual filter with the topic
         const filter = multiFilter.colonyTopics.find(
@@ -276,7 +269,7 @@ export class ColonyEventManager {
         );
         if (!filter) return null;
         const { eventSource, eventName } = filter;
-        const data = this.eventSources[eventSource].interface.decodeEventLog(
+        const data = eventSource.interface.decodeEventLog(
           eventName,
           log.data,
           log.topics,
@@ -321,7 +314,7 @@ export class ColonyEventManager {
    * Filter for all `DomainAdded` events between block 21830000 and 21840000 (across all deployed [[ColonyNetwork]] contracts)
    * ```typescript
    *  const domainAdded = colonyEvents.createFilter(
-   *    colonyEvents.eventSources.Colony,
+   *    colonyEventSource,
    *    'DomainAdded(address,uint256)',
    *    null,
    *    { fromBlock: 21830000 , toBlock: 21840000  },
@@ -334,18 +327,18 @@ export class ColonyEventManager {
    *
    * @param contract - A valid [[EventSource]]
    * @param eventName - A valid event signature from the contract's `filters` object
-   * @param address - Address of the contract that can emit this event
+   * @param address - Address of the contract that can emit this event. Will listen to any contract if not provided
    * @param params - Parameters to filter by for the event. Has to be indexed in the contract (see _ethers_ [Event Filters](https://docs.ethers.io/v5/api/contract/contract/#Contract--filters))
    * @param options - You can define `fromBlock` and `toBlock` only once for all the filters given (default for both is `latest`)
    * @returns A [[ColonyFilter]]
    */
   createFilter<
-    T extends EventSource & {
+    T extends BaseContract & {
       filters: { [P in N]: (...args: never) => EventFilter };
     },
     N extends keyof T['filters'],
   >(
-    contract: T,
+    eventSource: T,
     eventName: N,
     address?: string,
     params?: Parameters<T['filters'][N]>,
@@ -353,24 +346,22 @@ export class ColonyEventManager {
   ): ColonyFilter;
 
   // We split up the type definition and the actual implementation to relax the TypeScript strictness a little bit for the implementation so it won't go crazy.
+  // eslint-disable-next-line class-methods-use-this
   createFilter(
-    contract: EventSource,
-    eventName: keyof (typeof contract)['filters'],
+    eventSource: BaseContract,
+    eventName: keyof (typeof eventSource)['filters'],
     address?: string,
-    params?: Parameters<(typeof contract)['filters'][typeof eventName]>,
+    params?: Parameters<(typeof eventSource)['filters'][typeof eventName]>,
     options: { fromBlock?: BlockTag; toBlock?: BlockTag } = {},
   ): ColonyFilter {
     // Create standard filter
     const filter = params
-      ? contract.filters[eventName].apply([
-          contract.filters[eventName],
+      ? eventSource.filters[eventName].apply([
+          eventSource.filters[eventName],
           ...params,
         ])
-      : contract.filters[eventName]();
-    const eventSource = this.getEventSourceName(contract);
-    if (!eventSource) {
-      throw new Error(`Could not find event contract for filter`);
-    }
+      : eventSource.filters[eventName]();
+
     return {
       eventSource,
       eventName: eventName as string,
@@ -394,7 +385,7 @@ export class ColonyEventManager {
    * Filter for all `DomainAdded` events for a specific [[Colony]] contract
    * ```typescript
    * const domainAdded = colonyEvents.createFilter(
-   *   colonyEvents.eventSources.Colony,
+   *   colonyEventSource,
    *   'DomainAdded(address,uint256)',
    *   colonyAddress,
    * );
@@ -406,15 +397,15 @@ export class ColonyEventManager {
    *
    * @param contract - A valid [[EventSource]]
    * @param eventNames - A list of valid event signatures from the contract's `filters` object
-   * @param address - Address of the contract that can emit this event
+   * @param address - Address of the contract that can emit this event. Will listen to any contract if not provided
    * @returns A [[ColonyMultiFilter]]
    */
   createMultiFilter<
-    T extends EventSource & {
+    T extends BaseContract & {
       filters: { [P in N]: (...args: never) => EventFilter };
     },
     N extends keyof T['filters'],
-  >(contract: T, eventNames: N[], address: string): ColonyMultiFilter {
+  >(contract: T, eventNames: N[], address?: string): ColonyMultiFilter {
     const colonyTopics: ColonyTopic[] = eventNames
       .map((eventName) => {
         const filter = this.createFilter(contract, eventName, address);
