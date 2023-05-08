@@ -1,4 +1,11 @@
-export { MetadataType, TeamColor } from '@colony/event-metadata';
+export {
+  AnnotationData,
+  ColonyData,
+  DecisionData,
+  DomainData,
+  MetadataType,
+  TeamColor,
+} from '@colony/event-metadata';
 
 export {
   ColonyRole,

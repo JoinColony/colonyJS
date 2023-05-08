@@ -9,14 +9,19 @@ import type { Ethers6Filter } from '../types';
 import { getLogs, nonNullable } from '../utils';
 import { IpfsAdapter, IpfsMetadata, MetadataEvent } from '../ipfs';
 
-interface ContractFactory<T extends BaseContract> {
+/**
+ * A valid eventsource (currently just an ethers.js [[BaseContract]])
+ */
+export type EventSource = BaseContract;
+
+interface ContractFactory<T extends EventSource> {
   connect(address: string, signerOrProvider: SignerOrProvider): T;
 }
 
 /** A Colony extended ethers Filter to keep track of where events are coming from */
 export interface ColonyFilter extends Ethers6Filter {
   /** The generated id of the contract the event originated from */
-  eventSource: BaseContract;
+  eventSource: EventSource;
   /** The full event signature of this event (e.g. `TokenMinted(uint256))` */
   eventName: string;
 }
@@ -24,7 +29,7 @@ export interface ColonyFilter extends Ethers6Filter {
 /** A Colony specific topic that keeps track of which contract it belongs to */
 export interface ColonyTopic {
   /** The generated id of the contract the event originated from */
-  eventSource: BaseContract;
+  eventSource: EventSource;
   /** The full event signature of this event (e.g. `TokenMinted(uint256))` */
   eventName: string;
   /** The encoded topic */

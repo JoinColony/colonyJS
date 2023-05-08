@@ -2,7 +2,6 @@ import { Contract, ContractReceipt, ContractTransaction } from 'ethers';
 import { fetch } from 'cross-fetch';
 import { MetadataType, MetadataTypeMap } from '@colony/event-metadata';
 
-// import { MetadataValue } from '../ipfs';
 import { ParsedLogTransactionReceipt } from '../types';
 import { IPFS_METADATA_EVENTS } from '../ipfs/IpfsMetadata';
 import { ColonyNetwork } from '../ColonyNetwork';
