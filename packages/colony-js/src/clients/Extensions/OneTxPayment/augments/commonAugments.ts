@@ -20,11 +20,11 @@ export type AugmentedEstimate<T extends AnyOneTxPayment = AnyOneTxPayment> =
     /**
      * Same as [[makePayment]], but let colonyJS figure out the permission proofs for you.
      * Always prefer this method, except when you have good reason not to.
-     * @param _amounts amounts of the tokens being paid out
-     * @param _domainId The domainId the payment should be coming from
-     * @param _skillId The skillId that the payment should be marked with, possibly awarding reputation in this skill.
-     * @param _tokens Addresses of the tokens the payments are being made in. 0x00 for Ether.
-     * @param _workers The addresses of the recipients of the payment
+     * @param _amounts - amounts of the tokens being paid out
+     * @param _domainId - The domainId the payment should be coming from
+     * @param _skillId - The skillId that the payment should be marked with, possibly awarding reputation in this skill.
+     * @param _tokens - Addresses of the tokens the payments are being made in. 0x00 for Ether.
+     * @param _workers - The addresses of the recipients of the payment
      */
     makePaymentWithProofs(
       _workers: string[],
@@ -38,11 +38,11 @@ export type AugmentedEstimate<T extends AnyOneTxPayment = AnyOneTxPayment> =
     /**
      * Same as [[makePaymentFundedFromDomain]], but let colonyJS figure out the permission proofs for you.
      * Always prefer this method, except when you have good reason not to.
-     * @param _amounts The amounts of the tokens being paid out
-     * @param _domainId The domainId the payment should be coming from
-     * @param _skillId The skillId that the payment should be marked with, possibly awarding reputation in this skill.
-     * @param _tokens The addresses of the token the payments are being made in. 0x00 for Ether.
-     * @param _workers The addresses of the recipients of the payment
+     * @param _amounts - The amounts of the tokens being paid out
+     * @param _domainId - The domainId the payment should be coming from
+     * @param _skillId - The skillId that the payment should be marked with, possibly awarding reputation in this skill.
+     * @param _tokens - The addresses of the token the payments are being made in. 0x00 for Ether.
+     * @param _workers - The addresses of the recipients of the payment
      */
     makePaymentFundedFromDomainWithProofs(
       _workers: string[],
@@ -73,11 +73,11 @@ export type AugmentedOneTxPayment<T extends AnyOneTxPayment = AnyOneTxPayment> =
     /**
      * Same as [[makePayment]], but let colonyJS figure out the permission proofs for you.
      * Always prefer this method, except when you have good reason not to.
-     * @param _amounts amounts of the tokens being paid out
-     * @param _domainId The domainId the payment should be coming from
-     * @param _skillId The skillId that the payment should be marked with, possibly awarding reputation in this skill.
-     * @param _tokens Addresses of the tokens the payments are being made in. 0x00 for Ether.
-     * @param _workers The addresses of the recipients of the payment
+     * @param _amounts - amounts of the tokens being paid out
+     * @param _domainId - The domainId the payment should be coming from
+     * @param _skillId - The skillId that the payment should be marked with, possibly awarding reputation in this skill.
+     * @param _tokens - Addresses of the tokens the payments are being made in. 0x00 for Ether.
+     * @param _workers - The addresses of the recipients of the payment
      */
     makePaymentWithProofs(
       _workers: string[],
@@ -91,11 +91,11 @@ export type AugmentedOneTxPayment<T extends AnyOneTxPayment = AnyOneTxPayment> =
     /**
      * Same as [[makePaymentFundedFromDomain]], but let colonyJS figure out the permission proofs for you.
      * Always prefer this method, except when you have good reason not to.
-     * @param _amounts The amounts of the tokens being paid out
-     * @param _domainId The domainId the payment should be coming from
-     * @param _skillId The skillId that the payment should be marked with, possibly awarding reputation in this skill.
-     * @param _tokens The addresses of the token the payments are being made in. 0x00 for Ether.
-     * @param _workers The addresses of the recipients of the payment
+     * @param _amounts - The amounts of the tokens being paid out
+     * @param _domainId - The domainId the payment should be coming from
+     * @param _skillId - The skillId that the payment should be marked with, possibly awarding reputation in this skill.
+     * @param _tokens - The addresses of the token the payments are being made in. 0x00 for Ether.
+     * @param _workers - The addresses of the recipients of the payment
      */
     makePaymentFundedFromDomainWithProofs(
       _workers: string[],

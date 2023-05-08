@@ -113,10 +113,10 @@ export interface NetworkClientOptions {
  * const networkClient = await getColonyNetworkClient(Network.Xdai, provider);
  * ```
  *
- * @param network One of the available options. See [[Network]].
- * @param signerOrProvider An [ethers](https://github.com/ethers-io/ethers.js/)
+ * @param network - One of the available options. See [[Network]].
+ * @param signerOrProvider - An [ethers](https://github.com/ethers-io/ethers.js/)
  * compatible signer or provider instance
- * @param options Here you can supply options for accessing certain contracts
+ * @param options - Here you can supply options for accessing certain contracts
  * (mostly used in local/dev environments)
  */
 const getColonyNetworkClient = (

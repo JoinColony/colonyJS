@@ -134,9 +134,9 @@ export const formatColonyRoles = async (
  * const logs = await getLogs(colonyClient, filter);
  * ```
  *
- * @param client Any of the intantiated contract clients
- * @param filter ethers compatible Filter object
- * @param options Configuration options to filter logs
+ * @param client - Any of the intantiated contract clients
+ * @param filter - ethers compatible Filter object
+ * @param options - Configuration options to filter logs
  *
  * @returns ethers Log array
  */
@@ -163,9 +163,9 @@ export const getLogs = async (
  * const events = await getEvents(colonyClient, filter);
  * ```
  *
- * @param client Any of the intantiated contract clients
- * @param filter ethers compatible Filter object
- * @param options Configuration options to filter logs
+ * @param client - Any of the intantiated contract clients
+ * @param filter - ethers compatible Filter object
+ * @param options - Configuration options to filter logs
  *
  * @returns Parsed ethers LogDescription array (events)
  */
@@ -183,9 +183,9 @@ export const getEvents = async (
  *
  * @remarks only works when all events are emitted by the same contract!
  *
- * @param client Any of the intantiated contract clients
- * @param filters Array of ethers compatible Filter objects
- * @param options Configuration options to filter logs
+ * @param client - Any of the intantiated contract clients
+ * @param filters - Array of ethers compatible Filter objects
+ * @param options - Configuration options to filter logs
  *
  * @returns Parsed ethers LogDescription array (events)
  */
@@ -222,7 +222,7 @@ export const getMultipleEvents = async (
 /**
  * Get an array of all roles in the colony
  *
- * @param client Any ColonyClient
+ * @param client - Any ColonyClient
  *
  * @returns Array of user roles in a colony (see above) fetching it's own network events
  */

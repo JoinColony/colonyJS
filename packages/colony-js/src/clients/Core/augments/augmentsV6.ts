@@ -25,8 +25,8 @@ export interface AugmentedEstimateV6 extends AugmentedEstimateV5 {
   /**
    * Same as [[deprecateDomain]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _domainId Id of the domain being deprecated
-   * @param _deprecated Whether the domain should be deprecated (true) or undeprecated (false)
+   * @param _domainId - Id of the domain being deprecated
+   * @param _deprecated - Whether the domain should be deprecated (true) or undeprecated (false)
    */
   deprecateDomainWithProofs(
     _domainId: BigNumberish,
@@ -42,8 +42,8 @@ export type ColonyAugmentsV6<T extends ValidColony> = {
   /**
    * Same as [[deprecateDomain]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _domainId Id of the domain being deprecated
-   * @param _deprecated Whether the domain should be deprecated (true) or undeprecated (false)
+   * @param _domainId - Id of the domain being deprecated
+   * @param _deprecated - Whether the domain should be deprecated (true) or undeprecated (false)
    */
   deprecateDomainWithProofs(
     _domainId: BigNumberish,

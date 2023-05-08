@@ -41,7 +41,7 @@ export interface AddDomainEstimateGasA {
    *
    * Same as [[addDomain]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _parentDomainId Id of the domain under which the new one will be added
+   * @param _parentDomainId - Id of the domain under which the new one will be added
    */
   addDomainWithProofs(_parentDomainId: BigNumberish): Promise<BigNumber>;
 }
@@ -52,7 +52,7 @@ export type AddDomainAugmentsA<T extends ValidColonyA> = {
    *
    * Same as [[addDomain]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _parentDomainId Id of the domain under which the new one will be added
+   * @param _parentDomainId - Id of the domain under which the new one will be added
    */
   addDomainWithProofs(
     _parentDomainId: BigNumberish,
@@ -113,7 +113,7 @@ export interface AddDomainEstimateGasB {
   /**
    * Same as [[addDomain(uint256)]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _parentDomainId Id of the domain under which the new one will be added
+   * @param _parentDomainId - Id of the domain under which the new one will be added
    */
   'addDomainWithProofs(uint256)'(
     _parentDomainId: BigNumberish,
@@ -122,8 +122,8 @@ export interface AddDomainEstimateGasB {
   /**
    * Same as [[addDomain(uint256,string)]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _parentDomainId Id of the domain under which the new one will be added
-   * @param _metadata Metadata relating to the domain. Expected to be the IPFS hash of a JSON blob, but not enforced by the contracts.
+   * @param _parentDomainId - Id of the domain under which the new one will be added
+   * @param _metadata - Metadata relating to the domain. Expected to be the IPFS hash of a JSON blob, but not enforced by the contracts.
    */
   'addDomainWithProofs(uint256,string)'(
     _parentDomainId: BigNumberish,
@@ -136,7 +136,7 @@ export type AddDomainAugmentsB<T extends ValidColonyB> = {
   /**
    * Same as [[addDomain(uint256,uint256,uint256)]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _parentDomainId Id of the domain under which the new one will be added
+   * @param _parentDomainId - Id of the domain under which the new one will be added
    */
   'addDomainWithProofs(uint256)'(
     _parentDomainId: BigNumberish,
@@ -145,8 +145,8 @@ export type AddDomainAugmentsB<T extends ValidColonyB> = {
   /**
    * Same as [[addDomain(uint256,uint256,uint256,string)]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _parentDomainId Id of the domain under which the new one will be added
-   * @param _metadata Metadata relating to the domain. Expected to be the IPFS hash of a JSON blob, but not enforced by the contracts.
+   * @param _parentDomainId - Id of the domain under which the new one will be added
+   * @param _metadata - Metadata relating to the domain. Expected to be the IPFS hash of a JSON blob, but not enforced by the contracts.
    */
   'addDomainWithProofs(uint256,string)'(
     _parentDomainId: BigNumberish,

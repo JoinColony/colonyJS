@@ -43,11 +43,11 @@ export type AugmentedEstimate<
   /**
    * Same as [[makeExpenditureWithStake]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _domainId The domain where the expenditure belongs
-   * @param _key A reputation hash tree key, of the total reputation in _domainId
-   * @param _value Reputation value indicating the total reputation in _domainId
-   * @param _branchMask The branchmask of the proof
-   * @param _siblings The siblings of the proof
+   * @param _domainId - The domain where the expenditure belongs
+   * @param _key - A reputation hash tree key, of the total reputation in _domainId
+   * @param _value - Reputation value indicating the total reputation in _domainId
+   * @param _branchMask - The branchmask of the proof
+   * @param _siblings - The siblings of the proof
    */
   makeExpenditureWithStakeWithProofs(
     _domainId: BigNumberish,
@@ -61,7 +61,7 @@ export type AugmentedEstimate<
   /**
    * Same as [[cancelAndReclaimStake]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _expenditureId The id of the expenditure
+   * @param _expenditureId - The id of the expenditure
    */
   cancelAndReclaimStakeWithProofs(
     _expenditureId: BigNumberish,
@@ -71,8 +71,8 @@ export type AugmentedEstimate<
   /**
    * Same as [[cancelAndPunish]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _expenditureId The id of the expenditure
-   * @param _punish Whether the staker should be punished by losing an amount of reputation equal to the stake
+   * @param _expenditureId - The id of the expenditure
+   * @param _punish - Whether the staker should be punished by losing an amount of reputation equal to the stake
    */
   cancelAndPunishWithProofs(
     _expenditureId: BigNumberish,
@@ -101,11 +101,11 @@ export type AugmentedStakedExpenditure<
   /**
    * Same as [[makeExpenditureWithStake]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _domainId The domain where the expenditure belongs
-   * @param _key A reputation hash tree key, of the total reputation in _domainId
-   * @param _value Reputation value indicating the total reputation in _domainId
-   * @param _branchMask The branchmask of the proof
-   * @param _siblings The siblings of the proof
+   * @param _domainId - The domain where the expenditure belongs
+   * @param _key - A reputation hash tree key, of the total reputation in _domainId
+   * @param _value - Reputation value indicating the total reputation in _domainId
+   * @param _branchMask - The branchmask of the proof
+   * @param _siblings - The siblings of the proof
    */
   makeExpenditureWithStakeWithProofs(
     _domainId: BigNumberish,
@@ -119,7 +119,7 @@ export type AugmentedStakedExpenditure<
   /**
    * Same as [[cancelAndReclaimStake]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _expenditureId The id of the expenditure
+   * @param _expenditureId - The id of the expenditure
    */
   cancelAndReclaimStakeWithProofs(
     _expenditureId: BigNumberish,
@@ -129,8 +129,8 @@ export type AugmentedStakedExpenditure<
   /**
    * Same as [[cancelAndPunish]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _expenditureId The id of the expenditure
-   * @param _punish Whether the staker should be punished by losing an amount of reputation equal to the stake
+   * @param _expenditureId - The id of the expenditure
+   * @param _punish - Whether the staker should be punished by losing an amount of reputation equal to the stake
    */
   cancelAndPunishWithProofs(
     _expenditureId: BigNumberish,

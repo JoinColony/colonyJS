@@ -26,10 +26,10 @@ export interface AugmentedEstimateV7 extends AugmentedEstimateV6 {
   /**
    * Same as the permissioned overload of [[setExpenditurePayout]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _id Id of the expenditure
-   * @param _slot Number of the slot
-   * @param _token Address of the token, `0x0` value indicates Ether
-   * @param _amount Payout amount
+   * @param _id - Id of the expenditure
+   * @param _slot - Number of the slot
+   * @param _token - Address of the token, `0x0` value indicates Ether
+   * @param _amount - Payout amount
    */
   setExpenditurePayoutWithProofs(
     _id: BigNumberish,
@@ -47,10 +47,10 @@ export type ColonyAugmentsV7<T extends ValidColony> = {
   /**
    * Same as the permissioned overload of [[setExpenditurePayout]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _id Id of the expenditure
-   * @param _slot Number of the slot
-   * @param _token Address of the token, `0x0` value indicates Ether
-   * @param _amount Payout amount
+   * @param _id - Id of the expenditure
+   * @param _slot - Number of the slot
+   * @param _token - Address of the token, `0x0` value indicates Ether
+   * @param _amount - Payout amount
    */
   setExpenditurePayoutWithProofs(
     _id: BigNumberish,

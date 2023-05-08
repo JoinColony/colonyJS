@@ -18,9 +18,9 @@ export interface AugmentedEstimateV3 {
   /**
    * Same as [[claimMisalignedReward]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _motionId The id of the motion
-   * @param _staker The staker whose reward is being claimed
-   * @param _vote The side being supported (0 = NAY, 1 = YAY)
+   * @param _motionId - The id of the motion
+   * @param _staker - The staker whose reward is being claimed
+   * @param _vote - The side being supported (0 = NAY, 1 = YAY)
    */
   claimMisalignedRewardWithProofs(
     _motionId: BigNumberish,
@@ -34,9 +34,9 @@ export type AugmentsV3<T extends ValidVotingReputation> = {
   /**
    * Same as [[claimMisalignedReward]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _motionId The id of the motion
-   * @param _staker The staker whose reward is being claimed
-   * @param _vote The side being supported (0 = NAY, 1 = YAY)
+   * @param _motionId - The id of the motion
+   * @param _staker - The staker whose reward is being claimed
+   * @param _vote - The side being supported (0 = NAY, 1 = YAY)
    */
   claimMisalignedRewardWithProofs(
     _motionId: BigNumberish,

@@ -38,9 +38,9 @@ export type AugmentedEstimate<
   /**
    * Same as [[setExpenditurePayoutModifiers]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _id Expenditure identifier
-   * @param _slots Array of slots to set payout modifiers
-   * @param _payoutModifiers Values (between +/- WAD) to modify the payout & reputation bonus
+   * @param _id - Expenditure identifier
+   * @param _slots - Array of slots to set payout modifiers
+   * @param _payoutModifiers - Values (between +/- WAD) to modify the payout & reputation bonus
    */
   setExpenditurePayoutModifiersWithProofs(
     _id: BigNumberish,
@@ -70,9 +70,9 @@ export type AugmentedEvaluatedExpenditure<
   /**
    * Same as [[setExpenditurePayoutModifiers]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _id Expenditure identifier
-   * @param _slots Array of slots to set payout modifiers
-   * @param _payoutModifiers Values (between +/- WAD) to modify the payout & reputation bonus
+   * @param _id - Expenditure identifier
+   * @param _slots - Array of slots to set payout modifiers
+   * @param _payoutModifiers - Values (between +/- WAD) to modify the payout & reputation bonus
    */
   setExpenditurePayoutModifiersWithProofs(
     _id: BigNumberish,

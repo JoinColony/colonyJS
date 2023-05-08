@@ -40,8 +40,8 @@ export interface CreateDomainMotionEstimateGas {
    *
    * Same as [[createDomainMotion]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _action A bytes array encoding a function call
-   * @param _domainId The domain where we vote on the motion
+   * @param _action - A bytes array encoding a function call
+   * @param _domainId - The domain where we vote on the motion
    */
   createDomainMotionWithProofs(
     _domainId: BigNumberish,
@@ -56,8 +56,8 @@ export type CreateDomainMotionAugments<T extends ValidVotingReputation> = {
    *
    * Same as [[createDomainMotion]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _action A bytes array encoding a function call
-   * @param _domainId The domain where we vote on the motion
+   * @param _action - A bytes array encoding a function call
+   * @param _domainId - The domain where we vote on the motion
    */
   createDomainMotionWithProofs(
     _domainId: BigNumberish,

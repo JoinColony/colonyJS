@@ -21,9 +21,9 @@ export type AugmentedEstimate<
   /**
    * Same as [[stakeMotion]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _amount The amount of tokens being staked
-   * @param _motionId The id of the motion
-   * @param _vote The side being supported (0 = NAY, 1 = YAY)
+   * @param _amount - The amount of tokens being staked
+   * @param _motionId - The id of the motion
+   * @param _vote - The side being supported (0 = NAY, 1 = YAY)
    */
   stakeMotionWithProofs(
     _motionId: BigNumberish,
@@ -35,8 +35,8 @@ export type AugmentedEstimate<
   /**
    * Same as [[escalateMotion]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _motionId The id of the motion
-   * @param _newDomainId The desired domain of escalation
+   * @param _motionId - The id of the motion
+   * @param _newDomainId - The desired domain of escalation
    */
   escalateMotionWithProofs(
     _motionId: BigNumberish,
@@ -47,9 +47,9 @@ export type AugmentedEstimate<
   /**
    * Same as [[claimReward]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _motionId The id of the motion
-   * @param _staker The staker whose reward is being claimed
-   * @param _vote The side being supported (0 = NAY, 1 = YAY)
+   * @param _motionId - The id of the motion
+   * @param _staker - The staker whose reward is being claimed
+   * @param _vote - The side being supported (0 = NAY, 1 = YAY)
    */
   claimRewardWithProofs(
     _motionId: BigNumberish,
@@ -79,9 +79,9 @@ export type AugmentedVotingReputation<
   /**
    * Same as [[stakeMotion]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _amount The amount of tokens being staked
-   * @param _motionId The id of the motion
-   * @param _vote The side being supported (0 = NAY, 1 = YAY)
+   * @param _amount - The amount of tokens being staked
+   * @param _motionId - The id of the motion
+   * @param _vote - The side being supported (0 = NAY, 1 = YAY)
    */
   stakeMotionWithProofs(
     _motionId: BigNumberish,
@@ -93,8 +93,8 @@ export type AugmentedVotingReputation<
   /**
    * Same as [[escalateMotion]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _motionId The id of the motion
-   * @param _newDomainId The desired domain of escalation
+   * @param _motionId - The id of the motion
+   * @param _newDomainId - The desired domain of escalation
    */
   escalateMotionWithProofs(
     _motionId: BigNumberish,
@@ -105,9 +105,9 @@ export type AugmentedVotingReputation<
   /**
    * Same as [[claimReward]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _motionId The id of the motion
-   * @param _staker The staker whose reward is being claimed
-   * @param _vote The side being supported (0 = NAY, 1 = YAY)
+   * @param _motionId - The id of the motion
+   * @param _staker - The staker whose reward is being claimed
+   * @param _vote - The side being supported (0 = NAY, 1 = YAY)
    */
   claimRewardWithProofs(
     _motionId: BigNumberish,

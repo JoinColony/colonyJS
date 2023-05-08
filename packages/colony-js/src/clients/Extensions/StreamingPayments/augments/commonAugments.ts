@@ -45,13 +45,13 @@ export type AugmentedEstimate<
   /**
    * Same as [[create]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _domainId The domain out of which the streaming payment will be paid
-   * @param _startTime The time at which the payment begins paying out
-   * @param _endTime The time at which the payment ends paying out
-   * @param _interval The period of time over which _amounts are paid out
-   * @param _recipient The recipient of the streaming payment
-   * @param _tokens The tokens to be paid out
-   * @param _amounts The amounts to be paid out (per _interval of time)
+   * @param _domainId - The domain out of which the streaming payment will be paid
+   * @param _startTime - The time at which the payment begins paying out
+   * @param _endTime - The time at which the payment ends paying out
+   * @param _interval - The period of time over which _amounts are paid out
+   * @param _recipient - The recipient of the streaming payment
+   * @param _tokens - The tokens to be paid out
+   * @param _amounts - The amounts to be paid out (per _interval of time)
    */
   createWithProofs(
     _domainId: BigNumberish,
@@ -67,8 +67,8 @@ export type AugmentedEstimate<
   /**
    * Same as [[claim]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _id The id of the streaming payment
-   * @param _tokens The tokens to be paid out
+   * @param _id - The id of the streaming payment
+   * @param _tokens - The tokens to be paid out
    */
   claimWithProofs(
     _id: BigNumberish,
@@ -79,9 +79,9 @@ export type AugmentedEstimate<
   /**
    * Same as [[addToken]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _id The id of the streaming payment
-   * @param _token The address of the token
-   * @param _amount The amount to pay out
+   * @param _id - The id of the streaming payment
+   * @param _token - The address of the token
+   * @param _amount - The amount to pay out
    */
   addTokenWithProofs(
     _id: BigNumberish,
@@ -93,9 +93,9 @@ export type AugmentedEstimate<
   /**
    * Same as [[setTokenAmount]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _id The id of the streaming payment
-   * @param _token The address of the token
-   * @param _amount The new amount to pay out
+   * @param _id - The id of the streaming payment
+   * @param _token - The address of the token
+   * @param _amount - The new amount to pay out
    */
   setTokenAmountWithProofs(
     _id: BigNumberish,
@@ -107,8 +107,8 @@ export type AugmentedEstimate<
   /**
    * Same as [[setStartTime]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _id The id of the streaming payment
-   * @param _startTime The new startTime to set
+   * @param _id - The id of the streaming payment
+   * @param _startTime - The new startTime to set
    */
   setStartTimeWithProofs(
     _id: BigNumberish,
@@ -119,8 +119,8 @@ export type AugmentedEstimate<
   /**
    * Same as [[setEndTime]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _id The id of the streaming payment
-   * @param _endTime The new endTime to set
+   * @param _id - The id of the streaming payment
+   * @param _endTime - The new endTime to set
    */
   setEndTimeWithProofs(
     _id: BigNumberish,
@@ -131,7 +131,7 @@ export type AugmentedEstimate<
   /**
    * Same as [[cancel]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _id The id of the streaming payment
+   * @param _id - The id of the streaming payment
    */
   cancelWithProofs(
     _id: BigNumberish,
@@ -159,13 +159,13 @@ export type AugmentedStreamingPayments<
   /**
    * Same as [[create]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _domainId The domain out of which the streaming payment will be paid
-   * @param _startTime The time at which the payment begins paying out
-   * @param _endTime The time at which the payment ends paying out
-   * @param _interval The period of time over which _amounts are paid out
-   * @param _recipient The recipient of the streaming payment
-   * @param _tokens The tokens to be paid out
-   * @param _amounts The amounts to be paid out (per _interval of time)
+   * @param _domainId - The domain out of which the streaming payment will be paid
+   * @param _startTime - The time at which the payment begins paying out
+   * @param _endTime - The time at which the payment ends paying out
+   * @param _interval - The period of time over which _amounts are paid out
+   * @param _recipient - The recipient of the streaming payment
+   * @param _tokens - The tokens to be paid out
+   * @param _amounts - The amounts to be paid out (per _interval of time)
    */
   createWithProofs(
     _domainId: BigNumberish,
@@ -181,8 +181,8 @@ export type AugmentedStreamingPayments<
   /**
    * Same as [[claim]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _id The id of the streaming payment
-   * @param _tokens The tokens to be paid out
+   * @param _id - The id of the streaming payment
+   * @param _tokens - The tokens to be paid out
    */
   claimWithProofs(
     _id: BigNumberish,
@@ -193,9 +193,9 @@ export type AugmentedStreamingPayments<
   /**
    * Same as [[addToken]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _id The id of the streaming payment
-   * @param _token The address of the token
-   * @param _amount The amount to pay out
+   * @param _id - The id of the streaming payment
+   * @param _token - The address of the token
+   * @param _amount - The amount to pay out
    */
   addTokenWithProofs(
     _id: BigNumberish,
@@ -207,9 +207,9 @@ export type AugmentedStreamingPayments<
   /**
    * Same as [[setTokenAmount]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _id The id of the streaming payment
-   * @param _token The address of the token
-   * @param _amount The new amount to pay out
+   * @param _id - The id of the streaming payment
+   * @param _token - The address of the token
+   * @param _amount - The new amount to pay out
    */
   setTokenAmountWithProofs(
     _id: BigNumberish,
@@ -221,8 +221,8 @@ export type AugmentedStreamingPayments<
   /**
    * Same as [[setStartTime]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _id The id of the streaming payment
-   * @param _startTime The new startTime to set
+   * @param _id - The id of the streaming payment
+   * @param _startTime - The new startTime to set
    */
   setStartTimeWithProofs(
     _id: BigNumberish,
@@ -233,8 +233,8 @@ export type AugmentedStreamingPayments<
   /**
    * Same as [[setEndTime]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _id The id of the streaming payment
-   * @param _endTime The new endTime to set
+   * @param _id - The id of the streaming payment
+   * @param _endTime - The new endTime to set
    */
   setEndTimeWithProofs(
     _id: BigNumberish,
@@ -245,7 +245,7 @@ export type AugmentedStreamingPayments<
   /**
    * Same as [[cancel]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
-   * @param _id The id of the streaming payment
+   * @param _id - The id of the streaming payment
    */
   cancelWithProofs(
     _id: BigNumberish,
