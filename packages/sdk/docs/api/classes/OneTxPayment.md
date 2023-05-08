@@ -87,6 +87,10 @@ import { Id, Tokens, w } from '@colony/sdk';
 
 A transaction creator
 
+#### Required permissions for forced transaction:
+
+* [ColonyRole.Administration](../enums/ColonyRole.md#administration), [ColonyRole.Funding](../enums/ColonyRole.md#funding)
+
 #### Event data
 
 | Property | Type | Description |

@@ -115,7 +115,7 @@ Filter for all `DomainAdded` events between block 21830000 and 21840000 (across 
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `T` | extends `BaseContract`<`T`\> & { `filters`: { [P in string \| number \| symbol]: Function }  } | Needs to be a valid EventSource (i.e. from `colonyEvents.eventSources`) |
+| `T` | extends `BaseContract`<`T`\> & { `filters`: { [P in string \| number \| symbol]: Function }  } | Needs to be a valid [EventSource](../README.md#eventsource) (i.e. from `colonyEvents.eventSources`) |
 | `N` | extends `string` \| `number` \| `symbol` | An event signature as defined in the _ethers_ contract's [`filters`](https://docs.ethers.io/v5/api/contract/contract/#Contract--filters) object. See the [ColonyJS documentation](https://colony.gitbook.io/colony/colonyjs) for a list of all available contracts and events |
 
 #### Parameters
@@ -166,14 +166,14 @@ const domainAdded = colonyEvents.createFilter(
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `T` | extends `BaseContract`<`T`\> & { `filters`: { [P in string \| number \| symbol]: Function }  } | Needs to be a valid EventSource (i.e. from `colonyEvents.eventSources`) |
+| `T` | extends `BaseContract`<`T`\> & { `filters`: { [P in string \| number \| symbol]: Function }  } | Needs to be a valid [EventSource](../README.md#eventsource) (i.e. from `colonyEvents.eventSources`) |
 | `N` | extends `string` \| `number` \| `symbol` | An event signature as defined in the _ethers_ contract's [`filters`](https://docs.ethers.io/v5/api/contract/contract/#Contract--filters) object. See the [ColonyJS documentation](https://colony.gitbook.io/colony/colonyjs) for a list of all available contracts and events |
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `contract` | `T` | A valid EventSource |
+| `contract` | `T` | A valid [EventSource](../README.md#eventsource) |
 | `eventNames` | `N`[] | A list of valid event signatures from the contract's `filters` object |
 | `address?` | `string` | Address of the contract that can emit this event. Will listen to any contract if not provided |
 

@@ -400,6 +400,10 @@ export class Colony {
    *
    * @returns A transaction creator
    *
+   * #### Required permissions for forced transaction:
+   *
+   * * [[ColonyRole.Root]]
+   *
    * #### Event data
    *
    * | Property | Type | Description |
@@ -470,6 +474,10 @@ export class Colony {
    * @param metadata - The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[DomainData]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
    * @returns A transaction creator
    *
+   * #### Required permissions for forced transaction:
+   *
+   * * [[ColonyRole.Architecture]]
+   *
    * #### Event data
    *
    * | Property | Type | Description |
@@ -508,6 +516,10 @@ export class Colony {
    * Currently you can only add domains within the `Root` domain. This restriction will be lifted soon
    *
    * @returns A transaction creator
+   *
+   * #### Required permissions for forced transaction:
+   *
+   * * [[ColonyRole.Architecture]]
    *
    * #### Event data
    *
@@ -606,6 +618,10 @@ export class Colony {
    * @param metadata - The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[DomainData]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
    * @returns A transaction creator
    *
+   * #### Required permissions for forced transaction:
+   *
+   * * [[ColonyRole.Architecture]]
+   *
    * #### Event data
    *
    * | Property | Type | Description |
@@ -660,6 +676,10 @@ export class Colony {
    * @param deprecated - `true`: Deprecate team; `false`: Undeprecate team
    * @returns A transaction creator
    *
+   * #### Required permissions for forced transaction:
+   *
+   * * [[ColonyRole.Architecture]]
+   *
    * #### Event data
    *
    * | Property | Type | Description |
@@ -709,6 +729,10 @@ export class Colony {
    * @remarks use `ethers.constants.AddressZero` to claim ETH.
    * @param tokenAddress - The address of the token to claim the funds for. Default is the Colony's native token
    * @returns A transaction creator
+   *
+   * #### Required permissions
+   *
+   * * Anyone can claim funds for the Colony
    *
    * #### Event data
    *
@@ -761,6 +785,10 @@ export class Colony {
    * @param fromTeam - The team to transfer the funds from. Default is the Root team
    * @param tokenAddress - The address of the token to be transferred. Default is the Colony's native token
    * @returns A transaction creator
+   *
+   * #### Required permissions for forced transaction:
+   *
+   * * [[ColonyRole.Funding]] in both teams
    *
    * #### Event data
    *
@@ -919,6 +947,10 @@ export class Colony {
    * @param action - Encoded action to execute
    * @returns A transaction creator
    *
+   * #### Required permissions for forced transaction:
+   *
+   * * [[ColonyRole.Root]]
+   *
    * **No event data**
    */
   makeArbitraryTransaction(target: string, action: BytesLike) {
@@ -1027,6 +1059,10 @@ export class Colony {
    * @param extension - Name of the extension you'd like to install
    * @returns A transaction creator
    *
+   * #### Required permissions for forced transaction:
+   *
+   * * [[ColonyRole.Root]]
+   *
    * #### Event data
    *
    * | Property | Type | Description |
@@ -1109,6 +1145,10 @@ export class Colony {
    * @param teamId - Team to apply the role(s) in
    * @returns A transaction creator
    *
+   * #### Required permissions for forced transaction:
+   *
+   * * [[ColonyRole.Architecture]], [[ColonyRole.Root]]
+   *
    * #### Event data
    *
    * Heads up!* This event is emitted for every role that was set
@@ -1160,6 +1200,10 @@ export class Colony {
    * @param teamId - Team to apply the role(s) in
    *
    * @returns A transaction creator
+   *
+   * #### Required permissions for forced transaction:
+   *
+   * * [[ColonyRole.Architecture]], [[ColonyRole.Root]]
    *
    * #### Event data
    *
@@ -1229,6 +1273,10 @@ export class Colony {
    *
    * @returns A transaction creator
    *
+   * #### Required permissions for forced transaction:
+   *
+   * * [[ColonyRole.Root]]
+   *
    * #### Event data
    *
    * | Property | Type | Description |
@@ -1260,6 +1308,10 @@ export class Colony {
    * @param allowedToTransfer - List of addresses (excluding the colony) that can transfer the token when it's locked
    *
    * @returns A transaction creator
+   *
+   * #### Required permissions for forced transaction:
+   *
+   * * [[ColonyRole.Root]]
    *
    * #### Event data
    *
@@ -1305,6 +1357,10 @@ export class Colony {
    *
    * @returns A transaction creator
    *
+   * #### Required permissions for forced transaction:
+   *
+   * * [[ColonyRole.Recovery]]
+   *
    * #### Event data
    *
    * | Property | Type | Description |
@@ -1331,6 +1387,10 @@ export class Colony {
    * In Recovery Mode, no actions are possible on the colony. Only users who have the special *Recovery* role can execute this method. If you have multiple users with the *Recovery* role, at least 50% of the users have to execute this method for the Colony to leave Recovery Mode
    *
    * @returns A transaction creator
+   *
+   * #### Required permissions for forced transaction:
+   *
+   * * [[ColonyRole.Recovery]]
    *
    * #### Event data
    *
@@ -1364,6 +1424,10 @@ export class Colony {
    * @param toVersion - Specify a custom version to upgrade the colony to
    *
    * @returns A transaction creator
+   *
+   * #### Required permissions for forced transaction:
+   *
+   * * [[ColonyRole.Root]]
    *
    * #### Event data
    *
@@ -1400,6 +1464,10 @@ export class Colony {
    * @param team - Team to award reputation in (defaults to Root team)
    *
    * @returns A transaction creator
+   *
+   * #### Required permissions for forced transaction:
+   *
+   * * [[ColonyRole.Root]]
    *
    * #### Event data
    *
@@ -1444,6 +1512,10 @@ export class Colony {
    * @param team - Team to remove reputation in (defaults to Root team)
    *
    * @returns A transaction creator
+   *
+   * #### Required permissions for forced transaction:
+   *
+   * * [[ColonyRole.Arbitration]]
    *
    * #### Event data
    *

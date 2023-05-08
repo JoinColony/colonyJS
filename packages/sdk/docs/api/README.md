@@ -30,18 +30,23 @@
 - [MetaTxCreator](classes/MetaTxCreator.md)
 - [OneTxPayment](classes/OneTxPayment.md)
 - [PinataAdapter](classes/PinataAdapter.md)
+- [TokenLocking](classes/TokenLocking.md)
 - [TxCreator](classes/TxCreator.md)
 - [VotingReputation](classes/VotingReputation.md)
 
 ## Interfaces
 
+- [AnnotationData](interfaces/AnnotationData.md)
 - [BaseContract](interfaces/BaseContract.md)
+- [ColonyData](interfaces/ColonyData.md)
 - [ColonyEvent](interfaces/ColonyEvent.md)
 - [ColonyEventManagerOptions](interfaces/ColonyEventManagerOptions.md)
 - [ColonyFilter](interfaces/ColonyFilter.md)
 - [ColonyMultiFilter](interfaces/ColonyMultiFilter.md)
 - [ColonyNetworkOptions](interfaces/ColonyNetworkOptions.md)
 - [ColonyTopic](interfaces/ColonyTopic.md)
+- [DecisionData](interfaces/DecisionData.md)
+- [DomainData](interfaces/DomainData.md)
 - [Ethers6Filter](interfaces/Ethers6Filter.md)
 - [Ethers6FilterByBlockHash](interfaces/Ethers6FilterByBlockHash.md)
 - [IpfsAdapter](interfaces/IpfsAdapter.md)
@@ -53,6 +58,14 @@
 - [TxCreatorConfig](interfaces/TxCreatorConfig.md)
 
 ## Type Aliases
+
+### EventSource
+
+Ƭ **EventSource**: `BaseContract`
+
+A valid eventsource (currently just an ethers.js [BaseContract](interfaces/BaseContract.md))
+
+___
 
 ### MetadataEvent
 

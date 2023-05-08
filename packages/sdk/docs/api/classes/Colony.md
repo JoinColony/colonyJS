@@ -89,7 +89,7 @@ This will annotate a transaction with an arbitrary text message. This only reall
 
 **`Remarks`**
 
-If AnnotationData is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
+If [AnnotationData](../interfaces/AnnotationData.md) is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
 
 **`Example`**
 
@@ -116,7 +116,7 @@ If AnnotationData is provided directly (as opposed to a [CID](https://docs.ipfs.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `txHash` | `string` | Transaction hash of the transaction to annotate (within the Colony) |
-| `metadata` | `string` \| `AnnotationData` | The annotation metadata you would like to annotate the transaction with (or an IPFS CID pointing to valid metadata) |
+| `metadata` | `string` \| [`AnnotationData`](../interfaces/AnnotationData.md) | The annotation metadata you would like to annotate the transaction with (or an IPFS CID pointing to valid metadata) |
 
 #### Returns
 
@@ -168,6 +168,10 @@ Only users with *Root* role are allowed to award reputation
 
 A transaction creator
 
+#### Required permissions for forced transaction:
+
+* [ColonyRole.Root](../enums/ColonyRole.md#root)
+
 #### Event data
 
 | Property | Type | Description |
@@ -202,6 +206,10 @@ use `ethers.constants.AddressZero` to claim ETH.
 [`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"claimColonyFunds"``, { `fee?`: `BigNumber` ; `payoutRemainder?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
+
+#### Required permissions
+
+* Anyone can claim funds for the Colony
 
 #### Event data
 
@@ -246,13 +254,17 @@ import { TeamColor } from '@colony/sdk';
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `metadata` | `string` \| `DomainData` | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If DomainData is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
+| `metadata` | `string` \| [`DomainData`](../interfaces/DomainData.md) | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [DomainData](../interfaces/DomainData.md) is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
 
 #### Returns
 
 [`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"addDomain(uint256,uint256,uint256,string)"``, { `domainId`: `BigNumber` ; `fundingPotId`: `BigNumber` ; `metadata`: `string`  }, [`Domain`](../enums/MetadataType.md#domain)\>
 
 A transaction creator
+
+#### Required permissions for forced transaction:
+
+* [ColonyRole.Architecture](../enums/ColonyRole.md#architecture)
 
 #### Event data
 
@@ -286,6 +298,10 @@ Currently you can only add domains within the `Root` domain. This restriction wi
 [`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"addDomain(uint256,uint256,uint256,string)"``, { `domainId`: `BigNumber` ; `fundingPotId`: `BigNumber` ; `metadata`: `undefined`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
+
+#### Required permissions for forced transaction:
+
+* [ColonyRole.Architecture](../enums/ColonyRole.md#architecture)
 
 #### Event data
 
@@ -322,6 +338,10 @@ Only works for native tokens deployed with Colony (not imported tokens).
 
 A transaction creator
 
+#### Required permissions for forced transaction:
+
+* [ColonyRole.Root](../enums/ColonyRole.md#root)
+
 #### Event data
 
 | Property | Type | Description |
@@ -350,6 +370,10 @@ Teams can be deprecated which will remove them from the UI. As they can't be del
 [`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"deprecateDomain"``, { `agent?`: `string` ; `deprecated?`: `boolean` ; `domainId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
+
+#### Required permissions for forced transaction:
+
+* [ColonyRole.Architecture](../enums/ColonyRole.md#architecture)
 
 #### Event data
 
@@ -389,13 +413,17 @@ This will overwrite all exisiting metadata!
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `metadata` | `string` \| `ColonyData` | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If ColonyData is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
+| `metadata` | `string` \| [`ColonyData`](../interfaces/ColonyData.md) | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [ColonyData](../interfaces/ColonyData.md) is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
 
 #### Returns
 
 [`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"editColony"``, { `agent?`: `string` ; `metadata?`: `string`  }, [`Colony`](../enums/MetadataType.md#colony)\>
 
 A transaction creator
+
+#### Required permissions for forced transaction:
+
+* [ColonyRole.Root](../enums/ColonyRole.md#root)
 
 #### Event data
 
@@ -450,13 +478,17 @@ import { TeamColor } from '@colony/sdk';
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `metadata` | `string` \| `DomainData` | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If DomainData is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
+| `metadata` | `string` \| [`DomainData`](../interfaces/DomainData.md) | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [DomainData](../interfaces/DomainData.md) is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
 
 #### Returns
 
 [`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"editDomain"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `metadata?`: `string`  }, [`Domain`](../enums/MetadataType.md#domain)\>
 
 A transaction creator
+
+#### Required permissions for forced transaction:
+
+* [ColonyRole.Architecture](../enums/ColonyRole.md#architecture)
 
 #### Event data
 
@@ -496,6 +528,10 @@ Be aware that to exit Recovery Mode a quorum of 50% is needed of all users who h
 
 A transaction creator
 
+#### Required permissions for forced transaction:
+
+* [ColonyRole.Recovery](../enums/ColonyRole.md#recovery)
+
 #### Event data
 
 | Property | Type | Description |
@@ -517,6 +553,10 @@ In Recovery Mode, no actions are possible on the colony. Only users who have the
 [`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"exitRecoveryMode"``, { `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
+
+#### Required permissions for forced transaction:
+
+* [ColonyRole.Recovery](../enums/ColonyRole.md#recovery)
 
 #### Event data
 
@@ -712,6 +752,10 @@ After an extension was installed, `colony.updateExtensions()` needs to be called
 
 A transaction creator
 
+#### Required permissions for forced transaction:
+
+* [ColonyRole.Root](../enums/ColonyRole.md#root)
+
 #### Event data
 
 | Property | Type | Description |
@@ -771,6 +815,10 @@ const encodedAction = ERC721Interface.encodeFunctionData(
 
 A transaction creator
 
+#### Required permissions for forced transaction:
+
+* [ColonyRole.Root](../enums/ColonyRole.md#root)
+
 **No event data**
 
 ___
@@ -812,6 +860,10 @@ import { w } from '@colony/sdk';
 [`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"mintTokens"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `who?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
+
+#### Required permissions for forced transaction:
+
+* [ColonyRole.Root](../enums/ColonyRole.md#root)
 
 #### Event data
 
@@ -867,6 +919,10 @@ import { Tokens, w } from '@colony/sdk';
 
 A transaction creator
 
+#### Required permissions for forced transaction:
+
+* [ColonyRole.Funding](../enums/ColonyRole.md#funding) in both teams
+
 #### Event data
 
 | Property | Type | Description |
@@ -919,6 +975,10 @@ import { ColonyRole } from '@colony/sdk';
 
 A transaction creator
 
+#### Required permissions for forced transaction:
+
+* [ColonyRole.Architecture](../enums/ColonyRole.md#architecture), [ColonyRole.Root](../enums/ColonyRole.md#root)
+
 #### Event data
 
 Heads up!* This event is emitted for every role that was set
@@ -959,6 +1019,10 @@ Only users with *Arbitration* role are allowed to award reputation
 
 A transaction creator
 
+#### Required permissions for forced transaction:
+
+* [ColonyRole.Arbitration](../enums/ColonyRole.md#arbitration)
+
 #### Event data
 
 | Property | Type | Description |
@@ -989,6 +1053,10 @@ Unset (remove) roles from a user/contract
 [`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"setUserRoles"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `role?`: `number` ; `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
+
+#### Required permissions for forced transaction:
+
+* [ColonyRole.Architecture](../enums/ColonyRole.md#architecture), [ColonyRole.Root](../enums/ColonyRole.md#root)
 
 #### Event data
 
@@ -1043,6 +1111,10 @@ This method upgrades the colony to a specified version or, if no version is prov
 [`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"upgrade"``, { `newVersion?`: `BigNumber` ; `oldVersion?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
+
+#### Required permissions for forced transaction:
+
+* [ColonyRole.Root](../enums/ColonyRole.md#root)
 
 #### Event data
 
