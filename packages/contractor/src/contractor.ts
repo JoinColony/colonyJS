@@ -6,7 +6,7 @@ import { runTypeChain, glob } from 'typechain';
 import { latest as latestTag, releases, releaseMap } from '@colony/abis';
 
 // Contracts needed in the core package
-const CORE_CONTRACTS = ['MotionTarget'];
+const CORE_CONTRACTS = ['MotionTarget', 'Versioned'];
 
 // Upgradable contract names that will be generated
 const VERSIONED_CONTRACTS = [
@@ -187,7 +187,7 @@ const buildEventsContracts = async (outputDir: string, plugin: string) => {
   });
 };
 const buildCoreContracts = async (outputDir: string, plugin: string) => {
-  const contractGlobs = `${CORE_CONTRACTS.map((c) => `${c}.json`).join(',')}`;
+  const contractGlobs = `{${CORE_CONTRACTS.map((c) => `${c}.json`).join(',')}}`;
   const files = glob(CWD, [`${CORE_DIR}/${contractGlobs}`]);
 
   return runTypeChain({
@@ -225,10 +225,9 @@ const start = async () => {
     .command('colony', 'Make Colony contracts', {
       tag: {
         alias: 't',
-        type: 'string',
-        default: latestTag,
-        describe: 'Colony Network release tag to build (e.g. glwss)',
-        choices: [...releases, 'LATEST', 'ALL'],
+        array: true,
+        default: releases.length,
+        describe: `Colony Network release tag(s) to build (e.g. glwss), or a number determining to build the latest X tags`,
       },
     })
     .command('tokens', 'Make token contracts')
@@ -270,15 +269,20 @@ const start = async () => {
       break;
     }
     case 'colony': {
-      if (tag === 'ALL') {
-        await Promise.all(
-          releases.map((release) => buildTag(release, outputDir, plugin)),
-        );
-      } else if (tag === 'LATEST') {
-        await buildTag(latestTag, outputDir, plugin);
-      } else {
-        await buildAllLatest(outputDir, plugin);
-      }
+      const argTag = tag as (number | string)[];
+      const tags =
+        typeof argTag[0] == 'number'
+          ? releases.slice(releases.length - argTag[0])
+          : (argTag as string[]);
+      await Promise.all(
+        tags.map(async (releaseTag) => {
+          if (releaseTag === latestTag) {
+            await buildAllLatest(outputDir, plugin);
+          } else {
+            await buildTag(releaseTag, outputDir, plugin);
+          }
+        }),
+      );
       break;
     }
     case 'tokens': {
