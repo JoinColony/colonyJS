@@ -72,16 +72,16 @@ ___
 
 ### supportedVersions
 
-▪ `Static` **supportedVersions**: (``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12``)[]
+▪ `Static` **supportedVersions**: ({ `factory`: typeof `IColony__factory` = ColonyFactory10; `version`: `number` = 10 } \| { `factory`: typeof `IColony__factory` = ColonyFactory11; `version`: `number` = 11 })[]
 
-The currently supported Colony version. If a Colony is not on this version it has to be upgraded.
+The currently supported Colony versions. If a Colony version is not included here it has to be upgraded.
 If this is not an option, Colony SDK might throw errors at certain points. Usage of ColonyJS is advised in these cases
 
 ## Methods
 
 ### annotateTransaction
 
-▸ **annotateTransaction**(`txHash`, `metadata`): [`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, [`Annotation`](../enums/MetadataType.md#annotation)\>
+▸ **annotateTransaction**(`txHash`, `metadata`): [`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, [`Annotation`](../enums/MetadataType.md#annotation)\>
 
 Annotate a transaction with IPFS metadata to provide extra information
 
@@ -120,7 +120,7 @@ If AnnotationData is provided directly (as opposed to a [CID](https://docs.ipfs.
 
 #### Returns
 
-[`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, [`Annotation`](../enums/MetadataType.md#annotation)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, [`Annotation`](../enums/MetadataType.md#annotation)\>
 
 A transaction creator
 
@@ -144,7 +144,7 @@ ___
 
 ### awardReputation
 
-▸ **awardReputation**(`address`, `amount`, `team?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"emitDomainReputationReward"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `skillId?`: `BigNumber` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **awardReputation**(`address`, `amount`, `team?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"emitDomainReputationReward"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `skillId?`: `BigNumber` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Award reputation to a user within a team
 
@@ -164,7 +164,7 @@ Only users with *Root* role are allowed to award reputation
 
 #### Returns
 
-[`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"emitDomainReputationReward"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `skillId?`: `BigNumber` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"emitDomainReputationReward"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `skillId?`: `BigNumber` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
@@ -181,7 +181,7 @@ ___
 
 ### claimFunds
 
-▸ **claimFunds**(`tokenAddress?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"claimColonyFunds"``, { `fee?`: `BigNumber` ; `payoutRemainder?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **claimFunds**(`tokenAddress?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"claimColonyFunds"``, { `fee?`: `BigNumber` ; `payoutRemainder?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Claim outstanding Colony funds
 
@@ -199,7 +199,7 @@ use `ethers.constants.AddressZero` to claim ETH.
 
 #### Returns
 
-[`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"claimColonyFunds"``, { `fee?`: `BigNumber` ; `payoutRemainder?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"claimColonyFunds"``, { `fee?`: `BigNumber` ; `payoutRemainder?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
@@ -216,7 +216,7 @@ ___
 
 ### createTeam
 
-▸ **createTeam**(`metadata`): [`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"addDomain(uint256,uint256,uint256,string)"``, { `domainId`: `BigNumber` ; `fundingPotId`: `BigNumber` ; `metadata`: `string`  }, [`Domain`](../enums/MetadataType.md#domain)\>
+▸ **createTeam**(`metadata`): [`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"addDomain(uint256,uint256,uint256,string)"``, { `domainId`: `BigNumber` ; `fundingPotId`: `BigNumber` ; `metadata`: `string`  }, [`Domain`](../enums/MetadataType.md#domain)\>
 
 Create a team (domain) within a Colony with team details as metadata
 
@@ -250,7 +250,7 @@ import { TeamColor } from '@colony/sdk';
 
 #### Returns
 
-[`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"addDomain(uint256,uint256,uint256,string)"``, { `domainId`: `BigNumber` ; `fundingPotId`: `BigNumber` ; `metadata`: `string`  }, [`Domain`](../enums/MetadataType.md#domain)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"addDomain(uint256,uint256,uint256,string)"``, { `domainId`: `BigNumber` ; `fundingPotId`: `BigNumber` ; `metadata`: `string`  }, [`Domain`](../enums/MetadataType.md#domain)\>
 
 A transaction creator
 
@@ -273,7 +273,7 @@ A transaction creator
 | `domainColor` | string | The color assigned to this team |
 | `domainPurpose` | string | The purpose for this team (a broad description) |
 
-▸ **createTeam**(): [`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"addDomain(uint256,uint256,uint256,string)"``, { `domainId`: `BigNumber` ; `fundingPotId`: `BigNumber` ; `metadata`: `undefined`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **createTeam**(): [`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"addDomain(uint256,uint256,uint256,string)"``, { `domainId`: `BigNumber` ; `fundingPotId`: `BigNumber` ; `metadata`: `undefined`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Create a team (domain) within a Colony with no metadata attached
 
@@ -283,7 +283,7 @@ Currently you can only add domains within the `Root` domain. This restriction wi
 
 #### Returns
 
-[`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"addDomain(uint256,uint256,uint256,string)"``, { `domainId`: `BigNumber` ; `fundingPotId`: `BigNumber` ; `metadata`: `undefined`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"addDomain(uint256,uint256,uint256,string)"``, { `domainId`: `BigNumber` ; `fundingPotId`: `BigNumber` ; `metadata`: `undefined`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
@@ -332,7 +332,7 @@ ___
 
 ### deprecateTeam
 
-▸ **deprecateTeam**(`teamId`, `deprecated`): [`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"deprecateDomain"``, { `agent?`: `string` ; `deprecated?`: `boolean` ; `domainId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **deprecateTeam**(`teamId`, `deprecated`): [`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"deprecateDomain"``, { `agent?`: `string` ; `deprecated?`: `boolean` ; `domainId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Deprecate (remove) or undeprecate a team
 
@@ -347,7 +347,7 @@ Teams can be deprecated which will remove them from the UI. As they can't be del
 
 #### Returns
 
-[`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"deprecateDomain"``, { `agent?`: `string` ; `deprecated?`: `boolean` ; `domainId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"deprecateDomain"``, { `agent?`: `string` ; `deprecated?`: `boolean` ; `domainId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
@@ -363,7 +363,7 @@ ___
 
 ### edit
 
-▸ **edit**(`metadata`): [`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"editColony"``, { `agent?`: `string` ; `metadata?`: `string`  }, [`Colony`](../enums/MetadataType.md#colony)\>
+▸ **edit**(`metadata`): [`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"editColony"``, { `agent?`: `string` ; `metadata?`: `string`  }, [`Colony`](../enums/MetadataType.md#colony)\>
 
 Edit a colony's metadata
 
@@ -393,7 +393,7 @@ This will overwrite all exisiting metadata!
 
 #### Returns
 
-[`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"editColony"``, { `agent?`: `string` ; `metadata?`: `string`  }, [`Colony`](../enums/MetadataType.md#colony)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"editColony"``, { `agent?`: `string` ; `metadata?`: `string`  }, [`Colony`](../enums/MetadataType.md#colony)\>
 
 A transaction creator
 
@@ -420,7 +420,7 @@ ___
 
 ### editTeam
 
-▸ **editTeam**(`metadata`): [`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"editDomain"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `metadata?`: `string`  }, [`Domain`](../enums/MetadataType.md#domain)\>
+▸ **editTeam**(`metadata`): [`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"editDomain"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `metadata?`: `string`  }, [`Domain`](../enums/MetadataType.md#domain)\>
 
 Edit a team (domain) within a Colony with team details as metadata
 
@@ -454,7 +454,7 @@ import { TeamColor } from '@colony/sdk';
 
 #### Returns
 
-[`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"editDomain"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `metadata?`: `string`  }, [`Domain`](../enums/MetadataType.md#domain)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"editDomain"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `metadata?`: `string`  }, [`Domain`](../enums/MetadataType.md#domain)\>
 
 A transaction creator
 
@@ -480,7 +480,7 @@ ___
 
 ### enterRecoveryMode
 
-▸ **enterRecoveryMode**(): [`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"enterRecoveryMode"``, { `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **enterRecoveryMode**(): [`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"enterRecoveryMode"``, { `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Put the colony into Recovery Mode
 
@@ -492,7 +492,7 @@ Be aware that to exit Recovery Mode a quorum of 50% is needed of all users who h
 
 #### Returns
 
-[`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"enterRecoveryMode"``, { `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"enterRecoveryMode"``, { `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
@@ -506,7 +506,7 @@ ___
 
 ### exitRecoveryMode
 
-▸ **exitRecoveryMode**(): [`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"exitRecoveryMode"``, { `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **exitRecoveryMode**(): [`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"exitRecoveryMode"``, { `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Exit Recovery Mode
 
@@ -514,7 +514,7 @@ In Recovery Mode, no actions are possible on the colony. Only users who have the
 
 #### Returns
 
-[`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"exitRecoveryMode"``, { `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"exitRecoveryMode"``, { `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
@@ -649,7 +649,7 @@ ___
 
 ### getTeam
 
-▸ **getTeam**(`teamId`): `Promise`<`DomainStructOutput`\>
+▸ **getTeam**(`teamId`): `Promise`<`Domain`\>
 
 Gets the team for `teamId`
 
@@ -665,7 +665,7 @@ Will throw if teamId does not exist
 
 #### Returns
 
-`Promise`<`DomainStructOutput`\>
+`Promise`<`Domain`\>
 
 A Team object
 
@@ -673,7 +673,7 @@ ___
 
 ### installExtension
 
-▸ **installExtension**(`extension`): [`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"installExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **installExtension**(`extension`): [`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"installExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Install an extension for a colony
 
@@ -708,7 +708,7 @@ After an extension was installed, `colony.updateExtensions()` needs to be called
 
 #### Returns
 
-[`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"installExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"installExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
@@ -724,7 +724,7 @@ ___
 
 ### makeArbitraryTransaction
 
-▸ **makeArbitraryTransaction**(`target`, `action`): [`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"makeArbitraryTransactions"``, { `data?`: `string` ; `success?`: `boolean` ; `target?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **makeArbitraryTransaction**(`target`, `action`): [`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"makeArbitraryTransactions"``, { `data?`: `string` ; `success?`: `boolean` ; `target?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Execute an arbitrary transaction in the name of the Colony
 
@@ -767,7 +767,7 @@ const encodedAction = ERC721Interface.encodeFunctionData(
 
 #### Returns
 
-[`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"makeArbitraryTransactions"``, { `data?`: `string` ; `success?`: `boolean` ; `target?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"makeArbitraryTransactions"``, { `data?`: `string` ; `success?`: `boolean` ; `target?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
@@ -777,7 +777,7 @@ ___
 
 ### mint
 
-▸ **mint**(`amount`): [`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"mintTokens"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `who?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **mint**(`amount`): [`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"mintTokens"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `who?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Mints `amount` of a Colony's native token.
 
@@ -809,7 +809,7 @@ import { w } from '@colony/sdk';
 
 #### Returns
 
-[`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"mintTokens"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `who?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"mintTokens"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `who?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
@@ -825,7 +825,7 @@ ___
 
 ### moveFundsToTeam
 
-▸ **moveFundsToTeam**(`amount`, `toTeam`, `fromTeam?`, `tokenAddress?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `fromPot?`: `BigNumber` ; `toPot?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **moveFundsToTeam**(`amount`, `toTeam`, `fromTeam?`, `tokenAddress?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `fromPot?`: `BigNumber` ; `toPot?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Move funds from one team to another
 
@@ -863,7 +863,7 @@ import { Tokens, w } from '@colony/sdk';
 
 #### Returns
 
-[`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `fromPot?`: `BigNumber` ; `toPot?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `fromPot?`: `BigNumber` ; `toPot?`: `BigNumber` ; `token?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
@@ -881,7 +881,7 @@ ___
 
 ### setRoles
 
-▸ **setRoles**(`address`, `roles`, `teamId?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"setUserRoles"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `role?`: `number` ; `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **setRoles**(`address`, `roles`, `teamId?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"setUserRoles"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `role?`: `number` ; `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Set (award) roles to a user/contract
 
@@ -915,7 +915,7 @@ import { ColonyRole } from '@colony/sdk';
 
 #### Returns
 
-[`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"setUserRoles"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `role?`: `number` ; `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"setUserRoles"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `role?`: `number` ; `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
@@ -935,7 +935,7 @@ ___
 
 ### smiteReputation
 
-▸ **smiteReputation**(`address`, `amount`, `team?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"emitDomainReputationPenalty"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `skillId?`: `BigNumber` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **smiteReputation**(`address`, `amount`, `team?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"emitDomainReputationPenalty"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `skillId?`: `BigNumber` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Smite (remove) reputation from a user within a team
 
@@ -955,7 +955,7 @@ Only users with *Arbitration* role are allowed to award reputation
 
 #### Returns
 
-[`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"emitDomainReputationPenalty"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `skillId?`: `BigNumber` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"emitDomainReputationPenalty"``, { `agent?`: `string` ; `amount?`: `BigNumber` ; `skillId?`: `BigNumber` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
@@ -972,7 +972,7 @@ ___
 
 ### unsetRoles
 
-▸ **unsetRoles**(`address`, `roles`, `teamId?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"setUserRoles"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `role?`: `number` ; `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **unsetRoles**(`address`, `roles`, `teamId?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"setUserRoles"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `role?`: `number` ; `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Unset (remove) roles from a user/contract
 
@@ -986,7 +986,7 @@ Unset (remove) roles from a user/contract
 
 #### Returns
 
-[`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"setUserRoles"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `role?`: `number` ; `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"setUserRoles"``, { `agent?`: `string` ; `domainId?`: `BigNumber` ; `role?`: `number` ; `setTo?`: `boolean` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
@@ -1021,7 +1021,7 @@ ___
 
 ### upgrade
 
-▸ **upgrade**(`toVersion?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"upgrade"``, { `newVersion?`: `BigNumber` ; `oldVersion?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **upgrade**(`toVersion?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"upgrade"``, { `newVersion?`: `BigNumber` ; `oldVersion?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Upgrade a colony to the next or a custom version
 
@@ -1040,7 +1040,7 @@ This method upgrades the colony to a specified version or, if no version is prov
 
 #### Returns
 
-[`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"upgrade"``, { `newVersion?`: `BigNumber` ; `oldVersion?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"upgrade"``, { `newVersion?`: `BigNumber` ; `oldVersion?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
@@ -1059,7 +1059,7 @@ ___
 
 Create an instance of a Colony client and connect the Network to it
 
-Only supports the latest version of the Colony contract
+Only supports the latest 3 versions of the Colony contract
 
 #### Parameters
 

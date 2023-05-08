@@ -21,6 +21,7 @@ import {
   DecisionMotionCode,
   ColonyRole,
   getChildIndex,
+  getContractVersion,
   getCreateMotionProofs,
   getExtensionHash,
   getPermissionProofs,
@@ -29,11 +30,16 @@ import {
 } from '@colony/core';
 import { DecisionData, MetadataType } from '@colony/event-metadata';
 
-import type { VotingReputationDataTypes } from '../contracts/IVotingReputation/8/IVotingReputation';
+import type { VotingReputationDataTypes as VotingReputationDataTypes7 } from '../contracts/IVotingReputation/7/IVotingReputation';
+import type { VotingReputationDataTypes as VotingReputationDataTypes8 } from '../contracts/IVotingReputation/8/IVotingReputation';
 
 import {
-  IVotingReputation as VotingReputationContract,
-  IVotingReputation__factory as VotingReputationFactory,
+  IVotingReputation as VotingReputationContract7,
+  IVotingReputation__factory as VotingReputationFactory7,
+} from '../contracts/IVotingReputation/7';
+import {
+  IVotingReputation as VotingReputationContract8,
+  IVotingReputation__factory as VotingReputationFactory8,
 } from '../contracts/IVotingReputation/8';
 
 import { extractEvent, extractCustomEvent } from '../utils';
@@ -41,9 +47,13 @@ import { Colony } from './Colony';
 
 const { AddressZero } = constants;
 
-export type SupportedVotingReputationContract = VotingReputationContract;
+export type SupportedVotingReputationContract =
+  | VotingReputationContract7
+  | VotingReputationContract8;
 
-export type Motion = VotingReputationDataTypes.MotionStruct;
+export type Motion =
+  | VotingReputationDataTypes7.MotionStruct
+  | VotingReputationDataTypes8.MotionStruct;
 
 export enum Vote {
   Nay,
@@ -142,7 +152,10 @@ const REP_DIVISOR = BigNumber.from(10).pow(18);
  *
  */
 export class VotingReputation {
-  static supportedVersions: VotingReputationVersion[] = [8];
+  static supportedVersions = [
+    { version: 7, factory: VotingReputationFactory7 },
+    { version: 8, factory: VotingReputationFactory8 },
+  ];
 
   static extensionType: Extension.IVotingReputation =
     Extension.IVotingReputation;
@@ -160,34 +173,36 @@ export class VotingReputation {
         `${VotingReputation.extensionType} extension is not installed for this Colony`,
       );
     }
-    const votingReputationContract = VotingReputationFactory.connect(
+
+    const version = (await getContractVersion(
+      address,
+      colony.colonyNetwork.signerOrProvider,
+    )) as VotingReputationVersion;
+
+    if (
+      !isExtensionCompatible(Extension.OneTxPayment, version, colony.version)
+    ) {
+      throw new Error(
+        `Version ${version} of the ${VotingReputation.extensionType} contract is not compatible with the installed Colony contract version ${colony.version}`,
+      );
+    }
+
+    const Factory = VotingReputation.supportedVersions.find(
+      (v) => v.version === version,
+    )?.factory;
+
+    if (!Factory) {
+      throw new Error(
+        `Version ${version} of the ${VotingReputation.extensionType} contract is not supported in the SDK as of now`,
+      );
+    }
+
+    const oneTxPaymentContract = Factory.connect(
       address,
       colony.colonyNetwork.signerOrProvider,
     );
-    const deployedVersion = (
-      await votingReputationContract.version()
-    ).toNumber() as VotingReputationVersion;
-    if (!VotingReputation.supportedVersions.includes(deployedVersion)) {
-      throw new Error(
-        `Version ${deployedVersion} of the ${VotingReputation.extensionType} contract is not supported in the SDK as of now`,
-      );
-    }
-    if (
-      !isExtensionCompatible(
-        Extension.VotingReputation,
-        deployedVersion,
-        colony.version,
-      )
-    ) {
-      throw new Error(
-        `Version ${deployedVersion} of the ${VotingReputation.extensionType} contract is not compatible with the installed Colony contract version ${colony.version}`,
-      );
-    }
-    return new VotingReputation(
-      colony,
-      votingReputationContract,
-      deployedVersion,
-    );
+
+    return new VotingReputation(colony, oneTxPaymentContract, version);
   }
 
   private colony: Colony;
@@ -201,7 +216,7 @@ export class VotingReputation {
   static getLatestSupportedVersion() {
     return VotingReputation.supportedVersions[
       VotingReputation.supportedVersions.length - 1
-    ];
+    ]?.version as VotingReputationVersion;
   }
 
   constructor(
@@ -351,10 +366,7 @@ export class VotingReputation {
    *
    * @returns The minimum stake amount
    */
-  async getMinStake(
-    motion: VotingReputationDataTypes.MotionStructOutput,
-    vote: Vote,
-  ) {
+  async getMinStake(motion: Motion, vote: Vote) {
     // skillRep is the amount of reputation in the domain the motion was created in
     // at the time the motion was created
     const {
@@ -391,12 +403,16 @@ export class VotingReputation {
       vote === Vote.Nay &&
       BigNumber.from(totalNay).lt(requiredStakeForActivation)
     ) {
-      const requiredNay = requiredStakeForActivation.sub(totalNay);
+      const requiredNay = requiredStakeForActivation.sub(
+        BigNumber.from(totalNay),
+      );
       minStake = requiredNay.lt(minStakePerUser)
         ? requiredNay
         : minStakePerUser;
     } else if (BigNumber.from(totalYay).lt(requiredStakeForActivation)) {
-      const requiredYay = requiredStakeForActivation.sub(totalYay);
+      const requiredYay = requiredStakeForActivation.sub(
+        BigNumber.from(totalYay),
+      );
       minStake = requiredYay.lt(minStakePerUser)
         ? requiredYay
         : minStakePerUser;
