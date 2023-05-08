@@ -1,4 +1,5 @@
 import { Extension } from '../constants';
+import { ColonyVersion } from './IColony';
 import { COIN_MACHINE_VERSION_LATEST, CoinMachineVersion } from './CoinMachine';
 import {
   EVALUATED_EXPENDITURE_VERSION_LATEST,
@@ -67,6 +68,11 @@ export type ExtensionVersion =
   | TokenSupplierVersion
   | VotingReputationVersion
   | WhitelistVersion;
+
+/**
+ * All possible contract versions
+ */
+export type ContractVersion = ExtensionVersion | ColonyVersion;
 
 /**
  * All possible Colony versions

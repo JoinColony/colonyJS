@@ -10,6 +10,9 @@ import {
 } from '../constants';
 import { CommonColony, CommonNetwork } from './types';
 import { nonNullable } from '../utils';
+import { ContractVersion } from '../versions';
+import { SignerOrProvider } from '../types';
+import { Versioned__factory as VersionedFactory } from '../contracts';
 
 const { keccak256, toUtf8Bytes } = utils;
 const { MaxUint256 } = constants;
@@ -224,10 +227,29 @@ export const getPotDomain = async (
  * @returns block timestamp in ms
  */
 export const getBlockTime = async (
-  provider: Provider,
   blockHash: string,
+  provider: Provider,
 ): Promise<number> => {
   const { timestamp } = await provider.getBlock(blockHash);
   // timestamp is seconds, Date wants ms
   return timestamp * 1000;
+};
+
+/**
+ * Get the deployed contract's version
+ *
+ * Only works with compatible contracts, i.e. Colony contracts or their extensions.
+ *
+ * @param address - Address of the deployed contract
+ * @param signerOrProvider - ethers compatible Signer or Provider
+ *
+ * @returns The version number of the contract
+ */
+export const getContractVersion = async (
+  address: string,
+  signerOrProvider: SignerOrProvider,
+) => {
+  const versionedContract = VersionedFactory.connect(address, signerOrProvider);
+  const version = await versionedContract.version();
+  return version.toNumber() as ContractVersion;
 };

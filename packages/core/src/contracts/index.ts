@@ -2,5 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { MotionTarget } from "./MotionTarget";
+export type { Versioned } from "./Versioned";
 export * as factories from "./factories";
 export { MotionTarget__factory } from "./factories/MotionTarget__factory";
+export { Versioned__factory } from "./factories/Versioned__factory";
