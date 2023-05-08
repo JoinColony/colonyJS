@@ -8,6 +8,7 @@ import {
   Extension,
   ColonyRole,
   Id,
+  getContractVersion,
   getExtensionHash,
   getPermissionProofs,
   isExtensionCompatible,
@@ -16,14 +17,14 @@ import { BigNumber, BigNumberish, constants } from 'ethers';
 
 import { extractEvent } from '../utils';
 import {
-  OneTxPayment as OneTxPaymentContract,
-  OneTxPayment__factory as OneTxPaymentFactory,
+  OneTxPayment as OneTxPaymentContract4,
+  OneTxPayment__factory as OneTxPaymentFactory4,
 } from '../contracts/OneTxPayment/4';
 import { Colony } from './Colony';
 
 const { AddressZero } = constants;
 
-export type SupportedOneTxPaymentContract = OneTxPaymentContract;
+export type SupportedOneTxPaymentContract = OneTxPaymentContract4;
 
 /**
  * ## `OneTxPayment` (One Transaction Payment)
@@ -42,7 +43,7 @@ export class OneTxPayment {
   /**
    * The currently supported OneTXPayment contract version. If the extension contract is not on this version it has to be upgraded.
    */
-  static supportedVersions: OneTxPaymentVersion[] = [4];
+  static supportedVersions = [{ version: 4, factory: OneTxPaymentFactory4 }];
 
   static extensionType: Extension.OneTxPayment = Extension.OneTxPayment;
 
@@ -67,30 +68,36 @@ export class OneTxPayment {
         `${OneTxPayment.extensionType} extension is not installed for this Colony`,
       );
     }
-    const oneTxPaymentContract = OneTxPaymentFactory.connect(
+
+    const version = (await getContractVersion(
+      address,
+      colony.colonyNetwork.signerOrProvider,
+    )) as OneTxPaymentVersion;
+
+    if (
+      !isExtensionCompatible(Extension.OneTxPayment, version, colony.version)
+    ) {
+      throw new Error(
+        `Version ${version} of the ${OneTxPayment.extensionType} contract is not compatible with the installed Colony contract version ${colony.version}`,
+      );
+    }
+
+    const Factory = OneTxPayment.supportedVersions.find(
+      (v) => v.version === version,
+    )?.factory;
+
+    if (!Factory) {
+      throw new Error(
+        `Version ${version} of the ${OneTxPayment.extensionType} contract is not supported in the SDK as of now`,
+      );
+    }
+
+    const oneTxPaymentContract = Factory.connect(
       address,
       colony.colonyNetwork.signerOrProvider,
     );
-    const deployedVersion = (
-      await oneTxPaymentContract.version()
-    ).toNumber() as OneTxPaymentVersion;
-    if (!OneTxPayment.supportedVersions.includes(deployedVersion)) {
-      throw new Error(
-        `Version ${deployedVersion} of the ${OneTxPayment.extensionType} contract is not supported in the SDK as of now`,
-      );
-    }
-    if (
-      !isExtensionCompatible(
-        Extension.OneTxPayment,
-        deployedVersion,
-        colony.version,
-      )
-    ) {
-      throw new Error(
-        `Version ${deployedVersion} of the ${OneTxPayment.extensionType} contract is not compatible with the installed Colony contract version ${colony.version}`,
-      );
-    }
-    return new OneTxPayment(colony, oneTxPaymentContract, deployedVersion);
+
+    return new OneTxPayment(colony, oneTxPaymentContract, version);
   }
 
   private colony: Colony;
@@ -113,7 +120,7 @@ export class OneTxPayment {
   static getLatestSupportedVersion() {
     return OneTxPayment.supportedVersions[
       OneTxPayment.supportedVersions.length - 1
-    ];
+    ]?.version as OneTxPaymentVersion;
   }
 
   /**

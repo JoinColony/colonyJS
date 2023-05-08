@@ -27,6 +27,7 @@ import {
   ColonyRole,
   ReputationClient,
   getChildIndex,
+  getContractVersion,
   getExtensionHash,
   getPermissionProofs,
   isExtensionCompatible,
@@ -41,12 +42,22 @@ import {
 } from '@colony/event-metadata';
 
 import type { Expand, Parameters, ParametersFrom2 } from '../types';
-import type { ColonyDataTypes } from '../contracts/IColony/12/IColony';
+import type { ColonyDataTypes as ColonyDataTypes10 } from '../contracts/IColony/10/IColony';
+import type { ColonyDataTypes as ColonyDataTypes11 } from '../contracts/IColony/11/IColony';
+import type { ColonyDataTypes as ColonyDataTypes12 } from '../contracts/IColony/12/IColony';
 import type { IBasicMetaTransaction } from '../contracts/IBasicMetaTransaction';
 
 import {
-  IColony as ColonyContract,
-  IColony__factory as ColonyFactory,
+  IColony as ColonyContract10,
+  IColony__factory as ColonyFactory10,
+} from '../contracts/IColony/10';
+import {
+  IColony as ColonyContract11,
+  IColony__factory as ColonyFactory11,
+} from '../contracts/IColony/11';
+import {
+  IColony as ColonyContract12,
+  IColony__factory as ColonyFactory12,
 } from '../contracts/IColony/12';
 import { PermissionConfig, TxConfig, ColonyTxCreator } from '../TxCreator';
 import { extractEvent, extractCustomEvent } from '../utils';
@@ -55,8 +66,16 @@ import { OneTxPayment } from './OneTxPayment';
 import { Token, getToken } from './tokens';
 import { VotingReputation } from './VotingReputation';
 
-export type SupportedColonyContract = ColonyContract;
+export type SupportedColonyContract =
+  | ColonyContract10
+  | ColonyContract11
+  | ColonyContract12;
 export type SupportedColonyMethods = SupportedColonyContract['functions'];
+
+export type Domain =
+  | ColonyDataTypes10.DomainStructOutput
+  | ColonyDataTypes11.DomainStructOutput
+  | ColonyDataTypes12.DomainStructOutput;
 
 /** Extensions that are supported by Colony SDK */
 export enum SupportedExtension {
@@ -78,15 +97,19 @@ export interface SupportedExtensions {
 
 export class Colony {
   /**
-   * The currently supported Colony version. If a Colony is not on this version it has to be upgraded.
+   * The currently supported Colony versions. If a Colony version is not included here it has to be upgraded.
    * If this is not an option, Colony SDK might throw errors at certain points. Usage of ColonyJS is advised in these cases
    */
-  static supportedVersions: ColonyVersion[] = [12];
+  static supportedVersions = [
+    { version: 10, factory: ColonyFactory10 },
+    { version: 11, factory: ColonyFactory11 },
+    { version: 12, factory: ColonyFactory12 },
+  ];
 
   /**
    * Create an instance of a Colony client and connect the Network to it
    *
-   * Only supports the latest version of the Colony contract
+   * Only supports the latest 3 versions of the Colony contract
    *
    * @param colonyNetwork - The ColonyNetwork instance
    * @param address - The Colony's address
@@ -94,26 +117,29 @@ export class Colony {
    * @returns A connected Colony instance
    */
   static async connect(colonyNetwork: ColonyNetwork, address: string) {
-    const colonyContract = ColonyFactory.connect(
+    const version = (await getContractVersion(
+      address,
+      colonyNetwork.signerOrProvider,
+    )) as ColonyVersion;
+
+    const Factory = Colony.supportedVersions.find(
+      (v) => v.version === version,
+    )?.factory;
+
+    if (!Factory) {
+      throw new Error(
+        `Version ${version} of the Colony contract is not supported in the SDK as of now`,
+      );
+    }
+
+    const colonyContract = Factory.connect(
       address,
       colonyNetwork.signerOrProvider,
     );
-    const deployedVersion = (
-      await colonyContract.version()
-    ).toNumber() as ColonyVersion;
-    if (!Colony.supportedVersions.includes(deployedVersion)) {
-      throw new Error(
-        `Version ${deployedVersion} of the Colony contract is not supported in the SDK as of now`,
-      );
-    }
+
     const tokenAddress = await colonyContract.getToken();
     const token = await getToken(colonyNetwork, tokenAddress);
-    const colony = new Colony(
-      colonyNetwork,
-      colonyContract,
-      token,
-      deployedVersion,
-    );
+    const colony = new Colony(colonyNetwork, colonyContract, token, version);
     await colony.updateExtensions();
     return colony;
   }
@@ -125,8 +151,9 @@ export class Colony {
    *
    * @returns The latest supported version for the Colony contract
    */
-  static getLatestSupportedVersion() {
-    return Colony.supportedVersions[Colony.supportedVersions.length - 1];
+  static getLatestSupportedVersion(): ColonyVersion {
+    return Colony.supportedVersions[Colony.supportedVersions.length - 1]
+      .version as ColonyVersion;
   }
 
   private colony: SupportedColonyContract;
@@ -666,9 +693,7 @@ export class Colony {
    * @param teamId - The teamId to get the team information for
    * @returns A Team object
    */
-  async getTeam(
-    teamId: BigNumberish,
-  ): Promise<ColonyDataTypes.DomainStructOutput> {
+  async getTeam(teamId: BigNumberish): Promise<Domain> {
     const teamCount = await this.colony.getDomainCount();
     if (teamCount.lt(teamId)) {
       throw new Error(`Team with id ${teamId} does not exist`);

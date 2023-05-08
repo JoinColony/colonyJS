@@ -38,7 +38,7 @@ ___
 
 ### supportedVersions
 
-▪ `Static` **supportedVersions**: (``2`` \| ``1`` \| ``3`` \| ``4``)[]
+▪ `Static` **supportedVersions**: { `factory`: typeof `OneTxPayment__factory` = OneTxPaymentFactory4; `version`: `number` = 4 }[]
 
 The currently supported OneTXPayment contract version. If the extension contract is not on this version it has to be upgraded.
 
@@ -99,7 +99,7 @@ ___
 
 ### upgrade
 
-▸ **upgrade**(`toVersion?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"upgradeExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **upgrade**(`toVersion?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"upgradeExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Upgrade this extension to the next or a custom version
 
@@ -118,7 +118,7 @@ This method upgrades this extension to a specified version or, if no version is 
 
 #### Returns
 
-[`ColonyTxCreator`](ColonyTxCreator.md)<`IColony`, ``"upgradeExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"upgradeExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
