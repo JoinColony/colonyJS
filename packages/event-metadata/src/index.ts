@@ -1,6 +1,6 @@
 import typia from 'typia';
 
-import { DataTypeMap, Metadata, MetadataTypeMap } from './types';
+import { ColonyData, DataTypeMap, Metadata, MetadataTypeMap } from './types';
 
 import { MetadataType, METADATA_VERSION } from './constants';
 
@@ -14,6 +14,16 @@ const createError = (errors: typia.IValidation.IError[]) => {
   );
 
   return `Validation error(s):\n${errorsAsText.join('\n')}`;
+};
+
+const createColonyMetadata = (data: ColonyData): ColonyData => {
+  return {
+    ...data,
+    isWhitelistActivated: data.isWhitelistActivated || false,
+    colonySafes: data.colonySafes || [],
+    colonyTokens: data.colonyTokens || [],
+    verifiedAddresses: data.verifiedAddresses || [],
+  };
 };
 
 /**
@@ -119,9 +129,14 @@ export const createMetadataFor = <T extends MetadataType>(
   type: T,
   data: DataTypeMap[T],
 ): MetadataTypeMap[T] => {
+  const result =
+    type === MetadataType.Colony
+      ? createColonyMetadata(data as ColonyData)
+      : data;
+
   const res = typia.validate<Metadata>({
     type,
-    data,
+    data: result,
     version: METADATA_VERSION,
   });
 
@@ -129,5 +144,6 @@ export const createMetadataFor = <T extends MetadataType>(
     const error = createError(res.errors);
     throw new Error(error);
   }
+
   return res.data as MetadataTypeMap[T];
 };

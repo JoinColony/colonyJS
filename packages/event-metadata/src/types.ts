@@ -16,10 +16,10 @@ export interface ColonyData {
   colonyName: string;
   colonyDisplayName?: string;
   colonyAvatarHash?: string;
-  colonyTokens: Array<string>;
-  verifiedAddresses: Array<string>;
-  isWhitelistActivated: boolean;
-  colonySafes: Array<SafeInfo>;
+  colonyTokens?: Array<string>;
+  verifiedAddresses?: Array<string>;
+  isWhitelistActivated?: boolean;
+  colonySafes?: Array<SafeInfo>;
 }
 
 export interface ColonyMetadata extends BaseMetadata {
