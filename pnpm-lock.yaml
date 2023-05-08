@@ -100,8 +100,8 @@ importers:
   packages/contractor:
     dependencies:
       '@colony/abis':
-        specifier: ^0.2.1
-        version: 0.2.1
+        specifier: ^0.2.2
+        version: 0.2.2
       '@typechain/ethers-v5':
         specifier: ^10.2.0
         version: 10.2.0(@ethersproject/abi@5.7.0)(@ethersproject/bytes@5.7.0)(@ethersproject/providers@5.7.2)(typechain@8.1.1)(typescript@5.0.4)
@@ -827,8 +827,8 @@ packages:
       prettier: 2.8.8
     dev: false
 
-  /@colony/abis@0.2.1:
-    resolution: {integrity: sha512-W6qGPaF9GOXKQx9dg3QtRHJmq27ajPgvlCyKjM/CAyQEA/tDzao6ChvwBybcMm5Qn3xQRkIlKdtRIQRYdDMSVA==}
+  /@colony/abis@0.2.2:
+    resolution: {integrity: sha512-p9zvZ6WYgliSNvpT7BE7X9p/uUidXhwVZ5+Ze0K6l2T2V0pwhxBpMrvJBcZtbw8CYkTGF5Rd/l/rkt5hvXOdKg==}
     engines: {node: ^16, npm: ^8}
     dev: false
 
