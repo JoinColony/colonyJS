@@ -1,8 +1,8 @@
-🎪 Colony TypeScript
+🎪 Colony TypeScript libraries
 
 [![Discord](https://img.shields.io/discord/562263648173555742)](https://discord.gg/feVZWwysqM)
 
-# The Colony TypeScript packages
+# The Colony TypeScript libraries
 
 We are providing the following packages in this monorepo:
 

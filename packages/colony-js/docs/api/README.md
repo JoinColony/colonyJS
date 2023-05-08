@@ -158,6 +158,14 @@ ___
 
 ___
 
+### ContractVersion
+
+Ƭ **ContractVersion**: [`ExtensionVersion`](README.md#extensionversion) \| [`ColonyVersion`](README.md#colonyversion)
+
+All possible contract versions
+
+___
+
 ### DomainRoles
 
 Ƭ **DomainRoles**: `Object`
@@ -385,7 +393,7 @@ ___
 
 ### getBlockTime
 
-▸ **getBlockTime**(`provider`, `blockHash`): `Promise`<`number`\>
+▸ **getBlockTime**(`blockHash`, `provider`): `Promise`<`number`\>
 
 Get the JavaScript timestamp for a block
 
@@ -393,8 +401,8 @@ Get the JavaScript timestamp for a block
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `provider` | `Provider` | ethers compatible Provider |
 | `blockHash` | `string` | Hash of block to get time for |
+| `provider` | `Provider` | ethers compatible Provider |
 
 #### Returns
 
@@ -493,6 +501,29 @@ Get an array of all roles in the colony
 `Promise`<[`ColonyRoles`](README.md#colonyroles)\>
 
 Array of user roles in a colony (see above) fetching it's own network events
+
+___
+
+### getContractVersion
+
+▸ **getContractVersion**(`address`, `signerOrProvider`): `Promise`<[`ContractVersion`](README.md#contractversion)\>
+
+Get the deployed contract's version
+
+Only works with compatible contracts, i.e. Colony contracts or their extensions.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `address` | `string` | Address of the deployed contract |
+| `signerOrProvider` | [`SignerOrProvider`](README.md#signerorprovider) | ethers compatible Signer or Provider |
+
+#### Returns
+
+`Promise`<[`ContractVersion`](README.md#contractversion)\>
+
+The version number of the contract
 
 ___
 
