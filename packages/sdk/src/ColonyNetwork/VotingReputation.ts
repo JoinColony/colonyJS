@@ -167,7 +167,7 @@ export class VotingReputation {
     const deployedVersion = (
       await votingReputationContract.version()
     ).toNumber() as VotingReputationVersion;
-    if (VotingReputation.supportedVersions.includes(deployedVersion)) {
+    if (!VotingReputation.supportedVersions.includes(deployedVersion)) {
       throw new Error(
         `Version ${deployedVersion} of the ${VotingReputation.extensionType} contract is not supported in the SDK as of now`,
       );

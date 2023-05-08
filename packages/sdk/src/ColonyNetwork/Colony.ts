@@ -101,7 +101,7 @@ export class Colony {
     const deployedVersion = (
       await colonyContract.version()
     ).toNumber() as ColonyVersion;
-    if (Colony.supportedVersions.includes(deployedVersion)) {
+    if (!Colony.supportedVersions.includes(deployedVersion)) {
       throw new Error(
         `Version ${deployedVersion} of the Colony contract is not supported in the SDK as of now`,
       );

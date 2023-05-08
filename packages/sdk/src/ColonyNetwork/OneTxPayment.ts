@@ -74,7 +74,7 @@ export class OneTxPayment {
     const deployedVersion = (
       await oneTxPaymentContract.version()
     ).toNumber() as OneTxPaymentVersion;
-    if (OneTxPayment.supportedVersions.includes(deployedVersion)) {
+    if (!OneTxPayment.supportedVersions.includes(deployedVersion)) {
       throw new Error(
         `Version ${deployedVersion} of the ${OneTxPayment.extensionType} contract is not supported in the SDK as of now`,
       );
