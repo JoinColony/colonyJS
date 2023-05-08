@@ -1,5 +1,6 @@
 {
   "name": "@colony/sdk",
+  "description": "🚀 The development kit to build on top of Colony",
   "version": "2.0.0-next.1",
   "license": "GPL-3.0-only",
   "dependencies": {

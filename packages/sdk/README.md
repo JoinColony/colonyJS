@@ -1,4 +1,4 @@
-🚀 The Colony SDK. Get started with Colony quickly
+🚀 The development kit to build on top of Colony
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/JoinColony/brand/v1.0.0/logo_sdk.svg" width="600" />
@@ -6,7 +6,7 @@
 
 [![Discord](https://img.shields.io/discord/562263648173555742)](https://discord.gg/feVZWwysqM)
 
-# Colony SDK
+# `@colony/sdk`
 
 The Colony SDK is under heavy development by the community and will be an easy-to-use interface for the Colony Network contracts, providing simple functions that hide the dark magic going on under the hood of ColonyJS.
 It covers _everything_ the dApp can do, so you'll be able to run your DAO entirely programmatically 👩‍💻
@@ -23,7 +23,7 @@ import { ColonyNetwork, toEth } from '@colony/sdk';
 // NOTE: Make sure MetaMask is connected to Gnosis chain (see https://www.xdaichain.com/for-users/wallets/metamask/metamask-setup)
 const provider = new providers.Web3Provider(window.ethereum);
 
-// Get the Colony's XDAI funding in the ROOT pot (id 1)
+// Get the MetaColony's CLNY funding in the root team (id 1)
 const start = async () => {
   // This will try to connect the page to MetaMask
   await provider.send('eth_requestAccounts', []);
@@ -42,7 +42,7 @@ start();
 
 ## Documentation
 
-[🖺 Click here for docs!](https://docs.colony.io/colonysdk)
+[📑 Click here for docs!](https://docs.colony.io/colonysdk)
 
 ## Running the examples
 
@@ -87,7 +87,8 @@ These examples will run on Gnosis chain. If you'd like to make transactions, you
 
 ### Prerequisites
 
-- Node `>=16.0.0`
+- Node `>= 16`
+- pnpm `>= 8`
 
 _You may find it helpful to use [Node Version Manager (`nvm`)](https://github.com/nvm-sh/nvm) to manage Node versions._
 

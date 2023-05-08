@@ -1,14 +1,16 @@
+📜 The Colony TypeScript reference implementation
+
 <div align="center">
   <img src="https://raw.githubusercontent.com/JoinColony/brand/v1.0.0/logo_js.svg" width="600" />
 </div>
 
-# colonyJS
+# `@colony/colony-js`
 
 colonyJS is a JavaScript library with a simple and predictable interface for application-layer integrations with the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) smart contracts. To learn more about Colony, you can visit [colony.io](https://colony.io/) or read the [White Paper](https://colony.io/whitepaper.pdf).
 
 ## Documentation
 
-[🖺 Click here for docs!](https://docs.colony.io/colonyjs)
+[📑 Click here for docs!](https://docs.colony.io/colonyjs)
 
 You should check out the `getColonyNetworkClient` function in `ColonyNetworkClient` and the docs for the extended colony contracts `clients/Colony/ColonyClientVX`.
 

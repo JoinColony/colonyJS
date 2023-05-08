@@ -1,5 +1,6 @@
 {
   "name": "@colony/tokens",
+  "description": "🪙 Colony token contract bindings",
   "version": "0.1.2",
   "exports": {
     ".": {

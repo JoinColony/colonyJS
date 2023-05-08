@@ -1,6 +1,6 @@
 {
   "name": "@colony/event-metadata",
-  "description": "A tool to serialize and parse Colony event metadata",
+  "description": "📆 Parse and serialize Colony event metadata",
   "version": "3.0.0",
   "exports": {
     ".": {

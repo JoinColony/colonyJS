@@ -1,7 +1,7 @@
 {
   "name": "@colony/contractor",
   "version": "1.0.0",
-  "description": "A nifty tool that creates Colony Network TypeScript bindings",
+  "description": "✒️ A nifty tool that creates Colony Network TypeScript bindings",
   "scripts": {
     "clean": "rimraf ./bin",
     "build": "npm run clean && tsc --module commonjs --outDir bin",

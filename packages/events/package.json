@@ -1,5 +1,6 @@
 {
   "name": "@colony/events",
+  "description": "🎫 Colony event contract bindings",
   "version": "0.2.0",
   "exports": {
     ".": {

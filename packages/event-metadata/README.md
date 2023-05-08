@@ -1,6 +1,14 @@
-# Colony Event Metadata Parser
+📆 Parse and serialize Colony event metadata
 
-## Metadata format versions
+[![Discord](https://img.shields.io/discord/562263648173555742)](https://discord.gg/feVZWwysqM)
+
+# `@colony/event-metadata`
+
+This library parses and serializes data that is usually stored as metadata for blockchain events (usually on IPFS).
+
+## Usage
+
+### Metadata format versions
 
 ColonyDapp should support legacy Metadata formats.
 Therefore, when parsing (in ColonyDapp) it is necessary to check the Metadata format version and support V1 & later versions.
@@ -14,7 +22,7 @@ if (metadataVersion === 1) {
 }
 ```
 
-## Parsing
+### Parsing
 
 If type of Metadata object is unknown (e.g. in event logs)
 
@@ -37,7 +45,7 @@ const domainMetadata = parseEventMetadata(metadataObj, MetadataType.Domain);
 console.log(domainMetadata.data.domainColor); // 2
 ```
 
-## Creating metadata objects
+### Creating metadata objects
 
 ```ts
 import { createMetadataFor, MetadataType } from '@colony/event-metadata';
@@ -48,5 +56,14 @@ console.log(colonyMetadata.name); // 'colony'
 console.log(colonyMetadata.data); // { colonyName: 'Foo' }
 ```
 
+## Building
+
+To build this package, run `pnpm run build` in this directory. See the general [development instructions](../../README.md#Developing) for more information.
+
+## Contributing
+
+All contributions are welcome. Please read the [Contributing Guidelines](../../CONTRIBUTING.md) and review our [Code of Conduct](../../CODE_OF_CONDUCT.md) before submitting a PR.
+
 ## License
+
 GPL-3.0
