@@ -180,6 +180,10 @@ export class OneTxPayment {
    * @param teamId - The team to use to send the funds from. Has to have funding of at least the amount you need to send. See [[Colony.moveFundsToTeam]]. Defaults to the Colony's root team
    * @returns A transaction creator
    *
+   * #### Required permissions for forced transaction:
+   *
+   * * [[ColonyRole.Administration]], [[ColonyRole.Funding]]
+   *
    * #### Event data
    *
    * | Property | Type | Description |

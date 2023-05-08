@@ -109,7 +109,7 @@ import { Tokens } from '@colony/sdk';
 | :------ | :------ | :------ |
 | `token` | `string` \| `TokenData` | Create a new ERC20-compatible token by passing in its name and symbol or use an existing token by passing in its contract address |
 | `label` | `string` | The Colony's label. This is going to be part of the URL to look up the Colony within the dApp |
-| `metadata` | `string` \| `ColonyData` | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If ColonyData is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
+| `metadata` | `string` \| [`ColonyData`](../interfaces/ColonyData.md) | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [ColonyData](../interfaces/ColonyData.md) is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
 
 #### Returns
 
@@ -323,15 +323,15 @@ ___
 
 ### getTokenLocking
 
-▸ **getTokenLocking**(): `Promise`<`TokenLocking`\>
+▸ **getTokenLocking**(): `Promise`<[`TokenLocking`](TokenLocking.md)\>
 
 Fetches the TokenLocking client abstraction
 
 #### Returns
 
-`Promise`<`TokenLocking`\>
+`Promise`<[`TokenLocking`](TokenLocking.md)\>
 
-A TokenLocking contract client
+A [TokenLocking](TokenLocking.md) contract client
 
 ___
 
