@@ -128,7 +128,7 @@ export class TokenLocking {
   /**
    * Get the wallet owner's deposited and locked balance of the Colony's native token.
    *
-   * This method will show the accumulated amount that was deposited using the [[ColonyToken.deposit]] method
+   * This method will show the accumulated amount that was deposited using the [[deposit]] method
    *
    * @param tokenAddress - Token to check
    * @param user - The wallet address that we want to check the deposited amount of
