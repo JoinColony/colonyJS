@@ -22,22 +22,22 @@ ___
 
 ### colonySafes
 
-• **colonySafes**: `SafeInfo`[]
+• `Optional` **colonySafes**: `SafeInfo`[]
 
 ___
 
 ### colonyTokens
 
-• **colonyTokens**: `string`[]
+• `Optional` **colonyTokens**: `string`[]
 
 ___
 
 ### isWhitelistActivated
 
-• **isWhitelistActivated**: `boolean`
+• `Optional` **isWhitelistActivated**: `boolean`
 
 ___
 
 ### verifiedAddresses
 
-• **verifiedAddresses**: `string`[]
+• `Optional` **verifiedAddresses**: `string`[]
