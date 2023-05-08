@@ -1,6 +1,3 @@
 [submodule "vendor/colonyNetwork"]
 	path = vendor/colonyNetwork
 	url = https://github.com/JoinColony/colonyNetwork.git
-[submodule "abis"]
-	path = abis
-	url = https://github.com/JoinColony/abis.git

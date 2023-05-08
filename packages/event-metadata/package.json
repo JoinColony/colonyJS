@@ -1,0 +1,56 @@
+{
+  "name": "@colony/event-metadata",
+  "description": "📆 Parse and serialize Colony event metadata",
+  "version": "3.0.0",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/types/index.d.ts",
+      "default": "./dist/cjs/index.js"
+    }
+  },
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "license": "GPL-3.0-only",
+  "engines": {
+    "node": "^16",
+    "npm": "^8"
+  },
+  "scripts": {
+    "build": "npm run clean && npm run compile-cjs && npm run compile-esm && npm run compile-types",
+    "clean": "rimraf ./dist",
+    "compile-cjs": "tsc -p tsconfig.build.json --module commonjs --outDir dist/cjs",
+    "compile-esm": "tsc -p tsconfig.build.json --module es2015 --outDir dist/esm",
+    "compile-types": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --outDir dist/types",
+    "lint": "eslint --ext .ts src",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "prepublishOnly": "npm run lint && npm run build",
+    "prepare": "ts-patch install"
+  },
+  "dependencies": {
+    "typia": "^3.8.3"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.1",
+    "ts-patch": "^2.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoinColony/colonyJS.git"
+  },
+  "authors": [
+    "danbr",
+    "Christian Maniewski <code@chmanie.com>"
+  ],
+  "bugs": {
+    "url": "https://github.com/JoinColony/colonyJS/issues"
+  },
+  "homepage": "https://docs.colony.io/develop"
+}

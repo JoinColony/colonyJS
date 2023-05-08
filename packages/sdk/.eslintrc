@@ -1,0 +1,34 @@
+{
+    "rules": {
+        "camelcase": [
+            "error",
+            {
+                "allow": [
+                    ".+_EventFilter$",
+                    ".+_EventObject$",
+                    ".+__factory"
+                ]
+            }
+        ],
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+                "devDependencies": [
+                    "examples/node/*.ts",
+                    "examples/browser/src/*.ts"
+                ]
+            }
+        ]
+    },
+    "overrides": [
+        {
+            "files": [
+                "**/contracts/**/*.ts"
+            ],
+            "rules": {
+                "eslint-comments/disable-enable-pair": "off",
+                "eslint-comments/no-unlimited-disable": "off"
+            }
+        }
+    ]
+}

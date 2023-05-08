@@ -1,48 +1,33 @@
 # Contributing
 
-We welcome all contributions to colonyJS! Here are a few ways you can contribute:
+Please read [Code of Conduct](CODE_OF_CONDUCT.md) before contributing.
 
-Improving the colonyJS documentation:
+## Report Issues
 
-* Adding new pages to the [colonyJS Documentation](https://docs.colony.io/colonyjs/)
-* Fixing and updating pages in the [colonyJS Documentation](https://docs.colony.io/colonyjs/)
+Report an issue using [GitHub Issues](https://github.com/JoinColony/colonyJS/issues). _Please fill out the template with as much detail as possible._
 
-Extending the functionality of colonyJS:
+## GitHub Workflow
 
-* New Loaders
-* New Adapters
+- Fork the repository
 
-Maintaining the functionality of colonyJS:
+- Clone the forked repository into your working directory
 
-* Keeping clients in sync with [colonyNetwork](https://github.com/JoinColony/colonyNetwork)
-* Fixing bugs throughout the colonyJS packages
+- Create a new branch using the following naming schema:
 
-When making a larger change, please consult with the team on [Discord](https://discord.gg/feVZWwysqM).
+  - [fix/feature/...]/[issue-#]-[description-in-kebab-case]
 
-## Code of Conduct
+  - For example, `feature/6-add-connect-rinkeby-example`
 
-If you have not read our [Code of Conduct](https://github.com/JoinColony/colonyJS/blob/master/CODE_OF_CONDUCT.md), please do so before submitting an issue or pull request.
+- Commit your changes using the following guidelines:
 
-## Issues
+    - Prefix your commit message with the package you were mainly working on, followed by a colony and space, then the first word is capitalized (e.g. `sdk: Fix Colony roles function`),
 
-To report an issue, use [GitHub Issues](https://github.com/JoinColony/colonyJS/issues).
+- Keep your branch up to date using `rebase` instead of `merge`
 
-## Pull Requests
+- Push your new fix/feature branch to your forked repository
 
-When submitting a pull request, please fork off of the `develop` branch and create a feature branch that will include your changes. Please keep your branch up-to-date with the `develop` branch by using `rebase` instead of `merge`.
+- Create a pull request and fill out the pull request template
 
-### Branches
+## Changesets
 
-Use the following naming schema for your feature branch:
-* [feature/fix/maintenance/...]/[issue-#]-[a-short-description-in-kebab-case]
-* For example: `feature/113-add-big-number-param-type`.
-
-### Commits
-
-* When adding or updating existing tests, the changes should go on the same commit as the code that requires the test to be added or updated.
-
-### Commit Messages
-
-* Please be specific in the first line. For example, "Add BigNumber param type" instead of "Update params".
-* Please use the 50/72 rule for all commit messages. The first line should be capitalized and no longer than 50 chars and the following lines should be wrapped at 72 characters.
-* Please use indentation for bullet points. You can choose between asterisks or hyphens.
+We are using [changesets](https://github.com/changesets/changesets) to keep track of changes across all packages. Please read the [Adding a changeset guide](https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md) before submitting a PR.

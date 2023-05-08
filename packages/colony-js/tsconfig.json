@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "es2018"
+    ],
+    "module": "commonjs",
+    "moduleResolution": "nodenext",
+    "noEmit": true,
+    "noImplicitAny": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "target": "es2018",
+    "types": [
+      "jest"
+    ],
+    "rootDir": "./src",
+    "skipLibCheck": true
+  },
+  "include": [
+    "src/**/*"
+  ]
+}

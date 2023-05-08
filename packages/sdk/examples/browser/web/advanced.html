@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="index.css" rel="stylesheet">
+</head>
+
+<body>
+  <main class="container">
+    <h1>Colony SDK browser demo - create a team, move funds and make a payment</h1>
+    <p><b>1) Let's connect to the Colony first</b> <i style="color:red">Make sure you have the FUNDING and
+        ADMINISTRATION permissions in the Root domain of that Colony</i></p>
+    <input type="text" id="address" placeholder="Colony address" />
+    <button type="button" id="button_connect">Connect</button>
+    <p><b>2) Next we create a team</b></p>
+    <button type="button" id="button_team">Add team</button>
+    <p><b>3) We need to move some funds to the new team.</b> <i style="color:red">Make sure the root colony has at least
+        about 1 unit of the Colony's native token (see message below after connecting)</i></p>
+    <button type="button" id="button_fund">Fund new team with 0.66 tokens</button>
+    <p><b>4) Then, within that team, send someone some of the Colony's native tokens</b></p>
+    <input type="text" id="recipient" placeholder="Recipient" />
+    <button type="button" id="button_pay">Pay 0.42 tokens</button>
+    <article>
+      <header>
+          <b>Message</b>
+      </header>
+      <p style="color:red" id="error"></p>
+      <p id="result"></p>
+    </article>
+    <script src="advanced.js"></script>
+  </main>
+</body>
+
+</html>
