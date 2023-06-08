@@ -1,4 +1,5 @@
-import type { Provider } from '@ethersproject/abstract-provider';
+import type { Log, Provider } from '@ethersproject/abstract-provider';
+import type { Interface } from '@ethersproject/abi';
 
 import { BigNumber, BigNumberish, constants, utils } from 'ethers';
 
@@ -252,4 +253,26 @@ export const getContractVersion = async (
   const versionedContract = VersionedFactory.connect(address, signerOrProvider);
   const version = await versionedContract.version();
   return version.toNumber() as ContractVersion;
+};
+
+/**
+ * Try to parse an array of logs with a given interface
+ *
+ * Will filter out logs that can't be parsed with the given interface
+ *
+ * @param logs - Array of log entries (usually from a [[ContractReceipt]])
+ * @param iface - Ethers compatible contract interface
+ *
+ * @returns A list of parsed log entries (events)
+ */
+export const parseLogs = (logs: Log[], iface: Interface) => {
+  return logs
+    .map((log) => {
+      try {
+        return iface.parseLog(log);
+      } catch (e) {
+        return null;
+      }
+    })
+    .filter(nonNullable);
 };

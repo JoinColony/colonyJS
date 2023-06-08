@@ -1082,8 +1082,8 @@ export class VotingReputation {
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
    * | `extensionId` | string | Extension id (name of the extension) that was upgraded |
-   * | `oldVersion` | BigNumber | Version of the colony before the upgrade |
-   * | `newVersion` | BigNumber | Version of the colony after the upgrade |
+   * | `oldVersion` | BigNumber | Version of the extension before the upgrade |
+   * | `newVersion` | BigNumber | Version of the extension after the upgrade |
    */
   upgrade(toVersion?: BigNumberish) {
     const version = toVersion || this.version + 1;

@@ -2,10 +2,10 @@ import { Contract, ContractReceipt, ContractTransaction } from 'ethers';
 import { fetch } from 'cross-fetch';
 import { MetadataType, MetadataTypeMap } from '@colony/event-metadata';
 
+import { parseLogs } from '@colony/core';
 import { ParsedLogTransactionReceipt } from '../types';
 import { IPFS_METADATA_EVENTS } from '../ipfs/IpfsMetadata';
 import { ColonyNetwork } from '../ColonyNetwork';
-import { nonNullable } from '../utils';
 
 export interface TxConfig<M> {
   metadataType?: M;
@@ -157,15 +157,7 @@ export class TxCreator<
     const receipt = (await provider.waitForTransaction(
       parsed.data.txHash,
     )) as ParsedLogTransactionReceipt;
-    receipt.parsedLogs = receipt.logs
-      .map((log) => {
-        try {
-          return this.contract.interface.parseLog(log);
-        } catch (e) {
-          return null;
-        }
-      })
-      .filter(nonNullable);
+    receipt.parsedLogs = parseLogs(receipt.logs, this.contract.interface);
 
     return receipt;
   }
