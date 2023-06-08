@@ -197,6 +197,29 @@ indication whether extension in given version is compatible with colony at the g
 
 ___
 
+### parseLogs
+
+▸ **parseLogs**(`logs`, `iface`): `LogDescription`[]
+
+Try to parse an array of logs with a given interface
+
+Will filter out logs that can't be parsed with the given interface
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `logs` | `Log`[] | Array of log entries (usually from a ContractReceipt) |
+| `iface` | `Interface` | Ethers compatible contract interface |
+
+#### Returns
+
+`LogDescription`[]
+
+A list of parsed log entries (events)
+
+___
+
 ### toEth
 
 ▸ **toEth**(`num`): `string`
