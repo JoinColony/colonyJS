@@ -42,9 +42,13 @@
 - [ColonyEvent](interfaces/ColonyEvent.md)
 - [ColonyEventManagerOptions](interfaces/ColonyEventManagerOptions.md)
 - [ColonyFilter](interfaces/ColonyFilter.md)
+- [ColonyMetaTransaction](interfaces/ColonyMetaTransaction.md)
 - [ColonyMultiFilter](interfaces/ColonyMultiFilter.md)
 - [ColonyNetworkOptions](interfaces/ColonyNetworkOptions.md)
 - [ColonyTopic](interfaces/ColonyTopic.md)
+- [ColonyTransaction](interfaces/ColonyTransaction.md)
+- [ContractReceipt](interfaces/ContractReceipt.md)
+- [ContractTransaction](interfaces/ContractTransaction.md)
 - [DecisionData](interfaces/DecisionData.md)
 - [DomainData](interfaces/DomainData.md)
 - [Ethers6Filter](interfaces/Ethers6Filter.md)
@@ -54,6 +58,7 @@
 - [ParsedLogTransactionReceipt](interfaces/ParsedLogTransactionReceipt.md)
 - [PermissionConfig](interfaces/PermissionConfig.md)
 - [SupportedExtensions](interfaces/SupportedExtensions.md)
+- [TransactionResponse](interfaces/TransactionResponse.md)
 - [TxConfig](interfaces/TxConfig.md)
 - [TxCreatorConfig](interfaces/TxCreatorConfig.md)
 
@@ -209,7 +214,7 @@ Will filter out logs that can't be parsed with the given interface
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `logs` | `Log`[] | Array of log entries (usually from a ContractReceipt) |
+| `logs` | `Log`[] | Array of log entries (usually from a [ContractReceipt](interfaces/ContractReceipt.md)) |
 | `iface` | `Interface` | Ethers compatible contract interface |
 
 #### Returns

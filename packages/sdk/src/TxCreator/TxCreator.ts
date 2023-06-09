@@ -1,8 +1,11 @@
 import { Contract, ContractReceipt, ContractTransaction } from 'ethers';
 import { fetch } from 'cross-fetch';
+import { parseLogs } from '@colony/core';
 import { MetadataType, MetadataTypeMap } from '@colony/event-metadata';
 
-import { parseLogs } from '@colony/core';
+import type { TransactionResponse } from '@ethersproject/abstract-provider';
+import type { MotionCreatedEventObject } from '@colony/events';
+
 import { ParsedLogTransactionReceipt } from '../types';
 import { IPFS_METADATA_EVENTS } from '../ipfs/IpfsMetadata';
 import { ColonyNetwork } from '../ColonyNetwork';
@@ -33,6 +36,103 @@ export interface BaseContract {
     [key: string]: (...args: any[]) => Promise<any>;
   };
   interface: Contract['interface'];
+}
+
+/**
+ * A standard gasless MetaTransaction ("force" in dApp)
+ *
+ * You can then `send` the transaction, wait for it to be `mined` or `encode` it.
+ * See also https://docs.colony.io/colonysdk/guides/transactions for more information
+ *
+ * @example
+ * ```typescript
+ * (async function() {
+ *   // Just send off the transaction and get back the tx object
+ *   // First tupel value is the ethers transaction, including the hash
+ *   // Second tupel value is a function that does the same as `.mined()` below
+ *   const [tx, mined] = await colony.claimFunds().metaTx().send();
+ *   console.info(tx.hash); // Transaction hash
+ *   const [eventData, receipt] = await mined();
+ *   // Wait for tx to be mined, get back the eventData, receipt
+ *   const [eventData, receipt] = await colony.claimFunds().metaTx().mined();
+ * })();
+ * ```
+ *
+ * @returns A transaction that can be `send`, `mined` or `encode`d.
+ */
+export interface ColonyMetaTransaction<
+  C extends TransactionResponse,
+  E extends EventData | MotionCreatedEventObject,
+  R extends ParsedLogTransactionReceipt,
+  MD extends MetadataType,
+> {
+  /**
+   * Send off the tx, returning the transaction including its hash, not waiting for it to be mined
+   *
+   * @returns A tupel of a contract transaction and a function to wait for the mined event data as well as the receipt
+   */
+  send(): Promise<
+    [C, () => Promise<[E, R, () => Promise<MetadataTypeMap[MD]>] | [E, R]>]
+  >;
+  /**
+   * Wait until the tx is mined, returning the event data and the receipt
+   *
+   * @returns A tupel of event data and contract receipt (and a function to retrieve metadata if applicable)
+   */
+  mined(): Promise<[E, R, () => Promise<MetadataTypeMap[MD]>] | [E, R]>;
+}
+
+/**
+ * A standard transaction ("force" in dApp)
+ *
+ * You can then `send` the transaction, wait for it to be `mined` or `encode` it.
+ * See also https://docs.colony.io/colonysdk/guides/transactions for more information
+ *
+ * @example
+ * ```typescript
+ * (async function() {
+ *   // Just send off the transaction and get back the tx object
+ *   // First tupel value is the ethers transaction, including the hash
+ *   // Second tupel value is a function that does the same as `.mined()` below
+ *   const [tx, mined] = await colony.claimFunds().tx().send();
+ *   console.info(tx.hash); // Transaction hash
+ *   const [eventData, receipt] = await mined();
+ *   // Wait for tx to be mined, get back the eventData, receipt
+ *   const [eventData, receipt] = await colony.claimFunds().tx().mined();
+ *   // A transaction can also be output as a raw, encoded string for later use (e.g. using `sendRawTransaction`)
+ *   const encoded = await colony.claimFunds().tx().encode();
+ *   console.log(encoded); // 0x89224a1e000000000000000000000000bdc38a08548b47015f5fe853aa6614cfb2cbfcc0
+ * })();
+ * ```
+ *
+ *
+ * @returns A transaction that can be `send`, `mined` or `encode`d.
+ */
+export interface ColonyTransaction<
+  C extends ContractTransaction,
+  E extends EventData | MotionCreatedEventObject,
+  R extends ContractReceipt,
+  MD extends MetadataType,
+> {
+  /**
+   * Send off the tx, returning the transaction including its hash, not waiting for it to be mined
+   *
+   * @returns A tupel of a contract transaction and a function to wait for the mined event data as well as the receipt
+   */
+  send(): Promise<
+    [C, () => Promise<[E, R, () => Promise<MetadataTypeMap[MD]>] | [E, R]>]
+  >;
+  /**
+   * Wait until the tx is mined, returning the event data and the receipt
+   *
+   * @returns A tupel of event data and contract receipt (and a function to retrieve metadata if applicable)
+   */
+  mined(): Promise<[E, R, () => Promise<MetadataTypeMap[MD]>] | [E, R]>;
+  /** Encode the transaction into a raw string
+   *
+   * @returns A raw, encoded transaction string
+   */
+  encode(): Promise<string>;
 }
 
 /**
@@ -100,6 +200,20 @@ export class TxCreator<
     return args;
   }
 
+  private async getTx() {
+    const args = await this.getArgs();
+    const tx = (await this.contract.functions[this.method].apply(
+      this.contract,
+      args,
+    )) as ContractTransaction;
+    return tx;
+  }
+
+  private async getMined(tx: ContractTransaction) {
+    const receipt = await tx.wait();
+    return this.getEventData(receipt);
+  }
+
   protected async getEventData<
     R extends ContractReceipt | ParsedLogTransactionReceipt,
   >(receipt: R): Promise<[E, R, () => Promise<MetadataTypeMap[MD]>] | [E, R]> {
@@ -154,9 +268,11 @@ export class TxCreator<
       );
     }
 
-    const receipt = (await provider.waitForTransaction(
-      parsed.data.txHash,
-    )) as ParsedLogTransactionReceipt;
+    return provider.getTransaction(parsed.data.txHash);
+  }
+
+  protected async waitForMetaTx(tx: TransactionResponse) {
+    const receipt = (await tx.wait()) as ParsedLogTransactionReceipt;
     receipt.parsedLogs = parseLogs(receipt.logs, this.contract.interface);
 
     return receipt;
@@ -165,18 +281,26 @@ export class TxCreator<
   /**
    * Create a standard transaction ("force" in dApp)
    *
+   * See also [[ColonyTransaction]] or https://docs.colony.io/colonysdk/guides/transactions for more information
+   *
    * @remarks The user sending this transaction has to have the appropriate permissions to do so. Learn more about permissions in Colony [here](/develop/dev-learning/permissions).
    *
-   * @returns A tupel of event data and contract receipt (and a function to retrieve metadata if applicable)
+   * @returns A transaction that can be `send`, `mined` or `encode`d.
    */
-  async tx() {
-    const args = await this.getArgs();
-
-    const tx = (await this.contract.functions[this.method].apply(
-      this.contract,
-      args,
-    )) as ContractTransaction;
-    const receipt = await tx.wait();
-    return this.getEventData(receipt);
+  tx() {
+    return {
+      send: async () => {
+        const tx = await this.getTx();
+        return [tx, this.getMined.bind(this, tx)];
+      },
+      mined: async () => {
+        const tx = await this.getTx();
+        return this.getMined(tx);
+      },
+      encode: async () => {
+        const args = await this.getArgs();
+        return this.contract.interface.encodeFunctionData(this.method, args);
+      },
+    } as ColonyTransaction<ContractTransaction, E, ContractReceipt, MD>;
   }
 }

@@ -1,13 +1,13 @@
 import type { TypedDataSigner } from '@ethersproject/abstract-signer';
+import type { TransactionResponse } from '@ethersproject/abstract-provider';
 
 import { BigNumberish, Signer, utils } from 'ethers';
 import { Network } from '@colony/core';
 import { MetadataType } from '@colony/event-metadata';
 import { ERC2612Token as ERC2612TokenType } from '@colony/tokens';
 
+import { ColonyMetaTransaction, EventData, TxCreator } from './TxCreator';
 import { ParsedLogTransactionReceipt } from '../types';
-
-import { EventData, TxCreator } from './TxCreator';
 
 const { splitSignature } = utils;
 
@@ -30,10 +30,23 @@ export class EIP2612TxCreator<
   E extends EventData,
   MD extends MetadataType,
 > extends TxCreator<ERC2612TokenType, 'permit', E, MD> {
+  private async getMetaTx() {
+    const args = await this.getArgs();
+    return this.sendMetaTransaction(
+      this.contract.address,
+      args as [string, BigNumberish],
+    );
+  }
+
+  private async getMetaMined(tx: TransactionResponse) {
+    const receipt = await this.waitForMetaTx(tx);
+    return this.getEventData(receipt);
+  }
+
   protected async sendMetaTransaction(
     target: string,
     [spender, amount]: [string, BigNumberish],
-  ): Promise<ParsedLogTransactionReceipt> {
+  ): Promise<TransactionResponse> {
     if (!this.colonyNetwork.config.metaTxBroadcasterEndpoint) {
       throw new Error(
         `No metatransaction broadcaster endpoint found for network ${this.colonyNetwork.network}`,
@@ -107,7 +120,17 @@ export class EIP2612TxCreator<
     return this.broadcastMetaTx(broadcastData);
   }
 
-  async tx() {
+  /**
+   * Create a standard transaction ("force" in dApp)
+   *
+   * You can then `send` the transaction or wait for it to be `mined`.
+   * See also https://docs.colony.io/colonysdk/guides/transactions for more information
+   *
+   * @remarks The user sending this transaction has to have the appropriate permissions to do so. Learn more about permissions in Colony [here](/develop/dev-learning/permissions).
+   *
+   * @returns A transaction that can be `send`, `mined` or `encode`d.
+   */
+  tx() {
     if (this.method === 'permit') {
       throw new Error(
         `Only MetaTransactions are supported for this method. Please use "approve" instead.`,
@@ -117,25 +140,36 @@ export class EIP2612TxCreator<
   }
 
   /**
-   * Forces an action using a gasless metatransaction
+   * Create a gasless MetaTransaction ("force" in dApp)
+   *
+   * After creation, you can then `send` the transaction or wait for it to be `mined`.
+   * See also [[TxCreator.tx]] and https://docs.colony.io/colonysdk/guides/transactions for more information
    *
    * @remarks The user sending this transaction has to have the appropriate permissions to do so. Learn more about permissions in Colony [here](/develop/dev-learning/permissions).
    *
-   * @returns A tupel of event data and contract receipt (and a function to retrieve metadata if applicable)
+   * @returns A transaction that can be `send` or `mined`.
    */
-  async metaTx() {
+  metaTx() {
     if (this.method !== 'permit') {
       throw new Error(
         `Only the "permit" function is allowed to be sent as MetaTransaction per EIP-2612`,
       );
     }
 
-    const args = await this.getArgs();
-
-    const receipt = await this.sendMetaTransaction(
-      this.contract.address,
-      args as [string, BigNumberish],
-    );
-    return this.getEventData(receipt);
+    return {
+      send: async () => {
+        const tx = await this.getMetaTx();
+        return [tx, this.getMetaMined.bind(this, tx)];
+      },
+      mined: async () => {
+        const tx = await this.getMetaTx();
+        return this.getMetaMined(tx);
+      },
+    } as ColonyMetaTransaction<
+      TransactionResponse,
+      E,
+      ParsedLogTransactionReceipt,
+      MD
+    >;
   }
 }

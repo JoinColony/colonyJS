@@ -35,7 +35,8 @@ const start = async () => {
         // Make this name unique. The name below is likely to be taken already
         'createcolonytest6',
       )
-      .tx();
+      .tx()
+      .mined();
 
   if (!colonyAddress || !tokenAddress || !tokenAuthorityAddress) {
     return;
@@ -53,8 +54,8 @@ const start = async () => {
   // Set the token's authority to the freshly deployed one
   if (colony.token instanceof ColonyToken) {
     // TODO: MetaTxToken might support multicall in the future
-    await colony.token.setAuthority(tokenAuthorityAddress).tx();
-    await colony.token.setOwner(colony.address).tx();
+    await colony.token.setAuthority(tokenAuthorityAddress).tx().mined();
+    await colony.token.setOwner(colony.address).tx().mined();
   }
 
   // ** 4th transaction **
@@ -62,7 +63,8 @@ const start = async () => {
   // Install OneTxPayment extension
   const [{ extensionId, version }] = await colony
     .installExtension(SupportedExtension.oneTx)
-    .tx();
+    .tx()
+    .mined();
   if (!extensionId || !version) {
     return;
   }
@@ -84,7 +86,8 @@ const start = async () => {
       ColonyRole.Administration,
       ColonyRole.Funding,
     ])
-    .tx();
+    .tx()
+    .mined();
 
   console.info('Done :)');
 };

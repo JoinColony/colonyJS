@@ -48,7 +48,7 @@ Learn more about these functions in their individual documentation
 | `__namedParameters.args` | `unknown`[] \| () => `Promise`<`unknown`[]\> |
 | `__namedParameters.colonyNetwork` | [`ColonyNetwork`](ColonyNetwork.md) |
 | `__namedParameters.contract` | `C` |
-| `__namedParameters.eventData?` | (`receipt`: `ContractReceipt`) => `Promise`<`E`\> |
+| `__namedParameters.eventData?` | (`receipt`: [`ContractReceipt`](../interfaces/ContractReceipt.md)) => `Promise`<`E`\> |
 | `__namedParameters.metadataType?` | `MD` |
 | `__namedParameters.method` | `M` |
 | `__namedParameters.txConfig?` | [`TxConfig`](../interfaces/TxConfig.md)<`MD`\> |
@@ -57,9 +57,11 @@ Learn more about these functions in their individual documentation
 
 ### tx
 
-▸ **tx**(): `Promise`<[`E`, `ContractReceipt`, () => `Promise`<`MetadataTypeMap`[`MD`]\>] \| [`E`, `ContractReceipt`]\>
+▸ **tx**(): [`ColonyTransaction`](../interfaces/ColonyTransaction.md)<[`ContractTransaction`](../interfaces/ContractTransaction.md), `E`, [`ContractReceipt`](../interfaces/ContractReceipt.md), `MD`\>
 
 Create a standard transaction ("force" in dApp)
+
+See also [ColonyTransaction](../interfaces/ColonyTransaction.md) or https://docs.colony.io/colonysdk/guides/transactions for more information
 
 **`Remarks`**
 
@@ -67,6 +69,6 @@ The user sending this transaction has to have the appropriate permissions to do 
 
 #### Returns
 
-`Promise`<[`E`, `ContractReceipt`, () => `Promise`<`MetadataTypeMap`[`MD`]\>] \| [`E`, `ContractReceipt`]\>
+[`ColonyTransaction`](../interfaces/ColonyTransaction.md)<[`ContractTransaction`](../interfaces/ContractTransaction.md), `E`, [`ContractReceipt`](../interfaces/ContractReceipt.md), `MD`\>
 
-A tupel of event data and contract receipt (and a function to retrieve metadata if applicable)
+A transaction that can be `send`, `mined` or `encode`d.

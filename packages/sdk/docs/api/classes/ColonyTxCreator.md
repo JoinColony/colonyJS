@@ -60,11 +60,14 @@ Learn more about these functions in their individual documentation
 
 ### metaMotion
 
-▸ **metaMotion**(`motionDomain?`): `Promise`<[{ `creator?`: `string` ; `domainId?`: `BigNumber` ; `motionId?`: `BigNumber`  }, [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md)]\>
+▸ **metaMotion**(`motionDomain?`): [`ColonyMetaTransaction`](../interfaces/ColonyMetaTransaction.md)<[`TransactionResponse`](../interfaces/TransactionResponse.md), `MotionCreatedEventObject`, [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md), `MD`\>
 
-Creates a motion for an action
+Creates a motion for an action, using a gasless transaction
 
 You can specify a team (domain) this motion should be created in. It will be created in the Root team by default.
+
+After creation, you can then `send` the transaction or wait for it to be `mined`.
+See also [TxCreator.tx](TxCreator.md#tx) and https://docs.colony.io/colonysdk/guides/transactions for more information
 
 **`Remarks`**
 
@@ -78,17 +81,20 @@ This will only work if the [VotingReputation](VotingReputation.md) extension is 
 
 #### Returns
 
-`Promise`<[{ `creator?`: `string` ; `domainId?`: `BigNumber` ; `motionId?`: `BigNumber`  }, [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md)]\>
+[`ColonyMetaTransaction`](../interfaces/ColonyMetaTransaction.md)<[`TransactionResponse`](../interfaces/TransactionResponse.md), `MotionCreatedEventObject`, [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md), `MD`\>
 
-A tupel of motion event data and contract receipt
+A motion transaction that can be `send` or `mined` or `encode`d.
 
 ___
 
 ### metaTx
 
-▸ **metaTx**(): `Promise`<[`E`, [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md), () => `Promise`<`MetadataTypeMap`[`MD`]\>] \| [`E`, [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md)]\>
+▸ **metaTx**(): [`ColonyMetaTransaction`](../interfaces/ColonyMetaTransaction.md)<[`TransactionResponse`](../interfaces/TransactionResponse.md), `E`, [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md), `MD`\>
 
-Forces an action using a gasless metatransaction
+Create a gasless MetaTransaction ("force" in dApp)
+
+After creation, you can then `send` the transaction or wait for it to be `mined`.
+See also [TxCreator.tx](TxCreator.md#tx) and https://docs.colony.io/colonysdk/guides/transactions for more information
 
 **`Remarks`**
 
@@ -96,9 +102,9 @@ The user sending this transaction has to have the appropriate permissions to do 
 
 #### Returns
 
-`Promise`<[`E`, [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md), () => `Promise`<`MetadataTypeMap`[`MD`]\>] \| [`E`, [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md)]\>
+[`ColonyMetaTransaction`](../interfaces/ColonyMetaTransaction.md)<[`TransactionResponse`](../interfaces/TransactionResponse.md), `E`, [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md), `MD`\>
 
-A tupel of event data and contract receipt (and a function to retrieve metadata if applicable)
+A transaction that can be `send` or `mined`.
 
 #### Inherited from
 
@@ -108,11 +114,14 @@ ___
 
 ### motion
 
-▸ **motion**(`motionDomain?`): `Promise`<[{ `creator?`: `string` ; `domainId?`: `BigNumber` ; `motionId?`: `BigNumber`  }, `ContractReceipt`]\>
+▸ **motion**(`motionDomain?`): [`ColonyTransaction`](../interfaces/ColonyTransaction.md)<[`ContractTransaction`](../interfaces/ContractTransaction.md), `MotionCreatedEventObject`, [`ContractReceipt`](../interfaces/ContractReceipt.md), `MD`\>
 
 Creates a motion for an action
 
 You can specify a team (domain) this motion should be created in. It will be created in the Root team by default.
+
+After creation, you can then `send` the transaction or wait for it to be `mined`.
+See also [ColonyTransaction](../interfaces/ColonyTransaction.md) and https://docs.colony.io/colonysdk/guides/transactions for more information
 
 **`Remarks`**
 
@@ -126,17 +135,19 @@ This will only work if the [VotingReputation](VotingReputation.md) extension is 
 
 #### Returns
 
-`Promise`<[{ `creator?`: `string` ; `domainId?`: `BigNumber` ; `motionId?`: `BigNumber`  }, `ContractReceipt`]\>
+[`ColonyTransaction`](../interfaces/ColonyTransaction.md)<[`ContractTransaction`](../interfaces/ContractTransaction.md), `MotionCreatedEventObject`, [`ContractReceipt`](../interfaces/ContractReceipt.md), `MD`\>
 
-A tupel of motion event data and contract receipt
+A motion transaction that can be `send` or `mined` or `encode`d.
 
 ___
 
 ### tx
 
-▸ **tx**(): `Promise`<[`E`, `ContractReceipt`, () => `Promise`<`MetadataTypeMap`[`MD`]\>] \| [`E`, `ContractReceipt`]\>
+▸ **tx**(): [`ColonyTransaction`](../interfaces/ColonyTransaction.md)<[`ContractTransaction`](../interfaces/ContractTransaction.md), `E`, [`ContractReceipt`](../interfaces/ContractReceipt.md), `MD`\>
 
 Create a standard transaction ("force" in dApp)
+
+See also [ColonyTransaction](../interfaces/ColonyTransaction.md) or https://docs.colony.io/colonysdk/guides/transactions for more information
 
 **`Remarks`**
 
@@ -144,9 +155,9 @@ The user sending this transaction has to have the appropriate permissions to do 
 
 #### Returns
 
-`Promise`<[`E`, `ContractReceipt`, () => `Promise`<`MetadataTypeMap`[`MD`]\>] \| [`E`, `ContractReceipt`]\>
+[`ColonyTransaction`](../interfaces/ColonyTransaction.md)<[`ContractTransaction`](../interfaces/ContractTransaction.md), `E`, [`ContractReceipt`](../interfaces/ContractReceipt.md), `MD`\>
 
-A tupel of event data and contract receipt (and a function to retrieve metadata if applicable)
+A transaction that can be `send`, `mined` or `encode`d.
 
 #### Inherited from
 

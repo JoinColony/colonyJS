@@ -33,7 +33,7 @@ export const setupOneTxPaymentExtension = async (colony: Colony) => {
     }
 
     // Install the OneTxPayment extension
-    await colony.installExtension(SupportedExtension.oneTx).tx();
+    await colony.installExtension(SupportedExtension.oneTx).tx().mined();
 
     // Refresh Colony extension installations
     await colony.updateExtensions();
@@ -47,7 +47,8 @@ export const setupOneTxPaymentExtension = async (colony: Colony) => {
     // Give OneTxPayment extension the necessary roles
     await colony
       .setRoles(oneTx.address, [ColonyRole.Administration, ColonyRole.Funding])
-      .tx();
+      .tx()
+      .mined();
   }
 };
 
@@ -71,7 +72,7 @@ export const setupVotingReputationExtension = async (colony: Colony) => {
     }
 
     // Install the VotingReputation extension
-    await colony.installExtension(SupportedExtension.motion).tx();
+    await colony.installExtension(SupportedExtension.motion).tx().mined();
 
     // Refresh Colony extension installations
     await colony.updateExtensions();
@@ -93,7 +94,8 @@ export const setupVotingReputationExtension = async (colony: Colony) => {
         ColonyRole.Funding,
         ColonyRole.Administration,
       ])
-      .tx();
+      .tx()
+      .mined();
 
     // For an explanation of all the parameters see here https://colony.gitbook.io/colony-network/interfaces/votingreputation#initialise-uint256-_totalstakefraction-uint256-_voterrewardfraction-uint256-_userminstakefraction-ui and here https://colony.gitbook.io/colony/extensions/governance/parameters
     const initTx = await motions

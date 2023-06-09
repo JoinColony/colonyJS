@@ -1,3 +1,8 @@
+export type { ContractReceipt, ContractTransaction } from 'ethers';
+// This is a type and only used for TypeScript compilation
+// eslint-disable-next-line import/no-extraneous-dependencies
+export type { TransactionResponse } from '@ethersproject/abstract-provider';
+
 export {
   AnnotationData,
   ColonyData,

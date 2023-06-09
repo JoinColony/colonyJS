@@ -31,14 +31,20 @@ const start = async () => {
   const amounts = [1, 2, 3, 4];
 
   // Mint 10 of the colony's native token
-  await colony.mint(w`10`).metaTx();
+  await colony
+    .mint(w`10`)
+    .metaTx()
+    .mined();
   // Claim these tokens for the colony
-  await colony.claimFunds().metaTx();
+  await colony.claimFunds().metaTx().mined();
   // Move all the funds from the Root team to the team with the number 2
-  await colony.moveFundsToTeam(w`10`, 2).metaTx();
+  await colony
+    .moveFundsToTeam(w`10`, 2)
+    .metaTx()
+    .mined();
   if (colony.ext.oneTx) {
     // Pay a bunch of addresses the respective of the colony's native token from the funds of team 2
-    await colony.ext.oneTx.pay(recipients, amounts, 2).metaTx();
+    await colony.ext.oneTx.pay(recipients, amounts, 2).metaTx().mined();
   }
 };
 

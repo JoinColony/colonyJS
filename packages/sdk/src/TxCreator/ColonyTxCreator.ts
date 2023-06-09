@@ -1,6 +1,6 @@
 import type { MotionCreatedEventObject } from '@colony/events';
 
-import { BigNumberish } from 'ethers';
+import { BigNumberish, ContractReceipt, ContractTransaction } from 'ethers';
 import {
   ColonyRole,
   getPermissionProofs,
@@ -9,10 +9,17 @@ import {
 } from '@colony/core';
 import { MetadataType } from '@colony/event-metadata';
 
+import type { TransactionResponse } from '@ethersproject/abstract-provider';
 import { Colony } from '../ColonyNetwork';
 import { extractEvent } from '../utils';
-import { TxCreatorConfig, EventData } from './TxCreator';
+import {
+  TxCreatorConfig,
+  EventData,
+  ColonyTransaction,
+  ColonyMetaTransaction,
+} from './TxCreator';
 import { MetaTxBaseContract, MetaTxCreator } from './MetaTxCreator';
+import { ParsedLogTransactionReceipt } from '../types';
 
 export interface PermissionConfig {
   domain: BigNumberish;
@@ -58,45 +65,7 @@ export class ColonyTxCreator<
     this.permissionConfig = config.permissionConfig;
   }
 
-  protected async getArgs() {
-    let args: unknown[] = [];
-
-    if (typeof this.args == 'function') {
-      args = await this.args();
-    } else {
-      args = this.args;
-    }
-
-    if (this.permissionConfig) {
-      if (!this.colony) {
-        throw new Error(
-          'Permissioned transactions can only be created on a Colony',
-        );
-      }
-      const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
-        this.colonyNetwork.getInternalNetworkContract(),
-        this.colony.getInternalColonyContract(),
-        this.permissionConfig.domain,
-        this.permissionConfig.roles,
-        this.permissionConfig.address,
-      );
-      // Quite dangerous but probably fine. Plus, it gets TS off our backs ;)
-      args.unshift(permissionDomainId, childSkillIndex);
-    }
-
-    return args;
-  }
-
-  /**
-   * Creates a motion for an action
-   *
-   * You can specify a team (domain) this motion should be created in. It will be created in the Root team by default.
-   *
-   * @remarks This will only work if the [[VotingReputation]] extension is installed for the Colony that's being acted on
-   *
-   * @returns A tupel of motion event data and contract receipt
-   */
-  async motion(motionDomain: BigNumberish = Id.RootDomain) {
+  private async getMotionTx(motionDomain: BigNumberish) {
     if (!this.colony) {
       throw new Error('Motions can only be created on a Colony');
     }
@@ -106,7 +75,6 @@ export class ColonyTxCreator<
         'VotingReputation extension is not installed for this Colony',
       );
     }
-
     const args = await this.getArgs();
 
     const encodedAction = this.contract.interface.encodeFunctionData(
@@ -131,7 +99,7 @@ export class ColonyTxCreator<
         encodedAction,
       );
 
-    const tx = await this.colony.ext.motions
+    return this.colony.ext.motions
       .getInternalVotingReputationContract()
       .createMotion(
         motionDomain,
@@ -143,7 +111,10 @@ export class ColonyTxCreator<
         branchMask,
         siblings,
       );
+  }
 
+  // eslint-disable-next-line class-methods-use-this
+  private async getMotionMined(tx: ContractTransaction) {
     const receipt = await tx.wait();
 
     const data = {
@@ -153,16 +124,7 @@ export class ColonyTxCreator<
     return [data, receipt] as [typeof data, typeof receipt];
   }
 
-  /**
-   * Creates a motion for an action
-   *
-   * You can specify a team (domain) this motion should be created in. It will be created in the Root team by default.
-   *
-   * @remarks This will only work if the [[VotingReputation]] extension is installed for the Colony that's being acted on
-   *
-   * @returns A tupel of motion event data and contract receipt
-   */
-  async metaMotion(motionDomain: BigNumberish = Id.RootDomain) {
+  private async getEncodedMotionTx(motionDomain: BigNumberish) {
     if (!this.colony) {
       throw new Error('Motions can only be created on a Colony');
     }
@@ -200,7 +162,7 @@ export class ColonyTxCreator<
         encodedAction,
       );
 
-    const encodedTransaction =
+    return [
       votingReputationClient.interface.encodeFunctionData('createMotion', [
         motionDomain,
         actionCid,
@@ -210,17 +172,119 @@ export class ColonyTxCreator<
         value,
         branchMask,
         siblings,
-      ]);
-
-    const receipt = await this.sendMetaTransaction(
-      encodedTransaction,
+      ]),
       votingReputationClient.address,
+    ];
+  }
+
+  private async getMetaMotionTx(motionDomain: BigNumberish) {
+    const [encodedTransaction, address] = await this.getEncodedMotionTx(
+      motionDomain,
     );
+
+    return this.sendMetaTransaction(encodedTransaction, address);
+  }
+
+  private async getMetaMotionMinded(tx: TransactionResponse) {
+    const receipt = await this.waitForMetaTx(tx);
 
     const data = {
       ...extractEvent<MotionCreatedEventObject>('MotionCreated', receipt),
     };
 
     return [data, receipt] as [typeof data, typeof receipt];
+  }
+
+  protected async getArgs() {
+    let args: unknown[] = [];
+
+    if (typeof this.args == 'function') {
+      args = await this.args();
+    } else {
+      args = this.args;
+    }
+
+    if (this.permissionConfig) {
+      if (!this.colony) {
+        throw new Error(
+          'Permissioned transactions can only be created on a Colony',
+        );
+      }
+      const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+        this.colonyNetwork.getInternalNetworkContract(),
+        this.colony.getInternalColonyContract(),
+        this.permissionConfig.domain,
+        this.permissionConfig.roles,
+        this.permissionConfig.address,
+      );
+      // Quite dangerous but probably fine. Plus, it gets TS off our backs ;)
+      args.unshift(permissionDomainId, childSkillIndex);
+    }
+
+    return args;
+  }
+
+  /**
+   * Creates a motion for an action
+   *
+   * You can specify a team (domain) this motion should be created in. It will be created in the Root team by default.
+   *
+   * After creation, you can then `send` the transaction or wait for it to be `mined`.
+   * See also [[ColonyTransaction]] and https://docs.colony.io/colonysdk/guides/transactions for more information
+   *
+   * @remarks This will only work if the [[VotingReputation]] extension is installed for the Colony that's being acted on
+   *
+   * @returns A motion transaction that can be `send` or `mined` or `encode`d.
+   */
+  motion(motionDomain: BigNumberish = Id.RootDomain) {
+    return {
+      send: async () => {
+        const tx = await this.getMotionTx(motionDomain);
+        return [tx, this.getMotionMined.bind(this, tx)];
+      },
+      mined: async () => {
+        const tx = await this.getMotionTx(motionDomain);
+        return this.getMotionMined(tx);
+      },
+      encode: async () => {
+        const [encoded] = await this.getEncodedMotionTx(motionDomain);
+        return encoded;
+      },
+    } as ColonyTransaction<
+      ContractTransaction,
+      MotionCreatedEventObject,
+      ContractReceipt,
+      MD
+    >;
+  }
+
+  /**
+   * Creates a motion for an action, using a gasless transaction
+   *
+   * You can specify a team (domain) this motion should be created in. It will be created in the Root team by default.
+   *
+   * After creation, you can then `send` the transaction or wait for it to be `mined`.
+   * See also [[TxCreator.tx]] and https://docs.colony.io/colonysdk/guides/transactions for more information
+   *
+   * @remarks This will only work if the [[VotingReputation]] extension is installed for the Colony that's being acted on
+   *
+   * @returns A motion transaction that can be `send` or `mined` or `encode`d.
+   */
+  metaMotion(motionDomain: BigNumberish = Id.RootDomain) {
+    return {
+      send: async () => {
+        const tx = await this.getMetaMotionTx(motionDomain);
+        return [tx, this.getMetaMotionMinded.bind(this, tx)];
+      },
+      mined: async () => {
+        const tx = await this.getMetaMotionTx(motionDomain);
+        return this.getMetaMotionMinded(tx);
+      },
+    } as ColonyMetaTransaction<
+      TransactionResponse,
+      MotionCreatedEventObject,
+      ParsedLogTransactionReceipt,
+      MD
+    >;
   }
 }
