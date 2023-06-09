@@ -23,7 +23,8 @@ const start = async () => {
       ColonyRole.Administration,
       ColonyRole.Funding,
     ])
-    .tx();
+    .tx()
+    .mined();
   const roles = await colony.getRoles(
     '0xA75b108808584A15ceEbF8f6CAc19EaD91cAbCd2',
   );

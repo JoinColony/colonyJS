@@ -2,9 +2,16 @@ import { utils } from 'ethers';
 import { Network } from '@colony/core';
 import { MetadataType } from '@colony/event-metadata';
 
-import { ParsedLogTransactionReceipt } from '../types';
+import type { TransactionResponse } from '@ethersproject/abstract-provider';
+
 import { IBasicMetaTransaction } from '../contracts';
-import { BaseContract, EventData, TxCreator } from './TxCreator';
+import {
+  BaseContract,
+  ColonyMetaTransaction,
+  EventData,
+  TxCreator,
+} from './TxCreator';
+import { ParsedLogTransactionReceipt } from '../types';
 
 const { arrayify, solidityKeccak256, splitSignature } = utils;
 
@@ -46,7 +53,7 @@ export class MetaTxCreator<
   protected async sendMetaTransaction(
     encodedTransaction: string,
     target: string,
-  ): Promise<ParsedLogTransactionReceipt> {
+  ): Promise<TransactionResponse> {
     if (!this.colonyNetwork.config.metaTxBroadcasterEndpoint) {
       throw new Error(
         `No metatransaction broadcaster endpoint found for network ${this.colonyNetwork.network}`,
@@ -94,24 +101,45 @@ export class MetaTxCreator<
     return this.broadcastMetaTx(broadcastData);
   }
 
-  /**
-   * Forces an action using a gasless metatransaction
-   *
-   * @remarks The user sending this transaction has to have the appropriate permissions to do so. Learn more about permissions in Colony [here](/develop/dev-learning/permissions).
-   *
-   * @returns A tupel of event data and contract receipt (and a function to retrieve metadata if applicable)
-   */
-  async metaTx() {
+  private async getMetaTx() {
     const args = await this.getArgs();
-
     const encodedTransaction = this.contract.interface.encodeFunctionData(
       this.method,
       args,
     );
-    const receipt = await this.sendMetaTransaction(
-      encodedTransaction,
-      this.contract.address,
-    );
+    return this.sendMetaTransaction(encodedTransaction, this.contract.address);
+  }
+
+  private async getMetaMined(tx: TransactionResponse) {
+    const receipt = await this.waitForMetaTx(tx);
     return this.getEventData(receipt);
+  }
+
+  /**
+   * Create a gasless MetaTransaction ("force" in dApp)
+   *
+   * After creation, you can then `send` the transaction or wait for it to be `mined`.
+   * See also [[TxCreator.tx]] and https://docs.colony.io/colonysdk/guides/transactions for more information
+   *
+   * @remarks The user sending this transaction has to have the appropriate permissions to do so. Learn more about permissions in Colony [here](/develop/dev-learning/permissions).
+   *
+   * @returns A transaction that can be `send` or `mined`.
+   */
+  metaTx() {
+    return {
+      send: async () => {
+        const tx = await this.getMetaTx();
+        return [tx, this.getMetaMined.bind(this, tx)];
+      },
+      mined: async () => {
+        const tx = await this.getMetaTx();
+        return this.getMetaMined(tx);
+      },
+    } as ColonyMetaTransaction<
+      TransactionResponse,
+      E,
+      ParsedLogTransactionReceipt,
+      MD
+    >;
   }
 }

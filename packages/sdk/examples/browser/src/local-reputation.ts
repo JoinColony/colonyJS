@@ -34,9 +34,9 @@ const getMetaColony = async (networkAddress: string) => {
 // Mint CLNY and fund the Colony with it
 const fundColony = async (amount: string) => {
   // Mint `amount` CLNY
-  await metaColony.mint(toWei(amount)).tx();
+  await metaColony.mint(toWei(amount)).tx().mined();
   // Claim the CLNY for the MetaColony (important!)
-  await metaColony.claimFunds().tx();
+  await metaColony.claimFunds().tx().mined();
   // Look up the funds
   const funding = await metaColony.getBalance();
   return toEth(funding);

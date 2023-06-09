@@ -31,7 +31,7 @@ ___
 
 ### eventData
 
-• `Optional` **eventData**: (`receipt`: `ContractReceipt`) => `Promise`<`E`\>
+• `Optional` **eventData**: (`receipt`: [`ContractReceipt`](ContractReceipt.md)) => `Promise`<`E`\>
 
 #### Type declaration
 
@@ -41,7 +41,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `receipt` | `ContractReceipt` |
+| `receipt` | [`ContractReceipt`](ContractReceipt.md) |
 
 ##### Returns
 

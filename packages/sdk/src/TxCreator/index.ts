@@ -1,5 +1,7 @@
 export {
   BaseContract,
+  ColonyTransaction,
+  ColonyMetaTransaction,
   TxCreatorConfig,
   TxConfig,
   TxCreator,

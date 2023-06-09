@@ -51,7 +51,7 @@ Learn more about these functions in their individual documentation
 | `__namedParameters.args` | `unknown`[] \| () => `Promise`<`unknown`[]\> |
 | `__namedParameters.colonyNetwork` | [`ColonyNetwork`](ColonyNetwork.md) |
 | `__namedParameters.contract` | `C` |
-| `__namedParameters.eventData?` | (`receipt`: `ContractReceipt`) => `Promise`<`E`\> |
+| `__namedParameters.eventData?` | (`receipt`: [`ContractReceipt`](../interfaces/ContractReceipt.md)) => `Promise`<`E`\> |
 | `__namedParameters.metadataType?` | `MD` |
 | `__namedParameters.method` | `M` |
 | `__namedParameters.txConfig?` | [`TxConfig`](../interfaces/TxConfig.md)<`MD`\> |
@@ -64,9 +64,12 @@ Learn more about these functions in their individual documentation
 
 ### metaTx
 
-▸ **metaTx**(): `Promise`<[`E`, [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md), () => `Promise`<`MetadataTypeMap`[`MD`]\>] \| [`E`, [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md)]\>
+▸ **metaTx**(): [`ColonyMetaTransaction`](../interfaces/ColonyMetaTransaction.md)<[`TransactionResponse`](../interfaces/TransactionResponse.md), `E`, [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md), `MD`\>
 
-Forces an action using a gasless metatransaction
+Create a gasless MetaTransaction ("force" in dApp)
+
+After creation, you can then `send` the transaction or wait for it to be `mined`.
+See also [TxCreator.tx](TxCreator.md#tx) and https://docs.colony.io/colonysdk/guides/transactions for more information
 
 **`Remarks`**
 
@@ -74,17 +77,19 @@ The user sending this transaction has to have the appropriate permissions to do 
 
 #### Returns
 
-`Promise`<[`E`, [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md), () => `Promise`<`MetadataTypeMap`[`MD`]\>] \| [`E`, [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md)]\>
+[`ColonyMetaTransaction`](../interfaces/ColonyMetaTransaction.md)<[`TransactionResponse`](../interfaces/TransactionResponse.md), `E`, [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md), `MD`\>
 
-A tupel of event data and contract receipt (and a function to retrieve metadata if applicable)
+A transaction that can be `send` or `mined`.
 
 ___
 
 ### tx
 
-▸ **tx**(): `Promise`<[`E`, `ContractReceipt`, () => `Promise`<`MetadataTypeMap`[`MD`]\>] \| [`E`, `ContractReceipt`]\>
+▸ **tx**(): [`ColonyTransaction`](../interfaces/ColonyTransaction.md)<[`ContractTransaction`](../interfaces/ContractTransaction.md), `E`, [`ContractReceipt`](../interfaces/ContractReceipt.md), `MD`\>
 
 Create a standard transaction ("force" in dApp)
+
+See also [ColonyTransaction](../interfaces/ColonyTransaction.md) or https://docs.colony.io/colonysdk/guides/transactions for more information
 
 **`Remarks`**
 
@@ -92,9 +97,9 @@ The user sending this transaction has to have the appropriate permissions to do 
 
 #### Returns
 
-`Promise`<[`E`, `ContractReceipt`, () => `Promise`<`MetadataTypeMap`[`MD`]\>] \| [`E`, `ContractReceipt`]\>
+[`ColonyTransaction`](../interfaces/ColonyTransaction.md)<[`ContractTransaction`](../interfaces/ContractTransaction.md), `E`, [`ContractReceipt`](../interfaces/ContractReceipt.md), `MD`\>
 
-A tupel of event data and contract receipt (and a function to retrieve metadata if applicable)
+A transaction that can be `send`, `mined` or `encode`d.
 
 #### Inherited from
 

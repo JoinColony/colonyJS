@@ -41,7 +41,8 @@ const createPaymentMotion = async (amount: string): Promise<BigNumber> => {
   }
   const [{ motionId }] = await colony.ext.oneTx
     .pay('0x27ff0c145e191c22c75cd123c679c3e1f58a4469', toWei(amount))
-    .motion();
+    .motion()
+    .mined();
 
   if (!motionId) {
     // This case should not happen (rather the tx reverts) but we're making the check here for type-safety
@@ -71,33 +72,39 @@ const getMotion = async (motionId: BigNumberish) => {
 
 const approveForStaking = async (amount: string) => {
   // Approve tokens for staking in the root domain
-  await colony.ext.motions?.approveStake(toWei(amount)).tx();
+  await colony.ext.motions?.approveStake(toWei(amount)).tx().mined();
 };
 
 const stakeYay = async (amount: BigNumber) => {
-  await colony.ext.motions?.stakeMotion(currentMotion, Vote.Yay, amount).tx();
+  await colony.ext.motions
+    ?.stakeMotion(currentMotion, Vote.Yay, amount)
+    .tx()
+    .mined();
 };
 
 const stakeNay = async (amount: BigNumber) => {
-  await colony.ext.motions?.stakeMotion(currentMotion, Vote.Nay, amount).tx();
+  await colony.ext.motions
+    ?.stakeMotion(currentMotion, Vote.Nay, amount)
+    .tx()
+    .mined();
 };
 
 const voteYay = async () => {
-  await colony.ext.motions?.submitVote(currentMotion, Vote.Yay).tx();
+  await colony.ext.motions?.submitVote(currentMotion, Vote.Yay).tx().mined();
   sideVoted = Vote.Yay;
 };
 
 const voteNay = async () => {
-  await colony.ext.motions?.submitVote(currentMotion, Vote.Nay).tx();
+  await colony.ext.motions?.submitVote(currentMotion, Vote.Nay).tx().mined();
   sideVoted = Vote.Nay;
 };
 
 const revealVote = async () => {
-  await colony.ext.motions?.revealVote(currentMotion, sideVoted).tx();
+  await colony.ext.motions?.revealVote(currentMotion, sideVoted).tx().mined();
 };
 
 const finalize = async () => {
-  await colony.ext.motions?.finalizeMotion(currentMotion).tx();
+  await colony.ext.motions?.finalizeMotion(currentMotion).tx().mined();
 };
 
 // Some setup to display the UI
