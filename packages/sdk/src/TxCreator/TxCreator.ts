@@ -142,7 +142,7 @@ export interface ColonyTransaction<
  *
  * ## Create a standard transaction ("force" in dApp)
  *
- * - [[TxCreator.tx]]: force a Colony transaction, knowing you have the permissions to do so
+ * - {@link TxCreator.tx}: force a Colony transaction, knowing you have the permissions to do so
  *
  * Learn more about these functions in their individual documentation
  */
@@ -281,7 +281,7 @@ export class TxCreator<
   /**
    * Create a standard transaction ("force" in dApp)
    *
-   * See also [[ColonyTransaction]] or https://docs.colony.io/colonysdk/guides/transactions for more information
+   * See also {@link ColonyTransaction} or https://docs.colony.io/colonysdk/guides/transactions for more information
    *
    * @remarks The user sending this transaction has to have the appropriate permissions to do so. Learn more about permissions in Colony [here](/develop/dev-learning/permissions).
    *

@@ -170,7 +170,7 @@ A transaction creator
 
 #### Required permissions for forced transaction:
 
-* [ColonyRole.Root](../enums/ColonyRole.md#root)
+* [Root](../enums/ColonyRole.md#root)
 
 #### Event data
 
@@ -264,7 +264,7 @@ A transaction creator
 
 #### Required permissions for forced transaction:
 
-* [ColonyRole.Architecture](../enums/ColonyRole.md#architecture)
+* [Architecture](../enums/ColonyRole.md#architecture)
 
 #### Event data
 
@@ -301,7 +301,7 @@ A transaction creator
 
 #### Required permissions for forced transaction:
 
-* [ColonyRole.Architecture](../enums/ColonyRole.md#architecture)
+* [Architecture](../enums/ColonyRole.md#architecture)
 
 #### Event data
 
@@ -340,7 +340,7 @@ A transaction creator
 
 #### Required permissions for forced transaction:
 
-* [ColonyRole.Root](../enums/ColonyRole.md#root)
+* [Root](../enums/ColonyRole.md#root)
 
 #### Event data
 
@@ -373,7 +373,7 @@ A transaction creator
 
 #### Required permissions for forced transaction:
 
-* [ColonyRole.Architecture](../enums/ColonyRole.md#architecture)
+* [Architecture](../enums/ColonyRole.md#architecture)
 
 #### Event data
 
@@ -413,7 +413,7 @@ This will overwrite all exisiting metadata!
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `metadata` | `string` \| [`ColonyData`](../interfaces/ColonyData.md) | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [ColonyData](../interfaces/ColonyData.md) is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
+| `metadata` | `string` \| [`ColonyData`](../interfaces/ColonyData.md) | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [ColonyData](../interfaces/ColonyData.md) is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md) See its documentation for more information. |
 
 #### Returns
 
@@ -423,7 +423,7 @@ A transaction creator
 
 #### Required permissions for forced transaction:
 
-* [ColonyRole.Root](../enums/ColonyRole.md#root)
+* [Root](../enums/ColonyRole.md#root)
 
 #### Event data
 
@@ -488,7 +488,7 @@ A transaction creator
 
 #### Required permissions for forced transaction:
 
-* [ColonyRole.Architecture](../enums/ColonyRole.md#architecture)
+* [Architecture](../enums/ColonyRole.md#architecture)
 
 #### Event data
 
@@ -530,7 +530,7 @@ A transaction creator
 
 #### Required permissions for forced transaction:
 
-* [ColonyRole.Recovery](../enums/ColonyRole.md#recovery)
+* [Recovery](../enums/ColonyRole.md#recovery)
 
 #### Event data
 
@@ -556,7 +556,7 @@ A transaction creator
 
 #### Required permissions for forced transaction:
 
-* [ColonyRole.Recovery](../enums/ColonyRole.md#recovery)
+* [Recovery](../enums/ColonyRole.md#recovery)
 
 #### Event data
 
@@ -754,7 +754,7 @@ A transaction creator
 
 #### Required permissions for forced transaction:
 
-* [ColonyRole.Root](../enums/ColonyRole.md#root)
+* [Root](../enums/ColonyRole.md#root)
 
 #### Event data
 
@@ -817,7 +817,7 @@ A transaction creator
 
 #### Required permissions for forced transaction:
 
-* [ColonyRole.Root](../enums/ColonyRole.md#root)
+* [Root](../enums/ColonyRole.md#root)
 
 **No event data**
 
@@ -831,7 +831,7 @@ Mints `amount` of a Colony's native token.
 
 **`Remarks`**
 
-Only works for native tokens deployed with Colony (not imported tokens). Note that most tokens use 18 decimals, so add a bunch of zeros or use our `w` or `toWei` functions (see example). Also not that for tokens to be available in the Colony after funding, you need to call the [Colony.claimFunds](Colony.md#claimfunds) method after minting.
+Only works for native tokens deployed with Colony (not imported tokens). Note that most tokens use 18 decimals, so add a bunch of zeros or use our `w` or `toWei` functions (see example). Also not that for tokens to be available in the Colony after funding, you need to call the [claimFunds](Colony.md#claimfunds) method after minting.
 
 **`Example`**
 
@@ -863,7 +863,7 @@ A transaction creator
 
 #### Required permissions for forced transaction:
 
-* [ColonyRole.Root](../enums/ColonyRole.md#root)
+* [Root](../enums/ColonyRole.md#root)
 
 #### Event data
 
@@ -921,7 +921,7 @@ A transaction creator
 
 #### Required permissions for forced transaction:
 
-* [ColonyRole.Funding](../enums/ColonyRole.md#funding) in both teams
+* [Funding](../enums/ColonyRole.md#funding) in both teams
 
 #### Event data
 
@@ -977,7 +977,7 @@ A transaction creator
 
 #### Required permissions for forced transaction:
 
-* [ColonyRole.Architecture](../enums/ColonyRole.md#architecture), [ColonyRole.Root](../enums/ColonyRole.md#root)
+* [Architecture](../enums/ColonyRole.md#architecture), [Root](../enums/ColonyRole.md#root)
 
 #### Event data
 
@@ -1021,7 +1021,7 @@ A transaction creator
 
 #### Required permissions for forced transaction:
 
-* [ColonyRole.Arbitration](../enums/ColonyRole.md#arbitration)
+* [Arbitration](../enums/ColonyRole.md#arbitration)
 
 #### Event data
 
@@ -1056,7 +1056,7 @@ A transaction creator
 
 #### Required permissions for forced transaction:
 
-* [ColonyRole.Architecture](../enums/ColonyRole.md#architecture), [ColonyRole.Root](../enums/ColonyRole.md#root)
+* [Architecture](../enums/ColonyRole.md#architecture), [Root](../enums/ColonyRole.md#root)
 
 #### Event data
 
@@ -1114,7 +1114,7 @@ A transaction creator
 
 #### Required permissions for forced transaction:
 
-* [ColonyRole.Root](../enums/ColonyRole.md#root)
+* [Root](../enums/ColonyRole.md#root)
 
 #### Event data
 

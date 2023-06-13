@@ -129,7 +129,7 @@ export class OneTxPayment {
    * @internal
    *
    * @remarks
-   * Do not use this method directly but use [[OneTxPayment.connect]]
+   * Do not use this method directly but use {@link OneTxPayment.connect}
    */
   constructor(
     colony: Colony,
@@ -177,12 +177,12 @@ export class OneTxPayment {
    * @param recipient - Wallet address of account to send the funds to (also awarded reputation when sending the native token) - can also be an array of addresses to pay
    * @param amount - Amount to pay in wei - can also be an array of amounts for the different tokens
    * @param tokenAddress - The address of the token to make the payment in. Default is the Colony's native token - can also be an array of token addresses (needs to be the same length as `amount`)
-   * @param teamId - The team to use to send the funds from. Has to have funding of at least the amount you need to send. See [[Colony.moveFundsToTeam]]. Defaults to the Colony's root team
+   * @param teamId - The team to use to send the funds from. Has to have funding of at least the amount you need to send. See {@link Colony.moveFundsToTeam}. Defaults to the Colony's root team
    * @returns A transaction creator
    *
    * #### Required permissions for forced transaction:
    *
-   * * [[ColonyRole.Administration]], [[ColonyRole.Funding]]
+   * * {@link ColonyRole.Administration}, {@link ColonyRole.Funding}
    *
    * #### Event data
    *

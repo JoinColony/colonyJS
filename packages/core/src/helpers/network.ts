@@ -260,7 +260,7 @@ export const getContractVersion = async (
  *
  * Will filter out logs that can't be parsed with the given interface
  *
- * @param logs - Array of log entries (usually from a [[ContractReceipt]])
+ * @param logs - Array of log entries (usually from a {@link ContractReceipt})
  * @param iface - Ethers compatible contract interface
  *
  * @returns A list of parsed log entries (events)

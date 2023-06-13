@@ -19,19 +19,19 @@ The exact lifecycle is determined by the parameters that were set when the `Voti
 
 #### Creating a Motion
 
-See [ColonyTxCreator.motion](ColonyTxCreator.md#motion) or [ColonyTxCreator.metaMotion](ColonyTxCreator.md#metamotion).
+See [motion](ColonyTxCreator.md#motion) or [metaMotion](ColonyTxCreator.md#metamotion).
 
 Anyone within a Colony can start a motion. In Colony SDK, this is as easy as sending a transaction of the same kind. There the `action` (the contract transaction) for the Motion will be defined. This is essentially nothing else than an encoded contract function string alongside its parameters (see for detailed info [here](https://medium.com/linum-labs/a-technical-primer-on-using-encoded-function-calls-50e2b9939223) - but don't worry. In Colony SDK this will all be taken care of by the [ColonyTxCreator](ColonyTxCreator.md)).
 
  #### Staking
 
-See [VotingReputation.stakeMotion](VotingReputation.md#stakemotion).
+See [stakeMotion](VotingReputation.md#stakemotion).
 
 Once a motion is created, native tokens can be staked to support either of its sides (_Yay_ or _Nay_). A user can only stake as many tokens for either side as they have reputation in the team the motion is created in. A side can be staked by the motion creator and an arbitrary number of additional users as long as they adhere to the minimum stake per user that was defined in the extensions parameters. The maximum amount a user can stake is also determined by the amount of reputation in the team in which the Motion takes place.
 
 :::caution Over-staking
 
-Once a side of a Motion is activated, further attempts to stake tokens for that side will revert. It is not necessary or sensible to stake more tokens than needed. Keep in mind that both sides can be activated at the same time (see below for what happens then). You can use the [VotingReputation.getRemainingStakes](VotingReputation.md#getremainingstakes) method to see how many tokens need to be staked on each side for them to activate.
+Once a side of a Motion is activated, further attempts to stake tokens for that side will revert. It is not necessary or sensible to stake more tokens than needed. Keep in mind that both sides can be activated at the same time (see below for what happens then). You can use the [getRemainingStakes](VotingReputation.md#getremainingstakes) method to see how many tokens need to be staked on each side for them to activate.
 
 :::
 
@@ -44,7 +44,7 @@ After the staking phase (which has a predetermined runtime) one of these four ca
 
 #### Voting
 
-See [VotingReputation.submitVote](VotingReputation.md#submitvote).
+See [submitVote](VotingReputation.md#submitvote).
 
 As soon as the voting phase starts, anyone with reputation in the team the Motion was created in can vote for a side. Votes are secret (i.e. they're encrypted using your private key), and weighted by reputation. Vote weight is proportional to the voter's reputation in the team in which the vote is occurring.
 
@@ -52,7 +52,7 @@ Voters receive a reward for voting proportional to their reputation in the team 
 
 #### Revealing the votes
 
-See [VotingReputation.revealVote](VotingReputation.md#revealvote).
+See [revealVote](VotingReputation.md#revealvote).
 
 After the voting period is complete, the Reveal phase starts. Votes must be Revealed in order to be counted, and for the voter to receive their voter reward. The Reveal phase ends when either the time runs out, or everyone who has voted reveals their vote, whichever comes first.
 
@@ -64,7 +64,7 @@ If you staked tokens for the side that eventually lost you will lose some of you
 
 ### The structure of a Motion
 
-You can - at any point in the lifecycle inspect the current state of a Motion. Using the [VotingReputation.getMotion](VotingReputation.md#getmotion) method, the resulting object will have the following properties:
+You can - at any point in the lifecycle inspect the current state of a Motion. Using the [getMotion](VotingReputation.md#getmotion) method, the resulting object will have the following properties:
 
 | Property | Types | Description |
 | :------ | :------ | :------ |
@@ -193,7 +193,7 @@ ___
 ▸ **approveStake**(`amount`, `teamId?`): [`MetaTxCreator`](MetaTxCreator.md)<`SupportedColonyContract`, ``"approveStake"``, { `amount?`: `BigNumber` ; `approvedBy?`: `string` ; `token?`: `string` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Approve `amount` of the "activated" native tokens of a user for staking in a specific team
-After a token was "activated" (approved and deposited via the native token interface) it can be used for staking motions. To stake a motion, the token amount for staking has to be approved for the domain the motion was created in. See also the example in [VotingReputation.stakeMotion](VotingReputation.md#stakemotion)
+After a token was "activated" (approved and deposited via the native token interface) it can be used for staking motions. To stake a motion, the token amount for staking has to be approved for the domain the motion was created in. See also the example in [stakeMotion](VotingReputation.md#stakemotion)
 
 **`Remarks`**
 

@@ -2,17 +2,17 @@
 
 An umbrella API for all kinds of transactions within colonies
 
-The `ColonyTxCreator` allows for a simple API to cover all the different cases of transactions within a colony. Once a `ColonyTxCreator` is created using a method on the base contracts (e.g. [Colony](Colony.md) or extensions like [VotingReputation](VotingReputation.md)), there are four options available:
+The `ColonyTxCreator` allows for a simple API to cover all the different cases of transactions within a colony. Once a `ColonyTxCreator` is created using a method on the base contracts (e.g. [Colony](Colony.md) or extensions like [VotingReputation](VotingReputation.md)) there are four options available:
 
 ## Create a standard transaction ("force" in dApp)
 
-- [ColonyTxCreator.tx](ColonyTxCreator.md#tx): force a Colony transaction, knowing you have the permissions to do so
-- [ColonyTxCreator.metaTx](ColonyTxCreator.md#metatx): same as `tx()`, but send as a gasless metatransaction
+- [tx](ColonyTxCreator.md#tx): force a Colony transaction, knowing you have the permissions to do so
+- [metaTx](ColonyTxCreator.md#metatx): same as `tx()`, but send as a gasless metatransaction
 
 ## Create a motion to trigger an action once it passes
 
-- [ColonyTxCreator.motion](ColonyTxCreator.md#motion): create a motion (needs the motion's domain as a parameter)
-- [ColonyTxCreator.metaMotion](ColonyTxCreator.md#metamotion): same as `motion()`, but sends a gasless metatransaction
+- [motion](ColonyTxCreator.md#motion): create a motion (needs the motion's domain as a parameter)
+- [metaMotion](ColonyTxCreator.md#metamotion): same as `motion()`, but sends a gasless metatransaction
 
 Learn more about these functions in their individual documentation
 
@@ -67,7 +67,7 @@ Creates a motion for an action, using a gasless transaction
 You can specify a team (domain) this motion should be created in. It will be created in the Root team by default.
 
 After creation, you can then `send` the transaction or wait for it to be `mined`.
-See also [TxCreator.tx](TxCreator.md#tx) and https://docs.colony.io/colonysdk/guides/transactions for more information
+See also [tx](TxCreator.md#tx) and https://docs.colony.io/colonysdk/guides/transactions for more information
 
 **`Remarks`**
 
@@ -94,7 +94,7 @@ ___
 Create a gasless MetaTransaction ("force" in dApp)
 
 After creation, you can then `send` the transaction or wait for it to be `mined`.
-See also [TxCreator.tx](TxCreator.md#tx) and https://docs.colony.io/colonysdk/guides/transactions for more information
+See also [tx](TxCreator.md#tx) and https://docs.colony.io/colonysdk/guides/transactions for more information
 
 **`Remarks`**
 

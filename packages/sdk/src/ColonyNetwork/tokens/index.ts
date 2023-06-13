@@ -16,7 +16,7 @@ export { ERC2612Token } from './ERC2612Token';
  *
  * This method tries to auto-detect the type of the token under the given address
  *
- * @param colonyNetwork - A [[ColonyNetwork]] instance
+ * @param colonyNetwork - A {@link ColonyNetwork} instance
  * @param address - The token's address
  *
  * @returns A Token contract client

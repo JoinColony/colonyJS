@@ -6,7 +6,7 @@ The `TxCreator` allows for a simple API to cover all the different cases of tran
 
 ## Create a standard transaction ("force" in dApp)
 
-- [TxCreator.tx](TxCreator.md#tx): force a Colony transaction, knowing you have the permissions to do so
+- [tx](TxCreator.md#tx): force a Colony transaction, knowing you have the permissions to do so
 
 Learn more about these functions in their individual documentation
 

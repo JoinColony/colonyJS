@@ -72,7 +72,7 @@ E.g. a [Wallet](https://docs.ethers.org/v5/api/signer/#Wallet) or a [Web3Provide
 
 Create a new colony with metadata
 
-Creates a new colony with IPFS metadata. To edit metadata at a later point you can call the [Colony.edit](Colony.md#edit) method.
+Creates a new colony with IPFS metadata. To edit metadata at a later point you can call the [edit](Colony.md#edit) method.
 
 **`Remarks`**
 
@@ -142,7 +142,7 @@ A transaction creator
 
 Create a new Colony without metadata
 
-Creates a new Colony without IPFS metadata. To add metadata at a later point you can call the [Colony.edit](Colony.md#edit) method.
+Creates a new Colony without IPFS metadata. To add metadata at a later point you can call the [edit](Colony.md#edit) method.
 
 **`Remarks`**
 

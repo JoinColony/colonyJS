@@ -20,7 +20,7 @@ export class ColonyToken extends ERC20Token {
    *
    * @remarks This does not deploy a new token, only connects to an exisiting one
    *
-   * @param colonyNetwork - A [[ColonyNetwork]] instance
+   * @param colonyNetwork - A {@link ColonyNetwork} instance
    * @param token - A token address or a full contract (like on a colony token client)
    * @returns An ERC20 token abstraction instance
    */
@@ -51,7 +51,7 @@ export class ColonyToken extends ERC20Token {
   /**
    * Sets the address of the TokenAuthority for this token
    *
-   * Set the TokenAuthority for this token. Only has to be done once, after the TokenAuthority has been deployed. See [[Colony.deployTokenAuthority]] for more information.
+   * Set the TokenAuthority for this token. Only has to be done once, after the TokenAuthority has been deployed. See {@link Colony.deployTokenAuthority} for more information.
    *
    * @remarks
    * Only works for native tokens deployed with Colony (not imported tokens).

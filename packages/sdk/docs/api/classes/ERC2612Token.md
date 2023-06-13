@@ -181,7 +181,7 @@ ___
 
 Permit `amount` of the wallet owners holdings of the specified token.
 
-This is the same as [ERC20Token.approve](ERC20Token.md#approve) but works only for gasless metatransactions. If you have a Colony-deployed token, use `approve`. This is mainly to support gasless transactions for BYOT (bring-your-own-token).
+This is the same as [approve](ERC20Token.md#approve) but works only for gasless metatransactions. If you have a Colony-deployed token, use `approve`. This is mainly to support gasless transactions for BYOT (bring-your-own-token).
 
 This follows the EIP-2612 "Permit" specification. See https://eips.ethereum.org/EIPS/eip-2612.
 

@@ -35,17 +35,17 @@ interface MetaMotionsConfig<C, M, E, MD> extends TxCreatorConfig<C, M, E, MD> {
 /**
  * An umbrella API for all kinds of transactions within colonies
  *
- * The `ColonyTxCreator` allows for a simple API to cover all the different cases of transactions within a colony. Once a `ColonyTxCreator` is created using a method on the base contracts (e.g. [[Colony]] or extensions like [[VotingReputation]]), there are four options available:
+ * The `ColonyTxCreator` allows for a simple API to cover all the different cases of transactions within a colony. Once a `ColonyTxCreator` is created using a method on the base contracts (e.g. {@link Colony} or extensions like {@link VotingReputation}) there are four options available:
  *
  * ## Create a standard transaction ("force" in dApp)
  *
- * - [[ColonyTxCreator.tx]]: force a Colony transaction, knowing you have the permissions to do so
- * - [[ColonyTxCreator.metaTx]]: same as `tx()`, but send as a gasless metatransaction
+ * - {@link ColonyTxCreator.tx}: force a Colony transaction, knowing you have the permissions to do so
+ * - {@link ColonyTxCreator.metaTx}: same as `tx()`, but send as a gasless metatransaction
  *
  * ## Create a motion to trigger an action once it passes
  *
- * - [[ColonyTxCreator.motion]]: create a motion (needs the motion's domain as a parameter)
- * - [[ColonyTxCreator.metaMotion]]: same as `motion()`, but sends a gasless metatransaction
+ * - {@link ColonyTxCreator.motion}: create a motion (needs the motion's domain as a parameter)
+ * - {@link ColonyTxCreator.metaMotion}: same as `motion()`, but sends a gasless metatransaction
  *
  * Learn more about these functions in their individual documentation
  */
@@ -230,9 +230,9 @@ export class ColonyTxCreator<
    * You can specify a team (domain) this motion should be created in. It will be created in the Root team by default.
    *
    * After creation, you can then `send` the transaction or wait for it to be `mined`.
-   * See also [[ColonyTransaction]] and https://docs.colony.io/colonysdk/guides/transactions for more information
+   * See also {@link ColonyTransaction} and https://docs.colony.io/colonysdk/guides/transactions for more information
    *
-   * @remarks This will only work if the [[VotingReputation]] extension is installed for the Colony that's being acted on
+   * @remarks This will only work if the {@link VotingReputation} extension is installed for the Colony that's being acted on
    *
    * @returns A motion transaction that can be `send` or `mined` or `encode`d.
    */
@@ -264,9 +264,9 @@ export class ColonyTxCreator<
    * You can specify a team (domain) this motion should be created in. It will be created in the Root team by default.
    *
    * After creation, you can then `send` the transaction or wait for it to be `mined`.
-   * See also [[TxCreator.tx]] and https://docs.colony.io/colonysdk/guides/transactions for more information
+   * See also {@link TxCreator.tx} and https://docs.colony.io/colonysdk/guides/transactions for more information
    *
-   * @remarks This will only work if the [[VotingReputation]] extension is installed for the Colony that's being acted on
+   * @remarks This will only work if the {@link VotingReputation} extension is installed for the Colony that's being acted on
    *
    * @returns A motion transaction that can be `send` or `mined` or `encode`d.
    */

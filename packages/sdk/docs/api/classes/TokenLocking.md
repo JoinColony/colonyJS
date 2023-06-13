@@ -73,7 +73,7 @@ ___
 
 Get the wallet owner's approved balance of the Colony's native token for an obliator (i.e. an extension)
 
-This method will show the accumulated amount that was approved using the [ColonyToken.approve](ColonyToken.md#approve) method
+This method will show the accumulated amount that was approved using the [approve](ColonyToken.md#approve) method
 
 #### Parameters
 
