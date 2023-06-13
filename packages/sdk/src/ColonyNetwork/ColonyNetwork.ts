@@ -313,7 +313,7 @@ export class ColonyNetwork {
    *       colonyAvatarHash: 'QmS26o1Cmsrx7iw1SSFGEcy22TVDq6VmEZ4XNjpWFyaKUe',
    *       // List of token addresses that the Colony should be initialized with (can be changed later) - excluding ETH and the native token from above
    *       colonyTokens: [Tokens.Gnosis.CLNY],
-   *     }).tx();
+   *     }).tx().mined();
    * })();
    * ```
    *
@@ -378,7 +378,7 @@ export class ColonyNetwork {
    *   await colonyNetwork
    *     // Use USDC on Gnosis chain as the native token
    *     .createColony('0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83', 'coolony')
-   *     .tx();
+   *     .tx().mined();
    * })();
    * ```
    *

@@ -4,7 +4,7 @@ description: A guide on how to create transactions within Colony. You can create
 sidebar_position: 1
 ---
 
-# How to create transactions
+# Creating transactions in Colony SDK
 
 Within Colony, there are a few ways to do an action. As a colony is a permissioned contract, not everyone can just do anything they like, users (or contracts) have to have the right permission in the relevant team to do so.
 If a governance extension is installed for the colony, this behaviour changes. Using [Motions & Disputes](../api/classes/VotingReputation.md) for example, it is possible to propose an action without having the appropriate permissions.
@@ -18,7 +18,7 @@ So what does this mean? Let's look at an example. We would like to create a team
 // Immediately executing async function
 (async function() {
   // Create a new team (domain) within our colony (using sheer force ;) )
-  const [{ domainId }] = await colony.createTeam().tx();
+  const [{ domainId }] = await colony.createTeam().tx().mined();
 })();
 ```
 
@@ -31,7 +31,7 @@ import { Id } from '@colony/sdk';
 // Immediately executing async function
 (async function() {
   // Create a motion in the Root team to create a new team. Will have to go through the whole motion workflow
-  const [{ motionId }] = await colony.createTeam().motion(Id.RootDomain);
+  const [{ motionId }] = await colony.createTeam().motion(Id.RootDomain).mined();
 })();
 ```
 
@@ -51,7 +51,7 @@ import { Id } from '@colony/sdk';
 // Immediately executing async function
 (async function() {
   // Create a motion in the Root team to create a new team using a metatransaction
-  const [{ motionId }] = await colony.createTeam().metaMotion();
+  const [{ motionId }] = await colony.createTeam().metaMotion().mined();
 })();
 ```
 
@@ -70,3 +70,25 @@ Okay, what did we learn? Here's a little overview:
 - [TxCreator.metaMotion](../api/classes/TxCreator.md#metamotion): same as `motion()`, but sends a gasless metatransaction
 
 Also refer to the [TxCreator](../api/classes/TxCreator.md) documentation if you'd like to learn more.
+
+
+## Deferring transactions
+
+As you might have noticed, so far we ended our transaction execution call with the method `.mined()`. This method tells the transaction within Colony SDK to wait until it is mined on the blockchain. As this can take a long time, you might want to just send off the transaction and either forget about it (and handle the events by polling manually) or get back to it at a later point in your application flow.
+
+For this we added another function just called `send()` that you can call on the transaction (example from the [`ColonyTransaction`](../api/interfaces/ColonyTransaction.md) API documentation):
+
+```typescript
+ * (async function() {
+ *   // Just send off the transaction and get back the tx object
+ *   // First tupel value is the ethers transaction, including the hash
+ *   // Second tupel value is a function that does the same as `.mined()` below
+ *   const [tx, mined] = await colony.claimFunds().tx().send();
+ *   console.info(tx.hash); // Transaction hash
+ *   const [eventData, receipt] = await mined();
+ *   // Wait for tx to be mined, get back the eventData, receipt
+ *   const [eventData, receipt] = await colony.claimFunds().tx().mined();
+ * })();
+```
+
+This works just as well using [`ColonyMetaTransaction`s](../api/interfaces/ColonyMetaTransaction).

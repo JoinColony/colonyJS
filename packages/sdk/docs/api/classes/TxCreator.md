@@ -2,7 +2,7 @@
 
 An umbrella API for all kinds of transactions
 
-The `TxCreator` allows for a simple API to cover all the different cases of transactions within the Colony Network. This is the base class of the TxCreator that only supports the `force()` action and no metatransactions.
+The `TxCreator` allows for a simple API to cover all the different cases of transactions within the Colony Network. This is the base class of the TxCreator that only supports the `tx()` action and no metatransactions.
 
 ## Create a standard transaction ("force" in dApp)
 

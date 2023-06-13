@@ -82,9 +82,9 @@ import { w } from '@colony/sdk';
 // Immediately executing async function
 (async function() {
   // Approve 100 tokens to be "activated"
-  await colony.token.approve(w`100`).force();
+  await colony.token.approve(w`100`).tx().mined();
   // Deposit the tokens
-  await colonyNetwork.locking.deposit(token.address, w`100`).force();
+  await colonyNetwork.locking.deposit(token.address, w`100`).tx().mined();
 })();
 ```
 
@@ -196,10 +196,10 @@ import { w } from '@colony/sdk';
 (async function() {
   // Deploy the TokenAuthority contract
   // (forced transaction example)
-  const [{ tokenAuthorityAddress }] = await colony.deployTokenAuthority().tx();
+  const [{ tokenAuthorityAddress }] = await colony.deployTokenAuthority().tx().mined();
   // Set the TokenAuthority for this token
   // (forced transaction example)
-  await colony.token.setAuthority(tokenAuthorityAddress).tx();
+  await colony.token.setAuthority(tokenAuthorityAddress).tx().mined();
 })();
 ```
 

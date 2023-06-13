@@ -33,7 +33,7 @@ const colonyNetwork = new ColonyNetwork(wallet);
 // Create actual colony (deploys Colony contract) (do this in an async function)
 const [{ colonyAddress, tokenAddress, tokenAuthorityAddress }] = await colonyNetwork
   .createColony({ name: 'Test token', symbol: 'TOT' }, 'colonytestname')
-  .tx();
+  .tx().mined();
 ```
 
 One can specify the token name, its symbol and even its decimals (even though it's recommended to leave that at the default value). This will deploy a special ERC20 token that integrates well with Colony (e.g. it supports permissions, minting and gasless transactions out of the box). For its contract code see [here](https://github.com/JoinColony/colonyNetwork/blob/develop/contracts/metaTxToken/MetaTxToken.sol).
@@ -44,7 +44,7 @@ You can also use an already existing token. For that, instead of passing in the 
 // Use USDC on Gnosis chain as the native token
 const [{ colonyAddress }] = await colonyNetwork
   .createColony('0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83', 'anothertestname')
-  .tx();
+  .tx().mined();
 ```
 
 As the second argument a label for the Colony is assigned. These are unique, so pick one that's not already taken. The `createColony` method will check that. Alternatively, the `colonyNetwork.getColonyAddress(label)` function can be used. The label is used by the dApp as a short name and for looking up the Colony's address.
@@ -66,9 +66,9 @@ The token authority is a contract that glues the token and the Colony together a
 
 ```typescript
 // Set the token's authority to the freshly deployed one (see step 1)
-await token.setAuthority(tokenAuthorityAddress).tx();
+await token.setAuthority(tokenAuthorityAddress).tx().mined();
 // Set the token's owner (the Colony), to have permissions to execute authorized functions (like `mint`)
-await colony.token.setOwner(colony.address).tx();
+await colony.token.setOwner(colony.address).tx().mined();
 ```
 
 ## Step 4 - Install the `OneTxPayment` extension
@@ -78,14 +78,14 @@ As mentioned earlier, this step is technically optional as well but if the Colon
 ```typescript
 const [{ extensionId, version }] = await colony
   .installExtension(SupportedExtension.oneTx)
-  .tx();
+  .tx().mined();
 await colony.updateExtensions();
 const [{ user, setTo, role }] = await colony
   .setRoles(colony.ext.oneTx.address, [
     ColonyRole.Administration,
     ColonyRole.Funding,
   ])
-  .tx();
+  .tx().mined();
 ```
 
 Here we install the extension using the `installExtension` method. This extension is an own contract that was deployed in this transaction. To get its address, we re-initialize the extensions on the Colony using `updateExtensions`. After that, `oneTx` will be available on `colony.ext`.

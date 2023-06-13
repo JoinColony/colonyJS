@@ -48,9 +48,9 @@ export class TokenLocking {
    * (async function() {
    *   const token = await colony.getToken();
    *   // Approve 100 tokens for the Colony Network to activate
-   *   await token.approve(w`100`).force();
+   *   await token.approve(w`100`).tx().mined();
    *   // Deposit the tokens
-   *   await colonyNetwork.locking.deposit(token.address, w`100`).force();
+   *   await colonyNetwork.locking.deposit(token.address, w`100`).tx().mined();
    * })();
    * ```
    *
@@ -94,7 +94,7 @@ export class TokenLocking {
    * (async function() {
    *   const token = await colony.getToken();
    *   // Withdraw 100 tokens that were previously deposited
-   *   await colonyNetwork.locking.withdraw(token.address, w`100`).force();
+   *   await colonyNetwork.locking.withdraw(token.address, w`100`).tx().mined();
    * })();
    * ```
    *

@@ -194,7 +194,7 @@ export class Colony {
    *   await colony.ext.oneTx.pay(
    *      '0xb77D57F4959eAfA0339424b83FcFaf9c15407461',
    *      w`10`,
-   *   ).tx();
+   *   ).tx().mined();
    * })();
    * ```
    */
@@ -392,7 +392,7 @@ export class Colony {
    *   // (also notice that this requires an upload-capable IPFS adapter)
    *   await colony.edit({
    *     colonyDisplayName: 'My super cool Colony',
-   *   }).tx();
+   *   }).tx().mined();
    * })();
    * ```
    *
@@ -467,7 +467,7 @@ export class Colony {
    *     domainName: 'Butter-passers',
    *     domainColor: TeamColor.Gold,
    *     domainPurpose: 'To pass butter',
-   *   }).tx();
+   *   }).tx().mined();
    * })();
    * ```
    *
@@ -612,7 +612,7 @@ export class Colony {
    *     domainName: 'Purple Butter-passers',
    *     domainColor: TeamColor.Purple,
    *     domainPurpose: 'To pass purple butter',
-   *   }).tx();
+   *   }).tx().mined();
    * })();
    * ```
    * @param metadata - The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[DomainData]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
@@ -777,7 +777,7 @@ export class Colony {
    *      w`10`,
    *      2,
    *      3,
-   *   ).tx();
+   *   ).tx().mined();
    * })();
    * ```
    * @param amount - Amount to transfer between the teams
@@ -940,7 +940,7 @@ export class Colony {
    *      '0x06012c8cf97BEaD5deAe237070F9587f8E7A266d',
    *      // encoded transaction from above
    *      encodedAction
-   *   ).tx();
+   *   ).tx().mined();
    * })();
    * ```
    * @param target - Address of the contract to execute a method on
@@ -988,7 +988,7 @@ export class Colony {
    *   await colony.annotateTransaction(
    *      transactionHash,
    *      { annotationMsg: 'I am creating this motion because I think I deserve a little bonus' },
-   *   ).tx();
+   *   ).tx().mined();
    * })();
    * ```
    * @param txHash - Transaction hash of the transaction to annotate (within the Colony)
@@ -1050,7 +1050,7 @@ export class Colony {
    *   // (forced transaction example)
    *   await colony.installExtension(
    *     SupportedExtension.oneTx,
-   *   ).tx();
+   *   ).tx().mined();
    *   // Update the extensions in the colony
    *   await colony.updateExtensions();
    *   console.info(colony.ext.oneTx.address);
@@ -1137,7 +1137,7 @@ export class Colony {
    *   await colony.setRoles(
    *     '0xb794f5ea0ba39494ce839613fffba74279579268',
    *     [ColonyRole.Administration, ColonyRole.Root],
-   *   ).tx();
+   *   ).tx().mined();
    * })();
    * ```
    * @param address - Address of the wallet or contract to give the roles to
@@ -1262,10 +1262,10 @@ export class Colony {
    * (async function() {
    *   // Mint 100 tokens of the Colony's native token
    *   // (forced transaction example)
-   *   await colony.mint(w`100`).tx();
+   *   await colony.mint(w`100`).tx().mined();
    *   // Claim the minted tokens for the Colony
    *   // (forced transaction example)
-   *   await colony.claimFunds().tx();
+   *   await colony.claimFunds().tx().mined();
    * })();
    * ```
    *
