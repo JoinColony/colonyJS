@@ -64,10 +64,10 @@ export class ColonyToken extends ERC20Token {
    * (async function() {
    *   // Deploy the TokenAuthority contract
    *   // (forced transaction example)
-   *   const [{ tokenAuthorityAddress }] = await colony.deployTokenAuthority().tx();
+   *   const [{ tokenAuthorityAddress }] = await colony.deployTokenAuthority().tx().mined();
    *   // Set the TokenAuthority for this token
    *   // (forced transaction example)
-   *   await colony.token.setAuthority(tokenAuthorityAddress).tx();
+   *   await colony.token.setAuthority(tokenAuthorityAddress).tx().mined();
    * })();
    * ```
    *

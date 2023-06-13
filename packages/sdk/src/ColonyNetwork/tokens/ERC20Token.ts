@@ -164,9 +164,9 @@ export class ERC20Token {
    * // Immediately executing async function
    * (async function() {
    *   // Approve 100 tokens to be "activated"
-   *   await colony.token.approve(w`100`).force();
+   *   await colony.token.approve(w`100`).tx().mined();
    *   // Deposit the tokens
-   *   await colonyNetwork.locking.deposit(token.address, w`100`).force();
+   *   await colonyNetwork.locking.deposit(token.address, w`100`).tx().mined();
    * })();
    * ```
    *

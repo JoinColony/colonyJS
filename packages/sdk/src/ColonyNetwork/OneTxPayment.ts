@@ -170,7 +170,7 @@ export class OneTxPayment {
    *      w`10`,
    *      Id.RootDomain,
    *      Tokens.Gnosis.XDAI,
-   *   ).tx();
+   *   ).tx().mined();
    * })();
    * ```
    *

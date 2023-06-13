@@ -470,7 +470,7 @@ export class VotingReputation {
    * (async function() {
    *
    *   // Create an empty decision in the Root team
-   *   const [, { transactionHash }] = await colony.ext.motions.createDecision().tx();
+   *   const [, { transactionHash }] = await colony.ext.motions.createDecision().tx().mined();
    *   // Annotate the decision transaction with important data
    *   // (forced transaction example)
    *   await colony.ext.motions.annotateDecision(
@@ -479,7 +479,7 @@ export class VotingReputation {
    *        title: 'Should we make the naked-mole-rat our official mascot?',
    *        description: 'I think it is time',
    *      },
-   *   ).tx();
+   *   ).tx().mined();
    * })();
    * ```
    * @param team - Team id to create the decision in
@@ -547,7 +547,7 @@ export class VotingReputation {
    * (async function() {
    *
    *   // Create a motion to pay 10 of the native token to some (maybe your own?) address
-   *   const [, { transactionHash }] = await colony.ext.motions.createDecision().tx();
+   *   const [, { transactionHash }] = await colony.ext.motions.createDecision().tx().mined();
    *   // Annotate the decision transaction with important data
    *   // (forced transaction example)
    *   await colony.ext.motions.annotateDecision(
@@ -556,7 +556,7 @@ export class VotingReputation {
    *        title: 'Should we make the naked-mole-rat our official mascot?',
    *        description: 'I think it is time',
    *      },
-   *   ).tx();
+   *   ).tx().mined();
    * })();
    * ```
    * @param txHash - Transaction hash of the transaction to annotate (within the Colony)
@@ -662,7 +662,7 @@ export class VotingReputation {
    *   // Deposit all of approved the tokens
    *   await token.deposit(w`200`);
    *   // Approve 150 tokens for staking in the root domain (can only be forced)
-   *   await colony.ext.motions.approveStake(w`150`).tx();
+   *   await colony.ext.motions.approveStake(w`150`).tx().mined();
    *   // Stake 100 tokens for motion with id 3
    *   await colony.ext.motions.stakeMotion(3, Vote.Yay, w`100`);
    * })();

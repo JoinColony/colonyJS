@@ -64,9 +64,9 @@ export class ERC2612Token extends ERC20Token {
    * // Immediately executing async function
    * (async function() {
    *   // Permit 100 tokens to be "activated"
-   *   await colony.token.permit(w`100`).metaTx();
+   *   await colony.token.permit(w`100`).metaTx().mined();
    *   // Deposit the tokens
-   *   await colonyNetwork.locking.deposit(token.address, w`100`).force();
+   *   await colonyNetwork.locking.deposit(token.address, w`100`).metaTx().mined();
    * })();
    * ```
    *

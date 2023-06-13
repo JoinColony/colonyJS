@@ -59,10 +59,10 @@ Storing data on chain is expensive. Metadata is stored on IPFS and our solution 
 Let's imagine we continue in our async function `start` from above:
 
 ```typescript
-const [{ domainId }, receipt, getMetadata] = await colony.createTeam('QmTwksWE2Zn4icTvk5E7QZb1vucGNuu5GUCFZ361r8gKXM').tx();
+const [{ domainId }, receipt, getMetadata] = await colony.createTeam('QmTwksWE2Zn4icTvk5E7QZb1vucGNuu5GUCFZ361r8gKXM').tx().mined();
 ```
 
-You can see that calling the `tx()` function on the [`TxCreator`](../api/classes/TxCreator.md) returns a tuple with three entries:
+You can see that calling the `mined()` function on the [`ColonyTransaction`](../api/interfaces/ColonyTransaction.md) returns a tuple with three entries:
 
 ### Event data
 

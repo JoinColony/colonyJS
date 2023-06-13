@@ -38,7 +38,7 @@ import { w } from '@colony/sdk';
   await colony.ext.oneTx.pay(
      '0xb77D57F4959eAfA0339424b83FcFaf9c15407461',
      w`10`,
-  ).tx();
+  ).tx().mined();
 })();
 ```
 
@@ -107,7 +107,7 @@ If [AnnotationData](../interfaces/AnnotationData.md) is provided directly (as op
   await colony.annotateTransaction(
      transactionHash,
      { annotationMsg: 'I am creating this motion because I think I deserve a little bonus' },
-  ).tx();
+  ).tx().mined();
 })();
 ```
 
@@ -246,7 +246,7 @@ import { TeamColor } from '@colony/sdk';
     domainName: 'Butter-passers',
     domainColor: TeamColor.Gold,
     domainPurpose: 'To pass butter',
-  }).tx();
+  }).tx().mined();
 })();
 ```
 
@@ -405,7 +405,7 @@ This will overwrite all exisiting metadata!
   // (also notice that this requires an upload-capable IPFS adapter)
   await colony.edit({
     colonyDisplayName: 'My super cool Colony',
-  }).tx();
+  }).tx().mined();
 })();
 ```
 
@@ -470,7 +470,7 @@ import { TeamColor } from '@colony/sdk';
     domainName: 'Purple Butter-passers',
     domainColor: TeamColor.Purple,
     domainPurpose: 'To pass purple butter',
-  }).tx();
+  }).tx().mined();
 })();
 ```
 
@@ -733,7 +733,7 @@ After an extension was installed, `colony.updateExtensions()` needs to be called
   // (forced transaction example)
   await colony.installExtension(
     SupportedExtension.oneTx,
-  ).tx();
+  ).tx().mined();
   // Update the extensions in the colony
   await colony.updateExtensions();
   console.info(colony.ext.oneTx.address);
@@ -798,7 +798,7 @@ const encodedAction = ERC721Interface.encodeFunctionData(
      '0x06012c8cf97BEaD5deAe237070F9587f8E7A266d',
      // encoded transaction from above
      encodedAction
-  ).tx();
+  ).tx().mined();
 })();
 ```
 
@@ -842,10 +842,10 @@ import { w } from '@colony/sdk';
 (async function() {
   // Mint 100 tokens of the Colony's native token
   // (forced transaction example)
-  await colony.mint(w`100`).tx();
+  await colony.mint(w`100`).tx().mined();
   // Claim the minted tokens for the Colony
   // (forced transaction example)
-  await colony.claimFunds().tx();
+  await colony.claimFunds().tx().mined();
 })();
 ```
 
@@ -900,7 +900,7 @@ import { Tokens, w } from '@colony/sdk';
      w`10`,
      2,
      3,
-  ).tx();
+  ).tx().mined();
 })();
 ```
 
@@ -957,7 +957,7 @@ import { ColonyRole } from '@colony/sdk';
   await colony.setRoles(
     '0xb794f5ea0ba39494ce839613fffba74279579268',
     [ColonyRole.Administration, ColonyRole.Root],
-  ).tx();
+  ).tx().mined();
 })();
 ```
 
