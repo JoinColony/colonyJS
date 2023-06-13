@@ -218,7 +218,7 @@ const domainAdded = colonyEvents.createFilter(
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `filter` | [`ColonyFilter`](../interfaces/ColonyFilter.md) | A [ColonyFilter](../interfaces/ColonyFilter.md). [ColonyMultiFilter](../interfaces/ColonyMultiFilter.md)s will not work |
+| `filter` | [`ColonyFilter`](../interfaces/ColonyFilter.md) | A [ColonyFilter](../interfaces/ColonyFilter.md), [ColonyMultiFilter](../interfaces/ColonyMultiFilter.md)s will not work |
 
 #### Returns
 

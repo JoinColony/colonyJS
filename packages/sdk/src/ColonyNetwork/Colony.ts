@@ -164,7 +164,7 @@ export class Colony {
   address: string;
 
   /**
-   * A shortcut to the [[ColonyNetwork]] instance
+   * A shortcut to the {@link ColonyNetwork} instance
    */
   colonyNetwork: ColonyNetwork;
 
@@ -213,7 +213,7 @@ export class Colony {
    * @internal
    *
    * @remarks
-   * Do not use this method directly but use [[ColonyNetwork.getColony]]
+   * Do not use this method directly but use {@link ColonyNetwork.getColony}
    */
   constructor(
     colonyNetwork: ColonyNetwork,
@@ -235,7 +235,7 @@ export class Colony {
   }
 
   /**
-   * Creates a new [[ColonyTxCreator]] for non-permissioned Colony transactions
+   * Creates a new {@link ColonyTxCreator} for non-permissioned Colony transactions
    *
    * @internal
    * @remarks
@@ -243,9 +243,9 @@ export class Colony {
    * @param contract - A ColonyJS contract
    * @param method - The transaction method to execute on the contract
    * @param args - The arguments for the method
-   * @param eventData - A function that extracts the relevant event data from the [[ContractReceipt]]
-   * @param txConfig - More configuration options, like [[MetadataType]] if the event contains metadata or if methods are unsupported
-   * @returns A [[ColonyTxCreator]]
+   * @param eventData - A function that extracts the relevant event data from the {@link ContractReceip}
+   * @param txConfig - More configuration options, like {@link MetadataType} if the event contains metadata or if methods are unsupported
+   * @returns A {@link ColonyTxCreator}
    */
   createColonyTxCreator<
     C extends IBasicMetaTransaction,
@@ -273,7 +273,7 @@ export class Colony {
   }
 
   /**
-   * Creates a new [[ColonyTxCreator]] for permissioned Colony transactions
+   * Creates a new {@link ColonyTxCreator} for permissioned Colony transactions
    *
    * @internal
    * @remarks
@@ -282,9 +282,9 @@ export class Colony {
    * @param method - The transaction method to execute on the contract
    * @param args - The arguments for the method
    * @param permissionConfig - Relevant configuration for the permissioned Colony function
-   * @param eventData - A function that extracts the relevant event data from the [[ContractReceipt]]
-   * @param txConfig - More configuration options, like [[MetadataType]] if the event contains metadata or if methods are unsupported
-   * @returns A permissioned [[ColonyTxCreator]]
+   * @param eventData - A function that extracts the relevant event data from the {@link ContractReceipt}
+   * @param txConfig - More configuration options, like {@link MetadataType} if the event contains metadata or if methods are unsupported
+   * @returns A permissioned {@link ColonyTxCreator}
    */
   createPermissionedColonyTxCreator<
     C extends IBasicMetaTransaction,
@@ -396,13 +396,13 @@ export class Colony {
    * })();
    * ```
    *
-   * @param metadata - The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[ColonyData]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
+   * @param metadata - The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If {@link ColonyData} is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an {@link IpfsAdapter} that can upload and pin to IPFS (like the {@link PinataAdapter} See its documentation for more information.
    *
    * @returns A transaction creator
    *
    * #### Required permissions for forced transaction:
    *
-   * * [[ColonyRole.Root]]
+   * * {@link ColonyRole.Root}
    *
    * #### Event data
    *
@@ -471,12 +471,12 @@ export class Colony {
    * })();
    * ```
    *
-   * @param metadata - The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[DomainData]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
+   * @param metadata - The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If {@link DomainData} is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an {@link IpfsAdapter} that can upload and pin to IPFS (like the {@link PinataAdapter}). See its documentation for more information.
    * @returns A transaction creator
    *
    * #### Required permissions for forced transaction:
    *
-   * * [[ColonyRole.Architecture]]
+   * * {@link ColonyRole.Architecture}
    *
    * #### Event data
    *
@@ -519,7 +519,7 @@ export class Colony {
    *
    * #### Required permissions for forced transaction:
    *
-   * * [[ColonyRole.Architecture]]
+   * * {@link ColonyRole.Architecture}
    *
    * #### Event data
    *
@@ -615,12 +615,12 @@ export class Colony {
    *   }).tx().mined();
    * })();
    * ```
-   * @param metadata - The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[DomainData]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
+   * @param metadata - The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If {@link DomainData} is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an {@link IpfsAdapter} that can upload and pin to IPFS (like the {@link PinataAdapter}). See its documentation for more information.
    * @returns A transaction creator
    *
    * #### Required permissions for forced transaction:
    *
-   * * [[ColonyRole.Architecture]]
+   * * {@link ColonyRole.Architecture}
    *
    * #### Event data
    *
@@ -678,7 +678,7 @@ export class Colony {
    *
    * #### Required permissions for forced transaction:
    *
-   * * [[ColonyRole.Architecture]]
+   * * {@link ColonyRole.Architecture}
    *
    * #### Event data
    *
@@ -788,7 +788,7 @@ export class Colony {
    *
    * #### Required permissions for forced transaction:
    *
-   * * [[ColonyRole.Funding]] in both teams
+   * * {@link ColonyRole.Funding} in both teams
    *
    * #### Event data
    *
@@ -949,7 +949,7 @@ export class Colony {
    *
    * #### Required permissions for forced transaction:
    *
-   * * [[ColonyRole.Root]]
+   * * {@link ColonyRole.Root}
    *
    * **No event data**
    */
@@ -972,7 +972,7 @@ export class Colony {
    *
    * This will annotate a transaction with an arbitrary text message. This only really works for transactions that happened within this Colony. This will connect the transaction to the (optionally generated) IPFS hash accordingly.
    *
-   * @remarks If [[AnnotationData]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
+   * @remarks If {@link AnnotationData} is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an {@link IpfsAdapter} that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
    * @example
    * ```typescript
    * // Immediately executing async function
@@ -1037,7 +1037,7 @@ export class Colony {
   /**
    * Install an extension for a colony
    *
-   * Valid extensions can be found here: [[SupportedExtension]]
+   * Valid extensions can be found here: {@link SupportedExtension}
    *
    * @remarks
    * Be aware that some extensions need some extra setup steps (like the `initialise` method on `VotingReputation`).
@@ -1061,7 +1061,7 @@ export class Colony {
    *
    * #### Required permissions for forced transaction:
    *
-   * * [[ColonyRole.Root]]
+   * * {@link ColonyRole.Root}
    *
    * #### Event data
    *
@@ -1114,7 +1114,7 @@ export class Colony {
    * ```
    * @param address - Address of the wallet or contract to check the roles of
    * @param teamId - Team in which to check the roles of given user
-   * @returns An array of [[ColonyRole]]s
+   * @returns An array of {@link ColonyRole}s
    */
   async getRoles(address: string, teamId: BigNumberish = Id.RootDomain) {
     const roleString = await this.colony.getUserRoles(address, teamId);
@@ -1125,7 +1125,7 @@ export class Colony {
    * Set (award) roles to a user/contract
    *
    * @remarks
-   * Existing roles will be kept. Use [[unsetRoles]] to remove roles
+   * Existing roles will be kept. Use {@link unsetRoles} to remove roles
    * @example
    * ```typescript
    * import { ColonyRole } from '@colony/sdk';
@@ -1147,7 +1147,7 @@ export class Colony {
    *
    * #### Required permissions for forced transaction:
    *
-   * * [[ColonyRole.Architecture]], [[ColonyRole.Root]]
+   * * {@link ColonyRole.Architecture}, {@link ColonyRole.Root}
    *
    * #### Event data
    *
@@ -1203,7 +1203,7 @@ export class Colony {
    *
    * #### Required permissions for forced transaction:
    *
-   * * [[ColonyRole.Architecture]], [[ColonyRole.Root]]
+   * * {@link ColonyRole.Architecture}, {@link ColonyRole.Root}
    *
    * #### Event data
    *
@@ -1252,7 +1252,7 @@ export class Colony {
    * Mints `amount` of a Colony's native token.
    *
    * @remarks
-   * Only works for native tokens deployed with Colony (not imported tokens). Note that most tokens use 18 decimals, so add a bunch of zeros or use our `w` or `toWei` functions (see example). Also not that for tokens to be available in the Colony after funding, you need to call the [[Colony.claimFunds]] method after minting.
+   * Only works for native tokens deployed with Colony (not imported tokens). Note that most tokens use 18 decimals, so add a bunch of zeros or use our `w` or `toWei` functions (see example). Also not that for tokens to be available in the Colony after funding, you need to call the {@link Colony.claimFunds} method after minting.
    *
    * @example
    * ```typescript
@@ -1275,7 +1275,7 @@ export class Colony {
    *
    * #### Required permissions for forced transaction:
    *
-   * * [[ColonyRole.Root]]
+   * * {@link ColonyRole.Root}
    *
    * #### Event data
    *
@@ -1311,7 +1311,7 @@ export class Colony {
    *
    * #### Required permissions for forced transaction:
    *
-   * * [[ColonyRole.Root]]
+   * * {@link ColonyRole.Root}
    *
    * #### Event data
    *
@@ -1359,7 +1359,7 @@ export class Colony {
    *
    * #### Required permissions for forced transaction:
    *
-   * * [[ColonyRole.Recovery]]
+   * * {@link ColonyRole.Recovery}
    *
    * #### Event data
    *
@@ -1390,7 +1390,7 @@ export class Colony {
    *
    * #### Required permissions for forced transaction:
    *
-   * * [[ColonyRole.Recovery]]
+   * * {@link ColonyRole.Recovery}
    *
    * #### Event data
    *
@@ -1427,7 +1427,7 @@ export class Colony {
    *
    * #### Required permissions for forced transaction:
    *
-   * * [[ColonyRole.Root]]
+   * * {@link ColonyRole.Root}
    *
    * #### Event data
    *
@@ -1467,7 +1467,7 @@ export class Colony {
    *
    * #### Required permissions for forced transaction:
    *
-   * * [[ColonyRole.Root]]
+   * * {@link ColonyRole.Root}
    *
    * #### Event data
    *
@@ -1515,7 +1515,7 @@ export class Colony {
    *
    * #### Required permissions for forced transaction:
    *
-   * * [[ColonyRole.Arbitration]]
+   * * {@link ColonyRole.Arbitration}
    *
    * #### Event data
    *

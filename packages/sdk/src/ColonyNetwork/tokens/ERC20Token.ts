@@ -21,7 +21,7 @@ export class ERC20Token {
    *
    * @remarks This does not deploy a new token, only connects to an exisiting one
    *
-   * @param colonyNetwork - A [[ColonyNetwork]] instance
+   * @param colonyNetwork - A {@link ColonyNetwork} instance
    * @param token - A token address or a full contract (like on a colony token client)
    * @returns An ERC20 token abstraction instance
    */

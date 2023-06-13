@@ -86,19 +86,19 @@ const REP_DIVISOR = BigNumber.from(10).pow(18);
  *
  * #### Creating a Motion
  *
- * See [[ColonyTxCreator.motion]] or [[ColonyTxCreator.metaMotion]].
+ * See {@link ColonyTxCreator.motion} or {@link ColonyTxCreator.metaMotion}.
  *
- * Anyone within a Colony can start a motion. In Colony SDK, this is as easy as sending a transaction of the same kind. There the `action` (the contract transaction) for the Motion will be defined. This is essentially nothing else than an encoded contract function string alongside its parameters (see for detailed info [here](https://medium.com/linum-labs/a-technical-primer-on-using-encoded-function-calls-50e2b9939223) - but don't worry. In Colony SDK this will all be taken care of by the [[ColonyTxCreator]]).
+ * Anyone within a Colony can start a motion. In Colony SDK, this is as easy as sending a transaction of the same kind. There the `action` (the contract transaction) for the Motion will be defined. This is essentially nothing else than an encoded contract function string alongside its parameters (see for detailed info [here](https://medium.com/linum-labs/a-technical-primer-on-using-encoded-function-calls-50e2b9939223) - but don't worry. In Colony SDK this will all be taken care of by the {@link ColonyTxCreator}).
  *
  *  #### Staking
  *
- * See [[VotingReputation.stakeMotion]].
+ * See {@link VotingReputation.stakeMotion}.
  *
  * Once a motion is created, native tokens can be staked to support either of its sides (_Yay_ or _Nay_). A user can only stake as many tokens for either side as they have reputation in the team the motion is created in. A side can be staked by the motion creator and an arbitrary number of additional users as long as they adhere to the minimum stake per user that was defined in the extensions parameters. The maximum amount a user can stake is also determined by the amount of reputation in the team in which the Motion takes place.
  *
  * :::caution Over-staking
  *
- * Once a side of a Motion is activated, further attempts to stake tokens for that side will revert. It is not necessary or sensible to stake more tokens than needed. Keep in mind that both sides can be activated at the same time (see below for what happens then). You can use the [[VotingReputation.getRemainingStakes]] method to see how many tokens need to be staked on each side for them to activate.
+ * Once a side of a Motion is activated, further attempts to stake tokens for that side will revert. It is not necessary or sensible to stake more tokens than needed. Keep in mind that both sides can be activated at the same time (see below for what happens then). You can use the {@link VotingReputation.getRemainingStakes} method to see how many tokens need to be staked on each side for them to activate.
  *
  * :::
  *
@@ -111,7 +111,7 @@ const REP_DIVISOR = BigNumber.from(10).pow(18);
  *
  * #### Voting
  *
- * See [[VotingReputation.submitVote]].
+ * See {@link VotingReputation.submitVote}.
  *
  * As soon as the voting phase starts, anyone with reputation in the team the Motion was created in can vote for a side. Votes are secret (i.e. they're encrypted using your private key), and weighted by reputation. Vote weight is proportional to the voter's reputation in the team in which the vote is occurring.
  *
@@ -119,7 +119,7 @@ const REP_DIVISOR = BigNumber.from(10).pow(18);
  *
  * #### Revealing the votes
  *
- * See [[VotingReputation.revealVote]].
+ * See {@link VotingReputation.revealVote}.
  *
  * After the voting period is complete, the Reveal phase starts. Votes must be Revealed in order to be counted, and for the voter to receive their voter reward. The Reveal phase ends when either the time runs out, or everyone who has voted reveals their vote, whichever comes first.
  *
@@ -131,7 +131,7 @@ const REP_DIVISOR = BigNumber.from(10).pow(18);
  *
  * ### The structure of a Motion
  *
- * You can - at any point in the lifecycle inspect the current state of a Motion. Using the [[VotingReputation.getMotion]] method, the resulting object will have the following properties:
+ * You can - at any point in the lifecycle inspect the current state of a Motion. Using the {@link VotingReputation.getMotion} method, the resulting object will have the following properties:
  *
  * | Property | Types | Description |
  * | :------ | :------ | :------ |
@@ -359,7 +359,7 @@ export class VotingReputation {
   /**
    * Get the minimum stake that has to be supplied for a motion and a certain vote (NOT for activation)
    *
-   * @remarks To get the missing amount for activation, call [[getRemainingStakes]]
+   * @remarks To get the missing amount for activation, call {@link getRemainingStakes}
    *
    * @param motion - A Motion struct object
    * @param vote - A vote for (Yay) or against (Nay) the motion
@@ -462,7 +462,7 @@ export class VotingReputation {
    *
    * Keep in mind that a decision is just a motion without an on-chain action that is being triggered once it finalizes
    *
-   * @remarks If [[DecisionData]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
+   * @remarks If {@link DecisionData} is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an {@link IpfsAdapter} that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
    *
    * @example
    * ```typescript
@@ -539,7 +539,7 @@ export class VotingReputation {
    *
    * This will annotate a decision with certain metadata (see below). This only really works for transactions that happened within this Colony. This will connect the decision to the (optionally generated) IPFS hash accordingly.
    *
-   * @remarks If [[DecisionData]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
+   * @remarks If {@link DecisionData} is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an {@link IpfsAdapter} that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
    *
    * @example
    * ```typescript
@@ -606,7 +606,7 @@ export class VotingReputation {
 
   /**
    * Approve `amount` of the "activated" native tokens of a user for staking in a specific team
-   * After a token was "activated" (approved and deposited via the native token interface) it can be used for staking motions. To stake a motion, the token amount for staking has to be approved for the domain the motion was created in. See also the example in [[VotingReputation.stakeMotion]]
+   * After a token was "activated" (approved and deposited via the native token interface) it can be used for staking motions. To stake a motion, the token amount for staking has to be approved for the domain the motion was created in. See also the example in {@link VotingReputation.stakeMotion}
    *
    * @remarks
    * This method can't be executed as a motion
@@ -678,7 +678,7 @@ export class VotingReputation {
    * | :------ | :------ | :------ |
    * | `motionId` | BigNumber | ID of the motion to stake for |
    * | `staker` | string | The address that staked the tokens |
-   * | `vote` | Vote | The vote that was staked for (Yay or Nay). See [[Vote]] |
+   * | `vote` | Vote | The vote that was staked for (Yay or Nay). See {@link Vote} |
    * | `amount` | BigNumber | The amount that was staked for that vote |
    * | `eventIndex` | BigNumber | If the stake triggered a motion event, this will contain its index |
    */

@@ -181,7 +181,7 @@ ___
 
 Sets the address of the TokenAuthority for this token
 
-Set the TokenAuthority for this token. Only has to be done once, after the TokenAuthority has been deployed. See [Colony.deployTokenAuthority](Colony.md#deploytokenauthority) for more information.
+Set the TokenAuthority for this token. Only has to be done once, after the TokenAuthority has been deployed. See [deployTokenAuthority](Colony.md#deploytokenauthority) for more information.
 
 **`Remarks`**
 

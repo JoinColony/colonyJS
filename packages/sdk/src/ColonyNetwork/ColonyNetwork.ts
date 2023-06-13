@@ -42,13 +42,13 @@ import { TokenLocking } from './TokenLocking';
 const { namehash } = utils;
 const { AddressZero } = constants;
 
-/** Additional options for the [[ColonyNetwork]] */
+/** Additional options for the {@link ColonyNetwork} */
 export interface ColonyNetworkOptions {
   /** A custom address for ColonyNetwork's EtherRouter contract. Useful only in manual deployments */
   customNetworkAddress?: string;
-  /** Provide a custom [[IpfsAdapter]] */
+  /** Provide a custom {@link IpfsAdapter} */
   ipfsAdapter?: IpfsAdapter;
-  /** The Network to connect to. See [[Network]] for supported networks */
+  /** The Network to connect to. See {@link Network} for supported networks */
   network?: Network;
   /** Provide a custom metatransaction broadcaster endpoint */
   metaTxBroadcasterEndpoint?: string;
@@ -114,7 +114,7 @@ export class ColonyNetwork {
    * ```
    *
    * @param signerOrProvider - An _ethers_ compatible Signer or Provider instance
-   * @param options - Optional custom [[ColonyNetworkOptions]]
+   * @param options - Optional custom {@link ColonyNetworkOptions}
    * @returns A ColonyNetwork abstraction instance
    */
   constructor(
@@ -155,7 +155,7 @@ export class ColonyNetwork {
   /**
    * Fetches the TokenLocking client abstraction
    *
-   * @returns A [[TokenLocking]] contract client
+   * @returns A {@link TokenLocking} contract client
    */
   async getTokenLocking(): Promise<TokenLocking> {
     if (!this.locking) {
@@ -176,7 +176,7 @@ export class ColonyNetwork {
   }
 
   /**
-   * Creates a new [[TxCreator]] for non-meta, non-motion transactions
+   * Creates a new {@link TxCreator} for non-meta, non-motion transactions
    * @internal
    *
    * @remarks
@@ -185,9 +185,9 @@ export class ColonyNetwork {
    * @param contract - A ColonyJS contract
    * @param method - The transaction method to execute on the contract
    * @param args - The arguments for the method
-   * @param eventData - A function that extracts the relevant event data from the [[ContractReceipt]]
-   * @param txConfig - More configuration options, like [[MetadataType]] if the event contains metadata or if methods are unsupported
-   * @returns A [[TxCreator]]
+   * @param eventData - A function that extracts the relevant event data from the {@link ContractReceipt}
+   * @param txConfig - More configuration options, like {@link MetadataType} if the event contains metadata or if methods are unsupported
+   * @returns A {@link TxCreator}
    */
   createTxCreator<
     C extends BaseContract,
@@ -214,7 +214,7 @@ export class ColonyNetwork {
   }
 
   /**
-   * Creates a new [[MetaTxCreator]] for possibly meta, non-motion transactions
+   * Creates a new {@link MetaTxCreator} for possibly meta, non-motion transactions
    * @internal
    *
    * @remarks
@@ -223,9 +223,9 @@ export class ColonyNetwork {
    * @param contract - A ColonyJS contract
    * @param method - The transaction method to execute on the contract
    * @param args - The arguments for the method
-   * @param eventData - A function that extracts the relevant event data from the [[ContractReceipt]]
-   * @param txConfig - More configuration options, like [[MetadataType]] if the event contains metadata or if methods are unsupported
-   * @returns A [[MetaTxCreator]]
+   * @param eventData - A function that extracts the relevant event data from the {@link ContractReceipt}
+   * @param txConfig - More configuration options, like {@link MetadataType} if the event contains metadata or if methods are unsupported
+   * @returns A {@link MetaTxCreator}
    */
   createMetaTxCreator<
     C extends IBasicMetaTransaction,
@@ -252,7 +252,7 @@ export class ColonyNetwork {
   }
 
   /**
-   * Creates a new [[EIP2612TxCreator]] for EIP-2612 transactions (permit)
+   * Creates a new {@link EIP2612TxCreator} for EIP-2612 transactions (permit)
    * @internal
    *
    * @remarks
@@ -261,9 +261,9 @@ export class ColonyNetwork {
    * @param contract - Only a EIP-2612 compatible token contract
    * @param method - Can only do 'permit'
    * @param args - The arguments for the 'permit' method
-   * @param eventData - A function that extracts the relevant event data from the [[ContractReceipt]]
-   * @param txConfig - More configuration options, like [[MetadataType]] if the event contains metadata or if methods are unsupported
-   * @returns A [[MetaTxCreator]]
+   * @param eventData - A function that extracts the relevant event data from the {@link ContractReceipt}
+   * @param txConfig - More configuration options, like {@link MetadataType} if the event contains metadata or if methods are unsupported
+   * @returns A {@link EIP2612TxCreator}
    */
   createEip2612TxCreator<
     D extends Record<string, unknown>,
@@ -288,7 +288,7 @@ export class ColonyNetwork {
   /**
    * Create a new colony with metadata
    *
-   * Creates a new colony with IPFS metadata. To edit metadata at a later point you can call the [[Colony.edit]] method.
+   * Creates a new colony with IPFS metadata. To edit metadata at a later point you can call the {@link Colony.edit} method.
    *
    * @remarks
    * There is more to creating a fully functional colony that can be used within the dapp than just calling this function.
@@ -319,7 +319,7 @@ export class ColonyNetwork {
    *
    * @param token - Create a new ERC20-compatible token by passing in its name and symbol or use an existing token by passing in its contract address
    * @param label - The Colony's label. This is going to be part of the URL to look up the Colony within the dApp
-   * @param metadata - The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [[ColonyData]] is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [[IpfsAdapter]] that can upload and pin to IPFS (like the [[PinataAdapter]]). See its documentation for more information.
+   * @param metadata - The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If {@link ColonyData} is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an {@link IpfsAdapter} that can upload and pin to IPFS (like the {@link PinataAdapter}). See its documentation for more information.
    *
    * @returns A transaction creator
    *
@@ -363,7 +363,7 @@ export class ColonyNetwork {
   /**
    * Create a new Colony without metadata
    *
-   * Creates a new Colony without IPFS metadata. To add metadata at a later point you can call the [[Colony.edit]] method.
+   * Creates a new Colony without IPFS metadata. To add metadata at a later point you can call the {@link Colony.edit} method.
    *
    * @remarks
    * There is more to creating a fully functional colony that can be used within the dapp than just calling this function.

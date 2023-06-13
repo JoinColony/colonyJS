@@ -35,12 +35,12 @@ export interface MetaTxBaseContract extends BaseContract {
 /**
  * An umbrella API for all kinds of transactions
  *
- * The `MetaTxCreator` allows for a simple API to cover all the different cases of transactions within the Colony Network. The `MetaTxCreator` supports sending a standard transaction ([[MetaTxCreator.tx]]) as well as metatransactions ([[MetaTxCreator.metaTx]]).
+ * The `MetaTxCreator` allows for a simple API to cover all the different cases of transactions within the Colony Network. The `MetaTxCreator` supports sending a standard transaction ({@link MetaTxCreator.tx}) as well as metatransactions ({@link MetaTxCreator.metaTx}).
  *
  * ## Create a standard transaction ("force" in dApp)
  *
- * - [[MetaTxCreator.tx]]: force a Colony transaction, knowing you have the permissions to do so
- * - [[MetaTxCreator.metaTx]]: same as `tx()`, but send as a gasless metatransaction
+ * - {@link MetaTxCreator.tx}: force a Colony transaction, knowing you have the permissions to do so
+ * - {@link MetaTxCreator.metaTx}: same as `tx()`, but send as a gasless metatransaction
  *
  * Learn more about these functions in their individual documentation
  */
@@ -119,7 +119,7 @@ export class MetaTxCreator<
    * Create a gasless MetaTransaction ("force" in dApp)
    *
    * After creation, you can then `send` the transaction or wait for it to be `mined`.
-   * See also [[TxCreator.tx]] and https://docs.colony.io/colonysdk/guides/transactions for more information
+   * See also {@link TxCreator.tx} and https://docs.colony.io/colonysdk/guides/transactions for more information
    *
    * @remarks The user sending this transaction has to have the appropriate permissions to do so. Learn more about permissions in Colony [here](/develop/dev-learning/permissions).
    *
