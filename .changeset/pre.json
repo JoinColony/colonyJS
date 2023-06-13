@@ -11,6 +11,7 @@
     "@colony/tokens": "0.1.2"
   },
   "changesets": [
+    "little-ties-taste",
     "old-cobras-sniff",
     "orange-hotels-doubt",
     "strong-yaks-press"
