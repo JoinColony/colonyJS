@@ -41,30 +41,34 @@ import {
   MetadataType,
 } from '@colony/event-metadata';
 
-import type { Expand, Parameters, ParametersFrom2 } from '../types';
-import type { ColonyDataTypes as ColonyDataTypes10 } from '../contracts/IColony/10/IColony';
-import type { ColonyDataTypes as ColonyDataTypes11 } from '../contracts/IColony/11/IColony';
-import type { ColonyDataTypes as ColonyDataTypes12 } from '../contracts/IColony/12/IColony';
-import type { IBasicMetaTransaction } from '../contracts/IBasicMetaTransaction';
+import type { Expand, Parameters, ParametersFrom2 } from '../types.js';
+import type { ColonyDataTypes as ColonyDataTypes10 } from '../contracts/IColony/10/IColony.js';
+import type { ColonyDataTypes as ColonyDataTypes11 } from '../contracts/IColony/11/IColony.js';
+import type { ColonyDataTypes as ColonyDataTypes12 } from '../contracts/IColony/12/IColony.js';
+import type { IBasicMetaTransaction } from '../contracts/IBasicMetaTransaction.js';
 
 import {
   IColony as ColonyContract10,
   IColony__factory as ColonyFactory10,
-} from '../contracts/IColony/10';
+} from '../contracts/IColony/10/index.js';
 import {
   IColony as ColonyContract11,
   IColony__factory as ColonyFactory11,
-} from '../contracts/IColony/11';
+} from '../contracts/IColony/11/index.js';
 import {
   IColony as ColonyContract12,
   IColony__factory as ColonyFactory12,
-} from '../contracts/IColony/12';
-import { PermissionConfig, TxConfig, ColonyTxCreator } from '../TxCreator';
-import { extractEvent, extractCustomEvent } from '../utils';
-import { ColonyNetwork } from './ColonyNetwork';
-import { OneTxPayment } from './OneTxPayment';
-import { Token, getToken } from './tokens';
-import { VotingReputation } from './VotingReputation';
+} from '../contracts/IColony/12/index.js';
+import {
+  PermissionConfig,
+  TxConfig,
+  ColonyTxCreator,
+} from '../TxCreator/index.js';
+import { extractEvent, extractCustomEvent } from '../utils.js';
+import { ColonyNetwork } from './ColonyNetwork.js';
+import { OneTxPayment } from './OneTxPayment.js';
+import { Token, getToken } from './tokens/index.js';
+import { VotingReputation } from './VotingReputation.js';
 
 export type SupportedColonyContract =
   | ColonyContract10

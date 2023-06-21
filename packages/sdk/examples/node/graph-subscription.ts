@@ -3,7 +3,7 @@
  */
 import { pipe, subscribe } from 'wonka';
 
-import { createSubgraphClient, gql } from '../../src/graph';
+import { createSubgraphClient, gql } from '../../src/graph/index.js';
 
 const colonySubgraph = createSubgraphClient();
 

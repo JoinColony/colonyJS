@@ -6,8 +6,8 @@ import type {
 import { BigNumberish } from 'ethers';
 import { type TokenLockingClient, getTokenLockingClient } from '@colony/tokens';
 
-import { extractEvent } from '../utils';
-import { ColonyNetwork } from './ColonyNetwork';
+import { extractEvent } from '../utils.js';
+import { ColonyNetwork } from './ColonyNetwork.js';
 
 export class TokenLocking {
   address: string;

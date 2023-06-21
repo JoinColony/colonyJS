@@ -5,7 +5,7 @@ import type { FundingQueue as FundingQueue3 } from '../../../contracts/FundingQu
 import type { FundingQueue as FundingQueue4 } from '../../../contracts/FundingQueue/4';
 
 // Always adjust to the latest factory
-export { FundingQueue__factory as FundingQueueFactory } from '../../../contracts/FundingQueue/4/factories/FundingQueue__factory';
+export { FundingQueue__factory as FundingQueueFactory } from '../../../contracts/FundingQueue/4/factories/FundingQueue__factory.js';
 
 export type FundingQueueV1 = FundingQueue1;
 export type FundingQueueV2 = FundingQueue2;

@@ -2,19 +2,19 @@ import type { SignerOrProvider } from '@colony/core';
 
 import { constants } from 'ethers';
 
-import { ClientType, TokenClientType } from '../constants';
+import { ClientType, TokenClientType } from '../constants.js';
 import {
   MetaTxToken__factory as MetaTxTokenFactory,
   MetaTxToken,
   Token__factory as TokenFactory,
   Token,
-} from '../contracts';
+} from '../contracts/index.js';
 import {
   TokenERC20__factory as TokenERC20Factory,
   TokenERC20,
   TokenERC2612__factory as TokenERC2612Factory,
   TokenERC2612,
-} from '../contracts/static';
+} from '../contracts/static/index.js';
 
 const { AddressZero } = constants;
 

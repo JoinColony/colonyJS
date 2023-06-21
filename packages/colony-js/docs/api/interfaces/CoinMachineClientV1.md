@@ -67,27 +67,49 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `authority` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `buyTokens` | (`_numTokens`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `deprecate` | (`_deprecated`: `PromiseOrValue`<`boolean`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `authority()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `buyTokens` | (`_numTokens`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `buyTokens(uint256)` | (`_numTokens`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `deprecate` | (`_deprecated`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `deprecate(bool)` | (`_deprecated`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `finishUpgrade` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `finishUpgrade()` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `getColony()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getCurrentPrice` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getCurrentPrice()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
+| `getDeprecated()` | (`overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 | `getMaxPerPeriod` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getMaxPerPeriod()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getNumAvailable` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getNumAvailable()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getPeriodLength` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getPeriodLength()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getTargetPerPeriod` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getTargetPerPeriod()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getTokensToSell` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getTokensToSell()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getWindowSize` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getWindowSize()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `initialise` | (`_purchaseToken`: `PromiseOrValue`<`string`\>, `_periodLength`: `PromiseOrValue`<`BigNumberish`\>, `_windowSize`: `PromiseOrValue`<`BigNumberish`\>, `_targetPerPeriod`: `PromiseOrValue`<`BigNumberish`\>, `_maxPerPeriod`: `PromiseOrValue`<`BigNumberish`\>, `_tokensToSell`: `PromiseOrValue`<`BigNumberish`\>, `_startingPrice`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `install` | (`_colony`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `identifier()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `initialise` | (`_purchaseToken`: `string`, `_periodLength`: `BigNumberish`, `_windowSize`: `BigNumberish`, `_targetPerPeriod`: `BigNumberish`, `_maxPerPeriod`: `BigNumberish`, `_tokensToSell`: `BigNumberish`, `_startingPrice`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `initialise(address,uint256,uint256,uint256,uint256,uint256,uint256)` | (`_purchaseToken`: `string`, `_periodLength`: `BigNumberish`, `_windowSize`: `BigNumberish`, `_targetPerPeriod`: `BigNumberish`, `_maxPerPeriod`: `BigNumberish`, `_tokensToSell`: `BigNumberish`, `_startingPrice`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `install` | (`_colony`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `install(address)` | (`_colony`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `setAuthority` | (`authority_`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setOwner` | (`owner_`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `owner()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `setAuthority` | (`authority_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setAuthority(address)` | (`authority_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setOwner` | (`owner_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setOwner(address)` | (`owner_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `uninstall` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `uninstall()` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `updatePeriod` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `updatePeriod()` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `version` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `version()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 
 #### Inherited from
 
@@ -160,27 +182,49 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `authority` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `buyTokens` | (`_numTokens`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `PayableOverrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
-| `deprecate` | (`_deprecated`: `PromiseOrValue`<`boolean`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
-| `finishUpgrade` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
+| `authority()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `buyTokens` | (`_numTokens`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `buyTokens(uint256)` | (`_numTokens`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `deprecate` | (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `deprecate(bool)` | (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `finishUpgrade` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `finishUpgrade()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
 | `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getColony()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getCurrentPrice` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getCurrentPrice()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getDeprecated()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getMaxPerPeriod` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getMaxPerPeriod()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getNumAvailable` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getNumAvailable()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getPeriodLength` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getPeriodLength()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getTargetPerPeriod` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getTargetPerPeriod()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getTokensToSell` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getTokensToSell()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getWindowSize` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getWindowSize()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `initialise` | (`_purchaseToken`: `PromiseOrValue`<`string`\>, `_periodLength`: `PromiseOrValue`<`BigNumberish`\>, `_windowSize`: `PromiseOrValue`<`BigNumberish`\>, `_targetPerPeriod`: `PromiseOrValue`<`BigNumberish`\>, `_maxPerPeriod`: `PromiseOrValue`<`BigNumberish`\>, `_tokensToSell`: `PromiseOrValue`<`BigNumberish`\>, `_startingPrice`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
-| `install` | (`_colony`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
+| `identifier()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `initialise` | (`_purchaseToken`: `string`, `_periodLength`: `BigNumberish`, `_windowSize`: `BigNumberish`, `_targetPerPeriod`: `BigNumberish`, `_maxPerPeriod`: `BigNumberish`, `_tokensToSell`: `BigNumberish`, `_startingPrice`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `initialise(address,uint256,uint256,uint256,uint256,uint256,uint256)` | (`_purchaseToken`: `string`, `_periodLength`: `BigNumberish`, `_windowSize`: `BigNumberish`, `_targetPerPeriod`: `BigNumberish`, `_maxPerPeriod`: `BigNumberish`, `_tokensToSell`: `BigNumberish`, `_startingPrice`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `install` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `install(address)` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
 | `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `setAuthority` | (`authority_`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
-| `setOwner` | (`owner_`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
-| `uninstall` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
-| `updatePeriod` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
+| `owner()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `setAuthority` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `setAuthority(address)` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `setOwner` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `setOwner(address)` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `uninstall` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `uninstall()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `updatePeriod` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `updatePeriod()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
 | `version` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `version()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 
 #### Inherited from
 
@@ -198,10 +242,10 @@ ___
 | :------ | :------ |
 | `ExtensionInitialised` | () => `ExtensionInitialisedEventFilter` |
 | `ExtensionInitialised()` | () => `ExtensionInitialisedEventFilter` |
-| `LogSetAuthority` | (`authority?`: ``null`` \| `PromiseOrValue`<`string`\>) => `LogSetAuthorityEventFilter` |
-| `LogSetAuthority(address)` | (`authority?`: ``null`` \| `PromiseOrValue`<`string`\>) => `LogSetAuthorityEventFilter` |
-| `LogSetOwner` | (`owner?`: ``null`` \| `PromiseOrValue`<`string`\>) => `LogSetOwnerEventFilter` |
-| `LogSetOwner(address)` | (`owner?`: ``null`` \| `PromiseOrValue`<`string`\>) => `LogSetOwnerEventFilter` |
+| `LogSetAuthority` | (`authority?`: ``null`` \| `string`) => `LogSetAuthorityEventFilter` |
+| `LogSetAuthority(address)` | (`authority?`: ``null`` \| `string`) => `LogSetAuthorityEventFilter` |
+| `LogSetOwner` | (`owner?`: ``null`` \| `string`) => `LogSetOwnerEventFilter` |
+| `LogSetOwner(address)` | (`owner?`: ``null`` \| `string`) => `LogSetOwnerEventFilter` |
 | `PeriodUpdated` | (`activePeriod?`: ``null``, `currentPeriod?`: ``null``) => `PeriodUpdatedEventFilter` |
 | `PeriodUpdated(uint256,uint256)` | (`activePeriod?`: ``null``, `currentPeriod?`: ``null``) => `PeriodUpdatedEventFilter` |
 | `TokensBought` | (`buyer?`: ``null``, `numTokens?`: ``null``, `totalCost?`: ``null``) => `TokensBoughtEventFilter` |
@@ -222,27 +266,49 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `authority` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `buyTokens` | (`_numTokens`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `PayableOverrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `deprecate` | (`_deprecated`: `PromiseOrValue`<`boolean`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `finishUpgrade` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `authority()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
+| `buyTokens` | (`_numTokens`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `buyTokens(uint256)` | (`_numTokens`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `deprecate` | (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `deprecate(bool)` | (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `finishUpgrade` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `finishUpgrade()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
+| `getColony()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `getCurrentPrice` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
+| `getCurrentPrice()` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
 | `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
+| `getDeprecated()` | (`overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
 | `getMaxPerPeriod` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
+| `getMaxPerPeriod()` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
 | `getNumAvailable` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
+| `getNumAvailable()` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
 | `getPeriodLength` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
+| `getPeriodLength()` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
 | `getTargetPerPeriod` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
+| `getTargetPerPeriod()` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
 | `getTokensToSell` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
+| `getTokensToSell()` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
 | `getWindowSize` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
+| `getWindowSize()` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
 | `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `initialise` | (`_purchaseToken`: `PromiseOrValue`<`string`\>, `_periodLength`: `PromiseOrValue`<`BigNumberish`\>, `_windowSize`: `PromiseOrValue`<`BigNumberish`\>, `_targetPerPeriod`: `PromiseOrValue`<`BigNumberish`\>, `_maxPerPeriod`: `PromiseOrValue`<`BigNumberish`\>, `_tokensToSell`: `PromiseOrValue`<`BigNumberish`\>, `_startingPrice`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `install` | (`_colony`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `identifier()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
+| `initialise` | (`_purchaseToken`: `string`, `_periodLength`: `BigNumberish`, `_windowSize`: `BigNumberish`, `_targetPerPeriod`: `BigNumberish`, `_maxPerPeriod`: `BigNumberish`, `_tokensToSell`: `BigNumberish`, `_startingPrice`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `initialise(address,uint256,uint256,uint256,uint256,uint256,uint256)` | (`_purchaseToken`: `string`, `_periodLength`: `BigNumberish`, `_windowSize`: `BigNumberish`, `_targetPerPeriod`: `BigNumberish`, `_maxPerPeriod`: `BigNumberish`, `_tokensToSell`: `BigNumberish`, `_startingPrice`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `install` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `install(address)` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `owner` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `setAuthority` | (`authority_`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `setOwner` | (`owner_`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `uninstall` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `updatePeriod` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `owner()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
+| `setAuthority` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `setAuthority(address)` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `setOwner` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `setOwner(address)` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `uninstall` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `uninstall()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `updatePeriod` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `updatePeriod()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `version` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
+| `version()` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
 
 #### Inherited from
 
@@ -299,27 +365,49 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `authority` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `buyTokens` | (`_numTokens`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `PayableOverrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `deprecate` | (`_deprecated`: `PromiseOrValue`<`boolean`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `finishUpgrade` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `authority()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `buyTokens` | (`_numTokens`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `buyTokens(uint256)` | (`_numTokens`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `deprecate` | (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `deprecate(bool)` | (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `finishUpgrade` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `finishUpgrade()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getColony()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getCurrentPrice` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getCurrentPrice()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getDeprecated()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getMaxPerPeriod` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getMaxPerPeriod()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getNumAvailable` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getNumAvailable()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getPeriodLength` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getPeriodLength()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getTargetPerPeriod` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getTargetPerPeriod()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getTokensToSell` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getTokensToSell()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getWindowSize` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getWindowSize()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `initialise` | (`_purchaseToken`: `PromiseOrValue`<`string`\>, `_periodLength`: `PromiseOrValue`<`BigNumberish`\>, `_windowSize`: `PromiseOrValue`<`BigNumberish`\>, `_targetPerPeriod`: `PromiseOrValue`<`BigNumberish`\>, `_maxPerPeriod`: `PromiseOrValue`<`BigNumberish`\>, `_tokensToSell`: `PromiseOrValue`<`BigNumberish`\>, `_startingPrice`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `install` | (`_colony`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `identifier()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `initialise` | (`_purchaseToken`: `string`, `_periodLength`: `BigNumberish`, `_windowSize`: `BigNumberish`, `_targetPerPeriod`: `BigNumberish`, `_maxPerPeriod`: `BigNumberish`, `_tokensToSell`: `BigNumberish`, `_startingPrice`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `initialise(address,uint256,uint256,uint256,uint256,uint256,uint256)` | (`_purchaseToken`: `string`, `_periodLength`: `BigNumberish`, `_windowSize`: `BigNumberish`, `_targetPerPeriod`: `BigNumberish`, `_maxPerPeriod`: `BigNumberish`, `_tokensToSell`: `BigNumberish`, `_startingPrice`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `install` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `install(address)` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `setAuthority` | (`authority_`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `setOwner` | (`owner_`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `uninstall` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `updatePeriod` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `owner()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `setAuthority` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `setAuthority(address)` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `setOwner` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `setOwner(address)` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `uninstall` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `uninstall()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `updatePeriod` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `updatePeriod()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `version` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `version()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 
 #### Inherited from
 
@@ -469,6 +557,26 @@ AugmentedCoinMachine.authority
 
 ___
 
+### authority()
+
+▸ **authority()**(`overrides?`): `Promise`<`string`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`string`\>
+
+#### Inherited from
+
+AugmentedCoinMachine.authority()
+
+___
+
 ### buyTokens
 
 ▸ **buyTokens**(`_numTokens`, `overrides?`): `Promise`<`ContractTransaction`\>
@@ -479,8 +587,8 @@ Purchase tokens from Coin Machine.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_numTokens` | `PromiseOrValue`<`BigNumberish`\> | The number of tokens to purchase |
-| `overrides?` | `PayableOverrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
+| `_numTokens` | `BigNumberish` | The number of tokens to purchase |
+| `overrides?` | `PayableOverrides` & { `from?`: `string`  } | - |
 
 #### Returns
 
@@ -489,6 +597,29 @@ Purchase tokens from Coin Machine.
 #### Inherited from
 
 AugmentedCoinMachine.buyTokens
+
+___
+
+### buyTokens(uint256)
+
+▸ **buyTokens(uint256)**(`_numTokens`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Purchase tokens from Coin Machine.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_numTokens` | `BigNumberish` | The number of tokens to purchase |
+| `overrides?` | `PayableOverrides` & { `from?`: `string`  } | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedCoinMachine.buyTokens(uint256)
 
 ___
 
@@ -536,8 +667,8 @@ Called when deprecating (or undeprecating) the extension
 
 | Name | Type |
 | :------ | :------ |
-| `_deprecated` | `PromiseOrValue`<`boolean`\> |
-| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
+| `_deprecated` | `boolean` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -546,6 +677,29 @@ Called when deprecating (or undeprecating) the extension
 #### Inherited from
 
 AugmentedCoinMachine.deprecate
+
+___
+
+### deprecate(bool)
+
+▸ **deprecate(bool)**(`_deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Called when deprecating (or undeprecating) the extension
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_deprecated` | `boolean` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedCoinMachine.deprecate(bool)
 
 ___
 
@@ -600,7 +754,7 @@ Called when upgrading the extension
 
 | Name | Type |
 | :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -609,6 +763,28 @@ Called when upgrading the extension
 #### Inherited from
 
 AugmentedCoinMachine.finishUpgrade
+
+___
+
+### finishUpgrade()
+
+▸ **finishUpgrade()**(`overrides?`): `Promise`<`ContractTransaction`\>
+
+Called when upgrading the extension
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedCoinMachine.finishUpgrade()
 
 ___
 
@@ -629,6 +805,26 @@ ___
 #### Inherited from
 
 AugmentedCoinMachine.getColony
+
+___
+
+### getColony()
+
+▸ **getColony()**(`overrides?`): `Promise`<`string`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`string`\>
+
+#### Inherited from
+
+AugmentedCoinMachine.getColony()
 
 ___
 
@@ -654,6 +850,28 @@ AugmentedCoinMachine.getCurrentPrice
 
 ___
 
+### getCurrentPrice()
+
+▸ **getCurrentPrice()**(`overrides?`): `Promise`<`BigNumber`\>
+
+Get the current price per token
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+#### Inherited from
+
+AugmentedCoinMachine.getCurrentPrice()
+
+___
+
 ### getDeprecated
 
 ▸ **getDeprecated**(`overrides?`): `Promise`<`boolean`\>
@@ -671,6 +889,26 @@ ___
 #### Inherited from
 
 AugmentedCoinMachine.getDeprecated
+
+___
+
+### getDeprecated()
+
+▸ **getDeprecated()**(`overrides?`): `Promise`<`boolean`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`boolean`\>
+
+#### Inherited from
+
+AugmentedCoinMachine.getDeprecated()
 
 ___
 
@@ -696,6 +934,28 @@ AugmentedCoinMachine.getMaxPerPeriod
 
 ___
 
+### getMaxPerPeriod()
+
+▸ **getMaxPerPeriod()**(`overrides?`): `Promise`<`BigNumber`\>
+
+Get the maximum number of tokens to sell per period
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+#### Inherited from
+
+AugmentedCoinMachine.getMaxPerPeriod()
+
+___
+
 ### getNumAvailable
 
 ▸ **getNumAvailable**(`overrides?`): `Promise`<`BigNumber`\>
@@ -715,6 +975,28 @@ Get the number of remaining tokens for sale this period
 #### Inherited from
 
 AugmentedCoinMachine.getNumAvailable
+
+___
+
+### getNumAvailable()
+
+▸ **getNumAvailable()**(`overrides?`): `Promise`<`BigNumber`\>
+
+Get the number of remaining tokens for sale this period
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+#### Inherited from
+
+AugmentedCoinMachine.getNumAvailable()
 
 ___
 
@@ -740,6 +1022,28 @@ AugmentedCoinMachine.getPeriodLength
 
 ___
 
+### getPeriodLength()
+
+▸ **getPeriodLength()**(`overrides?`): `Promise`<`BigNumber`\>
+
+Get the length of the sale period
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+#### Inherited from
+
+AugmentedCoinMachine.getPeriodLength()
+
+___
+
 ### getTargetPerPeriod
 
 ▸ **getTargetPerPeriod**(`overrides?`): `Promise`<`BigNumber`\>
@@ -759,6 +1063,28 @@ Get the target number of tokens to sell per period
 #### Inherited from
 
 AugmentedCoinMachine.getTargetPerPeriod
+
+___
+
+### getTargetPerPeriod()
+
+▸ **getTargetPerPeriod()**(`overrides?`): `Promise`<`BigNumber`\>
+
+Get the target number of tokens to sell per period
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+#### Inherited from
+
+AugmentedCoinMachine.getTargetPerPeriod()
 
 ___
 
@@ -784,6 +1110,28 @@ AugmentedCoinMachine.getTokensToSell
 
 ___
 
+### getTokensToSell()
+
+▸ **getTokensToSell()**(`overrides?`): `Promise`<`BigNumber`\>
+
+Get the total number of tokens remaining for sale
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+#### Inherited from
+
+AugmentedCoinMachine.getTokensToSell()
+
+___
+
 ### getWindowSize
 
 ▸ **getWindowSize**(`overrides?`): `Promise`<`BigNumber`\>
@@ -803,6 +1151,28 @@ Get the size of the averaging window
 #### Inherited from
 
 AugmentedCoinMachine.getWindowSize
+
+___
+
+### getWindowSize()
+
+▸ **getWindowSize()**(`overrides?`): `Promise`<`BigNumber`\>
+
+Get the size of the averaging window
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+#### Inherited from
+
+AugmentedCoinMachine.getWindowSize()
 
 ___
 
@@ -828,6 +1198,28 @@ AugmentedCoinMachine.identifier
 
 ___
 
+### identifier()
+
+▸ **identifier()**(`overrides?`): `Promise`<`string`\>
+
+Returns the identifier of the extension
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`string`\>
+
+#### Inherited from
+
+AugmentedCoinMachine.identifier()
+
+___
+
 ### initialise
 
 ▸ **initialise**(`_purchaseToken`, `_periodLength`, `_windowSize`, `_targetPerPeriod`, `_maxPerPeriod`, `_tokensToSell`, `_startingPrice`, `overrides?`): `Promise`<`ContractTransaction`\>
@@ -838,14 +1230,14 @@ Must be called before any sales can be made
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_purchaseToken` | `PromiseOrValue`<`string`\> | The token to receive payments in. Use 0x0 for ether |
-| `_periodLength` | `PromiseOrValue`<`BigNumberish`\> | How long in seconds each period of the sale should last |
-| `_windowSize` | `PromiseOrValue`<`BigNumberish`\> | Characteristic number of periods that should be used for the moving average. In the long-term, 86% of the weighting will be in this window size. The higher the number, the slower the price will be to adjust |
-| `_targetPerPeriod` | `PromiseOrValue`<`BigNumberish`\> | The number of tokens to aim to sell per period |
-| `_maxPerPeriod` | `PromiseOrValue`<`BigNumberish`\> | The maximum number of tokens that can be sold per period |
-| `_tokensToSell` | `PromiseOrValue`<`BigNumberish`\> | - |
-| `_startingPrice` | `PromiseOrValue`<`BigNumberish`\> | The sale price to start at, expressed in units of _purchaseToken per token being sold, as a WAD |
-| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
+| `_purchaseToken` | `string` | The token to receive payments in. Use 0x0 for ether |
+| `_periodLength` | `BigNumberish` | How long in seconds each period of the sale should last |
+| `_windowSize` | `BigNumberish` | Characteristic number of periods that should be used for the moving average. In the long-term, 86% of the weighting will be in this window size. The higher the number, the slower the price will be to adjust |
+| `_targetPerPeriod` | `BigNumberish` | The number of tokens to aim to sell per period |
+| `_maxPerPeriod` | `BigNumberish` | The maximum number of tokens that can be sold per period |
+| `_tokensToSell` | `BigNumberish` | - |
+| `_startingPrice` | `BigNumberish` | The sale price to start at, expressed in units of _purchaseToken per token being sold, as a WAD |
+| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
 
 #### Returns
 
@@ -854,6 +1246,35 @@ Must be called before any sales can be made
 #### Inherited from
 
 AugmentedCoinMachine.initialise
+
+___
+
+### initialise(address,uint256,uint256,uint256,uint256,uint256,uint256)
+
+▸ **initialise(address,uint256,uint256,uint256,uint256,uint256,uint256)**(`_purchaseToken`, `_periodLength`, `_windowSize`, `_targetPerPeriod`, `_maxPerPeriod`, `_tokensToSell`, `_startingPrice`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Must be called before any sales can be made
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_purchaseToken` | `string` | The token to receive payments in. Use 0x0 for ether |
+| `_periodLength` | `BigNumberish` | How long in seconds each period of the sale should last |
+| `_windowSize` | `BigNumberish` | Characteristic number of periods that should be used for the moving average. In the long-term, 86% of the weighting will be in this window size. The higher the number, the slower the price will be to adjust |
+| `_targetPerPeriod` | `BigNumberish` | The number of tokens to aim to sell per period |
+| `_maxPerPeriod` | `BigNumberish` | The maximum number of tokens that can be sold per period |
+| `_tokensToSell` | `BigNumberish` | - |
+| `_startingPrice` | `BigNumberish` | The sale price to start at, expressed in units of _purchaseToken per token being sold, as a WAD |
+| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedCoinMachine.initialise(address,uint256,uint256,uint256,uint256,uint256,uint256)
 
 ___
 
@@ -867,8 +1288,8 @@ Configures the extension
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_colony` | `PromiseOrValue`<`string`\> | The colony in which the extension holds permissions |
-| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
+| `_colony` | `string` | The colony in which the extension holds permissions |
+| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
 
 #### Returns
 
@@ -877,6 +1298,29 @@ Configures the extension
 #### Inherited from
 
 AugmentedCoinMachine.install
+
+___
+
+### install(address)
+
+▸ **install(address)**(`_colony`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Configures the extension
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_colony` | `string` | The colony in which the extension holds permissions |
+| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedCoinMachine.install(address)
 
 ___
 
@@ -962,6 +1406,26 @@ AugmentedCoinMachine.owner
 
 ___
 
+### owner()
+
+▸ **owner()**(`overrides?`): `Promise`<`string`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`string`\>
+
+#### Inherited from
+
+AugmentedCoinMachine.owner()
+
+___
+
 ### queryFilter
 
 ▸ **queryFilter**<`TEvent`\>(`event`, `fromBlockOrBlockhash?`, `toBlock?`): `Promise`<`TEvent`[]\>
@@ -1040,8 +1504,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `authority_` | `PromiseOrValue`<`string`\> |
-| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
+| `authority_` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1053,6 +1517,27 @@ AugmentedCoinMachine.setAuthority
 
 ___
 
+### setAuthority(address)
+
+▸ **setAuthority(address)**(`authority_`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `authority_` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedCoinMachine.setAuthority(address)
+
+___
+
 ### setOwner
 
 ▸ **setOwner**(`owner_`, `overrides?`): `Promise`<`ContractTransaction`\>
@@ -1061,8 +1546,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `owner_` | `PromiseOrValue`<`string`\> |
-| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
+| `owner_` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1071,6 +1556,27 @@ ___
 #### Inherited from
 
 AugmentedCoinMachine.setOwner
+
+___
+
+### setOwner(address)
+
+▸ **setOwner(address)**(`owner_`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `owner_` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedCoinMachine.setOwner(address)
 
 ___
 
@@ -1084,7 +1590,7 @@ Called when uninstalling the extension
 
 | Name | Type |
 | :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1093,6 +1599,28 @@ Called when uninstalling the extension
 #### Inherited from
 
 AugmentedCoinMachine.uninstall
+
+___
+
+### uninstall()
+
+▸ **uninstall()**(`overrides?`): `Promise`<`ContractTransaction`\>
+
+Called when uninstalling the extension
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedCoinMachine.uninstall()
 
 ___
 
@@ -1106,7 +1634,7 @@ Bring the token accounting current
 
 | Name | Type |
 | :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1115,6 +1643,28 @@ Bring the token accounting current
 #### Inherited from
 
 AugmentedCoinMachine.updatePeriod
+
+___
+
+### updatePeriod()
+
+▸ **updatePeriod()**(`overrides?`): `Promise`<`ContractTransaction`\>
+
+Bring the token accounting current
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedCoinMachine.updatePeriod()
 
 ___
 
@@ -1137,3 +1687,25 @@ Returns the version of the extension
 #### Inherited from
 
 AugmentedCoinMachine.version
+
+___
+
+### version()
+
+▸ **version()**(`overrides?`): `Promise`<`BigNumber`\>
+
+Returns the version of the extension
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+#### Inherited from
+
+AugmentedCoinMachine.version()

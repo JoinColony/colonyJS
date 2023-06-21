@@ -1,6 +1,6 @@
 import { providers } from 'ethers';
 
-import { ColonyNetwork, ColonyRpcEndpoint, toEth } from '../../src';
+import { ColonyNetwork, ColonyRpcEndpoint, toEth } from '../../src/index.js';
 
 const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
 

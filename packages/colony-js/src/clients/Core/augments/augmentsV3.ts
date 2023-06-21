@@ -5,7 +5,7 @@ import {
   getPermissionProofs,
 } from '@colony/core';
 
-import { ColonyNetworkClient } from '../../ColonyNetworkClient';
+import { ColonyNetworkClient } from '../../ColonyNetworkClient.js';
 import {
   IColonyV3,
   IColonyV4,
@@ -17,11 +17,11 @@ import {
   IColonyV10,
   IColonyV11,
   IColonyV12,
-} from '../contracts';
+} from '../contracts.js';
 import {
   addAugments as addCommonAugments,
   AugmentedIColony,
-} from './commonAugments';
+} from './commonAugments.js';
 
 type ValidColony =
   | IColonyV3

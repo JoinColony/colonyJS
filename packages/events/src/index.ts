@@ -1,4 +1,4 @@
-export * from './contracts';
+export * from './contracts/index.js';
 
 // We need to manually export those as they are ambiguous as they exist in multiple event contracts
 export type {
@@ -38,11 +38,11 @@ export type {
   LogSetOwnerEventObject,
 } from './contracts/ColonyExtensionEvents';
 
-export * from './contracts/CoinMachineEvents';
-export * from './contracts/IColonyEvents';
-export * from './contracts/IColonyNetworkEvents';
-export * from './contracts/MetaTxTokenEvents';
-export * from './contracts/OneTxPaymentEvents';
-export * from './contracts/TokenLockingEvents';
-export * from './contracts/VotingReputationEvents';
-export * from './contracts/WhitelistEvents';
+export * from './contracts/CoinMachineEvents.js';
+export * from './contracts/IColonyEvents.js';
+export * from './contracts/IColonyNetworkEvents.js';
+export * from './contracts/MetaTxTokenEvents.js';
+export * from './contracts/OneTxPaymentEvents.js';
+export * from './contracts/TokenLockingEvents.js';
+export * from './contracts/VotingReputationEvents.js';
+export * from './contracts/WhitelistEvents.js';

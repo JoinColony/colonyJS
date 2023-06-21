@@ -10,16 +10,16 @@ import {
 import { MetadataType } from '@colony/event-metadata';
 
 import type { TransactionResponse } from '@ethersproject/abstract-provider';
-import { Colony } from '../ColonyNetwork';
-import { extractEvent } from '../utils';
+import { Colony } from '../ColonyNetwork/index.js';
+import { extractEvent } from '../utils.js';
 import {
   TxCreatorConfig,
   EventData,
   ColonyTransaction,
   ColonyMetaTransaction,
-} from './TxCreator';
-import { MetaTxBaseContract, MetaTxCreator } from './MetaTxCreator';
-import { ParsedLogTransactionReceipt } from '../types';
+} from './TxCreator.js';
+import { MetaTxBaseContract, MetaTxCreator } from './MetaTxCreator.js';
+import { ParsedLogTransactionReceipt } from '../types.js';
 
 export interface PermissionConfig {
   domain: BigNumberish;

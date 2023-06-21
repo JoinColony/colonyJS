@@ -4,7 +4,7 @@
 
 import { Contract, Signer, utils } from "ethers";
 import type { Provider } from "@ethersproject/providers";
-import type { MotionTarget, MotionTargetInterface } from "../MotionTarget";
+import type { MotionTarget, MotionTargetInterface } from "../MotionTarget.js";
 
 const _abi = [
   {

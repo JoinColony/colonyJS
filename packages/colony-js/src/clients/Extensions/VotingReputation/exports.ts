@@ -2,41 +2,41 @@ import type { VotingReputationVersion } from '@colony/core';
 
 import { assertExhaustiveSwitch } from '@colony/core/utils';
 
-import { AugmentedIColony } from '../../Core/augments/commonAugments';
+import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
 
 import getVotingReputationClientV1, {
   VotingReputationClientV1,
-} from './VotingReputationClientV1';
+} from './VotingReputationClientV1.js';
 import getVotingReputationClientV2, {
   VotingReputationClientV2,
-} from './VotingReputationClientV2';
+} from './VotingReputationClientV2.js';
 import getVotingReputationClientV3, {
   VotingReputationClientV3,
-} from './VotingReputationClientV3';
+} from './VotingReputationClientV3.js';
 import getVotingReputationClientV4, {
   VotingReputationClientV4,
-} from './VotingReputationClientV4';
+} from './VotingReputationClientV4.js';
 import getVotingReputationClientV5, {
   VotingReputationClientV5,
-} from './VotingReputationClientV5';
+} from './VotingReputationClientV5.js';
 import getVotingReputationClientV6, {
   VotingReputationClientV6,
-} from './VotingReputationClientV6';
+} from './VotingReputationClientV6.js';
 import getVotingReputationClientV7, {
   VotingReputationClientV7,
-} from './VotingReputationClientV7';
+} from './VotingReputationClientV7.js';
 import getVotingReputationClientV8, {
   VotingReputationClientV8,
-} from './VotingReputationClientV8';
+} from './VotingReputationClientV8.js';
 
-export { VotingReputationClientV1 } from './VotingReputationClientV1';
-export { VotingReputationClientV2 } from './VotingReputationClientV2';
-export { VotingReputationClientV3 } from './VotingReputationClientV3';
-export { VotingReputationClientV4 } from './VotingReputationClientV4';
-export { VotingReputationClientV5 } from './VotingReputationClientV5';
-export { VotingReputationClientV6 } from './VotingReputationClientV6';
-export { VotingReputationClientV7 } from './VotingReputationClientV7';
-export { VotingReputationClientV8 } from './VotingReputationClientV8';
+export { VotingReputationClientV1 } from './VotingReputationClientV1.js';
+export { VotingReputationClientV2 } from './VotingReputationClientV2.js';
+export { VotingReputationClientV3 } from './VotingReputationClientV3.js';
+export { VotingReputationClientV4 } from './VotingReputationClientV4.js';
+export { VotingReputationClientV5 } from './VotingReputationClientV5.js';
+export { VotingReputationClientV6 } from './VotingReputationClientV6.js';
+export { VotingReputationClientV7 } from './VotingReputationClientV7.js';
+export { VotingReputationClientV8 } from './VotingReputationClientV8.js';
 
 export type AnyVotingReputationClient =
   | VotingReputationClientV1

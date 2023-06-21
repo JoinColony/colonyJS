@@ -1,15 +1,15 @@
-import { IVotingReputation__factory as VotingReputationFactory } from '../../../contracts/IVotingReputation/8/factories/IVotingReputation__factory';
-import { IVotingReputation } from '../../../contracts/IVotingReputation/8/IVotingReputation';
+import { IVotingReputation__factory as VotingReputationFactory } from '../../../contracts/IVotingReputation/8/factories/IVotingReputation__factory.js';
+import { IVotingReputation } from '../../../contracts/IVotingReputation/8/IVotingReputation.js';
 import {
   AugmentedEstimate,
   AugmentedVotingReputation,
-} from './augments/commonAugments';
+} from './augments/commonAugments.js';
 import {
   addAugments,
   AugmentedEstimateV2,
   AugmentsV2,
-} from './augments/augmentsV2';
-import { AugmentedIColony } from '../../Core/augments/commonAugments';
+} from './augments/augmentsV2.js';
+import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
 
 interface VotingReputationEstimate
   extends AugmentedEstimate<IVotingReputation>,

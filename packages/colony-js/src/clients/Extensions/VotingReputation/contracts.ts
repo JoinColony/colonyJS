@@ -8,7 +8,7 @@ import type { IVotingReputation as VotingReputation6 } from '../../../contracts/
 import type { IVotingReputation as VotingReputation7 } from '../../../contracts/IVotingReputation/7';
 import type { IVotingReputation as VotingReputation8 } from '../../../contracts/IVotingReputation/8';
 
-export { IVotingReputation__factory as VotingReputationFactory } from '../../../contracts/IVotingReputation/8/factories/IVotingReputation__factory';
+export { IVotingReputation__factory as VotingReputationFactory } from '../../../contracts/IVotingReputation/8/factories/IVotingReputation__factory.js';
 
 export type VotingReputationV1 = VotingReputation1;
 export type VotingReputationV2 = VotingReputation2;

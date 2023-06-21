@@ -17,23 +17,32 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
-  PromiseOrValue,
-} from "./common";
+} from "./common.js";
 
 export interface MotionTargetInterface extends utils.Interface {
   functions: {
     "getCapabilityRoles(bytes4)": FunctionFragment;
   };
 
-  getFunction(nameOrSignatureOrTopic: "getCapabilityRoles"): FunctionFragment;
+  getFunction(
+    nameOrSignatureOrTopic: "getCapabilityRoles" | "getCapabilityRoles(bytes4)"
+  ): FunctionFragment;
 
   encodeFunctionData(
     functionFragment: "getCapabilityRoles",
-    values: [PromiseOrValue<BytesLike>]
+    values: [BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getCapabilityRoles(bytes4)",
+    values: [BytesLike]
   ): string;
 
   decodeFunctionResult(
     functionFragment: "getCapabilityRoles",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getCapabilityRoles(bytes4)",
     data: BytesLike
   ): Result;
 
@@ -68,19 +77,34 @@ export interface MotionTarget extends BaseContract {
 
   functions: {
     getCapabilityRoles(
-      _sig: PromiseOrValue<BytesLike>,
+      _sig: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[string] & { roles: string }>;
+
+    "getCapabilityRoles(bytes4)"(
+      _sig: BytesLike,
       overrides?: CallOverrides
     ): Promise<[string] & { roles: string }>;
   };
 
   getCapabilityRoles(
-    _sig: PromiseOrValue<BytesLike>,
+    _sig: BytesLike,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
+  "getCapabilityRoles(bytes4)"(
+    _sig: BytesLike,
     overrides?: CallOverrides
   ): Promise<string>;
 
   callStatic: {
     getCapabilityRoles(
-      _sig: PromiseOrValue<BytesLike>,
+      _sig: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    "getCapabilityRoles(bytes4)"(
+      _sig: BytesLike,
       overrides?: CallOverrides
     ): Promise<string>;
   };
@@ -89,14 +113,24 @@ export interface MotionTarget extends BaseContract {
 
   estimateGas: {
     getCapabilityRoles(
-      _sig: PromiseOrValue<BytesLike>,
+      _sig: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "getCapabilityRoles(bytes4)"(
+      _sig: BytesLike,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     getCapabilityRoles(
-      _sig: PromiseOrValue<BytesLike>,
+      _sig: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "getCapabilityRoles(bytes4)"(
+      _sig: BytesLike,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };

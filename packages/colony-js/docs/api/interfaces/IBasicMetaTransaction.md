@@ -64,8 +64,10 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `executeMetaTransaction` | (`userAddress`: `PromiseOrValue`<`string`\>, `payload`: `PromiseOrValue`<`BytesLike`\>, `sigR`: `PromiseOrValue`<`BytesLike`\>, `sigS`: `PromiseOrValue`<`BytesLike`\>, `sigV`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `getMetatransactionNonce` | (`userAddress`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `executeMetaTransaction` | (`userAddress`: `string`, `payload`: `BytesLike`, `sigR`: `BytesLike`, `sigS`: `BytesLike`, `sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)` | (`userAddress`: `string`, `payload`: `BytesLike`, `sigR`: `BytesLike`, `sigS`: `BytesLike`, `sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `getMetatransactionNonce` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getMetatransactionNonce(address)` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 
 #### Overrides
 
@@ -91,8 +93,10 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `executeMetaTransaction` | (`userAddress`: `PromiseOrValue`<`string`\>, `payload`: `PromiseOrValue`<`BytesLike`\>, `sigR`: `PromiseOrValue`<`BytesLike`\>, `sigS`: `PromiseOrValue`<`BytesLike`\>, `sigV`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `PayableOverrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
-| `getMetatransactionNonce` | (`userAddress`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `executeMetaTransaction` | (`userAddress`: `string`, `payload`: `BytesLike`, `sigR`: `BytesLike`, `sigS`: `BytesLike`, `sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)` | (`userAddress`: `string`, `payload`: `BytesLike`, `sigR`: `BytesLike`, `sigS`: `BytesLike`, `sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `getMetatransactionNonce` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getMetatransactionNonce(address)` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 
 #### Overrides
 
@@ -125,8 +129,10 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `executeMetaTransaction` | (`userAddress`: `PromiseOrValue`<`string`\>, `payload`: `PromiseOrValue`<`BytesLike`\>, `sigR`: `PromiseOrValue`<`BytesLike`\>, `sigS`: `PromiseOrValue`<`BytesLike`\>, `sigV`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `PayableOverrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `getMetatransactionNonce` | (`userAddress`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
+| `executeMetaTransaction` | (`userAddress`: `string`, `payload`: `BytesLike`, `sigR`: `BytesLike`, `sigS`: `BytesLike`, `sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)` | (`userAddress`: `string`, `payload`: `BytesLike`, `sigR`: `BytesLike`, `sigS`: `BytesLike`, `sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `getMetatransactionNonce` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
+| `getMetatransactionNonce(address)` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
 
 #### Overrides
 
@@ -182,8 +188,10 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `executeMetaTransaction` | (`userAddress`: `PromiseOrValue`<`string`\>, `payload`: `PromiseOrValue`<`BytesLike`\>, `sigR`: `PromiseOrValue`<`BytesLike`\>, `sigS`: `PromiseOrValue`<`BytesLike`\>, `sigV`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `PayableOverrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `getMetatransactionNonce` | (`userAddress`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `executeMetaTransaction` | (`userAddress`: `string`, `payload`: `BytesLike`, `sigR`: `BytesLike`, `sigS`: `BytesLike`, `sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)` | (`userAddress`: `string`, `payload`: `BytesLike`, `sigR`: `BytesLike`, `sigS`: `BytesLike`, `sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `getMetatransactionNonce` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getMetatransactionNonce(address)` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 
 #### Overrides
 
@@ -378,12 +386,35 @@ Executes a metatransaction targeting this contract
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `userAddress` | `PromiseOrValue`<`string`\> | The address of the user that signed the metatransaction |
-| `payload` | `PromiseOrValue`<`BytesLike`\> | The transaction data that will be executed if signature valid |
-| `sigR` | `PromiseOrValue`<`BytesLike`\> | The 'r' part of the signature |
-| `sigS` | `PromiseOrValue`<`BytesLike`\> | The 's' part of the signature |
-| `sigV` | `PromiseOrValue`<`BigNumberish`\> | The 'v' part of the signature |
-| `overrides?` | `PayableOverrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |
+| `userAddress` | `string` | The address of the user that signed the metatransaction |
+| `payload` | `BytesLike` | The transaction data that will be executed if signature valid |
+| `sigR` | `BytesLike` | The 'r' part of the signature |
+| `sigS` | `BytesLike` | The 's' part of the signature |
+| `sigV` | `BigNumberish` | The 'v' part of the signature |
+| `overrides?` | `PayableOverrides` & { `from?`: `string`  } | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+___
+
+### executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)
+
+▸ **executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)**(`userAddress`, `payload`, `sigR`, `sigS`, `sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Executes a metatransaction targeting this contract
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `userAddress` | `string` | The address of the user that signed the metatransaction |
+| `payload` | `BytesLike` | The transaction data that will be executed if signature valid |
+| `sigR` | `BytesLike` | The 'r' part of the signature |
+| `sigS` | `BytesLike` | The 's' part of the signature |
+| `sigV` | `BigNumberish` | The 'v' part of the signature |
+| `overrides?` | `PayableOverrides` & { `from?`: `string`  } | - |
 
 #### Returns
 
@@ -421,7 +452,26 @@ Gets the next metatransaction nonce for user that should be used targeting this 
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `userAddress` | `PromiseOrValue`<`string`\> | The address of the user that will sign the metatransaction |
+| `userAddress` | `string` | The address of the user that will sign the metatransaction |
+| `overrides?` | `CallOverrides` | - |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+___
+
+### getMetatransactionNonce(address)
+
+▸ **getMetatransactionNonce(address)**(`userAddress`, `overrides?`): `Promise`<`BigNumber`\>
+
+Gets the next metatransaction nonce for user that should be used targeting this contract
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `userAddress` | `string` | The address of the user that will sign the metatransaction |
 | `overrides?` | `CallOverrides` | - |
 
 #### Returns

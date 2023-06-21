@@ -8,12 +8,12 @@ import {
   Extension,
   FundingPotAssociatedType,
   Id,
-} from '../constants';
-import { CommonColony, CommonNetwork } from './types';
-import { nonNullable } from '../utils';
-import { ContractVersion } from '../versions';
-import { SignerOrProvider } from '../types';
-import { Versioned__factory as VersionedFactory } from '../contracts';
+} from '../constants.js';
+import { CommonColony, CommonNetwork } from './types.js';
+import { nonNullable } from '../utils/index.js';
+import { ContractVersion } from '../versions/index.js';
+import { SignerOrProvider } from '../types.js';
+import { Versioned__factory as VersionedFactory } from '../contracts/index.js';
 
 const { keccak256, toUtf8Bytes } = utils;
 const { MaxUint256 } = constants;

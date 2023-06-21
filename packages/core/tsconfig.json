@@ -1,20 +1,27 @@
-{
-  "compilerOptions": {
-    "lib": [
-      "es2018"
-    ],
-    "module": "commonjs",
-    "moduleResolution": "nodenext",
-    "noEmit": true,
-    "noImplicitAny": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "strict": true,
-    "target": "es2018",
-    "rootDir": "./src",
-    "skipLibCheck": true
-  },
-  "include": [
-    "src/**/*"
-  ]
-}
+  {
+    "compilerOptions": {
+      "allowJs": true,
+      "allowSyntheticDefaultImports": true,
+      "esModuleInterop": true,
+      "inlineSourceMap": false,
+      "lib": [
+        "esnext"
+      ],
+      "listEmittedFiles": false,
+      "listFiles": false,
+      "moduleResolution": "nodenext",
+      "noEmit": true,
+      "noFallthroughCasesInSwitch": true,
+      "noImplicitAny": true,
+      "pretty": true,
+      "resolveJsonModule": true,
+      "rootDir": "./src",
+      "skipLibCheck": true,
+      "strictNullChecks": true,
+      "strict": true,
+      "traceResolution": false
+    },
+    "include": [
+      "src"
+    ]
+  }

@@ -2,25 +2,25 @@ import type { OneTxPaymentVersion } from '@colony/core';
 
 import { assertExhaustiveSwitch } from '@colony/core/utils';
 
-import { AugmentedIColony } from '../../Core/augments/commonAugments';
+import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
 
 import getOneTxPaymentClientV1, {
   OneTxPaymentClientV1,
-} from './OneTxPaymentClientV1';
+} from './OneTxPaymentClientV1.js';
 import getOneTxPaymentClientV2, {
   OneTxPaymentClientV2,
-} from './OneTxPaymentClientV2';
+} from './OneTxPaymentClientV2.js';
 import getOneTxPaymentClientV3, {
   OneTxPaymentClientV3,
-} from './OneTxPaymentClientV3';
+} from './OneTxPaymentClientV3.js';
 import getOneTxPaymentClientV4, {
   OneTxPaymentClientV4,
-} from './OneTxPaymentClientV4';
+} from './OneTxPaymentClientV4.js';
 
-export { OneTxPaymentClientV1 } from './OneTxPaymentClientV1';
-export { OneTxPaymentClientV2 } from './OneTxPaymentClientV2';
-export { OneTxPaymentClientV3 } from './OneTxPaymentClientV3';
-export { OneTxPaymentClientV4 } from './OneTxPaymentClientV4';
+export { OneTxPaymentClientV1 } from './OneTxPaymentClientV1.js';
+export { OneTxPaymentClientV2 } from './OneTxPaymentClientV2.js';
+export { OneTxPaymentClientV3 } from './OneTxPaymentClientV3.js';
+export { OneTxPaymentClientV4 } from './OneTxPaymentClientV4.js';
 
 export type AnyOneTxPaymentClient =
   | OneTxPaymentClientV1

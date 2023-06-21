@@ -1,41 +1,44 @@
-import { Extension } from '../constants';
-import { ColonyVersion } from './IColony';
-import { COIN_MACHINE_VERSION_LATEST, CoinMachineVersion } from './CoinMachine';
+import { Extension } from '../constants.js';
+import { ColonyVersion } from './IColony.js';
+import {
+  COIN_MACHINE_VERSION_LATEST,
+  CoinMachineVersion,
+} from './CoinMachine.js';
 import {
   EVALUATED_EXPENDITURE_VERSION_LATEST,
   EvaluatedExpenditureVersion,
-} from './EvaluatedExpenditure';
+} from './EvaluatedExpenditure.js';
 import {
   FUNDING_QUEUE_VERSION_LATEST,
   FundingQueueVersion,
-} from './FundingQueue';
+} from './FundingQueue.js';
 import {
   ONE_TX_PAYMENT_VERSION_LATEST,
   OneTxPaymentVersion,
-} from './OneTxPayment';
+} from './OneTxPayment.js';
 import {
   REPUTATION_BOOTSTRAPPER_VERSION_LATEST,
   ReputationBootstrapperVersion,
-} from './ReputationBootstrapper';
+} from './ReputationBootstrapper.js';
 import {
   STAKED_EXPENDITURE_VERSION_LATEST,
   StakedExpenditureVersion,
-} from './StakedExpenditure';
+} from './StakedExpenditure.js';
 import {
   STREAMING_PAYMENTS_VERSION_LATEST,
   StreamingPaymentsVersion,
-} from './StreamingPayments';
+} from './StreamingPayments.js';
 import {
   TOKEN_SUPPLIER_VERSION_LATEST,
   TokenSupplierVersion,
-} from './TokenSupplier';
+} from './TokenSupplier.js';
 import {
   VOTING_REPUTATION_VERSION_LATEST,
   VotingReputationVersion,
-} from './VotingReputation';
-import { WHITELIST_VERSION_LATEST, WhitelistVersion } from './Whitelist';
+} from './VotingReputation.js';
+import { WHITELIST_VERSION_LATEST, WhitelistVersion } from './Whitelist.js';
 
-export { isExtensionCompatible } from './helpers';
+export { isExtensionCompatible } from './helpers.js';
 
 /**
  * Latest versions of all extension contracts
@@ -77,44 +80,44 @@ export type ContractVersion = ExtensionVersion | ColonyVersion;
 /**
  * All possible Colony versions
  */
-export { ColonyVersion } from './IColony';
+export { ColonyVersion } from './IColony.js';
 /**
  * All possible CoinMachine versions
  */
-export { CoinMachineVersion } from './CoinMachine';
+export { CoinMachineVersion } from './CoinMachine.js';
 /**
- * All possible EvaluagtedExpenditure versions
+ * All possible EvaluatedExpenditure versions
  */
-export { EvaluatedExpenditureVersion } from './EvaluatedExpenditure';
+export { EvaluatedExpenditureVersion } from './EvaluatedExpenditure.js';
 /**
  * All possible FundingQueue versions
  */
-export { FundingQueueVersion } from './FundingQueue';
+export { FundingQueueVersion } from './FundingQueue.js';
 /**
  * All possible OneTxPayment versions
  */
-export { OneTxPaymentVersion } from './OneTxPayment';
+export { OneTxPaymentVersion } from './OneTxPayment.js';
 /**
  * All possible ReputationBootstrapper versions
  */
-export { ReputationBootstrapperVersion } from './ReputationBootstrapper';
+export { ReputationBootstrapperVersion } from './ReputationBootstrapper.js';
 /**
  * All possible StakedExpenditure versions
  */
-export { StakedExpenditureVersion } from './StakedExpenditure';
+export { StakedExpenditureVersion } from './StakedExpenditure.js';
 /**
  * All possible StreamingPayments versions
  */
-export { StreamingPaymentsVersion } from './StreamingPayments';
+export { StreamingPaymentsVersion } from './StreamingPayments.js';
 /**
  * All possible TokenSupplier versions
  */
-export { TokenSupplierVersion } from './TokenSupplier';
+export { TokenSupplierVersion } from './TokenSupplier.js';
 /**
  * All possible VotingReputation versions
  */
-export { VotingReputationVersion } from './VotingReputation';
+export { VotingReputationVersion } from './VotingReputation.js';
 /**
  * All possible Whitelist versions
  */
-export { WhitelistVersion } from './Whitelist';
+export { WhitelistVersion } from './Whitelist.js';

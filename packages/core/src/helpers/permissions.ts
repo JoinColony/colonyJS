@@ -1,8 +1,8 @@
 import { BigNumber, BigNumberish, BytesLike, constants, utils } from 'ethers';
 
-import { ColonyRole, Id } from '../constants';
-import { CommonColony, CommonNetwork } from './types';
-import { getChildIndex } from './network';
+import { ColonyRole, Id } from '../constants.js';
+import { CommonColony, CommonNetwork } from './types.js';
+import { getChildIndex } from './network.js';
 
 const { hexDataSlice } = utils;
 const { MaxUint256 } = constants;

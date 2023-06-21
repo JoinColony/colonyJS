@@ -13,7 +13,7 @@ import type { IColony as IColony11 } from '../../contracts/IColony/11';
 import type { IColony as IColony12 } from '../../contracts/IColony/12';
 
 // Always adjust to the latest Colony version
-export { IColony__factory as IColonyFactory } from '../../contracts/IColony/12/factories/IColony__factory';
+export { IColony__factory as IColonyFactory } from '../../contracts/IColony/12/factories/IColony__factory.js';
 
 export type IColonyV1 = IColony1;
 export type IColonyV2 = IColony2;

@@ -1,4 +1,4 @@
-import { createContractVersionArray } from './utils';
+import { createContractVersionArray } from './utils.js';
 
 // This is the latest IColony version + 1. It's for generating types and compatibility maps
 const COLONY_VERSION_NEXT = 13;

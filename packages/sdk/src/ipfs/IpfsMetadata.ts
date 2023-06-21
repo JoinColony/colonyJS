@@ -9,8 +9,8 @@ import {
   parseEventMetadata,
 } from '@colony/event-metadata';
 
-import IpfsAdapter from './IpfsAdapter';
-import CloudflareReadonlyAdapter from './CloudflareReadonlyAdapter';
+import IpfsAdapter from './IpfsAdapter.js';
+import CloudflareReadonlyAdapter from './CloudflareReadonlyAdapter.js';
 
 const fetchRetry = wrapFetch(fetch, {
   headers: {

@@ -1,34 +1,34 @@
 import type { ColonyVersion } from '@colony/core';
 import { getTokenClient } from '@colony/tokens';
 
-import { ColonyNetworkClient } from '../ColonyNetworkClient';
-import getColonyVersionClient from './ColonyVersionClient';
+import { ColonyNetworkClient } from '../ColonyNetworkClient.js';
+import getColonyVersionClient from './ColonyVersionClient.js';
 
-import getColonyClientV1, { ColonyClientV1 } from './ColonyClientV1';
-import getColonyClientV2, { ColonyClientV2 } from './ColonyClientV2';
-import getColonyClientV3, { ColonyClientV3 } from './ColonyClientV3';
-import getColonyClientV4, { ColonyClientV4 } from './ColonyClientV4';
-import getColonyClientV5, { ColonyClientV5 } from './ColonyClientV5';
-import getColonyClientV6, { ColonyClientV6 } from './ColonyClientV6';
-import getColonyClientV7, { ColonyClientV7 } from './ColonyClientV7';
-import getColonyClientV8, { ColonyClientV8 } from './ColonyClientV8';
-import getColonyClientV9, { ColonyClientV9 } from './ColonyClientV9';
-import getColonyClientV10, { ColonyClientV10 } from './ColonyClientV10';
-import getColonyClientV11, { ColonyClientV11 } from './ColonyClientV11';
-import getColonyClientV12, { ColonyClientV12 } from './ColonyClientV12';
+import getColonyClientV1, { ColonyClientV1 } from './ColonyClientV1.js';
+import getColonyClientV2, { ColonyClientV2 } from './ColonyClientV2.js';
+import getColonyClientV3, { ColonyClientV3 } from './ColonyClientV3.js';
+import getColonyClientV4, { ColonyClientV4 } from './ColonyClientV4.js';
+import getColonyClientV5, { ColonyClientV5 } from './ColonyClientV5.js';
+import getColonyClientV6, { ColonyClientV6 } from './ColonyClientV6.js';
+import getColonyClientV7, { ColonyClientV7 } from './ColonyClientV7.js';
+import getColonyClientV8, { ColonyClientV8 } from './ColonyClientV8.js';
+import getColonyClientV9, { ColonyClientV9 } from './ColonyClientV9.js';
+import getColonyClientV10, { ColonyClientV10 } from './ColonyClientV10.js';
+import getColonyClientV11, { ColonyClientV11 } from './ColonyClientV11.js';
+import getColonyClientV12, { ColonyClientV12 } from './ColonyClientV12.js';
 
-export { ColonyClientV1 } from './ColonyClientV1';
-export { ColonyClientV2 } from './ColonyClientV2';
-export { ColonyClientV3 } from './ColonyClientV3';
-export { ColonyClientV4 } from './ColonyClientV4';
-export { ColonyClientV5 } from './ColonyClientV5';
-export { ColonyClientV6 } from './ColonyClientV6';
-export { ColonyClientV7 } from './ColonyClientV7';
-export { ColonyClientV8 } from './ColonyClientV8';
-export { ColonyClientV9 } from './ColonyClientV9';
-export { ColonyClientV10 } from './ColonyClientV10';
-export { ColonyClientV11 } from './ColonyClientV11';
-export { ColonyClientV12 } from './ColonyClientV12';
+export { ColonyClientV1 } from './ColonyClientV1.js';
+export { ColonyClientV2 } from './ColonyClientV2.js';
+export { ColonyClientV3 } from './ColonyClientV3.js';
+export { ColonyClientV4 } from './ColonyClientV4.js';
+export { ColonyClientV5 } from './ColonyClientV5.js';
+export { ColonyClientV6 } from './ColonyClientV6.js';
+export { ColonyClientV7 } from './ColonyClientV7.js';
+export { ColonyClientV8 } from './ColonyClientV8.js';
+export { ColonyClientV9 } from './ColonyClientV9.js';
+export { ColonyClientV10 } from './ColonyClientV10.js';
+export { ColonyClientV11 } from './ColonyClientV11.js';
+export { ColonyClientV12 } from './ColonyClientV12.js';
 
 export type AnyColonyClient =
   | ColonyClientV1

@@ -1,6 +1,6 @@
 import { providers, Wallet } from 'ethers';
 
-import { ColonyNetwork, ColonyRpcEndpoint, w } from '../../src';
+import { ColonyNetwork, ColonyRpcEndpoint, w } from '../../src/index.js';
 
 const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
 

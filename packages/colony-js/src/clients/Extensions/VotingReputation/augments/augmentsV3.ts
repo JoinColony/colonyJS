@@ -5,12 +5,12 @@ import {
   getPermissionProofs,
 } from '@colony/core';
 
-import { AugmentedIColony } from '../../../Core/augments/commonAugments';
-import { VotingReputationV7, VotingReputationV8 } from '../contracts';
+import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
+import { VotingReputationV7, VotingReputationV8 } from '../contracts.js';
 import {
   addAugments as addCommonAugments,
   AugmentedVotingReputation,
-} from './commonAugments';
+} from './commonAugments.js';
 
 type ValidVotingReputation = VotingReputationV7 | VotingReputationV8;
 

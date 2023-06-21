@@ -18,9 +18,9 @@ import type {
 } from '@colony/tokens';
 import type { ColonyRole } from '@colony/core';
 
-import { AnyColonyClient } from './clients/Core/exports';
-import { ExtensionClient } from './clients/Extensions/exports';
-import { ColonyNetworkClient } from './clients/ColonyNetworkClient';
+import { AnyColonyClient } from './clients/Core/exports.js';
+import { ExtensionClient } from './clients/Extensions/exports.js';
+import { ColonyNetworkClient } from './clients/ColonyNetworkClient.js';
 
 export type EventsClient =
   | CoinMachineEvents

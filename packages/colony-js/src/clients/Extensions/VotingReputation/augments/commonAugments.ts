@@ -11,9 +11,9 @@ import {
   VotingReputationEvents__factory as VotingReputationEventsFactory,
 } from '@colony/events';
 
-import { ClientType } from '../../../../constants';
-import { AugmentedIColony } from '../../../Core/augments/commonAugments';
-import { AnyVotingReputation } from '../contracts';
+import { ClientType } from '../../../../constants.js';
+import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
+import { AnyVotingReputation } from '../contracts.js';
 
 export type AugmentedEstimate<
   T extends AnyVotingReputation = AnyVotingReputation,

@@ -29,15 +29,20 @@ import {
   IColonyNetwork,
   IColonyNetwork__factory as IColonyNetworkFactory,
   IBasicMetaTransaction,
-} from '../contracts';
-import { SubgraphClientOptions } from '../graph';
-import { IpfsMetadata, IpfsAdapter } from '../ipfs';
-import { BaseContract, TxConfig, TxCreator, MetaTxCreator } from '../TxCreator';
-import { Colony } from './Colony';
-import { Expand, Parameters } from '../types';
-import { extractEvent } from '../utils';
-import { EIP2612TxCreator } from '../TxCreator/EIP2612TxCreator';
-import { TokenLocking } from './TokenLocking';
+} from '../contracts/index.js';
+import { SubgraphClientOptions } from '../graph/index.js';
+import { IpfsMetadata, IpfsAdapter } from '../ipfs/index.js';
+import {
+  BaseContract,
+  TxConfig,
+  TxCreator,
+  MetaTxCreator,
+} from '../TxCreator/index.js';
+import { Colony } from './Colony.js';
+import { Expand, Parameters } from '../types.js';
+import { extractEvent } from '../utils.js';
+import { EIP2612TxCreator } from '../TxCreator/EIP2612TxCreator.js';
+import { TokenLocking } from './TokenLocking.js';
 
 const { namehash } = utils;
 const { AddressZero } = constants;

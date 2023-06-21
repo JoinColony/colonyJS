@@ -1,11 +1,16 @@
 import typia from 'typia';
 
-import { ColonyData, DataTypeMap, Metadata, MetadataTypeMap } from './types';
+import type {
+  ColonyData,
+  DataTypeMap,
+  Metadata,
+  MetadataTypeMap,
+} from './types';
 
-import { MetadataType, METADATA_VERSION } from './constants';
+import { MetadataType, METADATA_VERSION } from './constants.js';
 
-export * from './constants';
-export * from './types';
+export * from './constants.js';
+export * from './types.js';
 
 const createError = (errors: typia.IValidation.IError[]) => {
   const errorsAsText = errors.map(

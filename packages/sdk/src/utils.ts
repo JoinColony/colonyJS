@@ -8,7 +8,7 @@ import {
   Ethers6Filter,
   Ethers6FilterByBlockHash,
   ParsedLogTransactionReceipt,
-} from './types';
+} from './types.js';
 
 /** Extract event args from a contract receipt */
 // TODO: Make it possible to retrieve multiple events of the same kind

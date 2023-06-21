@@ -4,8 +4,8 @@ import type { LogDescription, Result } from '@ethersproject/abi';
 import { EventFilter, BigNumber } from 'ethers';
 import { ColonyRole, Id } from '@colony/core';
 
-import { AnyColonyClient } from './clients/Core/exports';
-import { ContractClient, ColonyRoles } from './types';
+import { AnyColonyClient } from './clients/Core/exports.js';
+import { ContractClient, ColonyRoles } from './types.js';
 
 interface LogOptions {
   fromBlock?: number;

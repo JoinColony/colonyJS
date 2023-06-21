@@ -246,7 +246,7 @@ ___
 
 ### TxOverrides
 
-Ƭ **TxOverrides**: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }
+Ƭ **TxOverrides**: `Overrides` & { `from?`: `string`  }
 
 ___
 

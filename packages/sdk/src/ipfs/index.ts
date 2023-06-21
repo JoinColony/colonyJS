@@ -2,9 +2,9 @@ export {
   IpfsMetadata,
   IpfsMetadataEvents,
   MetadataEvent,
-} from './IpfsMetadata';
+} from './IpfsMetadata.js';
 
-export { default as PinataAdapter } from './PinataAdapter';
-export { default as CloudflareReadonlyAdapter } from './CloudflareReadonlyAdapter';
+export { default as PinataAdapter } from './PinataAdapter.js';
+export { default as CloudflareReadonlyAdapter } from './CloudflareReadonlyAdapter.js';
 
 export type { default as IpfsAdapter } from './IpfsAdapter';

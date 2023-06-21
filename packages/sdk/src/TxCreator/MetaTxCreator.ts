@@ -3,15 +3,15 @@ import { Network } from '@colony/core';
 import { MetadataType } from '@colony/event-metadata';
 
 import type { TransactionResponse } from '@ethersproject/abstract-provider';
+import type { IBasicMetaTransaction } from '../contracts/index.js';
 
-import { IBasicMetaTransaction } from '../contracts';
 import {
   BaseContract,
   ColonyMetaTransaction,
   EventData,
   TxCreator,
-} from './TxCreator';
-import { ParsedLogTransactionReceipt } from '../types';
+} from './TxCreator.js';
+import { ParsedLogTransactionReceipt } from '../types.js';
 
 const { arrayify, solidityKeccak256, splitSignature } = utils;
 

@@ -1,6 +1,10 @@
 import { providers, utils } from 'ethers';
 
-import { ColonyNetwork, ColonyRpcEndpoint, Tokens } from '../../../src';
+import {
+  ColonyNetwork,
+  ColonyRpcEndpoint,
+  Tokens,
+} from '../../../src/index.js';
 
 const { formatEther, isAddress } = utils;
 

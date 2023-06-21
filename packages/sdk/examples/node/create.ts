@@ -6,7 +6,7 @@ import {
   ColonyRpcEndpoint,
   ColonyToken,
   SupportedExtension,
-} from '../../src';
+} from '../../src/index.js';
 
 const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
 

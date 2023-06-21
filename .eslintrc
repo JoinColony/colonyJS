@@ -22,8 +22,14 @@
         "@typescript-eslint/no-shadow": [
             "error"
         ],
-        "import/extensions": "off",
+        "import/prefer-default-export": "off",
         "import/no-unresolved": "off",
-        "import/prefer-default-export": "off"
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+                "js": "always"
+            }
+        ]
     }
 }

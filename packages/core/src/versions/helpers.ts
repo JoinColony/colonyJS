@@ -1,43 +1,43 @@
-import { Extension } from '../constants';
-import { assertExhaustiveSwitch } from '../utils';
+import { Extension } from '../constants.js';
+import { assertExhaustiveSwitch } from '../utils/index.js';
 import { ColonyVersion, ExtensionVersion } from '.';
 import {
   coinMachineIncompatibilityMap,
   CoinMachineVersion,
-} from './CoinMachine';
+} from './CoinMachine.js';
 import {
   EvaluatedExpenditureVersion,
   evaluatedExpenditureIncompatibilityMap,
-} from './EvaluatedExpenditure';
+} from './EvaluatedExpenditure.js';
 import {
   FundingQueueVersion,
   fundingQueueIncompatibilityMap,
-} from './FundingQueue';
+} from './FundingQueue.js';
 import {
   VotingReputationVersion,
   votingReputationIncompatibilityMap,
-} from './VotingReputation';
+} from './VotingReputation.js';
 import {
   OneTxPaymentVersion,
   oneTxPaymentIncompatibilityMap,
-} from './OneTxPayment';
+} from './OneTxPayment.js';
 import {
   ReputationBootstrapperVersion,
   reputationBootstrapperIncompatibilityMap,
-} from './ReputationBootstrapper';
+} from './ReputationBootstrapper.js';
 import {
   StakedExpenditureVersion,
   stakedExpenditureIncompatibilityMap,
-} from './StakedExpenditure';
+} from './StakedExpenditure.js';
 import {
   StreamingPaymentsVersion,
   streamingPaymentsIncompatibilityMap,
-} from './StreamingPayments';
+} from './StreamingPayments.js';
 import {
   TokenSupplierVersion,
   tokenSupplierIncompatibilityMap,
-} from './TokenSupplier';
-import { WhitelistVersion, whitelistIncompatibilityMap } from './Whitelist';
+} from './TokenSupplier.js';
+import { WhitelistVersion, whitelistIncompatibilityMap } from './Whitelist.js';
 
 /**
  * Checks the compatibility of an extension version with a colony version it requests to be installed in

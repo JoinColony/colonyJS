@@ -19,8 +19,8 @@ import {
   VotingReputationV5,
   VotingReputationV6,
   VotingReputationV7,
-} from '../contracts';
-import { AugmentedVotingReputation } from './commonAugments';
+} from '../contracts.js';
+import { AugmentedVotingReputation } from './commonAugments.js';
 
 // VotingReputation versions that support this method
 type ValidVotingReputation =

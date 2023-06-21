@@ -66,6 +66,13 @@ const EVENTS_CONTRACTS = [
 
 const CWD = process.cwd();
 
+const TYPECHAIN_CONFIG_FLAGS = {
+  alwaysGenerateOverloads: true,
+  discriminateTypes: false,
+  node16Modules: true,
+  environment: undefined,
+};
+
 const buildVersionedContracts = async (
   inputDir: string,
   releaseTag: string,
@@ -89,6 +96,7 @@ const buildVersionedContracts = async (
         allFiles: files,
         outDir,
         target: plugin,
+        flags: TYPECHAIN_CONFIG_FLAGS,
       });
     }
   });
@@ -117,6 +125,7 @@ const buildLatestVersionedContracts = async (
       allFiles: files,
       outDir,
       target: plugin,
+      flags: TYPECHAIN_CONFIG_FLAGS,
     });
   });
   return Promise.all(promises);
@@ -135,6 +144,7 @@ const buildLatestContracts = async (outputDir: string, plugin: string) => {
     allFiles: files,
     outDir: outputDir,
     target: plugin,
+    flags: TYPECHAIN_CONFIG_FLAGS,
   });
 };
 
@@ -154,6 +164,7 @@ const buildLatestTokentContracts = async (
     allFiles: files,
     outDir: resolvePath(outputDir),
     target: plugin,
+    flags: TYPECHAIN_CONFIG_FLAGS,
   });
 };
 
@@ -169,6 +180,7 @@ const buildStaticTokenContracts = async (outputDir: string, plugin: string) => {
     allFiles: files,
     outDir: resolvePath(outputDir, 'static'),
     target: plugin,
+    flags: TYPECHAIN_CONFIG_FLAGS,
   });
 };
 
@@ -184,6 +196,7 @@ const buildEventsContracts = async (outputDir: string, plugin: string) => {
     allFiles: files,
     outDir: resolvePath(outputDir),
     target: plugin,
+    flags: TYPECHAIN_CONFIG_FLAGS,
   });
 };
 const buildCoreContracts = async (outputDir: string, plugin: string) => {
@@ -196,6 +209,7 @@ const buildCoreContracts = async (outputDir: string, plugin: string) => {
     allFiles: files,
     outDir: resolvePath(outputDir),
     target: plugin,
+    flags: TYPECHAIN_CONFIG_FLAGS,
   });
 };
 

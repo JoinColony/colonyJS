@@ -6,9 +6,10 @@ import {
   ERC2612TokenFactory,
 } from '@colony/tokens';
 
-import { extractEvent } from '../../utils';
-import { ColonyNetwork } from '../ColonyNetwork';
-import { ERC20Token } from './ERC20Token';
+import type { ColonyNetwork } from '../ColonyNetwork.js';
+
+import { extractEvent } from '../../utils.js';
+import { ERC20Token } from './ERC20Token.js';
 
 export class ERC2612Token extends ERC20Token {
   protected tokenClient: ERC2612TokenType;

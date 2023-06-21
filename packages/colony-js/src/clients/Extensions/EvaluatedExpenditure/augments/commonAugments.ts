@@ -10,8 +10,8 @@ import {
   EvaluatedExpenditureEvents__factory as EvaluatedExpenditureEventsFactory,
 } from '@colony/events';
 
-import { ClientType } from '../../../../constants';
-import { AugmentedIColony } from '../../../Core/augments/commonAugments';
+import { ClientType } from '../../../../constants.js';
+import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
 import {
   IColonyV4,
   IColonyV5,
@@ -20,8 +20,8 @@ import {
   IColonyV8,
   IColonyV9,
   IColonyV10,
-} from '../../../Core/contracts';
-import { AnyEvaluatedExpenditure } from '../contracts';
+} from '../../../Core/contracts.js';
+import { AnyEvaluatedExpenditure } from '../contracts.js';
 
 export type ValidColony =
   | IColonyV4

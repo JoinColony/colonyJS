@@ -1,28 +1,28 @@
 import type { SignerOrProvider } from '@colony/core';
 
-import { IColony__factory as IColonyFactory } from '../../contracts/IColony/2/factories/IColony__factory';
-import { IColony } from '../../contracts/IColony/2/IColony';
-import { ColonyNetworkClient } from '../ColonyNetworkClient';
+import { IColony__factory as IColonyFactory } from '../../contracts/IColony/2/factories/IColony__factory.js';
+import { IColony } from '../../contracts/IColony/2/IColony.js';
+import { ColonyNetworkClient } from '../ColonyNetworkClient.js';
 import {
   addAugments,
   AugmentedIColony,
   AugmentedEstimate,
-} from './augments/commonAugments';
+} from './augments/commonAugments.js';
 import {
   AddDomainAugmentsA,
   AddDomainEstimateGasA,
   addAugmentsA as addAddDomainAugments,
-} from './augments/AddDomain';
+} from './augments/AddDomain.js';
 import {
   MoveFundsBetweenPotsAugmentsA,
   MoveFundsBetweenPotsEstimateGasA,
   addAugmentsA as addMoveFundsBetweenPotsAugments,
-} from './augments/MoveFundsBetweenPots';
+} from './augments/MoveFundsBetweenPots.js';
 import {
   SetPaymentDomainAugments,
   SetPaymentDomainEstimateGas,
   addAugments as addSetPaymentDomainAugments,
-} from './augments/SetPaymentDomain';
+} from './augments/SetPaymentDomain.js';
 
 interface ColonyClientV2Estimate
   extends AugmentedEstimate<IColony>,

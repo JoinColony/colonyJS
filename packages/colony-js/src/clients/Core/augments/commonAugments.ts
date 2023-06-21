@@ -18,13 +18,13 @@ import {
   getPermissionProofs,
   ReputationClient,
 } from '@colony/core';
-import { ClientType } from '../../../constants';
+import { ClientType } from '../../../constants.js';
 import {
   getExtensionClient,
   GetExtensionClientReturns,
-} from '../../Extensions/exports';
-import { ColonyNetworkClient } from '../../ColonyNetworkClient';
-import { AnyIColony } from '../contracts';
+} from '../../Extensions/exports.js';
+import { ColonyNetworkClient } from '../../ColonyNetworkClient.js';
+import { AnyIColony } from '../contracts.js';
 
 export type AugmentedEstimate<T extends AnyIColony = AnyIColony> =
   T['estimateGas'] & {

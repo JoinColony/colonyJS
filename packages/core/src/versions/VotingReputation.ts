@@ -1,6 +1,6 @@
 import type { ColonyVersion } from './IColony';
 
-import { createContractVersionArray } from './utils';
+import { createContractVersionArray } from './utils.js';
 
 const VOTING_REPUTATION_VERSION_NEXT = 9;
 

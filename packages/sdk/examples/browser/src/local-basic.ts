@@ -1,6 +1,6 @@
 import { providers, utils, Wallet } from 'ethers';
 
-import { ColonyNetwork } from '../../../src';
+import { ColonyNetwork } from '../../../src/index.js';
 
 const { formatEther, isAddress } = utils;
 

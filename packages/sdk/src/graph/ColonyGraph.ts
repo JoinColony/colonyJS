@@ -1,7 +1,7 @@
 import { Client, gql } from '@urql/core';
 import { DomainData, MetadataType } from '@colony/event-metadata';
 
-import { Colony } from '../ColonyNetwork';
+import { Colony } from '../ColonyNetwork/index.js';
 
 export interface GraphDomain extends DomainData {
   id: number;

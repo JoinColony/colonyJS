@@ -1,6 +1,6 @@
 import '@picocss/pico';
 
-import { ColonyRpcEndpoint } from '../../../src';
+import { ColonyRpcEndpoint } from '../../../src/index.js';
 
 const addColonyRPC = () => {
   // If MetaMask is installed there will be an `ethereum` object on the `window`

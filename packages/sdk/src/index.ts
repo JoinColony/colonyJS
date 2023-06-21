@@ -39,13 +39,13 @@ export {
   ERC721 as ERC721Interface,
 } from '@colony/tokens';
 
-export * from './ColonyNetwork';
-export * from './TxCreator';
-export * from './events';
-export * from './ipfs';
+export * from './ColonyNetwork/index.js';
+export * from './TxCreator/index.js';
+export * from './events/index.js';
+export * from './ipfs/index.js';
 
 export type {
   Ethers6Filter,
   Ethers6FilterByBlockHash,
   ParsedLogTransactionReceipt,
-} from './types';
+} from './types.js';

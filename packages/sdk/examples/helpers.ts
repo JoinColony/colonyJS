@@ -3,14 +3,14 @@ import {
   OneTxPayment,
   SupportedExtension,
   VotingReputation,
-} from '../src/ColonyNetwork';
+} from '../src/ColonyNetwork/index.js';
 import {
   ColonyRole,
   Extension,
   w,
   isExtensionCompatible,
   ExtensionVersions,
-} from '../src';
+} from '../src/index.js';
 
 // Helper to set up the OneTxPayment extension. This is usually already done for Colonies deployed with the Dapp.
 export const setupOneTxPaymentExtension = async (colony: Colony) => {
