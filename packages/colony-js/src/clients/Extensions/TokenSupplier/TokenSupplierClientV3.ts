@@ -1,7 +1,10 @@
-import { TokenSupplier__factory as TokenSupplierFactory } from '../../../contracts/TokenSupplier/3/factories/TokenSupplier__factory';
-import { TokenSupplier } from '../../../contracts/TokenSupplier/3/TokenSupplier';
-import { AugmentedIColony } from '../../Core/augments/commonAugments';
-import { addAugments, AugmentedTokenSupplier } from './augments/commonAugments';
+import { TokenSupplier__factory as TokenSupplierFactory } from '../../../contracts/TokenSupplier/3/factories/TokenSupplier__factory.js';
+import { TokenSupplier } from '../../../contracts/TokenSupplier/3/TokenSupplier.js';
+import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
+import {
+  addAugments,
+  AugmentedTokenSupplier,
+} from './augments/commonAugments.js';
 
 export interface TokenSupplierClientV3
   extends AugmentedTokenSupplier<TokenSupplier> {

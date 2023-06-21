@@ -1,11 +1,11 @@
-import { EvaluatedExpenditure__factory as EvaluatedExpenditureFactory } from '../../../contracts/EvaluatedExpenditure/1/factories/EvaluatedExpenditure__factory';
-import { EvaluatedExpenditure } from '../../../contracts/EvaluatedExpenditure/1';
-import { AugmentedIColony } from '../../Core/augments/commonAugments';
+import { EvaluatedExpenditure__factory as EvaluatedExpenditureFactory } from '../../../contracts/EvaluatedExpenditure/1/factories/EvaluatedExpenditure__factory.js';
+import { EvaluatedExpenditure } from '../../../contracts/EvaluatedExpenditure/1/EvaluatedExpenditure.js';
+import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
 import {
   addAugments,
   AugmentedEvaluatedExpenditure,
   ValidColony,
-} from './augments/commonAugments';
+} from './augments/commonAugments.js';
 
 export interface EvaluatedExpenditureClientV1
   extends AugmentedEvaluatedExpenditure<EvaluatedExpenditure> {

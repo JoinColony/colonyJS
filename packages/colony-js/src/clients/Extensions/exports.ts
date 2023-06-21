@@ -17,58 +17,58 @@ import {
 } from '@colony/core';
 import { assertExhaustiveSwitch } from '@colony/core/utils';
 
-import { AugmentedIColony } from '../Core/augments/commonAugments';
+import { AugmentedIColony } from '../Core/augments/commonAugments.js';
 
 import {
   getCoinMachineClient,
   AnyCoinMachineClient,
-} from './CoinMachine/exports';
+} from './CoinMachine/exports.js';
 import {
   getOneTxPaymentClient,
   AnyOneTxPaymentClient,
-} from './OneTxPayment/exports';
+} from './OneTxPayment/exports.js';
 import {
   getReputationBootstrapperClient,
   AnyReputationBootstrapperClient,
-} from './ReputationBootstrapper/exports';
+} from './ReputationBootstrapper/exports.js';
 import {
   getVotingReputationClient,
   AnyVotingReputationClient,
-} from './VotingReputation/exports';
-import { getWhitelistClient, AnyWhitelistClient } from './Whitelist/exports';
+} from './VotingReputation/exports.js';
+import { getWhitelistClient, AnyWhitelistClient } from './Whitelist/exports.js';
 import {
   getEvaluatedExpenditureClient,
   AnyEvaluatedExpenditureClient,
-} from './EvaluatedExpenditure/exports';
+} from './EvaluatedExpenditure/exports.js';
 import {
   getStakedExpenditureClient,
   AnyStakedExpenditureClient,
-} from './StakedExpenditure/exports';
+} from './StakedExpenditure/exports.js';
 import {
   getStreamingPaymentsClient,
   AnyStreamingPaymentsClient,
-} from './StreamingPayments/exports';
+} from './StreamingPayments/exports.js';
 import {
   getTokenSupplierClient,
   AnyTokenSupplierClient,
-} from './TokenSupplier/exports';
+} from './TokenSupplier/exports.js';
 
-import getExtensionVersionClient from './ExtensionVersionClient';
+import getExtensionVersionClient from './ExtensionVersionClient.js';
 import {
   AnyFundingQueueClient,
   getFundingQueueClient,
-} from './FundingQueue/exports';
+} from './FundingQueue/exports.js';
 
 const { AddressZero } = constants;
 
-export * from './CoinMachine/exports';
-export * from './EvaluatedExpenditure/exports';
-export * from './OneTxPayment/exports';
-export * from './StakedExpenditure/exports';
-export * from './StreamingPayments/exports';
-export * from './TokenSupplier/exports';
-export * from './VotingReputation/exports';
-export * from './Whitelist/exports';
+export * from './CoinMachine/exports.js';
+export * from './EvaluatedExpenditure/exports.js';
+export * from './OneTxPayment/exports.js';
+export * from './StakedExpenditure/exports.js';
+export * from './StreamingPayments/exports.js';
+export * from './TokenSupplier/exports.js';
+export * from './VotingReputation/exports.js';
+export * from './Whitelist/exports.js';
 
 export type ExtensionClient =
   | AnyCoinMachineClient

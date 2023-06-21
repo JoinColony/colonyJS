@@ -36,14 +36,14 @@ import type { VotingReputationDataTypes as VotingReputationDataTypes8 } from '..
 import {
   IVotingReputation as VotingReputationContract7,
   IVotingReputation__factory as VotingReputationFactory7,
-} from '../contracts/IVotingReputation/7';
+} from '../contracts/IVotingReputation/7/index.js';
 import {
   IVotingReputation as VotingReputationContract8,
   IVotingReputation__factory as VotingReputationFactory8,
-} from '../contracts/IVotingReputation/8';
+} from '../contracts/IVotingReputation/8/index.js';
 
-import { extractEvent, extractCustomEvent } from '../utils';
-import { Colony } from './Colony';
+import { extractEvent, extractCustomEvent } from '../utils.js';
+import { Colony } from './Colony.js';
 
 const { AddressZero } = constants;
 

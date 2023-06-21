@@ -2,18 +2,18 @@ import type { StakedExpenditureVersion } from '@colony/core';
 
 import { assertExhaustiveSwitch } from '@colony/core/utils';
 
-import { AugmentedIColony } from '../../Core/augments/commonAugments';
-import { ValidColony } from './augments/commonAugments';
+import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
+import { ValidColony } from './augments/commonAugments.js';
 
 import getStakedExpenditureClientV1, {
   StakedExpenditureClientV1,
-} from './StakedExpenditureClientV1';
+} from './StakedExpenditureClientV1.js';
 import getStakedExpenditureClientV2, {
   StakedExpenditureClientV2,
-} from './StakedExpenditureClientV2';
+} from './StakedExpenditureClientV2.js';
 
-export { StakedExpenditureClientV1 } from './StakedExpenditureClientV1';
-export { StakedExpenditureClientV2 } from './StakedExpenditureClientV2';
+export { StakedExpenditureClientV1 } from './StakedExpenditureClientV1.js';
+export { StakedExpenditureClientV2 } from './StakedExpenditureClientV2.js';
 
 export type AnyStakedExpenditureClient =
   | StakedExpenditureClientV1

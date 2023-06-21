@@ -6,4 +6,4 @@ export {
   ColonyFilter,
   ColonyMultiFilter,
   type EventSource,
-} from './ColonyEventManager';
+} from './ColonyEventManager.js';

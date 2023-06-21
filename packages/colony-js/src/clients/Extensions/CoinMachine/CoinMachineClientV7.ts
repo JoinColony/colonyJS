@@ -1,7 +1,10 @@
-import { CoinMachine__factory as CoinMachineFactory } from '../../../contracts/CoinMachine/7/factories/CoinMachine__factory';
-import { CoinMachine } from '../../../contracts/CoinMachine/7/CoinMachine';
-import { AugmentedIColony } from '../../Core/augments/commonAugments';
-import { addAugments, AugmentedCoinMachine } from './augments/commonAugments';
+import { CoinMachine__factory as CoinMachineFactory } from '../../../contracts/CoinMachine/7/factories/CoinMachine__factory.js';
+import { CoinMachine } from '../../../contracts/CoinMachine/7/CoinMachine.js';
+import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
+import {
+  addAugments,
+  AugmentedCoinMachine,
+} from './augments/commonAugments.js';
 
 export interface CoinMachineClientV7 extends AugmentedCoinMachine<CoinMachine> {
   clientVersion: 7;

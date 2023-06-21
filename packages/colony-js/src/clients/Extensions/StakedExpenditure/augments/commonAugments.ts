@@ -15,8 +15,8 @@ import {
   StakedExpenditureEvents__factory as StakedExpenditureEventsFactory,
 } from '@colony/events';
 
-import { ClientType } from '../../../../constants';
-import { AugmentedIColony } from '../../../Core/augments/commonAugments';
+import { ClientType } from '../../../../constants.js';
+import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
 import {
   IColonyV4,
   IColonyV5,
@@ -25,8 +25,8 @@ import {
   IColonyV8,
   IColonyV9,
   IColonyV10,
-} from '../../../Core/contracts';
-import { AnyStakedExpenditure } from '../contracts';
+} from '../../../Core/contracts.js';
+import { AnyStakedExpenditure } from '../contracts.js';
 
 export type ValidColony =
   | IColonyV4

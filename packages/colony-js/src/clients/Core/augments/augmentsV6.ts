@@ -5,16 +5,16 @@ import {
   getPermissionProofs,
 } from '@colony/core';
 
-import { ColonyNetworkClient } from '../../ColonyNetworkClient';
-import { IColonyV9, IColonyV10, IColonyV11, IColonyV12 } from '../contracts';
-import { AugmentedIColony } from './commonAugments';
-import { ColonyAugmentsV3 } from './augmentsV3';
-import { ColonyAugmentsV4 } from './augmentsV4';
+import { ColonyNetworkClient } from '../../ColonyNetworkClient.js';
+import { IColonyV9, IColonyV10, IColonyV11, IColonyV12 } from '../contracts.js';
+import { AugmentedIColony } from './commonAugments.js';
+import { ColonyAugmentsV3 } from './augmentsV3.js';
+import { ColonyAugmentsV4 } from './augmentsV4.js';
 import {
   addAugments as addAugmentsV5,
   ColonyAugmentsV5,
   AugmentedEstimateV5,
-} from './augmentsV5';
+} from './augmentsV5.js';
 
 type ValidColony = IColonyV9 | IColonyV10 | IColonyV11 | IColonyV12;
 

@@ -1,5 +1,6 @@
 import { providers, Signer } from 'ethers';
-import { ColonyNetwork } from '../../../src';
+
+import { ColonyNetwork } from '../../../src/index.js';
 
 // If MetaMask is installed there will be an `ethereum` object on the `window`
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

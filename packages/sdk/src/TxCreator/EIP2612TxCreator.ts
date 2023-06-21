@@ -6,8 +6,8 @@ import { Network } from '@colony/core';
 import { MetadataType } from '@colony/event-metadata';
 import { ERC2612Token as ERC2612TokenType } from '@colony/tokens';
 
-import { ColonyMetaTransaction, EventData, TxCreator } from './TxCreator';
-import { ParsedLogTransactionReceipt } from '../types';
+import { ColonyMetaTransaction, EventData, TxCreator } from './TxCreator.js';
+import { ParsedLogTransactionReceipt } from '../types.js';
 
 const { splitSignature } = utils;
 

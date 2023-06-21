@@ -6,6 +6,6 @@ export {
   type TxCreatorConfig,
   type TxConfig,
   TxCreator,
-} from './TxCreator';
-export { MetaTxBaseContract, MetaTxCreator } from './MetaTxCreator';
-export { PermissionConfig, ColonyTxCreator } from './ColonyTxCreator';
+} from './TxCreator.js';
+export { MetaTxBaseContract, MetaTxCreator } from './MetaTxCreator.js';
+export { PermissionConfig, ColonyTxCreator } from './ColonyTxCreator.js';

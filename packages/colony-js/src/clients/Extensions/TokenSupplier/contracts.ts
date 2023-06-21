@@ -5,7 +5,7 @@ import type { TokenSupplier as TokenSupplier3 } from '../../../contracts/TokenSu
 import type { TokenSupplier as TokenSupplier4 } from '../../../contracts/TokenSupplier/4';
 
 // Always adjust to the latest factory
-export { TokenSupplier__factory as TokenSupplierFactory } from '../../../contracts/TokenSupplier/4/factories/TokenSupplier__factory';
+export { TokenSupplier__factory as TokenSupplierFactory } from '../../../contracts/TokenSupplier/4/factories/TokenSupplier__factory.js';
 
 export type TokenSupplierV1 = TokenSupplier1;
 export type TokenSupplierV2 = TokenSupplier2;

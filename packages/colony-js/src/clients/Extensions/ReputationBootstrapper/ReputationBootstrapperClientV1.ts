@@ -1,10 +1,10 @@
-import { ReputationBootstrapper__factory as ReputationBootstrapperFactory } from '../../../contracts/ReputationBootstrapper/1/factories/ReputationBootstrapper__factory';
-import { ReputationBootstrapper } from '../../../contracts/ReputationBootstrapper/1/ReputationBootstrapper';
-import { AugmentedIColony } from '../../Core/augments/commonAugments';
+import { ReputationBootstrapper__factory as ReputationBootstrapperFactory } from '../../../contracts/ReputationBootstrapper/1/factories/ReputationBootstrapper__factory.js';
+import { ReputationBootstrapper } from '../../../contracts/ReputationBootstrapper/1/ReputationBootstrapper.js';
+import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
 import {
   addAugments,
   AugmentedReputationBootstrapper,
-} from './augments/commonAugments';
+} from './augments/commonAugments.js';
 
 export interface ReputationBootstrapperClientV1
   extends AugmentedReputationBootstrapper<ReputationBootstrapper> {

@@ -1,11 +1,11 @@
-import { StakedExpenditure__factory as StakedExpenditureFactory } from '../../../contracts/StakedExpenditure/2/factories/StakedExpenditure__factory';
-import { StakedExpenditure } from '../../../contracts/StakedExpenditure/2';
-import { AugmentedIColony } from '../../Core/augments/commonAugments';
+import { StakedExpenditure__factory as StakedExpenditureFactory } from '../../../contracts/StakedExpenditure/2/factories/StakedExpenditure__factory.js';
+import { StakedExpenditure } from '../../../contracts/StakedExpenditure/2/StakedExpenditure.js';
+import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
 import {
   addAugments,
   AugmentedStakedExpenditure,
   ValidColony,
-} from './augments/commonAugments';
+} from './augments/commonAugments.js';
 
 export interface StakedExpenditureClientV2
   extends AugmentedStakedExpenditure<StakedExpenditure> {

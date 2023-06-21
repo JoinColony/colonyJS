@@ -8,11 +8,11 @@ import {
   toWei,
   Vote,
   w,
-} from '../../../src';
+} from '../../../src/index.js';
 import {
   setupOneTxPaymentExtension,
   setupVotingReputationExtension,
-} from '../../helpers';
+} from '../../helpers.js';
 
 const { isAddress } = utils;
 const provider = new providers.JsonRpcProvider('http://127.0.0.1:8545');

@@ -8,7 +8,7 @@ import type { CoinMachine as CoinMachine6 } from '../../../contracts/CoinMachine
 import type { CoinMachine as CoinMachine7 } from '../../../contracts/CoinMachine/7';
 
 // Always adjust to the latest factory
-export { CoinMachine__factory as CoinMachineFactory } from '../../../contracts/CoinMachine/7/factories/CoinMachine__factory';
+export { CoinMachine__factory as CoinMachineFactory } from '../../../contracts/CoinMachine/7/factories/CoinMachine__factory.js';
 
 export type CoinMachineV1 = CoinMachine1;
 export type CoinMachineV2 = CoinMachine2;

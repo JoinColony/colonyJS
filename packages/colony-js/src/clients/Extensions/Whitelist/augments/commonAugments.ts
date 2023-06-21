@@ -5,9 +5,9 @@ import {
   WhitelistEvents__factory as WhitelistEventsFactory,
 } from '@colony/events';
 
-import { ClientType } from '../../../../constants';
-import { AugmentedIColony } from '../../../Core/augments/commonAugments';
-import { AnyWhitelist } from '../contracts';
+import { ClientType } from '../../../../constants.js';
+import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
+import { AnyWhitelist } from '../contracts.js';
 
 export type AugmentedWhitelist<T extends AnyWhitelist = AnyWhitelist> = T & {
   clientType: ClientType.WhitelistClient;

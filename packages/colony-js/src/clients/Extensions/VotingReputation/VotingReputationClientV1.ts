@@ -1,16 +1,16 @@
-import { VotingReputation__factory as VotingReputationFactory } from '../../../contracts/VotingReputation/1/factories/VotingReputation__factory';
-import { VotingReputation } from '../../../contracts/VotingReputation/1/VotingReputation';
-import { AugmentedIColony } from '../../Core/augments/commonAugments';
+import { VotingReputation__factory as VotingReputationFactory } from '../../../contracts/VotingReputation/1/factories/VotingReputation__factory.js';
+import { VotingReputation } from '../../../contracts/VotingReputation/1/VotingReputation.js';
+import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
 import {
   addAugments,
   AugmentedEstimate,
   AugmentedVotingReputation,
-} from './augments/commonAugments';
+} from './augments/commonAugments.js';
 import {
   addAugments as addCreateDomainMotionAugments,
   CreateDomainMotionAugments,
   CreateDomainMotionEstimateGas,
-} from './augments/CreateDomainMotion';
+} from './augments/CreateDomainMotion.js';
 
 interface VotingReputationEstimate
   extends AugmentedEstimate<VotingReputation>,

@@ -1,7 +1,10 @@
-import { CoinMachine__factory as CoinMachineFactory } from '../../../contracts/CoinMachine/1/factories/CoinMachine__factory';
-import { CoinMachine } from '../../../contracts/CoinMachine/1/CoinMachine';
-import { AugmentedIColony } from '../../Core/augments/commonAugments';
-import { addAugments, AugmentedCoinMachine } from './augments/commonAugments';
+import { CoinMachine__factory as CoinMachineFactory } from '../../../contracts/CoinMachine/1/factories/CoinMachine__factory.js';
+import { CoinMachine } from '../../../contracts/CoinMachine/1/CoinMachine.js';
+import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
+import {
+  addAugments,
+  AugmentedCoinMachine,
+} from './augments/commonAugments.js';
 
 /**
  * An instantiated [ethers](https://docs.ethers.io/v5/) contract for the [CoinMachine contract](https://github.com/JoinColony/colonyNetwork/blob/develop/contracts/extensions/CoinMachine.sol) in version 1, with certain augmentations added. Pay attention to the existence of `...WithProofs` or `...Checked` functions as these provide convenient helpers to figure out permission proofs and contract checks for you.

@@ -2,25 +2,25 @@ import type { FundingQueueVersion } from '@colony/core';
 
 import { assertExhaustiveSwitch } from '@colony/core/utils';
 
-import { AugmentedIColony } from '../../Core/augments/commonAugments';
+import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
 
 import getFundingQueueClientV1, {
   FundingQueueClientV1,
-} from './FundingQueueClientV1';
+} from './FundingQueueClientV1.js';
 import getFundingQueueClientV2, {
   FundingQueueClientV2,
-} from './FundingQueueClientV2';
+} from './FundingQueueClientV2.js';
 import getFundingQueueClientV3, {
   FundingQueueClientV3,
-} from './FundingQueueClientV3';
+} from './FundingQueueClientV3.js';
 import getFundingQueueClientV4, {
   FundingQueueClientV4,
-} from './FundingQueueClientV4';
+} from './FundingQueueClientV4.js';
 
-export { FundingQueueClientV1 } from './FundingQueueClientV1';
-export { FundingQueueClientV2 } from './FundingQueueClientV2';
-export { FundingQueueClientV3 } from './FundingQueueClientV3';
-export { FundingQueueClientV4 } from './FundingQueueClientV4';
+export { FundingQueueClientV1 } from './FundingQueueClientV1.js';
+export { FundingQueueClientV2 } from './FundingQueueClientV2.js';
+export { FundingQueueClientV3 } from './FundingQueueClientV3.js';
+export { FundingQueueClientV4 } from './FundingQueueClientV4.js';
 
 export type AnyFundingQueueClient =
   | FundingQueueClientV1

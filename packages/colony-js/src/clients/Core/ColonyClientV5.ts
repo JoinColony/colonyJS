@@ -1,36 +1,39 @@
 import type { SignerOrProvider } from '@colony/core';
 
-import { IColony__factory as IColonyFactory } from '../../contracts/IColony/5/factories/IColony__factory';
-import { IColony } from '../../contracts/IColony/5/IColony';
-import { ColonyNetworkClient } from '../ColonyNetworkClient';
-import { AugmentedIColony, AugmentedEstimate } from './augments/commonAugments';
-import { ColonyAugmentsV3 } from './augments/augmentsV3';
-import { ColonyAugmentsV4 } from './augments/augmentsV4';
+import { IColony__factory as IColonyFactory } from '../../contracts/IColony/5/factories/IColony__factory.js';
+import { IColony } from '../../contracts/IColony/5/IColony.js';
+import { ColonyNetworkClient } from '../ColonyNetworkClient.js';
+import {
+  AugmentedIColony,
+  AugmentedEstimate,
+} from './augments/commonAugments.js';
+import { ColonyAugmentsV3 } from './augments/augmentsV3.js';
+import { ColonyAugmentsV4 } from './augments/augmentsV4.js';
 import {
   addAugments,
   ColonyAugmentsV5,
   AugmentedEstimateV5,
-} from './augments/augmentsV5';
+} from './augments/augmentsV5.js';
 import {
   AddDomainAugmentsB,
   AddDomainEstimateGasB,
   addAugmentsB as addAddDomainAugments,
-} from './augments/AddDomain';
+} from './augments/AddDomain.js';
 import {
   MoveFundsBetweenPotsAugmentsA,
   MoveFundsBetweenPotsEstimateGasA,
   addAugmentsA as addMoveFundsBetweenPotsAugments,
-} from './augments/MoveFundsBetweenPots';
+} from './augments/MoveFundsBetweenPots.js';
 import {
   SetExpenditureClaimDelayAugments,
   SetExpenditureClaimDelayEstimateGas,
   addAugments as addSetExpenditureClaimDelayAugments,
-} from './augments/SetExpenditureClaimDelay';
+} from './augments/SetExpenditureClaimDelay.js';
 import {
   SetExpenditurePayoutModifierAugments,
   SetExpenditurePayoutModifierEstimateGas,
   addAugments as addSetExpenditurePayoutModifierAugments,
-} from './augments/SetExpenditurePayoutModifier';
+} from './augments/SetExpenditurePayoutModifier.js';
 
 interface ColonyClientV5Estimate
   extends AugmentedEstimate<IColony>,

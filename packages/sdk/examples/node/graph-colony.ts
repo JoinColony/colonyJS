@@ -1,7 +1,7 @@
 import { providers } from 'ethers';
 
-import { ColonyNetwork, ColonyRpcEndpoint } from '../../src';
-import { createSubgraphClient, ColonyGraph } from '../../src/graph';
+import { ColonyNetwork, ColonyRpcEndpoint } from '../../src/index.js';
+import { createSubgraphClient, ColonyGraph } from '../../src/graph/index.js';
 
 const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
 

@@ -5,9 +5,9 @@ import {
   ReputationBootstrapperEvents__factory as ReputationBootstrapperEventsFactory,
 } from '@colony/events';
 
-import { ClientType } from '../../../../constants';
-import { AugmentedIColony } from '../../../Core/augments/commonAugments';
-import { AnyReputationBootstrapper } from '../contracts';
+import { ClientType } from '../../../../constants.js';
+import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
+import { AnyReputationBootstrapper } from '../contracts.js';
 
 export type AugmentedReputationBootstrapper<
   T extends AnyReputationBootstrapper = AnyReputationBootstrapper,

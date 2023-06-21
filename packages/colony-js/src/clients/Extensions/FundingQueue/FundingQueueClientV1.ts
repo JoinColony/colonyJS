@@ -1,7 +1,10 @@
-import { FundingQueue__factory as FundingQueueFactory } from '../../../contracts/FundingQueue/1/factories/FundingQueue__factory';
-import { FundingQueue } from '../../../contracts/FundingQueue/1/FundingQueue';
-import { AugmentedIColony } from '../../Core/augments/commonAugments';
-import { addAugments, AugmentedFundingQueue } from './augments/commonAugments';
+import { FundingQueue__factory as FundingQueueFactory } from '../../../contracts/FundingQueue/1/factories/FundingQueue__factory.js';
+import { FundingQueue } from '../../../contracts/FundingQueue/1/FundingQueue.js';
+import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
+import {
+  addAugments,
+  AugmentedFundingQueue,
+} from './augments/commonAugments.js';
 
 export interface FundingQueueClientV1
   extends AugmentedFundingQueue<FundingQueue> {

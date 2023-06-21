@@ -17,7 +17,7 @@ import {
   isExtensionCompatible,
 } from '@colony/core';
 
-import { ColonyNetworkClient } from '../../ColonyNetworkClient';
+import { ColonyNetworkClient } from '../../ColonyNetworkClient.js';
 import {
   IColonyV5,
   IColonyV6,
@@ -27,14 +27,14 @@ import {
   IColonyV10,
   IColonyV11,
   IColonyV12,
-} from '../contracts';
-import { AugmentedIColony } from './commonAugments';
-import { ColonyAugmentsV3 } from './augmentsV3';
+} from '../contracts.js';
+import { AugmentedIColony } from './commonAugments.js';
+import { ColonyAugmentsV3 } from './augmentsV3.js';
 import {
   addAugments as addAugmentsV4,
   ColonyAugmentsV4,
   AugmentedEstimateV4,
-} from './augmentsV4';
+} from './augmentsV4.js';
 
 type ValidColony =
   | IColonyV5

@@ -15,12 +15,12 @@ import {
 } from '@colony/core';
 import { BigNumber, BigNumberish, constants } from 'ethers';
 
-import { extractEvent } from '../utils';
+import { extractEvent } from '../utils.js';
 import {
   OneTxPayment as OneTxPaymentContract4,
   OneTxPayment__factory as OneTxPaymentFactory4,
-} from '../contracts/OneTxPayment/4';
-import { Colony } from './Colony';
+} from '../contracts/OneTxPayment/4/index.js';
+import { Colony } from './Colony.js';
 
 const { AddressZero } = constants;
 

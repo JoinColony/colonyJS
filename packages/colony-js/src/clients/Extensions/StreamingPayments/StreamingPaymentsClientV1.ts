@@ -1,11 +1,11 @@
-import { StreamingPayments__factory as StreamingPaymentsFactory } from '../../../contracts/StreamingPayments/1/factories/StreamingPayments__factory';
-import { StreamingPayments } from '../../../contracts/StreamingPayments/1';
-import { AugmentedIColony } from '../../Core/augments/commonAugments';
+import { StreamingPayments__factory as StreamingPaymentsFactory } from '../../../contracts/StreamingPayments/1/factories/StreamingPayments__factory.js';
+import { StreamingPayments } from '../../../contracts/StreamingPayments/1/StreamingPayments.js';
+import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
 import {
   addAugments,
   AugmentedStreamingPayments,
   ValidColony,
-} from './augments/commonAugments';
+} from './augments/commonAugments.js';
 
 export interface StreamingPaymentsClientV1
   extends AugmentedStreamingPayments<StreamingPayments> {

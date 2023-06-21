@@ -1,29 +1,32 @@
 import type { SignerOrProvider } from '@colony/core';
 
-import { IColony__factory as IColonyFactory } from '../../contracts/IColony/3/factories/IColony__factory';
-import { IColony } from '../../contracts/IColony/3/IColony';
-import { ColonyNetworkClient } from '../ColonyNetworkClient';
-import { AugmentedIColony, AugmentedEstimate } from './augments/commonAugments';
+import { IColony__factory as IColonyFactory } from '../../contracts/IColony/3/factories/IColony__factory.js';
+import { IColony } from '../../contracts/IColony/3/IColony.js';
+import { ColonyNetworkClient } from '../ColonyNetworkClient.js';
+import {
+  AugmentedIColony,
+  AugmentedEstimate,
+} from './augments/commonAugments.js';
 import {
   addAugments,
   ColonyAugmentsV3,
   AugmentedEstimateV3,
-} from './augments/augmentsV3';
+} from './augments/augmentsV3.js';
 import {
   AddDomainAugmentsA,
   AddDomainEstimateGasA,
   addAugmentsA as addAddDomainAugments,
-} from './augments/AddDomain';
+} from './augments/AddDomain.js';
 import {
   MoveFundsBetweenPotsAugmentsA,
   MoveFundsBetweenPotsEstimateGasA,
   addAugmentsA as addMoveFundsBetweenPotsAugments,
-} from './augments/MoveFundsBetweenPots';
+} from './augments/MoveFundsBetweenPots.js';
 import {
   SetPaymentDomainAugments,
   SetPaymentDomainEstimateGas,
   addAugments as addSetPaymentDomainAugments,
-} from './augments/SetPaymentDomain';
+} from './augments/SetPaymentDomain.js';
 
 interface ColonyClientV3Estimate
   extends AugmentedEstimate<IColony>,

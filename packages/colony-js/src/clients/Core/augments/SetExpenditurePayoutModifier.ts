@@ -5,8 +5,8 @@ import {
   getPermissionProofs,
 } from '@colony/core';
 
-import { IColonyV4, IColonyV5, IColonyV6, IColonyV7 } from '../contracts';
-import { AugmentedIColony } from './commonAugments';
+import { IColonyV4, IColonyV5, IColonyV6, IColonyV7 } from '../contracts.js';
+import { AugmentedIColony } from './commonAugments.js';
 
 // Colonies that support this method
 type ValidColony = IColonyV4 | IColonyV5 | IColonyV6 | IColonyV7;

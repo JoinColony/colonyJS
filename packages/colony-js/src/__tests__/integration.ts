@@ -3,7 +3,7 @@ import type { JsonRpcProvider } from '@ethersproject/providers';
 import { providers } from 'ethers';
 import { Network, ColonyRpcEndpoint } from '@colony/core';
 
-import getColonyNetworkClient from '../clients/ColonyNetworkClient';
+import getColonyNetworkClient from '../clients/ColonyNetworkClient.js';
 
 let provider: JsonRpcProvider;
 

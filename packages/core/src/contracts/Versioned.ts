@@ -17,19 +17,22 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
-  PromiseOrValue,
-} from "./common";
+} from "./common.js";
 
 export interface VersionedInterface extends utils.Interface {
   functions: {
     "version()": FunctionFragment;
   };
 
-  getFunction(nameOrSignatureOrTopic: "version"): FunctionFragment;
+  getFunction(
+    nameOrSignatureOrTopic: "version" | "version()"
+  ): FunctionFragment;
 
   encodeFunctionData(functionFragment: "version", values?: undefined): string;
+  encodeFunctionData(functionFragment: "version()", values?: undefined): string;
 
   decodeFunctionResult(functionFragment: "version", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "version()", data: BytesLike): Result;
 
   events: {};
 }
@@ -64,21 +67,33 @@ export interface Versioned extends BaseContract {
     version(
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { _version: BigNumber }>;
+
+    "version()"(
+      overrides?: CallOverrides
+    ): Promise<[BigNumber] & { _version: BigNumber }>;
   };
 
   version(overrides?: CallOverrides): Promise<BigNumber>;
 
+  "version()"(overrides?: CallOverrides): Promise<BigNumber>;
+
   callStatic: {
     version(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "version()"(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   filters: {};
 
   estimateGas: {
     version(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "version()"(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
     version(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "version()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }

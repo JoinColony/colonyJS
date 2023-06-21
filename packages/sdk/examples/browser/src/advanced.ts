@@ -1,6 +1,12 @@
 import { providers, utils, Signer, ContractReceipt, BigNumber } from 'ethers';
 
-import { Colony, ColonyNetwork, PinataAdapter, toEth, w } from '../../../src';
+import {
+  Colony,
+  ColonyNetwork,
+  PinataAdapter,
+  toEth,
+  w,
+} from '../../../src/index.js';
 
 const { isAddress } = utils;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

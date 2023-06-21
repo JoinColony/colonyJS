@@ -18,8 +18,8 @@ import {
   IColonyV10,
   IColonyV11,
   IColonyV12,
-} from '../contracts';
-import { AugmentedIColony } from './commonAugments';
+} from '../contracts.js';
+import { AugmentedIColony } from './commonAugments.js';
 
 // Colonies that support the early (not-overloaded) method
 type ValidColonyA = IColonyV1 | IColonyV2 | IColonyV3 | IColonyV4;

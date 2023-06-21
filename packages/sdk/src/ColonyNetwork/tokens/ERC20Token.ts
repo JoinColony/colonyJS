@@ -6,8 +6,9 @@ import {
   ERC20TokenFactory,
 } from '@colony/tokens';
 
-import { extractEvent } from '../../utils';
-import { ColonyNetwork } from '../ColonyNetwork';
+import type { ColonyNetwork } from '../ColonyNetwork.js';
+
+import { extractEvent } from '../../utils.js';
 
 export class ERC20Token {
   protected colonyNetwork: ColonyNetwork;

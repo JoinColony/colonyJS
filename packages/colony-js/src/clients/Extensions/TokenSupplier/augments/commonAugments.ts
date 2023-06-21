@@ -5,9 +5,9 @@ import {
   TokenSupplierEvents__factory as TokenSupplierEventsFactory,
 } from '@colony/events';
 
-import { ClientType } from '../../../../constants';
-import { AugmentedIColony } from '../../../Core/augments/commonAugments';
-import { AnyTokenSupplier } from '../contracts';
+import { ClientType } from '../../../../constants.js';
+import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
+import { AnyTokenSupplier } from '../contracts.js';
 
 export type AugmentedTokenSupplier<
   T extends AnyTokenSupplier = AnyTokenSupplier,

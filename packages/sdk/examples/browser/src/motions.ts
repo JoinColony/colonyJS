@@ -7,7 +7,7 @@ import {
   toEth,
   toWei,
   Vote,
-} from '../../../src';
+} from '../../../src/index.js';
 
 const { isAddress } = utils;
 // If MetaMask is installed there will be an `ethereum` object on the `window`

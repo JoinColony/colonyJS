@@ -5,10 +5,10 @@ import {
   FundingQueueEvents__factory as FundingQueueEventsFactory,
 } from '@colony/events';
 
-import { ClientType } from '../../../../constants';
-import { AugmentedIColony } from '../../../Core/augments/commonAugments';
+import { ClientType } from '../../../../constants.js';
+import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
 
-import { AnyFundingQueue } from '../contracts';
+import { AnyFundingQueue } from '../contracts.js';
 
 export type AugmentedFundingQueue<T extends AnyFundingQueue = AnyFundingQueue> =
   T & {

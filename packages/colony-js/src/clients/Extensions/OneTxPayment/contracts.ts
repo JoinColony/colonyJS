@@ -5,7 +5,7 @@ import type { OneTxPayment as OneTxPayment3 } from '../../../contracts/OneTxPaym
 import type { OneTxPayment as OneTxPayment4 } from '../../../contracts/OneTxPayment/4';
 
 // Always adjust to the latest factory
-export { OneTxPayment__factory as OneTxPaymentFactory } from '../../../contracts/OneTxPayment/4/factories/OneTxPayment__factory';
+export { OneTxPayment__factory as OneTxPaymentFactory } from '../../../contracts/OneTxPayment/4/factories/OneTxPayment__factory.js';
 
 export type OneTxPaymentV1 = OneTxPayment1;
 export type OneTxPaymentV2 = OneTxPayment2;

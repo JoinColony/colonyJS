@@ -6,7 +6,7 @@ import {
 } from 'ethers';
 import { type TxOverrides, getCreateMotionProofs } from '@colony/core';
 
-import { AugmentedIColony } from '../../../Core/augments/commonAugments';
+import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
 import {
   VotingReputationV2,
   VotingReputationV3,
@@ -15,12 +15,12 @@ import {
   VotingReputationV6,
   VotingReputationV7,
   VotingReputationV8,
-} from '../contracts';
-import { AnyVotingReputationClient } from '../exports';
+} from '../contracts.js';
+import { AnyVotingReputationClient } from '../exports.js';
 import {
   addAugments as addCommonAugments,
   AugmentedVotingReputation,
-} from './commonAugments';
+} from './commonAugments.js';
 
 type ValidVotingReputation =
   | VotingReputationV2

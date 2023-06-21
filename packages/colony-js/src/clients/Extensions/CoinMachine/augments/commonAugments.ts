@@ -5,9 +5,9 @@ import {
   CoinMachineEvents__factory as CoinMachineEventsFactory,
 } from '@colony/events';
 
-import { ClientType } from '../../../../constants';
-import { AugmentedIColony } from '../../../Core/augments/commonAugments';
-import { AnyCoinMachine } from '../contracts';
+import { ClientType } from '../../../../constants.js';
+import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
+import { AnyCoinMachine } from '../contracts.js';
 
 export type AugmentedCoinMachine<T extends AnyCoinMachine = AnyCoinMachine> =
   T & {

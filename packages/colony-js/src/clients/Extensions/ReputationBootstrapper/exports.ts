@@ -2,13 +2,13 @@ import type { ReputationBootstrapperVersion } from '@colony/core';
 
 import { assertExhaustiveSwitch } from '@colony/core/utils';
 
-import { AugmentedIColony } from '../../Core/augments/commonAugments';
+import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
 
 import getReputationBootstrapperClientV1, {
   ReputationBootstrapperClientV1,
-} from './ReputationBootstrapperClientV1';
+} from './ReputationBootstrapperClientV1.js';
 
-export { ReputationBootstrapperClientV1 } from './ReputationBootstrapperClientV1';
+export { ReputationBootstrapperClientV1 } from './ReputationBootstrapperClientV1.js';
 
 export type AnyReputationBootstrapperClient = ReputationBootstrapperClientV1;
 

@@ -2,37 +2,37 @@ import type { CoinMachineVersion } from '@colony/core';
 
 import { assertExhaustiveSwitch } from '@colony/core/utils';
 
-import { AugmentedIColony } from '../../Core/augments/commonAugments';
+import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
 
 import getCoinMachineClientV1, {
   CoinMachineClientV1,
-} from './CoinMachineClientV1';
+} from './CoinMachineClientV1.js';
 import getCoinMachineClientV2, {
   CoinMachineClientV2,
-} from './CoinMachineClientV2';
+} from './CoinMachineClientV2.js';
 import getCoinMachineClientV3, {
   CoinMachineClientV3,
-} from './CoinMachineClientV3';
+} from './CoinMachineClientV3.js';
 import getCoinMachineClientV4, {
   CoinMachineClientV4,
-} from './CoinMachineClientV4';
+} from './CoinMachineClientV4.js';
 import getCoinMachineClientV5, {
   CoinMachineClientV5,
-} from './CoinMachineClientV5';
+} from './CoinMachineClientV5.js';
 import getCoinMachineClientV6, {
   CoinMachineClientV6,
-} from './CoinMachineClientV6';
+} from './CoinMachineClientV6.js';
 import getCoinMachineClientV7, {
   CoinMachineClientV7,
-} from './CoinMachineClientV7';
+} from './CoinMachineClientV7.js';
 
-export { CoinMachineClientV1 } from './CoinMachineClientV1';
-export { CoinMachineClientV2 } from './CoinMachineClientV2';
-export { CoinMachineClientV3 } from './CoinMachineClientV3';
-export { CoinMachineClientV4 } from './CoinMachineClientV4';
-export { CoinMachineClientV5 } from './CoinMachineClientV5';
-export { CoinMachineClientV6 } from './CoinMachineClientV6';
-export { CoinMachineClientV7 } from './CoinMachineClientV7';
+export { CoinMachineClientV1 } from './CoinMachineClientV1.js';
+export { CoinMachineClientV2 } from './CoinMachineClientV2.js';
+export { CoinMachineClientV3 } from './CoinMachineClientV3.js';
+export { CoinMachineClientV4 } from './CoinMachineClientV4.js';
+export { CoinMachineClientV5 } from './CoinMachineClientV5.js';
+export { CoinMachineClientV6 } from './CoinMachineClientV6.js';
+export { CoinMachineClientV7 } from './CoinMachineClientV7.js';
 
 export type AnyCoinMachineClient =
   | CoinMachineClientV1

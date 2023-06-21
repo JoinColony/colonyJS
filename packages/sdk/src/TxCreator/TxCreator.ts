@@ -6,9 +6,9 @@ import { MetadataType, MetadataTypeMap } from '@colony/event-metadata';
 import type { TransactionResponse } from '@ethersproject/abstract-provider';
 import type { MotionCreatedEventObject } from '@colony/events';
 
-import { ParsedLogTransactionReceipt } from '../types';
-import { IpfsMetadataEvents } from '../ipfs/IpfsMetadata';
-import { ColonyNetwork } from '../ColonyNetwork';
+import { ParsedLogTransactionReceipt } from '../types.js';
+import { IpfsMetadataEvents } from '../ipfs/IpfsMetadata.js';
+import { ColonyNetwork } from '../ColonyNetwork/index.js';
 
 export interface TxConfig<M> {
   metadataType?: M;

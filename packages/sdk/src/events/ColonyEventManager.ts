@@ -6,8 +6,8 @@ import { addressesAreEqual, SignerOrProvider } from '@colony/core';
 import { MetadataType, MetadataTypeMap } from '@colony/event-metadata';
 
 import type { Ethers6Filter } from '../types';
-import { getLogs, nonNullable } from '../utils';
-import { IpfsAdapter, IpfsMetadata, MetadataEvent } from '../ipfs';
+import { getLogs, nonNullable } from '../utils.js';
+import { IpfsAdapter, IpfsMetadata, MetadataEvent } from '../ipfs/index.js';
 
 /**
  * A valid eventsource (currently just an ethers.js {@link BaseContract})

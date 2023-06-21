@@ -1,8 +1,8 @@
 import fetch from 'cross-fetch';
 import { BigNumber, BigNumberish } from 'ethers';
 
-import { Network, ReputationOracleEndpoint } from '../constants';
-import { CommonColony, CommonNetwork } from './types';
+import { Network, ReputationOracleEndpoint } from '../constants.js';
+import { CommonColony, CommonNetwork } from './types.js';
 
 interface ReputationClientOptions {
   customEndpointUrl?: string;

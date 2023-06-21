@@ -1,12 +1,12 @@
-import { ClientType } from '../../../constants';
-import { OneTxPayment__factory as OneTxPaymentFactory } from '../../../contracts/OneTxPayment/1/factories/OneTxPayment__factory';
-import { OneTxPayment } from '../../../contracts/OneTxPayment/1/OneTxPayment';
+import { ClientType } from '../../../constants.js';
+import { OneTxPayment__factory as OneTxPaymentFactory } from '../../../contracts/OneTxPayment/1/factories/OneTxPayment__factory.js';
+import { OneTxPayment } from '../../../contracts/OneTxPayment/1/OneTxPayment.js';
 import {
   addAugments,
   AugmentedEstimate,
   AugmentedOneTxPayment,
-} from './augments/commonAugments';
-import { AugmentedIColony } from '../../Core/augments/commonAugments';
+} from './augments/commonAugments.js';
+import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
 
 type OneTxPaymentEstimate = AugmentedEstimate<OneTxPayment>;
 

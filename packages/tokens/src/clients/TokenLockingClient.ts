@@ -1,11 +1,11 @@
 import type { SignerOrProvider } from '@colony/core';
 
-import { ClientType } from '../constants';
+import { ClientType } from '../constants.js';
 
 import {
   TokenLocking,
   TokenLocking__factory as TokenLockingFactory,
-} from '../contracts';
+} from '../contracts/index.js';
 
 export interface TokenLockingClient extends TokenLocking {
   clientType: ClientType.TokenLockingClient;

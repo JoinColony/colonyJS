@@ -1,7 +1,7 @@
-import { Whitelist__factory as WhitelistFactory } from '../../../contracts/Whitelist/1/factories/Whitelist__factory';
-import { Whitelist } from '../../../contracts/Whitelist/1/Whitelist';
-import { AugmentedIColony } from '../../Core/augments/commonAugments';
-import { addAugments, AugmentedWhitelist } from './augments/commonAugments';
+import { Whitelist__factory as WhitelistFactory } from '../../../contracts/Whitelist/1/factories/Whitelist__factory.js';
+import { Whitelist } from '../../../contracts/Whitelist/1/Whitelist.js';
+import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
+import { addAugments, AugmentedWhitelist } from './augments/commonAugments.js';
 
 export interface WhitelistClientV1 extends AugmentedWhitelist<Whitelist> {
   clientVersion: 1;

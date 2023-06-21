@@ -3,7 +3,9 @@ import { fork } from 'child_process';
 
 import { prompt } from 'inquirer';
 import { sync as glob } from 'fast-glob';
+// eslint-disable-next-line import/extensions
 import yargs from 'yargs/yargs';
+// eslint-disable-next-line import/extensions
 import { hideBin } from 'yargs/helpers';
 
 const { argv } = yargs(hideBin(process.argv));

@@ -5,7 +5,7 @@ import {
   ColonyEventManager,
   ColonyRpcEndpoint,
   MetadataType,
-} from '../../../src';
+} from '../../../src/index.js';
 import type { ColonyEvent } from '../../../src';
 
 const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);

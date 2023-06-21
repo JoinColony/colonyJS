@@ -14,10 +14,10 @@ import {
 import {
   IColonyNetwork,
   IColonyNetwork__factory as IColonyNetworkFactory,
-} from '../contracts';
-import { ClientType } from '../constants';
-import { AnyColonyClient } from '../clients/Core/exports';
-import { getColonyClient } from './Core/exports';
+} from '../contracts/index.js';
+import { ClientType } from '../constants.js';
+import { AnyColonyClient } from '../clients/Core/exports.js';
+import { getColonyClient } from './Core/exports.js';
 
 type NetworkEstimate = IColonyNetwork['estimateGas'];
 

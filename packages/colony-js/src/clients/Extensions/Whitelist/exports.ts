@@ -2,15 +2,21 @@ import type { WhitelistVersion } from '@colony/core';
 
 import { assertExhaustiveSwitch } from '@colony/core/utils';
 
-import { AugmentedIColony } from '../../Core/augments/commonAugments';
+import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
 
-import getWhitelistClientV1, { WhitelistClientV1 } from './WhitelistClientV1';
-import getWhitelistClientV2, { WhitelistClientV2 } from './WhitelistClientV2';
-import getWhitelistClientV3, { WhitelistClientV3 } from './WhitelistClientV3';
+import getWhitelistClientV1, {
+  WhitelistClientV1,
+} from './WhitelistClientV1.js';
+import getWhitelistClientV2, {
+  WhitelistClientV2,
+} from './WhitelistClientV2.js';
+import getWhitelistClientV3, {
+  WhitelistClientV3,
+} from './WhitelistClientV3.js';
 
-export { WhitelistClientV1 } from './WhitelistClientV1';
-export { WhitelistClientV2 } from './WhitelistClientV2';
-export { WhitelistClientV3 } from './WhitelistClientV3';
+export { WhitelistClientV1 } from './WhitelistClientV1.js';
+export { WhitelistClientV2 } from './WhitelistClientV2.js';
+export { WhitelistClientV3 } from './WhitelistClientV3.js';
 
 export type AnyWhitelistClient =
   | WhitelistClientV1

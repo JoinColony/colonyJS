@@ -4,7 +4,7 @@ import type { Whitelist as Whitelist2 } from '../../../contracts/Whitelist/2';
 import type { Whitelist as Whitelist3 } from '../../../contracts/Whitelist/3';
 
 // Always adjust to the latest factory
-export { Whitelist__factory as WhitelistFactory } from '../../../contracts/Whitelist/3/factories/Whitelist__factory';
+export { Whitelist__factory as WhitelistFactory } from '../../../contracts/Whitelist/3/factories/Whitelist__factory.js';
 
 export type WhitelistV1 = Whitelist1;
 export type WhitelistV2 = Whitelist2;
