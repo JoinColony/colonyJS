@@ -156,7 +156,7 @@ export enum MotionState {
 /**
  * Identifies a motion as a decision
  *
- * Usually there's no need to use this directly. Use [[VotingReputation.createDecision]] instead.
+ * Usually there's no need to use this directly.
  */
 export const DecisionMotionCode = '0x12345678';
 

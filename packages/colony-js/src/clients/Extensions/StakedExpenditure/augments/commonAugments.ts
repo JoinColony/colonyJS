@@ -41,7 +41,7 @@ export type AugmentedEstimate<
   T extends AnyStakedExpenditure = AnyStakedExpenditure,
 > = T['estimateGas'] & {
   /**
-   * Same as [[makeExpenditureWithStake]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link makeExpenditureWithStake}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _domainId - The domain where the expenditure belongs
    * @param _key - A reputation hash tree key, of the total reputation in _domainId
@@ -59,7 +59,7 @@ export type AugmentedEstimate<
   ): Promise<BigNumber>;
 
   /**
-   * Same as [[cancelAndReclaimStake]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link cancelAndReclaimStake}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _expenditureId - The id of the expenditure
    */
@@ -69,7 +69,7 @@ export type AugmentedEstimate<
   ): Promise<BigNumber>;
 
   /**
-   * Same as [[cancelAndPunish]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link cancelAndPunish}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _expenditureId - The id of the expenditure
    * @param _punish - Whether the staker should be punished by losing an amount of reputation equal to the stake
@@ -99,7 +99,7 @@ export type AugmentedStakedExpenditure<
   estimateGas: T['estimateGas'] & AugmentedEstimate;
 
   /**
-   * Same as [[makeExpenditureWithStake]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link makeExpenditureWithStake}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _domainId - The domain where the expenditure belongs
    * @param _key - A reputation hash tree key, of the total reputation in _domainId
@@ -117,7 +117,7 @@ export type AugmentedStakedExpenditure<
   ): Promise<ContractTransaction>;
 
   /**
-   * Same as [[cancelAndReclaimStake]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link cancelAndReclaimStake}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _expenditureId - The id of the expenditure
    */
@@ -127,7 +127,7 @@ export type AugmentedStakedExpenditure<
   ): Promise<ContractTransaction>;
 
   /**
-   * Same as [[cancelAndPunish]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link cancelAndPunish}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _expenditureId - The id of the expenditure
    * @param _punish - Whether the staker should be punished by losing an amount of reputation equal to the stake

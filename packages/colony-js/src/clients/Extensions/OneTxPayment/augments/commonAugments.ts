@@ -18,7 +18,7 @@ import { AnyOneTxPayment } from '../contracts';
 export type AugmentedEstimate<T extends AnyOneTxPayment = AnyOneTxPayment> =
   T['estimateGas'] & {
     /**
-     * Same as [[makePayment]], but let colonyJS figure out the permission proofs for you.
+     * Same as {@link makePayment}, but let colonyJS figure out the permission proofs for you.
      * Always prefer this method, except when you have good reason not to.
      * @param _amounts - amounts of the tokens being paid out
      * @param _domainId - The domainId the payment should be coming from
@@ -36,7 +36,7 @@ export type AugmentedEstimate<T extends AnyOneTxPayment = AnyOneTxPayment> =
     ): Promise<BigNumber>;
 
     /**
-     * Same as [[makePaymentFundedFromDomain]], but let colonyJS figure out the permission proofs for you.
+     * Same as {@link makePaymentFundedFromDomain}, but let colonyJS figure out the permission proofs for you.
      * Always prefer this method, except when you have good reason not to.
      * @param _amounts - The amounts of the tokens being paid out
      * @param _domainId - The domainId the payment should be coming from
@@ -71,7 +71,7 @@ export type AugmentedOneTxPayment<T extends AnyOneTxPayment = AnyOneTxPayment> =
     estimateGas: T['estimateGas'] & AugmentedEstimate;
 
     /**
-     * Same as [[makePayment]], but let colonyJS figure out the permission proofs for you.
+     * Same as {@link makePayment}, but let colonyJS figure out the permission proofs for you.
      * Always prefer this method, except when you have good reason not to.
      * @param _amounts - amounts of the tokens being paid out
      * @param _domainId - The domainId the payment should be coming from
@@ -89,7 +89,7 @@ export type AugmentedOneTxPayment<T extends AnyOneTxPayment = AnyOneTxPayment> =
     ): Promise<ContractTransaction>;
 
     /**
-     * Same as [[makePaymentFundedFromDomain]], but let colonyJS figure out the permission proofs for you.
+     * Same as {@link makePaymentFundedFromDomain}, but let colonyJS figure out the permission proofs for you.
      * Always prefer this method, except when you have good reason not to.
      * @param _amounts - The amounts of the tokens being paid out
      * @param _domainId - The domainId the payment should be coming from

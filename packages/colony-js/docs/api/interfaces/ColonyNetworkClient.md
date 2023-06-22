@@ -1221,7 +1221,7 @@ ___
 
 ### emit
 
-▸ **emit**(`eventName`, ...`args`): `boolean`
+▸ **emit**(`eventName`, `...args`): `boolean`
 
 #### Parameters
 
@@ -2244,7 +2244,7 @@ ___
 
 ▸ **lookupRegisteredENSDomainWithNetworkPatches**(`address`): `Promise`<`string`\>
 
-Like [[`lookupRegisteredENSDomain`]], but also working on the Goerli testnet
+Like [lookupRegisteredENSDomain](ColonyNetworkClient.md#lookupregisteredensdomain), but also working on the Goerli testnet
 
 **`Remarks`**
 

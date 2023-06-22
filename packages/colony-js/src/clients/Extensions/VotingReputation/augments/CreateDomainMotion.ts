@@ -38,7 +38,7 @@ export interface CreateDomainMotionEstimateGas {
   /**
    * @deprecated
    *
-   * Same as [[createDomainMotion]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link createDomainMotion}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _action - A bytes array encoding a function call
    * @param _domainId - The domain where we vote on the motion
@@ -54,7 +54,7 @@ export type CreateDomainMotionAugments<T extends ValidVotingReputation> = {
   /**
    * @deprecated
    *
-   * Same as [[createDomainMotion]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link createDomainMotion}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _action - A bytes array encoding a function call
    * @param _domainId - The domain where we vote on the motion

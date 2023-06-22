@@ -15,7 +15,7 @@ export interface SetPaymentDomainEstimateGas {
   /**
    * @deprecated
    *
-   * Same as [[setPaymentDomain]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link setPaymentDomain}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _domainId - Id of the new domain to set
    * @param _id - Payment identifier
@@ -31,7 +31,7 @@ export type SetPaymentDomainAugments<T extends ValidColony> = {
   /**
    * @deprecated
    *
-   * Same as [[setPaymentDomain]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link setPaymentDomain}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _domainId - Id of the new domain to set
    * @param _id - Payment identifier

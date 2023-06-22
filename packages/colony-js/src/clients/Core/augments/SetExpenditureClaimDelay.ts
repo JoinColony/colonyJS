@@ -15,7 +15,7 @@ export interface SetExpenditureClaimDelayEstimateGas {
   /**
    * @deprecated
    *
-   * Same as [[setExpenditureClaimDelay]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link setExpenditureClaimDelay}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _claimDelay - Time (in seconds) to delay claiming payout after finalization
    * @param _id - Expenditure identifier
@@ -33,7 +33,7 @@ export type SetExpenditureClaimDelayAugments<T extends ValidColony> = {
   /**
    * @deprecated
    *
-   * Same as [[setExpenditureClaimDelay]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link setExpenditureClaimDelay}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _claimDelay - Time (in seconds) to delay claiming payout after finalization
    * @param _id - Expenditure identifier

@@ -19,7 +19,7 @@ export type AugmentedEstimate<
   T extends AnyVotingReputation = AnyVotingReputation,
 > = T['estimateGas'] & {
   /**
-   * Same as [[stakeMotion]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link stakeMotion}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _amount - The amount of tokens being staked
    * @param _motionId - The id of the motion
@@ -33,7 +33,7 @@ export type AugmentedEstimate<
   ): Promise<BigNumber>;
 
   /**
-   * Same as [[escalateMotion]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link escalateMotion}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _motionId - The id of the motion
    * @param _newDomainId - The desired domain of escalation
@@ -45,7 +45,7 @@ export type AugmentedEstimate<
   ): Promise<BigNumber>;
 
   /**
-   * Same as [[claimReward]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link claimReward}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _motionId - The id of the motion
    * @param _staker - The staker whose reward is being claimed
@@ -77,7 +77,7 @@ export type AugmentedVotingReputation<
   estimateGas: T['estimateGas'] & AugmentedEstimate;
 
   /**
-   * Same as [[stakeMotion]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link stakeMotion}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _amount - The amount of tokens being staked
    * @param _motionId - The id of the motion
@@ -91,7 +91,7 @@ export type AugmentedVotingReputation<
   ): Promise<ContractTransaction>;
 
   /**
-   * Same as [[escalateMotion]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link escalateMotion}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _motionId - The id of the motion
    * @param _newDomainId - The desired domain of escalation
@@ -103,7 +103,7 @@ export type AugmentedVotingReputation<
   ): Promise<ContractTransaction>;
 
   /**
-   * Same as [[claimReward]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link claimReward}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _motionId - The id of the motion
    * @param _staker - The staker whose reward is being claimed

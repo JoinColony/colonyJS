@@ -37,7 +37,7 @@ type ValidColony =
 
 export interface AugmentedEstimateV3 {
   /**
-   * Same as [[setArbitrationRole]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link setArbitrationRole}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _domainId - Domain in which we are giving user the role
    * @param _setTo - The state of the role permission (true assign the permission, false revokes it)
@@ -53,7 +53,7 @@ export interface AugmentedEstimateV3 {
 
 export type ColonyAugmentsV3<T extends ValidColony> = {
   /**
-   * Same as [[setArbitrationRole]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link setArbitrationRole}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _domainId - Domain in which we are giving user the role
    * @param _setTo - The state of the role permission (true assign the permission, false revokes it)

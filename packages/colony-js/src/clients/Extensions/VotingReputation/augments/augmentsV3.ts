@@ -16,7 +16,7 @@ type ValidVotingReputation = VotingReputationV7 | VotingReputationV8;
 
 export interface AugmentedEstimateV3 {
   /**
-   * Same as [[claimMisalignedReward]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link claimMisalignedReward}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _motionId - The id of the motion
    * @param _staker - The staker whose reward is being claimed
@@ -32,7 +32,7 @@ export interface AugmentedEstimateV3 {
 
 export type AugmentsV3<T extends ValidVotingReputation> = {
   /**
-   * Same as [[claimMisalignedReward]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link claimMisalignedReward}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _motionId - The id of the motion
    * @param _staker - The staker whose reward is being claimed

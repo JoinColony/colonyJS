@@ -1256,7 +1256,7 @@ ___
 
 ### emit
 
-▸ **emit**(`eventName`, ...`args`): `boolean`
+▸ **emit**(`eventName`, `...args`): `boolean`
 
 #### Parameters
 
@@ -3198,7 +3198,7 @@ Move a given amount: `_amount` of `_token` funds from funding pot with id `_from
 | `_permissionDomainId` | `PromiseOrValue`<`BigNumberish`\> | The domainId in which I have the permission to take this action |
 | `_childSkillIndex` | `PromiseOrValue`<`BigNumberish`\> | The child index in _permissionDomainId where I will be taking this action |
 | `_domainId` | `PromiseOrValue`<`BigNumberish`\> | The domain where I am taking this action, pointed to by _permissionDomainId and _childSkillIndex |
-| `_fromChildSkillIndex` | `PromiseOrValue`<`BigNumberish`\> | In the array of child skills for the skill associated with the domain pointed to by _permissionDomainId + _childSkillIndex,         the index of the skill associated with the domain that contains _fromPot |
+| `_fromChildSkillIndex` | `PromiseOrValue`<`BigNumberish`\> | In the array of child skills for the skill associated with the domain pointed to by _permissionDomainId + _childSkillIndex, the index of the skill associated with the domain that contains _fromPot |
 | `_toChildSkillIndex` | `PromiseOrValue`<`BigNumberish`\> | The same, but for the _toPot which the funds are being moved to |
 | `_fromPot` | `PromiseOrValue`<`BigNumberish`\> | Funding pot id providing the funds |
 | `_toPot` | `PromiseOrValue`<`BigNumberish`\> | Funding pot id receiving the funds |
@@ -3933,7 +3933,7 @@ ___
 
 ▸ **setExpenditurePayoutWithProofs**(`_id`, `_slot`, `_token`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Same as the permissioned overload of setExpenditurePayout, but let colonyJS figure out the permission proofs for you.
+Same as the permissioned overload of [setExpenditurePayout(uint256,uint256,uint256,uint256,address,uint256)](ColonyClientV10.md#setexpenditurepayout(uint256,uint256,uint256,uint256,address,uint256)), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters

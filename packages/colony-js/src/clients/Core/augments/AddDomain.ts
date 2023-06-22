@@ -39,7 +39,7 @@ export interface AddDomainEstimateGasA {
   /**
    * @deprecated
    *
-   * Same as [[addDomain]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link addDomain}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _parentDomainId - Id of the domain under which the new one will be added
    */
@@ -50,7 +50,7 @@ export type AddDomainAugmentsA<T extends ValidColonyA> = {
   /**
    * @deprecated
    *
-   * Same as [[addDomain]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link addDomain}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _parentDomainId - Id of the domain under which the new one will be added
    */
@@ -111,7 +111,7 @@ export const addAugmentsA = (
 
 export interface AddDomainEstimateGasB {
   /**
-   * Same as [[addDomain(uint256)]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link "addDomain(uint256)"}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _parentDomainId - Id of the domain under which the new one will be added
    */
@@ -120,7 +120,7 @@ export interface AddDomainEstimateGasB {
     overrides?: TxOverrides,
   ): Promise<BigNumber>;
   /**
-   * Same as [[addDomain(uint256,string)]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link "addDomain(uint256,string)"}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _parentDomainId - Id of the domain under which the new one will be added
    * @param _metadata - Metadata relating to the domain. Expected to be the IPFS hash of a JSON blob, but not enforced by the contracts.
@@ -134,7 +134,7 @@ export interface AddDomainEstimateGasB {
 
 export type AddDomainAugmentsB<T extends ValidColonyB> = {
   /**
-   * Same as [[addDomain(uint256,uint256,uint256)]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link "addDomain(uint256,uint256,uint256)"}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _parentDomainId - Id of the domain under which the new one will be added
    */
@@ -143,7 +143,7 @@ export type AddDomainAugmentsB<T extends ValidColonyB> = {
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   /**
-   * Same as [[addDomain(uint256,uint256,uint256,string)]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link "addDomain(uint256,uint256,uint256,string)"}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _parentDomainId - Id of the domain under which the new one will be added
    * @param _metadata - Metadata relating to the domain. Expected to be the IPFS hash of a JSON blob, but not enforced by the contracts.

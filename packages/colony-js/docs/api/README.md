@@ -47,6 +47,7 @@
 - [ColonyClientV8](interfaces/ColonyClientV8.md)
 - [ColonyClientV9](interfaces/ColonyClientV9.md)
 - [ColonyNetworkClient](interfaces/ColonyNetworkClient.md)
+- [ContractReceipt](interfaces/ContractReceipt.md)
 - [EvaluatedExpenditureClientV1](interfaces/EvaluatedExpenditureClientV1.md)
 - [EvaluatedExpenditureClientV2](interfaces/EvaluatedExpenditureClientV2.md)
 - [EvaluatedExpenditureClientV3](interfaces/EvaluatedExpenditureClientV3.md)
@@ -282,7 +283,7 @@ ___
 
 Identifies a motion as a decision
 
-Usually there's no need to use this directly. Use VotingReputation.createDecision instead.
+Usually there's no need to use this directly.
 
 ___
 
@@ -806,7 +807,7 @@ Will filter out logs that can't be parsed with the given interface
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `logs` | `Log`[] | Array of log entries (usually from a ContractReceipt) |
+| `logs` | `Log`[] | Array of log entries (usually from a [ContractReceipt](interfaces/ContractReceipt.md)) |
 | `iface` | `Interface` | Ethers compatible contract interface |
 
 #### Returns
