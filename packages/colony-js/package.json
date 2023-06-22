@@ -51,7 +51,8 @@
   "dependencies": {
     "@colony/core": "^1.1.0",
     "@colony/events": "^0.2.0",
-    "@colony/tokens": "^0.1.2"
+    "@colony/tokens": "^0.1.2",
+    "ts-jest-resolver": "^2.0.1"
   },
   "devDependencies": {
     "@colony/contractor": "^1.0.0",
