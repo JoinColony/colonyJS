@@ -18,7 +18,8 @@
                     "examples/browser/src/*.ts"
                 ]
             }
-        ]
+        ],
+        "tsdoc/syntax": "error"
     },
     "overrides": [
         {
