@@ -1,6 +1,16 @@
-export { ColonyNetwork, ColonyNetworkOptions } from './ColonyNetwork';
-export { Colony, SupportedExtension, SupportedExtensions } from './Colony';
+export {
+  ColonyNetwork,
+  ColonyNetworkOptions,
+  TokenData,
+} from './ColonyNetwork';
+export {
+  Colony,
+  Domain,
+  SupportedColonyContract,
+  SupportedExtension,
+  SupportedExtensions,
+} from './Colony';
 export { OneTxPayment } from './OneTxPayment';
 export { TokenLocking } from './TokenLocking';
-export { VotingReputation, Vote } from './VotingReputation';
+export { Motion, VotingReputation, Vote } from './VotingReputation';
 export * from './tokens';

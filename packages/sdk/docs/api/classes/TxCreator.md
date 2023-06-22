@@ -16,7 +16,7 @@ Learn more about these functions in their individual documentation
 | :------ | :------ |
 | `C` | extends [`BaseContract`](../interfaces/BaseContract.md) |
 | `M` | extends keyof `C`[``"functions"``] |
-| `E` | extends `EventData` |
+| `E` | extends [`EventData`](../interfaces/EventData.md) |
 | `MD` | extends [`MetadataType`](../enums/MetadataType.md) |
 
 ## Hierarchy
@@ -29,7 +29,7 @@ Learn more about these functions in their individual documentation
 
 ### constructor
 
-• **new TxCreator**<`C`, `M`, `E`, `MD`\>(`__namedParameters`)
+• **new TxCreator**<`C`, `M`, `E`, `MD`\>(`«destructured»`)
 
 #### Type parameters
 
@@ -37,21 +37,21 @@ Learn more about these functions in their individual documentation
 | :------ | :------ |
 | `C` | extends [`BaseContract`](../interfaces/BaseContract.md) |
 | `M` | extends `string` \| `number` \| `symbol` |
-| `E` | extends `EventData` |
+| `E` | extends [`EventData`](../interfaces/EventData.md) |
 | `MD` | extends [`MetadataType`](../enums/MetadataType.md) |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `__namedParameters` | `Object` |
-| `__namedParameters.args` | `unknown`[] \| () => `Promise`<`unknown`[]\> |
-| `__namedParameters.colonyNetwork` | [`ColonyNetwork`](ColonyNetwork.md) |
-| `__namedParameters.contract` | `C` |
-| `__namedParameters.eventData?` | (`receipt`: [`ContractReceipt`](../interfaces/ContractReceipt.md)) => `Promise`<`E`\> |
-| `__namedParameters.metadataType?` | `MD` |
-| `__namedParameters.method` | `M` |
-| `__namedParameters.txConfig?` | [`TxConfig`](../interfaces/TxConfig.md)<`MD`\> |
+| `«destructured»` | `Object` |
+| › `args` | `unknown`[] \| () => `Promise`<`unknown`[]\> |
+| › `colonyNetwork` | [`ColonyNetwork`](ColonyNetwork.md) |
+| › `contract` | `C` |
+| › `eventData?` | (`receipt`: [`ContractReceipt`](../interfaces/ContractReceipt.md)) => `Promise`<`E`\> |
+| › `metadataType?` | `MD` |
+| › `method` | `M` |
+| › `txConfig?` | [`TxConfig`](../interfaces/TxConfig.md)<`MD`\> |
 
 ## Methods
 

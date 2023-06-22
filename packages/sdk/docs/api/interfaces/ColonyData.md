@@ -22,7 +22,7 @@ ___
 
 ### colonySafes
 
-• `Optional` **colonySafes**: `SafeInfo`[]
+• `Optional` **colonySafes**: [`SafeInfo`](SafeInfo.md)[]
 
 ___
 

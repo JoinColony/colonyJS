@@ -8,7 +8,9 @@ export {
   ColonyData,
   DecisionData,
   DomainData,
+  Metadata,
   MetadataType,
+  SafeInfo,
   TeamColor,
 } from '@colony/event-metadata';
 
@@ -20,6 +22,8 @@ export {
   Id,
   MotionState,
   Network,
+  type ReputationClient,
+  type SignerOrProvider,
   Tokens,
   addressesAreEqual,
   isExtensionCompatible,

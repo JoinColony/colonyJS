@@ -5,7 +5,7 @@ interface BaseMetadata {
   version: number;
 }
 
-interface SafeInfo {
+export interface SafeInfo {
   chainId: string;
   contractAddress: string;
   moduleContractAddress: string;

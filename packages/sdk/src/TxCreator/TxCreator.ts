@@ -7,7 +7,7 @@ import type { TransactionResponse } from '@ethersproject/abstract-provider';
 import type { MotionCreatedEventObject } from '@colony/events';
 
 import { ParsedLogTransactionReceipt } from '../types';
-import { IPFS_METADATA_EVENTS } from '../ipfs/IpfsMetadata';
+import { IpfsMetadataEvents } from '../ipfs/IpfsMetadata';
 import { ColonyNetwork } from '../ColonyNetwork';
 
 export interface TxConfig<M> {
@@ -223,7 +223,7 @@ export class TxCreator<
       if (this.txConfig?.metadataType && data.metadata) {
         const getMetadata = this.colonyNetwork.ipfs.getMetadataForEvent.bind(
           this.colonyNetwork.ipfs,
-          IPFS_METADATA_EVENTS[this.txConfig.metadataType],
+          IpfsMetadataEvents[this.txConfig.metadataType],
           data.metadata,
         ) as () => Promise<MetadataTypeMap[MD]>;
 

@@ -125,7 +125,7 @@ ___
 
 ### annotateDecision
 
-▸ **annotateDecision**(`txHash`, `metadata`): [`MetaTxCreator`](MetaTxCreator.md)<`SupportedColonyContract`, ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, [`Decision`](../enums/MetadataType.md#decision)\>
+▸ **annotateDecision**(`txHash`, `metadata`): [`MetaTxCreator`](MetaTxCreator.md)<[`SupportedColonyContract`](../README.md#supportedcolonycontract), ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, [`Decision`](../enums/MetadataType.md#decision)\>
 
 Annotate a decision with IPFS metadata to provide extra information
 
@@ -164,7 +164,7 @@ If [DecisionData](../interfaces/DecisionData.md) is provided directly (as oppose
 
 #### Returns
 
-[`MetaTxCreator`](MetaTxCreator.md)<`SupportedColonyContract`, ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, [`Decision`](../enums/MetadataType.md#decision)\>
+[`MetaTxCreator`](MetaTxCreator.md)<[`SupportedColonyContract`](../README.md#supportedcolonycontract), ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, [`Decision`](../enums/MetadataType.md#decision)\>
 
 A transaction creator
 
@@ -190,7 +190,7 @@ ___
 
 ### approveStake
 
-▸ **approveStake**(`amount`, `teamId?`): [`MetaTxCreator`](MetaTxCreator.md)<`SupportedColonyContract`, ``"approveStake"``, { `amount?`: `BigNumber` ; `approvedBy?`: `string` ; `token?`: `string` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **approveStake**(`amount`, `teamId?`): [`MetaTxCreator`](MetaTxCreator.md)<[`SupportedColonyContract`](../README.md#supportedcolonycontract), ``"approveStake"``, { `amount?`: `BigNumber` ; `approvedBy?`: `string` ; `token?`: `string` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Approve `amount` of the "activated" native tokens of a user for staking in a specific team
 After a token was "activated" (approved and deposited via the native token interface) it can be used for staking motions. To stake a motion, the token amount for staking has to be approved for the domain the motion was created in. See also the example in [stakeMotion](VotingReputation.md#stakemotion)
@@ -208,7 +208,7 @@ This method can't be executed as a motion
 
 #### Returns
 
-[`MetaTxCreator`](MetaTxCreator.md)<`SupportedColonyContract`, ``"approveStake"``, { `amount?`: `BigNumber` ; `approvedBy?`: `string` ; `token?`: `string` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`MetaTxCreator`](MetaTxCreator.md)<[`SupportedColonyContract`](../README.md#supportedcolonycontract), ``"approveStake"``, { `amount?`: `BigNumber` ; `approvedBy?`: `string` ; `token?`: `string` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
@@ -375,7 +375,7 @@ To get the missing amount for activation, call [getRemainingStakes](VotingReputa
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `motion` | `Motion` | A Motion struct object |
+| `motion` | [`Motion`](../README.md#motion) | A Motion struct object |
 | `vote` | [`Vote`](../enums/Vote.md) | A vote for (Yay) or against (Nay) the motion |
 
 #### Returns
@@ -388,7 +388,7 @@ ___
 
 ### getMotion
 
-▸ **getMotion**(`motionId`): `Promise`<`MotionStructOutput`\>
+▸ **getMotion**(`motionId`): `Promise`<[`Motion`](../README.md#motion)\>
 
 Get a motion by its id
 
@@ -404,7 +404,7 @@ Will throw if motionId does not exist
 
 #### Returns
 
-`Promise`<`MotionStructOutput`\>
+`Promise`<[`Motion`](../README.md#motion)\>
 
 A Motion object
 
@@ -602,7 +602,7 @@ ___
 
 ### upgrade
 
-▸ **upgrade**(`toVersion?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"upgradeExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **upgrade**(`toVersion?`): [`ColonyTxCreator`](ColonyTxCreator.md)<[`SupportedColonyContract`](../README.md#supportedcolonycontract), ``"upgradeExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Upgrade this extension to the next or a custom version
 
@@ -621,7 +621,7 @@ This method upgrades this extension to a specified version or, if no version is 
 
 #### Returns
 
-[`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedColonyContract`, ``"upgradeExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<[`SupportedColonyContract`](../README.md#supportedcolonycontract), ``"upgradeExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
