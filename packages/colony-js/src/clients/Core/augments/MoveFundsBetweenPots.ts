@@ -120,7 +120,7 @@ export interface MoveFundsBetweenPotsEstimateGasA {
   /**
    * @deprecated
    *
-   * Same as [[moveFundsBetweenPots]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link moveFundsBetweenPots}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _fromPot - Funding pot id providing the funds
    * @param _toPot - Funding pot id receiving the funds
@@ -140,7 +140,7 @@ export type MoveFundsBetweenPotsAugmentsA<T extends ValidColonyA> = {
   /**
    * @deprecated
    *
-   * Same as [[moveFundsBetweenPots]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link moveFundsBetweenPots}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _fromPot - Funding pot id providing the funds
    * @param _toPot - Funding pot id receiving the funds
@@ -218,7 +218,7 @@ export const addAugmentsA = (
 };
 export interface MoveFundsBetweenPotsEstimateGasB {
   /**
-   * Same as [[moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link "moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)"}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _domainId - The domain where I am taking this action, pointed to by _permissionDomainId and _childSkillIndex
    * @param _fromPot - Funding pot id providing the funds
@@ -237,7 +237,7 @@ export interface MoveFundsBetweenPotsEstimateGasB {
   /**
    * @deprecated
    *
-   * Same as [[moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link "moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)"}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _fromPot - Funding pot id providing the funds
    * @param _toPot - Funding pot id receiving the funds
@@ -255,7 +255,7 @@ export interface MoveFundsBetweenPotsEstimateGasB {
 
 export type MoveFundsBetweenPotsAugmentsB<T extends ValidColonyB> = {
   /**
-   * Same as [[moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link "moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)"}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _domainId - The domain where I am taking this action, pointed to by _permissionDomainId and _childSkillIndex
    * @param _fromPot - Funding pot id providing the funds
@@ -274,7 +274,7 @@ export type MoveFundsBetweenPotsAugmentsB<T extends ValidColonyB> = {
   /**
    * @deprecated
    *
-   * Same as [[moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link "moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)"}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _fromPot - Funding pot id providing the funds
    * @param _toPot - Funding pot id receiving the funds

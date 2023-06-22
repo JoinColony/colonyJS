@@ -33,7 +33,7 @@ type ValidVotingReputation =
 
 export interface AugmentedEstimateV2 {
   /**
-   * Same as [[createMotion]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link createMotion}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _action - A bytes array encoding a function call
    * @param _altTarget - The contract to which we send the action (0x0 for the colony)
@@ -49,7 +49,7 @@ export interface AugmentedEstimateV2 {
 
 export type AugmentsV2<T extends ValidVotingReputation> = {
   /**
-   * Same as [[createMotion]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link createMotion}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _action - A bytes array encoding a function call
    * @param _altTarget - The contract to which we send the action (0x0 for the colony)

@@ -108,7 +108,7 @@ ___
 
 ### colonyClient
 
-• **colonyClient**: `AugmentedIColony`<`AnyIColony`\>
+• **colonyClient**: `AugmentedIColony`
 
 An instance of the corresponding ColonyClient
 
@@ -476,7 +476,7 @@ ___
 
 ### emit
 
-▸ **emit**(`eventName`, ...`args`): `boolean`
+▸ **emit**(`eventName`, `...args`): `boolean`
 
 #### Parameters
 

@@ -75,7 +75,7 @@ export interface ColonyNetworkClient extends IColonyNetwork {
    */
   getTokenLockingClient(): Promise<TokenLockingClient>;
   /**
-   * Like [[`lookupRegisteredENSDomain`]], but also working on the Goerli testnet
+   * Like {@link lookupRegisteredENSDomain}, but also working on the Goerli testnet
    *
    * @remarks
    * On Goerli, all ens domains have the `.test` suffix. The contracts return `.eth` anyways.
@@ -113,7 +113,7 @@ export interface NetworkClientOptions {
  * const networkClient = await getColonyNetworkClient(Network.Xdai, provider);
  * ```
  *
- * @param network - One of the available options. See [[Network]].
+ * @param network - One of the available options. See {@link Network}.
  * @param signerOrProvider - An [ethers](https://github.com/ethers-io/ethers.js/)
  * compatible signer or provider instance
  * @param options - Here you can supply options for accessing certain contracts

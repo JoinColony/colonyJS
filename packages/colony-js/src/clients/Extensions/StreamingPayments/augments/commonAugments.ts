@@ -43,7 +43,7 @@ export type AugmentedEstimate<
   T extends AnyStreamingPayments = AnyStreamingPayments,
 > = T['estimateGas'] & {
   /**
-   * Same as [[create]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link create}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _domainId - The domain out of which the streaming payment will be paid
    * @param _startTime - The time at which the payment begins paying out
@@ -65,7 +65,7 @@ export type AugmentedEstimate<
   ): Promise<BigNumber>;
 
   /**
-   * Same as [[claim]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link claim}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _id - The id of the streaming payment
    * @param _tokens - The tokens to be paid out
@@ -77,7 +77,7 @@ export type AugmentedEstimate<
   ): Promise<BigNumber>;
 
   /**
-   * Same as [[addToken]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link addToken}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _id - The id of the streaming payment
    * @param _token - The address of the token
@@ -91,7 +91,7 @@ export type AugmentedEstimate<
   ): Promise<BigNumber>;
 
   /**
-   * Same as [[setTokenAmount]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link setTokenAmount}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _id - The id of the streaming payment
    * @param _token - The address of the token
@@ -105,7 +105,7 @@ export type AugmentedEstimate<
   ): Promise<BigNumber>;
 
   /**
-   * Same as [[setStartTime]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link setStartTime}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _id - The id of the streaming payment
    * @param _startTime - The new startTime to set
@@ -117,7 +117,7 @@ export type AugmentedEstimate<
   ): Promise<BigNumber>;
 
   /**
-   * Same as [[setEndTime]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link setEndTime}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _id - The id of the streaming payment
    * @param _endTime - The new endTime to set
@@ -129,7 +129,7 @@ export type AugmentedEstimate<
   ): Promise<BigNumber>;
 
   /**
-   * Same as [[cancel]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link cancel}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _id - The id of the streaming payment
    */
@@ -157,7 +157,7 @@ export type AugmentedStreamingPayments<
   estimateGas: T['estimateGas'] & AugmentedEstimate;
 
   /**
-   * Same as [[create]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link create}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _domainId - The domain out of which the streaming payment will be paid
    * @param _startTime - The time at which the payment begins paying out
@@ -179,7 +179,7 @@ export type AugmentedStreamingPayments<
   ): Promise<ContractTransaction>;
 
   /**
-   * Same as [[claim]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link claim}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _id - The id of the streaming payment
    * @param _tokens - The tokens to be paid out
@@ -191,7 +191,7 @@ export type AugmentedStreamingPayments<
   ): Promise<ContractTransaction>;
 
   /**
-   * Same as [[addToken]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link addToken}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _id - The id of the streaming payment
    * @param _token - The address of the token
@@ -205,7 +205,7 @@ export type AugmentedStreamingPayments<
   ): Promise<ContractTransaction>;
 
   /**
-   * Same as [[setTokenAmount]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link setTokenAmount}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _id - The id of the streaming payment
    * @param _token - The address of the token
@@ -219,7 +219,7 @@ export type AugmentedStreamingPayments<
   ): Promise<ContractTransaction>;
 
   /**
-   * Same as [[setStartTime]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link setStartTime}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _id - The id of the streaming payment
    * @param _startTime - The new startTime to set
@@ -231,7 +231,7 @@ export type AugmentedStreamingPayments<
   ): Promise<ContractTransaction>;
 
   /**
-   * Same as [[setEndTime]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link setEndTime}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _id - The id of the streaming payment
    * @param _endTime - The new endTime to set
@@ -243,7 +243,7 @@ export type AugmentedStreamingPayments<
   ): Promise<ContractTransaction>;
 
   /**
-   * Same as [[cancel]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link cancel}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _id - The id of the streaming payment
    */

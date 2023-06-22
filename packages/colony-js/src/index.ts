@@ -1,3 +1,5 @@
+export type { ContractReceipt } from 'ethers';
+
 export * from '@colony/core';
 
 export { default as getColonyNetworkClient } from './clients/ColonyNetworkClient';

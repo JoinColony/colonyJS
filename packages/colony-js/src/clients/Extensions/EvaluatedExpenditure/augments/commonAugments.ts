@@ -36,7 +36,7 @@ export type AugmentedEstimate<
   T extends AnyEvaluatedExpenditure = AnyEvaluatedExpenditure,
 > = T['estimateGas'] & {
   /**
-   * Same as [[setExpenditurePayoutModifiers]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link setExpenditurePayoutModifiers}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _id - Expenditure identifier
    * @param _slots - Array of slots to set payout modifiers
@@ -68,7 +68,7 @@ export type AugmentedEvaluatedExpenditure<
   estimateGas: T['estimateGas'] & AugmentedEstimate;
 
   /**
-   * Same as [[setExpenditurePayoutModifiers]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link setExpenditurePayoutModifiers}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _id - Expenditure identifier
    * @param _slots - Array of slots to set payout modifiers

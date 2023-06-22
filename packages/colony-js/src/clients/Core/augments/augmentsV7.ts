@@ -24,7 +24,7 @@ type ValidColony = IColonyV10 | IColonyV11 | IColonyV12;
  */
 export interface AugmentedEstimateV7 extends AugmentedEstimateV6 {
   /**
-   * Same as the permissioned overload of [[setExpenditurePayout]], but let colonyJS figure out the permission proofs for you.
+   * Same as the permissioned overload of {@link "setExpenditurePayout(uint256,uint256,uint256,uint256,address,uint256)"}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _id - Id of the expenditure
    * @param _slot - Number of the slot
@@ -45,7 +45,7 @@ export interface AugmentedEstimateV7 extends AugmentedEstimateV6 {
  */
 export type ColonyAugmentsV7<T extends ValidColony> = {
   /**
-   * Same as the permissioned overload of [[setExpenditurePayout]], but let colonyJS figure out the permission proofs for you.
+   * Same as the permissioned overload of {@link "setExpenditurePayout(uint256,uint256,uint256,uint256,address,uint256)"}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _id - Id of the expenditure
    * @param _slot - Number of the slot

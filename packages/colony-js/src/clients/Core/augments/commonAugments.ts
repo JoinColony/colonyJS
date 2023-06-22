@@ -35,7 +35,7 @@ export type AugmentedEstimate<T extends AnyIColony = AnyIColony> =
       overrides?: TxOverrides,
     ): Promise<BigNumber>;
     /**
-     * Same as [[setFundingRole]], but let colonyJS figure out the permission proofs for you.
+     * Same as {@link setFundingRole}, but let colonyJS figure out the permission proofs for you.
      * Always prefer this method, except when you have good reason not to.
      * @param _domainId - Domain in which we are giving user the role
      * @param _setTo - The state of the role permission (true assign the permission, false revokes it)
@@ -48,7 +48,7 @@ export type AugmentedEstimate<T extends AnyIColony = AnyIColony> =
       overrides?: TxOverrides,
     ): Promise<BigNumber>;
     /**
-     * Same as [[setAdministrationRole]], but let colonyJS figure out the permission proofs for you.
+     * Same as {@link setAdministrationRole}, but let colonyJS figure out the permission proofs for you.
      * Always prefer this method, except when you have good reason not to.
      * @param _domainId - Domain in which we are giving user the role
      * @param _setTo - The state of the role permission (true assign the permission, false revokes it)
@@ -61,7 +61,7 @@ export type AugmentedEstimate<T extends AnyIColony = AnyIColony> =
       overrides?: TxOverrides,
     ): Promise<BigNumber>;
     /**
-     * Same as [[addPayment]], but let colonyJS figure out the permission proofs for you.
+     * Same as {@link addPayment}, but let colonyJS figure out the permission proofs for you.
      * Always prefer this method, except when you have good reason not to.
      * @param _amount - Payout amount
      * @param _domainId - The domain where the payment belongs
@@ -78,7 +78,7 @@ export type AugmentedEstimate<T extends AnyIColony = AnyIColony> =
       overrides?: TxOverrides,
     ): Promise<BigNumber>;
     /**
-     * Same as [[finalizePayment]], but let colonyJS figure out the permission proofs for you.
+     * Same as {@link finalizePayment}, but let colonyJS figure out the permission proofs for you.
      * Always prefer this method, except when you have good reason not to.
      * @param _id - Payment identifier
      */
@@ -87,7 +87,7 @@ export type AugmentedEstimate<T extends AnyIColony = AnyIColony> =
       overrides?: TxOverrides,
     ): Promise<BigNumber>;
     /**
-     * Same as [[setPaymentRecipient]], but let colonyJS figure out the permission proofs for you.
+     * Same as {@link setPaymentRecipient}, but let colonyJS figure out the permission proofs for you.
      * Always prefer this method, except when you have good reason not to.
      * @param _id - Payment identifier
      * @param _recipient - Address of the payment recipient
@@ -98,7 +98,7 @@ export type AugmentedEstimate<T extends AnyIColony = AnyIColony> =
       overrides?: TxOverrides,
     ): Promise<BigNumber>;
     /**
-     * Same as [[setPaymentSkill]], but let colonyJS figure out the permission proofs for you.
+     * Same as {@link setPaymentSkill}, but let colonyJS figure out the permission proofs for you.
      * Always prefer this method, except when you have good reason not to.
      * @param _id - Payment identifier
      * @param _skillId - Id of the new skill to set
@@ -109,7 +109,7 @@ export type AugmentedEstimate<T extends AnyIColony = AnyIColony> =
       overrides?: TxOverrides,
     ): Promise<BigNumber>;
     /**
-     * Same as [[setPaymentPayout]], but let colonyJS figure out the permission proofs for you.
+     * Same as {@link setPaymentPayout}, but let colonyJS figure out the permission proofs for you.
      * Always prefer this method, except when you have good reason not to.
      * @param _amount - Payout amount
      * @param _id - Payment identifier
@@ -122,7 +122,7 @@ export type AugmentedEstimate<T extends AnyIColony = AnyIColony> =
       overrides?: TxOverrides,
     ): Promise<BigNumber>;
     /**
-     * Same as [[makeTask]], but let colonyJS figure out the permission proofs for you.
+     * Same as {@link makeTask}, but let colonyJS figure out the permission proofs for you.
      * Always prefer this method, except when you have good reason not to.
      * @param _domainId - The domain where the task belongs
      * @param _dueDate - The due date of the task, can set to `0` for no-op
@@ -158,7 +158,7 @@ export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
 
   /**
    * Get an instance of an extension client associated with this Colony.
-   * @param extension - An [[Extension]]
+   * @param extension - An {@link Extension}
    * @returns An instance of an intialized extension client for the desired extension
    */
   getExtensionClient<E extends Extension>(
@@ -166,7 +166,7 @@ export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
   ): Promise<GetExtensionClientReturns[E]>;
 
   /**
-   * Same as [[setArchitectureRole]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link setArchitectureRole}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _domainId - Domain in which we are giving user the role
    * @param _setTo - The state of the role permission (true assign the permission, false revokes it)
@@ -179,7 +179,7 @@ export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   /**
-   * Same as [[setFundingRole]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link setFundingRole}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _domainId - Domain in which we are giving user the role
    * @param _setTo - The state of the role permission (true assign the permission, false revokes it)
@@ -192,7 +192,7 @@ export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   /**
-   * Same as [[setAdministrationRole]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link setAdministrationRole}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _domainId - Domain in which we are giving user the role
    * @param _setTo - The state of the role permission (true assign the permission, false revokes it)
@@ -205,7 +205,7 @@ export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   /**
-   * Same as [[addPayment]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link addPayment}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _amount - Payout amount
    * @param _domainId - The domain where the payment belongs
@@ -222,7 +222,7 @@ export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   /**
-   * Same as [[finalizePayment]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link finalizePayment}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _id - Payment identifier
    */
@@ -231,7 +231,7 @@ export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   /**
-   * Same as [[setPaymentRecipient]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link setPaymentRecipient}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _id - Payment identifier
    * @param _recipient - Address of the payment recipient
@@ -242,7 +242,7 @@ export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   /**
-   * Same as [[setPaymentSkill]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link setPaymentSkill}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _id - Payment identifier
    * @param _skillId - Id of the new skill to set
@@ -253,7 +253,7 @@ export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   /**
-   * Same as [[setPaymentPayout]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link setPaymentPayout}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _amount - Payout amount
    * @param _id - Payment identifier
@@ -266,7 +266,7 @@ export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   /**
-   * Same as [[makeTask]], but let colonyJS figure out the permission proofs for you.
+   * Same as {@link makeTask}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _domainId - The domain where the task belongs
    * @param _dueDate - The due date of the task, can set to `0` for no-op
@@ -285,11 +285,11 @@ export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
 
   /**
    * Get the reputation for an address and a certain skill.
-   * If you need the skillId for a certain domain you can use the [[getDomain]] function.
+   * If you need the skillId for a certain domain you can use the {@link getDomain} function.
    * @remarks
    * This function also retrieves the proofs (`branchMask`, `siblings`) that are needed to verify the reputation on chain.
    * If you don't need to do that (e.g. in order to proof the reputation when calling a contract method), you should probably just use
-   * the [[getReputationWithoutProofs]] method as it requires fewer computations
+   * the {@link getReputationWithoutProofs} method as it requires fewer computations
    * @param skillId - The skill id to get the addresses reputation in
    * @param address - Wallet address to retrieve the reputation of
    * @param customRootHash - The `customRootHash` can be set to retrieve the reputation at a certain block time in the past
@@ -308,7 +308,7 @@ export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
   }>;
   /**
    * Get the reputation for an address and a certain skill.
-   * If you need the skillId for a certain domain you can use the [[getDomain]] function.
+   * If you need the skillId for a certain domain you can use the {@link getDomain} function.
    * @param skillId - The skill id to get the addresses reputation in
    * @param address - Wallet address to retrieve the reputation of
    * @param customRootHash - The `customRootHash` can be set to retrieve the reputation at a certain block time in the past
@@ -341,7 +341,7 @@ export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
   >;
   /**
    * Get all addresses that have reputation for a given skill.
-   * If you need the skillId for a certain domain you can use the [[getDomain]] function.
+   * If you need the skillId for a certain domain you can use the {@link getDomain} function.
    * @param skillId - The skill id to get the reputation in
    * @returns All addresses that have a non-zero reputation for the given skill
    */
