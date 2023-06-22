@@ -27,9 +27,11 @@
 - [ColonyTxCreator](classes/ColonyTxCreator.md)
 - [ERC20Token](classes/ERC20Token.md)
 - [ERC2612Token](classes/ERC2612Token.md)
+- [IpfsMetadata](classes/IpfsMetadata.md)
 - [MetaTxCreator](classes/MetaTxCreator.md)
 - [OneTxPayment](classes/OneTxPayment.md)
 - [PinataAdapter](classes/PinataAdapter.md)
+- [ReputationClient](classes/ReputationClient.md)
 - [TokenLocking](classes/TokenLocking.md)
 - [TxCreator](classes/TxCreator.md)
 - [VotingReputation](classes/VotingReputation.md)
@@ -53,16 +55,25 @@
 - [DomainData](interfaces/DomainData.md)
 - [Ethers6Filter](interfaces/Ethers6Filter.md)
 - [Ethers6FilterByBlockHash](interfaces/Ethers6FilterByBlockHash.md)
+- [EventData](interfaces/EventData.md)
 - [IpfsAdapter](interfaces/IpfsAdapter.md)
 - [MetaTxBaseContract](interfaces/MetaTxBaseContract.md)
 - [ParsedLogTransactionReceipt](interfaces/ParsedLogTransactionReceipt.md)
 - [PermissionConfig](interfaces/PermissionConfig.md)
+- [SafeInfo](interfaces/SafeInfo.md)
 - [SupportedExtensions](interfaces/SupportedExtensions.md)
+- [TokenData](interfaces/TokenData.md)
 - [TransactionResponse](interfaces/TransactionResponse.md)
 - [TxConfig](interfaces/TxConfig.md)
 - [TxCreatorConfig](interfaces/TxCreatorConfig.md)
 
 ## Type Aliases
+
+### Domain
+
+Ƭ **Domain**: `ColonyDataTypes10.DomainStructOutput` \| `ColonyDataTypes11.DomainStructOutput` \| `ColonyDataTypes12.DomainStructOutput`
+
+___
 
 ### EventSource
 
@@ -72,15 +83,39 @@ A valid eventsource (currently just an ethers.js [BaseContract](interfaces/BaseC
 
 ___
 
+### Metadata
+
+Ƭ **Metadata**: `AnnotationMetadata` \| `ColonyMetadata` \| `DecisionMetadata` \| `DomainMetadata` \| `MiscMetadata`
+
+___
+
 ### MetadataEvent
 
-Ƭ **MetadataEvent**<`K`\>: typeof `IPFS_METADATA_EVENTS`[`K`]
+Ƭ **MetadataEvent**<`K`\>: typeof [`IpfsMetadataEvents`](README.md#ipfsmetadataevents)[`K`]
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
 | `K` | extends [`MetadataType`](enums/MetadataType.md) |
+
+___
+
+### Motion
+
+Ƭ **Motion**: `VotingReputationDataTypes7.MotionStructOutput` \| `VotingReputationDataTypes8.MotionStructOutput`
+
+___
+
+### SignerOrProvider
+
+Ƭ **SignerOrProvider**: `Signer` \| `Provider`
+
+___
+
+### SupportedColonyContract
+
+Ƭ **SupportedColonyContract**: `ColonyContract10` \| `ColonyContract11` \| `ColonyContract12`
 
 ___
 
@@ -129,6 +164,23 @@ Latest versions of all extension contracts
 | `TokenSupplier` | ``1`` \| ``2`` \| ``3`` \| ``4`` |
 | `VotingReputation` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` |
 | `Whitelist` | ``1`` \| ``2`` \| ``3`` |
+
+___
+
+### IpfsMetadataEvents
+
+• `Const` **IpfsMetadataEvents**: `Object`
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `annotation` | ``"Annotation(address,bytes32,string)"`` |
+| `colony` | ``"ColonyMetadata(address,string)"`` |
+| `decision` | ``"Annotation(address,bytes32,string)"`` |
+| `default` | ``""`` |
+| `domain` | ``"DomainMetadata(address,uint256,string)"`` |
+| `misc` | ``""`` |
 
 ## Functions
 

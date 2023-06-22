@@ -21,7 +21,7 @@ const fetchRetry = wrapFetch(fetch, {
   retryDelay: 5000,
 });
 
-export const IPFS_METADATA_EVENTS = {
+export const IpfsMetadataEvents = {
   [MetadataType.Annotation]: 'Annotation(address,bytes32,string)',
   [MetadataType.Colony]: 'ColonyMetadata(address,string)',
   [MetadataType.Decision]: 'Annotation(address,bytes32,string)',
@@ -31,15 +31,13 @@ export const IPFS_METADATA_EVENTS = {
 } as const;
 
 export type MetadataEvent<K extends MetadataType> =
-  (typeof IPFS_METADATA_EVENTS)[K];
+  (typeof IpfsMetadataEvents)[K];
 
 /**
  * IpfsMetadata
  *
- * This is part of the [[ColonyNetwork]] and [[ColonyEventManager]] classes and not to be meant to instantiated directly.
+ * This is part of the {@link ColonyNetwork} and {@link ColonyEventManager} classes and not to be meant to instantiated directly.
  * You can find an instance of this under `colonyNetwork.ipfs` or `eventManager.ipfs`
- *
- * @internal
  *
  */
 export class IpfsMetadata {
@@ -50,7 +48,7 @@ export class IpfsMetadata {
   }
 
   static eventSupportsMetadata(eventName: string) {
-    if (Object.keys(IPFS_METADATA_EVENTS).includes(eventName)) {
+    if (Object.keys(IpfsMetadataEvents).includes(eventName)) {
       return true;
     }
     return false;
@@ -70,7 +68,7 @@ export class IpfsMetadata {
     const url = this.adapter.getIpfsUrl(cid);
     const res = await fetchRetry(url);
     const data = await res.json();
-    const entry = Object.entries(IPFS_METADATA_EVENTS).find(
+    const entry = Object.entries(IpfsMetadataEvents).find(
       ([, value]) => value === eventName,
     );
     if (!entry) {

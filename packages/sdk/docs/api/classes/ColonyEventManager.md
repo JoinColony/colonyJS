@@ -32,7 +32,7 @@ the only provider that supports topic filtering by multiple addresses
 
 ### ipfs
 
-• **ipfs**: `IpfsMetadata`
+• **ipfs**: [`IpfsMetadata`](IpfsMetadata.md)
 
 ___
 

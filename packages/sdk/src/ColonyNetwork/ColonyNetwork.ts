@@ -80,6 +80,7 @@ export class ColonyNetwork {
   private locking?: TokenLocking;
 
   /** Configuration of the ColonyNetwork for later use */
+  /** @internal */
   config: ColonyNetworkConfig;
 
   /** The IPFS adapter for Metadata. Defaults to a read-only adapter */

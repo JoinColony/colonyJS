@@ -52,8 +52,8 @@ export type SupportedVotingReputationContract =
   | VotingReputationContract8;
 
 export type Motion =
-  | VotingReputationDataTypes7.MotionStruct
-  | VotingReputationDataTypes8.MotionStruct;
+  | VotingReputationDataTypes7.MotionStructOutput
+  | VotingReputationDataTypes8.MotionStructOutput;
 
 export enum Vote {
   Nay,
@@ -309,7 +309,7 @@ export class VotingReputation {
    *
    * @returns A Motion object
    */
-  async getMotion(motionId: BigNumberish) {
+  async getMotion(motionId: BigNumberish): Promise<Motion> {
     const motionCount = await this.votingReputationContract.getMotionCount();
     if (motionCount.lt(motionId)) {
       throw new Error(`Motion with id ${motionId} does not exist`);

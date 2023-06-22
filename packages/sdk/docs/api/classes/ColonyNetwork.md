@@ -27,22 +27,14 @@ const colonyNetwork = new ColonyNetwork(provider);
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `signerOrProvider` | `SignerOrProvider` | An _ethers_ compatible Signer or Provider instance |
+| `signerOrProvider` | [`SignerOrProvider`](../README.md#signerorprovider) | An _ethers_ compatible Signer or Provider instance |
 | `options?` | [`ColonyNetworkOptions`](../interfaces/ColonyNetworkOptions.md) | Optional custom [ColonyNetworkOptions](../interfaces/ColonyNetworkOptions.md) |
 
 ## Properties
 
-### config
-
-• **config**: `ColonyNetworkConfig`
-
-Configuration of the ColonyNetwork for later use
-
-___
-
 ### ipfs
 
-• **ipfs**: `IpfsMetadata`
+• **ipfs**: [`IpfsMetadata`](IpfsMetadata.md)
 
 The IPFS adapter for Metadata. Defaults to a read-only adapter
 
@@ -58,7 +50,7 @@ ___
 
 ### signerOrProvider
 
-• **signerOrProvider**: `SignerOrProvider`
+• **signerOrProvider**: [`SignerOrProvider`](../README.md#signerorprovider)
 
 An ethers.js [Signer](https://docs.ethers.org/v5/api/signer/#Signer) or [Provider](https://docs.ethers.org/v5/api/providers/).
 
@@ -107,7 +99,7 @@ import { Tokens } from '@colony/sdk';
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `token` | `string` \| `TokenData` | Create a new ERC20-compatible token by passing in its name and symbol or use an existing token by passing in its contract address |
+| `token` | `string` \| [`TokenData`](../interfaces/TokenData.md) | Create a new ERC20-compatible token by passing in its name and symbol or use an existing token by passing in its contract address |
 | `label` | `string` | The Colony's label. This is going to be part of the URL to look up the Colony within the dApp |
 | `metadata` | `string` \| [`ColonyData`](../interfaces/ColonyData.md) | The team metadata you would like to add (or an IPFS CID pointing to valid metadata). If [ColonyData](../interfaces/ColonyData.md) is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS (like the [PinataAdapter](PinataAdapter.md)). See its documentation for more information. |
 
@@ -167,7 +159,7 @@ See the [Colony Creation Guide](../../guides/colony-creation.md).
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `token` | `string` \| `TokenData` | Create a new ERC20-compatible token by passing in its name and symbol or use an existing token by passing in its contract address |
+| `token` | `string` \| [`TokenData`](../interfaces/TokenData.md) | Create a new ERC20-compatible token by passing in its name and symbol or use an existing token by passing in its contract address |
 | `label` | `string` | The Colony's label. This is going to be part of the URL to look up the Colony within the dApp |
 
 #### Returns
