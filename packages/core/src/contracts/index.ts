@@ -3,6 +3,6 @@
 /* eslint-disable */
 export type { MotionTarget } from "./MotionTarget.js";
 export type { Versioned } from "./Versioned.js";
-export * as factories from "./factories";
+export * as factories from "./factories/index.js";
 export { MotionTarget__factory } from "./factories/MotionTarget__factory.js";
 export { Versioned__factory } from "./factories/Versioned__factory.js";
