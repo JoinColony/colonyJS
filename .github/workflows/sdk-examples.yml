@@ -1,24 +1,41 @@
-# name: Build Colony SDK examples and deploy
-#
-# on:
-#   push:
-#     branches: [ main ]
-#
-# jobs:
-#   build-and-deploy:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout 🛎️
-#         uses: actions/checkout@v2
-#
-#       - name: Install and Build 🔧
-#         run: |
-#           npm ci
-#           npm run build-examples
-#
-#       - name: Deploy 🚀
-#         uses: JamesIves/github-pages-deploy-action@releases/v4
-#         with:
-#           branch: gh-pages # The branch the action should deploy to.
-#           clean: true
-#           folder: examples/browser/web # The folder the action should deploy.
+name: Build and deploy SDK examples
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.18.1]
+    steps:
+    - uses: actions/checkout@v2
+    - uses: pnpm/action-setup@v2
+      with:
+        version: 8.4.0
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: pnpm --filter "@colony/contractor" install --ignore-scripts
+    - run: pnpm --filter "@colony/contractor" run build
+    - run: pnpm install --frozen-lockfile
+    - run: pnpm run lint
+    - run: pnpm run build
+      env:
+        NODE_OPTIONS: "--max-old-space-size=8192"
+    - run: pnpm run test
+      env:
+        CI: true
+        NODE_OPTIONS: "--max-old-space-size=8192"
+    - run: npm run no-git-changes
+    - run: pnpm --filter "@colony/sdk" run build-examples
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@releases/v4
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        clean: true
+        folder: packages/sdk/examples/browser/web # The folder the action should deploy.

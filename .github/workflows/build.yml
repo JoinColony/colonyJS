@@ -9,16 +9,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [16.18.1]
-
     steps:
+    - uses: actions/checkout@v2
     - uses: pnpm/action-setup@v2
       with:
         version: 8.4.0
-    - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
@@ -29,9 +27,9 @@ jobs:
     - run: pnpm run lint
     - run: pnpm run build
       env:
-        NODE_OPTIONS: "--max-old-space-size=4096"
+        NODE_OPTIONS: "--max-old-space-size=8192"
     - run: npm run test
       env:
         CI: true
-        NODE_OPTIONS: "--max-old-space-size=4096"
+        NODE_OPTIONS: "--max-old-space-size=8192"
     - run: npm run no-git-changes
