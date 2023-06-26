@@ -38,7 +38,7 @@
     "@types/yargs": "^17.0.24",
     "mkdirp": "^1.0.4",
     "rimraf": "^5.0.0",
-    "typechain": "^8.2.0",
+    "typechain": "npm:@owlprotocol/typechain@8.2.0",
     "yargs": "^17.7.1"
   },
   "devDependencies": {

@@ -107,10 +107,10 @@ importers:
         version: 0.2.2
       '@typechain/ethers-v5':
         specifier: ^11.0.0
-        version: 11.0.0(@ethersproject/abi@5.7.0)(@ethersproject/providers@5.7.2)(typechain@8.2.0)(typescript@5.0.4)
+        version: 11.0.0(@ethersproject/abi@5.7.0)(@ethersproject/providers@5.7.2)(@owlprotocol/typechain@8.2.0)(typescript@5.0.4)
       '@typechain/ethers-v6':
         specifier: ^0.4.0
-        version: 0.4.0(typechain@8.2.0)(typescript@5.0.4)
+        version: 0.4.0(@owlprotocol/typechain@8.2.0)(typescript@5.0.4)
       '@types/mkdirp':
         specifier: ^1.0.2
         version: 1.0.2
@@ -124,8 +124,8 @@ importers:
         specifier: ^5.0.0
         version: 5.0.0
       typechain:
-        specifier: ^8.2.0
-        version: 8.2.0(typescript@5.0.4)
+        specifier: npm:@owlprotocol/typechain@8.2.0
+        version: /@owlprotocol/typechain@8.2.0(typescript@5.0.4)
       yargs:
         specifier: ^17.7.1
         version: 17.7.1
@@ -1590,6 +1590,29 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
 
+  /@owlprotocol/typechain@8.2.0(typescript@5.0.4):
+    resolution: {integrity: sha512-aPnqqAJ7lkyvr7HgEe650kZ5GY4GFqrf7AxIFqwmb/tLaiUzuXNjdM/HpkxSTEbnin50OkFiYy6wd9gDWjtNUA==}
+    hasBin: true
+    peerDependencies:
+      typescript: '>=4.3.0'
+    dependencies:
+      '@types/prettier': 2.7.2
+      debug: 4.3.4
+      fs-extra: 7.0.1
+      glob: 7.1.7
+      js-sha3: 0.8.0
+      lodash: 4.17.21
+      mkdirp: 1.0.4
+      prettier: 2.8.8
+      ts-command-line-args: 2.5.0(typescript@5.0.4)
+      ts-essentials: 7.0.3(typescript@5.0.4)
+      typescript: 5.0.4
+    transitivePeerDependencies:
+      - jasmine
+      - jest
+      - supports-color
+    dev: false
+
   /@picocss/pico@1.5.10:
     resolution: {integrity: sha512-+LafMsrwPxXQMk6sI///TmSInCwwZmq+K7SikyL3N/4GhhwzyPC+TQLUEqmrLyjluR+uIpFFcqjty30Rtr6GxQ==}
     dev: true
@@ -1631,7 +1654,7 @@ packages:
     resolution: {integrity: sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==}
     dev: true
 
-  /@typechain/ethers-v5@11.0.0(@ethersproject/abi@5.7.0)(@ethersproject/providers@5.7.2)(typechain@8.2.0)(typescript@5.0.4):
+  /@typechain/ethers-v5@11.0.0(@ethersproject/abi@5.7.0)(@ethersproject/providers@5.7.2)(@owlprotocol/typechain@8.2.0)(typescript@5.0.4):
     resolution: {integrity: sha512-JDAvOjtzGuEQukgArIEseHznS2+v+vG3TpfODjNj4tu1kgmVu66G9gk7THOO04HJ5q+OJSLx9b46lc3GRGPIVA==}
     peerDependencies:
       '@ethersproject/abi': ^5.0.0
@@ -1644,11 +1667,11 @@ packages:
       '@ethersproject/providers': 5.7.2
       lodash: 4.17.21
       ts-essentials: 7.0.3(typescript@5.0.4)
-      typechain: 8.2.0(typescript@5.0.4)
+      typechain: /@owlprotocol/typechain@8.2.0(typescript@5.0.4)
       typescript: 5.0.4
     dev: false
 
-  /@typechain/ethers-v6@0.4.0(typechain@8.2.0)(typescript@5.0.4):
+  /@typechain/ethers-v6@0.4.0(@owlprotocol/typechain@8.2.0)(typescript@5.0.4):
     resolution: {integrity: sha512-vD3Agzz63Gf2XlU3ed2/y+8dLWQj+wf+4Eq+0JXsyOio/plyV5F6r0yYe+s3XdGI858U3Sr263pl8mliDrUqbw==}
     peerDependencies:
       ethers: 6.x
@@ -1657,7 +1680,7 @@ packages:
     dependencies:
       lodash: 4.17.21
       ts-essentials: 7.0.3(typescript@5.0.4)
-      typechain: 8.2.0(typescript@5.0.4)
+      typechain: /@owlprotocol/typechain@8.2.0(typescript@5.0.4)
       typescript: 5.0.4
     dev: false
 
@@ -5906,29 +5929,6 @@ packages:
   /type-fest@0.8.1:
     resolution: {integrity: sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==}
     engines: {node: '>=8'}
-    dev: false
-
-  /typechain@8.2.0(typescript@5.0.4):
-    resolution: {integrity: sha512-tZqhqjxJ9xAS/Lh32jccTjMkpx7sTdUVVHAy5Bf0TIer5QFNYXotiX74oCvoVYjyxUKDK3MXHtMFzMyD3kE+jg==}
-    hasBin: true
-    peerDependencies:
-      typescript: '>=4.3.0'
-    dependencies:
-      '@types/prettier': 2.7.2
-      debug: 4.3.4
-      fs-extra: 7.0.1
-      glob: 7.1.7
-      js-sha3: 0.8.0
-      lodash: 4.17.21
-      mkdirp: 1.0.4
-      prettier: 2.8.8
-      ts-command-line-args: 2.5.0(typescript@5.0.4)
-      ts-essentials: 7.0.3(typescript@5.0.4)
-      typescript: 5.0.4
-    transitivePeerDependencies:
-      - jasmine
-      - jest
-      - supports-color
     dev: false
 
   /typed-array-length@1.0.4:
