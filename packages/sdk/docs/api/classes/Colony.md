@@ -593,7 +593,7 @@ console.info(toEth(balance));
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `tokenAddress?` | `string` | The address of the token to get the balance for. Default is the Colony's native token |
-| `teamId?` | `BigNumberish` | The teamId (domainId) of the team to get the balance for. Default is the `Root` team |
+| `teamId?` | `BigNumberish` | The teamId (domainId) of the team to get the balance for. If not given, it will return the total balance of that token across the whole Colony (including non-claimed funds) |
 
 #### Returns
 

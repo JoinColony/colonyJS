@@ -67,7 +67,7 @@ import {
 import { extractEvent, extractCustomEvent } from '../utils.js';
 import { ColonyNetwork } from './ColonyNetwork.js';
 import { OneTxPayment } from './OneTxPayment.js';
-import { Token, getToken } from './tokens/index.js';
+import { ERC20Token, Token, getToken } from './tokens/index.js';
 import { VotingReputation } from './VotingReputation.js';
 
 export type SupportedColonyContract =
@@ -368,17 +368,20 @@ export class Colony {
    * console.info(toEth(balance));
    * ```
    * @param tokenAddress - The address of the token to get the balance for. Default is the Colony's native token
-   * @param teamId - The teamId (domainId) of the team to get the balance for. Default is the `Root` team
+   * @param teamId - The teamId (domainId) of the team to get the balance for. If not given, it will return the total balance of that token across the whole Colony (including non-claimed funds)
    * @returns A token balance in [wei](https://gwei.io/)
    */
   async getBalance(tokenAddress?: string, teamId?: BigNumberish) {
-    let potId: BigNumberish = Id.RootPot;
     if (teamId) {
       const { fundingPotId } = await this.colony.getDomain(teamId);
-      potId = fundingPotId;
+      const potId = fundingPotId;
+      const token = tokenAddress || this.token.address;
+      return this.colony.getFundingPotBalance(potId, token);
     }
-    const token = tokenAddress || this.token.address;
-    return this.colony.getFundingPotBalance(potId, token);
+    const token = tokenAddress
+      ? new ERC20Token(this.colonyNetwork, tokenAddress)
+      : this.token;
+    return token.balanceOf(this.address);
   }
 
   /**
