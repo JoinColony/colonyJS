@@ -2,18 +2,7 @@
   "name": "@colony/core",
   "version": "1.1.1-next.0",
   "description": "Colony core package",
-  "scripts": {
-    "build": "npm run clean && npm run compile-cjs && npm run compile-esm && npm run compile-types && npm run create-pkg-json",
-    "build-contracts": "contractor core -o ./src/contracts",
-    "clean": "rimraf ./dist",
-    "compile-cjs": "tsc -p tsconfig.build.json --module commonjs --target es2015 --outDir dist/cjs",
-    "compile-esm": "tsc -p tsconfig.build.json --module esnext --target es2022 --outDir dist/esm",
-    "compile-types": "tsc -p tsconfig.build.json --target esnext --declaration --emitDeclarationOnly --outDir dist/types",
-    "create-pkg-json": "../../scripts/create-pkg-json.sh",
-    "lint": "eslint --ext .ts src",
-    "prepare": "npm run build-contracts",
-    "typecheck": "tsc --noEmit"
-  },
+  "type": "module",
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
@@ -38,6 +27,18 @@
   "engines": {
     "node": "^16",
     "npm": "^8"
+  },
+  "scripts": {
+    "build": "npm run clean && npm run compile-cjs && npm run compile-esm && npm run compile-types && npm run create-pkg-json",
+    "build-contracts": "contractor core -o ./src/contracts",
+    "clean": "rimraf ./dist",
+    "compile-cjs": "tsc -p tsconfig.build.json --module commonjs --target es2015 --outDir dist/cjs",
+    "compile-esm": "tsc -p tsconfig.build.json --module esnext --target es2022 --outDir dist/esm",
+    "compile-types": "tsc -p tsconfig.build.json --target esnext --declaration --emitDeclarationOnly --outDir dist/types",
+    "create-pkg-json": "../../scripts/create-pkg-json.sh",
+    "lint": "eslint --ext .ts src",
+    "prepare": "npm run build-contracts",
+    "typecheck": "tsc --noEmit"
   },
   "repository": {
     "type": "git",

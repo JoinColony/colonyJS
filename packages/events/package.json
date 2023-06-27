@@ -2,6 +2,7 @@
   "name": "@colony/events",
   "description": "🎫 Colony event contract bindings",
   "version": "0.2.1-next.0",
+  "type": "module",
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
