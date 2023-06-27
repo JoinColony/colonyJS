@@ -1,13 +1,12 @@
 {
   "name": "@colony/contractor",
-  "version": "1.0.0",
+  "version": "1.0.1-next.0",
   "description": "✒️ A nifty tool that creates Colony Network TypeScript bindings",
   "scripts": {
     "clean": "rimraf ./bin",
     "build": "npm run clean && tsc --module commonjs --outDir bin",
     "lint": "eslint --ext .ts src",
-    "typecheck": "tsc --noEmit",
-    "prepublishOnly": "npm run lint && npm run build"
+    "typecheck": "tsc --noEmit"
   },
   "bin": {
     "contractor": "./bin/contractor.js"

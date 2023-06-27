@@ -1,5 +1,17 @@
 # @colony/sdk
 
+## 2.0.0-next.3
+
+### Patch Changes
+
+- 8de9d9ca: Upgrade TypeDoc to v0.24.8 and adjust link syntax style
+- 542ffad8: Adjust import/export statements to be compatible with ESM only within node.js
+- Updated dependencies [8de9d9ca]
+- Updated dependencies [542ffad8]
+  - @colony/event-metadata@3.0.1-next.0
+  - @colony/core@1.1.1-next.0
+  - @colony/tokens@0.1.3-next.0
+
 ## 2.0.0-next.2
 
 ### Major Changes

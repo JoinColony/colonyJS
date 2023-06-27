@@ -6,6 +6,7 @@
     "lint": "pnpm -r lint",
     "no-git-changes": "./scripts/no-git-changes.sh",
     "prepare": "husky install",
+    "publish": "pnpm run build && changeset publish",
     "test": "pnpm -r test",
     "typecheck": "pnpm -r typecheck"
   },

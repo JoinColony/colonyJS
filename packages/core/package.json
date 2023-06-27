@@ -1,6 +1,6 @@
 {
   "name": "@colony/core",
-  "version": "1.1.0",
+  "version": "1.1.1-next.0",
   "description": "Colony core package",
   "scripts": {
     "build": "npm run clean && npm run compile-cjs && npm run compile-esm && npm run compile-types && npm run create-pkg-json",
@@ -12,7 +12,6 @@
     "create-pkg-json": "../../scripts/create-pkg-json.sh",
     "lint": "eslint --ext .ts src",
     "prepare": "npm run build-contracts",
-    "prepublishOnly": "npm run build-contracts && npm run lint && npm run build",
     "typecheck": "tsc --noEmit"
   },
   "exports": {
@@ -51,7 +50,7 @@
   },
   "homepage": "https://docs.colony.io/develop",
   "devDependencies": {
-    "@colony/contractor": "1.0.0",
+    "@colony/contractor": "1.0.1-next.0",
     "@ethersproject/abi": "^5.7.0",
     "@ethersproject/abstract-provider": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",

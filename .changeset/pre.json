@@ -12,9 +12,11 @@
     "@colony/tokens": "0.1.2"
   },
   "changesets": [
+    "cuddly-spoons-admire",
     "little-ties-taste",
     "old-cobras-sniff",
     "orange-hotels-doubt",
+    "sour-zebras-heal",
     "strong-yaks-press"
   ]
 }

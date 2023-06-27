@@ -1,5 +1,11 @@
 # @colony/contractor
 
+## 1.0.1-next.0
+
+### Patch Changes
+
+- 542ffad8: Adjust import/export statements to be compatible with ESM only within node.js
+
 ## 1.0.0
 
 ### Major Changes

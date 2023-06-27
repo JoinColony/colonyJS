@@ -1,13 +1,7 @@
-# @colony/events
+# @colony/tokens
 
-## 0.2.1-next.0
+## 0.1.3-next.0
 
 ### Patch Changes
 
 - 542ffad8: Adjust import/export statements to be compatible with ESM only within node.js
-
-## 0.2.0
-
-### Minor Changes
-
-- Export all event contracts
