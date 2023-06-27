@@ -102,10 +102,6 @@ importers:
         specifier: ^3.15.3
         version: 3.15.3(typedoc@0.24.8)
 
-  packages/colony-js/dist/cjs: {}
-
-  packages/colony-js/dist/esm: {}
-
   packages/contractor:
     dependencies:
       '@colony/abis':
@@ -165,10 +161,6 @@ importers:
         specifier: ^5.7.2
         version: 5.7.2
 
-  packages/core/dist/cjs: {}
-
-  packages/core/dist/esm: {}
-
   packages/event-metadata:
     dependencies:
       typia:
@@ -181,10 +173,6 @@ importers:
       ts-patch:
         specifier: ^2.1.0
         version: 2.1.0(typescript@5.0.4)
-
-  packages/event-metadata/dist/cjs: {}
-
-  packages/event-metadata/dist/esm: {}
 
   packages/events:
     devDependencies:
@@ -200,10 +188,6 @@ importers:
       ethers:
         specifier: ^5.7.2
         version: 5.7.2
-
-  packages/events/dist/cjs: {}
-
-  packages/events/dist/esm: {}
 
   packages/sdk:
     dependencies:
@@ -299,10 +283,6 @@ importers:
         specifier: ^17.5.1
         version: 17.7.1
 
-  packages/sdk/dist/cjs: {}
-
-  packages/sdk/dist/esm: {}
-
   packages/tokens:
     devDependencies:
       '@colony/contractor':
@@ -320,10 +300,6 @@ importers:
       ethers:
         specifier: ^5.7.2
         version: 5.7.2
-
-  packages/tokens/dist/cjs: {}
-
-  packages/tokens/dist/esm: {}
 
 packages:
 
