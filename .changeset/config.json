@@ -7,5 +7,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["colony-typescript-for-build-only"]
+  "ignore": ["colony-typescript-for-build-only-{{MODULE_TYPE}}"]
 }

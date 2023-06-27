@@ -1,19 +1,9 @@
 #!/bin/bash
 
-cat >"$PWD/dist/cjs/package.json" <<!EOF
-{
-    "name": "colony-typescript-for-build-only",
-    "private": true,
-    "version": "0.0.0",
-    "type": "commonjs"
-}
-!EOF
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-cat >"$PWD/dist/esm/package.json" <<!EOF
-{
-    "name": "colony-typescript-for-build-only",
-    "private": true,
-    "version": "0.0.0",
-    "type": "module"
-}
-!EOF
+cp "$SCRIPT_DIR/../packages/__templates/package.json" "$PWD/dist/cjs/package.json"
+sed -i 's/{{MODULE_TYPE}}/commonjs/g' "$PWD/dist/cjs/package.json"
+
+cp "$SCRIPT_DIR/../packages/__templates/package.json" "$PWD/dist/esm/package.json"
+sed -i 's/{{MODULE_TYPE}}/module/g' "$PWD/dist/esm/package.json"
