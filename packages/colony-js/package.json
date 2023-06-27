@@ -34,7 +34,7 @@
   },
   "homepage": "https://docs.colony.io/develop",
   "scripts": {
-    "build": "npm run clean && npm run compile-cjs && npm run compile-esm && npm run compile-types && npm run build-docs",
+    "build": "npm run clean && npm run compile-cjs && npm run compile-esm && npm run compile-types && npm run create-pkg-json && npm run build-docs",
     "build-contracts": "contractor colony -o ./src/contracts",
     "build-docs": "typedoc",
     "clean": "rimraf ./dist",

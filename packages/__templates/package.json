@@ -1,0 +1,8 @@
+{
+    "name": "colony-typescript-for-build-only-{{MODULE_TYPE}}",
+    "description": "This package.json file is used to signal a module/commonjs type in the appropriate dist directory. This is to maintain compatibility with commonjs and ESM at the same time while satisfying changesets' requirements. No one seems to care, that's why this is so messy. See https://evertpot.com/universal-commonjs-esm-typescript-packages/, https://www.sensedeep.com/blog/posts/2021/how-to-create-single-source-npm-module.html or https://github.com/azu/tsconfig-to-dual-package. If anyone has a better idea, I'm all ears!",
+    "private": true,
+    "version": "0.0.0",
+    "type": "{{MODULE_TYPE}}"
+}
+
