@@ -39,7 +39,7 @@ export enum ReputationOracleEndpoint {
   Mainnet = 'https://colony.io/reputation/mainnet',
   Goerli = 'https://colony.io/reputation/goerli',
   Xdai = 'https://xdai.colony.io/reputation/xdai',
-  XdaiQa = 'https://qaxdai.colony.io/reputation/xdai',
+  XdaiQa = 'https://qa-xdai.colony.io/reputation/xdai',
   Custom = 'http://localhost:3000',
 }
 
