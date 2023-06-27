@@ -159,10 +159,6 @@ importers:
         specifier: ^5.7.2
         version: 5.7.2
 
-  packages/core/dist/cjs: {}
-
-  packages/core/dist/esm: {}
-
   packages/event-metadata:
     dependencies:
       typia:
@@ -194,10 +190,6 @@ importers:
       ethers:
         specifier: ^5.7.2
         version: 5.7.2
-
-  packages/events/dist/cjs: {}
-
-  packages/events/dist/esm: {}
 
   packages/sdk:
     dependencies:
