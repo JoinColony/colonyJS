@@ -24,6 +24,10 @@ You can run `pnpm lint`, `pnpm typecheck`, `pnpm test` and `pnpm build` in the r
 
 **Please make sure to include a [changeset](https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md) when submitting a PR.**
 
+## Creating a release
+
+From the main directory, run `pnpm run version`, then `pnpm run release`.
+
 ## Contributing
 
 All contributions are welcome. Please read the [Contributing Guidelines](CONTRIBUTING.md) and review our [Code of Conduct](CODE_OF_CONDUCT.md) before submitting a PR.
