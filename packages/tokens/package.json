@@ -2,6 +2,7 @@
   "name": "@colony/tokens",
   "description": "🪙 Colony token contract bindings",
   "version": "0.1.3-next.0",
+  "type": "module",
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",

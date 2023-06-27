@@ -54,6 +54,8 @@ importers:
         specifier: ^5.0.4
         version: 5.0.4
 
+  packages/__templates: {}
+
   packages/colony-js:
     dependencies:
       '@colony/core':
@@ -99,6 +101,10 @@ importers:
       typedoc-plugin-markdown:
         specifier: ^3.15.3
         version: 3.15.3(typedoc@0.24.8)
+
+  packages/colony-js/dist/cjs: {}
+
+  packages/colony-js/dist/esm: {}
 
   packages/contractor:
     dependencies:

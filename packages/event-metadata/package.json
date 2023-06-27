@@ -2,6 +2,7 @@
   "name": "@colony/event-metadata",
   "description": "📆 Parse and serialize Colony event metadata",
   "version": "3.0.1-next.0",
+  "type": "module",
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
