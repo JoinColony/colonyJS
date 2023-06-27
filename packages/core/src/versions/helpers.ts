@@ -1,6 +1,6 @@
 import { Extension } from '../constants.js';
 import { assertExhaustiveSwitch } from '../utils/index.js';
-import { ColonyVersion, ExtensionVersion } from '.';
+import { ColonyVersion, ExtensionVersion } from './index.js';
 import {
   coinMachineIncompatibilityMap,
   CoinMachineVersion,

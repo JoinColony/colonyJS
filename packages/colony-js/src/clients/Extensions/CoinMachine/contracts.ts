@@ -1,11 +1,11 @@
 // Always add the next CoinMachine version here
-import type { CoinMachine as CoinMachine1 } from '../../../contracts/CoinMachine/1';
-import type { CoinMachine as CoinMachine2 } from '../../../contracts/CoinMachine/2';
-import type { CoinMachine as CoinMachine3 } from '../../../contracts/CoinMachine/3';
-import type { CoinMachine as CoinMachine4 } from '../../../contracts/CoinMachine/4';
-import type { CoinMachine as CoinMachine5 } from '../../../contracts/CoinMachine/5';
-import type { CoinMachine as CoinMachine6 } from '../../../contracts/CoinMachine/6';
-import type { CoinMachine as CoinMachine7 } from '../../../contracts/CoinMachine/7';
+import type { CoinMachine as CoinMachine1 } from '../../../contracts/CoinMachine/1/index.js';
+import type { CoinMachine as CoinMachine2 } from '../../../contracts/CoinMachine/2/index.js';
+import type { CoinMachine as CoinMachine3 } from '../../../contracts/CoinMachine/3/index.js';
+import type { CoinMachine as CoinMachine4 } from '../../../contracts/CoinMachine/4/index.js';
+import type { CoinMachine as CoinMachine5 } from '../../../contracts/CoinMachine/5/index.js';
+import type { CoinMachine as CoinMachine6 } from '../../../contracts/CoinMachine/6/index.js';
+import type { CoinMachine as CoinMachine7 } from '../../../contracts/CoinMachine/7/index.js';
 
 // Always adjust to the latest factory
 export { CoinMachine__factory as CoinMachineFactory } from '../../../contracts/CoinMachine/7/factories/CoinMachine__factory.js';

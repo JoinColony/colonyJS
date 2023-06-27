@@ -1,8 +1,8 @@
 // Always add the next OneTxPayment version here
-import type { OneTxPayment as OneTxPayment1 } from '../../../contracts/OneTxPayment/1';
-import type { OneTxPayment as OneTxPayment2 } from '../../../contracts/OneTxPayment/2';
-import type { OneTxPayment as OneTxPayment3 } from '../../../contracts/OneTxPayment/3';
-import type { OneTxPayment as OneTxPayment4 } from '../../../contracts/OneTxPayment/4';
+import type { OneTxPayment as OneTxPayment1 } from '../../../contracts/OneTxPayment/1/index.js';
+import type { OneTxPayment as OneTxPayment2 } from '../../../contracts/OneTxPayment/2/index.js';
+import type { OneTxPayment as OneTxPayment3 } from '../../../contracts/OneTxPayment/3/index.js';
+import type { OneTxPayment as OneTxPayment4 } from '../../../contracts/OneTxPayment/4/index.js';
 
 // Always adjust to the latest factory
 export { OneTxPayment__factory as OneTxPaymentFactory } from '../../../contracts/OneTxPayment/4/factories/OneTxPayment__factory.js';

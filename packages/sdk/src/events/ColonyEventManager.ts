@@ -5,7 +5,7 @@ import { constants, providers, EventFilter, BaseContract } from 'ethers';
 import { addressesAreEqual, SignerOrProvider } from '@colony/core';
 import { MetadataType, MetadataTypeMap } from '@colony/event-metadata';
 
-import type { Ethers6Filter } from '../types';
+import type { Ethers6Filter } from '../types.js';
 import { getLogs, nonNullable } from '../utils.js';
 import { IpfsAdapter, IpfsMetadata, MetadataEvent } from '../ipfs/index.js';
 

@@ -1,4 +1,4 @@
-import type IpfsAdapter from './IpfsAdapter';
+import type IpfsAdapter from './IpfsAdapter.js';
 
 const COLONY_IPFS_PINATA_TOKEN =
   typeof global != 'undefined' && global.process

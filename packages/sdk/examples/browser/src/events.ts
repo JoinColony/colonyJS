@@ -6,7 +6,7 @@ import {
   ColonyRpcEndpoint,
   MetadataType,
 } from '../../../src/index.js';
-import type { ColonyEvent } from '../../../src';
+import type { ColonyEvent } from '../../../src/index.js';
 
 const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
 const { isAddress } = utils;

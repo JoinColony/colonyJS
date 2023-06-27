@@ -1,7 +1,7 @@
 // Always add the next EvaluatedExpenditure version here
-import type { EvaluatedExpenditure as EvaluatedExpenditure1 } from '../../../contracts/EvaluatedExpenditure/1';
-import type { EvaluatedExpenditure as EvaluatedExpenditure2 } from '../../../contracts/EvaluatedExpenditure/2';
-import type { EvaluatedExpenditure as EvaluatedExpenditure3 } from '../../../contracts/EvaluatedExpenditure/3';
+import type { EvaluatedExpenditure as EvaluatedExpenditure1 } from '../../../contracts/EvaluatedExpenditure/1/index.js';
+import type { EvaluatedExpenditure as EvaluatedExpenditure2 } from '../../../contracts/EvaluatedExpenditure/2/index.js';
+import type { EvaluatedExpenditure as EvaluatedExpenditure3 } from '../../../contracts/EvaluatedExpenditure/3/index.js';
 
 // Always adjust to the latest factory
 export { EvaluatedExpenditure__factory as EvaluatedExpenditureFactory } from '../../../contracts/EvaluatedExpenditure/3/factories/EvaluatedExpenditure__factory.js';

@@ -1,16 +1,16 @@
 // Always add the next IColony version here
-import type { IColony as IColony1 } from '../../contracts/IColony/1';
-import type { IColony as IColony2 } from '../../contracts/IColony/2';
-import type { IColony as IColony3 } from '../../contracts/IColony/3';
-import type { IColony as IColony4 } from '../../contracts/IColony/4';
-import type { IColony as IColony5 } from '../../contracts/IColony/5';
-import type { IColony as IColony6 } from '../../contracts/IColony/6';
-import type { IColony as IColony7 } from '../../contracts/IColony/7';
-import type { IColony as IColony8 } from '../../contracts/IColony/8';
-import type { IColony as IColony9 } from '../../contracts/IColony/9';
-import type { IColony as IColony10 } from '../../contracts/IColony/10';
-import type { IColony as IColony11 } from '../../contracts/IColony/11';
-import type { IColony as IColony12 } from '../../contracts/IColony/12';
+import type { IColony as IColony1 } from '../../contracts/IColony/1/index.js';
+import type { IColony as IColony2 } from '../../contracts/IColony/2/index.js';
+import type { IColony as IColony3 } from '../../contracts/IColony/3/index.js';
+import type { IColony as IColony4 } from '../../contracts/IColony/4/index.js';
+import type { IColony as IColony5 } from '../../contracts/IColony/5/index.js';
+import type { IColony as IColony6 } from '../../contracts/IColony/6/index.js';
+import type { IColony as IColony7 } from '../../contracts/IColony/7/index.js';
+import type { IColony as IColony8 } from '../../contracts/IColony/8/index.js';
+import type { IColony as IColony9 } from '../../contracts/IColony/9/index.js';
+import type { IColony as IColony10 } from '../../contracts/IColony/10/index.js';
+import type { IColony as IColony11 } from '../../contracts/IColony/11/index.js';
+import type { IColony as IColony12 } from '../../contracts/IColony/12/index.js';
 
 // Always adjust to the latest Colony version
 export { IColony__factory as IColonyFactory } from '../../contracts/IColony/12/factories/IColony__factory.js';

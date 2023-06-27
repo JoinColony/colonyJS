@@ -23,7 +23,7 @@ export type {
   ReputationMinerPenalisedEvent,
   ReputationMinerPenalisedEventFilter,
   ReputationMinerPenalisedEventObject,
-} from './contracts/IColonyNetworkEvents';
+} from './contracts/IColonyNetworkEvents.js';
 
 // All ColonyExtensions have those so we export them from the OG contract
 export type {
@@ -36,7 +36,7 @@ export type {
   LogSetAuthorityEvent,
   ExtensionInitialisedEventFilter,
   LogSetOwnerEventObject,
-} from './contracts/ColonyExtensionEvents';
+} from './contracts/ColonyExtensionEvents.js';
 
 export * from './contracts/CoinMachineEvents.js';
 export * from './contracts/IColonyEvents.js';

@@ -1,12 +1,12 @@
 // Always add the next VotingReputation version here
-import type { VotingReputation as VotingReputation1 } from '../../../contracts/VotingReputation/1';
-import type { VotingReputation as VotingReputation2 } from '../../../contracts/VotingReputation/2';
-import type { VotingReputation as VotingReputation3 } from '../../../contracts/VotingReputation/3';
-import type { VotingReputation as VotingReputation4 } from '../../../contracts/VotingReputation/4';
-import type { VotingReputation as VotingReputation5 } from '../../../contracts/VotingReputation/5';
-import type { IVotingReputation as VotingReputation6 } from '../../../contracts/IVotingReputation/6';
-import type { IVotingReputation as VotingReputation7 } from '../../../contracts/IVotingReputation/7';
-import type { IVotingReputation as VotingReputation8 } from '../../../contracts/IVotingReputation/8';
+import type { VotingReputation as VotingReputation1 } from '../../../contracts/VotingReputation/1/index.js';
+import type { VotingReputation as VotingReputation2 } from '../../../contracts/VotingReputation/2/index.js';
+import type { VotingReputation as VotingReputation3 } from '../../../contracts/VotingReputation/3/index.js';
+import type { VotingReputation as VotingReputation4 } from '../../../contracts/VotingReputation/4/index.js';
+import type { VotingReputation as VotingReputation5 } from '../../../contracts/VotingReputation/5/index.js';
+import type { IVotingReputation as VotingReputation6 } from '../../../contracts/IVotingReputation/6/index.js';
+import type { IVotingReputation as VotingReputation7 } from '../../../contracts/IVotingReputation/7/index.js';
+import type { IVotingReputation as VotingReputation8 } from '../../../contracts/IVotingReputation/8/index.js';
 
 export { IVotingReputation__factory as VotingReputationFactory } from '../../../contracts/IVotingReputation/8/factories/IVotingReputation__factory.js';
 

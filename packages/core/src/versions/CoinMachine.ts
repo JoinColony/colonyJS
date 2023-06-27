@@ -1,4 +1,4 @@
-import type { ColonyVersion } from './IColony';
+import type { ColonyVersion } from './IColony.js';
 
 import { createContractVersionArray } from './utils.js';
 

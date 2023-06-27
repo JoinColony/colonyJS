@@ -15,6 +15,6 @@ export * from './clients/Extensions/exports.js';
 export type {
   ColonyNetworkClient,
   NetworkClientOptions,
-} from './clients/ColonyNetworkClient';
+} from './clients/ColonyNetworkClient.js';
 
 export { IBasicMetaTransaction } from './contracts/index.js';
