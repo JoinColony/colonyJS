@@ -30,8 +30,8 @@ import {
 } from '@colony/core';
 import { DecisionData, MetadataType } from '@colony/event-metadata';
 
-import type { VotingReputationDataTypes as VotingReputationDataTypes7 } from '../contracts/IVotingReputation/7/IVotingReputation';
-import type { VotingReputationDataTypes as VotingReputationDataTypes8 } from '../contracts/IVotingReputation/8/IVotingReputation';
+import type { VotingReputationDataTypes as VotingReputationDataTypes7 } from '../contracts/IVotingReputation/7/IVotingReputation.js';
+import type { VotingReputationDataTypes as VotingReputationDataTypes8 } from '../contracts/IVotingReputation/8/IVotingReputation.js';
 
 import {
   IVotingReputation as VotingReputationContract7,

@@ -26,13 +26,13 @@ export const ERC2612 = TokenERC2612Factory.connect(
 
 // Some nice aliases for the important token factories
 export { MetaTxToken__factory as ColonyTokenFactory } from './contracts/index.js';
-export type { MetaTxToken as ColonyToken } from './contracts';
+export type { MetaTxToken as ColonyToken } from './contracts/index.js';
 
 export { TokenERC20__factory as ERC20TokenFactory } from './contracts/static/index.js';
-export type { TokenERC20 as ERC20Token } from './contracts/static';
+export type { TokenERC20 as ERC20Token } from './contracts/static/index.js';
 
 export { TokenERC2612__factory as ERC2612TokenFactory } from './contracts/static/index.js';
-export type { TokenERC2612 as ERC2612Token } from './contracts/static';
+export type { TokenERC2612 as ERC2612Token } from './contracts/static/index.js';
 
 export * from './contracts/index.js';
 
@@ -43,9 +43,9 @@ export type {
   ColonyTokenClient,
   Erc20TokenClient,
   Erc2612TokenClient,
-} from './clients/TokenClient';
+} from './clients/TokenClient.js';
 
 export { default as getTokenLockingClient } from './clients/TokenLockingClient.js';
-export type { TokenLockingClient } from './clients/TokenLockingClient';
+export type { TokenLockingClient } from './clients/TokenLockingClient.js';
 
 export { ClientType, TokenClientType } from './constants.js';

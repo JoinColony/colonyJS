@@ -1,4 +1,4 @@
-import type IpfsAdapter from './IpfsAdapter';
+import type IpfsAdapter from './IpfsAdapter.js';
 
 /**
  * CloudflareReadonlyAdapter

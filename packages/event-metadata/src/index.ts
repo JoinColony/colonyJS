@@ -5,7 +5,7 @@ import type {
   DataTypeMap,
   Metadata,
   MetadataTypeMap,
-} from './types';
+} from './types.js';
 
 import { MetadataType, METADATA_VERSION } from './constants.js';
 

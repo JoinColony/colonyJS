@@ -1,8 +1,8 @@
 // Always add the next FundingQueue version here
-import type { FundingQueue as FundingQueue1 } from '../../../contracts/FundingQueue/1';
-import type { FundingQueue as FundingQueue2 } from '../../../contracts/FundingQueue/2';
-import type { FundingQueue as FundingQueue3 } from '../../../contracts/FundingQueue/3';
-import type { FundingQueue as FundingQueue4 } from '../../../contracts/FundingQueue/4';
+import type { FundingQueue as FundingQueue1 } from '../../../contracts/FundingQueue/1/index.js';
+import type { FundingQueue as FundingQueue2 } from '../../../contracts/FundingQueue/2/index.js';
+import type { FundingQueue as FundingQueue3 } from '../../../contracts/FundingQueue/3/index.js';
+import type { FundingQueue as FundingQueue4 } from '../../../contracts/FundingQueue/4/index.js';
 
 // Always adjust to the latest factory
 export { FundingQueue__factory as FundingQueueFactory } from '../../../contracts/FundingQueue/4/factories/FundingQueue__factory.js';
