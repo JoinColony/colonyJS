@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "build": "pnpm -r build",
+    "build-docs": "pnpm -r build-docs",
     "lint": "pnpm -r lint",
     "no-git-changes": "./scripts/no-git-changes.sh",
     "prepare": "husky install",
