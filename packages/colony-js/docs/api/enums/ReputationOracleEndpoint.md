@@ -30,4 +30,4 @@ ___
 
 ### XdaiQa
 
-• **XdaiQa** = ``"https://qaxdai.colony.io/reputation/xdai"``
+• **XdaiQa** = ``"https://qa-xdai.colony.io/reputation/xdai"``
