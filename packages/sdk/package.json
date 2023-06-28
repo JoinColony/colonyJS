@@ -34,7 +34,7 @@
     "examples:node": "ts-node examples/node/index.ts",
     "examples:browser": "esbuild --bundle examples/browser/src/*.ts --servedir=examples/browser/web",
     "build-contracts": "contractor colony -t 3 -o ./src/contracts",
-    "build": "npm run clean && npm run compile-cjs && npm run compile-esm && npm run compile-types && npm run create-pkg-json && npm run build-docs",
+    "build": "npm run clean && npm run compile-cjs && npm run compile-esm && npm run compile-types && npm run create-pkg-json",
     "build-docs": "typedoc",
     "build-examples": "esbuild --bundle examples/browser/src/*.ts --outdir=examples/browser/web --minify",
     "clean": "rimraf ./dist",
