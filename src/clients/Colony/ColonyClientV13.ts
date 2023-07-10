@@ -117,6 +117,7 @@ export default function getColonyClient(
    * when creating new Colony version clients
    */
   const colonyClientV13 = {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     ...customEthersContractInstace,
     interface: {
