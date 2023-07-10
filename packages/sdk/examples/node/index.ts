@@ -1,19 +1,21 @@
-import { basename, resolve } from 'path';
-import { fork } from 'child_process';
+import { basename, resolve } from 'node:path';
+import { fork } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 
-import { prompt } from 'inquirer';
-import { sync as glob } from 'fast-glob';
-// eslint-disable-next-line import/extensions
-import yargs from 'yargs/yargs';
-// eslint-disable-next-line import/extensions
+import inquirer from 'inquirer';
+import glob from 'fast-glob';
+import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
 const { argv } = yargs(hideBin(process.argv));
 
+const dirname = fileURLToPath(new URL('.', import.meta.url));
+
 if ('example' in argv) {
-  fork(resolve(__dirname, `${argv.example}.ts`));
+  fork(resolve(dirname, `${argv.example}.ts`));
 } else {
-  const examples = glob(resolve(__dirname, './*.ts'))
+  const examples = glob
+    .sync(resolve(dirname, './*.ts'))
     .map((path) => basename(path, '.ts'))
     .filter((example) => example !== 'index');
 
@@ -26,7 +28,7 @@ if ('example' in argv) {
     },
   ];
 
-  prompt(questions).then((answers) => {
-    fork(resolve(__dirname, `${answers.example}.ts`));
+  inquirer.prompt(questions).then((answers) => {
+    fork(resolve(dirname, `${answers.example}.ts`));
   });
 }

@@ -10,6 +10,7 @@
     "listEmittedFiles": false,
     "listFiles": false,
     "moduleResolution": "nodenext",
+    "module": "esnext",
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
@@ -24,5 +25,8 @@
   "include": [
     "src",
     "examples"
-  ]
+  ],
+  "ts-node": {
+    "esm": true
+  }
 }

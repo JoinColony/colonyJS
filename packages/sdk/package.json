@@ -44,6 +44,7 @@
     "create-pkg-json": "../../scripts/create-pkg-json.sh",
     "lint": "eslint --ext .ts src examples",
     "prepare": "npm run build-contracts",
+    "test": "npm run examples:node -- --example=basic",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
