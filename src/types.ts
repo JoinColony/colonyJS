@@ -11,6 +11,7 @@ import { ColonyClientV9 } from './clients/Colony/ColonyClientV9';
 import { ColonyClientV10 } from './clients/Colony/ColonyClientV10';
 import { ColonyClientV11 } from './clients/Colony/ColonyClientV11';
 import { ColonyClientV12 } from './clients/Colony/ColonyClientV12';
+import { ColonyClientV13 } from './clients/Colony/ColonyClientV13';
 import { TokenClient } from './clients/TokenClient';
 import { TokenLockingClient } from './clients/TokenLockingClient';
 import { ExtensionClient } from './clients/Extensions/colonyContractExtensions';
@@ -29,7 +30,10 @@ export type ColonyClient =
   | ColonyClientV11
   // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore
-  | ColonyClientV12;
+  | ColonyClientV12
+  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+  // @ts-ignore
+  | ColonyClientV13;
 
 export type ContractClient =
   | ColonyClient
