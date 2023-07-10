@@ -17,15 +17,15 @@ import { ColonyExtensionsV8 } from './extensionsV8';
 import { ColonyExtensionsV9 } from './extensionsV9';
 import { ColonyExtensionsV10 } from './extensionsV10';
 import { ColonyExtensionsV11 } from './extensionsV11';
-import { ColonyExtensionsV12 } from './extensionsV12';
 import {
-  addExtensions as addExtensionsV13,
-  ColonyExtensionsV13,
-  ExtendedEstimateV13,
-} from './extensionsV13';
+  addExtensions as addExtensionsV12,
+  ColonyExtensionsV12,
+  ExtendedEstimateV12,
+} from './extensionsV12';
 
 type ValidColony = IColonyV13;
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 type PreviousVersionsExtensions = ExtendedIColony<ValidColony> &
   ColonyExtensionsV3<IColonyV6> &
@@ -49,6 +49,8 @@ export type ExtendedEstimateV13 = ExtendedEstimateV12;
  */
 export type ColonyExtensionsV13<
   T extends ValidColony
+  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+  // @ts-ignore
 > = {} & PreviousVersionsExtensions;
 
 /*
@@ -59,7 +61,9 @@ export const addExtensions = (
   networkClient: ColonyNetworkClient,
 ): ColonyExtensionsV12<ValidColony> => {
   // Add all extensions from v7, because these are also still valid
-  const extendedInstance = addExtensionsV13(
+  const extendedInstance = addExtensionsV12(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
     instance as PreviousVersionsExtensions,
     networkClient,
   ) as ColonyExtensionsV13<ValidColony>;
