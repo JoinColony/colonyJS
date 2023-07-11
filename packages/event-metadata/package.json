@@ -21,8 +21,8 @@
   ],
   "license": "GPL-3.0-only",
   "engines": {
-    "node": "^16",
-    "npm": "^8"
+    "node": "^16 || ^18",
+    "pnpm": "^8"
   },
   "scripts": {
     "build": "npm run clean && npm run compile-cjs && npm run compile-esm && npm run compile-types && npm run create-pkg-json",
