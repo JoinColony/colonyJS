@@ -9,6 +9,7 @@ import type {
   ExtensionUpgradedEventObject,
   AnnotationEventObject,
   MotionEscalatedEventObject,
+  ExtensionInitialisedEventObject,
 } from '@colony/events';
 
 import { constants, BigNumber, BigNumberish, utils } from 'ethers';
@@ -70,6 +71,11 @@ const REP_DIVISOR = BigNumber.from(10).pow(18);
  * ## `VotingReputation` (Motions & Disputes)
  *
  * The `VotingReputation` extension allows any member of a Colony to propose a Motion to take an `action` that will pass after a security delay unless somebody Objects. This applies to all actions, such as creating an expenditure, managing funds, or managing teams.
+ *
+ * ### Extension parameters
+ *
+ * Before the `VotingReputation` extension can be used you need to initialize it using a few parameters that heavily influence the Motion lifecycle.
+ * For that please see the {@link VotingReputation.initialize} function and also [this document](https://docs.colony.io/use/governance/motions-and-disputes/parameters) for an in-depth explanation of the various parameters.
  *
  * ### What is a Motion?
  *
@@ -298,6 +304,82 @@ export class VotingReputation {
    */
   getInternalVotingReputationContract(): SupportedVotingReputationContract {
     return this.votingReputationContract;
+  }
+
+  /*
+   * Before you can use the extension you need to initialize it by calling this function.
+   *
+   * @remarks
+   * - Fractions are in wei to allow for precise adjustments (you can use the `w` helper method to specify fractions - see example)
+   * - All periods values are given in seconds
+   *
+   * See also [this page](https://docs.colony.io/use/governance/motions-and-disputes/parameters) for a detailed explanation of the parameters.
+   *
+   * @example
+   * ```typescript
+   * import { w } from '@colony/sdk';
+   *
+   * // Immediately executing async function
+   * (async function() {
+   *   // After installing the extension, initialize the extension with the dApp's default values
+   *   await colony.ext.motions.initialize(
+   *     w`0.01`,
+   *     w`0.2`,
+   *     w`0.01`,
+   *     w`0.7`,
+   *     72 * 60 * 60,
+   *     72 * 60 * 60,
+   *     72 * 60 * 60,
+   *     72 * 60 * 60,
+   *   ).tx().mined();
+   * })();
+   * ```
+   *
+   * @param totalStakeFraction The fraction of the domain's reputation we need to stake
+   * @param voterRewardFraction The fraction of the total stake paid out to voters as rewards
+   * @param userMinStakeFraction The minimum per-user stake as fraction of total stake
+   * @param maxVoteFraction The fraction of the domain's reputation which must submit for quick-end
+   * @param stakePeriod The length of the staking period in seconds
+   * @param submitPeriod The length of the submit period in seconds
+   * @param revealPeriod The length of the reveal period in seconds
+   * @param escalationPeriod The length of the escalation period in seconds
+   *
+   * @returns A transaction creator
+   *
+   * #### Event data
+   *
+   * No event data attached
+   */
+  initialize(
+    totalStakeFraction: BigNumber,
+    voterRewardFraction: BigNumber,
+    userMinStakeFraction: BigNumber,
+    maxVoteFraction: BigNumber,
+    stakePeriod: number,
+    submitPeriod: number,
+    revealPeriod: number,
+    escalationPeriod: number,
+  ) {
+    return this.colony.colonyNetwork.createMetaTxCreator(
+      this.votingReputationContract,
+      'initialise',
+      [
+        totalStakeFraction,
+        voterRewardFraction,
+        userMinStakeFraction,
+        maxVoteFraction,
+        stakePeriod,
+        submitPeriod,
+        revealPeriod,
+        escalationPeriod,
+      ],
+      async (receipt) => ({
+        ...extractEvent<ExtensionInitialisedEventObject>(
+          'ExtensionInitialised',
+          receipt,
+        ),
+      }),
+    );
   }
 
   /**

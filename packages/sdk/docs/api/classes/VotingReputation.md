@@ -4,6 +4,11 @@
 
 The `VotingReputation` extension allows any member of a Colony to propose a Motion to take an `action` that will pass after a security delay unless somebody Objects. This applies to all actions, such as creating an expenditure, managing funds, or managing teams.
 
+### Extension parameters
+
+Before the `VotingReputation` extension can be used you need to initialize it using a few parameters that heavily influence the Motion lifecycle.
+For that please see the [initialize](VotingReputation.md#initialize) function and also [this document](https://docs.colony.io/use/governance/motions-and-disputes/parameters) for an in-depth explanation of the various parameters.
+
 ### What is a Motion?
 
 Within Colony a Motion is an on-chain proposal whose two sides (_Yay_ or _Nay_) can be supported by staking the Colony's native token for that side. Motions _always_ have an `action` attached to them which is a contract transaction that can take place in a Colony. For example, Motions could be created to move funds from one team to another, for paying someone that did work or minting new native tokens (even arbitrary transaction on any contract in the name of the Colony are supported!).
@@ -475,6 +480,29 @@ Get the amounts remaining for Yay/Nay sides to be activated
 `Promise`<{ `remainingToFullyNayStaked`: `BigNumber` ; `remainingToFullyYayStaked`: `BigNumber`  }\>
 
 An object containing the remaining amounts
+
+___
+
+### initialize
+
+▸ **initialize**(`totalStakeFraction`, `voterRewardFraction`, `userMinStakeFraction`, `maxVoteFraction`, `stakePeriod`, `submitPeriod`, `revealPeriod`, `escalationPeriod`): [`MetaTxCreator`](MetaTxCreator.md)<`SupportedVotingReputationContract`, ``"initialise"``, {}, [`MetadataType`](../enums/MetadataType.md)\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `totalStakeFraction` | `BigNumber` |
+| `voterRewardFraction` | `BigNumber` |
+| `userMinStakeFraction` | `BigNumber` |
+| `maxVoteFraction` | `BigNumber` |
+| `stakePeriod` | `number` |
+| `submitPeriod` | `number` |
+| `revealPeriod` | `number` |
+| `escalationPeriod` | `number` |
+
+#### Returns
+
+[`MetaTxCreator`](MetaTxCreator.md)<`SupportedVotingReputationContract`, ``"initialise"``, {}, [`MetadataType`](../enums/MetadataType.md)\>
 
 ___
 
