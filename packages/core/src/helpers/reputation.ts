@@ -1,5 +1,5 @@
 import fetch from 'cross-fetch';
-import { BigNumber, BigNumberish } from 'ethers';
+import { BigNumber, BigNumberish, constants } from 'ethers';
 
 import { Network, ReputationOracleEndpoint } from '../constants.js';
 import { CommonColony, CommonNetwork } from './types.js';
@@ -30,6 +30,8 @@ interface ReputationAcrossDomainsResponse {
 interface MembersReputationResponse {
   addresses: string[];
 }
+
+const { AddressZero } = constants;
 
 export class ReputationClient {
   static async fetchReputation<T>(url: string) {
@@ -185,7 +187,7 @@ export class ReputationClient {
   }
 
   /**
-   * Get a list of all users who have reputation in a domain
+   * Get a list of all users who have reputation in a team
    *
    * @param skillId - Skill (for corresponding domain) to check reputation in
    * @param customRootHash - Optionally define a root hash in the reputation tree (historic point in time)
@@ -197,5 +199,62 @@ export class ReputationClient {
     const skillIdString = BigNumber.from(skillId || 0).toString();
     const url = `${baseEndpoint}/${skillIdString}`;
     return ReputationClient.fetchReputation<MembersReputationResponse>(url);
+  }
+
+  /**
+   * Get the total amount of reputation points that currently are in a team
+   *
+   * @param skillId - Skill (for corresponding domain) to check reputation in
+   * @param customRootHash - Optionally define a root hash in the reputation tree (historic point in time)
+   *
+   * @returns Reputation data
+   */
+  async getTotalReputation(skillId: BigNumberish, customRootHash?: string) {
+    const baseEndpoint = await this.getBaseEndpoint(customRootHash);
+    const skillIdString = BigNumber.from(skillId || 0).toString();
+    const url = `${baseEndpoint}/${skillIdString}/${AddressZero}/noProof`;
+    const result = await ReputationClient.fetchReputation<ReputationResponse>(
+      url,
+    );
+    return {
+      ...result,
+      reputationAmount: BigNumber.from(result.reputationAmount || 0),
+    };
+  }
+
+  /**
+   * Get the reputation fraction for a user address within a team in the Colony
+   *
+   * 1.000 = user has 100% of the reputation
+   * 0.050 = user has 5% of the reputation
+   *
+   * @param skillId - Skill (for corresponding domain) to check reputation in
+   * @param customRootHash - Optionally define a root hash in the reputation tree (historic point in time)
+   *
+   * @returns Fraction of reputation a user has in a team
+   */
+  async getReputationFraction(
+    skillId: BigNumberish,
+    address: string,
+    customRootHash?: string,
+    decimalPoints = 3,
+  ) {
+    const { reputationAmount } = await this.getReputation(
+      skillId,
+      address,
+      customRootHash,
+    );
+    const { reputationAmount: totalReputation } = await this.getTotalReputation(
+      skillId,
+      customRootHash,
+    );
+
+    const repAmountScaled = reputationAmount.mul(
+      BigNumber.from(10).pow(decimalPoints),
+    );
+
+    return (
+      repAmountScaled.div(totalReputation).toNumber() / 10 ** decimalPoints
+    );
   }
 }

@@ -95,6 +95,25 @@ Reputation data
 
 ___
 
+### getReputationFraction
+
+▸ **getReputationFraction**(`skillId`, `address`, `customRootHash?`, `decimalPoints?`): `Promise`<`number`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `skillId` | `BigNumberish` |
+| `address` | `string` |
+| `customRootHash?` | `string` |
+| `decimalPoints?` | `number` |
+
+#### Returns
+
+`Promise`<`number`\>
+
+___
+
 ### getReputationWithProofs
 
 ▸ **getReputationWithProofs**(`skillId`, `address`, `customRootHash?`): `Promise`<{ `branchMask`: `string` ; `key`: `string` ; `reputationAmount`: `BigNumber` ; `siblings`: `string`[] ; `value`: `string`  }\>
@@ -114,6 +133,23 @@ Get reputation with proofs (e.g. to check against on-chain data)
 `Promise`<{ `branchMask`: `string` ; `key`: `string` ; `reputationAmount`: `BigNumber` ; `siblings`: `string`[] ; `value`: `string`  }\>
 
 Reputation data
+
+___
+
+### getTotalReputation
+
+▸ **getTotalReputation**(`skillId`, `customRootHash?`): `Promise`<{ `key`: `string` ; `reputationAmount`: `BigNumber` ; `value`: `string`  }\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `skillId` | `BigNumberish` |
+| `customRootHash?` | `string` |
+
+#### Returns
+
+`Promise`<{ `key`: `string` ; `reputationAmount`: `BigNumber` ; `value`: `string`  }\>
 
 ___
 
