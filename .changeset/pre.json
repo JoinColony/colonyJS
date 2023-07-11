@@ -9,14 +9,18 @@
     "@colony/event-metadata": "3.0.0",
     "@colony/events": "0.2.0",
     "@colony/sdk": "2.0.0-next.2",
-    "@colony/tokens": "0.1.2"
+    "@colony/tokens": "0.1.2",
+    "colony-typescript-for-build-only-{{MODULE_TYPE}}": "0.0.0"
   },
   "changesets": [
+    "cuddly-pets-boil",
     "cuddly-spoons-admire",
+    "flat-emus-exist",
     "little-ties-taste",
     "old-cobras-sniff",
     "orange-hotels-doubt",
     "sour-zebras-heal",
-    "strong-yaks-press"
+    "strong-yaks-press",
+    "thin-walls-unite"
   ]
 }

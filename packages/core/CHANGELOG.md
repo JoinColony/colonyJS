@@ -1,5 +1,23 @@
 # @colony/core
 
+## 1.2.0-next.1
+
+### Minor Changes
+
+- 3a87d0cb: **`sdk`**
+
+  - `getReputation` now returns reputation within a domain as a percentag of the whole reputation within the team
+  - `getReputationPoints` can be used to get the previous behavior
+  - Added an `initialize` function to the `VotingReputation` extension
+
+### Patch Changes
+
+- 50eefa91: Improve compatibility between ESM package.json generation and changesets:
+  - Use template file for package.json stub files (for changeset compatibility)
+  - Add .js extensions also for type imports and exports
+  - Add type entries to all package.json files
+  - Rename all .js config files to .cjs
+
 ## 1.1.1-next.0
 
 ### Patch Changes
