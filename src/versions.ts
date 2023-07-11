@@ -17,10 +17,11 @@
  * glwss
  * glwss2
  * glwss3
+ * glwss4
  *
  */
 
-export const LATEST_TAG = 'glwss3';
+export const LATEST_TAG = 'glwss4';
 
 // Map versioned contracts to network release tags
 export const RELEASE_MAP = {
@@ -37,6 +38,7 @@ export const RELEASE_MAP = {
     glwss: 10,
     glwss2: 11,
     glwss3: 12,
+    glwss4: 13,
   },
   CoinMachine: {
     clwss: 1,
@@ -46,45 +48,53 @@ export const RELEASE_MAP = {
     flwss: 5,
     glwss: 6,
     glwss2: 7,
+    glwss4: 8,
   },
   EvaluatedExpenditure: {
     elwss: 1,
     flwss: 2,
     glwss2: 3,
+    glwss4: 4,
   },
   FundingQueue: {
     lwss: 1,
     dlwss: 2,
     flwss: 3,
     glwss2: 4,
+    glwss4: 5,
   },
   IVotingReputation: {
     flwss3: 6,
     glwss: 7,
     glwss2: 8,
+    glwss4: 9,
   },
   OneTxPayment: {
     clwss: 1,
     dlwss: 2,
     flwss: 3,
     glwss2: 4,
+    glwss4: 5,
   },
   ReputationBootstrapper: {
     glwss2: 1,
+    glwss4: 2,
   },
   StakedExpenditure: {
     glwss: 1,
     glwss2: 2,
+    glwss4: 3,
   },
   StreamingPayments: {
     glwss: 1,
-    glwss2: 2,
+    glwss4: 2,
   },
   TokenSupplier: {
     lwss: 1,
     dlwss: 2,
     flwss: 3,
     glwss2: 4,
+    glwss4: 5,
   },
   // VotingReputation got replaced by IVotingReputation, so this does not need to be updated
   VotingReputation: {
@@ -98,5 +108,6 @@ export const RELEASE_MAP = {
     elwss: 1,
     flwss: 2,
     glwss2: 3,
+    glwss4: 4,
   },
 };

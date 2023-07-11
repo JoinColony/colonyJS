@@ -20,6 +20,9 @@ import {
   IColonyV8,
   IColonyV9,
   IColonyV10,
+  IColonyV11,
+  IColonyV12,
+  IColonyV13,
 } from '../../../../contracts/IColony/exports';
 
 export type ValidColony =
@@ -29,7 +32,10 @@ export type ValidColony =
   | IColonyV7
   | IColonyV8
   | IColonyV9
-  | IColonyV10;
+  | IColonyV10
+  | IColonyV11
+  | IColonyV12
+  | IColonyV13;
 
 export type AugmentedEstimate<
   T extends AnyEvaluatedExpenditure = AnyEvaluatedExpenditure,

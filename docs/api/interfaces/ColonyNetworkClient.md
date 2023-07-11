@@ -1092,7 +1092,7 @@ Called to deploy a token authority
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_token` | `PromiseOrValue`<`string`\> | The address of the otken |
+| `_token` | `PromiseOrValue`<`string`\> | The address of the token |
 | `_colony` | `PromiseOrValue`<`string`\> | The address of the colony in control of the token |
 | `_allowedToTransfer` | `PromiseOrValue`<`string`\>[] | An array of addresses that are allowed to transfer the token even if it's locked |
 | `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } | - |

@@ -16,13 +16,13 @@ export default function getEvaluatedExpenditureClient(
   colonyClient: AugmentedIColony<ValidColony>,
   address: string,
 ): EvaluatedExpenditureClientV2 {
-  const whitelistClient = EvaluatedExpenditureFactory.connect(
+  const evaluatedExpenditureClient = EvaluatedExpenditureFactory.connect(
     address,
     colonyClient.signer || colonyClient.provider,
   ) as EvaluatedExpenditureClientV2;
 
-  whitelistClient.clientVersion = 2;
-  addAugments(whitelistClient, colonyClient);
+  evaluatedExpenditureClient.clientVersion = 2;
+  addAugments(evaluatedExpenditureClient, colonyClient);
 
-  return whitelistClient;
+  return evaluatedExpenditureClient;
 }

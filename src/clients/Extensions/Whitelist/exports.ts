@@ -8,8 +8,9 @@ import { AugmentedIColony } from '../../Core/augments/commonAugments';
 import getWhitelistClientV1, { WhitelistClientV1 } from './WhitelistClientV1';
 import getWhitelistClientV2, { WhitelistClientV2 } from './WhitelistClientV2';
 import getWhitelistClientV3, { WhitelistClientV3 } from './WhitelistClientV3';
+import getWhitelistClientV4, { WhitelistClientV4 } from './WhitelistClientV4';
 
-const WHITELIST_VERSION_NEXT = 4;
+const WHITELIST_VERSION_NEXT = 5;
 
 /** @internal */
 export const WHITELIST_VERSION_LATEST = WHITELIST_VERSION_NEXT - 1;
@@ -17,11 +18,13 @@ export const WHITELIST_VERSION_LATEST = WHITELIST_VERSION_NEXT - 1;
 export { WhitelistClientV1 } from './WhitelistClientV1';
 export { WhitelistClientV2 } from './WhitelistClientV2';
 export { WhitelistClientV3 } from './WhitelistClientV3';
+export { WhitelistClientV4 } from './WhitelistClientV4';
 
 export type AnyWhitelistClient =
   | WhitelistClientV1
   | WhitelistClientV2
-  | WhitelistClientV3;
+  | WhitelistClientV3
+  | WhitelistClientV4;
 
 /** @internal */
 export const WHITELIST_VERSIONS = createContractVersionArray(
@@ -38,6 +41,7 @@ export const whitelistIncompatibilityMap: Record<
   1: [],
   2: [],
   3: [],
+  4: [],
 };
 
 /** @internal */
@@ -53,6 +57,8 @@ export const getWhitelistClient = (
       return getWhitelistClientV2(colonyClient, address);
     case 3:
       return getWhitelistClientV3(colonyClient, address);
+    case 4:
+      return getWhitelistClientV4(colonyClient, address);
     default:
       return assertExhaustiveSwitch(
         version,

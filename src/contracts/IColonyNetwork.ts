@@ -2301,7 +2301,7 @@ export interface IColonyNetwork extends BaseContract {
      * Called to deploy a token authority
      * @param _allowedToTransfer An array of addresses that are allowed to transfer the token even if it's locked
      * @param _colony The address of the colony in control of the token
-     * @param _token The address of the otken
+     * @param _token The address of the token
      */
     deployTokenAuthority(
       _token: PromiseOrValue<string>,
@@ -3138,7 +3138,7 @@ export interface IColonyNetwork extends BaseContract {
    * Called to deploy a token authority
    * @param _allowedToTransfer An array of addresses that are allowed to transfer the token even if it's locked
    * @param _colony The address of the colony in control of the token
-   * @param _token The address of the otken
+   * @param _token The address of the token
    */
   deployTokenAuthority(
     _token: PromiseOrValue<string>,
@@ -3965,7 +3965,7 @@ export interface IColonyNetwork extends BaseContract {
      * Called to deploy a token authority
      * @param _allowedToTransfer An array of addresses that are allowed to transfer the token even if it's locked
      * @param _colony The address of the colony in control of the token
-     * @param _token The address of the otken
+     * @param _token The address of the token
      */
     deployTokenAuthority(
       _token: PromiseOrValue<string>,
@@ -5064,7 +5064,7 @@ export interface IColonyNetwork extends BaseContract {
      * Called to deploy a token authority
      * @param _allowedToTransfer An array of addresses that are allowed to transfer the token even if it's locked
      * @param _colony The address of the colony in control of the token
-     * @param _token The address of the otken
+     * @param _token The address of the token
      */
     deployTokenAuthority(
       _token: PromiseOrValue<string>,
@@ -5914,7 +5914,7 @@ export interface IColonyNetwork extends BaseContract {
      * Called to deploy a token authority
      * @param _allowedToTransfer An array of addresses that are allowed to transfer the token even if it's locked
      * @param _colony The address of the colony in control of the token
-     * @param _token The address of the otken
+     * @param _token The address of the token
      */
     deployTokenAuthority(
       _token: PromiseOrValue<string>,

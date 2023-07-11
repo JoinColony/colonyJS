@@ -7,6 +7,7 @@ import {
   IColonyV10,
   IColonyV11,
   IColonyV12,
+  IColonyV13,
 } from '../../../contracts/IColony/exports';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import { AugmentedIColony, getPermissionProofs } from './commonAugments';
@@ -18,7 +19,12 @@ import {
   AugmentedEstimateV5,
 } from './augmentsV5';
 
-type ValidColony = IColonyV9 | IColonyV10 | IColonyV11 | IColonyV12;
+type ValidColony =
+  | IColonyV9
+  | IColonyV10
+  | IColonyV11
+  | IColonyV12
+  | IColonyV13;
 
 /*
  * Estimates

@@ -8,16 +8,22 @@ import { AugmentedIColony } from '../../Core/augments/commonAugments';
 import getReputationBootstrapperClientV1, {
   ReputationBootstrapperClientV1,
 } from './ReputationBootstrapperClientV1';
+import getReputationBootstrapperClientV2, {
+  ReputationBootstrapperClientV2,
+} from './ReputationBootstrapperClientV2';
 
-const REPUTATION_BOOTSTRAPPER_VERSION_NEXT = 2;
+const REPUTATION_BOOTSTRAPPER_VERSION_NEXT = 3;
 
 /** @internal */
 export const REPUTATION_BOOTSTRAPPER_VERSION_LATEST =
   REPUTATION_BOOTSTRAPPER_VERSION_NEXT - 1;
 
 export { ReputationBootstrapperClientV1 } from './ReputationBootstrapperClientV1';
+export { ReputationBootstrapperClientV2 } from './ReputationBootstrapperClientV2';
 
-export type AnyReputationBootstrapperClient = ReputationBootstrapperClientV1;
+export type AnyReputationBootstrapperClient =
+  | ReputationBootstrapperClientV1
+  | ReputationBootstrapperClientV2;
 
 /** @internal */
 export const REPUTATION_BOOTSTRAPPER_VERSIONS = createContractVersionArray(
@@ -33,6 +39,7 @@ export const reputationBootstrapperIncompatibilityMap: Record<
   Array<ColonyVersion>
 > = {
   1: [],
+  2: [],
 };
 
 /** @internal */
@@ -44,6 +51,8 @@ export const getReputationBootstrapperClient = (
   switch (version) {
     case 1:
       return getReputationBootstrapperClientV1(colonyClient, address);
+    case 2:
+      return getReputationBootstrapperClientV2(colonyClient, address);
     default:
       return assertExhaustiveSwitch(
         version,

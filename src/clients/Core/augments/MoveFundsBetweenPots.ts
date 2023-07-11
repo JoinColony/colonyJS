@@ -11,6 +11,9 @@ import {
   IColonyV8,
   IColonyV9,
   IColonyV10,
+  IColonyV11,
+  IColonyV12,
+  IColonyV13,
 } from '../../../contracts/IColony/exports';
 import { ColonyRole, Id } from '../../../constants';
 import { TxOverrides } from '../../../types';
@@ -31,7 +34,14 @@ type ValidColonyA =
   | IColonyV6;
 
 // Colonies that support the later (overloaded) methods
-type ValidColonyB = IColonyV7 | IColonyV8 | IColonyV9 | IColonyV10;
+type ValidColonyB =
+  | IColonyV7
+  | IColonyV8
+  | IColonyV9
+  | IColonyV10
+  | IColonyV11
+  | IColonyV12
+  | IColonyV13;
 
 const getMoveFundsPermissionProofsA = async (
   contract: AugmentedIColony,
