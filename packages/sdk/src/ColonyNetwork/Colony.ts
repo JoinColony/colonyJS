@@ -890,13 +890,40 @@ export class Colony {
   }
 
   /**
+   * Get the reputation fraction for a user address within a team in the Colony
+   *
+   * 1.000 = user has 100% of the reputation
+   * 0.050 = user has 5% of the reputation
+   *
+   * @param userAddress - The address of the account to check the reputation for
+   * @param teamId - The teamId (domainId) of the team to get the reputation for. Default is the `Root` team
+   * @returns A fractional number quantifying the user addresses' reputation
+   */
+  async getReputation(
+    userAddress: string,
+    teamId: BigNumberish = Id.RootDomain,
+    decimalPoints = 3,
+  ) {
+    const { skillId } = await this.colony.getDomain(teamId);
+    return this.reputation.getReputationFraction(
+      skillId,
+      userAddress,
+      undefined,
+      decimalPoints,
+    );
+  }
+
+  /**
    * Get the reputation for a user address within a team in the Colony
+   *
+   * Reputation scales with the native token, so will be expressed in equivalents of the native token
+   * E.g. if the native token has 18 decimals (wei), the reputation will also have 18 decimals
    *
    * @param userAddress - The address of the account to check the reputation for
    * @param teamId - The teamId (domainId) of the team to get the reputation for. Default is the `Root` team
    * @returns A number quantifying the user addresses' reputation
    */
-  async getReputation(userAddress: string, teamId = Id.RootDomain) {
+  async getReputationPoints(userAddress: string, teamId = Id.RootDomain) {
     const { skillId } = await this.colony.getDomain(teamId);
     const { reputationAmount } = await this.reputation.getReputation(
       skillId,

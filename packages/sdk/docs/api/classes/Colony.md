@@ -605,22 +605,26 @@ ___
 
 ### getReputation
 
-▸ **getReputation**(`userAddress`, `teamId?`): `Promise`<`BigNumber`\>
+▸ **getReputation**(`userAddress`, `teamId?`, `decimalPoints?`): `Promise`<`number`\>
 
-Get the reputation for a user address within a team in the Colony
+Get the reputation fraction for a user address within a team in the Colony
+
+1.000 = user has 100% of the reputation
+0.050 = user has 5% of the reputation
 
 #### Parameters
 
 | Name | Type | Default value | Description |
 | :------ | :------ | :------ | :------ |
 | `userAddress` | `string` | `undefined` | The address of the account to check the reputation for |
-| `teamId` | [`Id`](../enums/Id.md) | `Id.RootDomain` | The teamId (domainId) of the team to get the reputation for. Default is the `Root` team |
+| `teamId` | `BigNumberish` | `Id.RootDomain` | The teamId (domainId) of the team to get the reputation for. Default is the `Root` team |
+| `decimalPoints` | `number` | `3` | - |
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`<`number`\>
 
-A number quantifying the user addresses' reputation
+A fractional number quantifying the user addresses' reputation
 
 ___
 
@@ -647,6 +651,30 @@ An array of objects containing the following
 | `domainId` | The domainId of the domain the user has reputation in |
 | `skillId` | The corresponding skillId |
 | `reputationAmount` | The reputation amount in that domain |
+
+___
+
+### getReputationPoints
+
+▸ **getReputationPoints**(`userAddress`, `teamId?`): `Promise`<`BigNumber`\>
+
+Get the reputation for a user address within a team in the Colony
+
+Reputation scales with the native token, so will be expressed in equivalents of the native token
+E.g. if the native token has 18 decimals (wei), the reputation will also have 18 decimals
+
+#### Parameters
+
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `userAddress` | `string` | `undefined` | The address of the account to check the reputation for |
+| `teamId` | [`Id`](../enums/Id.md) | `Id.RootDomain` | The teamId (domainId) of the team to get the reputation for. Default is the `Root` team |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+A number quantifying the user addresses' reputation
 
 ___
 
