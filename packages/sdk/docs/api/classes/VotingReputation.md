@@ -487,22 +487,58 @@ ___
 
 ▸ **initialize**(`totalStakeFraction`, `voterRewardFraction`, `userMinStakeFraction`, `maxVoteFraction`, `stakePeriod`, `submitPeriod`, `revealPeriod`, `escalationPeriod`): [`MetaTxCreator`](MetaTxCreator.md)<`SupportedVotingReputationContract`, ``"initialise"``, {}, [`MetadataType`](../enums/MetadataType.md)\>
 
+Before you can use the extension you need to initialize it by calling this function.
+
+**`Remarks`**
+
+- Fractions are in wei to allow for precise adjustments (you can use the `w` helper method to specify fractions - see example)
+- All periods values are given in seconds
+
+See also [this page](https://docs.colony.io/use/governance/motions-and-disputes/parameters) for a detailed explanation of the parameters.
+
+**`Example`**
+
+```typescript
+import { w } from '@colony/sdk';
+
+// Immediately executing async function
+(async function() {
+  // After installing the extension, initialize the extension with the dApp's default values
+  await colony.ext.motions.initialize(
+    w`0.01`,
+    w`0.2`,
+    w`0.01`,
+    w`0.7`,
+    72 * 60 * 60,
+    72 * 60 * 60,
+    72 * 60 * 60,
+    72 * 60 * 60,
+  ).tx().mined();
+})();
+```
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `totalStakeFraction` | `BigNumber` |
-| `voterRewardFraction` | `BigNumber` |
-| `userMinStakeFraction` | `BigNumber` |
-| `maxVoteFraction` | `BigNumber` |
-| `stakePeriod` | `number` |
-| `submitPeriod` | `number` |
-| `revealPeriod` | `number` |
-| `escalationPeriod` | `number` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `totalStakeFraction` | `BigNumber` | The fraction of the domain's reputation we need to stake |
+| `voterRewardFraction` | `BigNumber` | The fraction of the total stake paid out to voters as rewards |
+| `userMinStakeFraction` | `BigNumber` | The minimum per-user stake as fraction of total stake |
+| `maxVoteFraction` | `BigNumber` | The fraction of the domain's reputation which must submit for quick-end |
+| `stakePeriod` | `number` | The length of the staking period in seconds |
+| `submitPeriod` | `number` | The length of the submit period in seconds |
+| `revealPeriod` | `number` | The length of the reveal period in seconds |
+| `escalationPeriod` | `number` | The length of the escalation period in seconds |
 
 #### Returns
 
 [`MetaTxCreator`](MetaTxCreator.md)<`SupportedVotingReputationContract`, ``"initialise"``, {}, [`MetadataType`](../enums/MetadataType.md)\>
+
+A transaction creator
+
+#### Event data
+
+No event data attached
 
 ___
 

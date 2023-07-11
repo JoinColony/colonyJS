@@ -20,7 +20,7 @@
 
 ▸ **getMembersReputation**(`skillId`, `customRootHash?`): `Promise`<`MembersReputationResponse`\>
 
-Get a list of all users who have reputation in a domain
+Get a list of all users who have reputation in a team
 
 #### Parameters
 
@@ -99,18 +99,25 @@ ___
 
 ▸ **getReputationFraction**(`skillId`, `address`, `customRootHash?`, `decimalPoints?`): `Promise`<`number`\>
 
+Get the reputation fraction for a user address within a team in the Colony
+
+1.000 = user has 100% of the reputation
+0.050 = user has 5% of the reputation
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `skillId` | `BigNumberish` |
-| `address` | `string` |
-| `customRootHash?` | `string` |
-| `decimalPoints?` | `number` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `skillId` | `BigNumberish` | Skill (for corresponding domain) to check reputation in |
+| `address` | `string` | - |
+| `customRootHash?` | `string` | Optionally define a root hash in the reputation tree (historic point in time) |
+| `decimalPoints?` | `number` | - |
 
 #### Returns
 
 `Promise`<`number`\>
+
+Fraction of reputation a user has in a team
 
 ___
 
@@ -140,16 +147,20 @@ ___
 
 ▸ **getTotalReputation**(`skillId`, `customRootHash?`): `Promise`<{ `key`: `string` ; `reputationAmount`: `BigNumber` ; `value`: `string`  }\>
 
+Get the total amount of reputation points that currently are in a team
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `skillId` | `BigNumberish` |
-| `customRootHash?` | `string` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `skillId` | `BigNumberish` | Skill (for corresponding domain) to check reputation in |
+| `customRootHash?` | `string` | Optionally define a root hash in the reputation tree (historic point in time) |
 
 #### Returns
 
 `Promise`<{ `key`: `string` ; `reputationAmount`: `BigNumber` ; `value`: `string`  }\>
+
+Reputation data
 
 ___
 

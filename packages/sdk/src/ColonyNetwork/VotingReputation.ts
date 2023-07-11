@@ -306,7 +306,7 @@ export class VotingReputation {
     return this.votingReputationContract;
   }
 
-  /*
+  /**
    * Before you can use the extension you need to initialize it by calling this function.
    *
    * @remarks
@@ -335,14 +335,14 @@ export class VotingReputation {
    * })();
    * ```
    *
-   * @param totalStakeFraction The fraction of the domain's reputation we need to stake
-   * @param voterRewardFraction The fraction of the total stake paid out to voters as rewards
-   * @param userMinStakeFraction The minimum per-user stake as fraction of total stake
-   * @param maxVoteFraction The fraction of the domain's reputation which must submit for quick-end
-   * @param stakePeriod The length of the staking period in seconds
-   * @param submitPeriod The length of the submit period in seconds
-   * @param revealPeriod The length of the reveal period in seconds
-   * @param escalationPeriod The length of the escalation period in seconds
+   * @param totalStakeFraction - The fraction of the domain's reputation we need to stake
+   * @param voterRewardFraction - The fraction of the total stake paid out to voters as rewards
+   * @param userMinStakeFraction - The minimum per-user stake as fraction of total stake
+   * @param maxVoteFraction - The fraction of the domain's reputation which must submit for quick-end
+   * @param stakePeriod - The length of the staking period in seconds
+   * @param submitPeriod - The length of the submit period in seconds
+   * @param revealPeriod - The length of the reveal period in seconds
+   * @param escalationPeriod - The length of the escalation period in seconds
    *
    * @returns A transaction creator
    *
