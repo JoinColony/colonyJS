@@ -1,5 +1,29 @@
 # @colony/sdk
 
+## 2.0.0-next.4
+
+### Major Changes
+
+- 36f9df23: Calling `getBalance` on a Colony without specifying a `teamId` will now return the total balance of the specified token across the whole Colony (including not-yet-claimed funds)
+- 3a87d0cb: **`sdk`**
+
+  - `getReputation` now returns reputation within a domain as a percentag of the whole reputation within the team
+  - `getReputationPoints` can be used to get the previous behavior
+  - Added an `initialize` function to the `VotingReputation` extension
+
+### Patch Changes
+
+- 50eefa91: Improve compatibility between ESM package.json generation and changesets:
+  - Use template file for package.json stub files (for changeset compatibility)
+  - Add .js extensions also for type imports and exports
+  - Add type entries to all package.json files
+  - Rename all .js config files to .cjs
+- Updated dependencies [3a87d0cb]
+- Updated dependencies [50eefa91]
+  - @colony/core@1.2.0-next.1
+  - @colony/event-metadata@3.0.1-next.1
+  - @colony/tokens@0.1.3-next.1
+
 ## 2.0.0-next.3
 
 ### Patch Changes

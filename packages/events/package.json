@@ -1,7 +1,7 @@
 {
   "name": "@colony/events",
   "description": "🎫 Colony event contract bindings",
-  "version": "0.2.1-next.0",
+  "version": "0.2.1-next.1",
   "type": "module",
   "exports": {
     ".": {
@@ -46,7 +46,7 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "@colony/contractor": "^1.0.1-next.0",
+    "@colony/contractor": "^1.0.1-next.1",
     "@ethersproject/abi": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",
     "ethers": "^5.7.2"
