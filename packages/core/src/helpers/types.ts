@@ -28,7 +28,7 @@ export interface CommonTask {
 interface BaseContract {
   address: string;
   provider: Provider;
-  signer: Signer;
+  signer?: Signer;
 }
 
 export interface CommonNetwork extends BaseContract {
