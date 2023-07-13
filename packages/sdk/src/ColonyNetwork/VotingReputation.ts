@@ -163,8 +163,7 @@ export class VotingReputation {
     { version: 8, factory: VotingReputationFactory8 },
   ];
 
-  static extensionType: Extension.IVotingReputation =
-    Extension.IVotingReputation;
+  static extensionType: Extension.VotingReputation = Extension.VotingReputation;
 
   // TODO: This could be abstracted in the future
   static async connect(colony: Colony) {
@@ -186,7 +185,11 @@ export class VotingReputation {
     )) as VotingReputationVersion;
 
     if (
-      !isExtensionCompatible(Extension.OneTxPayment, version, colony.version)
+      !isExtensionCompatible(
+        VotingReputation.extensionType,
+        version,
+        colony.version,
+      )
     ) {
       throw new Error(
         `Version ${version} of the ${VotingReputation.extensionType} contract is not compatible with the installed Colony contract version ${colony.version}`,

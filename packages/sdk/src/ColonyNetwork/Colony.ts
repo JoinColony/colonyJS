@@ -339,7 +339,9 @@ export class Colony {
       try {
         this.ext.motions = await VotingReputation.connect(this);
       } catch (e) {
-        // Ignore error here. Extension just won't be available.
+        if (typeof process != 'undefined' && process?.env?.DEBUG) {
+          console.error(e);
+        }
       }
     }
 
@@ -347,7 +349,9 @@ export class Colony {
       try {
         this.ext.oneTx = await OneTxPayment.connect(this);
       } catch (e) {
-        // Ignore error here. Extension just won't be available.
+        if (typeof process != 'undefined' && process?.env?.DEBUG) {
+          console.error(e);
+        }
       }
     }
   }
