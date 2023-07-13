@@ -29,36 +29,42 @@ const getSinglePermissionProofs = async (
   domainId: BigNumberish,
   role: ColonyRole,
   customAddress?: string,
-  /* [permissionDomainId, childSkillIndex] */
+  /* [permissionDomainId, childSkillIndex, permissionAddress] */
 ): Promise<[BigNumber, BigNumber, string]> => {
-  const walletAddress = customAddress || (await colony.signer.getAddress());
+  const permissionAddress =
+    customAddress || (await colony.signer?.getAddress());
+  if (!permissionAddress) {
+    throw new Error(
+      `Could not determine address for permission proofs. Please use a signer or provide a custom address`,
+    );
+  }
   const hasPermissionInDomain = await colony.hasUserRole(
-    walletAddress,
+    permissionAddress,
     domainId,
     role,
   );
   if (hasPermissionInDomain) {
-    return [BigNumber.from(domainId), MaxUint256, walletAddress];
+    return [BigNumber.from(domainId), MaxUint256, permissionAddress];
   }
   // TODO: once we allow nested domains on the network level, this needs to traverse down the skill/domain tree. Use binary search
   const foundDomainId = BigNumber.from(Id.RootDomain);
   const hasPermissionInAParentDomain = await colony.hasUserRole(
-    walletAddress,
+    permissionAddress,
     foundDomainId,
     role,
   );
   if (!hasPermissionInAParentDomain) {
     throw new Error(
-      `${walletAddress} does not have the permission ${role} in any parent domain`,
+      `${permissionAddress} does not have the permission ${role} in any parent domain`,
     );
   }
   const idx = await getChildIndex(network, colony, foundDomainId, domainId);
   if (idx.lt(0)) {
     throw new Error(
-      `${walletAddress} does not have the permission ${role} in any parent domain`,
+      `${permissionAddress} does not have the permission ${role} in any parent domain`,
     );
   }
-  return [foundDomainId, idx, walletAddress];
+  return [foundDomainId, idx, permissionAddress];
 };
 
 const getMultiPermissionProofs = async (
