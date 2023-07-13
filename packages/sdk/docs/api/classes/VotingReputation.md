@@ -118,7 +118,7 @@ ___
 
 ### extensionType
 
-▪ `Static` **extensionType**: [`IVotingReputation`](../enums/Extension.md#ivotingreputation) = `Extension.IVotingReputation`
+▪ `Static` **extensionType**: [`VotingReputation`](../enums/Extension.md#votingreputation) = `Extension.VotingReputation`
 
 ___
 
