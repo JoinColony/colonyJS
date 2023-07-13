@@ -1,5 +1,12 @@
 # @colony/sdk
 
+## 2.0.0-next.5
+
+### Patch Changes
+
+- b3793fc8: - Fix version incompatibility detection of the VotingReputation extension
+  - Support version 3 of the OneTxPayment contract
+
 ## 2.0.0-next.4
 
 ### Major Changes
