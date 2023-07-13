@@ -38,7 +38,7 @@ ___
 
 ### supportedVersions
 
-▪ `Static` **supportedVersions**: { `factory`: typeof `OneTxPayment__factory` = OneTxPaymentFactory4; `version`: `number` = 4 }[]
+▪ `Static` **supportedVersions**: ({ `factory`: typeof `OneTxPayment__factory` = OneTxPaymentFactory3; `version`: `number` = 3 } \| { `factory`: typeof `OneTxPayment__factory` = OneTxPaymentFactory4; `version`: `number` = 4 })[]
 
 The currently supported OneTXPayment contract version. If the extension contract is not on this version it has to be upgraded.
 
@@ -46,7 +46,7 @@ The currently supported OneTXPayment contract version. If the extension contract
 
 ### pay
 
-▸ **pay**(`recipient`, `amount`, `teamId?`, `tokenAddress?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`OneTxPayment`, ``"makePaymentFundedFromDomain"``, { `agent?`: `string` ; `fundamentalId?`: `BigNumber` ; `nPayouts?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **pay**(`recipient`, `amount`, `teamId?`, `tokenAddress?`): [`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedOneTxPaymentContract`, ``"makePaymentFundedFromDomain"``, { `agent?`: `string` ; `fundamentalId?`: `BigNumber` ; `nPayouts?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Make a payment to a single or multiple addresses using one or more tokens
 
@@ -83,7 +83,7 @@ import { Id, Tokens, w } from '@colony/sdk';
 
 #### Returns
 
-[`ColonyTxCreator`](ColonyTxCreator.md)<`OneTxPayment`, ``"makePaymentFundedFromDomain"``, { `agent?`: `string` ; `fundamentalId?`: `BigNumber` ; `nPayouts?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<`SupportedOneTxPaymentContract`, ``"makePaymentFundedFromDomain"``, { `agent?`: `string` ; `fundamentalId?`: `BigNumber` ; `nPayouts?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
