@@ -17,6 +17,10 @@ import { BigNumber, BigNumberish, constants } from 'ethers';
 
 import { extractEvent } from '../utils.js';
 import {
+  OneTxPayment as OneTxPaymentContract3,
+  OneTxPayment__factory as OneTxPaymentFactory3,
+} from '../contracts/OneTxPayment/3/index.js';
+import {
   OneTxPayment as OneTxPaymentContract4,
   OneTxPayment__factory as OneTxPaymentFactory4,
 } from '../contracts/OneTxPayment/4/index.js';
@@ -24,7 +28,9 @@ import { Colony } from './Colony.js';
 
 const { AddressZero } = constants;
 
-export type SupportedOneTxPaymentContract = OneTxPaymentContract4;
+export type SupportedOneTxPaymentContract =
+  | OneTxPaymentContract3
+  | OneTxPaymentContract4;
 
 /**
  * ## `OneTxPayment` (One Transaction Payment)
@@ -43,7 +49,10 @@ export class OneTxPayment {
   /**
    * The currently supported OneTXPayment contract version. If the extension contract is not on this version it has to be upgraded.
    */
-  static supportedVersions = [{ version: 4, factory: OneTxPaymentFactory4 }];
+  static supportedVersions = [
+    { version: 3, factory: OneTxPaymentFactory3 },
+    { version: 4, factory: OneTxPaymentFactory4 },
+  ];
 
   static extensionType: Extension.OneTxPayment = Extension.OneTxPayment;
 
@@ -75,7 +84,11 @@ export class OneTxPayment {
     )) as OneTxPaymentVersion;
 
     if (
-      !isExtensionCompatible(Extension.OneTxPayment, version, colony.version)
+      !isExtensionCompatible(
+        OneTxPayment.extensionType,
+        version,
+        colony.version,
+      )
     ) {
       throw new Error(
         `Version ${version} of the ${OneTxPayment.extensionType} contract is not compatible with the installed Colony contract version ${colony.version}`,
