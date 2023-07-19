@@ -16,6 +16,7 @@ import getColonyClientV9, { ColonyClientV9 } from './ColonyClientV9.js';
 import getColonyClientV10, { ColonyClientV10 } from './ColonyClientV10.js';
 import getColonyClientV11, { ColonyClientV11 } from './ColonyClientV11.js';
 import getColonyClientV12, { ColonyClientV12 } from './ColonyClientV12.js';
+import getColonyClientV13, { ColonyClientV13 } from './ColonyClientV13.js';
 
 export { ColonyClientV1 } from './ColonyClientV1.js';
 export { ColonyClientV2 } from './ColonyClientV2.js';
@@ -29,6 +30,7 @@ export { ColonyClientV9 } from './ColonyClientV9.js';
 export { ColonyClientV10 } from './ColonyClientV10.js';
 export { ColonyClientV11 } from './ColonyClientV11.js';
 export { ColonyClientV12 } from './ColonyClientV12.js';
+export { ColonyClientV13 } from './ColonyClientV13.js';
 
 export type AnyColonyClient =
   | ColonyClientV1
@@ -42,7 +44,8 @@ export type AnyColonyClient =
   | ColonyClientV9
   | ColonyClientV10
   | ColonyClientV11
-  | ColonyClientV12;
+  | ColonyClientV12
+  | ColonyClientV13;
 
 /** Versioned core contract names */
 export enum Core {
@@ -169,6 +172,14 @@ export async function getColonyClient(
     }
     case 12: {
       colonyClient = getColonyClientV12.call(
+        this,
+        colonyAddress,
+        signerOrProvider,
+      );
+      break;
+    }
+    case 13: {
+      colonyClient = getColonyClientV13.call(
         this,
         colonyAddress,
         signerOrProvider,

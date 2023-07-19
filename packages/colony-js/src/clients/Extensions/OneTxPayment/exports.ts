@@ -16,17 +16,22 @@ import getOneTxPaymentClientV3, {
 import getOneTxPaymentClientV4, {
   OneTxPaymentClientV4,
 } from './OneTxPaymentClientV4.js';
+import getOneTxPaymentClientV5, {
+  OneTxPaymentClientV5,
+} from './OneTxPaymentClientV5.js';
 
 export { OneTxPaymentClientV1 } from './OneTxPaymentClientV1.js';
 export { OneTxPaymentClientV2 } from './OneTxPaymentClientV2.js';
 export { OneTxPaymentClientV3 } from './OneTxPaymentClientV3.js';
 export { OneTxPaymentClientV4 } from './OneTxPaymentClientV4.js';
+export { OneTxPaymentClientV5 } from './OneTxPaymentClientV5.js';
 
 export type AnyOneTxPaymentClient =
   | OneTxPaymentClientV1
   | OneTxPaymentClientV2
   | OneTxPaymentClientV3
-  | OneTxPaymentClientV4;
+  | OneTxPaymentClientV4
+  | OneTxPaymentClientV5;
 
 /** @internal */
 export const getOneTxPaymentClient = (
@@ -43,6 +48,8 @@ export const getOneTxPaymentClient = (
       return getOneTxPaymentClientV3(colonyClient, address);
     case 4:
       return getOneTxPaymentClientV4(colonyClient, address);
+    case 5:
+      return getOneTxPaymentClientV5(colonyClient, address);
     default:
       return assertExhaustiveSwitch(
         version,

@@ -25,6 +25,9 @@ import {
   IColonyV8,
   IColonyV9,
   IColonyV10,
+  IColonyV11,
+  IColonyV12,
+  IColonyV13,
 } from '../../../Core/contracts.js';
 import { AnyStreamingPayments } from '../contracts.js';
 
@@ -37,7 +40,10 @@ export type ValidColony =
   | IColonyV7
   | IColonyV8
   | IColonyV9
-  | IColonyV10;
+  | IColonyV10
+  | IColonyV11
+  | IColonyV12
+  | IColonyV13;
 
 export type AugmentedEstimate<
   T extends AnyStreamingPayments = AnyStreamingPayments,
@@ -148,11 +154,11 @@ export type AugmentedStreamingPayments<
   colonyClient: AugmentedIColony<ValidColony>;
 
   /**
-   * The stakedExpenditureEvents contract supports all events across all versions.
+   * The streamingPaymentsEvents contract supports all events across all versions.
    * Isn't that amazing?
    * It's an ethers contract with only events to filter
    */
-  stakedExpenditureEvents: StreamingPaymentsEvents;
+  streamingPaymentsEvents: StreamingPaymentsEvents;
 
   estimateGas: T['estimateGas'] & AugmentedEstimate;
 
@@ -668,7 +674,7 @@ export const addAugments = <T extends AugmentedStreamingPayments>(
   instance.clientType = ClientType.StreamingPaymentsClient;
   instance.colonyClient = colonyClient;
 
-  instance.stakedExpenditureEvents = StreamingPaymentsEventsFactory.connect(
+  instance.streamingPaymentsEvents = StreamingPaymentsEventsFactory.connect(
     instance.address,
     instance.signer || instance.provider,
   );

@@ -7,10 +7,16 @@ import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
 import getReputationBootstrapperClientV1, {
   ReputationBootstrapperClientV1,
 } from './ReputationBootstrapperClientV1.js';
+import getReputationBootstrapperClientV2, {
+  ReputationBootstrapperClientV2,
+} from './ReputationBootstrapperClientV2.js';
 
 export { ReputationBootstrapperClientV1 } from './ReputationBootstrapperClientV1.js';
+export { ReputationBootstrapperClientV2 } from './ReputationBootstrapperClientV2.js';
 
-export type AnyReputationBootstrapperClient = ReputationBootstrapperClientV1;
+export type AnyReputationBootstrapperClient =
+  | ReputationBootstrapperClientV1
+  | ReputationBootstrapperClientV2;
 
 /** @internal */
 export const getReputationBootstrapperClient = (
@@ -21,6 +27,8 @@ export const getReputationBootstrapperClient = (
   switch (version) {
     case 1:
       return getReputationBootstrapperClientV1(colonyClient, address);
+    case 2:
+      return getReputationBootstrapperClientV2(colonyClient, address);
     default:
       return assertExhaustiveSwitch(
         version,

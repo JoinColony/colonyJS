@@ -17,6 +17,7 @@ import {
   IColonyV10,
   IColonyV11,
   IColonyV12,
+  IColonyV13,
 } from '../contracts.js';
 import {
   addAugments as addCommonAugments,
@@ -33,7 +34,8 @@ type ValidColony =
   | IColonyV9
   | IColonyV10
   | IColonyV11
-  | IColonyV12;
+  | IColonyV12
+  | IColonyV13;
 
 export interface AugmentedEstimateV3 {
   /**

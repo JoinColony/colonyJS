@@ -27,6 +27,7 @@ import {
   IColonyV10,
   IColonyV11,
   IColonyV12,
+  IColonyV13,
 } from '../contracts.js';
 import { AugmentedIColony } from './commonAugments.js';
 import { ColonyAugmentsV3 } from './augmentsV3.js';
@@ -44,7 +45,8 @@ type ValidColony =
   | IColonyV9
   | IColonyV10
   | IColonyV11
-  | IColonyV12;
+  | IColonyV12
+  | IColonyV13;
 
 /*
  * Estimates

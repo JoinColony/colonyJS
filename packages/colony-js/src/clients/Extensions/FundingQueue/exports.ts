@@ -16,17 +16,22 @@ import getFundingQueueClientV3, {
 import getFundingQueueClientV4, {
   FundingQueueClientV4,
 } from './FundingQueueClientV4.js';
+import getFundingQueueClientV5, {
+  FundingQueueClientV5,
+} from './FundingQueueClientV5.js';
 
 export { FundingQueueClientV1 } from './FundingQueueClientV1.js';
 export { FundingQueueClientV2 } from './FundingQueueClientV2.js';
 export { FundingQueueClientV3 } from './FundingQueueClientV3.js';
 export { FundingQueueClientV4 } from './FundingQueueClientV4.js';
+export { FundingQueueClientV5 } from './FundingQueueClientV5.js';
 
 export type AnyFundingQueueClient =
   | FundingQueueClientV1
   | FundingQueueClientV2
   | FundingQueueClientV3
-  | FundingQueueClientV4;
+  | FundingQueueClientV4
+  | FundingQueueClientV5;
 
 /** @internal */
 export const getFundingQueueClient = (
@@ -43,6 +48,8 @@ export const getFundingQueueClient = (
       return getFundingQueueClientV3(colonyClient, address);
     case 4:
       return getFundingQueueClientV4(colonyClient, address);
+    case 5:
+      return getFundingQueueClientV5(colonyClient, address);
     default:
       return assertExhaustiveSwitch(
         version,
