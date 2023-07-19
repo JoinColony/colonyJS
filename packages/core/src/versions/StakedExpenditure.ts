@@ -2,7 +2,7 @@ import type { ColonyVersion } from './IColony.js';
 
 import { createContractVersionArray } from './utils.js';
 
-const STAKED_EXPENDITURE_VERSION_NEXT = 3;
+const STAKED_EXPENDITURE_VERSION_NEXT = 4;
 
 /** @internal */
 export const STAKED_EXPENDITURE_VERSIONS = createContractVersionArray(
@@ -19,6 +19,7 @@ export const stakedExpenditureIncompatibilityMap: Record<
 > = {
   1: [1, 2, 3],
   2: [1, 2, 3],
+  3: [1, 2, 3],
 };
 
 /** @internal */

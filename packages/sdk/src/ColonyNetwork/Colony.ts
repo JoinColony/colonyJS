@@ -48,10 +48,6 @@ import type { ColonyDataTypes as ColonyDataTypes12 } from '../contracts/IColony/
 import type { IBasicMetaTransaction } from '../contracts/IBasicMetaTransaction.js';
 
 import {
-  IColony as ColonyContract10,
-  IColony__factory as ColonyFactory10,
-} from '../contracts/IColony/10/index.js';
-import {
   IColony as ColonyContract11,
   IColony__factory as ColonyFactory11,
 } from '../contracts/IColony/11/index.js';
@@ -59,6 +55,10 @@ import {
   IColony as ColonyContract12,
   IColony__factory as ColonyFactory12,
 } from '../contracts/IColony/12/index.js';
+import {
+  IColony as ColonyContract13,
+  IColony__factory as ColonyFactory13,
+} from '../contracts/IColony/13/index.js';
 import {
   PermissionConfig,
   TxConfig,
@@ -71,9 +71,9 @@ import { ERC20Token, Token, getToken } from './tokens/index.js';
 import { VotingReputation } from './VotingReputation.js';
 
 export type SupportedColonyContract =
-  | ColonyContract10
   | ColonyContract11
-  | ColonyContract12;
+  | ColonyContract12
+  | ColonyContract13;
 export type SupportedColonyMethods = SupportedColonyContract['functions'];
 
 export type Domain =
@@ -105,9 +105,9 @@ export class Colony {
    * If this is not an option, Colony SDK might throw errors at certain points. Usage of ColonyJS is advised in these cases
    */
   static supportedVersions = [
-    { version: 10, factory: ColonyFactory10 },
     { version: 11, factory: ColonyFactory11 },
     { version: 12, factory: ColonyFactory12 },
+    { version: 13, factory: ColonyFactory13 },
   ];
 
   /**

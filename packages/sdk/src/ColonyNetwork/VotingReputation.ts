@@ -33,6 +33,7 @@ import { DecisionData, MetadataType } from '@colony/event-metadata';
 
 import type { VotingReputationDataTypes as VotingReputationDataTypes7 } from '../contracts/IVotingReputation/7/IVotingReputation.js';
 import type { VotingReputationDataTypes as VotingReputationDataTypes8 } from '../contracts/IVotingReputation/8/IVotingReputation.js';
+import type { VotingReputationDataTypes as VotingReputationDataTypes9 } from '../contracts/IVotingReputation/9/IVotingReputation.js';
 
 import {
   IVotingReputation as VotingReputationContract7,
@@ -42,6 +43,10 @@ import {
   IVotingReputation as VotingReputationContract8,
   IVotingReputation__factory as VotingReputationFactory8,
 } from '../contracts/IVotingReputation/8/index.js';
+import {
+  IVotingReputation as VotingReputationContract9,
+  IVotingReputation__factory as VotingReputationFactory9,
+} from '../contracts/IVotingReputation/9/index.js';
 
 import { extractEvent, extractCustomEvent } from '../utils.js';
 import { Colony } from './Colony.js';
@@ -50,11 +55,13 @@ const { AddressZero } = constants;
 
 export type SupportedVotingReputationContract =
   | VotingReputationContract7
-  | VotingReputationContract8;
+  | VotingReputationContract8
+  | VotingReputationContract9;
 
 export type Motion =
   | VotingReputationDataTypes7.MotionStructOutput
-  | VotingReputationDataTypes8.MotionStructOutput;
+  | VotingReputationDataTypes8.MotionStructOutput
+  | VotingReputationDataTypes9.MotionStructOutput;
 
 export enum Vote {
   Nay,
@@ -161,6 +168,7 @@ export class VotingReputation {
   static supportedVersions = [
     { version: 7, factory: VotingReputationFactory7 },
     { version: 8, factory: VotingReputationFactory8 },
+    { version: 9, factory: VotingReputationFactory9 },
   ];
 
   static extensionType: Extension.VotingReputation = Extension.VotingReputation;

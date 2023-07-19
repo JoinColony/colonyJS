@@ -2,7 +2,7 @@ import type { ColonyVersion } from './IColony.js';
 
 import { createContractVersionArray } from './utils.js';
 
-const FUNDING_QUEUE_VERSION_NEXT = 5;
+const FUNDING_QUEUE_VERSION_NEXT = 6;
 
 /** @internal */
 export const FUNDING_QUEUE_VERSIONS = createContractVersionArray(
@@ -20,6 +20,7 @@ export const fundingQueueIncompatibilityMap: Record<
   2: [],
   3: [],
   4: [],
+  5: [],
 };
 
 /** @internal */
