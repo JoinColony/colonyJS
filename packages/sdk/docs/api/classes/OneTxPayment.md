@@ -24,7 +24,7 @@ ___
 
 ### version
 
-• **version**: ``2`` \| ``1`` \| ``3`` \| ``4``
+• **version**: ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5``
 
 The extension contract's version
 
@@ -160,8 +160,8 @@ ___
 
 ### getLatestSupportedVersion
 
-▸ `Static` **getLatestSupportedVersion**(): ``2`` \| ``1`` \| ``3`` \| ``4``
+▸ `Static` **getLatestSupportedVersion**(): ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5``
 
 #### Returns
 
-``2`` \| ``1`` \| ``3`` \| ``4``
+``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5``

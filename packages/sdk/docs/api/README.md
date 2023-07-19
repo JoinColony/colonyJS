@@ -103,7 +103,7 @@ ___
 
 ### Motion
 
-Ƭ **Motion**: `VotingReputationDataTypes7.MotionStructOutput` \| `VotingReputationDataTypes8.MotionStructOutput`
+Ƭ **Motion**: `VotingReputationDataTypes7.MotionStructOutput` \| `VotingReputationDataTypes8.MotionStructOutput` \| `VotingReputationDataTypes9.MotionStructOutput`
 
 ___
 
@@ -115,7 +115,7 @@ ___
 
 ### SupportedColonyContract
 
-Ƭ **SupportedColonyContract**: `ColonyContract10` \| `ColonyContract11` \| `ColonyContract12`
+Ƭ **SupportedColonyContract**: `ColonyContract11` \| `ColonyContract12` \| `ColonyContract13`
 
 ___
 
@@ -153,17 +153,17 @@ Latest versions of all extension contracts
 
 | Name | Type |
 | :------ | :------ |
-| `CoinMachine` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` |
-| `EvaluatedExpenditure` | ``1`` \| ``2`` \| ``3`` |
-| `FundingQueue` | ``1`` \| ``2`` \| ``3`` \| ``4`` |
-| `IVotingReputation` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` |
-| `OneTxPayment` | ``1`` \| ``2`` \| ``3`` \| ``4`` |
-| `ReputationBootstrapper` | ``1`` |
-| `StakedExpenditure` | ``1`` \| ``2`` |
+| `CoinMachine` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` |
+| `EvaluatedExpenditure` | ``1`` \| ``2`` \| ``3`` \| ``4`` |
+| `FundingQueue` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` |
+| `IVotingReputation` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` |
+| `OneTxPayment` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` |
+| `ReputationBootstrapper` | ``1`` \| ``2`` |
+| `StakedExpenditure` | ``1`` \| ``2`` \| ``3`` |
 | `StreamingPayments` | ``1`` \| ``2`` |
-| `TokenSupplier` | ``1`` \| ``2`` \| ``3`` \| ``4`` |
-| `VotingReputation` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` |
-| `Whitelist` | ``1`` \| ``2`` \| ``3`` |
+| `TokenSupplier` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` |
+| `VotingReputation` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` |
+| `Whitelist` | ``1`` \| ``2`` \| ``3`` \| ``4`` |
 
 ___
 
@@ -244,7 +244,7 @@ Returns `true` if an extension version is compatible with the given colony versi
 | :------ | :------ | :------ |
 | `extension` | [`Extension`](enums/Extension.md) | A valid `Extension` contract name |
 | `extensionVersion` | `ExtensionVersion` | The version of the extension to check against the colony |
-| `colonyVersion` | ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12`` | The version of the colony to check for |
+| `colonyVersion` | ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12`` \| ``13`` | The version of the colony to check for |
 
 #### Returns
 

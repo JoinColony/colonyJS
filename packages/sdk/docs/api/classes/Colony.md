@@ -62,7 +62,7 @@ ___
 
 ### version
 
-• **version**: ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12``
+• **version**: ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12`` \| ``13``
 
 Contract version
 
@@ -72,7 +72,7 @@ ___
 
 ### supportedVersions
 
-▪ `Static` **supportedVersions**: ({ `factory`: typeof `IColony__factory` = ColonyFactory10; `version`: `number` = 10 } \| { `factory`: typeof `IColony__factory` = ColonyFactory11; `version`: `number` = 11 })[]
+▪ `Static` **supportedVersions**: { `factory`: typeof `IColony__factory` = ColonyFactory11; `version`: `number` = 11 }[]
 
 The currently supported Colony versions. If a Colony version is not included here it has to be upgraded.
 If this is not an option, Colony SDK might throw errors at certain points. Usage of ColonyJS is advised in these cases
@@ -1178,8 +1178,8 @@ ___
 
 ### getLatestSupportedVersion
 
-▸ `Static` **getLatestSupportedVersion**(): ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12``
+▸ `Static` **getLatestSupportedVersion**(): ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12`` \| ``13``
 
 #### Returns
 
-``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12``
+``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12`` \| ``13``
