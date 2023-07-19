@@ -2,7 +2,7 @@ import type { ColonyVersion } from './IColony.js';
 
 import { createContractVersionArray } from './utils.js';
 
-const REPUTATION_BOOTSTRAPPER_VERSION_NEXT = 2;
+const REPUTATION_BOOTSTRAPPER_VERSION_NEXT = 3;
 
 /** @internal */
 export const REPUTATION_BOOTSTRAPPER_VERSIONS = createContractVersionArray(
@@ -18,6 +18,7 @@ export const reputationBootstrapperIncompatibilityMap: Record<
   Array<ColonyVersion>
 > = {
   1: [],
+  2: [],
 };
 
 /** @internal */

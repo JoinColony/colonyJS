@@ -25,6 +25,9 @@ import getCoinMachineClientV6, {
 import getCoinMachineClientV7, {
   CoinMachineClientV7,
 } from './CoinMachineClientV7.js';
+import getCoinMachineClientV8, {
+  CoinMachineClientV8,
+} from './CoinMachineClientV8.js';
 
 export { CoinMachineClientV1 } from './CoinMachineClientV1.js';
 export { CoinMachineClientV2 } from './CoinMachineClientV2.js';
@@ -33,6 +36,7 @@ export { CoinMachineClientV4 } from './CoinMachineClientV4.js';
 export { CoinMachineClientV5 } from './CoinMachineClientV5.js';
 export { CoinMachineClientV6 } from './CoinMachineClientV6.js';
 export { CoinMachineClientV7 } from './CoinMachineClientV7.js';
+export { CoinMachineClientV8 } from './CoinMachineClientV8.js';
 
 export type AnyCoinMachineClient =
   | CoinMachineClientV1
@@ -41,7 +45,8 @@ export type AnyCoinMachineClient =
   | CoinMachineClientV4
   | CoinMachineClientV5
   | CoinMachineClientV6
-  | CoinMachineClientV7;
+  | CoinMachineClientV7
+  | CoinMachineClientV8;
 
 /** @internal */
 export const getCoinMachineClient = (
@@ -64,6 +69,8 @@ export const getCoinMachineClient = (
       return getCoinMachineClientV6(colonyClient, address);
     case 7:
       return getCoinMachineClientV7(colonyClient, address);
+    case 8:
+      return getCoinMachineClientV8(colonyClient, address);
     default:
       return assertExhaustiveSwitch(
         version,

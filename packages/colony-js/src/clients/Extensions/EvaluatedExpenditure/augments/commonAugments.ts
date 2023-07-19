@@ -20,6 +20,9 @@ import {
   IColonyV8,
   IColonyV9,
   IColonyV10,
+  IColonyV11,
+  IColonyV12,
+  IColonyV13,
 } from '../../../Core/contracts.js';
 import { AnyEvaluatedExpenditure } from '../contracts.js';
 
@@ -30,7 +33,10 @@ export type ValidColony =
   | IColonyV7
   | IColonyV8
   | IColonyV9
-  | IColonyV10;
+  | IColonyV10
+  | IColonyV11
+  | IColonyV12
+  | IColonyV13;
 
 export type AugmentedEstimate<
   T extends AnyEvaluatedExpenditure = AnyEvaluatedExpenditure,

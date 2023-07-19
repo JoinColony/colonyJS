@@ -18,6 +18,7 @@ import {
   IColonyV10,
   IColonyV11,
   IColonyV12,
+  IColonyV13,
 } from '../contracts.js';
 import { AugmentedIColony } from './commonAugments.js';
 
@@ -33,7 +34,8 @@ type ValidColonyB =
   | IColonyV9
   | IColonyV10
   | IColonyV11
-  | IColonyV12;
+  | IColonyV12
+  | IColonyV13;
 
 export interface AddDomainEstimateGasA {
   /**

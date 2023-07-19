@@ -6,7 +6,13 @@ import {
 } from '@colony/core';
 
 import { ColonyNetworkClient } from '../../ColonyNetworkClient.js';
-import { IColonyV9, IColonyV10, IColonyV11, IColonyV12 } from '../contracts.js';
+import {
+  IColonyV9,
+  IColonyV10,
+  IColonyV11,
+  IColonyV12,
+  IColonyV13,
+} from '../contracts.js';
 import { AugmentedIColony } from './commonAugments.js';
 import { ColonyAugmentsV3 } from './augmentsV3.js';
 import { ColonyAugmentsV4 } from './augmentsV4.js';
@@ -16,7 +22,12 @@ import {
   AugmentedEstimateV5,
 } from './augmentsV5.js';
 
-type ValidColony = IColonyV9 | IColonyV10 | IColonyV11 | IColonyV12;
+type ValidColony =
+  | IColonyV9
+  | IColonyV10
+  | IColonyV11
+  | IColonyV12
+  | IColonyV13;
 
 /*
  * Estimates

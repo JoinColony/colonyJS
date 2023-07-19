@@ -11,6 +11,7 @@ import type { IColony as IColony9 } from '../../contracts/IColony/9/index.js';
 import type { IColony as IColony10 } from '../../contracts/IColony/10/index.js';
 import type { IColony as IColony11 } from '../../contracts/IColony/11/index.js';
 import type { IColony as IColony12 } from '../../contracts/IColony/12/index.js';
+import type { IColony as IColony13 } from '../../contracts/IColony/13/index.js';
 
 // Always adjust to the latest Colony version
 export { IColony__factory as IColonyFactory } from '../../contracts/IColony/12/factories/IColony__factory.js';
@@ -27,6 +28,7 @@ export type IColonyV9 = IColony9;
 export type IColonyV10 = IColony10;
 export type IColonyV11 = IColony11;
 export type IColonyV12 = IColony12;
+export type IColonyV13 = IColony13;
 
 export type AnyIColony =
   | IColony1
@@ -40,4 +42,5 @@ export type AnyIColony =
   | IColony9
   | IColony10
   | IColony11
-  | IColony12;
+  | IColony12
+  | IColony13;

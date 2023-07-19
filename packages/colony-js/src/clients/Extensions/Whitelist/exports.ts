@@ -13,15 +13,20 @@ import getWhitelistClientV2, {
 import getWhitelistClientV3, {
   WhitelistClientV3,
 } from './WhitelistClientV3.js';
+import getWhitelistClientV4, {
+  WhitelistClientV4,
+} from './WhitelistClientV4.js';
 
 export { WhitelistClientV1 } from './WhitelistClientV1.js';
 export { WhitelistClientV2 } from './WhitelistClientV2.js';
 export { WhitelistClientV3 } from './WhitelistClientV3.js';
+export { WhitelistClientV4 } from './WhitelistClientV4.js';
 
 export type AnyWhitelistClient =
   | WhitelistClientV1
   | WhitelistClientV2
-  | WhitelistClientV3;
+  | WhitelistClientV3
+  | WhitelistClientV4;
 
 /** @internal */
 export const getWhitelistClient = (
@@ -36,6 +41,8 @@ export const getWhitelistClient = (
       return getWhitelistClientV2(colonyClient, address);
     case 3:
       return getWhitelistClientV3(colonyClient, address);
+    case 4:
+      return getWhitelistClientV4(colonyClient, address);
     default:
       return assertExhaustiveSwitch(
         version,
