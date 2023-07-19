@@ -8,6 +8,7 @@
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "ignore": [
+    "@colony/colony-js",
     "colony-typescript-for-build-only-{{MODULE_TYPE}}"
   ]
 }

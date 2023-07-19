@@ -23,6 +23,7 @@ jobs:
     - run: pnpm --filter "contractor" install --ignore-scripts
     - run: pnpm --filter "contractor" run build
     - run: pnpm install --frozen-lockfile
+    - run: pnpm --filter "!colony-js" run build
     - run: pnpm --filter "sdk" run build-examples
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@releases/v4
