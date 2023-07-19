@@ -1625,7 +1625,7 @@ Called to deploy a token authority
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_token` | `string` | The address of the otken |
+| `_token` | `string` | The address of the token |
 | `_colony` | `string` | The address of the colony in control of the token |
 | `_allowedToTransfer` | `string`[] | An array of addresses that are allowed to transfer the token even if it's locked |
 | `overrides?` | `Overrides` & { `from?`: `string`  } | - |
@@ -1651,7 +1651,7 @@ Called to deploy a token authority
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_token` | `string` | The address of the otken |
+| `_token` | `string` | The address of the token |
 | `_colony` | `string` | The address of the colony in control of the token |
 | `_allowedToTransfer` | `string`[] | An array of addresses that are allowed to transfer the token even if it's locked |
 | `overrides?` | `Overrides` & { `from?`: `string`  } | - |
