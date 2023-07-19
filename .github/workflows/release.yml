@@ -22,8 +22,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: pnpm --filter "@colony/contractor" install --ignore-scripts
-      - run: pnpm --filter "@colony/contractor" run build
+      - run: pnpm --filter "contractor" install --ignore-scripts
+      - run: pnpm --filter "contractor" run build
       - run: pnpm install --frozen-lockfile
       - name: Create Release Pull Request or Publish to npm
         id: changesets
@@ -32,6 +32,5 @@ jobs:
           version: pnpm run version
           publish: pnpm run release
         env:
-          NODE_OPTIONS: "--max-old-space-size=8192"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

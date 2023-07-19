@@ -17,14 +17,11 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: pnpm --filter "@colony/contractor" install --ignore-scripts
-    - run: pnpm --filter "@colony/contractor" run build
+    - run: pnpm --filter "contractor" install --ignore-scripts
+    - run: pnpm --filter "contractor" run build
     - run: pnpm install --frozen-lockfile
     - run: pnpm run lint
-    - run: pnpm run build
-      env:
-        NODE_OPTIONS: "--max-old-space-size=8192"
-    - run: npm run test
+    - run: pnpm --filter "!colony-js" run build
+    - run: pnpm --filter "!colony-js" run test
       env:
         CI: true
-        NODE_OPTIONS: "--max-old-space-size=8192"
