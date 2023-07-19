@@ -1,9 +1,5 @@
 lockfileVersion: '6.0'
 
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
-
 importers:
 
   .:
@@ -109,14 +105,14 @@ importers:
   packages/contractor:
     dependencies:
       '@colony/abis':
-        specifier: ^0.2.2
-        version: 0.2.2
+        specifier: ^1.0.1
+        version: 1.0.1
       '@typechain/ethers-v5':
-        specifier: ^11.0.0
-        version: 11.0.0(@ethersproject/abi@5.7.0)(@ethersproject/providers@5.7.2)(@owlprotocol/typechain@8.2.0)(typescript@5.0.4)
+        specifier: ^11.1.0
+        version: 11.1.0(@ethersproject/abi@5.7.0)(@ethersproject/providers@5.7.2)(typechain@8.3.0)(typescript@5.0.4)
       '@typechain/ethers-v6':
-        specifier: ^0.4.0
-        version: 0.4.0(@owlprotocol/typechain@8.2.0)(typescript@5.0.4)
+        specifier: ^0.4.2
+        version: 0.4.2(typechain@8.3.0)(typescript@5.0.4)
       '@types/mkdirp':
         specifier: ^1.0.2
         version: 1.0.2
@@ -130,8 +126,8 @@ importers:
         specifier: ^5.0.0
         version: 5.0.0
       typechain:
-        specifier: npm:@owlprotocol/typechain@8.2.0
-        version: /@owlprotocol/typechain@8.2.0(typescript@5.0.4)
+        specifier: 8.3.0
+        version: 8.3.0(typescript@5.0.4)
       yargs:
         specifier: ^17.7.1
         version: 17.7.1
@@ -836,8 +832,8 @@ packages:
       prettier: 2.8.8
     dev: false
 
-  /@colony/abis@0.2.2:
-    resolution: {integrity: sha512-p9zvZ6WYgliSNvpT7BE7X9p/uUidXhwVZ5+Ze0K6l2T2V0pwhxBpMrvJBcZtbw8CYkTGF5Rd/l/rkt5hvXOdKg==}
+  /@colony/abis@1.0.1:
+    resolution: {integrity: sha512-fbEy+PLJu2LXEXAECgj/rBGFJSV0TruI1K7b6kKpTYpZPGx7BlYLWHuYy4MiTf4u8S5sTzsQnIk5y7BfCLnMqA==}
     engines: {node: ^16, npm: ^8}
     dev: false
 
@@ -1576,29 +1572,6 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
 
-  /@owlprotocol/typechain@8.2.0(typescript@5.0.4):
-    resolution: {integrity: sha512-aPnqqAJ7lkyvr7HgEe650kZ5GY4GFqrf7AxIFqwmb/tLaiUzuXNjdM/HpkxSTEbnin50OkFiYy6wd9gDWjtNUA==}
-    hasBin: true
-    peerDependencies:
-      typescript: '>=4.3.0'
-    dependencies:
-      '@types/prettier': 2.7.2
-      debug: 4.3.4
-      fs-extra: 7.0.1
-      glob: 7.1.7
-      js-sha3: 0.8.0
-      lodash: 4.17.21
-      mkdirp: 1.0.4
-      prettier: 2.8.8
-      ts-command-line-args: 2.5.0(typescript@5.0.4)
-      ts-essentials: 7.0.3(typescript@5.0.4)
-      typescript: 5.0.4
-    transitivePeerDependencies:
-      - jasmine
-      - jest
-      - supports-color
-    dev: false
-
   /@picocss/pico@1.5.10:
     resolution: {integrity: sha512-+LafMsrwPxXQMk6sI///TmSInCwwZmq+K7SikyL3N/4GhhwzyPC+TQLUEqmrLyjluR+uIpFFcqjty30Rtr6GxQ==}
     dev: true
@@ -1640,33 +1613,33 @@ packages:
     resolution: {integrity: sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==}
     dev: true
 
-  /@typechain/ethers-v5@11.0.0(@ethersproject/abi@5.7.0)(@ethersproject/providers@5.7.2)(@owlprotocol/typechain@8.2.0)(typescript@5.0.4):
-    resolution: {integrity: sha512-JDAvOjtzGuEQukgArIEseHznS2+v+vG3TpfODjNj4tu1kgmVu66G9gk7THOO04HJ5q+OJSLx9b46lc3GRGPIVA==}
+  /@typechain/ethers-v5@11.1.0(@ethersproject/abi@5.7.0)(@ethersproject/providers@5.7.2)(typechain@8.3.0)(typescript@5.0.4):
+    resolution: {integrity: sha512-7P+fLol3faUi/WPFwUo9tfo+IHSsvMBvSM/ECNU9mFHcF8eFI84ygauCdwPgP41k8bhsPb29XhwZiYDTUDXU8Q==}
     peerDependencies:
       '@ethersproject/abi': ^5.0.0
       '@ethersproject/providers': ^5.0.0
       ethers: ^5.1.3
-      typechain: ^8.2.0
+      typechain: ^8.3.0
       typescript: '>=4.3.0'
     dependencies:
       '@ethersproject/abi': 5.7.0
       '@ethersproject/providers': 5.7.2
       lodash: 4.17.21
       ts-essentials: 7.0.3(typescript@5.0.4)
-      typechain: /@owlprotocol/typechain@8.2.0(typescript@5.0.4)
+      typechain: 8.3.0(typescript@5.0.4)
       typescript: 5.0.4
     dev: false
 
-  /@typechain/ethers-v6@0.4.0(@owlprotocol/typechain@8.2.0)(typescript@5.0.4):
-    resolution: {integrity: sha512-vD3Agzz63Gf2XlU3ed2/y+8dLWQj+wf+4Eq+0JXsyOio/plyV5F6r0yYe+s3XdGI858U3Sr263pl8mliDrUqbw==}
+  /@typechain/ethers-v6@0.4.2(typechain@8.3.0)(typescript@5.0.4):
+    resolution: {integrity: sha512-LPC4BBknGkWGR1TLM0d19zZ9/iXIyp2tf6+TDYMYCSbxoaP0F3jNvKVMboU1gDfr2MHaPB+fE/7ExLQ5t9RDwg==}
     peerDependencies:
       ethers: 6.x
-      typechain: ^8.2.0
+      typechain: ^8.3.0
       typescript: '>=4.7.0'
     dependencies:
       lodash: 4.17.21
       ts-essentials: 7.0.3(typescript@5.0.4)
-      typechain: /@owlprotocol/typechain@8.2.0(typescript@5.0.4)
+      typechain: 8.3.0(typescript@5.0.4)
       typescript: 5.0.4
     dev: false
 
@@ -5917,6 +5890,29 @@ packages:
     engines: {node: '>=8'}
     dev: false
 
+  /typechain@8.3.0(typescript@5.0.4):
+    resolution: {integrity: sha512-AxtAYyOA7f2p28/JkcqrF+gnzam94VNTIbXcaUKodkrKzMX6P/XqBaP6d/OPuBZOi0WgOOmkg1zOSojX8uGkOg==}
+    hasBin: true
+    peerDependencies:
+      typescript: '>=4.3.0'
+    dependencies:
+      '@types/prettier': 2.7.2
+      debug: 4.3.4
+      fs-extra: 7.0.1
+      glob: 7.1.7
+      js-sha3: 0.8.0
+      lodash: 4.17.21
+      mkdirp: 1.0.4
+      prettier: 2.8.8
+      ts-command-line-args: 2.5.0(typescript@5.0.4)
+      ts-essentials: 7.0.3(typescript@5.0.4)
+      typescript: 5.0.4
+    transitivePeerDependencies:
+      - jasmine
+      - jest
+      - supports-color
+    dev: false
+
   /typed-array-length@1.0.4:
     resolution: {integrity: sha512-KjZypGq+I/H7HI5HlOoGHkWUUGq+Q0TPhQurLbyrVrvnKTBgzLhIJ7j6J/XTQOi0d1RjyZ0wdas8bKs2p0x3Ng==}
     dependencies:
@@ -6261,3 +6257,7 @@ packages:
   /yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
