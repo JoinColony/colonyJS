@@ -49,13 +49,13 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@colony/core": "^1.2.0-next.1",
+    "@colony/core": "^1.2.0-next.2",
     "@colony/events": "^0.2.1-next.1",
     "@colony/tokens": "^0.1.3-next.1",
     "ts-jest-resolver": "^2.0.1"
   },
   "devDependencies": {
-    "@colony/contractor": "^1.0.1-next.1",
+    "@colony/contractor": "^1.1.0-next.2",
     "@ethersproject/abi": "^5.7.0",
     "@ethersproject/abstract-provider": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",

@@ -1,5 +1,18 @@
 # @colony/sdk
 
+## 2.0.0-next.6
+
+### Minor Changes
+
+- 245fc594: Add support for `glwss4` contracts in Colony SDK. No API changes were necessary.
+  Contractor was bumped to v1.0.1 of the `@colony/abis` package
+  In `core`, a guard was added to prevent trying to get permission proofs without an address.
+
+### Patch Changes
+
+- Updated dependencies [245fc594]
+  - @colony/core@1.2.0-next.2
+
 ## 2.0.0-next.5
 
 ### Patch Changes

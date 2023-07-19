@@ -59,7 +59,7 @@ importers:
   packages/colony-js:
     dependencies:
       '@colony/core':
-        specifier: ^1.2.0-next.1
+        specifier: ^1.2.0-next.2
         version: link:../core
       '@colony/events':
         specifier: ^0.2.1-next.1
@@ -72,7 +72,7 @@ importers:
         version: 2.0.1
     devDependencies:
       '@colony/contractor':
-        specifier: ^1.0.1-next.1
+        specifier: ^1.1.0-next.2
         version: link:../contractor
       '@ethersproject/abi':
         specifier: ^5.7.0
@@ -146,7 +146,7 @@ importers:
         version: 3.1.5
     devDependencies:
       '@colony/contractor':
-        specifier: 1.0.1-next.1
+        specifier: 1.1.0-next.2
         version: link:../contractor
       '@ethersproject/abi':
         specifier: ^5.7.0
@@ -177,7 +177,7 @@ importers:
   packages/events:
     devDependencies:
       '@colony/contractor':
-        specifier: ^1.0.1-next.1
+        specifier: ^1.1.0-next.2
         version: link:../contractor
       '@ethersproject/abi':
         specifier: ^5.7.0
@@ -192,7 +192,7 @@ importers:
   packages/sdk:
     dependencies:
       '@colony/core':
-        specifier: ^1.2.0-next.1
+        specifier: ^1.2.0-next.2
         version: link:../core
       '@colony/event-metadata':
         specifier: ^3.0.1-next.1
@@ -220,7 +220,7 @@ importers:
         version: 0.11.0(graphql@16.6.0)
     devDependencies:
       '@colony/contractor':
-        specifier: ^1.0.1-next.1
+        specifier: ^1.1.0-next.2
         version: link:../contractor
       '@colony/events':
         specifier: ^0.2.1-next.1
@@ -286,10 +286,10 @@ importers:
   packages/tokens:
     devDependencies:
       '@colony/contractor':
-        specifier: ^1.0.1-next.1
+        specifier: ^1.1.0-next.2
         version: link:../contractor
       '@colony/core':
-        specifier: ^1.2.0-next.1
+        specifier: ^1.2.0-next.2
         version: link:../core
       '@ethersproject/abi':
         specifier: ^5.7.0

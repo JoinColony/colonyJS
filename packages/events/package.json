@@ -46,7 +46,7 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "@colony/contractor": "^1.0.1-next.1",
+    "@colony/contractor": "^1.1.0-next.2",
     "@ethersproject/abi": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",
     "ethers": "^5.7.2"
