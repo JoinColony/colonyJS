@@ -19,6 +19,7 @@
       "skipLibCheck": true,
       "strictNullChecks": true,
       "strict": true,
+      "target": "es2022",
       "traceResolution": false
     },
     "include": [

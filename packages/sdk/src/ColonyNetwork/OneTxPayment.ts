@@ -24,13 +24,18 @@ import {
   OneTxPayment as OneTxPaymentContract4,
   OneTxPayment__factory as OneTxPaymentFactory4,
 } from '../contracts/OneTxPayment/4/index.js';
+import {
+  OneTxPayment as OneTxPaymentContract5,
+  OneTxPayment__factory as OneTxPaymentFactory5,
+} from '../contracts/OneTxPayment/5/index.js';
 import { Colony } from './Colony.js';
 
 const { AddressZero } = constants;
 
 export type SupportedOneTxPaymentContract =
   | OneTxPaymentContract3
-  | OneTxPaymentContract4;
+  | OneTxPaymentContract4
+  | OneTxPaymentContract5;
 
 /**
  * ## `OneTxPayment` (One Transaction Payment)
@@ -52,6 +57,7 @@ export class OneTxPayment {
   static supportedVersions = [
     { version: 3, factory: OneTxPaymentFactory3 },
     { version: 4, factory: OneTxPaymentFactory4 },
+    { version: 5, factory: OneTxPaymentFactory5 },
   ];
 
   static extensionType: Extension.OneTxPayment = Extension.OneTxPayment;

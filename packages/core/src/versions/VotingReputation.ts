@@ -2,7 +2,7 @@ import type { ColonyVersion } from './IColony.js';
 
 import { createContractVersionArray } from './utils.js';
 
-const VOTING_REPUTATION_VERSION_NEXT = 9;
+const VOTING_REPUTATION_VERSION_NEXT = 10;
 
 /** @internal */
 export const VOTING_REPUTATION_VERSIONS = createContractVersionArray(
@@ -25,6 +25,7 @@ export const votingReputationIncompatibilityMap: Record<
   6: [1, 2, 3, 4, 5, 6],
   7: [1, 2, 3, 4, 5, 6],
   8: [1, 2, 3, 4, 5, 6],
+  9: [1, 2, 3, 4, 5, 6],
 };
 
 /** @internal */
