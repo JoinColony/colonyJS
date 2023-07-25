@@ -15,6 +15,16 @@ Colony SDK also includes a variety of examples to get you up and building with C
 
 ## Quickstart
 
+First, install `ethers` and Colony SDK:
+
+```bash
+npm install ethers@legacy-v5 @colony/sdk@next
+```
+
+You'll need `ethers` v5.x as a dependency in your project.
+
+Then you can use it as follows:
+
 ```javascript
 import { providers } from 'ethers';
 import { ColonyNetwork, toEth } from '@colony/sdk';

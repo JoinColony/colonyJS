@@ -14,7 +14,7 @@ import TabItem from '@theme/TabItem';
 * A JavaScript/TypeScript project with a `package.json` and the `@colony/sdk` and `ethers` packages installed.
 
 :::tip
-To get started even faster, use our [**`Colony Starter`**](https://github.com/JoinColony/colonyStarter) template. It's just a matter of cloning the repository and running `npm run serve` to get to the first working example. Follow the guide after the link for more information.
+To get started even faster, use our [**`Colony Starter`**](https://github.com/JoinColony/colonyStarter) template. It's just a matter of cloning the repository and running `npm start` to get to the first working example. Follow the guide after the link for more information.
 :::
 
 ## Installation
@@ -22,7 +22,7 @@ To get started even faster, use our [**`Colony Starter`**](https://github.com/Jo
 It's as easy as
 
 ```bash
-npm install ethers @colony/sdk
+npm install ethers@legacy-v5 @colony/sdk@next
 ```
 
 You'll need `ethers` v5.x as a dependency in your project.
