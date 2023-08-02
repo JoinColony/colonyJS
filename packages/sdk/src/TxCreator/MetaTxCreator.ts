@@ -1,35 +1,28 @@
-import { utils } from 'ethers';
+import {
+  type BaseContract,
+  type TransactionResponse,
+  getBytes,
+  solidityPackedKeccak256,
+  Signature,
+} from 'ethers';
 import { Network } from '@colony/core';
 import { MetadataType } from '@colony/event-metadata';
 
-import type { TransactionResponse } from '@ethersproject/abstract-provider';
 import type { IBasicMetaTransaction } from '../contracts/index.js';
 
-import {
-  BaseContract,
-  ColonyMetaTransaction,
-  EventData,
-  TxCreator,
-} from './TxCreator.js';
+import { ColonyMetaTransaction, EventData, TxCreator } from './TxCreator.js';
 import { ParsedLogTransactionReceipt } from '../types.js';
 
-const { arrayify, solidityKeccak256, splitSignature } = utils;
-
-type MetaTxFunctions = IBasicMetaTransaction['functions'];
 type MetaTxInterface = IBasicMetaTransaction['interface'];
 
-interface Functions extends MetaTxFunctions {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [key: string]: (...args: any[]) => Promise<any>;
-}
 interface Interface extends MetaTxInterface {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   encodeFunctionData(functionFragment: string, values: any[]): string;
 }
 
 export interface MetaTxBaseContract extends BaseContract {
-  functions: Functions;
   interface: Interface;
+  getMetatransactionNonce: IBasicMetaTransaction['getMetatransactionNonce'];
 }
 
 /**
@@ -46,7 +39,7 @@ export interface MetaTxBaseContract extends BaseContract {
  */
 export class MetaTxCreator<
   C extends MetaTxBaseContract,
-  M extends keyof C['functions'],
+  M extends keyof C,
   E extends EventData,
   MD extends MetadataType,
 > extends TxCreator<C, M, E, MD> {
@@ -67,27 +60,25 @@ export class MetaTxCreator<
       throw new Error('No provider found');
     }
 
-    let chainId: number;
+    let chainId: bigint;
 
     if (this.colonyNetwork.network === Network.Custom) {
-      chainId = 1;
+      chainId = 1n;
     } else {
       const networkInfo = await provider.getNetwork();
       chainId = networkInfo.chainId;
     }
 
     const userAddress = await signer.getAddress();
-    const nonce = await this.contract.functions.getMetatransactionNonce(
-      userAddress,
-    );
+    const nonce = await this.contract.getMetatransactionNonce(userAddress);
 
-    const message = solidityKeccak256(
+    const message = solidityPackedKeccak256(
       ['uint256', 'address', 'uint256', 'bytes'],
       [nonce.toString(), target, chainId, encodedTransaction],
     );
-    const buf = arrayify(message);
+    const buf = getBytes(message);
     const signature = await signer.signMessage(buf);
-    const { r, s, v } = splitSignature(signature);
+    const { r, s, v } = Signature.from(signature);
 
     const broadcastData = {
       target,
@@ -107,7 +98,8 @@ export class MetaTxCreator<
       this.method,
       args,
     );
-    return this.sendMetaTransaction(encodedTransaction, this.contract.address);
+    const address = await this.contract.getAddress();
+    return this.sendMetaTransaction(encodedTransaction, address);
   }
 
   private async getMetaMined(tx: TransactionResponse) {

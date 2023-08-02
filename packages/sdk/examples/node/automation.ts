@@ -1,8 +1,8 @@
-import { providers, Wallet } from 'ethers';
+import { JsonRpcProvider, Wallet } from 'ethers';
 
 import { ColonyNetwork, ColonyRpcEndpoint, w } from '../../src/index.js';
 
-const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
+const provider = new JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
 
 if (!process.env.PRIVATE_KEY) {
   throw new Error('Please provide PRIVATE_KEY as an environment variable');

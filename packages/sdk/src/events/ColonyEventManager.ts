@@ -1,11 +1,16 @@
-import type { Result } from '@ethersproject/abi';
-import type { BlockTag } from '@ethersproject/abstract-provider';
+import {
+  type BaseContract,
+  type BlockTag,
+  type EventFilter,
+  type Filter,
+  type JsonRpcProvider,
+  type Result,
+  ZeroAddress,
+} from 'ethers';
 
-import { constants, providers, EventFilter, BaseContract } from 'ethers';
 import { addressesAreEqual, SignerOrProvider } from '@colony/core';
 import { MetadataType, MetadataTypeMap } from '@colony/event-metadata';
 
-import type { Ethers6Filter } from '../types.js';
 import { getLogs, nonNullable } from '../utils.js';
 import { IpfsAdapter, IpfsMetadata, MetadataEvent } from '../ipfs/index.js';
 
@@ -19,7 +24,7 @@ interface ContractFactory<T extends EventSource> {
 }
 
 /** A Colony extended ethers Filter to keep track of where events are coming from */
-export interface ColonyFilter extends Ethers6Filter {
+export interface ColonyFilter extends Filter {
   /** The generated id of the contract the event originated from */
   eventSource: EventSource;
   /** The full event signature of this event (e.g. `TokenMinted(uint256))` */
@@ -71,7 +76,7 @@ export interface ColonyEventManagerOptions {
 export class ColonyEventManager {
   ipfs: IpfsMetadata;
 
-  provider: providers.JsonRpcProvider;
+  provider: JsonRpcProvider;
 
   /**
    * Create a new ColonyEvents instance
@@ -84,10 +89,7 @@ export class ColonyEventManager {
    * @param options - Optional custom {@link ColonyEventManagerOptions}
    * @returns A ColonyEvents instance
    */
-  constructor(
-    provider: providers.JsonRpcProvider,
-    options?: ColonyEventManagerOptions,
-  ) {
+  constructor(provider: JsonRpcProvider, options?: ColonyEventManagerOptions) {
     this.ipfs = new IpfsMetadata(options?.ipfsAdapter);
     this.provider = provider;
   }
@@ -129,7 +131,7 @@ export class ColonyEventManager {
   createEventSource<T extends BaseContract>(
     contractFactory: ContractFactory<T>,
   ): T {
-    return contractFactory.connect(constants.AddressZero, this.provider);
+    return contractFactory.connect(ZeroAddress, this.provider);
   }
 
   /**
@@ -228,7 +230,7 @@ export class ColonyEventManager {
   async getMultiEvents<T extends MetadataType>(
     filters: ColonyMultiFilter | ColonyMultiFilter[],
     options: { fromBlock?: BlockTag; toBlock?: BlockTag } = {},
-  ): Promise<ColonyEvent<T>[]> {
+  ) {
     const filterArray = ([] as ColonyMultiFilter[]).concat(filters);
     // Unique list of addresses
     const addresses = Array.from(
@@ -254,7 +256,9 @@ export class ColonyEventManager {
     // TODO: I think it might be smart to just consult a database for this info
     return logs
       .map((log) => {
-        const topic = ColonyEventManager.extractSingleTopic(log);
+        const topic = ColonyEventManager.extractSingleTopic({
+          topics: [...log.topics],
+        });
         // We are looking for a MultiFilter that defines this address but also
         // includes the topic that we're looking for so that we can decode it later
         const multiFilter = filterArray.find(({ address, colonyTopics }) => {
@@ -282,7 +286,7 @@ export class ColonyEventManager {
         const colonyEvent = {
           address: log.address,
           eventSource,
-          topics: log.topics,
+          topics: [...log.topics],
           eventName,
           data,
           transactionHash: log.transactionHash,
@@ -337,28 +341,23 @@ export class ColonyEventManager {
    * @param options - You can define `fromBlock` and `toBlock` only once for all the filters given (default for both is `latest`)
    * @returns A {@link ColonyFilter}
    */
-  createFilter<
-    T extends BaseContract & {
-      filters: { [P in N]: (...args: never) => EventFilter };
-    },
-    N extends keyof T['filters'],
-  >(
+  async createFilter<T extends BaseContract, N extends keyof T['filters']>(
     eventSource: T,
     eventName: N,
     address?: string,
     params?: Parameters<T['filters'][N]>,
     options?: { fromBlock?: BlockTag; toBlock?: BlockTag },
-  ): ColonyFilter;
+  ): Promise<ColonyFilter>;
 
   // We split up the type definition and the actual implementation to relax the TypeScript strictness a little bit for the implementation so it won't go crazy.
   // eslint-disable-next-line class-methods-use-this
-  createFilter(
+  async createFilter(
     eventSource: BaseContract,
     eventName: keyof (typeof eventSource)['filters'],
     address?: string,
     params?: Parameters<(typeof eventSource)['filters'][typeof eventName]>,
     options: { fromBlock?: BlockTag; toBlock?: BlockTag } = {},
-  ): ColonyFilter {
+  ): Promise<ColonyFilter> {
     // Create standard filter
     const filter = params
       ? eventSource.filters[eventName].apply([
@@ -367,10 +366,12 @@ export class ColonyEventManager {
         ])
       : eventSource.filters[eventName]();
 
+    const topicFilter = await filter.getTopicFilter();
+
     return {
       eventSource,
       eventName: eventName as string,
-      topics: filter.topics,
+      topics: topicFilter,
       address,
       fromBlock: options.fromBlock,
       toBlock: options.toBlock,
@@ -405,25 +406,26 @@ export class ColonyEventManager {
    * @param address - Address of the contract that can emit this event. Will listen to any contract if not provided
    * @returns A {@link ColonyMultiFilter}
    */
-  createMultiFilter<
-    T extends BaseContract & {
-      filters: { [P in N]: (...args: never) => EventFilter };
-    },
-    N extends keyof T['filters'],
-  >(contract: T, eventNames: N[], address?: string): ColonyMultiFilter {
-    const colonyTopics: ColonyTopic[] = eventNames
-      .map((eventName) => {
-        const filter = this.createFilter(contract, eventName, address);
-        // As we don't allow parameters, filter.topics should always be a single topic
-        const topic = ColonyEventManager.extractSingleTopic(filter);
-        if (!topic) return null;
-        return {
-          topic,
-          eventName: eventName as string,
-          eventSource: filter.eventSource,
-        };
-      })
-      .filter(nonNullable);
+  async createMultiFilter<T extends BaseContract, N extends keyof T['filters']>(
+    contract: T,
+    eventNames: N[],
+    address?: string,
+  ): Promise<ColonyMultiFilter> {
+    const colonyTopics: ColonyTopic[] = (
+      await Promise.all(
+        eventNames.map(async (eventName) => {
+          const filter = await this.createFilter(contract, eventName, address);
+          // As we don't allow parameters, filter.topics should always be a single topic
+          const topic = ColonyEventManager.extractSingleTopic(filter);
+          if (!topic) return null;
+          return {
+            topic,
+            eventName: eventName as string,
+            eventSource: filter.eventSource,
+          };
+        }),
+      )
+    ).filter(nonNullable);
 
     return {
       address,

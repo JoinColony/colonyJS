@@ -1,6 +1,6 @@
 import type {
-  UserTokenDeposited_address_address_uint256_EventObject,
-  UserTokenWithdrawnEventObject,
+  UserTokenDeposited_address_address_uint256_Event,
+  UserTokenWithdrawnEvent,
 } from '@colony/events';
 
 import { BigNumberish } from 'ethers';
@@ -73,7 +73,8 @@ export class TokenLocking {
       'deposit(address,uint256,bool)',
       [tokenAddress, amount, false],
       async (receipt) => ({
-        ...extractEvent<UserTokenDeposited_address_address_uint256_EventObject>(
+        // eslint-disable-next-line max-len
+        ...extractEvent<UserTokenDeposited_address_address_uint256_Event.OutputObject>(
           'UserTokenDeposited',
           receipt,
         ),
@@ -117,7 +118,7 @@ export class TokenLocking {
       'withdraw(address,uint256,bool)',
       [tokenAddress, amount, false],
       async (receipt) => ({
-        ...extractEvent<UserTokenWithdrawnEventObject>(
+        ...extractEvent<UserTokenWithdrawnEvent.OutputObject>(
           'UserTokenWithdrawn',
           receipt,
         ),

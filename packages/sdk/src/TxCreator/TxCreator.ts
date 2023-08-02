@@ -1,10 +1,15 @@
-import { Contract, ContractReceipt, ContractTransaction } from 'ethers';
+import {
+  BaseContract,
+  ContractTransactionReceipt,
+  ContractTransactionResponse,
+  ContractTransaction,
+  TransactionResponse,
+} from 'ethers';
 import { fetch } from 'cross-fetch';
 import { parseLogs } from '@colony/core';
 import { MetadataType, MetadataTypeMap } from '@colony/event-metadata';
 
-import type { TransactionResponse } from '@ethersproject/abstract-provider';
-import type { MotionCreatedEventObject } from '@colony/events';
+import type { MotionCreatedEvent } from '@colony/events';
 
 import { ParsedLogTransactionReceipt } from '../types.js';
 import { IpfsMetadataEvents } from '../ipfs/IpfsMetadata.js';
@@ -23,19 +28,11 @@ export interface TxCreatorConfig<C, M, E, MD> {
   contract: C;
   method: M;
   args: unknown[] | (() => Promise<unknown[]>);
-  eventData?: (receipt: ContractReceipt) => Promise<E>;
+  eventData?: (
+    receipt: ContractTransactionReceipt | ParsedLogTransactionReceipt,
+  ) => Promise<E>;
   metadataType?: MD;
   txConfig?: TxConfig<MD>;
-}
-
-// I really just wanted to use the ethers' `BaseContract` but that seemed to have been to specific
-export interface BaseContract {
-  address: string;
-  functions: {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    [key: string]: (...args: any[]) => Promise<any>;
-  };
-  interface: Contract['interface'];
 }
 
 /**
@@ -62,7 +59,7 @@ export interface BaseContract {
  */
 export interface ColonyMetaTransaction<
   C extends TransactionResponse,
-  E extends EventData | MotionCreatedEventObject,
+  E extends EventData | MotionCreatedEvent.OutputObject,
   R extends ParsedLogTransactionReceipt,
   MD extends MetadataType,
 > {
@@ -110,8 +107,8 @@ export interface ColonyMetaTransaction<
  */
 export interface ColonyTransaction<
   C extends ContractTransaction,
-  E extends EventData | MotionCreatedEventObject,
-  R extends ContractReceipt,
+  E extends EventData | MotionCreatedEvent.OutputObject,
+  R extends ContractTransactionReceipt,
   MD extends MetadataType,
 > {
   /**
@@ -148,7 +145,7 @@ export interface ColonyTransaction<
  */
 export class TxCreator<
   C extends BaseContract,
-  M extends keyof C['functions'],
+  M extends keyof C,
   E extends EventData,
   MD extends MetadataType,
 > {
@@ -160,7 +157,9 @@ export class TxCreator<
 
   protected args: unknown[] | (() => Promise<unknown[]>);
 
-  private eventData?: (receipt: ContractReceipt) => Promise<E>;
+  private eventData?: (
+    receipt: ContractTransactionReceipt | ParsedLogTransactionReceipt,
+  ) => Promise<E>;
 
   protected txConfig?: TxConfig<MD>;
 
@@ -176,7 +175,9 @@ export class TxCreator<
     contract: C;
     method: M;
     args: unknown[] | (() => Promise<unknown[]>);
-    eventData?: (receipt: ContractReceipt) => Promise<E>;
+    eventData?: (
+      receipt: ContractTransactionReceipt | ParsedLogTransactionReceipt,
+    ) => Promise<E>;
     metadataType?: MD;
     txConfig?: TxConfig<MD>;
   }) {
@@ -202,20 +203,25 @@ export class TxCreator<
 
   private async getTx() {
     const args = await this.getArgs();
-    const tx = (await this.contract.functions[this.method].apply(
-      this.contract,
-      args,
-    )) as ContractTransaction;
+    const method = this.contract[this.method as keyof C] as (
+      ...args: unknown[]
+    ) => unknown;
+    const tx = (await method(...args)) as ContractTransactionResponse;
     return tx;
   }
 
-  private async getMined(tx: ContractTransaction) {
+  private async getMined(tx: ContractTransactionResponse) {
     const receipt = await tx.wait();
+
+    if (!receipt) {
+      throw new Error('No receipt returned');
+    }
+
     return this.getEventData(receipt);
   }
 
   protected async getEventData<
-    R extends ContractReceipt | ParsedLogTransactionReceipt,
+    R extends ContractTransactionReceipt | ParsedLogTransactionReceipt,
   >(receipt: R): Promise<[E, R, () => Promise<MetadataTypeMap[MD]>] | [E, R]> {
     if (this.eventData) {
       const data = await this.eventData(receipt);
@@ -236,7 +242,9 @@ export class TxCreator<
     return [{} as E, receipt as R];
   }
 
-  protected async broadcastMetaTx(broadcastData: Record<string, unknown>) {
+  protected async broadcastMetaTx(
+    broadcastData: Record<string, unknown>,
+  ): Promise<TransactionResponse> {
     const signer = this.colonyNetwork.getSigner();
     const { provider } = signer;
 
@@ -268,12 +276,18 @@ export class TxCreator<
       );
     }
 
-    return provider.getTransaction(parsed.data.txHash);
+    const tx = await provider.getTransaction(parsed.data.txHash);
+
+    if (!tx) {
+      throw new Error('Could not get transaction from provider');
+    }
+
+    return tx;
   }
 
   protected async waitForMetaTx(tx: TransactionResponse) {
     const receipt = (await tx.wait()) as ParsedLogTransactionReceipt;
-    receipt.parsedLogs = parseLogs(receipt.logs, this.contract.interface);
+    receipt.parsedLogs = parseLogs([...receipt.logs], this.contract.interface);
 
     return receipt;
   }
@@ -301,6 +315,11 @@ export class TxCreator<
         const args = await this.getArgs();
         return this.contract.interface.encodeFunctionData(this.method, args);
       },
-    } as ColonyTransaction<ContractTransaction, E, ContractReceipt, MD>;
+    } as ColonyTransaction<
+      ContractTransaction,
+      E,
+      ContractTransactionReceipt,
+      MD
+    >;
   }
 }

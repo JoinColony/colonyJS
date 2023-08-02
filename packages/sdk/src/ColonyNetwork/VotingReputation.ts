@@ -1,18 +1,24 @@
 import type {
-  MotionEventSetEventObject,
-  MotionFinalizedEventObject,
-  MotionStakedEventObject,
-  MotionVoteRevealedEventObject,
-  MotionVoteSubmittedEventObject,
-  UserTokenApprovedEventObject,
-  MotionCreatedEventObject,
-  ExtensionUpgradedEventObject,
-  AnnotationEventObject,
-  MotionEscalatedEventObject,
-  ExtensionInitialisedEventObject,
+  MotionEventSetEvent,
+  MotionFinalizedEvent,
+  MotionStakedEvent,
+  MotionVoteRevealedEvent,
+  MotionVoteSubmittedEvent,
+  UserTokenApprovedEvent,
+  MotionCreatedEvent,
+  ExtensionUpgradedEvent,
+  AnnotationEvent,
+  MotionEscalatedEvent,
+  ExtensionInitialisedEvent,
 } from '@colony/events';
 
-import { constants, BigNumber, BigNumberish, utils } from 'ethers';
+import {
+  type BigNumberish,
+  ZeroAddress,
+  keccak256,
+  toBigInt,
+  solidityPackedKeccak256,
+} from 'ethers';
 import {
   type ReputationClient,
   type VotingReputationVersion,
@@ -51,8 +57,6 @@ import {
 import { extractEvent, extractCustomEvent } from '../utils.js';
 import { Colony } from './Colony.js';
 
-const { AddressZero } = constants;
-
 export type SupportedVotingReputationContract =
   | VotingReputationContract7
   | VotingReputationContract8
@@ -72,7 +76,7 @@ type ReputationData = Awaited<
   ReturnType<ReputationClient['getReputationWithProofs']>
 >;
 
-const REP_DIVISOR = BigNumber.from(10).pow(18);
+const REP_DIVISOR = 10n ** 18n;
 
 /**
  * ## `VotingReputation` (Motions & Disputes)
@@ -181,7 +185,7 @@ export class VotingReputation {
         getExtensionHash(VotingReputation.extensionType),
         colony.address,
       );
-    if (address === AddressZero) {
+    if (address === ZeroAddress) {
       throw new Error(
         `${VotingReputation.extensionType} extension is not installed for this Colony`,
       );
@@ -219,7 +223,7 @@ export class VotingReputation {
       colony.colonyNetwork.signerOrProvider,
     );
 
-    return new VotingReputation(colony, oneTxPaymentContract, version);
+    return new VotingReputation(colony, address, oneTxPaymentContract, version);
   }
 
   private colony: Colony;
@@ -236,12 +240,21 @@ export class VotingReputation {
     ]?.version as VotingReputationVersion;
   }
 
+  /**
+   * Creates a new instance to connect to an existing VotingReputation extension contract
+   *
+   * @internal
+   *
+   * @remarks
+   * Do not use this method directly but use {@link VotingReputation.connect}
+   */
   constructor(
     colony: Colony,
+    address: string,
     votingReputationContract: SupportedVotingReputationContract,
     deployedVersion: VotingReputationVersion,
   ) {
-    this.address = votingReputationContract.address;
+    this.address = address;
     this.colony = colony;
     this.votingReputationContract = votingReputationContract;
     this.version = deployedVersion;
@@ -251,18 +264,17 @@ export class VotingReputation {
    * Have the user sign a message to create a salt for casting and revealing a vote
    */
   private async createMotionSalt(motionId: BigNumberish) {
-    const { address } = this.votingReputationContract;
-    const motionNumber = BigNumber.from(motionId).toNumber();
+    const motionNumber = toBigInt(motionId);
     /*
      * NOTE We need this to be all in one line (no new lines, or line breaks) since
      * Metamask doesn't play nice with them and will replace them, in the message
      * presented to the user with \n
      */
-    const message = `Sign this message to generate 'salt' entropy. Extension Address: ${address} Motion ID: ${motionNumber}`;
-    const signature = await this.colony
-      .getInternalColonyContract()
-      .signer.signMessage(message);
-    return utils.keccak256(signature);
+    const message = `Sign this message to generate 'salt' entropy. Extension Address: ${this.address} Motion ID: ${motionNumber}`;
+    const signature = await this.colony.colonyNetwork
+      .getSigner()
+      .signMessage(message);
+    return keccak256(signature);
   }
 
   /**
@@ -276,7 +288,7 @@ export class VotingReputation {
     const { key, value, branchMask, siblings } = reputation;
     let sideVoted;
     try {
-      await this.votingReputationContract.estimateGas.revealVote(
+      await this.votingReputationContract.revealVote.estimateGas(
         motionId,
         salt,
         0,
@@ -289,7 +301,7 @@ export class VotingReputation {
     } catch (nayErr) {
       if ((nayErr as Error).message.includes('voting-rep-secret-no-match')) {
         try {
-          await this.votingReputationContract.estimateGas.revealVote(
+          await this.votingReputationContract.revealVote.estimateGas(
             motionId,
             salt,
             1,
@@ -362,10 +374,10 @@ export class VotingReputation {
    * No event data attached
    */
   initialize(
-    totalStakeFraction: BigNumber,
-    voterRewardFraction: BigNumber,
-    userMinStakeFraction: BigNumber,
-    maxVoteFraction: BigNumber,
+    totalStakeFraction: bigint,
+    voterRewardFraction: bigint,
+    userMinStakeFraction: bigint,
+    maxVoteFraction: bigint,
     stakePeriod: number,
     submitPeriod: number,
     revealPeriod: number,
@@ -385,7 +397,7 @@ export class VotingReputation {
         escalationPeriod,
       ],
       async (receipt) => ({
-        ...extractEvent<ExtensionInitialisedEventObject>(
+        ...extractEvent<ExtensionInitialisedEvent.OutputObject>(
           'ExtensionInitialised',
           receipt,
         ),
@@ -404,7 +416,7 @@ export class VotingReputation {
    */
   async getMotion(motionId: BigNumberish): Promise<Motion> {
     const motionCount = await this.votingReputationContract.getMotionCount();
-    if (motionCount.lt(motionId)) {
+    if (motionCount < toBigInt(motionId)) {
       throw new Error(`Motion with id ${motionId} does not exist`);
     }
     return this.votingReputationContract.getMotion(motionId);
@@ -443,10 +455,10 @@ export class VotingReputation {
    */
   async getMotionState(motionId: BigNumberish) {
     const motionCount = await this.votingReputationContract.getMotionCount();
-    if (motionCount.lt(motionId)) {
+    if (motionCount < toBigInt(motionId)) {
       throw new Error(`Motion with id ${motionId} does not exist`);
     }
-    return this.votingReputationContract.getMotionState(motionId);
+    return Number(this.votingReputationContract.getMotionState(motionId));
   }
 
   /**
@@ -475,13 +487,11 @@ export class VotingReputation {
     const userMinStakeFraction =
       await this.votingReputationContract.getUserMinStakeFraction();
     // Total amount that is needed for activation
-    const requiredStakeForActivation = BigNumber.from(skillRep)
-      .mul(totalStakeFraction)
-      .div(REP_DIVISOR);
+    const requiredStakeForActivation =
+      (skillRep * totalStakeFraction) / REP_DIVISOR;
     // Total amount that is needed per transaction
-    const minStakePerUser = requiredStakeForActivation
-      .mul(userMinStakeFraction)
-      .div(REP_DIVISOR);
+    const minStakePerUser =
+      (requiredStakeForActivation * userMinStakeFraction) / REP_DIVISOR;
 
     // The minimum amount to be staked is usually the minStakePerUser
     // With one exception. If less than minStakePerUser is needed to activate the
@@ -492,23 +502,12 @@ export class VotingReputation {
     // Minimum stake per transaction: 2
     // Here the minimum becomes 1 (instead of 2) as this is what's missing for activation
     let minStake = minStakePerUser;
-    if (
-      vote === Vote.Nay &&
-      BigNumber.from(totalNay).lt(requiredStakeForActivation)
-    ) {
-      const requiredNay = requiredStakeForActivation.sub(
-        BigNumber.from(totalNay),
-      );
-      minStake = requiredNay.lt(minStakePerUser)
-        ? requiredNay
-        : minStakePerUser;
-    } else if (BigNumber.from(totalYay).lt(requiredStakeForActivation)) {
-      const requiredYay = requiredStakeForActivation.sub(
-        BigNumber.from(totalYay),
-      );
-      minStake = requiredYay.lt(minStakePerUser)
-        ? requiredYay
-        : minStakePerUser;
+    if (vote === Vote.Nay && totalNay < requiredStakeForActivation) {
+      const requiredNay = requiredStakeForActivation - totalNay;
+      minStake = requiredNay < minStakePerUser ? requiredNay : minStakePerUser;
+    } else if (totalYay < requiredStakeForActivation) {
+      const requiredYay = requiredStakeForActivation - totalYay;
+      minStake = requiredYay < minStakePerUser ? requiredYay : minStakePerUser;
     }
     return minStake;
   }
@@ -532,17 +531,18 @@ export class VotingReputation {
       await this.votingReputationContract.getTotalStakeFraction();
     // Fraction of the total amount that has to be staked per transaction
     // Total amount that is needed for activation
-    const requiredStakeForActivation = skillRep
-      .mul(totalStakeFraction)
-      .div(REP_DIVISOR);
+    const requiredStakeForActivation =
+      (skillRep * totalStakeFraction) / REP_DIVISOR;
 
-    const remainingToFullyNayStaked = totalNay.gte(requiredStakeForActivation)
-      ? BigNumber.from(0)
-      : requiredStakeForActivation.sub(totalNay);
+    const remainingToFullyNayStaked =
+      totalNay >= requiredStakeForActivation
+        ? BigInt(0)
+        : requiredStakeForActivation - totalNay;
 
-    const remainingToFullyYayStaked = totalYay.gte(requiredStakeForActivation)
-      ? BigNumber.from(0)
-      : requiredStakeForActivation.sub(totalYay);
+    const remainingToFullyYayStaked =
+      totalYay >= requiredStakeForActivation
+        ? BigInt(0)
+        : requiredStakeForActivation - totalYay;
 
     return {
       remainingToFullyNayStaked,
@@ -598,31 +598,25 @@ export class VotingReputation {
             this.colony.reputation,
             this.votingReputationContract,
             team,
-            AddressZero,
+            ZeroAddress,
             DecisionMotionCode,
           );
         return [
-          team,
+          toBigInt(team),
           actionCid,
-          AddressZero,
+          ZeroAddress,
           DecisionMotionCode,
           key,
           value,
           branchMask,
           siblings,
-        ] as [
-          BigNumberish,
-          BigNumberish,
-          string,
-          string,
-          string,
-          string,
-          string,
-          string[],
-        ];
+        ] as [bigint, bigint, string, string, string, string, string, string[]];
       },
       async (receipt) => ({
-        ...extractEvent<MotionCreatedEventObject>('MotionCreated', receipt),
+        ...extractEvent<MotionCreatedEvent.OutputObject>(
+          'MotionCreated',
+          receipt,
+        ),
       }),
     );
   }
@@ -691,7 +685,7 @@ export class VotingReputation {
         return [txHash, cid] as [string, string];
       },
       async (receipt) => ({
-        ...extractEvent<AnnotationEventObject>('Annotation', receipt),
+        ...extractEvent<AnnotationEvent.OutputObject>('Annotation', receipt),
       }),
       { metadataType: MetadataType.Decision },
     );
@@ -722,11 +716,11 @@ export class VotingReputation {
     return this.colony.colonyNetwork.createMetaTxCreator(
       this.colony.getInternalColonyContract(),
       'approveStake',
-      [this.votingReputationContract.address, teamId, amount],
+      [this.address, teamId, amount],
       async (receipt) => {
         const tokenLocking = await this.colony.colonyNetwork.getTokenLocking();
         return {
-          ...extractCustomEvent<UserTokenApprovedEventObject>(
+          ...extractCustomEvent<UserTokenApprovedEvent.OutputObject>(
             'UserTokenApproved',
             receipt,
             tokenLocking.getInternalTokenLockingContract().interface,
@@ -781,9 +775,7 @@ export class VotingReputation {
         .getSigner()
         .getAddress();
 
-      const motionState = await this.votingReputationContract.getMotionState(
-        motionId,
-      );
+      const motionState = await this.getMotionState(motionId);
 
       if (motionState !== MotionState.Staking) {
         throw new Error(
@@ -793,12 +785,13 @@ export class VotingReputation {
 
       const motion = await this.getMotion(motionId);
       const tokenLocking = await this.colony.colonyNetwork.getTokenLocking();
+      const amountBigInt = toBigInt(amount);
 
       const deposited = await tokenLocking.getUserDeposit(
         this.colony.token.address,
         userAddress,
       );
-      if (deposited.lt(amount)) {
+      if (deposited < amountBigInt) {
         throw new Error('Not enough tokens deposited for staking.');
       }
 
@@ -807,7 +800,7 @@ export class VotingReputation {
         userAddress,
         this.colony.address,
       );
-      if (colonyApproval.lt(amount)) {
+      if (colonyApproval < amountBigInt) {
         throw new Error(
           'Not enough tokens approved for staking in the Colony.',
         );
@@ -817,13 +810,13 @@ export class VotingReputation {
         .getInternalColonyContract()
         .getApproval(userAddress, this.address, motion.domainId);
 
-      if (votingReputationApproval.lt(amount)) {
+      if (votingReputationApproval < amountBigInt) {
         throw new Error(
           `Not enough tokens approved for staking in the VotingReputation contract.`,
         );
       }
 
-      if (motion.events[0].mul(1000).lte(Date.now())) {
+      if (motion.events[0] * 1000n <= Date.now()) {
         throw new Error(
           'The staking period for this Motion has passed already.',
         );
@@ -831,7 +824,7 @@ export class VotingReputation {
 
       const minStake = await this.getMinStake(motion, vote);
 
-      if (BigNumber.from(amount).lt(minStake)) {
+      if (amountBigInt < minStake) {
         throw new Error(
           `The staked amount is too small. Please stake at least ${toEth(
             minStake,
@@ -860,18 +853,18 @@ export class VotingReputation {
         motionId,
         permissionDomainId,
         childSkillIndex,
-        BigNumber.from(vote),
+        toBigInt(vote),
         amount,
         key,
         value,
         branchMask,
         siblings,
       ] as [
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        BigNumber,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
         string,
         string,
         string,
@@ -884,8 +877,14 @@ export class VotingReputation {
       'stakeMotion',
       getArgs,
       async (receipt) => ({
-        ...extractEvent<MotionStakedEventObject>('MotionStaked', receipt),
-        ...extractEvent<MotionEventSetEventObject>('MotionEventSet', receipt),
+        ...extractEvent<MotionStakedEvent.OutputObject>(
+          'MotionStaked',
+          receipt,
+        ),
+        ...extractEvent<MotionEventSetEvent.OutputObject>(
+          'MotionEventSet',
+          receipt,
+        ),
       }),
     );
   }
@@ -910,9 +909,7 @@ export class VotingReputation {
    */
   submitVote(motionId: BigNumberish, vote: Vote) {
     const getArgs = async () => {
-      const motionState = await this.votingReputationContract.getMotionState(
-        motionId,
-      );
+      const motionState = await this.getMotionState(motionId);
 
       if (motionState !== MotionState.Submit) {
         throw new Error(
@@ -934,10 +931,10 @@ export class VotingReputation {
         );
 
       const salt = await this.createMotionSalt(motionId);
-      const hash = utils.solidityKeccak256(['bytes', 'uint256'], [salt, vote]);
+      const hash = solidityPackedKeccak256(['bytes', 'uint256'], [salt, vote]);
 
       return [motionId, hash, key, value, branchMask, siblings] as [
-        BigNumber,
+        bigint,
         string,
         string,
         string,
@@ -951,7 +948,7 @@ export class VotingReputation {
       'submitVote',
       getArgs,
       async (receipt) => ({
-        ...extractEvent<MotionVoteSubmittedEventObject>(
+        ...extractEvent<MotionVoteSubmittedEvent.OutputObject>(
           'MotionVoteSubmitted',
           receipt,
         ),
@@ -981,9 +978,7 @@ export class VotingReputation {
    */
   revealVote(motionId: BigNumberish, vote?: Vote) {
     const getArgs = async () => {
-      const motionState = await this.votingReputationContract.getMotionState(
-        motionId,
-      );
+      const motionState = await this.getMotionState(motionId);
 
       if (motionState !== MotionState.Reveal) {
         throw new Error(
@@ -1018,12 +1013,12 @@ export class VotingReputation {
       return [
         motionId,
         salt,
-        BigNumber.from(foundVote),
+        toBigInt(foundVote),
         key,
         value,
         branchMask,
         siblings,
-      ] as [BigNumber, string, BigNumber, string, string, string, string[]];
+      ] as [bigint, string, bigint, string, string, string, string[]];
     };
 
     return this.colony.colonyNetwork.createMetaTxCreator(
@@ -1031,7 +1026,7 @@ export class VotingReputation {
       'revealVote',
       getArgs,
       async (receipt) => ({
-        ...extractEvent<MotionVoteRevealedEventObject>(
+        ...extractEvent<MotionVoteRevealedEvent.OutputObject>(
           'MotionVoteRevealed',
           receipt,
         ),
@@ -1058,9 +1053,7 @@ export class VotingReputation {
    */
   escalateMotion(motionId: BigNumberish, newTeamId: BigNumberish) {
     const getArgs = async () => {
-      const motionState = await this.votingReputationContract.getMotionState(
-        motionId,
-      );
+      const motionState = await this.getMotionState(motionId);
 
       if (motionState !== MotionState.Closed) {
         throw new Error(
@@ -1096,7 +1089,7 @@ export class VotingReputation {
         value,
         branchMask,
         siblings,
-      ] as [BigNumber, string, BigNumber, string, string, string, string[]];
+      ] as [bigint, string, bigint, string, string, string, string[]];
     };
 
     return this.colony.colonyNetwork.createMetaTxCreator(
@@ -1104,7 +1097,10 @@ export class VotingReputation {
       'escalateMotion',
       getArgs,
       async (receipt) => ({
-        ...extractEvent<MotionEscalatedEventObject>('MotionEscalated', receipt),
+        ...extractEvent<MotionEscalatedEvent.OutputObject>(
+          'MotionEscalated',
+          receipt,
+        ),
       }),
     );
   }
@@ -1134,9 +1130,7 @@ export class VotingReputation {
    */
   finalizeMotion(motionId: BigNumberish) {
     const getArgs = async () => {
-      const motionState = await this.votingReputationContract.getMotionState(
-        motionId,
-      );
+      const motionState = await this.getMotionState(motionId);
 
       if (motionState !== MotionState.Finalizable) {
         throw new Error(
@@ -1144,7 +1138,7 @@ export class VotingReputation {
         );
       }
 
-      return [motionId] as [BigNumber];
+      return [motionId] as [bigint];
     };
 
     return this.colony.colonyNetwork.createMetaTxCreator(
@@ -1152,7 +1146,10 @@ export class VotingReputation {
       'finalizeMotion',
       getArgs,
       async (receipt) => ({
-        ...extractEvent<MotionFinalizedEventObject>('MotionFinalized', receipt),
+        ...extractEvent<MotionFinalizedEvent.OutputObject>(
+          'MotionFinalized',
+          receipt,
+        ),
       }),
     );
   }
@@ -1185,7 +1182,7 @@ export class VotingReputation {
       'upgradeExtension',
       [getExtensionHash(Extension.VotingReputation), version],
       async (receipt) => ({
-        ...extractEvent<ExtensionUpgradedEventObject>(
+        ...extractEvent<ExtensionUpgradedEvent.OutputObject>(
           'ExtensionUpgraded',
           receipt,
         ),

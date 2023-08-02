@@ -1,7 +1,16 @@
-import type { Log, Provider } from '@ethersproject/abstract-provider';
-import type { Interface } from '@ethersproject/abi';
-
-import { BigNumber, BigNumberish, constants, utils } from 'ethers';
+import {
+  type BigNumberish,
+  type Interface,
+  type Log,
+  type Provider,
+  formatEther,
+  keccak256,
+  parseEther,
+  toBigInt,
+  toUtf8Bytes,
+  zeroPadValue,
+  MaxUint256,
+} from 'ethers';
 
 import {
   ColonyRole,
@@ -14,9 +23,6 @@ import { nonNullable } from '../utils/index.js';
 import { ContractVersion } from '../versions/index.js';
 import { SignerOrProvider } from '../types.js';
 import { Versioned__factory as VersionedFactory } from '../contracts/index.js';
-
-const { keccak256, toUtf8Bytes } = utils;
-const { MaxUint256 } = constants;
 
 /**
  * Check if two addresses are equal
@@ -43,7 +49,7 @@ export const addressesAreEqual = (a: string, b: string) =>
  * console.log(toEth(oneEther)); // 1.0
  * ```
  */
-export const toEth = (num: BigNumberish) => utils.formatEther(num);
+export const toEth = (num: BigNumberish) => formatEther(num);
 
 /**
  * Convert any number to wei (add 18 zeros)
@@ -56,7 +62,7 @@ export const toEth = (num: BigNumberish) => utils.formatEther(num);
  * console.log(toWei(oneEther)); // { BigNumber: "1000000000000000000" }
  * ```
  */
-export const toWei = (num: string) => utils.parseEther(num);
+export const toWei = (num: string) => parseEther(num);
 
 /**
  * Short-hand method to convert a number to wei using JS tagged template strings
@@ -93,7 +99,13 @@ export const colonyRoles2Hex = (roles: ColonyRole[]): string => {
     // eslint-disable-next-line no-bitwise
     .reduce((binRoles, roleNum) => binRoles | (1 << roleNum), 0)
     .toString(16);
-  return utils.hexZeroPad(`0x${hexRoles}`, 32);
+  return zeroPadValue(`0x${hexRoles}`, 32);
+};
+
+// Clear bits with indexes higher or equal to given index
+const clearBits = (num: bigint, index: number) => {
+  const mask = (1n << BigInt(index)) - 1n;
+  return num & mask;
 };
 
 /**
@@ -109,11 +121,12 @@ export const colonyRoles2Hex = (roles: ColonyRole[]): string => {
  *
  * @returns An array of Colony roles
  */
+// FIXME: maybe write a test??
 export const hex2ColonyRoles = (hexStr: string): ColonyRole[] => {
-  const rolesNum = BigNumber.from(hexStr);
+  const rolesNum = toBigInt(hexStr);
   return [...Array(ColonyRole.LAST_ROLE).keys()]
     .map((i) => {
-      if (rolesNum.shr(i).mask(1).eq(1)) {
+      if (clearBits(rolesNum >> BigInt(i), 1) === 1n) {
         return i as ColonyRole;
       }
       return null;
@@ -148,20 +161,20 @@ export const getChildIndex = async (
   colony: CommonColony,
   parentDomainId: BigNumberish,
   domainId: BigNumberish,
-): Promise<BigNumber> => {
-  if (BigNumber.from(parentDomainId).eq(BigNumber.from(domainId))) {
+): Promise<bigint> => {
+  if (toBigInt(parentDomainId) === toBigInt(domainId)) {
     return MaxUint256;
   }
   const { skillId: parentSkillId } = await colony.getDomain(parentDomainId);
   const { skillId } = await colony.getDomain(domainId);
   const { children } = await network.getSkill(parentSkillId);
-  const idx = children.findIndex((childSkillId) => childSkillId.eq(skillId));
+  const idx = children.findIndex((childSkillId) => childSkillId === skillId);
   if (idx < 0) {
     throw new Error(
       `Could not find ${domainId} as a child of ${parentDomainId}`,
     );
   }
-  return BigNumber.from(idx);
+  return BigInt(idx);
 };
 
 /**
@@ -197,7 +210,7 @@ export const getPotDomain = async (
   if (colony.getDomainFromFundingPot) {
     return colony.getDomainFromFundingPot(potId);
   }
-  switch (associatedType as FundingPotAssociatedType) {
+  switch (Number(associatedType) as FundingPotAssociatedType) {
     case FundingPotAssociatedType.Unassigned: {
       // This is probably the reward pot
       return Id.RootDomain;
@@ -231,9 +244,12 @@ export const getBlockTime = async (
   blockHash: string,
   provider: Provider,
 ): Promise<number> => {
-  const { timestamp } = await provider.getBlock(blockHash);
+  const block = await provider.getBlock(blockHash);
+  if (!block) {
+    throw new Error(`Could not find block ${blockHash}`);
+  }
   // timestamp is seconds, Date wants ms
-  return timestamp * 1000;
+  return block.timestamp * 1000;
 };
 
 /**
@@ -252,7 +268,7 @@ export const getContractVersion = async (
 ) => {
   const versionedContract = VersionedFactory.connect(address, signerOrProvider);
   const version = await versionedContract.version();
-  return version.toNumber() as ContractVersion;
+  return Number(version) as ContractVersion;
 };
 
 /**
@@ -267,12 +283,6 @@ export const getContractVersion = async (
  */
 export const parseLogs = (logs: Log[], iface: Interface) => {
   return logs
-    .map((log) => {
-      try {
-        return iface.parseLog(log);
-      } catch (e) {
-        return null;
-      }
-    })
+    .map((log) => iface.parseLog({ topics: [...log.topics], data: log.data }))
     .filter(nonNullable);
 };

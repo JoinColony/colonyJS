@@ -1,11 +1,15 @@
-import { BigNumber, BigNumberish, BytesLike, constants, utils } from 'ethers';
+import {
+  type BigNumberish,
+  type BytesLike,
+  type Signer,
+  dataSlice,
+  MaxUint256,
+  toBigInt,
+} from 'ethers';
 
 import { ColonyRole, Id } from '../constants.js';
 import { CommonColony, CommonNetwork } from './types.js';
 import { getChildIndex } from './network.js';
-
-const { hexDataSlice } = utils;
-const { MaxUint256 } = constants;
 
 /*
  * Parses a permissioned action that is supposed to be executed (e.g. in a motion)
@@ -17,9 +21,9 @@ const { MaxUint256 } = constants;
  * @returns Signature, domain the permissions exists in and the index on the children array of the parent domain
  */
 export const parsePermissionedAction = (action: BytesLike) => {
-  const sig = hexDataSlice(action, 0, 3);
-  const permissionDomainId = BigNumber.from(hexDataSlice(action, 4, 35));
-  const childSkillIndex = BigNumber.from(hexDataSlice(action, 36, 67));
+  const sig = dataSlice(action, 0, 3);
+  const permissionDomainId = toBigInt(dataSlice(action, 4, 35));
+  const childSkillIndex = toBigInt(dataSlice(action, 36, 67));
   return { sig, permissionDomainId, childSkillIndex };
 };
 
@@ -30,24 +34,24 @@ const getSinglePermissionProofs = async (
   role: ColonyRole,
   customAddress?: string,
   /* [permissionDomainId, childSkillIndex, permissionAddress] */
-): Promise<[BigNumber, BigNumber, string]> => {
-  const permissionAddress =
-    customAddress || (await colony.signer?.getAddress());
-  if (!permissionAddress) {
+): Promise<[bigint, bigint, string]> => {
+  if (!customAddress || !colony.runner || !('getAddress' in colony.runner)) {
     throw new Error(
       `Could not determine address for permission proofs. Please use a signer or provide a custom address`,
     );
   }
+  const permissionAddress =
+    customAddress || (await (colony.runner as Signer).getAddress());
   const hasPermissionInDomain = await colony.hasUserRole(
     permissionAddress,
     domainId,
     role,
   );
   if (hasPermissionInDomain) {
-    return [BigNumber.from(domainId), MaxUint256, permissionAddress];
+    return [toBigInt(domainId), MaxUint256, permissionAddress];
   }
   // TODO: once we allow nested domains on the network level, this needs to traverse down the skill/domain tree. Use binary search
-  const foundDomainId = BigNumber.from(Id.RootDomain);
+  const foundDomainId = BigInt(Id.RootDomain);
   const hasPermissionInAParentDomain = await colony.hasUserRole(
     permissionAddress,
     foundDomainId,
@@ -59,7 +63,7 @@ const getSinglePermissionProofs = async (
     );
   }
   const idx = await getChildIndex(network, colony, foundDomainId, domainId);
-  if (idx.lt(0)) {
+  if (idx < 0) {
     throw new Error(
       `${permissionAddress} does not have the permission ${role} in any parent domain`,
     );
@@ -73,7 +77,7 @@ const getMultiPermissionProofs = async (
   domainId: BigNumberish,
   roles: ColonyRole[],
   customAddress?: string,
-): Promise<[BigNumber, BigNumber, string]> => {
+): Promise<[bigint, bigint, string]> => {
   const proofs = await Promise.all(
     roles.map((role) =>
       getSinglePermissionProofs(network, colony, domainId, role, customAddress),
@@ -84,8 +88,8 @@ const getMultiPermissionProofs = async (
   for (let idx = 0; idx < proofs.length; idx += 1) {
     const [permissionDomainId, childSkillIndex, address] = proofs[idx];
     if (
-      !permissionDomainId.eq(proofs[0][0]) ||
-      !childSkillIndex.eq(proofs[0][1])
+      !(permissionDomainId === proofs[0][0]) ||
+      !(childSkillIndex === proofs[0][1])
     ) {
       throw new Error(
         `${address} has to have all required roles (${roles}) in the same domain`,
@@ -130,7 +134,7 @@ export const getPermissionProofs = async (
   domainId: BigNumberish,
   roles: ColonyRole | ColonyRole[],
   customAddress?: string,
-): Promise<[BigNumber, BigNumber, string]> => {
+): Promise<[bigint, bigint, string]> => {
   if (Array.isArray(roles)) {
     if (roles.length === 1) {
       return getPermissionProofs(

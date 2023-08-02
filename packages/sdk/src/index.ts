@@ -1,7 +1,8 @@
-export type { ContractReceipt, ContractTransaction } from 'ethers';
-// This is a type and only used for TypeScript compilation
-// eslint-disable-next-line import/no-extraneous-dependencies
-export type { TransactionResponse } from '@ethersproject/abstract-provider';
+export type {
+  TransactionReceipt,
+  TransactionResponse,
+  ContractTransaction,
+} from 'ethers';
 
 export {
   AnnotationData,
@@ -44,8 +45,4 @@ export * from './TxCreator/index.js';
 export * from './events/index.js';
 export * from './ipfs/index.js';
 
-export type {
-  Ethers6Filter,
-  Ethers6FilterByBlockHash,
-  ParsedLogTransactionReceipt,
-} from './types.js';
+export type { ParsedLogTransactionReceipt } from './types.js';

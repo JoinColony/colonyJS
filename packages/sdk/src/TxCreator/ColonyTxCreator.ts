@@ -1,6 +1,12 @@
-import type { MotionCreatedEventObject } from '@colony/events';
+import type { MotionCreatedEvent } from '@colony/events';
+import type {
+  BigNumberish,
+  ContractTransactionReceipt,
+  ContractTransactionResponse,
+  ContractTransaction,
+  TransactionResponse,
+} from 'ethers';
 
-import { BigNumberish, ContractReceipt, ContractTransaction } from 'ethers';
 import {
   ColonyRole,
   getPermissionProofs,
@@ -9,7 +15,6 @@ import {
 } from '@colony/core';
 import { MetadataType } from '@colony/event-metadata';
 
-import type { TransactionResponse } from '@ethersproject/abstract-provider';
 import { Colony } from '../ColonyNetwork/index.js';
 import { extractEvent } from '../utils.js';
 import {
@@ -51,7 +56,7 @@ interface MetaMotionsConfig<C, M, E, MD> extends TxCreatorConfig<C, M, E, MD> {
  */
 export class ColonyTxCreator<
   C extends MetaTxBaseContract,
-  M extends keyof C['functions'],
+  M extends keyof C,
   E extends EventData,
   MD extends MetadataType,
 > extends MetaTxCreator<C, M, E, MD> {
@@ -82,11 +87,11 @@ export class ColonyTxCreator<
       args,
     );
 
+    const contractAddress = await this.contract.getAddress();
+
     // If the contract for this TxCreator is the colony, use 0x0, otherwise use the extension's address
     const altTarget =
-      this.contract.address === this.colony.address
-        ? '0x0'
-        : this.contract.address;
+      contractAddress === this.colony.address ? '0x0' : contractAddress;
 
     const { actionCid, key, value, branchMask, siblings } =
       await getCreateMotionProofs(
@@ -114,11 +119,18 @@ export class ColonyTxCreator<
   }
 
   // eslint-disable-next-line class-methods-use-this
-  private async getMotionMined(tx: ContractTransaction) {
+  private async getMotionMined(tx: ContractTransactionResponse) {
     const receipt = await tx.wait();
 
+    if (!receipt) {
+      throw new Error('No receipt returned');
+    }
+
     const data = {
-      ...extractEvent<MotionCreatedEventObject>('MotionCreated', receipt),
+      ...extractEvent<MotionCreatedEvent.OutputObject>(
+        'MotionCreated',
+        receipt,
+      ),
     };
 
     return [data, receipt] as [typeof data, typeof receipt];
@@ -142,14 +154,15 @@ export class ColonyTxCreator<
       args,
     );
 
+    const altAddress = await this.contract.getAddress();
+
     // If the contract for this TxCreator is the colony, use 0x0, otherwise use the extension's address
-    const altTarget =
-      this.contract.address === this.colony.address
-        ? '0x0'
-        : this.contract.address;
+    const altTarget = altAddress === this.colony.address ? '0x0' : altAddress;
 
     const votingReputationClient =
       this.colony.ext.motions.getInternalVotingReputationContract();
+
+    const address = await votingReputationClient.getAddress();
 
     const { actionCid, key, value, branchMask, siblings } =
       await getCreateMotionProofs(
@@ -173,7 +186,7 @@ export class ColonyTxCreator<
         branchMask,
         siblings,
       ]),
-      votingReputationClient.address,
+      address,
     ];
   }
 
@@ -189,7 +202,10 @@ export class ColonyTxCreator<
     const receipt = await this.waitForMetaTx(tx);
 
     const data = {
-      ...extractEvent<MotionCreatedEventObject>('MotionCreated', receipt),
+      ...extractEvent<MotionCreatedEvent.OutputObject>(
+        'MotionCreated',
+        receipt,
+      ),
     };
 
     return [data, receipt] as [typeof data, typeof receipt];
@@ -252,8 +268,8 @@ export class ColonyTxCreator<
       },
     } as ColonyTransaction<
       ContractTransaction,
-      MotionCreatedEventObject,
-      ContractReceipt,
+      MotionCreatedEvent.OutputObject,
+      ContractTransactionReceipt,
       MD
     >;
   }
@@ -282,7 +298,7 @@ export class ColonyTxCreator<
       },
     } as ColonyMetaTransaction<
       TransactionResponse,
-      MotionCreatedEventObject,
+      MotionCreatedEvent.OutputObject,
       ParsedLogTransactionReceipt,
       MD
     >;

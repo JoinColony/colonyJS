@@ -1,5 +1,5 @@
 import fetch from 'cross-fetch';
-import { BigNumber, BigNumberish, constants } from 'ethers';
+import { BigNumberish, ZeroAddress, toBigInt } from 'ethers';
 
 import { Network, ReputationOracleEndpoint } from '../constants.js';
 import { CommonColony, CommonNetwork } from './types.js';
@@ -30,8 +30,6 @@ interface ReputationAcrossDomainsResponse {
 interface MembersReputationResponse {
   addresses: string[];
 }
-
-const { AddressZero } = constants;
 
 export class ReputationClient {
   static async fetchReputation<T>(url: string) {
@@ -64,7 +62,7 @@ export class ReputationClient {
   private async getRootHash(customRootHash?: string) {
     const rootHash =
       customRootHash || (await this.network.getReputationRootHash());
-    if (BigNumber.from(rootHash).isZero()) {
+    if (toBigInt(rootHash) === 0n) {
       throw new Error('No reputation for given rootHash found (yet)');
     }
     return rootHash;
@@ -72,7 +70,8 @@ export class ReputationClient {
 
   private async getBaseEndpoint(customRootHash?: string) {
     const rootHash = await this.getRootHash(customRootHash);
-    return `${this.endpointUrl}/${rootHash}/${this.colony.address}`;
+    const address = await this.colony.getAddress();
+    return `${this.endpointUrl}/${rootHash}/${address}`;
   }
 
   /**
@@ -104,14 +103,14 @@ export class ReputationClient {
     customRootHash?: string,
   ) {
     const baseEndpoint = await this.getBaseEndpoint(customRootHash);
-    const skillIdString = BigNumber.from(skillId || 0).toString();
+    const skillIdString = toBigInt(skillId || 0).toString();
     const url = `${baseEndpoint}/${skillIdString}/${address}/noProof`;
     const result = await ReputationClient.fetchReputation<ReputationResponse>(
       url,
     );
     return {
       ...result,
-      reputationAmount: BigNumber.from(result.reputationAmount || 0),
+      reputationAmount: toBigInt(result.reputationAmount || 0),
     };
   }
 
@@ -130,13 +129,13 @@ export class ReputationClient {
     customRootHash?: string,
   ) {
     const baseEndpoint = await this.getBaseEndpoint(customRootHash);
-    const skillIdString = BigNumber.from(skillId || 0).toString();
+    const skillIdString = toBigInt(skillId || 0).toString();
     const url = `${baseEndpoint}/${skillIdString}/${address}`;
     const result =
       await ReputationClient.fetchReputation<ReputationResponseWithProofs>(url);
     return {
       ...result,
-      reputationAmount: BigNumber.from(result.reputationAmount || 0),
+      reputationAmount: toBigInt(result.reputationAmount || 0),
     };
   }
 
@@ -159,12 +158,12 @@ export class ReputationClient {
     const domainCount = await this.colony.getDomainCount();
     const allColonyDomains =
       (await Promise.all(
-        Array.from(new Array(domainCount.toNumber())).map(async (_, index) => {
+        Array.from(new Array(domainCount)).map(async (_, index) => {
           const domainId = index + 1;
           const domain = await this.colony.getDomain(domainId);
           return {
             domainId,
-            skillId: domain.skillId.toNumber(),
+            skillId: domain.skillId,
           };
         }),
       )) || [];
@@ -172,7 +171,7 @@ export class ReputationClient {
     return allColonyDomains.map((domain) => {
       let reputationAmount;
       const skillAssignedToDomain = (result?.reputations || []).find(
-        ({ skill_id: skillId }) => skillId === domain.skillId,
+        ({ skill_id: skillId }) => BigInt(skillId) === domain.skillId,
       );
       if (skillAssignedToDomain) {
         reputationAmount = skillAssignedToDomain?.reputationAmount;
@@ -180,7 +179,7 @@ export class ReputationClient {
       return {
         ...domain,
         reputationAmount: reputationAmount
-          ? BigNumber.from(reputationAmount)
+          ? toBigInt(reputationAmount)
           : undefined,
       };
     });
@@ -196,7 +195,7 @@ export class ReputationClient {
    */
   async getMembersReputation(skillId: BigNumberish, customRootHash?: string) {
     const baseEndpoint = await this.getBaseEndpoint(customRootHash);
-    const skillIdString = BigNumber.from(skillId || 0).toString();
+    const skillIdString = toBigInt(skillId || 0).toString();
     const url = `${baseEndpoint}/${skillIdString}`;
     return ReputationClient.fetchReputation<MembersReputationResponse>(url);
   }
@@ -211,14 +210,14 @@ export class ReputationClient {
    */
   async getTotalReputation(skillId: BigNumberish, customRootHash?: string) {
     const baseEndpoint = await this.getBaseEndpoint(customRootHash);
-    const skillIdString = BigNumber.from(skillId || 0).toString();
-    const url = `${baseEndpoint}/${skillIdString}/${AddressZero}/noProof`;
+    const skillIdString = toBigInt(skillId || 0).toString();
+    const url = `${baseEndpoint}/${skillIdString}/${ZeroAddress}/noProof`;
     const result = await ReputationClient.fetchReputation<ReputationResponse>(
       url,
     );
     return {
       ...result,
-      reputationAmount: BigNumber.from(result.reputationAmount || 0),
+      reputationAmount: toBigInt(result.reputationAmount || 0),
     };
   }
 
@@ -249,12 +248,8 @@ export class ReputationClient {
       customRootHash,
     );
 
-    const repAmountScaled = reputationAmount.mul(
-      BigNumber.from(10).pow(decimalPoints),
-    );
+    const repAmountScaled = reputationAmount * 10n ** BigInt(decimalPoints);
 
-    return (
-      repAmountScaled.div(totalReputation).toNumber() / 10 ** decimalPoints
-    );
+    return Number(repAmountScaled / totalReputation) / 10 ** decimalPoints;
   }
 }

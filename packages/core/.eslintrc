@@ -9,7 +9,8 @@
                     ".+__factory"
                 ]
             }
-        ]
+        ],
+        "no-bitwise": "off"
     },
     "overrides": [
         {

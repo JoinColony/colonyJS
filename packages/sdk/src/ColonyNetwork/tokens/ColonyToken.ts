@@ -1,7 +1,4 @@
-import type {
-  LogSetAuthorityEventObject,
-  LogSetOwnerEventObject,
-} from '@colony/events';
+import type { LogSetAuthorityEvent, LogSetOwnerEvent } from '@colony/events';
 
 import {
   ColonyToken as ColonyTokenType,
@@ -22,20 +19,25 @@ export class ColonyToken extends ERC20Token {
    * @remarks This does not deploy a new token, only connects to an exisiting one
    *
    * @param colonyNetwork - A {@link ColonyNetwork} instance
+   * @param address - The address of the token contract
    * @param token - A token address or a full contract (like on a colony token client)
    * @returns An ERC20 token abstraction instance
    */
-  constructor(colonyNetwork: ColonyNetwork, token: ColonyTokenType | string) {
-    super(colonyNetwork, token);
-    if (typeof token == 'string') {
+  constructor(
+    colonyNetwork: ColonyNetwork,
+    address: string,
+    token?: ColonyTokenType,
+  ) {
+    super(colonyNetwork, address, token);
+    if (token) {
+      this.tokenClient = token;
+    } else {
       this.tokenClient = ColonyTokenFactory.connect(
-        token,
+        address,
         colonyNetwork.signerOrProvider,
       );
-    } else {
-      this.tokenClient = token;
     }
-    this.address = this.tokenClient.address;
+    this.address = address;
     this.colonyNetwork = colonyNetwork;
   }
 
@@ -88,7 +90,10 @@ export class ColonyToken extends ERC20Token {
       'setAuthority',
       [address],
       async (receipt) => ({
-        ...extractEvent<LogSetAuthorityEventObject>('LogSetAuthority', receipt),
+        ...extractEvent<LogSetAuthorityEvent.OutputObject>(
+          'LogSetAuthority',
+          receipt,
+        ),
       }),
     );
   }
@@ -117,7 +122,7 @@ export class ColonyToken extends ERC20Token {
       'setOwner',
       [address],
       async (receipt) => ({
-        ...extractEvent<LogSetOwnerEventObject>('LogSetOwner', receipt),
+        ...extractEvent<LogSetOwnerEvent.OutputObject>('LogSetOwner', receipt),
       }),
     );
   }

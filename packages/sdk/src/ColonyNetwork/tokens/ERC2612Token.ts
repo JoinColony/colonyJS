@@ -1,6 +1,6 @@
-import type { ApprovalEventObject } from '@colony/events';
+import type { ApprovalEvent } from '@colony/events';
 
-import { BigNumber, BigNumberish } from 'ethers';
+import { type BigNumberish, toBigInt } from 'ethers';
 import {
   ERC2612Token as ERC2612TokenType,
   ERC2612TokenFactory,
@@ -20,20 +20,25 @@ export class ERC2612Token extends ERC20Token {
    * @remarks This does not deploy a new token, only connects to an exisiting one
    *
    * @param colonyNetwork - A {@link ColonyNetwork} instance
+   * @param address - The address of the token contract
    * @param token - A token address or a full contract (like on a colony token client)
    * @returns An ERC2612 token abstraction instance
    */
-  constructor(colonyNetwork: ColonyNetwork, token: ERC2612TokenType | string) {
-    super(colonyNetwork, token);
-    if (typeof token == 'string') {
+  constructor(
+    colonyNetwork: ColonyNetwork,
+    address: string,
+    token?: ERC2612TokenType,
+  ) {
+    super(colonyNetwork, address, token);
+    if (token) {
+      this.tokenClient = token;
+    } else {
       this.tokenClient = ERC2612TokenFactory.connect(
-        token,
+        address,
         colonyNetwork.signerOrProvider,
       );
-    } else {
-      this.tokenClient = token;
     }
-    this.address = this.tokenClient.address;
+    this.address = address;
     this.colonyNetwork = colonyNetwork;
   }
 
@@ -91,10 +96,10 @@ export class ERC2612Token extends ERC20Token {
       async () => {
         const tokenLocking = await this.colonyNetwork.getTokenLocking();
         const spenderArg = spender || tokenLocking.address;
-        return [spenderArg, amount] as [string, BigNumber];
+        return [spenderArg, toBigInt(amount)] as [string, bigint];
       },
       async (receipt) => ({
-        ...extractEvent<ApprovalEventObject>('Approval', receipt),
+        ...extractEvent<ApprovalEvent.OutputObject>('Approval', receipt),
       }),
     );
   }

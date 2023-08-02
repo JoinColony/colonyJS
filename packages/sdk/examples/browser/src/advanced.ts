@@ -1,4 +1,9 @@
-import { providers, utils, Signer, ContractReceipt, BigNumber } from 'ethers';
+import {
+  type Signer,
+  type ContractTransactionReceipt,
+  BrowserProvider,
+  isAddress,
+} from 'ethers';
 
 import {
   Colony,
@@ -8,12 +13,11 @@ import {
   w,
 } from '../../../src/index.js';
 
-const { isAddress } = utils;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const provider = new providers.Web3Provider((window as any).ethereum);
+const provider = new BrowserProvider((window as any).ethereum);
 
 let colony: Colony;
-const domainData: { fundingPotId?: BigNumber; domainId?: BigNumber } = {};
+const domainData: { fundingPotId?: bigint; domainId?: bigint } = {};
 
 // Instantiate a colony client
 const getColony = async (colonyAddress: string, signer: Signer) => {
@@ -32,8 +36,8 @@ const getColonyFunding = async () => {
 // Create a new domain within that colony with the `domainName` as metadata
 // Make sure the MetaMask user has the FUNDING and ADMINISTRATION permissions in the Root domain of the connected Colony (default if you have created that Colony)
 const createTeam = async (): Promise<{
-  domainId: BigNumber;
-  fundingPotId: BigNumber;
+  domainId: bigint;
+  fundingPotId: bigint;
   domainName?: string;
   domainColor?: number;
   domainPurpose?: string;
@@ -80,7 +84,7 @@ const createTeam = async (): Promise<{
 
 // Move funds from the Root team (default) to the the newly created team
 // Make sure there are enough funds of the native token in the Root teams pot (e.g. by minting them via the Dapp interface)
-const moveFunds = async (): Promise<ContractReceipt> => {
+const moveFunds = async (): Promise<ContractTransactionReceipt> => {
   if (!domainData.domainId) {
     throw new Error('No domain created yet');
   }
@@ -92,7 +96,7 @@ const moveFunds = async (): Promise<ContractReceipt> => {
 };
 
 // Make a payment to a user from the newly created and funded domain. This will cause the user to have reputation in the new domain after the next reputation mining cycle (max 24h)
-const makePayment = async (to: string): Promise<ContractReceipt> => {
+const makePayment = async (to: string): Promise<ContractTransactionReceipt> => {
   if (!colony.ext.oneTx) {
     throw new Error('OneTxPayment extension not installed');
   }

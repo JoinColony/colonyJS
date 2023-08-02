@@ -32,13 +32,13 @@ export const getToken = async (
   );
   switch (tokenClient.tokenClientType) {
     case TokenClientType.Colony: {
-      return new ColonyToken(colonyNetwork, tokenClient);
+      return new ColonyToken(colonyNetwork, address, tokenClient);
     }
     case TokenClientType.Erc20: {
-      return new ERC20Token(colonyNetwork, tokenClient);
+      return new ERC20Token(colonyNetwork, address, tokenClient);
     }
     case TokenClientType.Erc2612: {
-      return new ERC2612Token(colonyNetwork, tokenClient);
+      return new ERC2612Token(colonyNetwork, address, tokenClient);
     }
     default: {
       throw new Error('Your token is not supported in Colony SDK (yet).');

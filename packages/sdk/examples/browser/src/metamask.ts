@@ -1,10 +1,10 @@
-import { providers, Signer } from 'ethers';
+import { BrowserProvider, Signer } from 'ethers';
 
 import { ColonyNetwork } from '../../../src/index.js';
 
 // If MetaMask is installed there will be an `ethereum` object on the `window`
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const provider = new providers.Web3Provider((window as any).ethereum);
+const provider = new BrowserProvider((window as any).ethereum);
 
 // Get the Colony's XDAI funding in the ROOT pot (id 1)
 const getMetaColony = async (signer: Signer) => {

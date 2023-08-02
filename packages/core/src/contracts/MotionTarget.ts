@@ -3,37 +3,27 @@
 /* eslint-disable */
 import type {
   BaseContract,
-  BigNumber,
   BytesLike,
-  CallOverrides,
-  PopulatedTransaction,
-  Signer,
-  utils,
+  FunctionFragment,
+  Result,
+  Interface,
+  ContractRunner,
+  ContractMethod,
+  Listener,
 } from "ethers";
-import type { FunctionFragment, Result } from "@ethersproject/abi";
-import type { Listener, Provider } from "@ethersproject/providers";
 import type {
-  TypedEventFilter,
-  TypedEvent,
+  TypedContractEvent,
+  TypedDeferredTopicFilter,
+  TypedEventLog,
   TypedListener,
-  OnEvent,
+  TypedContractMethod,
 } from "./common.js";
 
-export interface MotionTargetInterface extends utils.Interface {
-  functions: {
-    "getCapabilityRoles(bytes4)": FunctionFragment;
-  };
-
-  getFunction(
-    nameOrSignatureOrTopic: "getCapabilityRoles" | "getCapabilityRoles(bytes4)"
-  ): FunctionFragment;
+export interface MotionTargetInterface extends Interface {
+  getFunction(nameOrSignature: "getCapabilityRoles"): FunctionFragment;
 
   encodeFunctionData(
     functionFragment: "getCapabilityRoles",
-    values: [BytesLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getCapabilityRoles(bytes4)",
     values: [BytesLike]
   ): string;
 
@@ -41,97 +31,60 @@ export interface MotionTargetInterface extends utils.Interface {
     functionFragment: "getCapabilityRoles",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(
-    functionFragment: "getCapabilityRoles(bytes4)",
-    data: BytesLike
-  ): Result;
-
-  events: {};
 }
 
 export interface MotionTarget extends BaseContract {
-  connect(signerOrProvider: Signer | Provider | string): this;
-  attach(addressOrName: string): this;
-  deployed(): Promise<this>;
+  connect(runner?: ContractRunner | null): MotionTarget;
+  waitForDeployment(): Promise<this>;
 
   interface: MotionTargetInterface;
 
-  queryFilter<TEvent extends TypedEvent>(
-    event: TypedEventFilter<TEvent>,
+  queryFilter<TCEvent extends TypedContractEvent>(
+    event: TCEvent,
     fromBlockOrBlockhash?: string | number | undefined,
     toBlock?: string | number | undefined
-  ): Promise<Array<TEvent>>;
+  ): Promise<Array<TypedEventLog<TCEvent>>>;
+  queryFilter<TCEvent extends TypedContractEvent>(
+    filter: TypedDeferredTopicFilter<TCEvent>,
+    fromBlockOrBlockhash?: string | number | undefined,
+    toBlock?: string | number | undefined
+  ): Promise<Array<TypedEventLog<TCEvent>>>;
 
-  listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
-  listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
-  removeAllListeners(eventName?: string): this;
-  off: OnEvent<this>;
-  on: OnEvent<this>;
-  once: OnEvent<this>;
-  removeListener: OnEvent<this>;
+  on<TCEvent extends TypedContractEvent>(
+    event: TCEvent,
+    listener: TypedListener<TCEvent>
+  ): Promise<this>;
+  on<TCEvent extends TypedContractEvent>(
+    filter: TypedDeferredTopicFilter<TCEvent>,
+    listener: TypedListener<TCEvent>
+  ): Promise<this>;
 
-  functions: {
-    getCapabilityRoles(
-      _sig: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<[string] & { roles: string }>;
+  once<TCEvent extends TypedContractEvent>(
+    event: TCEvent,
+    listener: TypedListener<TCEvent>
+  ): Promise<this>;
+  once<TCEvent extends TypedContractEvent>(
+    filter: TypedDeferredTopicFilter<TCEvent>,
+    listener: TypedListener<TCEvent>
+  ): Promise<this>;
 
-    "getCapabilityRoles(bytes4)"(
-      _sig: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<[string] & { roles: string }>;
-  };
+  listeners<TCEvent extends TypedContractEvent>(
+    event: TCEvent
+  ): Promise<Array<TypedListener<TCEvent>>>;
+  listeners(eventName?: string): Promise<Array<Listener>>;
+  removeAllListeners<TCEvent extends TypedContractEvent>(
+    event?: TCEvent
+  ): Promise<this>;
 
-  getCapabilityRoles(
-    _sig: BytesLike,
-    overrides?: CallOverrides
-  ): Promise<string>;
+  getCapabilityRoles: TypedContractMethod<[_sig: BytesLike], [string], "view">;
 
-  "getCapabilityRoles(bytes4)"(
-    _sig: BytesLike,
-    overrides?: CallOverrides
-  ): Promise<string>;
+  getFunction<T extends ContractMethod = ContractMethod>(
+    key: string | FunctionFragment
+  ): T;
 
-  callStatic: {
-    getCapabilityRoles(
-      _sig: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<string>;
-
-    "getCapabilityRoles(bytes4)"(
-      _sig: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<string>;
-  };
+  getFunction(
+    nameOrSignature: "getCapabilityRoles"
+  ): TypedContractMethod<[_sig: BytesLike], [string], "view">;
 
   filters: {};
-
-  estimateGas: {
-    getCapabilityRoles(
-      _sig: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    "getCapabilityRoles(bytes4)"(
-      _sig: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-  };
-
-  populateTransaction: {
-    getCapabilityRoles(
-      _sig: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    "getCapabilityRoles(bytes4)"(
-      _sig: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-  };
 }

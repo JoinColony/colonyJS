@@ -1,4 +1,4 @@
-import { providers, utils } from 'ethers';
+import { JsonRpcProvider, isAddress } from 'ethers';
 import { IColonyEvents__factory as ColonyEventsFactory } from '@colony/events';
 
 import {
@@ -8,18 +8,17 @@ import {
 } from '../../../src/index.js';
 import type { ColonyEvent } from '../../../src/index.js';
 
-const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
-const { isAddress } = utils;
+const provider = new JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
 
 // This event listener will only list for the `DomainAdded` event in the Colony of the user's choice. Run this and then create a Team in that Colony, to see it being picked up here
-const setupEventListener = (
+const setupEventListener = async (
   colonyAddress: string,
   callback: (events: ColonyEvent<MetadataType>[]) => void,
 ) => {
   const manager = new ColonyEventManager(provider);
   const colonyEventSource = manager.createEventSource(ColonyEventsFactory);
 
-  const domainEvents = manager.createMultiFilter(
+  const domainEvents = await manager.createMultiFilter(
     colonyEventSource,
     ['DomainAdded(address,uint256)', 'DomainMetadata(address,uint256,string)'],
     colonyAddress,

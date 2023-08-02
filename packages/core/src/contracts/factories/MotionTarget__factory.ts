@@ -2,8 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers";
-import type { Provider } from "@ethersproject/providers";
+import { Contract, Interface, type ContractRunner } from "ethers";
 import type { MotionTarget, MotionTargetInterface } from "../MotionTarget.js";
 
 const _abi = [
@@ -31,12 +30,12 @@ const _abi = [
 export class MotionTarget__factory {
   static readonly abi = _abi;
   static createInterface(): MotionTargetInterface {
-    return new utils.Interface(_abi) as MotionTargetInterface;
+    return new Interface(_abi) as MotionTargetInterface;
   }
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider
+    runner?: ContractRunner | null
   ): MotionTarget {
-    return new Contract(address, _abi, signerOrProvider) as MotionTarget;
+    return new Contract(address, _abi, runner) as unknown as MotionTarget;
   }
 }

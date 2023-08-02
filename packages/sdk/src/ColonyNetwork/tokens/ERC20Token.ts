@@ -1,5 +1,6 @@
-import type { BigNumber, BigNumberish } from 'ethers';
-import type { ApprovalEventObject, TransferEventObject } from '@colony/events';
+import type { ApprovalEvent, TransferEvent } from '@colony/events';
+
+import { type BigNumberish, toBigInt } from 'ethers';
 
 import {
   ERC20Token as ERC20TokenType,
@@ -23,19 +24,24 @@ export class ERC20Token {
    * @remarks This does not deploy a new token, only connects to an exisiting one
    *
    * @param colonyNetwork - A {@link ColonyNetwork} instance
+   * @param address - The address of the token contract
    * @param token - A token address or a full contract (like on a colony token client)
    * @returns An ERC20 token abstraction instance
    */
-  constructor(colonyNetwork: ColonyNetwork, token: ERC20TokenType | string) {
-    if (typeof token == 'string') {
+  constructor(
+    colonyNetwork: ColonyNetwork,
+    address: string,
+    token?: ERC20TokenType,
+  ) {
+    if (token) {
+      this.tokenClient = token;
+    } else {
       this.tokenClient = ERC20TokenFactory.connect(
-        token,
+        address,
         colonyNetwork.signerOrProvider,
       );
-    } else {
-      this.tokenClient = token;
     }
-    this.address = this.tokenClient.address;
+    this.address = address;
     this.colonyNetwork = colonyNetwork;
   }
 
@@ -122,7 +128,7 @@ export class ERC20Token {
       'transfer',
       [to, value],
       async (receipt) => ({
-        ...extractEvent<TransferEventObject>('Transfer', receipt),
+        ...extractEvent<TransferEvent.OutputObject>('Transfer', receipt),
       }),
     );
   }
@@ -148,7 +154,7 @@ export class ERC20Token {
       'transferFrom',
       [from, to, value],
       async (receipt) => ({
-        ...extractEvent<TransferEventObject>('Transfer', receipt),
+        ...extractEvent<TransferEvent.OutputObject>('Transfer', receipt),
       }),
     );
   }
@@ -191,10 +197,10 @@ export class ERC20Token {
       async () => {
         const tokenLocking = await this.colonyNetwork.getTokenLocking();
         const approvedSpender = spender || tokenLocking.address;
-        return [approvedSpender, amount] as [string, BigNumber];
+        return [approvedSpender, toBigInt(amount)] as [string, bigint];
       },
       async (receipt) => ({
-        ...extractEvent<ApprovalEventObject>('Approval', receipt),
+        ...extractEvent<ApprovalEvent.OutputObject>('Approval', receipt),
       }),
     );
   }

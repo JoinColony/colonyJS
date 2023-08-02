@@ -1,30 +1,33 @@
-import { ContractReceipt } from 'ethers';
-
-import type { Log } from '@ethersproject/abstract-provider';
-import type { JsonRpcProvider } from '@ethersproject/providers';
-import type { Interface } from '@ethersproject/abi';
-
 import {
-  Ethers6Filter,
-  Ethers6FilterByBlockHash,
-  ParsedLogTransactionReceipt,
-} from './types.js';
+  ContractTransactionReceipt,
+  EventLog,
+  Filter,
+  FilterByBlockHash,
+  Interface,
+  Log,
+  JsonRpcProvider,
+  Result,
+} from 'ethers';
+
+import { ParsedLogTransactionReceipt } from './types.js';
 
 /** Extract event args from a contract receipt */
 // TODO: Make it possible to retrieve multiple events of the same kind
 export const extractEvent = <T>(
   eventName: string,
-  receipt: ContractReceipt | ParsedLogTransactionReceipt,
+  receipt: ContractTransactionReceipt | ParsedLogTransactionReceipt,
 ): T | undefined => {
-  if ('events' in receipt && receipt.events) {
-    const event = receipt.events.find((ev) => ev.event === eventName);
+  if ('logs' in receipt && receipt.logs) {
+    const event = receipt.logs.find(
+      (ev) => ev instanceof EventLog && ev.eventName === eventName,
+    ) as EventLog | undefined;
     if (event?.args) {
-      return event.args as ReadonlyArray<unknown> & T;
+      return event.args as Result & T;
     }
   } else if ('parsedLogs' in receipt && receipt.parsedLogs) {
     const event = receipt.parsedLogs.find((ev) => ev.name === eventName);
     if (event?.args) {
-      return event.args as ReadonlyArray<unknown> & T;
+      return event.args as Result & T;
     }
   }
   return undefined;
@@ -33,24 +36,16 @@ export const extractEvent = <T>(
 /** Manually extract an event using the interface (e.g. if emitting contract is a different one than the calling contract) */
 export const extractCustomEvent = <T>(
   eventName: string,
-  receipt: ContractReceipt | ParsedLogTransactionReceipt,
+  receipt: ContractTransactionReceipt | ParsedLogTransactionReceipt,
   iface: Interface,
 ): T | undefined => {
-  let events: { data: string; topics: string[] }[];
-  if ('events' in receipt && receipt.events) {
-    events = receipt.events;
-  } else if ('logs' in receipt && receipt.logs) {
-    events = receipt.logs;
-  } else {
-    events = [];
-  }
-  for (let i = 0; i < events.length; i += 1) {
+  for (let i = 0; i < receipt.logs.length; i += 1) {
     try {
       return iface.decodeEventLog(
         eventName,
-        events[i].data,
-        events[i].topics,
-      ) as ReadonlyArray<unknown> & T;
+        receipt.logs[i].data,
+        receipt.logs[i].topics,
+      ) as Result & T;
     } catch (e) {
       // ignore
     }
@@ -60,10 +55,7 @@ export const extractCustomEvent = <T>(
 
 /** Version of `getLogs` that also supports filtering for multiple addresses */
 export const getLogs = async (
-  filter:
-    | Ethers6Filter
-    | Ethers6FilterByBlockHash
-    | Promise<Ethers6Filter | Ethers6FilterByBlockHash>,
+  filter: Filter | FilterByBlockHash | Promise<Filter | FilterByBlockHash>,
   provider: JsonRpcProvider,
 ): Promise<Log[]> => {
   const usedFilter = await filter;

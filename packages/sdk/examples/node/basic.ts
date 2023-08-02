@@ -1,8 +1,8 @@
-import { providers } from 'ethers';
+import { JsonRpcProvider } from 'ethers';
 
 import { ColonyNetwork, ColonyRpcEndpoint, toEth } from '../../src/index.js';
 
-const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
+const provider = new JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
 
 // Get the Colony's CLNY funding in the ROOT team (id 1)
 const start = async () => {

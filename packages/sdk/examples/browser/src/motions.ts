@@ -1,4 +1,4 @@
-import { BigNumber, BigNumberish, providers, utils } from 'ethers';
+import { BigNumberish, BrowserProvider, isAddress, toBigInt } from 'ethers';
 
 import {
   Colony,
@@ -9,15 +9,14 @@ import {
   Vote,
 } from '../../../src/index.js';
 
-const { isAddress } = utils;
 // If MetaMask is installed there will be an `ethereum` object on the `window`
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const provider = new providers.Web3Provider((window as any).ethereum);
+const provider = new BrowserProvider((window as any).ethereum);
 
 let currentWalletAddress: string;
 let colonyNetwork: ColonyNetwork;
 let colony: Colony;
-let currentMotion: BigNumber;
+let currentMotion: bigint;
 let sideVoted: Vote;
 
 // Connect to MetaMask by requesting the accounts list
@@ -35,7 +34,7 @@ const connectColony = async (colonyAddress: string) => {
   colony = await colonyNetwork.getColony(colonyAddress);
 };
 
-const createPaymentMotion = async (amount: string): Promise<BigNumber> => {
+const createPaymentMotion = async (amount: string): Promise<bigint> => {
   if (!colony.ext.motions || !colony.ext.oneTx) {
     throw new Error('Motions & Disputes extension not installed');
   }
@@ -57,7 +56,7 @@ const getMotion = async (motionId: BigNumberish) => {
     throw new Error('Motions & Disputes extension not installed');
   }
   const motion = await colony.ext.motions.getMotion(motionId);
-  currentMotion = BigNumber.from(motionId);
+  currentMotion = toBigInt(motionId);
 
   const remainingStakes = await colony.ext.motions.getRemainingStakes(motionId);
 
@@ -75,14 +74,14 @@ const approveForStaking = async (amount: string) => {
   await colony.ext.motions?.approveStake(toWei(amount)).tx().mined();
 };
 
-const stakeYay = async (amount: BigNumber) => {
+const stakeYay = async (amount: bigint) => {
   await colony.ext.motions
     ?.stakeMotion(currentMotion, Vote.Yay, amount)
     .tx()
     .mined();
 };
 
-const stakeNay = async (amount: BigNumber) => {
+const stakeNay = async (amount: bigint) => {
   await colony.ext.motions
     ?.stakeMotion(currentMotion, Vote.Nay, amount)
     .tx()

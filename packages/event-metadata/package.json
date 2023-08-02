@@ -27,7 +27,7 @@
   "scripts": {
     "build": "npm run clean && npm run compile-cjs && npm run compile-esm && npm run compile-types && npm run create-pkg-json",
     "clean": "rimraf ./dist",
-    "compile-cjs": "tsc -p tsconfig.build.json --module commonjs --target es2015 --outDir dist/cjs",
+    "compile-cjs": "tsc -p tsconfig.build.json --module commonjs --target es2020 --outDir dist/cjs",
     "compile-esm": "tsc -p tsconfig.build.json --module esnext --target es2022 --outDir dist/esm",
     "compile-types": "tsc -p tsconfig.build.json --target esnext --declaration --emitDeclarationOnly --outDir dist/types",
     "create-pkg-json": "../../scripts/create-pkg-json.sh",
