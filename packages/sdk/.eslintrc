@@ -4,8 +4,8 @@
             "error",
             {
                 "allow": [
-                    ".+_EventFilter$",
-                    ".+_EventObject$",
+                    ".+EventFilter$",
+                    ".+Event$",
                     ".+__factory"
                 ]
             }

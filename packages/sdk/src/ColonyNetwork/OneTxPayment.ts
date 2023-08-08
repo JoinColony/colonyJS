@@ -1,6 +1,6 @@
 import type {
-  ExtensionUpgradedEventObject,
-  OneTxPaymentMadeEventObject,
+  ExtensionUpgradedEvent,
+  OneTxPaymentMadeEvent,
 } from '@colony/events';
 
 import {
@@ -13,7 +13,7 @@ import {
   getPermissionProofs,
   isExtensionCompatible,
 } from '@colony/core';
-import { BigNumber, BigNumberish, constants } from 'ethers';
+import { type BigNumberish, ZeroAddress, toBigInt } from 'ethers';
 
 import { extractEvent } from '../utils.js';
 import {
@@ -29,8 +29,6 @@ import {
   OneTxPayment__factory as OneTxPaymentFactory5,
 } from '../contracts/OneTxPayment/5/index.js';
 import { Colony } from './Colony.js';
-
-const { AddressZero } = constants;
 
 export type SupportedOneTxPaymentContract =
   | OneTxPaymentContract3
@@ -78,7 +76,7 @@ export class OneTxPayment {
         getExtensionHash(OneTxPayment.extensionType),
         colony.address,
       );
-    if (address === AddressZero) {
+    if (address === ZeroAddress) {
       throw new Error(
         `${OneTxPayment.extensionType} extension is not installed for this Colony`,
       );
@@ -116,7 +114,7 @@ export class OneTxPayment {
       colony.colonyNetwork.signerOrProvider,
     );
 
-    return new OneTxPayment(colony, oneTxPaymentContract, version);
+    return new OneTxPayment(colony, address, oneTxPaymentContract, version);
   }
 
   private colony: Colony;
@@ -152,10 +150,11 @@ export class OneTxPayment {
    */
   constructor(
     colony: Colony,
+    address: string,
     oneTxPaymentContract: SupportedOneTxPaymentContract,
     deployedVersion: OneTxPaymentVersion,
   ) {
-    this.address = oneTxPaymentContract.address;
+    this.address = address;
     this.colony = colony;
     this.oneTxPaymentContract = oneTxPaymentContract;
     this.version = deployedVersion;
@@ -218,7 +217,7 @@ export class OneTxPayment {
     tokenAddress?: string | string[],
   ) {
     const setReceipient = ([] as string[]).concat(recipient);
-    const setTeamId = teamId || Id.RootDomain;
+    const setTeamId = toBigInt(teamId || Id.RootDomain);
     const setTokenAddress = tokenAddress
       ? ([] as string[]).concat(tokenAddress)
       : Array(setReceipient.length).fill(this.colony.token.address);
@@ -241,7 +240,7 @@ export class OneTxPayment {
     const indices = Array.from(setReceipient.keys());
     indices.sort((a, b) => setReceipient[a].localeCompare(setReceipient[b]));
     const sortedRecipients = indices.map((i) => setReceipient[i]);
-    const sortedAmounts = indices.map((i) => setAmount[i]);
+    const sortedAmounts = indices.map((i) => toBigInt(setAmount[i]));
     const sortedTokens = indices.map((i) => setTokenAddress[i]);
 
     return this.colony.createColonyTxCreator(
@@ -255,7 +254,7 @@ export class OneTxPayment {
             this.colony.getInternalColonyContract(),
             setTeamId,
             [ColonyRole.Administration, ColonyRole.Funding],
-            this.oneTxPaymentContract.address,
+            this.address,
           );
 
         const [userPermissionDomainId, userChildSkillIndex] =
@@ -278,19 +277,19 @@ export class OneTxPayment {
           // Skill associated with this payment. Ignore for now
           Id.SkillIgnore,
         ] as [
-          BigNumber,
-          BigNumberish,
-          BigNumberish,
-          BigNumberish,
+          bigint,
+          bigint,
+          bigint,
+          bigint,
           string[],
           string[],
-          BigNumberish[],
-          BigNumberish,
-          BigNumberish,
+          bigint[],
+          bigint,
+          number,
         ];
       },
       async (receipt) => ({
-        ...extractEvent<OneTxPaymentMadeEventObject>(
+        ...extractEvent<OneTxPaymentMadeEvent.OutputObject>(
           'OneTxPaymentMade',
           receipt,
         ),
@@ -326,7 +325,7 @@ export class OneTxPayment {
       'upgradeExtension',
       [getExtensionHash(Extension.OneTxPayment), version],
       async (receipt) => ({
-        ...extractEvent<ExtensionUpgradedEventObject>(
+        ...extractEvent<ExtensionUpgradedEvent.OutputObject>(
           'ExtensionUpgraded',
           receipt,
         ),

@@ -1,6 +1,5 @@
+import { ZeroAddress } from 'ethers';
 import type { SignerOrProvider } from '@colony/core';
-
-import { constants } from 'ethers';
 
 import { ClientType, TokenClientType } from '../constants.js';
 import {
@@ -15,8 +14,6 @@ import {
   TokenERC2612__factory as TokenERC2612Factory,
   TokenERC2612,
 } from '../contracts/static/index.js';
-
-const { AddressZero } = constants;
 
 /** A ColonyToken has special abilities that go beyond the capabilities of an ERC20 token */
 export interface ColonyTokenClient extends MetaTxToken {
@@ -93,14 +90,14 @@ const getTokenClient = async (
   }
 
   try {
-    await tokenClient.getMetatransactionNonce(AddressZero);
+    await tokenClient.getMetatransactionNonce(ZeroAddress);
   } catch {
     isMetaTxToken = false;
   }
 
   try {
     // NOTE: Casting will be unnecessary when MetaTxToken supports "nonces"
-    await (tokenClient as unknown as Erc2612TokenClient).nonces(AddressZero);
+    await (tokenClient as unknown as Erc2612TokenClient).nonces(ZeroAddress);
   } catch {
     isEip2612Token = false;
   }

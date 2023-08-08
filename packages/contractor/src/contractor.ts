@@ -67,7 +67,7 @@ const EVENTS_CONTRACTS = [
 const CWD = process.cwd();
 
 const TYPECHAIN_CONFIG_FLAGS = {
-  alwaysGenerateOverloads: true,
+  alwaysGenerateOverloads: false,
   discriminateTypes: false,
   node16Modules: true,
   environment: undefined,

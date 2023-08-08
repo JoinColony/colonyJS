@@ -1,4 +1,4 @@
-import { providers, utils } from 'ethers';
+import { JsonRpcProvider, formatEther, isAddress } from 'ethers';
 
 import {
   ColonyNetwork,
@@ -6,9 +6,7 @@ import {
   Tokens,
 } from '../../../src/index.js';
 
-const { formatEther, isAddress } = utils;
-
-const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
+const provider = new JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
 
 // Get the Colony's CLNY funding in the root domain (on Gnosis chain)
 const getColonyFunding = async (colonyAddress: string) => {

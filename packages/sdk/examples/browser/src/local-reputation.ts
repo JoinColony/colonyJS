@@ -1,10 +1,9 @@
-import { providers, utils, Wallet } from 'ethers';
+import { JsonRpcProvider, Wallet, isAddress } from 'ethers';
 
 import { Colony, ColonyNetwork, toEth, toWei, w } from '../../../src/index.js';
 import { setupOneTxPaymentExtension } from '../../helpers.js';
 
-const { isAddress } = utils;
-const provider = new providers.JsonRpcProvider('http://127.0.0.1:8545');
+const provider = new JsonRpcProvider('http://127.0.0.1:8545');
 
 let metaColony: Colony;
 let recipient: string;

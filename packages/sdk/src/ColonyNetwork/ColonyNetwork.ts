@@ -1,17 +1,18 @@
 import type {
-  ColonyAddedEventObject,
-  ColonyMetadataEventObject,
-  TokenAuthorityDeployedEventObject,
-  TokenDeployedEventObject,
-  UserLabelRegisteredEventObject,
+  ColonyAddedEvent,
+  ColonyMetadataEvent,
+  TokenAuthorityDeployedEvent,
+  TokenDeployedEvent,
+  UserLabelRegisteredEvent,
 } from '@colony/events';
 
 import {
-  BigNumberish,
-  ContractReceipt,
-  constants,
-  utils,
-  Signer,
+  type BaseContract,
+  type BigNumberish,
+  type ContractTransactionReceipt,
+  type Signer,
+  namehash,
+  ZeroAddress,
 } from 'ethers';
 import {
   type SignerOrProvider,
@@ -32,20 +33,12 @@ import {
 } from '../contracts/index.js';
 import { SubgraphClientOptions } from '../graph/index.js';
 import { IpfsMetadata, IpfsAdapter } from '../ipfs/index.js';
-import {
-  BaseContract,
-  TxConfig,
-  TxCreator,
-  MetaTxCreator,
-} from '../TxCreator/index.js';
+import { TxConfig, TxCreator, MetaTxCreator } from '../TxCreator/index.js';
 import { Colony } from './Colony.js';
-import { Expand, Parameters } from '../types.js';
+import { Expand, Parameters, ParsedLogTransactionReceipt } from '../types.js';
 import { extractEvent } from '../utils.js';
 import { EIP2612TxCreator } from '../TxCreator/EIP2612TxCreator.js';
 import { TokenLocking } from './TokenLocking.js';
-
-const { namehash } = utils;
-const { AddressZero } = constants;
 
 /** Additional options for the {@link ColonyNetwork} */
 export interface ColonyNetworkOptions {
@@ -152,10 +145,10 @@ export class ColonyNetwork {
    * @returns An Ethers.js compatible Signer instance
    */
   getSigner(): Signer {
-    if (!(this.signerOrProvider instanceof Signer)) {
+    if (!('getAddress' in this.signerOrProvider)) {
       throw new Error('Need a signer to create a transaction');
     }
-    return this.signerOrProvider;
+    return this.signerOrProvider as Signer;
   }
 
   /**
@@ -197,16 +190,16 @@ export class ColonyNetwork {
    */
   createTxCreator<
     C extends BaseContract,
-    F extends keyof C['functions'],
+    F extends keyof C,
     D extends Record<string, unknown>,
     M extends MetadataType,
   >(
     contract: C,
     method: F,
-    args:
-      | Parameters<C['functions'][F]>
-      | (() => Promise<Parameters<C['functions'][F]>>),
-    eventData?: (receipt: ContractReceipt) => Promise<D>,
+    args: Parameters<C[F]> | (() => Promise<Parameters<C[F]>>),
+    eventData?: (
+      receipt: ContractTransactionReceipt | ParsedLogTransactionReceipt,
+    ) => Promise<D>,
     txConfig?: TxConfig<M>,
   ) {
     return new TxCreator({
@@ -235,16 +228,16 @@ export class ColonyNetwork {
    */
   createMetaTxCreator<
     C extends IBasicMetaTransaction,
-    F extends keyof C['functions'],
+    F extends keyof C,
     D extends Record<string, unknown>,
     M extends MetadataType,
   >(
     contract: C,
     method: F,
-    args:
-      | Parameters<C['functions'][F]>
-      | (() => Promise<Parameters<C['functions'][F]>>),
-    eventData?: (receipt: ContractReceipt) => Promise<D>,
+    args: Parameters<C[F]> | (() => Promise<Parameters<C[F]>>),
+    eventData?: (
+      receipt: ContractTransactionReceipt | ParsedLogTransactionReceipt,
+    ) => Promise<D>,
     txConfig?: TxConfig<M>,
   ) {
     return new MetaTxCreator({
@@ -278,7 +271,9 @@ export class ColonyNetwork {
     contract: ERC2612TokenType,
     method: 'permit',
     args: [string, BigNumberish] | (() => Promise<[string, BigNumberish]>),
-    eventData?: (receipt: ContractReceipt) => Promise<D>,
+    eventData?: (
+      receipt: ContractTransactionReceipt | ParsedLogTransactionReceipt,
+    ) => Promise<D>,
     txConfig?: TxConfig<M>,
   ) {
     return new EIP2612TxCreator({
@@ -358,10 +353,10 @@ export class ColonyNetwork {
     IColonyNetwork,
     'createColonyForFrontend',
     Expand<
-      TokenDeployedEventObject &
-        ColonyAddedEventObject &
-        TokenAuthorityDeployedEventObject &
-        ColonyMetadataEventObject
+      TokenDeployedEvent.OutputObject &
+        ColonyAddedEvent.OutputObject &
+        TokenAuthorityDeployedEvent.OutputObject &
+        ColonyMetadataEvent.OutputObject
     >,
     MetadataType.Colony
   >;
@@ -410,9 +405,9 @@ export class ColonyNetwork {
     IColonyNetwork,
     'createColonyForFrontend',
     Expand<
-      TokenDeployedEventObject &
-        ColonyAddedEventObject &
-        TokenAuthorityDeployedEventObject & { metadata?: undefined }
+      TokenDeployedEvent.OutputObject &
+        ColonyAddedEvent.OutputObject &
+        TokenAuthorityDeployedEvent.OutputObject & { metadata?: undefined }
     >,
     MetadataType
   >;
@@ -441,7 +436,7 @@ export class ColonyNetwork {
         // TODO: check decimals type
 
         return [
-          AddressZero,
+          ZeroAddress,
           token.name,
           token.symbol,
           token.decimals || 18,
@@ -476,9 +471,15 @@ export class ColonyNetwork {
         'createColonyForFrontend',
         prepareArgs,
         async (receipt) => ({
-          ...extractEvent<TokenDeployedEventObject>('TokenDeployed', receipt),
-          ...extractEvent<ColonyAddedEventObject>('ColonyAdded', receipt),
-          ...extractEvent<TokenAuthorityDeployedEventObject>(
+          ...extractEvent<TokenDeployedEvent.OutputObject>(
+            'TokenDeployed',
+            receipt,
+          ),
+          ...extractEvent<ColonyAddedEvent.OutputObject>(
+            'ColonyAdded',
+            receipt,
+          ),
+          ...extractEvent<TokenAuthorityDeployedEvent.OutputObject>(
             'TokenAuthorityDeployed',
             receipt,
           ),
@@ -502,9 +503,12 @@ export class ColonyNetwork {
         return args;
       },
       async (receipt) => ({
-        ...extractEvent<TokenDeployedEventObject>('TokenDeployed', receipt),
-        ...extractEvent<ColonyAddedEventObject>('ColonyAdded', receipt),
-        ...extractEvent<TokenAuthorityDeployedEventObject>(
+        ...extractEvent<TokenDeployedEvent.OutputObject>(
+          'TokenDeployed',
+          receipt,
+        ),
+        ...extractEvent<ColonyAddedEvent.OutputObject>('ColonyAdded', receipt),
+        ...extractEvent<TokenAuthorityDeployedEvent.OutputObject>(
           'TokenAuthorityDeployed',
           receipt,
         ),
@@ -571,7 +575,7 @@ export class ColonyNetwork {
   async getColonyAddress(label: string) {
     const hash = namehash(`${label}${ColonyLabelSuffix[this.network]}`);
     const address = await this.networkContract.addr(hash);
-    if (address !== AddressZero) {
+    if (address !== ZeroAddress) {
       return address;
     }
     return null;
@@ -606,7 +610,7 @@ export class ColonyNetwork {
   async getUserAddress(username: string) {
     const hash = namehash(`${username}${UserLabelSuffix[this.network]}`);
     const address = await this.networkContract.addr(hash);
-    if (address !== AddressZero) {
+    if (address !== ZeroAddress) {
       return address;
     }
     return null;
@@ -633,7 +637,7 @@ export class ColonyNetwork {
       'registerUserLabel',
       checkUsername,
       async (receipt) => ({
-        ...extractEvent<UserLabelRegisteredEventObject>(
+        ...extractEvent<UserLabelRegisteredEvent.OutputObject>(
           'UserLabelRegistered',
           receipt,
         ),
@@ -659,7 +663,10 @@ export class ColonyNetwork {
       'deployTokenViaNetwork',
       [name, symbol, decimals],
       async (receipt) => ({
-        ...extractEvent<TokenDeployedEventObject>('TokenDeployed', receipt),
+        ...extractEvent<TokenDeployedEvent.OutputObject>(
+          'TokenDeployed',
+          receipt,
+        ),
       }),
     );
   }

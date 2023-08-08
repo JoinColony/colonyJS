@@ -1,4 +1,4 @@
-import { constants, providers } from 'ethers';
+import { AbstractProvider, ZeroAddress } from 'ethers';
 
 import {
   TokenERC20__factory as TokenERC20Factory,
@@ -6,22 +6,20 @@ import {
   TokenERC721__factory as TokenERC721Factory,
 } from './contracts/static/index.js';
 
-const { AddressZero } = constants;
-
 // Initialize dummy ethers contracts in order to get their (typed) interfaces
 export const ERC20 = TokenERC20Factory.connect(
-  AddressZero,
-  new providers.BaseProvider(3656691),
+  ZeroAddress,
+  new AbstractProvider(),
 ).interface;
 
 export const ERC721 = TokenERC721Factory.connect(
-  AddressZero,
-  new providers.BaseProvider(3656691),
+  ZeroAddress,
+  new AbstractProvider(3656691),
 ).interface;
 
 export const ERC2612 = TokenERC2612Factory.connect(
-  AddressZero,
-  new providers.BaseProvider(3656691),
+  ZeroAddress,
+  new AbstractProvider(3656691),
 ).interface;
 
 // Some nice aliases for the important token factories

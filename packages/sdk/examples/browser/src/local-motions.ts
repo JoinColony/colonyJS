@@ -1,4 +1,10 @@
-import { BigNumber, BigNumberish, providers, utils, Wallet } from 'ethers';
+import {
+  BigNumberish,
+  JsonRpcProvider,
+  Wallet,
+  isAddress,
+  toBigInt,
+} from 'ethers';
 
 import {
   Colony,
@@ -14,12 +20,11 @@ import {
   setupVotingReputationExtension,
 } from '../../helpers.js';
 
-const { isAddress } = utils;
-const provider = new providers.JsonRpcProvider('http://127.0.0.1:8545');
+const provider = new JsonRpcProvider('http://127.0.0.1:8545');
 
 let colonyNetwork: ColonyNetwork;
 let metaColony: Colony;
-let currentMotion: BigNumber;
+let currentMotion: bigint;
 
 const getWallet = () => {
   // This is the private key of the ganache account with index 0: 0xb77D57F4959eAfA0339424b83FcFaf9c15407461. In the contract deployments done with truffle this account is used as the owner of the MetaColony, so we have all the permissions. This will effectively replace MetaMask
@@ -69,7 +74,7 @@ const installVotingReputation = async () => {
     .mined();
 };
 
-const createPaymentMotion = async (amount: string): Promise<BigNumber> => {
+const createPaymentMotion = async (amount: string): Promise<bigint> => {
   if (!metaColony.ext.motions) {
     throw new Error('VotingReputation extension not installed');
   }
@@ -94,7 +99,7 @@ const getMotion = async (motionId: BigNumberish) => {
     throw new Error('Motions & Disputes extension not installed');
   }
   const motion = await metaColony.ext.motions.getMotion(motionId);
-  currentMotion = BigNumber.from(motionId);
+  currentMotion = toBigInt(motionId);
 
   const remainingStakes = await metaColony.ext.motions?.getRemainingStakes(
     motionId,
@@ -129,14 +134,14 @@ const approveForStaking = async () => {
     .mined();
 };
 
-const stakeYay = async (amount: BigNumber) => {
+const stakeYay = async (amount: bigint) => {
   await metaColony.ext.motions
     ?.stakeMotion(currentMotion, Vote.Yay, amount)
     .tx()
     .mined();
 };
 
-const stakeNay = async (amount: BigNumber) => {
+const stakeNay = async (amount: bigint) => {
   await metaColony.ext.motions
     ?.stakeMotion(currentMotion, Vote.Nay, amount)
     .tx()

@@ -1,49 +1,42 @@
-import type { Provider } from '@ethersproject/abstract-provider';
+import type { BigNumberish } from 'ethers';
 
-import { BigNumber, BigNumberish, Signer } from 'ethers';
+import type { BaseContract } from '../types.js';
 
 export interface CommonDomain {
-  skillId: BigNumber;
-  fundingPotId: BigNumber;
+  skillId: bigint;
+  fundingPotId: bigint;
 }
 
 export interface CommonSkill {
-  children: BigNumber[];
+  children: bigint[];
 }
 
 export interface CommonFundingPot {
-  associatedType: number;
-  associatedTypeId: BigNumber;
+  associatedType: bigint;
+  associatedTypeId: bigint;
 }
 
 export interface CommonPayment {
-  domainId: BigNumber;
+  domainId: bigint;
 }
 
 export interface CommonTask {
-  domainId: BigNumber;
-}
-
-// We are using the smallest possible types here to avoid conflicts with extended/modified types
-interface BaseContract {
-  address: string;
-  provider: Provider;
-  signer?: Signer;
+  domainId: bigint;
 }
 
 export interface CommonNetwork extends BaseContract {
   getChildSkillId(
     skillId: BigNumberish,
     childSkillIndex: BigNumberish,
-  ): Promise<BigNumber>;
+  ): Promise<bigint>;
   getReputationRootHash(): Promise<string>;
   getSkill(id: BigNumberish): Promise<CommonSkill>;
 }
 
 export interface CommonColony extends BaseContract {
   getDomain(id: BigNumberish): Promise<CommonDomain>;
-  getDomainCount(): Promise<BigNumber>;
-  getDomainFromFundingPot?(fundingPotId: BigNumberish): Promise<BigNumber>;
+  getDomainCount(): Promise<bigint>;
+  getDomainFromFundingPot?(fundingPotId: BigNumberish): Promise<bigint>;
   getFundingPot(id: BigNumberish): Promise<CommonFundingPot>;
   getPayment(id: BigNumberish): Promise<CommonPayment>;
   getTask(id: BigNumberish): Promise<CommonTask>;

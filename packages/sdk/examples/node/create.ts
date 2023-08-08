@@ -1,4 +1,4 @@
-import { providers, Wallet } from 'ethers';
+import { JsonRpcProvider, Wallet } from 'ethers';
 
 import {
   ColonyNetwork,
@@ -8,7 +8,7 @@ import {
   SupportedExtension,
 } from '../../src/index.js';
 
-const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
+const provider = new JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
 
 if (!process.env.PRIVATE_KEY) {
   throw new Error(

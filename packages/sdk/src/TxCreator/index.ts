@@ -1,5 +1,4 @@
 export {
-  type BaseContract,
   type ColonyTransaction,
   type ColonyMetaTransaction,
   type EventData,

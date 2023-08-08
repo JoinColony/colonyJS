@@ -1,18 +1,10 @@
-import type { TypedDataSigner } from '@ethersproject/abstract-signer';
-import type { TransactionResponse } from '@ethersproject/abstract-provider';
-
-import { BigNumberish, Signer, utils } from 'ethers';
+import { type BigNumberish, type TransactionResponse, Signature } from 'ethers';
 import { Network } from '@colony/core';
 import { MetadataType } from '@colony/event-metadata';
 import { ERC2612Token as ERC2612TokenType } from '@colony/tokens';
 
 import { ColonyMetaTransaction, EventData, TxCreator } from './TxCreator.js';
 import { ParsedLogTransactionReceipt } from '../types.js';
-
-const { splitSignature } = utils;
-
-// Little fix until ethers exposes this function
-interface TDSigner extends Signer, TypedDataSigner {}
 
 /**
  * An umbrella API for all kinds of transactions
@@ -32,10 +24,8 @@ export class EIP2612TxCreator<
 > extends TxCreator<ERC2612TokenType, 'permit', E, MD> {
   private async getMetaTx() {
     const args = await this.getArgs();
-    return this.sendMetaTransaction(
-      this.contract.address,
-      args as [string, BigNumberish],
-    );
+    const address = await this.contract.getAddress();
+    return this.sendMetaTransaction(address, args as [string, BigNumberish]);
   }
 
   private async getMetaMined(tx: TransactionResponse) {
@@ -53,24 +43,24 @@ export class EIP2612TxCreator<
       );
     }
 
-    const signer = this.colonyNetwork.getSigner() as TDSigner;
+    const signer = this.colonyNetwork.getSigner();
     const { provider } = signer;
 
     if (!provider) {
       throw new Error('No provider found');
     }
 
-    let chainId: number;
+    let chainId: bigint;
 
     if (this.colonyNetwork.network === Network.Custom) {
-      chainId = 1;
+      chainId = 1n;
     } else {
       const networkInfo = await provider.getNetwork();
       chainId = networkInfo.chainId;
     }
 
     const userAddress = await signer.getAddress();
-    const nonce = await this.contract.functions.nonces(userAddress);
+    const nonce = await this.contract.nonces(userAddress);
     const tokenName = await this.contract.name();
     /*
      * @NOTE One hour in the future from now
@@ -78,13 +68,15 @@ export class EIP2612TxCreator<
      */
     const deadline = Math.floor(Date.now() / 1000) + 3600;
 
+    const address = await this.contract.getAddress();
+
     // eslint-disable-next-line no-underscore-dangle
-    const signature = await signer._signTypedData(
+    const signature = await signer.signTypedData(
       {
         name: tokenName, // token.name()
         version: '1',
         chainId,
-        verifyingContract: this.contract.address,
+        verifyingContract: address,
       },
       {
         Permit: [
@@ -104,7 +96,7 @@ export class EIP2612TxCreator<
       },
     );
 
-    const { r, s, v } = splitSignature(signature);
+    const { r, s, v } = Signature.from(signature);
 
     const broadcastData = {
       target,

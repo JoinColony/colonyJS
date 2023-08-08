@@ -1,26 +1,31 @@
 import type {
-  AnnotationEventObject,
-  ArbitraryReputationUpdateEventObject,
-  ArbitraryTransactionEventObject,
-  ColonyFundsClaimed_address_uint256_uint256_EventObject,
+  AnnotationEvent,
+  ArbitraryReputationUpdateEvent,
+  ArbitraryTransactionEvent,
+  ColonyFundsClaimed_address_uint256_uint256_Event,
   // eslint-disable-next-line max-len
-  ColonyFundsMovedBetweenFundingPots_address_uint256_uint256_uint256_address_EventObject,
-  ColonyMetadataEventObject,
-  ColonyRoleSet_address_address_uint256_uint8_bool_EventObject,
-  ColonyUpgraded_uint256_uint256_EventObject,
-  DomainAdded_uint256_EventObject,
-  DomainDeprecatedEventObject,
-  DomainMetadataEventObject,
-  ExtensionInstalledEventObject,
-  FundingPotAddedEventObject,
-  RecoveryModeEnteredEventObject,
-  RecoveryModeExitedEventObject,
-  RecoveryRoleSetEventObject,
-  TokenAuthorityDeployedEventObject,
-  TokensMintedEventObject,
+  ColonyFundsMovedBetweenFundingPots_address_uint256_uint256_uint256_address_Event,
+  ColonyMetadataEvent,
+  ColonyRoleSet_address_address_uint256_uint8_bool_Event,
+  ColonyUpgraded_uint256_uint256_Event,
+  DomainAdded_uint256_Event,
+  DomainDeprecatedEvent,
+  DomainMetadataEvent,
+  ExtensionInstalledEvent,
+  FundingPotAddedEvent,
+  RecoveryModeEnteredEvent,
+  RecoveryModeExitedEvent,
+  RecoveryRoleSetEvent,
+  TokenAuthorityDeployedEvent,
+  TokensMintedEvent,
 } from '@colony/events';
 
-import { BigNumber, BigNumberish, BytesLike, ContractReceipt } from 'ethers';
+import {
+  type BigNumberish,
+  type BytesLike,
+  ContractTransactionReceipt,
+  toBigInt,
+} from 'ethers';
 import {
   type ColonyVersion,
   Id,
@@ -41,7 +46,12 @@ import {
   MetadataType,
 } from '@colony/event-metadata';
 
-import type { Expand, Parameters, ParametersFrom2 } from '../types.js';
+import type {
+  Expand,
+  Parameters,
+  ParametersFrom2,
+  ParsedLogTransactionReceipt,
+} from '../types.js';
 import type { ColonyDataTypes as ColonyDataTypes10 } from '../contracts/IColony/10/IColony.js';
 import type { ColonyDataTypes as ColonyDataTypes11 } from '../contracts/IColony/11/IColony.js';
 import type { ColonyDataTypes as ColonyDataTypes12 } from '../contracts/IColony/12/IColony.js';
@@ -74,7 +84,6 @@ export type SupportedColonyContract =
   | ColonyContract11
   | ColonyContract12
   | ColonyContract13;
-export type SupportedColonyMethods = SupportedColonyContract['functions'];
 
 export type Domain =
   | ColonyDataTypes10.DomainStructOutput
@@ -143,7 +152,13 @@ export class Colony {
 
     const tokenAddress = await colonyContract.getToken();
     const token = await getToken(colonyNetwork, tokenAddress);
-    const colony = new Colony(colonyNetwork, colonyContract, token, version);
+    const colony = new Colony(
+      colonyNetwork,
+      address,
+      colonyContract,
+      token,
+      version,
+    );
     await colony.updateExtensions();
     return colony;
   }
@@ -221,13 +236,14 @@ export class Colony {
    */
   constructor(
     colonyNetwork: ColonyNetwork,
+    address: string,
     colony: SupportedColonyContract,
     token: Token,
     deployedVersion: ColonyVersion,
   ) {
     this.colony = colony;
     this.colonyNetwork = colonyNetwork;
-    this.address = colony.address;
+    this.address = address;
     this.ext = {};
     this.reputation = new ReputationClient(
       colonyNetwork.getInternalNetworkContract(),
@@ -253,16 +269,16 @@ export class Colony {
    */
   createColonyTxCreator<
     C extends IBasicMetaTransaction,
-    F extends keyof C['functions'],
+    F extends keyof C,
     D extends Record<string, unknown>,
     M extends MetadataType,
   >(
     contract: C,
     method: F,
-    args:
-      | Parameters<C['functions'][F]>
-      | (() => Promise<Parameters<C['functions'][F]>>),
-    eventData?: (receipt: ContractReceipt) => Promise<D>,
+    args: Parameters<C[F]> | (() => Promise<Parameters<C[F]>>),
+    eventData?: (
+      receipt: ContractTransactionReceipt | ParsedLogTransactionReceipt,
+    ) => Promise<D>,
     txConfig?: TxConfig<M>,
   ) {
     return new ColonyTxCreator({
@@ -292,17 +308,17 @@ export class Colony {
    */
   createPermissionedColonyTxCreator<
     C extends IBasicMetaTransaction,
-    F extends keyof C['functions'],
+    F extends keyof C,
     D extends Record<string, unknown>,
     M extends MetadataType,
   >(
     contract: C,
     method: F,
-    args:
-      | ParametersFrom2<C['functions'][F]>
-      | (() => Promise<ParametersFrom2<C['functions'][F]>>),
+    args: ParametersFrom2<C[F]> | (() => Promise<ParametersFrom2<C[F]>>),
     permissionConfig: PermissionConfig,
-    eventData?: (receipt: ContractReceipt) => Promise<D>,
+    eventData?: (
+      receipt: ContractTransactionReceipt | ParsedLogTransactionReceipt,
+    ) => Promise<D>,
     txConfig?: TxConfig<M>,
   ) {
     return new ColonyTxCreator({
@@ -451,7 +467,10 @@ export class Colony {
         return [cid] as [string];
       },
       async (receipt) => ({
-        ...extractEvent<ColonyMetadataEventObject>('ColonyMetadata', receipt),
+        ...extractEvent<ColonyMetadataEvent.OutputObject>(
+          'ColonyMetadata',
+          receipt,
+        ),
       }),
       {
         metadataType: MetadataType.Colony,
@@ -514,8 +533,8 @@ export class Colony {
     SupportedColonyContract,
     'addDomain(uint256,uint256,uint256,string)',
     Expand<
-      DomainAdded_uint256_EventObject &
-        FundingPotAddedEventObject & { metadata: string }
+      DomainAdded_uint256_Event.OutputObject &
+        FundingPotAddedEvent.OutputObject & { metadata: string }
     >,
     MetadataType.Domain
   >;
@@ -544,8 +563,8 @@ export class Colony {
     SupportedColonyContract,
     'addDomain(uint256,uint256,uint256,string)',
     Expand<
-      DomainAdded_uint256_EventObject &
-        FundingPotAddedEventObject & { metadata: undefined }
+      DomainAdded_uint256_Event.OutputObject &
+        FundingPotAddedEvent.OutputObject & { metadata: undefined }
     >,
     MetadataType
   >;
@@ -561,11 +580,11 @@ export class Colony {
           domain: Id.RootDomain,
         },
         async (receipt) => ({
-          ...extractEvent<DomainAdded_uint256_EventObject>(
+          ...extractEvent<DomainAdded_uint256_Event.OutputObject>(
             'DomainAdded',
             receipt,
           ),
-          ...extractEvent<FundingPotAddedEventObject>(
+          ...extractEvent<FundingPotAddedEvent.OutputObject>(
             'FundingPotAdded',
             receipt,
           ),
@@ -593,12 +612,18 @@ export class Colony {
         domain: Id.RootDomain,
       },
       async (receipt) => ({
-        ...extractEvent<DomainAdded_uint256_EventObject>(
+        ...extractEvent<DomainAdded_uint256_Event.OutputObject>(
           'DomainAdded',
           receipt,
         ),
-        ...extractEvent<FundingPotAddedEventObject>('FundingPotAdded', receipt),
-        ...extractEvent<DomainMetadataEventObject>('DomainMetadata', receipt),
+        ...extractEvent<FundingPotAddedEvent.OutputObject>(
+          'FundingPotAdded',
+          receipt,
+        ),
+        ...extractEvent<DomainMetadataEvent.OutputObject>(
+          'DomainMetadata',
+          receipt,
+        ),
       }),
       { metadataType: MetadataType.Domain },
     );
@@ -672,7 +697,10 @@ export class Colony {
         domain: Id.RootDomain,
       },
       async (receipt) => ({
-        ...extractEvent<DomainMetadataEventObject>('DomainMetadata', receipt),
+        ...extractEvent<DomainMetadataEvent.OutputObject>(
+          'DomainMetadata',
+          receipt,
+        ),
       }),
       { metadataType: MetadataType.Domain },
     );
@@ -709,7 +737,7 @@ export class Colony {
         domain: teamId,
       },
       async (receipt) => ({
-        ...extractEvent<DomainDeprecatedEventObject>(
+        ...extractEvent<DomainDeprecatedEvent.OutputObject>(
           'DomainDeprecated',
           receipt,
         ),
@@ -726,7 +754,7 @@ export class Colony {
    */
   async getTeam(teamId: BigNumberish): Promise<Domain> {
     const teamCount = await this.colony.getDomainCount();
-    if (teamCount.lt(teamId)) {
+    if (teamCount < toBigInt(teamId)) {
       throw new Error(`Team with id ${teamId} does not exist`);
     }
     return this.colony.getDomain(teamId);
@@ -762,7 +790,8 @@ export class Colony {
       'claimColonyFunds',
       [token],
       async (receipt) => ({
-        ...extractEvent<ColonyFundsClaimed_address_uint256_uint256_EventObject>(
+        // eslint-disable-next-line max-len
+        ...extractEvent<ColonyFundsClaimed_address_uint256_uint256_Event.OutputObject>(
           'ColonyFundsClaimed',
           receipt,
         ),
@@ -827,10 +856,8 @@ export class Colony {
       'moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)',
       async () => {
         const domain = await this.colony.getDomain(toTeam);
-        if (domain.fundingPotId.isZero()) {
-          throw new Error(
-            `Team with id ${BigNumber.from(toTeam).toString()} does not exist`,
-          );
+        if (domain.fundingPotId === 0n) {
+          throw new Error(`Team with id ${toBigInt(toTeam)} does not exist`);
         }
         // Manual permission proofs are needed here
         const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -885,7 +912,7 @@ export class Colony {
       },
       async (receipt) => ({
         // eslint-disable-next-line max-len
-        ...extractEvent<ColonyFundsMovedBetweenFundingPots_address_uint256_uint256_uint256_address_EventObject>(
+        ...extractEvent<ColonyFundsMovedBetweenFundingPots_address_uint256_uint256_uint256_address_Event.OutputObject>(
           'ColonyFundsMovedBetweenFundingPots',
           receipt,
         ),
@@ -997,7 +1024,7 @@ export class Colony {
       'makeArbitraryTransactions',
       [[target], [action], false],
       async (receipt) => ({
-        ...extractEvent<ArbitraryTransactionEventObject>(
+        ...extractEvent<ArbitraryTransactionEvent.OutputObject>(
           'ArbitraryTransaction',
           receipt,
         ),
@@ -1066,7 +1093,7 @@ export class Colony {
         return [txHash, cid] as [string, string];
       },
       async (receipt) => ({
-        ...extractEvent<AnnotationEventObject>('Annotation', receipt),
+        ...extractEvent<AnnotationEvent.OutputObject>('Annotation', receipt),
       }),
       { metadataType: MetadataType.Annotation },
     );
@@ -1124,7 +1151,7 @@ export class Colony {
       'installExtension',
       [getExtensionHash(extensionType), Extension.getLatestSupportedVersion()],
       async (receipt) => ({
-        ...extractCustomEvent<ExtensionInstalledEventObject>(
+        ...extractCustomEvent<ExtensionInstalledEvent.OutputObject>(
           'ExtensionInstalled',
           receipt,
           networkClient.interface,
@@ -1213,7 +1240,7 @@ export class Colony {
           new Set([...oldRoles, ...([] as ColonyRole[]).concat(roles)]),
         );
         const hexRoles = colonyRoles2Hex(newRoles);
-        return [address, teamId, hexRoles] as [string, BigNumber, string];
+        return [address, teamId, hexRoles] as [string, bigint, string];
       },
       {
         roles: ColonyRole.Architecture,
@@ -1221,11 +1248,14 @@ export class Colony {
       },
       async (receipt) => ({
         // eslint-disable-next-line max-len
-        ...extractEvent<ColonyRoleSet_address_address_uint256_uint8_bool_EventObject>(
+        ...extractEvent<ColonyRoleSet_address_address_uint256_uint8_bool_Event.OutputObject>(
           'ColonyRoleSet',
           receipt,
         ),
-        ...extractEvent<RecoveryRoleSetEventObject>('RecoveryRoleSet', receipt),
+        ...extractEvent<RecoveryRoleSetEvent.OutputObject>(
+          'RecoveryRoleSet',
+          receipt,
+        ),
       }),
     );
   }
@@ -1269,7 +1299,7 @@ export class Colony {
           (role) => !([] as ColonyRole[]).concat(roles).includes(role),
         );
         const hexRoles = colonyRoles2Hex(newRoles);
-        return [address, teamId, hexRoles] as [string, BigNumber, string];
+        return [address, teamId, hexRoles] as [string, bigint, string];
       },
       {
         roles: ColonyRole.Architecture,
@@ -1277,11 +1307,14 @@ export class Colony {
       },
       async (receipt) => ({
         // eslint-disable-next-line max-len
-        ...extractEvent<ColonyRoleSet_address_address_uint256_uint8_bool_EventObject>(
+        ...extractEvent<ColonyRoleSet_address_address_uint256_uint8_bool_Event.OutputObject>(
           'ColonyRoleSet',
           receipt,
         ),
-        ...extractEvent<RecoveryRoleSetEventObject>('RecoveryRoleSet', receipt),
+        ...extractEvent<RecoveryRoleSetEvent.OutputObject>(
+          'RecoveryRoleSet',
+          receipt,
+        ),
       }),
     );
   }
@@ -1329,7 +1362,10 @@ export class Colony {
       'mintTokens',
       [amount],
       async (receipt) => ({
-        ...extractEvent<TokensMintedEventObject>('TokensMinted', receipt),
+        ...extractEvent<TokensMintedEvent.OutputObject>(
+          'TokensMinted',
+          receipt,
+        ),
       }),
     );
   }
@@ -1377,7 +1413,7 @@ export class Colony {
         ];
       },
       async (receipt) => ({
-        ...extractEvent<TokenAuthorityDeployedEventObject>(
+        ...extractEvent<TokenAuthorityDeployedEvent.OutputObject>(
           'TokenAuthorityDeployed',
           receipt,
         ),
@@ -1411,7 +1447,7 @@ export class Colony {
       'enterRecoveryMode',
       [],
       async (receipt) => ({
-        ...extractEvent<RecoveryModeEnteredEventObject>(
+        ...extractEvent<RecoveryModeEnteredEvent.OutputObject>(
           'RecoveryModeEntered',
           receipt,
         ),
@@ -1442,7 +1478,7 @@ export class Colony {
       'exitRecoveryMode',
       [],
       async (receipt) => ({
-        ...extractEvent<RecoveryModeExitedEventObject>(
+        ...extractEvent<RecoveryModeExitedEvent.OutputObject>(
           'RecoveryModeExited',
           receipt,
         ),
@@ -1481,7 +1517,7 @@ export class Colony {
       'upgrade',
       [version],
       async (receipt) => ({
-        ...extractEvent<ColonyUpgraded_uint256_uint256_EventObject>(
+        ...extractEvent<ColonyUpgraded_uint256_uint256_Event.OutputObject>(
           'ColonyUpgraded',
           receipt,
         ),
@@ -1521,7 +1557,7 @@ export class Colony {
     amount: BigNumberish,
     team: BigNumberish = Id.RootDomain,
   ) {
-    if (BigNumber.from(amount).lte(0)) {
+    if (toBigInt(amount) <= 0n) {
       throw new Error('Reputation award must be bigger than 0');
     }
     return this.createColonyTxCreator(
@@ -1529,7 +1565,7 @@ export class Colony {
       'emitDomainReputationReward',
       [team, address, amount],
       async (receipt) => ({
-        ...extractEvent<ArbitraryReputationUpdateEventObject>(
+        ...extractEvent<ArbitraryReputationUpdateEvent.OutputObject>(
           'ArbitraryReputationUpdate',
           receipt,
         ),
@@ -1569,19 +1605,19 @@ export class Colony {
     amount: BigNumberish,
     team: BigNumberish = Id.RootDomain,
   ) {
-    if (BigNumber.from(amount).lte(0)) {
+    if (toBigInt(amount) <= 0n) {
       throw new Error('Reputation smite must be bigger than 0');
     }
     return this.createPermissionedColonyTxCreator(
       this.colony,
       'emitDomainReputationPenalty',
-      [team, address, BigNumber.from(0).sub(amount)],
+      [team, address, 0n - toBigInt(amount)],
       {
         domain: team,
         roles: ColonyRole.Arbitration,
       },
       async (receipt) => ({
-        ...extractEvent<ArbitraryReputationUpdateEventObject>(
+        ...extractEvent<ArbitraryReputationUpdateEvent.OutputObject>(
           'ArbitraryReputationUpdate',
           receipt,
         ),

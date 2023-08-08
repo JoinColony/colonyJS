@@ -17,11 +17,10 @@
         "no-redeclare": "off",
         "no-shadow": "off",
         "no-unused-vars": "off",
+        "no-undef": "off",
         "no-use-before-define": "off",
         "@typescript-eslint/no-unused-vars": "error",
-        "@typescript-eslint/no-shadow": [
-            "error"
-        ],
+        "@typescript-eslint/no-shadow": "error",
         "import/prefer-default-export": "off",
         "import/no-unresolved": "off",
         "import/extensions": [
