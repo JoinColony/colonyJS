@@ -411,6 +411,42 @@ export class VotingReputation {
   }
 
   /**
+   * Get the result of a motion (if it is finalizeable or finalized)
+   *
+   * @remarks Will return null if the motion is not finalizeable yet
+   *
+   * @param motionId - The motionId to get the result for
+   *
+   * @returns The result of the motion (0 = Nay, 1 = Yay)
+   */
+  async getMotionResult(motionId: BigNumberish): Promise<Vote | null> {
+    const state = await this.getMotionState(motionId);
+    if (state < MotionState.Finalizable) {
+      return null;
+    }
+    const motion = await this.getMotion(motionId);
+    const totalStakeFraction =
+      await this.votingReputationContract.getTotalStakeFraction();
+    const requiredStake = motion.skillRep
+      .mul(totalStakeFraction)
+      .div(REP_DIVISOR);
+    if (
+      motion.stakes[0].gte(requiredStake) &&
+      motion.stakes[1].lt(requiredStake)
+    ) {
+      return Vote.Nay;
+    }
+    if (
+      motion.stakes[1].gte(requiredStake) &&
+      motion.stakes[0].lt(requiredStake)
+    ) {
+      return Vote.Yay;
+    }
+
+    return motion.votes[0].gt(motion.votes[1]) ? Vote.Nay : Vote.Yay;
+  }
+
+  /**
    * Get the motion state as a number
    *
    * Will be one of the following:
