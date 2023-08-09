@@ -1,7 +1,7 @@
 {
   "name": "@colony/colony-js",
   "description": "📜 The Colony TypeScript reference implementation",
-  "version": "7.0.0-next.3",
+  "version": "7.0.0-next.4",
   "type": "module",
   "exports": {
     ".": {
@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "@colony/core": "^1.2.0-next.2",
-    "@colony/events": "^0.2.1-next.1",
+    "@colony/events": "^0.3.0-next.2",
     "@colony/tokens": "^0.1.3-next.1",
     "ts-jest-resolver": "^2.0.1"
   },
