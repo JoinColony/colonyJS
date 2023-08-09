@@ -68,15 +68,15 @@ ___
 
 ### getMetadata
 
-• `Optional` **getMetadata**: () => `Promise`<`MetadataTypeMap`[`M`]\>
+• `Optional` **getMetadata**: () => `Promise`<[`MetadataTypeMap`](MetadataTypeMap.md)[`M`]\>
 
 #### Type declaration
 
-▸ (): `Promise`<`MetadataTypeMap`[`M`]\>
+▸ (): `Promise`<[`MetadataTypeMap`](MetadataTypeMap.md)[`M`]\>
 
 ##### Returns
 
-`Promise`<`MetadataTypeMap`[`M`]\>
+`Promise`<[`MetadataTypeMap`](MetadataTypeMap.md)[`M`]\>
 
 ___
 

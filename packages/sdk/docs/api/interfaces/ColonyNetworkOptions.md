@@ -12,14 +12,6 @@ A custom address for ColonyNetwork's EtherRouter contract. Useful only in manual
 
 ___
 
-### graphOptions
-
-• `Optional` **graphOptions**: `SubgraphClientOptions`
-
-Provide custom GraphQL client options
-
-___
-
 ### ipfsAdapter
 
 • `Optional` **ipfsAdapter**: [`IpfsAdapter`](IpfsAdapter.md)

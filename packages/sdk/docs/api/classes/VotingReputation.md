@@ -415,6 +415,30 @@ A Motion object
 
 ___
 
+### getMotionResult
+
+▸ **getMotionResult**(`motionId`): `Promise`<``null`` \| [`Vote`](../enums/Vote.md)\>
+
+Get the result of a motion (if it is finalizeable or finalized)
+
+**`Remarks`**
+
+Will return null if the motion is not finalizeable yet
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `motionId` | `BigNumberish` | The motionId to get the result for |
+
+#### Returns
+
+`Promise`<``null`` \| [`Vote`](../enums/Vote.md)\>
+
+The result of the motion (0 = Nay, 1 = Yay)
+
+___
+
 ### getMotionState
 
 ▸ **getMotionState**(`motionId`): `Promise`<`number`\>
