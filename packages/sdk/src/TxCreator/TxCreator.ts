@@ -1,13 +1,16 @@
+import type { MotionCreatedEventObject } from '@colony/events/types';
+import type { TransactionResponse } from '@ethersproject/abstract-provider';
+
 import { Contract, ContractReceipt, ContractTransaction } from 'ethers';
 import { fetch } from 'cross-fetch';
 import { parseLogs } from '@colony/core';
-import { MetadataType, MetadataTypeMap } from '@colony/event-metadata';
-
-import type { TransactionResponse } from '@ethersproject/abstract-provider';
-import type { MotionCreatedEventObject } from '@colony/events';
+import {
+  type MetadataTypeMap,
+  IpfsMetadataEvents,
+  MetadataType,
+} from '@colony/events';
 
 import { ParsedLogTransactionReceipt } from '../types.js';
-import { IpfsMetadataEvents } from '../ipfs/IpfsMetadata.js';
 import { ColonyNetwork } from '../ColonyNetwork/index.js';
 
 export interface TxConfig<M> {

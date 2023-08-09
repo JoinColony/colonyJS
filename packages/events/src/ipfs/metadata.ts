@@ -9,9 +9,6 @@ import type {
 
 import { MetadataType, METADATA_VERSION } from './constants.js';
 
-export * from './constants.js';
-export * from './types.js';
-
 const createError = (errors: typia.IValidation.IError[]) => {
   const errorsAsText = errors.map(
     (error) =>

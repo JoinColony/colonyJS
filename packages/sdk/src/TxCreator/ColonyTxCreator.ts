@@ -1,4 +1,4 @@
-import type { MotionCreatedEventObject } from '@colony/events';
+import type { MotionCreatedEventObject } from '@colony/events/types';
 
 import { BigNumberish, ContractReceipt, ContractTransaction } from 'ethers';
 import {
@@ -7,7 +7,7 @@ import {
   getCreateMotionProofs,
   Id,
 } from '@colony/core';
-import { MetadataType } from '@colony/event-metadata';
+import { MetadataType } from '@colony/events';
 
 import type { TransactionResponse } from '@ethersproject/abstract-provider';
 import { Colony } from '../ColonyNetwork/index.js';

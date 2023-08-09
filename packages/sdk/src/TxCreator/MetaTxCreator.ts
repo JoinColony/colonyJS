@@ -1,6 +1,6 @@
 import { utils } from 'ethers';
 import { Network } from '@colony/core';
-import { MetadataType } from '@colony/event-metadata';
+import { MetadataType } from '@colony/events';
 
 import type { TransactionResponse } from '@ethersproject/abstract-provider';
 import type { IBasicMetaTransaction } from '../contracts/index.js';
