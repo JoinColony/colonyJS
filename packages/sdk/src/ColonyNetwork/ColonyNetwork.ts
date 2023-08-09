@@ -35,7 +35,6 @@ import {
   IColonyNetwork__factory as IColonyNetworkFactory,
   IBasicMetaTransaction,
 } from '../contracts/index.js';
-import { SubgraphClientOptions } from '../graph/index.js';
 import {
   BaseContract,
   TxConfig,
@@ -61,8 +60,6 @@ export interface ColonyNetworkOptions {
   network?: Network;
   /** Provide a custom metatransaction broadcaster endpoint */
   metaTxBroadcasterEndpoint?: string;
-  /** Provide custom GraphQL client options */
-  graphOptions?: SubgraphClientOptions;
   /** A custom endpoiunt for ColonyNetwork's Reputation Oracle. Useful only in manual deployments */
   reputationOracleEndpoint?: string;
 }
