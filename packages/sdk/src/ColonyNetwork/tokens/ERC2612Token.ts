@@ -1,4 +1,4 @@
-import type { ApprovalEventObject } from '@colony/events';
+import type { ApprovalEventObject } from '@colony/events/types';
 
 import { BigNumber, BigNumberish } from 'ethers';
 import {

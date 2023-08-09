@@ -1,8 +1,4 @@
-import type {
-  Filter,
-  FilterByBlockHash,
-  TransactionReceipt,
-} from '@ethersproject/abstract-provider';
+import type { TransactionReceipt } from '@ethersproject/abstract-provider';
 import type { LogDescription } from '@ethersproject/abi';
 
 /**
@@ -10,21 +6,6 @@ import type { LogDescription } from '@ethersproject/abi';
  */
 export interface ParsedLogTransactionReceipt extends TransactionReceipt {
   parsedLogs: LogDescription[];
-}
-
-/**
- * Ethers 6 supports mulitple addresses in a filter. Until then we have this
- */
-export interface Ethers6Filter extends Omit<Filter, 'address'> {
-  address?: string | string[];
-}
-
-/**
- * Ethers 6 supports mulitple addresses in a filter. Until then we have this
- */
-export interface Ethers6FilterByBlockHash
-  extends Omit<FilterByBlockHash, 'address'> {
-  address?: string | string[];
 }
 
 /**

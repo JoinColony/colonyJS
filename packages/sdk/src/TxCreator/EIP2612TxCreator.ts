@@ -3,7 +3,7 @@ import type { TransactionResponse } from '@ethersproject/abstract-provider';
 
 import { BigNumberish, Signer, utils } from 'ethers';
 import { Network } from '@colony/core';
-import { MetadataType } from '@colony/event-metadata';
+import { MetadataType } from '@colony/events';
 import { ERC2612Token as ERC2612TokenType } from '@colony/tokens';
 
 import { ColonyMetaTransaction, EventData, TxCreator } from './TxCreator.js';

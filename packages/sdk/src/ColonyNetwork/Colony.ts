@@ -18,7 +18,7 @@ import type {
   RecoveryRoleSetEventObject,
   TokenAuthorityDeployedEventObject,
   TokensMintedEventObject,
-} from '@colony/events';
+} from '@colony/events/types';
 
 import { BigNumber, BigNumberish, BytesLike, ContractReceipt } from 'ethers';
 import {
@@ -39,7 +39,7 @@ import {
   type ColonyData,
   type DomainData,
   MetadataType,
-} from '@colony/event-metadata';
+} from '@colony/events';
 
 import type { Expand, Parameters, ParametersFrom2 } from '../types.js';
 import type { ColonyDataTypes as ColonyDataTypes10 } from '../contracts/IColony/10/IColony.js';

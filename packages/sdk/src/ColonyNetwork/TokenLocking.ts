@@ -1,7 +1,7 @@
 import type {
   UserTokenDeposited_address_address_uint256_EventObject,
   UserTokenWithdrawnEventObject,
-} from '@colony/events';
+} from '@colony/events/types';
 
 import { BigNumberish } from 'ethers';
 import { type TokenLockingClient, getTokenLockingClient } from '@colony/tokens';

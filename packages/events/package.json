@@ -9,6 +9,12 @@
       "require": "./dist/cjs/index.js",
       "types": "./dist/types/index.d.ts",
       "default": "./dist/cjs/index.js"
+    },
+    "./types": {
+      "import": "./dist/esm/contracts.js",
+      "require": "./dist/cjs/contracts.js",
+      "types": "./dist/types/contracts.d.ts",
+      "default": "./dist/cjs/contracts.js"
     }
   },
   "main": "./dist/cjs/index.js",
@@ -42,16 +48,26 @@
     "compile-types": "tsc -p tsconfig.build.json --target esnext --declaration --emitDeclarationOnly --outDir dist/types",
     "create-pkg-json": "../../scripts/create-pkg-json.sh",
     "lint": "eslint --ext .ts src",
-    "prepare": "npm run build-contracts",
+    "prepare": "ts-patch install && npm run build-contracts",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@colony/contractor": "^1.1.0-next.2",
     "@ethersproject/abi": "^5.7.0",
+    "@ethersproject/abstract-provider": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",
-    "ethers": "^5.7.2"
+    "ethers": "^5.7.2",
+    "ts-node": "^10.9.1",
+    "ts-patch": "^3.0.2",
+    "typescript": "5.1.6"
   },
   "peerDependencies": {
     "ethers": "^5.1.3"
+  },
+  "dependencies": {
+    "@colony/core": "workspace:^1.2.0-next.2",
+    "cross-fetch": "^3.1.5",
+    "fetch-retry": "^5.0.4",
+    "typia": "^3.8.3"
   }
 }

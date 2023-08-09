@@ -1,16 +1,11 @@
 import fetch from 'cross-fetch';
 import wrapFetch from 'fetch-retry';
-import {
-  DataTypeMap,
-  Metadata,
-  MetadataType,
-  MetadataTypeMap,
-  createMetadataFor,
-  parseEventMetadata,
-} from '@colony/event-metadata';
 
+import { createMetadataFor, parseEventMetadata } from './metadata.js';
 import IpfsAdapter from './IpfsAdapter.js';
 import CloudflareReadonlyAdapter from './CloudflareReadonlyAdapter.js';
+import { MetadataType } from './constants.js';
+import { DataTypeMap, Metadata, MetadataTypeMap } from './types.js';
 
 const fetchRetry = wrapFetch(fetch, {
   headers: {

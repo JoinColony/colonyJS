@@ -4,7 +4,7 @@ import type {
   TokenAuthorityDeployedEventObject,
   TokenDeployedEventObject,
   UserLabelRegisteredEventObject,
-} from '@colony/events';
+} from '@colony/events/types';
 
 import {
   BigNumberish,
@@ -23,7 +23,12 @@ import {
   ColonyNetworkAddress,
 } from '@colony/core';
 import { type ERC2612Token as ERC2612TokenType } from '@colony/tokens';
-import { ColonyData, MetadataType } from '@colony/event-metadata';
+import {
+  type ColonyData,
+  type IpfsAdapter,
+  IpfsMetadata,
+  MetadataType,
+} from '@colony/events';
 
 import {
   IColonyNetwork,
@@ -31,7 +36,6 @@ import {
   IBasicMetaTransaction,
 } from '../contracts/index.js';
 import { SubgraphClientOptions } from '../graph/index.js';
-import { IpfsMetadata, IpfsAdapter } from '../ipfs/index.js';
 import {
   BaseContract,
   TxConfig,

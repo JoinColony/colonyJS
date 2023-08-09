@@ -1,10 +1,18 @@
 {
   "include": [
-    "src/index.ts"
+    "src/index.ts",
+    "src/contracts.ts"
   ],
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "noEmit": false,
-    "declaration": false
+    "declaration": false,
+    "plugins": [
+      {
+        "transform": "typia/lib/transform"
+      }
+    ],
+    "strictNullChecks": true,
+    "strict": true
   }
 }

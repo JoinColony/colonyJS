@@ -12,7 +12,7 @@ export {
   MetadataType,
   SafeInfo,
   TeamColor,
-} from '@colony/event-metadata';
+} from '@colony/events';
 
 export {
   ColonyRole,
@@ -33,6 +33,8 @@ export {
   w,
 } from '@colony/core';
 
+export * from '@colony/events';
+
 export {
   ERC20 as ERC20Interface,
   ERC2612 as ERC2612Interface,
@@ -41,11 +43,5 @@ export {
 
 export * from './ColonyNetwork/index.js';
 export * from './TxCreator/index.js';
-export * from './events/index.js';
-export * from './ipfs/index.js';
 
-export type {
-  Ethers6Filter,
-  Ethers6FilterByBlockHash,
-  ParsedLogTransactionReceipt,
-} from './types.js';
+export type { ParsedLogTransactionReceipt } from './types.js';

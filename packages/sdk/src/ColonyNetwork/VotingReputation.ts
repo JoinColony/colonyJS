@@ -10,7 +10,7 @@ import type {
   AnnotationEventObject,
   MotionEscalatedEventObject,
   ExtensionInitialisedEventObject,
-} from '@colony/events';
+} from '@colony/events/types';
 
 import { constants, BigNumber, BigNumberish, utils } from 'ethers';
 import {
@@ -29,7 +29,7 @@ import {
   isExtensionCompatible,
   toEth,
 } from '@colony/core';
-import { DecisionData, MetadataType } from '@colony/event-metadata';
+import { DecisionData, MetadataType } from '@colony/events';
 
 import type { VotingReputationDataTypes as VotingReputationDataTypes7 } from '../contracts/IVotingReputation/7/IVotingReputation.js';
 import type { VotingReputationDataTypes as VotingReputationDataTypes8 } from '../contracts/IVotingReputation/8/IVotingReputation.js';
