@@ -20,7 +20,7 @@ This is the default IpfsAdapter used in Colony SDK. So in order to use this, you
 
 ### name
 
-• **name**: `string` = `'CLOUDFLARE'`
+• **name**: `string`
 
 Name for the IpfsAdapter. All uppercase please
 

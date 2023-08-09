@@ -39,7 +39,7 @@ const pinataAdapter = new PinataAdapter('[YOUR_PINANTA_JWT_TOKEN]');
 
 ### name
 
-• **name**: `string` = `'PINATA'`
+• **name**: `string`
 
 Name for the IpfsAdapter. All uppercase please
 

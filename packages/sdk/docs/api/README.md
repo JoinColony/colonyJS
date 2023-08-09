@@ -39,25 +39,33 @@
 ## Interfaces
 
 - [AnnotationData](interfaces/AnnotationData.md)
+- [AnnotationMetadata](interfaces/AnnotationMetadata.md)
 - [BaseContract](interfaces/BaseContract.md)
 - [ColonyData](interfaces/ColonyData.md)
 - [ColonyEvent](interfaces/ColonyEvent.md)
 - [ColonyEventManagerOptions](interfaces/ColonyEventManagerOptions.md)
 - [ColonyFilter](interfaces/ColonyFilter.md)
 - [ColonyMetaTransaction](interfaces/ColonyMetaTransaction.md)
+- [ColonyMetadata](interfaces/ColonyMetadata.md)
 - [ColonyMultiFilter](interfaces/ColonyMultiFilter.md)
 - [ColonyNetworkOptions](interfaces/ColonyNetworkOptions.md)
 - [ColonyTopic](interfaces/ColonyTopic.md)
 - [ColonyTransaction](interfaces/ColonyTransaction.md)
 - [ContractReceipt](interfaces/ContractReceipt.md)
 - [ContractTransaction](interfaces/ContractTransaction.md)
+- [DataTypeMap](interfaces/DataTypeMap.md)
 - [DecisionData](interfaces/DecisionData.md)
+- [DecisionMetadata](interfaces/DecisionMetadata.md)
 - [DomainData](interfaces/DomainData.md)
+- [DomainMetadata](interfaces/DomainMetadata.md)
 - [Ethers6Filter](interfaces/Ethers6Filter.md)
 - [Ethers6FilterByBlockHash](interfaces/Ethers6FilterByBlockHash.md)
 - [EventData](interfaces/EventData.md)
 - [IpfsAdapter](interfaces/IpfsAdapter.md)
 - [MetaTxBaseContract](interfaces/MetaTxBaseContract.md)
+- [MetadataTypeMap](interfaces/MetadataTypeMap.md)
+- [MiscData](interfaces/MiscData.md)
+- [MiscMetadata](interfaces/MiscMetadata.md)
 - [ParsedLogTransactionReceipt](interfaces/ParsedLogTransactionReceipt.md)
 - [PermissionConfig](interfaces/PermissionConfig.md)
 - [SafeInfo](interfaces/SafeInfo.md)
@@ -68,6 +76,12 @@
 - [TxCreatorConfig](interfaces/TxCreatorConfig.md)
 
 ## Type Aliases
+
+### Data
+
+Ƭ **Data**: [`AnnotationData`](interfaces/AnnotationData.md) \| [`ColonyData`](interfaces/ColonyData.md) \| [`DecisionData`](interfaces/DecisionData.md) \| [`DomainData`](interfaces/DomainData.md) \| [`MiscData`](interfaces/MiscData.md)
+
+___
 
 ### Domain
 
@@ -85,7 +99,7 @@ ___
 
 ### Metadata
 
-Ƭ **Metadata**: `AnnotationMetadata` \| `ColonyMetadata` \| `DecisionMetadata` \| `DomainMetadata` \| `MiscMetadata`
+Ƭ **Metadata**: [`AnnotationMetadata`](interfaces/AnnotationMetadata.md) \| [`ColonyMetadata`](interfaces/ColonyMetadata.md) \| [`DecisionMetadata`](interfaces/DecisionMetadata.md) \| [`DomainMetadata`](interfaces/DomainMetadata.md) \| [`MiscMetadata`](interfaces/MiscMetadata.md)
 
 ___
 
@@ -182,6 +196,14 @@ ___
 | `domain` | ``"DomainMetadata(address,uint256,string)"`` |
 | `misc` | ``""`` |
 
+___
+
+### METADATA\_VERSION
+
+• `Const` **METADATA\_VERSION**: ``2``
+
+Current Colony Event Metadata version
+
 ## Functions
 
 ### addressesAreEqual
@@ -205,6 +227,71 @@ This function can compare addresses in either format
 `boolean`
 
 Whether a and b are the same address
+
+___
+
+### createMetadataFor
+
+▸ **createMetadataFor**<`T`\>(`type`, `data`): [`MetadataTypeMap`](interfaces/MetadataTypeMap.md)[`T`]
+
+Create a valid Metadata object.
+
+Validates the input.
+
+**`Example`**
+
+```typescript
+import { createMetadataFor, MetadataType } from '@colony/event-metadata';
+
+const result = createMetadataFor(MetadataType.Domain, {
+  domainName: 'Cool team',
+});
+
+console.log(result.version); // 2
+console.log(result.name); // 'domain'
+console.log(result.data.domainName); // 'Cool team'
+```
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `T` | extends [`MetadataType`](enums/MetadataType.md) |
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `type` | `T` | The metadata type |
+| `data` | [`DataTypeMap`](interfaces/DataTypeMap.md)[`T`] | The actual data for the generated metadata object |
+
+#### Returns
+
+[`MetadataTypeMap`](interfaces/MetadataTypeMap.md)[`T`]
+
+The version number of the metadata
+
+___
+
+### getEventMetadataVersion
+
+▸ **getEventMetadataVersion**(`input`): `number`
+
+Get the version of a Metadata object
+
+Defaults to 1.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `input` | `object` | JavaScript object (parsed, from IPFS) |
+
+#### Returns
+
+`number`
+
+The version number of the metadata
 
 ___
 
@@ -251,6 +338,55 @@ Returns `true` if an extension version is compatible with the given colony versi
 `boolean`
 
 indication whether extension in given version is compatible with colony at the given version
+
+___
+
+### parseEventMetadata
+
+▸ **parseEventMetadata**<`T`\>(`input`, `type?`): [`MetadataTypeMap`](interfaces/MetadataTypeMap.md)[`T`]
+
+Parses and validates event metadata
+
+This will check the validity of an event metadata object.
+You can pass in an optional type if you know what to expect.
+It will also do a data version check.
+
+If you don't know what the output will be you can use TypeScript's
+Discriminated Unions to guard the correct types (see example).
+
+**`Example`**
+
+```typescript
+import { parseEventMetadata, MetadataType } from '@colony/event-metadata';
+
+// Get `input` from IPFS or other sources.
+
+const result = parseEventMetadata(input);
+
+if (result.type === MetadataType.Domain) {
+  // Type is DomainMetadata
+  console.log(result.data.domainName);
+}
+```
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `T` | extends [`MetadataType`](enums/MetadataType.md) = [`DEFAULT`](enums/MetadataType.md#default) |
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `input` | `object` | JavaScript object (parsed, from IPFS) |
+| `type?` | `T` | Optional MetadataType to check against |
+
+#### Returns
+
+[`MetadataTypeMap`](interfaces/MetadataTypeMap.md)[`T`]
+
+The validated Metadata.
 
 ___
 

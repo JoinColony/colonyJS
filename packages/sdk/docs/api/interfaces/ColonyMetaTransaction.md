@@ -33,13 +33,13 @@ See also https://docs.colony.io/colonysdk/guides/transactions for more informati
 
 ### mined
 
-▸ **mined**(): `Promise`<[`E`, `R`] \| [`E`, `R`, () => `Promise`<`MetadataTypeMap`[`MD`]\>]\>
+▸ **mined**(): `Promise`<[`E`, `R`] \| [`E`, `R`, () => `Promise`<[`MetadataTypeMap`](MetadataTypeMap.md)[`MD`]\>]\>
 
 Wait until the tx is mined, returning the event data and the receipt
 
 #### Returns
 
-`Promise`<[`E`, `R`] \| [`E`, `R`, () => `Promise`<`MetadataTypeMap`[`MD`]\>]\>
+`Promise`<[`E`, `R`] \| [`E`, `R`, () => `Promise`<[`MetadataTypeMap`](MetadataTypeMap.md)[`MD`]\>]\>
 
 A tupel of event data and contract receipt (and a function to retrieve metadata if applicable)
 
@@ -47,12 +47,12 @@ ___
 
 ### send
 
-▸ **send**(): `Promise`<[`C`, () => `Promise`<[`E`, `R`, () => `Promise`<`MetadataTypeMap`[`MD`]\>] \| [`E`, `R`]\>]\>
+▸ **send**(): `Promise`<[`C`, () => `Promise`<[`E`, `R`, () => `Promise`<[`MetadataTypeMap`](MetadataTypeMap.md)[`MD`]\>] \| [`E`, `R`]\>]\>
 
 Send off the tx, returning the transaction including its hash, not waiting for it to be mined
 
 #### Returns
 
-`Promise`<[`C`, () => `Promise`<[`E`, `R`, () => `Promise`<`MetadataTypeMap`[`MD`]\>] \| [`E`, `R`]\>]\>
+`Promise`<[`C`, () => `Promise`<[`E`, `R`, () => `Promise`<[`MetadataTypeMap`](MetadataTypeMap.md)[`MD`]\>] \| [`E`, `R`]\>]\>
 
 A tupel of a contract transaction and a function to wait for the mined event data as well as the receipt

@@ -21,7 +21,7 @@ You can find an instance of this under `colonyNetwork.ipfs` or `eventManager.ipf
 
 ### getMetadata
 
-▸ **getMetadata**<`K`\>(`cid`, `type?`): `Promise`<`MetadataTypeMap`[`K`]\>
+▸ **getMetadata**<`K`\>(`cid`, `type?`): `Promise`<[`MetadataTypeMap`](../interfaces/MetadataTypeMap.md)[`K`]\>
 
 #### Type parameters
 
@@ -38,13 +38,13 @@ You can find an instance of this under `colonyNetwork.ipfs` or `eventManager.ipf
 
 #### Returns
 
-`Promise`<`MetadataTypeMap`[`K`]\>
+`Promise`<[`MetadataTypeMap`](../interfaces/MetadataTypeMap.md)[`K`]\>
 
 ___
 
 ### getMetadataForEvent
 
-▸ **getMetadataForEvent**<`T`, `E`\>(`eventName`, `cid`): `Promise`<`MetadataTypeMap`[`T`]\>
+▸ **getMetadataForEvent**<`T`, `E`\>(`eventName`, `cid`): `Promise`<[`MetadataTypeMap`](../interfaces/MetadataTypeMap.md)[`T`]\>
 
 #### Type parameters
 
@@ -62,7 +62,7 @@ ___
 
 #### Returns
 
-`Promise`<`MetadataTypeMap`[`T`]\>
+`Promise`<[`MetadataTypeMap`](../interfaces/MetadataTypeMap.md)[`T`]\>
 
 ___
 
@@ -97,7 +97,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `type` | `T` |
-| `input` | `DataTypeMap`[`T`] |
+| `input` | [`DataTypeMap`](../interfaces/DataTypeMap.md)[`T`] |
 
 #### Returns
 

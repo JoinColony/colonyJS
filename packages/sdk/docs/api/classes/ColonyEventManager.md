@@ -69,7 +69,7 @@ const colonyEventSource = manager.createEventSource(ColonyEventsFactory);
 
 | Name | Type |
 | :------ | :------ |
-| `T` | extends `BaseContract`<`T`\> |
+| `T` | extends `BaseContract` |
 
 #### Parameters
 
@@ -115,7 +115,7 @@ Filter for all `DomainAdded` events between block 21830000 and 21840000 (across 
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `T` | extends `BaseContract`<`T`\> & { `filters`: { [P in string \| number \| symbol]: Function }  } | Needs to be a valid [EventSource](../README.md#eventsource) (i.e. from `colonyEvents.eventSources`) |
+| `T` | extends `BaseContract` & { `filters`: { [P in string \| number \| symbol]: Function }  } | Needs to be a valid [EventSource](../README.md#eventsource) (i.e. from `colonyEvents.eventSources`) |
 | `N` | extends `string` \| `number` \| `symbol` | An event signature as defined in the _ethers_ contract's [`filters`](https://docs.ethers.io/v5/api/contract/contract/#Contract--filters) object. See the [ColonyJS documentation](https://colony.gitbook.io/colony/colonyjs) for a list of all available contracts and events |
 
 #### Parameters
@@ -166,7 +166,7 @@ const domainAdded = colonyEvents.createFilter(
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `T` | extends `BaseContract`<`T`\> & { `filters`: { [P in string \| number \| symbol]: Function }  } | Needs to be a valid [EventSource](../README.md#eventsource) (i.e. from `colonyEvents.eventSources`) |
+| `T` | extends `BaseContract` & { `filters`: { [P in string \| number \| symbol]: Function }  } | Needs to be a valid [EventSource](../README.md#eventsource) (i.e. from `colonyEvents.eventSources`) |
 | `N` | extends `string` \| `number` \| `symbol` | An event signature as defined in the _ethers_ contract's [`filters`](https://docs.ethers.io/v5/api/contract/contract/#Contract--filters) object. See the [ColonyJS documentation](https://colony.gitbook.io/colony/colonyjs) for a list of all available contracts and events |
 
 #### Parameters
@@ -275,7 +275,7 @@ const domainMetadata = colonyEvents.createMultiFilter(
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `filters` | [`ColonyMultiFilter`](../interfaces/ColonyMultiFilter.md) \| [`ColonyMultiFilter`](../interfaces/ColonyMultiFilter.md)[] | An array of [ColonyMultiFilter](../interfaces/ColonyMultiFilter.md)s. Normal [ColonyFilter](../interfaces/ColonyFilter.md)s will not work |
-| `options` | `Object` | You can define `fromBlock` and `toBlock` only once for all the filters given (default for both is `latest`) |
+| `options?` | `Object` | You can define `fromBlock` and `toBlock` only once for all the filters given (default for both is `latest`) |
 | `options.fromBlock?` | `BlockTag` | - |
 | `options.toBlock?` | `BlockTag` | - |
 
