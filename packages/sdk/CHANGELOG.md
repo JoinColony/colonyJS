@@ -1,5 +1,21 @@
 # @colony/sdk
 
+## 2.0.0-next.7
+
+### Minor Changes
+
+- e931d0e3: - `event-metadata` package was removed and all its functionality went into the `events` package
+
+  - `ColonyEventManager` was moved to the `events` package as well
+  - `sdk/graph` was removed and will be added back at a later point
+
+  - There is now a `getMotionResult` method to get the result of a finalizeable motion.
+
+### Patch Changes
+
+- Updated dependencies [e931d0e3]
+  - @colony/events@0.3.0-next.2
+
 ## 2.0.0-next.6
 
 ### Minor Changes

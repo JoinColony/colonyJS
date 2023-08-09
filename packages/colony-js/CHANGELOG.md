@@ -1,5 +1,12 @@
 # @colony/colony-js
 
+## 7.0.0-next.4
+
+### Patch Changes
+
+- Updated dependencies [e931d0e3]
+  - @colony/events@0.3.0-next.2
+
 ## 7.0.0-next.3
 
 ### Minor Changes

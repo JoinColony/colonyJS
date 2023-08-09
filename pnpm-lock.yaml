@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 importers:
 
   .:
@@ -62,7 +66,7 @@ importers:
         specifier: ^1.2.0-next.2
         version: link:../core
       '@colony/events':
-        specifier: ^0.2.1-next.1
+        specifier: ^0.3.0-next.2
         version: link:../events
       '@colony/tokens':
         specifier: ^0.1.3-next.1
@@ -207,7 +211,7 @@ importers:
         specifier: ^1.2.0-next.2
         version: link:../core
       '@colony/events':
-        specifier: ^0.2.1-next.1
+        specifier: ^0.3.0-next.2
         version: link:../events
       '@colony/tokens':
         specifier: ^0.1.3-next.1
@@ -6136,7 +6140,3 @@ packages:
   /yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
