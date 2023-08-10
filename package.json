@@ -7,7 +7,7 @@
     "lint": "pnpm -r lint",
     "no-git-changes": "./scripts/no-git-changes.sh",
     "prepare": "husky install",
-    "release": "pnpm run lint && pnpm run build && pnpm run test && pnpm run no-git-changes && changeset publish",
+    "release": "pnpm --filter '!colony-js' run lint && pnpm --filter '!colony-js' run build && pnpm --filter '!colony-js' run test && pnpm run no-git-changes && changeset publish",
     "version": "changeset version && pnpm install --lockfile-only",
     "test": "pnpm -r test",
     "typecheck": "pnpm -r typecheck"
