@@ -1010,7 +1010,7 @@ const _abi = [
     stateMutability: "view",
     type: "function",
   },
-];
+] as const;
 
 export class TokenLocking__factory {
   static readonly abi = _abi;

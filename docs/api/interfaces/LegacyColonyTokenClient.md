@@ -66,24 +66,24 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `allowance` | (`src`: `PromiseOrValue`<`string`\>, `guy`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `approve` | (`guy`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
+| `allowance` | (`src`: `string`, `guy`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `approve` | (`guy`: `string`, `wad`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 | `authority` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `balanceOf` | (`src`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `burn(address,uint256)` | (`guy`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `burn(uint256)` | (`wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `balanceOf` | (`src`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `burn(address,uint256)` | (`guy`: `string`, `wad`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `burn(uint256)` | (`wad`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `decimals` | (`overrides?`: `CallOverrides`) => `Promise`<`number`\> |
 | `locked` | (`overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
-| `mint(address,uint256)` | (`guy`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `mint(uint256)` | (`wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `mint(address,uint256)` | (`guy`: `string`, `wad`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `mint(uint256)` | (`wad`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `name` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `setAuthority` | (`authority_`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setOwner` | (`owner_`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setAuthority` | (`authority_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setOwner` | (`owner_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `symbol` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `totalSupply` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `transfer` | (`dst`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
-| `transferFrom` | (`src`: `PromiseOrValue`<`string`\>, `dst`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
+| `transfer` | (`dst`: `string`, `wad`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
+| `transferFrom` | (`src`: `string`, `dst`: `string`, `wad`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 | `unlock` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 
 #### Inherited from
@@ -116,25 +116,25 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `allowance` | (`src`: `PromiseOrValue`<`string`\>, `guy`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `approve` | (`guy`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
+| `allowance` | (`src`: `string`, `guy`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `approve` | (`guy`: `string`, `wad`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
 | `authority` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `balanceOf` | (`src`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `burn(address,uint256)` | (`guy`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
-| `burn(uint256)` | (`wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
+| `balanceOf` | (`src`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `burn(address,uint256)` | (`guy`: `string`, `wad`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `burn(uint256)` | (`wad`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
 | `decimals` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `locked` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `mint(address,uint256)` | (`guy`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
-| `mint(uint256)` | (`wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
+| `mint(address,uint256)` | (`guy`: `string`, `wad`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `mint(uint256)` | (`wad`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
 | `name` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `setAuthority` | (`authority_`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
-| `setOwner` | (`owner_`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
+| `setAuthority` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `setOwner` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
 | `symbol` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `totalSupply` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `transfer` | (`dst`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
-| `transferFrom` | (`src`: `PromiseOrValue`<`string`\>, `dst`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
-| `unlock` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`BigNumber`\> |
+| `transfer` | (`dst`: `string`, `wad`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `transferFrom` | (`src`: `string`, `dst`: `string`, `wad`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `unlock` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
 
 #### Inherited from
 
@@ -150,18 +150,18 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `Approval` | (`src?`: ``null`` \| `PromiseOrValue`<`string`\>, `guy?`: ``null`` \| `PromiseOrValue`<`string`\>, `wad?`: ``null``) => `ApprovalEventFilter` |
-| `Approval(address,address,uint256)` | (`src?`: ``null`` \| `PromiseOrValue`<`string`\>, `guy?`: ``null`` \| `PromiseOrValue`<`string`\>, `wad?`: ``null``) => `ApprovalEventFilter` |
-| `Burn` | (`guy?`: ``null`` \| `PromiseOrValue`<`string`\>, `wad?`: ``null``) => `BurnEventFilter` |
-| `Burn(address,uint256)` | (`guy?`: ``null`` \| `PromiseOrValue`<`string`\>, `wad?`: ``null``) => `BurnEventFilter` |
-| `LogSetAuthority` | (`authority?`: ``null`` \| `PromiseOrValue`<`string`\>) => `LogSetAuthorityEventFilter` |
-| `LogSetAuthority(address)` | (`authority?`: ``null`` \| `PromiseOrValue`<`string`\>) => `LogSetAuthorityEventFilter` |
-| `LogSetOwner` | (`owner?`: ``null`` \| `PromiseOrValue`<`string`\>) => `LogSetOwnerEventFilter` |
-| `LogSetOwner(address)` | (`owner?`: ``null`` \| `PromiseOrValue`<`string`\>) => `LogSetOwnerEventFilter` |
-| `Mint` | (`guy?`: ``null`` \| `PromiseOrValue`<`string`\>, `wad?`: ``null``) => `MintEventFilter` |
-| `Mint(address,uint256)` | (`guy?`: ``null`` \| `PromiseOrValue`<`string`\>, `wad?`: ``null``) => `MintEventFilter` |
-| `Transfer` | (`src?`: ``null`` \| `PromiseOrValue`<`string`\>, `dst?`: ``null`` \| `PromiseOrValue`<`string`\>, `wad?`: ``null``) => `TransferEventFilter` |
-| `Transfer(address,address,uint256)` | (`src?`: ``null`` \| `PromiseOrValue`<`string`\>, `dst?`: ``null`` \| `PromiseOrValue`<`string`\>, `wad?`: ``null``) => `TransferEventFilter` |
+| `Approval` | (`src?`: ``null`` \| `string`, `guy?`: ``null`` \| `string`, `wad?`: ``null``) => `ApprovalEventFilter` |
+| `Approval(address,address,uint256)` | (`src?`: ``null`` \| `string`, `guy?`: ``null`` \| `string`, `wad?`: ``null``) => `ApprovalEventFilter` |
+| `Burn` | (`guy?`: ``null`` \| `string`, `wad?`: ``null``) => `BurnEventFilter` |
+| `Burn(address,uint256)` | (`guy?`: ``null`` \| `string`, `wad?`: ``null``) => `BurnEventFilter` |
+| `LogSetAuthority` | (`authority?`: ``null`` \| `string`) => `LogSetAuthorityEventFilter` |
+| `LogSetAuthority(address)` | (`authority?`: ``null`` \| `string`) => `LogSetAuthorityEventFilter` |
+| `LogSetOwner` | (`owner?`: ``null`` \| `string`) => `LogSetOwnerEventFilter` |
+| `LogSetOwner(address)` | (`owner?`: ``null`` \| `string`) => `LogSetOwnerEventFilter` |
+| `Mint` | (`guy?`: ``null`` \| `string`, `wad?`: ``null``) => `MintEventFilter` |
+| `Mint(address,uint256)` | (`guy?`: ``null`` \| `string`, `wad?`: ``null``) => `MintEventFilter` |
+| `Transfer` | (`src?`: ``null`` \| `string`, `dst?`: ``null`` \| `string`, `wad?`: ``null``) => `TransferEventFilter` |
+| `Transfer(address,address,uint256)` | (`src?`: ``null`` \| `string`, `dst?`: ``null`` \| `string`, `wad?`: ``null``) => `TransferEventFilter` |
 
 #### Inherited from
 
@@ -177,25 +177,25 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `allowance` | (`src`: `PromiseOrValue`<`string`\>, `guy`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
-| `approve` | (`guy`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `allowance` | (`src`: `string`, `guy`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
+| `approve` | (`guy`: `string`, `wad`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `authority` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `balanceOf` | (`src`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
-| `burn(address,uint256)` | (`guy`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `burn(uint256)` | (`wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `balanceOf` | (`src`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
+| `burn(address,uint256)` | (`guy`: `string`, `wad`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `burn(uint256)` | (`wad`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `decimals` | (`overrides?`: `CallOverrides`) => `Promise`<[`number`]\> |
 | `locked` | (`overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
-| `mint(address,uint256)` | (`guy`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `mint(uint256)` | (`wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `mint(address,uint256)` | (`guy`: `string`, `wad`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `mint(uint256)` | (`wad`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `name` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `owner` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `setAuthority` | (`authority_`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `setOwner` | (`owner_`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `setAuthority` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `setOwner` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `symbol` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `totalSupply` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
-| `transfer` | (`dst`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `transferFrom` | (`src`: `PromiseOrValue`<`string`\>, `dst`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
-| `unlock` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
+| `transfer` | (`dst`: `string`, `wad`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `transferFrom` | (`src`: `string`, `dst`: `string`, `wad`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `unlock` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 
 #### Inherited from
 
@@ -251,25 +251,25 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `allowance` | (`src`: `PromiseOrValue`<`string`\>, `guy`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `approve` | (`guy`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `allowance` | (`src`: `string`, `guy`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `approve` | (`guy`: `string`, `wad`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `authority` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `balanceOf` | (`src`: `PromiseOrValue`<`string`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `burn(address,uint256)` | (`guy`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `burn(uint256)` | (`wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `balanceOf` | (`src`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `burn(address,uint256)` | (`guy`: `string`, `wad`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `burn(uint256)` | (`wad`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `decimals` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `locked` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `mint(address,uint256)` | (`guy`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `mint(uint256)` | (`wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `mint(address,uint256)` | (`guy`: `string`, `wad`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `mint(uint256)` | (`wad`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `name` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `setAuthority` | (`authority_`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `setOwner` | (`owner_`: `PromiseOrValue`<`string`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `setAuthority` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `setOwner` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `symbol` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `totalSupply` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `transfer` | (`dst`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `transferFrom` | (`src`: `PromiseOrValue`<`string`\>, `dst`: `PromiseOrValue`<`string`\>, `wad`: `PromiseOrValue`<`BigNumberish`\>, `overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
-| `unlock` | (`overrides?`: `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
+| `transfer` | (`dst`: `string`, `wad`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `transferFrom` | (`src`: `string`, `dst`: `string`, `wad`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `unlock` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 
 #### Inherited from
 
@@ -393,8 +393,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `src` | `PromiseOrValue`<`string`\> |
-| `guy` | `PromiseOrValue`<`string`\> |
+| `src` | `string` |
+| `guy` | `string` |
 | `overrides?` | `CallOverrides` |
 
 #### Returns
@@ -415,9 +415,9 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `guy` | `PromiseOrValue`<`string`\> |
-| `wad` | `PromiseOrValue`<`BigNumberish`\> |
-| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
+| `guy` | `string` |
+| `wad` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -477,7 +477,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `src` | `PromiseOrValue`<`string`\> |
+| `src` | `string` |
 | `overrides?` | `CallOverrides` |
 
 #### Returns
@@ -498,9 +498,9 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `guy` | `PromiseOrValue`<`string`\> |
-| `wad` | `PromiseOrValue`<`BigNumberish`\> |
-| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
+| `guy` | `string` |
+| `wad` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -520,8 +520,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `wad` | `PromiseOrValue`<`BigNumberish`\> |
-| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
+| `wad` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -730,9 +730,9 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `guy` | `PromiseOrValue`<`string`\> |
-| `wad` | `PromiseOrValue`<`BigNumberish`\> |
-| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
+| `guy` | `string` |
+| `wad` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -752,8 +752,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `wad` | `PromiseOrValue`<`BigNumberish`\> |
-| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
+| `wad` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -883,8 +883,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `authority_` | `PromiseOrValue`<`string`\> |
-| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
+| `authority_` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -904,8 +904,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `owner_` | `PromiseOrValue`<`string`\> |
-| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
+| `owner_` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -965,9 +965,9 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `dst` | `PromiseOrValue`<`string`\> |
-| `wad` | `PromiseOrValue`<`BigNumberish`\> |
-| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
+| `dst` | `string` |
+| `wad` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -987,10 +987,10 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `src` | `PromiseOrValue`<`string`\> |
-| `dst` | `PromiseOrValue`<`string`\> |
-| `wad` | `PromiseOrValue`<`BigNumberish`\> |
-| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
+| `src` | `string` |
+| `dst` | `string` |
+| `wad` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1010,7 +1010,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 

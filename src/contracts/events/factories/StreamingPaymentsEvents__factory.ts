@@ -148,7 +148,7 @@ const _abi = [
     name: "StreamingPaymentCreated",
     type: "event",
   },
-];
+] as const;
 
 export class StreamingPaymentsEvents__factory {
   static readonly abi = _abi;

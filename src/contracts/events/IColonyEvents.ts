@@ -16,7 +16,6 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
-  PromiseOrValue,
 } from "./common";
 
 export interface IColonyEventsInterface extends utils.Interface {
@@ -1481,28 +1480,28 @@ export interface IColonyEvents extends BaseContract {
       newVersion?: null
     ): ColonyUpgraded_address_uint256_uint256_EventFilter;
     "ColonyRoleSet(address,uint256,uint8,bool)"(
-      user?: PromiseOrValue<string> | null,
-      domainId?: PromiseOrValue<BigNumberish> | null,
-      role?: PromiseOrValue<BigNumberish> | null,
+      user?: string | null,
+      domainId?: BigNumberish | null,
+      role?: BigNumberish | null,
       setTo?: null
     ): ColonyRoleSet_address_uint256_uint8_bool_EventFilter;
     "ColonyRoleSet(address,address,uint256,uint8,bool)"(
       agent?: null,
-      user?: PromiseOrValue<string> | null,
-      domainId?: PromiseOrValue<BigNumberish> | null,
-      role?: PromiseOrValue<BigNumberish> | null,
+      user?: string | null,
+      domainId?: BigNumberish | null,
+      role?: BigNumberish | null,
       setTo?: null
     ): ColonyRoleSet_address_address_uint256_uint8_bool_EventFilter;
     "ColonyFundsMovedBetweenFundingPots(uint256,uint256,uint256,address)"(
-      fromPot?: PromiseOrValue<BigNumberish> | null,
-      toPot?: PromiseOrValue<BigNumberish> | null,
+      fromPot?: BigNumberish | null,
+      toPot?: BigNumberish | null,
       amount?: null,
       token?: null
     ): ColonyFundsMovedBetweenFundingPots_uint256_uint256_uint256_address_EventFilter;
     "ColonyFundsMovedBetweenFundingPots(address,uint256,uint256,uint256,address)"(
       agent?: null,
-      fromPot?: PromiseOrValue<BigNumberish> | null,
-      toPot?: PromiseOrValue<BigNumberish> | null,
+      fromPot?: BigNumberish | null,
+      toPot?: BigNumberish | null,
       amount?: null,
       token?: null
     ): ColonyFundsMovedBetweenFundingPots_address_uint256_uint256_uint256_address_EventFilter;
@@ -1564,117 +1563,115 @@ export interface IColonyEvents extends BaseContract {
     ): TaskAdded_address_uint256_EventFilter;
 
     "TaskBriefSet(uint256,bytes32)"(
-      taskId?: PromiseOrValue<BigNumberish> | null,
+      taskId?: BigNumberish | null,
       specificationHash?: null
     ): TaskBriefSetEventFilter;
     TaskBriefSet(
-      taskId?: PromiseOrValue<BigNumberish> | null,
+      taskId?: BigNumberish | null,
       specificationHash?: null
     ): TaskBriefSetEventFilter;
 
     "TaskDueDateSet(uint256,uint256)"(
-      taskId?: PromiseOrValue<BigNumberish> | null,
+      taskId?: BigNumberish | null,
       dueDate?: null
     ): TaskDueDateSetEventFilter;
     TaskDueDateSet(
-      taskId?: PromiseOrValue<BigNumberish> | null,
+      taskId?: BigNumberish | null,
       dueDate?: null
     ): TaskDueDateSetEventFilter;
 
     "TaskDomainSet(uint256,uint256)"(
-      taskId?: PromiseOrValue<BigNumberish> | null,
-      domainId?: PromiseOrValue<BigNumberish> | null
+      taskId?: BigNumberish | null,
+      domainId?: BigNumberish | null
     ): TaskDomainSetEventFilter;
     TaskDomainSet(
-      taskId?: PromiseOrValue<BigNumberish> | null,
-      domainId?: PromiseOrValue<BigNumberish> | null
+      taskId?: BigNumberish | null,
+      domainId?: BigNumberish | null
     ): TaskDomainSetEventFilter;
 
     "TaskSkillSet(uint256,uint256)"(
-      taskId?: PromiseOrValue<BigNumberish> | null,
-      skillId?: PromiseOrValue<BigNumberish> | null
+      taskId?: BigNumberish | null,
+      skillId?: BigNumberish | null
     ): TaskSkillSetEventFilter;
     TaskSkillSet(
-      taskId?: PromiseOrValue<BigNumberish> | null,
-      skillId?: PromiseOrValue<BigNumberish> | null
+      taskId?: BigNumberish | null,
+      skillId?: BigNumberish | null
     ): TaskSkillSetEventFilter;
 
     "TaskRoleUserSet(uint256,uint8,address)"(
-      taskId?: PromiseOrValue<BigNumberish> | null,
+      taskId?: BigNumberish | null,
       role?: null,
-      user?: PromiseOrValue<string> | null
+      user?: string | null
     ): TaskRoleUserSetEventFilter;
     TaskRoleUserSet(
-      taskId?: PromiseOrValue<BigNumberish> | null,
+      taskId?: BigNumberish | null,
       role?: null,
-      user?: PromiseOrValue<string> | null
+      user?: string | null
     ): TaskRoleUserSetEventFilter;
 
     "TaskPayoutSet(uint256,uint8,address,uint256)"(
-      taskId?: PromiseOrValue<BigNumberish> | null,
+      taskId?: BigNumberish | null,
       role?: null,
       token?: null,
       amount?: null
     ): TaskPayoutSetEventFilter;
     TaskPayoutSet(
-      taskId?: PromiseOrValue<BigNumberish> | null,
+      taskId?: BigNumberish | null,
       role?: null,
       token?: null,
       amount?: null
     ): TaskPayoutSetEventFilter;
 
     "TaskDeliverableSubmitted(uint256,bytes32)"(
-      taskId?: PromiseOrValue<BigNumberish> | null,
+      taskId?: BigNumberish | null,
       deliverableHash?: null
     ): TaskDeliverableSubmitted_uint256_bytes32_EventFilter;
     "TaskDeliverableSubmitted(address,uint256,bytes32)"(
       agent?: null,
-      taskId?: PromiseOrValue<BigNumberish> | null,
+      taskId?: BigNumberish | null,
       deliverableHash?: null
     ): TaskDeliverableSubmitted_address_uint256_bytes32_EventFilter;
     "TaskCompleted(uint256)"(
-      taskId?: PromiseOrValue<BigNumberish> | null
+      taskId?: BigNumberish | null
     ): TaskCompleted_uint256_EventFilter;
     "TaskCompleted(address,uint256)"(
       agent?: null,
-      taskId?: PromiseOrValue<BigNumberish> | null
+      taskId?: BigNumberish | null
     ): TaskCompleted_address_uint256_EventFilter;
     "TaskWorkRatingRevealed(uint256,uint8,uint8)"(
-      taskId?: PromiseOrValue<BigNumberish> | null,
+      taskId?: BigNumberish | null,
       role?: null,
       rating?: null
     ): TaskWorkRatingRevealed_uint256_uint8_uint8_EventFilter;
     "TaskWorkRatingRevealed(address,uint256,uint8,uint8)"(
       agent?: null,
-      taskId?: PromiseOrValue<BigNumberish> | null,
+      taskId?: BigNumberish | null,
       role?: null,
       rating?: null
     ): TaskWorkRatingRevealed_address_uint256_uint8_uint8_EventFilter;
     "TaskFinalized(uint256)"(
-      taskId?: PromiseOrValue<BigNumberish> | null
+      taskId?: BigNumberish | null
     ): TaskFinalized_uint256_EventFilter;
     "TaskFinalized(address,uint256)"(
       agent?: null,
-      taskId?: PromiseOrValue<BigNumberish> | null
+      taskId?: BigNumberish | null
     ): TaskFinalized_address_uint256_EventFilter;
     "PayoutClaimed(uint256,address,uint256)"(
-      fundingPotId?: PromiseOrValue<BigNumberish> | null,
+      fundingPotId?: BigNumberish | null,
       token?: null,
       amount?: null
     ): PayoutClaimed_uint256_address_uint256_EventFilter;
     "PayoutClaimed(address,uint256,address,uint256)"(
       agent?: null,
-      fundingPotId?: PromiseOrValue<BigNumberish> | null,
+      fundingPotId?: BigNumberish | null,
       token?: null,
       amount?: null
     ): PayoutClaimed_address_uint256_address_uint256_EventFilter;
 
     "TaskCanceled(uint256)"(
-      taskId?: PromiseOrValue<BigNumberish> | null
+      taskId?: BigNumberish | null
     ): TaskCanceledEventFilter;
-    TaskCanceled(
-      taskId?: PromiseOrValue<BigNumberish> | null
-    ): TaskCanceledEventFilter;
+    TaskCanceled(taskId?: BigNumberish | null): TaskCanceledEventFilter;
 
     "DomainAdded(uint256)"(domainId?: null): DomainAdded_uint256_EventFilter;
     "DomainAdded(address,uint256)"(
@@ -1686,11 +1683,11 @@ export interface IColonyEvents extends BaseContract {
     FundingPotAdded(fundingPotId?: null): FundingPotAddedEventFilter;
 
     "RecoveryRoleSet(address,bool)"(
-      user?: PromiseOrValue<string> | null,
+      user?: string | null,
       setTo?: null
     ): RecoveryRoleSetEventFilter;
     RecoveryRoleSet(
-      user?: PromiseOrValue<string> | null,
+      user?: string | null,
       setTo?: null
     ): RecoveryRoleSetEventFilter;
 
@@ -1702,72 +1699,72 @@ export interface IColonyEvents extends BaseContract {
       expenditureId?: null
     ): ExpenditureAdded_address_uint256_EventFilter;
     "ExpenditureTransferred(uint256,address)"(
-      expenditureId?: PromiseOrValue<BigNumberish> | null,
-      owner?: PromiseOrValue<string> | null
+      expenditureId?: BigNumberish | null,
+      owner?: string | null
     ): ExpenditureTransferred_uint256_address_EventFilter;
     "ExpenditureTransferred(address,uint256,address)"(
       agent?: null,
-      expenditureId?: PromiseOrValue<BigNumberish> | null,
-      owner?: PromiseOrValue<string> | null
+      expenditureId?: BigNumberish | null,
+      owner?: string | null
     ): ExpenditureTransferred_address_uint256_address_EventFilter;
     "ExpenditureCancelled(uint256)"(
-      expenditureId?: PromiseOrValue<BigNumberish> | null
+      expenditureId?: BigNumberish | null
     ): ExpenditureCancelled_uint256_EventFilter;
     "ExpenditureCancelled(address,uint256)"(
       agent?: null,
-      expenditureId?: PromiseOrValue<BigNumberish> | null
+      expenditureId?: BigNumberish | null
     ): ExpenditureCancelled_address_uint256_EventFilter;
     "ExpenditureFinalized(uint256)"(
-      expenditureId?: PromiseOrValue<BigNumberish> | null
+      expenditureId?: BigNumberish | null
     ): ExpenditureFinalized_uint256_EventFilter;
     "ExpenditureFinalized(address,uint256)"(
       agent?: null,
-      expenditureId?: PromiseOrValue<BigNumberish> | null
+      expenditureId?: BigNumberish | null
     ): ExpenditureFinalized_address_uint256_EventFilter;
     "ExpenditureRecipientSet(uint256,uint256,address)"(
-      expenditureId?: PromiseOrValue<BigNumberish> | null,
-      slot?: PromiseOrValue<BigNumberish> | null,
-      recipient?: PromiseOrValue<string> | null
+      expenditureId?: BigNumberish | null,
+      slot?: BigNumberish | null,
+      recipient?: string | null
     ): ExpenditureRecipientSet_uint256_uint256_address_EventFilter;
     "ExpenditureRecipientSet(address,uint256,uint256,address)"(
       agent?: null,
-      expenditureId?: PromiseOrValue<BigNumberish> | null,
-      slot?: PromiseOrValue<BigNumberish> | null,
-      recipient?: PromiseOrValue<string> | null
+      expenditureId?: BigNumberish | null,
+      slot?: BigNumberish | null,
+      recipient?: string | null
     ): ExpenditureRecipientSet_address_uint256_uint256_address_EventFilter;
     "ExpenditureSkillSet(uint256,uint256,uint256)"(
-      expenditureId?: PromiseOrValue<BigNumberish> | null,
-      slot?: PromiseOrValue<BigNumberish> | null,
-      skillId?: PromiseOrValue<BigNumberish> | null
+      expenditureId?: BigNumberish | null,
+      slot?: BigNumberish | null,
+      skillId?: BigNumberish | null
     ): ExpenditureSkillSet_uint256_uint256_uint256_EventFilter;
     "ExpenditureSkillSet(address,uint256,uint256,uint256)"(
       agent?: null,
-      expenditureId?: PromiseOrValue<BigNumberish> | null,
-      slot?: PromiseOrValue<BigNumberish> | null,
-      skillId?: PromiseOrValue<BigNumberish> | null
+      expenditureId?: BigNumberish | null,
+      slot?: BigNumberish | null,
+      skillId?: BigNumberish | null
     ): ExpenditureSkillSet_address_uint256_uint256_uint256_EventFilter;
     "ExpenditurePayoutSet(uint256,uint256,address,uint256)"(
-      expenditureId?: PromiseOrValue<BigNumberish> | null,
-      slot?: PromiseOrValue<BigNumberish> | null,
-      token?: PromiseOrValue<string> | null,
+      expenditureId?: BigNumberish | null,
+      slot?: BigNumberish | null,
+      token?: string | null,
       amount?: null
     ): ExpenditurePayoutSet_uint256_uint256_address_uint256_EventFilter;
     "ExpenditurePayoutSet(address,uint256,uint256,address,uint256)"(
       agent?: null,
-      expenditureId?: PromiseOrValue<BigNumberish> | null,
-      slot?: PromiseOrValue<BigNumberish> | null,
-      token?: PromiseOrValue<string> | null,
+      expenditureId?: BigNumberish | null,
+      slot?: BigNumberish | null,
+      token?: string | null,
       amount?: null
     ): ExpenditurePayoutSet_address_uint256_uint256_address_uint256_EventFilter;
 
     "Annotation(address,bytes32,string)"(
-      agent?: PromiseOrValue<string> | null,
-      txHash?: PromiseOrValue<BytesLike> | null,
+      agent?: string | null,
+      txHash?: BytesLike | null,
       metadata?: null
     ): AnnotationEventFilter;
     Annotation(
-      agent?: PromiseOrValue<string> | null,
-      txHash?: PromiseOrValue<BytesLike> | null,
+      agent?: string | null,
+      txHash?: BytesLike | null,
       metadata?: null
     ): AnnotationEventFilter;
 
@@ -1779,56 +1776,56 @@ export interface IColonyEvents extends BaseContract {
 
     "DomainMetadata(address,uint256,string)"(
       agent?: null,
-      domainId?: PromiseOrValue<BigNumberish> | null,
+      domainId?: BigNumberish | null,
       metadata?: null
     ): DomainMetadataEventFilter;
     DomainMetadata(
       agent?: null,
-      domainId?: PromiseOrValue<BigNumberish> | null,
+      domainId?: BigNumberish | null,
       metadata?: null
     ): DomainMetadataEventFilter;
 
     "PaymentFinalized(address,uint256)"(
       agent?: null,
-      paymentId?: PromiseOrValue<BigNumberish> | null
+      paymentId?: BigNumberish | null
     ): PaymentFinalizedEventFilter;
     PaymentFinalized(
       agent?: null,
-      paymentId?: PromiseOrValue<BigNumberish> | null
+      paymentId?: BigNumberish | null
     ): PaymentFinalizedEventFilter;
 
     "PaymentPayoutSet(address,uint256,address,uint256)"(
       agent?: null,
-      paymentId?: PromiseOrValue<BigNumberish> | null,
+      paymentId?: BigNumberish | null,
       token?: null,
       amount?: null
     ): PaymentPayoutSetEventFilter;
     PaymentPayoutSet(
       agent?: null,
-      paymentId?: PromiseOrValue<BigNumberish> | null,
+      paymentId?: BigNumberish | null,
       token?: null,
       amount?: null
     ): PaymentPayoutSetEventFilter;
 
     "PaymentRecipientSet(address,uint256,address)"(
       agent?: null,
-      paymentId?: PromiseOrValue<BigNumberish> | null,
+      paymentId?: BigNumberish | null,
       recipient?: null
     ): PaymentRecipientSetEventFilter;
     PaymentRecipientSet(
       agent?: null,
-      paymentId?: PromiseOrValue<BigNumberish> | null,
+      paymentId?: BigNumberish | null,
       recipient?: null
     ): PaymentRecipientSetEventFilter;
 
     "PaymentSkillSet(address,uint256,uint256)"(
       agent?: null,
-      paymentId?: PromiseOrValue<BigNumberish> | null,
+      paymentId?: BigNumberish | null,
       skillId?: null
     ): PaymentSkillSetEventFilter;
     PaymentSkillSet(
       agent?: null,
-      paymentId?: PromiseOrValue<BigNumberish> | null,
+      paymentId?: BigNumberish | null,
       skillId?: null
     ): PaymentSkillSetEventFilter;
 
@@ -1903,14 +1900,14 @@ export interface IColonyEvents extends BaseContract {
 
     "ExpenditureClaimDelaySet(address,uint256,uint256,uint256)"(
       agent?: null,
-      expenditureId?: PromiseOrValue<BigNumberish> | null,
-      slot?: PromiseOrValue<BigNumberish> | null,
+      expenditureId?: BigNumberish | null,
+      slot?: BigNumberish | null,
       claimDelay?: null
     ): ExpenditureClaimDelaySetEventFilter;
     ExpenditureClaimDelaySet(
       agent?: null,
-      expenditureId?: PromiseOrValue<BigNumberish> | null,
-      slot?: PromiseOrValue<BigNumberish> | null,
+      expenditureId?: BigNumberish | null,
+      slot?: BigNumberish | null,
       claimDelay?: null
     ): ExpenditureClaimDelaySetEventFilter;
 
@@ -1925,34 +1922,34 @@ export interface IColonyEvents extends BaseContract {
 
     "ExpenditureLocked(address,uint256)"(
       agent?: null,
-      expenditureId?: PromiseOrValue<BigNumberish> | null
+      expenditureId?: BigNumberish | null
     ): ExpenditureLockedEventFilter;
     ExpenditureLocked(
       agent?: null,
-      expenditureId?: PromiseOrValue<BigNumberish> | null
+      expenditureId?: BigNumberish | null
     ): ExpenditureLockedEventFilter;
 
     "ExpenditureMetadataSet(address,uint256,string)"(
       agent?: null,
-      expenditureId?: PromiseOrValue<BigNumberish> | null,
+      expenditureId?: BigNumberish | null,
       metadata?: null
     ): ExpenditureMetadataSetEventFilter;
     ExpenditureMetadataSet(
       agent?: null,
-      expenditureId?: PromiseOrValue<BigNumberish> | null,
+      expenditureId?: BigNumberish | null,
       metadata?: null
     ): ExpenditureMetadataSetEventFilter;
 
     "ExpenditurePayoutModifierSet(address,uint256,uint256,int256)"(
       agent?: null,
-      expenditureId?: PromiseOrValue<BigNumberish> | null,
-      slot?: PromiseOrValue<BigNumberish> | null,
+      expenditureId?: BigNumberish | null,
+      slot?: BigNumberish | null,
       payoutModifier?: null
     ): ExpenditurePayoutModifierSetEventFilter;
     ExpenditurePayoutModifierSet(
       agent?: null,
-      expenditureId?: PromiseOrValue<BigNumberish> | null,
-      slot?: PromiseOrValue<BigNumberish> | null,
+      expenditureId?: BigNumberish | null,
+      slot?: BigNumberish | null,
       payoutModifier?: null
     ): ExpenditurePayoutModifierSetEventFilter;
 
@@ -1967,12 +1964,12 @@ export interface IColonyEvents extends BaseContract {
 
     "DomainDeprecated(address,uint256,bool)"(
       agent?: null,
-      domainId?: PromiseOrValue<BigNumberish> | null,
+      domainId?: BigNumberish | null,
       deprecated?: null
     ): DomainDeprecatedEventFilter;
     DomainDeprecated(
       agent?: null,
-      domainId?: PromiseOrValue<BigNumberish> | null,
+      domainId?: BigNumberish | null,
       deprecated?: null
     ): DomainDeprecatedEventFilter;
 
@@ -2042,16 +2039,16 @@ export interface IColonyEvents extends BaseContract {
 
     "ExpenditureStateChanged(address,uint256,uint256,bool[],bytes32[],bytes32)"(
       agent?: null,
-      expenditureId?: PromiseOrValue<BigNumberish> | null,
-      storageSlot?: PromiseOrValue<BigNumberish> | null,
+      expenditureId?: BigNumberish | null,
+      storageSlot?: BigNumberish | null,
       mask?: null,
       keys?: null,
       value?: null
     ): ExpenditureStateChangedEventFilter;
     ExpenditureStateChanged(
       agent?: null,
-      expenditureId?: PromiseOrValue<BigNumberish> | null,
-      storageSlot?: PromiseOrValue<BigNumberish> | null,
+      expenditureId?: BigNumberish | null,
+      storageSlot?: BigNumberish | null,
       mask?: null,
       keys?: null,
       value?: null

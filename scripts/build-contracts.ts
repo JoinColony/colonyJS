@@ -205,7 +205,7 @@ const build = async () => {
     await buildVersionedContracts(versionDir, tag);
   }
 
-  if (tag === LATEST_TAG) {
+  if (tag === LATEST_TAG || tag === 'next') {
     await buildLatestContracts(versionDir);
     await buildLatestTokentContracts(versionDir);
     await buildEventsContracts();

@@ -20,8 +20,11 @@ import getTokenSupplierClientV4, {
 import getTokenSupplierClientV5, {
   TokenSupplierClientV5,
 } from './TokenSupplierClientV5';
+import getTokenSupplierClientV6, {
+  TokenSupplierClientV6,
+} from './TokenSupplierClientV6';
 
-const TOKEN_SUPPLIER_VERSION_NEXT = 6;
+const TOKEN_SUPPLIER_VERSION_NEXT = 7;
 
 /** @internal */
 export const TOKEN_SUPPLIER_VERSION_LATEST = TOKEN_SUPPLIER_VERSION_NEXT - 1;
@@ -31,13 +34,15 @@ export { TokenSupplierClientV2 } from './TokenSupplierClientV2';
 export { TokenSupplierClientV3 } from './TokenSupplierClientV3';
 export { TokenSupplierClientV4 } from './TokenSupplierClientV4';
 export { TokenSupplierClientV5 } from './TokenSupplierClientV5';
+export { TokenSupplierClientV6 } from './TokenSupplierClientV6';
 
 export type AnyTokenSupplierClient =
   | TokenSupplierClientV1
   | TokenSupplierClientV2
   | TokenSupplierClientV3
   | TokenSupplierClientV4
-  | TokenSupplierClientV5;
+  | TokenSupplierClientV5
+  | TokenSupplierClientV6;
 
 /** @internal */
 export const TOKEN_SUPPLIER_VERSIONS = createContractVersionArray(
@@ -56,6 +61,7 @@ export const tokenSupplierIncompatibilityMap: Record<
   3: [],
   4: [],
   5: [],
+  6: [],
 };
 
 /** @internal */
@@ -75,6 +81,8 @@ export const getTokenSupplierClient = (
       return getTokenSupplierClientV4(colonyClient, address);
     case 5:
       return getTokenSupplierClientV5(colonyClient, address);
+    case 6:
+      return getTokenSupplierClientV6(colonyClient, address);
     default:
       return assertExhaustiveSwitch(
         version,

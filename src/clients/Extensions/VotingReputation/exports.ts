@@ -32,8 +32,11 @@ import getVotingReputationClientV8, {
 import getVotingReputationClientV9, {
   VotingReputationClientV9,
 } from './VotingReputationClientV9';
+import getVotingReputationClientV10, {
+  VotingReputationClientV10,
+} from './VotingReputationClientV10';
 
-const VOTING_REPUTATION_VERSION_NEXT = 10;
+const VOTING_REPUTATION_VERSION_NEXT = 11;
 
 /** @internal */
 export const VOTING_REPUTATION_VERSION_LATEST =
@@ -48,6 +51,7 @@ export { VotingReputationClientV6 } from './VotingReputationClientV6';
 export { VotingReputationClientV7 } from './VotingReputationClientV7';
 export { VotingReputationClientV8 } from './VotingReputationClientV8';
 export { VotingReputationClientV9 } from './VotingReputationClientV9';
+export { VotingReputationClientV10 } from './VotingReputationClientV10';
 
 export type AnyVotingReputationClient =
   | VotingReputationClientV1
@@ -58,7 +62,8 @@ export type AnyVotingReputationClient =
   | VotingReputationClientV6
   | VotingReputationClientV7
   | VotingReputationClientV8
-  | VotingReputationClientV9;
+  | VotingReputationClientV9
+  | VotingReputationClientV10;
 
 /** @internal */
 export const VOTING_REPUTATION_VERSIONS = createContractVersionArray(
@@ -81,6 +86,7 @@ export const votingReputationIncompatibilityMap: Record<
   7: [1, 2, 3, 4, 5, 6],
   8: [1, 2, 3, 4, 5, 6],
   9: [1, 2, 3, 4, 5, 6],
+  10: [1, 2, 3, 4, 5, 6],
 };
 
 /** @internal */
@@ -108,6 +114,8 @@ export function getVotingReputationClient(
       return getVotingReputationClientV8(colonyClient, address);
     case 9:
       return getVotingReputationClientV9(colonyClient, address);
+    case 10:
+      return getVotingReputationClientV10(colonyClient, address);
     default:
       return assertExhaustiveSwitch(
         version,

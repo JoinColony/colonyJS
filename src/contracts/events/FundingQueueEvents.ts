@@ -15,7 +15,6 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
-  PromiseOrValue,
 } from "./common";
 
 export interface FundingQueueEventsInterface extends utils.Interface {
@@ -205,83 +204,75 @@ export interface FundingQueueEvents extends BaseContract {
     ExtensionInitialised(): ExtensionInitialisedEventFilter;
 
     "LogSetAuthority(address)"(
-      authority?: PromiseOrValue<string> | null
+      authority?: string | null
     ): LogSetAuthorityEventFilter;
-    LogSetAuthority(
-      authority?: PromiseOrValue<string> | null
-    ): LogSetAuthorityEventFilter;
+    LogSetAuthority(authority?: string | null): LogSetAuthorityEventFilter;
 
-    "LogSetOwner(address)"(
-      owner?: PromiseOrValue<string> | null
-    ): LogSetOwnerEventFilter;
-    LogSetOwner(owner?: PromiseOrValue<string> | null): LogSetOwnerEventFilter;
+    "LogSetOwner(address)"(owner?: string | null): LogSetOwnerEventFilter;
+    LogSetOwner(owner?: string | null): LogSetOwnerEventFilter;
 
     "ProposalBacked(uint256,uint256,address,uint256,uint256)"(
-      id?: PromiseOrValue<BigNumberish> | null,
-      newPrevId?: PromiseOrValue<BigNumberish> | null,
-      user?: PromiseOrValue<string> | null,
+      id?: BigNumberish | null,
+      newPrevId?: BigNumberish | null,
+      user?: string | null,
       backing?: null,
       prevBacking?: null
     ): ProposalBackedEventFilter;
     ProposalBacked(
-      id?: PromiseOrValue<BigNumberish> | null,
-      newPrevId?: PromiseOrValue<BigNumberish> | null,
-      user?: PromiseOrValue<string> | null,
+      id?: BigNumberish | null,
+      newPrevId?: BigNumberish | null,
+      user?: string | null,
       backing?: null,
       prevBacking?: null
     ): ProposalBackedEventFilter;
 
     "ProposalCancelled(uint256)"(
-      id?: PromiseOrValue<BigNumberish> | null
+      id?: BigNumberish | null
     ): ProposalCancelledEventFilter;
-    ProposalCancelled(
-      id?: PromiseOrValue<BigNumberish> | null
-    ): ProposalCancelledEventFilter;
+    ProposalCancelled(id?: BigNumberish | null): ProposalCancelledEventFilter;
 
     "ProposalCompleted(uint256)"(
-      id?: PromiseOrValue<BigNumberish> | null
+      id?: BigNumberish | null
     ): ProposalCompletedEventFilter;
-    ProposalCompleted(
-      id?: PromiseOrValue<BigNumberish> | null
-    ): ProposalCompletedEventFilter;
+    ProposalCompleted(id?: BigNumberish | null): ProposalCompletedEventFilter;
 
     "ProposalCreated(uint256,uint256,uint256,address,uint256)"(
       id?: null,
-      fromPot?: PromiseOrValue<BigNumberish> | null,
-      toPot?: PromiseOrValue<BigNumberish> | null,
-      token?: PromiseOrValue<string> | null,
+      fromPot?: BigNumberish | null,
+      toPot?: BigNumberish | null,
+      token?: string | null,
       amount?: null
     ): ProposalCreatedEventFilter;
     ProposalCreated(
       id?: null,
-      fromPot?: PromiseOrValue<BigNumberish> | null,
-      toPot?: PromiseOrValue<BigNumberish> | null,
-      token?: PromiseOrValue<string> | null,
+      fromPot?: BigNumberish | null,
+      toPot?: BigNumberish | null,
+      token?: string | null,
       amount?: null
     ): ProposalCreatedEventFilter;
 
     "ProposalPinged(uint256,uint256)"(
-      id?: PromiseOrValue<BigNumberish> | null,
+      id?: BigNumberish | null,
       amount?: null
     ): ProposalPingedEventFilter;
     ProposalPinged(
-      id?: PromiseOrValue<BigNumberish> | null,
+      id?: BigNumberish | null,
       amount?: null
     ): ProposalPingedEventFilter;
 
     "ProposalStakeReclaimed(uint256)"(
-      id?: PromiseOrValue<BigNumberish> | null
+      id?: BigNumberish | null
     ): ProposalStakeReclaimedEventFilter;
     ProposalStakeReclaimed(
-      id?: PromiseOrValue<BigNumberish> | null
+      id?: BigNumberish | null
     ): ProposalStakeReclaimedEventFilter;
 
     "ProposalStaked(uint256,uint256)"(
-      id?: PromiseOrValue<BigNumberish> | null,
+      id?: BigNumberish | null,
       domainTotalRep?: null
     ): ProposalStakedEventFilter;
     ProposalStaked(
-      id?: PromiseOrValue<BigNumberish> | null,
+      id?: BigNumberish | null,
       domainTotalRep?: null
     ): ProposalStakedEventFilter;
 

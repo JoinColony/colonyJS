@@ -9,7 +9,6 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
-  PromiseOrValue,
 } from "./common";
 
 export interface MetaTxTokenEventsInterface extends utils.Interface {
@@ -136,33 +135,26 @@ export interface MetaTxTokenEvents extends BaseContract {
 
   filters: {
     "Approval(address,address,uint256)"(
-      src?: PromiseOrValue<string> | null,
-      guy?: PromiseOrValue<string> | null,
+      src?: string | null,
+      guy?: string | null,
       wad?: null
     ): ApprovalEventFilter;
     Approval(
-      src?: PromiseOrValue<string> | null,
-      guy?: PromiseOrValue<string> | null,
+      src?: string | null,
+      guy?: string | null,
       wad?: null
     ): ApprovalEventFilter;
 
-    "Burn(address,uint256)"(
-      guy?: PromiseOrValue<string> | null,
-      wad?: null
-    ): BurnEventFilter;
-    Burn(guy?: PromiseOrValue<string> | null, wad?: null): BurnEventFilter;
+    "Burn(address,uint256)"(guy?: string | null, wad?: null): BurnEventFilter;
+    Burn(guy?: string | null, wad?: null): BurnEventFilter;
 
     "LogSetAuthority(address)"(
-      authority?: PromiseOrValue<string> | null
+      authority?: string | null
     ): LogSetAuthorityEventFilter;
-    LogSetAuthority(
-      authority?: PromiseOrValue<string> | null
-    ): LogSetAuthorityEventFilter;
+    LogSetAuthority(authority?: string | null): LogSetAuthorityEventFilter;
 
-    "LogSetOwner(address)"(
-      owner?: PromiseOrValue<string> | null
-    ): LogSetOwnerEventFilter;
-    LogSetOwner(owner?: PromiseOrValue<string> | null): LogSetOwnerEventFilter;
+    "LogSetOwner(address)"(owner?: string | null): LogSetOwnerEventFilter;
+    LogSetOwner(owner?: string | null): LogSetOwnerEventFilter;
 
     "MetaTransactionExecuted(address,address,bytes)"(
       user?: null,
@@ -175,20 +167,17 @@ export interface MetaTxTokenEvents extends BaseContract {
       functionSignature?: null
     ): MetaTransactionExecutedEventFilter;
 
-    "Mint(address,uint256)"(
-      guy?: PromiseOrValue<string> | null,
-      wad?: null
-    ): MintEventFilter;
-    Mint(guy?: PromiseOrValue<string> | null, wad?: null): MintEventFilter;
+    "Mint(address,uint256)"(guy?: string | null, wad?: null): MintEventFilter;
+    Mint(guy?: string | null, wad?: null): MintEventFilter;
 
     "Transfer(address,address,uint256)"(
-      src?: PromiseOrValue<string> | null,
-      dst?: PromiseOrValue<string> | null,
+      src?: string | null,
+      dst?: string | null,
       wad?: null
     ): TransferEventFilter;
     Transfer(
-      src?: PromiseOrValue<string> | null,
-      dst?: PromiseOrValue<string> | null,
+      src?: string | null,
+      dst?: string | null,
       wad?: null
     ): TransferEventFilter;
   };

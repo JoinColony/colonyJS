@@ -12,8 +12,11 @@ import getStreamingPaymentsClientV1, {
 import getStreamingPaymentsClientV2, {
   StreamingPaymentsClientV2,
 } from './StreamingPaymentsClientV2';
+import getStreamingPaymentsClientV3, {
+  StreamingPaymentsClientV3,
+} from './StreamingPaymentsClientV3';
 
-const STREAMING_PAYMENTS_VERSION_NEXT = 3;
+const STREAMING_PAYMENTS_VERSION_NEXT = 4;
 
 /** @internal */
 export const STREAMING_PAYMENTS_VERSION_LATEST =
@@ -21,10 +24,12 @@ export const STREAMING_PAYMENTS_VERSION_LATEST =
 
 export { StreamingPaymentsClientV1 } from './StreamingPaymentsClientV1';
 export { StreamingPaymentsClientV2 } from './StreamingPaymentsClientV2';
+export { StreamingPaymentsClientV3 } from './StreamingPaymentsClientV3';
 
 export type AnyStreamingPaymentsClient =
   | StreamingPaymentsClientV1
-  | StreamingPaymentsClientV2;
+  | StreamingPaymentsClientV2
+  | StreamingPaymentsClientV3;
 
 /** @internal */
 export const STREAMING_PAYMENTS_VERSIONS = createContractVersionArray(
@@ -41,6 +46,7 @@ export const streamingPaymentsIncompatibilityMap: Record<
 > = {
   1: [1, 2, 3],
   2: [1, 2, 3],
+  3: [1, 2, 3],
 };
 
 /** @internal */
@@ -57,6 +63,11 @@ export const getStreamingPaymentsClient = (
       );
     case 2:
       return getStreamingPaymentsClientV2(
+        colonyClient as AugmentedIColony<ValidColony>,
+        address,
+      );
+    case 3:
+      return getStreamingPaymentsClientV3(
         colonyClient as AugmentedIColony<ValidColony>,
         address,
       );

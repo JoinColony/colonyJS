@@ -18,8 +18,11 @@ import getEvaluatedExpenditureClientV3, {
 import getEvaluatedExpenditureClientV4, {
   EvaluatedExpenditureClientV4,
 } from './EvaluatedExpenditureClientV4';
+import getEvaluatedExpenditureClientV5, {
+  EvaluatedExpenditureClientV5,
+} from './EvaluatedExpenditureClientV5';
 
-const EVALUATED_EXPENDITURE_VERSION_NEXT = 5;
+const EVALUATED_EXPENDITURE_VERSION_NEXT = 6;
 
 /** @internal */
 export const EVALUATED_EXPENDITURE_VERSION_LATEST =
@@ -29,12 +32,14 @@ export { EvaluatedExpenditureClientV1 } from './EvaluatedExpenditureClientV1';
 export { EvaluatedExpenditureClientV2 } from './EvaluatedExpenditureClientV2';
 export { EvaluatedExpenditureClientV3 } from './EvaluatedExpenditureClientV3';
 export { EvaluatedExpenditureClientV4 } from './EvaluatedExpenditureClientV4';
+export { EvaluatedExpenditureClientV5 } from './EvaluatedExpenditureClientV5';
 
 export type AnyEvaluatedExpenditureClient =
   | EvaluatedExpenditureClientV1
   | EvaluatedExpenditureClientV2
   | EvaluatedExpenditureClientV3
-  | EvaluatedExpenditureClientV4;
+  | EvaluatedExpenditureClientV4
+  | EvaluatedExpenditureClientV5;
 
 /** @internal */
 export const EVALUATED_EXPENDITURE_VERSIONS = createContractVersionArray(
@@ -53,6 +58,7 @@ export const evaluatedExpenditureIncompatibilityMap: Record<
   2: [1, 2, 3],
   3: [1, 2, 3],
   4: [1, 2, 3],
+  5: [1, 2, 3],
 };
 
 /** @internal */
@@ -79,6 +85,11 @@ export const getEvaluatedExpenditureClient = (
       );
     case 4:
       return getEvaluatedExpenditureClientV4(
+        colonyClient as AugmentedIColony<ValidColony>,
+        address,
+      );
+    case 5:
+      return getEvaluatedExpenditureClientV5(
         colonyClient as AugmentedIColony<ValidColony>,
         address,
       );

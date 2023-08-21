@@ -149,7 +149,7 @@ const _abi = [
     name: "Transfer",
     type: "event",
   },
-];
+] as const;
 
 export class MetaTxTokenEvents__factory {
   static readonly abi = _abi;

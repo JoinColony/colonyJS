@@ -1926,7 +1926,7 @@ const _abi = [
     name: "ArbitraryTransaction",
     type: "event",
   },
-];
+] as const;
 
 export class IColonyEvents__factory {
   static readonly abi = _abi;

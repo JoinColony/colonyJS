@@ -64,7 +64,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `canCall` | (`src`: `PromiseOrValue`<`string`\>, `dst`: `PromiseOrValue`<`string`\>, `sig`: `PromiseOrValue`<`BytesLike`\>, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
+| `canCall` | (`src`: `string`, `dst`: `string`, `sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 | `token` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 
 #### Overrides
@@ -91,7 +91,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `canCall` | (`src`: `PromiseOrValue`<`string`\>, `dst`: `PromiseOrValue`<`string`\>, `sig`: `PromiseOrValue`<`BytesLike`\>, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `canCall` | (`src`: `string`, `dst`: `string`, `sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `token` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 
 #### Overrides
@@ -118,7 +118,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `canCall` | (`src`: `PromiseOrValue`<`string`\>, `dst`: `PromiseOrValue`<`string`\>, `sig`: `PromiseOrValue`<`BytesLike`\>, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
+| `canCall` | (`src`: `string`, `dst`: `string`, `sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
 | `token` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 
 #### Overrides
@@ -175,7 +175,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `canCall` | (`src`: `PromiseOrValue`<`string`\>, `dst`: `PromiseOrValue`<`string`\>, `sig`: `PromiseOrValue`<`BytesLike`\>, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `canCall` | (`src`: `string`, `dst`: `string`, `sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `token` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 
 #### Overrides
@@ -314,9 +314,9 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `src` | `PromiseOrValue`<`string`\> |
-| `dst` | `PromiseOrValue`<`string`\> |
-| `sig` | `PromiseOrValue`<`BytesLike`\> |
+| `src` | `string` |
+| `dst` | `string` |
+| `sig` | `BytesLike` |
 | `overrides?` | `CallOverrides` |
 
 #### Returns

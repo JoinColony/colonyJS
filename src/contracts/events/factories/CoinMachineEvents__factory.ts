@@ -168,7 +168,7 @@ const _abi = [
     name: "TokensBought",
     type: "event",
   },
-];
+] as const;
 
 export class CoinMachineEvents__factory {
   static readonly abi = _abi;

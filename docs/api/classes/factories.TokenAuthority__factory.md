@@ -58,7 +58,7 @@ ___
 
 ### abi
 
-▪ `Static` `Readonly` **abi**: ({ `inputs`: { `internalType`: `string` = "address"; `name`: `string` = "\_token"; `type`: `string` = "address" }[] ; `name`: `undefined` = "allowance"; `outputs`: `undefined` ; `stateMutability`: `string` = "nonpayable"; `type`: `string` = "constructor" } \| { `inputs`: { `internalType`: `string` = "address"; `name`: `string` = "src"; `type`: `string` = "address" }[] ; `name`: `string` = "canCall"; `outputs`: { `internalType`: `string` = "bool"; `name`: `string` = ""; `type`: `string` = "bool" }[] ; `stateMutability`: `string` = "view"; `type`: `string` = "function" })[] = `_abi`
+▪ `Static` `Readonly` **abi**: readonly [{ `inputs`: readonly [{ `internalType`: ``"address"`` = "address"; `name`: ``"_token"`` = "\_token"; `type`: ``"address"`` = "address" }, { `internalType`: ``"address"`` = "address"; `name`: ``"_colony"`` = "\_colony"; `type`: ``"address"`` = "address" }, { `internalType`: ``"address[]"`` = "address[]"; `name`: ``"allowedToTransfer"`` = "allowedToTransfer"; `type`: ``"address[]"`` = "address[]" }] ; `stateMutability`: ``"nonpayable"`` = "nonpayable"; `type`: ``"constructor"`` = "constructor" }, { `inputs`: readonly [] = []; `name`: ``"token"`` = "token"; `outputs`: readonly [{ `internalType`: ``"address"`` = "address"; `name`: ``""`` = ""; `type`: ``"address"`` = "address" }] ; `stateMutability`: ``"view"`` = "view"; `type`: ``"function"`` = "function" }, { `inputs`: readonly [{ `internalType`: ``"address"`` = "address"; `name`: ``"src"`` = "src"; `type`: ``"address"`` = "address" }, { `internalType`: ``"address"`` = "address"; `name`: ``"dst"`` = "dst"; `type`: ``"address"`` = "address" }, { `internalType`: ``"bytes4"`` = "bytes4"; `name`: ``"sig"`` = "sig"; `type`: ``"bytes4"`` = "bytes4" }] ; `name`: ``"canCall"`` = "canCall"; `outputs`: readonly [{ `internalType`: ``"bool"`` = "bool"; `name`: ``""`` = ""; `type`: ``"bool"`` = "bool" }] ; `stateMutability`: ``"view"`` = "view"; `type`: ``"function"`` = "function" }] = `_abi`
 
 ___
 
@@ -116,10 +116,10 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `_token` | `PromiseOrValue`<`string`\> |
-| `_colony` | `PromiseOrValue`<`string`\> |
-| `allowedToTransfer` | `PromiseOrValue`<`string`\>[] |
-| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
+| `_token` | `string` |
+| `_colony` | `string` |
+| `allowedToTransfer` | `string`[] |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -139,10 +139,10 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `_token` | `PromiseOrValue`<`string`\> |
-| `_colony` | `PromiseOrValue`<`string`\> |
-| `allowedToTransfer` | `PromiseOrValue`<`string`\>[] |
-| `overrides?` | `Overrides` & { `from?`: `PromiseOrValue`<`string`\>  } |
+| `_token` | `string` |
+| `_colony` | `string` |
+| `allowedToTransfer` | `string`[] |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 

@@ -241,7 +241,7 @@ const _abi = [
     name: "MotionVoteSubmitted",
     type: "event",
   },
-];
+] as const;
 
 export class IVotingReputationEvents__factory {
   static readonly abi = _abi;

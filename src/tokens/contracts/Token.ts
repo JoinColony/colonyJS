@@ -24,7 +24,6 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
-  PromiseOrValue,
 } from "./common";
 
 export interface TokenInterface extends utils.Interface {
@@ -75,29 +74,23 @@ export interface TokenInterface extends utils.Interface {
 
   encodeFunctionData(
     functionFragment: "allowance",
-    values: [PromiseOrValue<string>, PromiseOrValue<string>]
+    values: [string, string]
   ): string;
   encodeFunctionData(
     functionFragment: "approve",
-    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "authority", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "balanceOf",
-    values: [PromiseOrValue<string>]
-  ): string;
+  encodeFunctionData(functionFragment: "balanceOf", values: [string]): string;
   encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
   encodeFunctionData(functionFragment: "locked", values?: undefined): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "setAuthority",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
-  encodeFunctionData(
-    functionFragment: "setOwner",
-    values: [PromiseOrValue<string>]
-  ): string;
+  encodeFunctionData(functionFragment: "setOwner", values: [string]): string;
   encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "totalSupply",
@@ -105,31 +98,27 @@ export interface TokenInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "transfer",
-    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "transferFrom",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>
-    ]
+    values: [string, string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "mint(address,uint256)",
-    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "mint(uint256)",
-    values: [PromiseOrValue<BigNumberish>]
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "burn(uint256)",
-    values: [PromiseOrValue<BigNumberish>]
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "burn(address,uint256)",
-    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "unlock", values?: undefined): string;
 
@@ -276,23 +265,20 @@ export interface Token extends BaseContract {
 
   functions: {
     allowance(
-      src: PromiseOrValue<string>,
-      guy: PromiseOrValue<string>,
+      src: string,
+      guy: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     approve(
-      guy: PromiseOrValue<string>,
-      wad: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      guy: string,
+      wad: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     authority(overrides?: CallOverrides): Promise<[string]>;
 
-    balanceOf(
-      src: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    balanceOf(src: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     decimals(overrides?: CallOverrides): Promise<[number]>;
 
@@ -303,13 +289,13 @@ export interface Token extends BaseContract {
     owner(overrides?: CallOverrides): Promise<[string]>;
 
     setAuthority(
-      authority_: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      authority_: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     setOwner(
-      owner_: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      owner_: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     symbol(overrides?: CallOverrides): Promise<[string]>;
@@ -317,63 +303,60 @@ export interface Token extends BaseContract {
     totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     transfer(
-      dst: PromiseOrValue<string>,
-      wad: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      dst: string,
+      wad: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     transferFrom(
-      src: PromiseOrValue<string>,
-      dst: PromiseOrValue<string>,
-      wad: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      src: string,
+      dst: string,
+      wad: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     "mint(address,uint256)"(
-      guy: PromiseOrValue<string>,
-      wad: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      guy: string,
+      wad: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     "mint(uint256)"(
-      wad: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      wad: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     "burn(uint256)"(
-      wad: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      wad: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     "burn(address,uint256)"(
-      guy: PromiseOrValue<string>,
-      wad: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      guy: string,
+      wad: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     unlock(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
   };
 
   allowance(
-    src: PromiseOrValue<string>,
-    guy: PromiseOrValue<string>,
+    src: string,
+    guy: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   approve(
-    guy: PromiseOrValue<string>,
-    wad: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    guy: string,
+    wad: BigNumberish,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   authority(overrides?: CallOverrides): Promise<string>;
 
-  balanceOf(
-    src: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  balanceOf(src: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   decimals(overrides?: CallOverrides): Promise<number>;
 
@@ -384,13 +367,13 @@ export interface Token extends BaseContract {
   owner(overrides?: CallOverrides): Promise<string>;
 
   setAuthority(
-    authority_: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    authority_: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   setOwner(
-    owner_: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    owner_: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   symbol(overrides?: CallOverrides): Promise<string>;
@@ -398,63 +381,60 @@ export interface Token extends BaseContract {
   totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
   transfer(
-    dst: PromiseOrValue<string>,
-    wad: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    dst: string,
+    wad: BigNumberish,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   transferFrom(
-    src: PromiseOrValue<string>,
-    dst: PromiseOrValue<string>,
-    wad: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    src: string,
+    dst: string,
+    wad: BigNumberish,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   "mint(address,uint256)"(
-    guy: PromiseOrValue<string>,
-    wad: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    guy: string,
+    wad: BigNumberish,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   "mint(uint256)"(
-    wad: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    wad: BigNumberish,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   "burn(uint256)"(
-    wad: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    wad: BigNumberish,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   "burn(address,uint256)"(
-    guy: PromiseOrValue<string>,
-    wad: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    guy: string,
+    wad: BigNumberish,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   unlock(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   callStatic: {
     allowance(
-      src: PromiseOrValue<string>,
-      guy: PromiseOrValue<string>,
+      src: string,
+      guy: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     approve(
-      guy: PromiseOrValue<string>,
-      wad: PromiseOrValue<BigNumberish>,
+      guy: string,
+      wad: BigNumberish,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
     authority(overrides?: CallOverrides): Promise<string>;
 
-    balanceOf(
-      src: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    balanceOf(src: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     decimals(overrides?: CallOverrides): Promise<number>;
 
@@ -464,52 +444,46 @@ export interface Token extends BaseContract {
 
     owner(overrides?: CallOverrides): Promise<string>;
 
-    setAuthority(
-      authority_: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setAuthority(authority_: string, overrides?: CallOverrides): Promise<void>;
 
-    setOwner(
-      owner_: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setOwner(owner_: string, overrides?: CallOverrides): Promise<void>;
 
     symbol(overrides?: CallOverrides): Promise<string>;
 
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
     transfer(
-      dst: PromiseOrValue<string>,
-      wad: PromiseOrValue<BigNumberish>,
+      dst: string,
+      wad: BigNumberish,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
     transferFrom(
-      src: PromiseOrValue<string>,
-      dst: PromiseOrValue<string>,
-      wad: PromiseOrValue<BigNumberish>,
+      src: string,
+      dst: string,
+      wad: BigNumberish,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
     "mint(address,uint256)"(
-      guy: PromiseOrValue<string>,
-      wad: PromiseOrValue<BigNumberish>,
+      guy: string,
+      wad: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
     "mint(uint256)"(
-      wad: PromiseOrValue<BigNumberish>,
+      wad: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
     "burn(uint256)"(
-      wad: PromiseOrValue<BigNumberish>,
+      wad: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
     "burn(address,uint256)"(
-      guy: PromiseOrValue<string>,
-      wad: PromiseOrValue<BigNumberish>,
+      guy: string,
+      wad: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -518,71 +492,58 @@ export interface Token extends BaseContract {
 
   filters: {
     "Approval(address,address,uint256)"(
-      src?: PromiseOrValue<string> | null,
-      guy?: PromiseOrValue<string> | null,
+      src?: string | null,
+      guy?: string | null,
       wad?: null
     ): ApprovalEventFilter;
     Approval(
-      src?: PromiseOrValue<string> | null,
-      guy?: PromiseOrValue<string> | null,
+      src?: string | null,
+      guy?: string | null,
       wad?: null
     ): ApprovalEventFilter;
 
-    "Burn(address,uint256)"(
-      guy?: PromiseOrValue<string> | null,
-      wad?: null
-    ): BurnEventFilter;
-    Burn(guy?: PromiseOrValue<string> | null, wad?: null): BurnEventFilter;
+    "Burn(address,uint256)"(guy?: string | null, wad?: null): BurnEventFilter;
+    Burn(guy?: string | null, wad?: null): BurnEventFilter;
 
     "LogSetAuthority(address)"(
-      authority?: PromiseOrValue<string> | null
+      authority?: string | null
     ): LogSetAuthorityEventFilter;
-    LogSetAuthority(
-      authority?: PromiseOrValue<string> | null
-    ): LogSetAuthorityEventFilter;
+    LogSetAuthority(authority?: string | null): LogSetAuthorityEventFilter;
 
-    "LogSetOwner(address)"(
-      owner?: PromiseOrValue<string> | null
-    ): LogSetOwnerEventFilter;
-    LogSetOwner(owner?: PromiseOrValue<string> | null): LogSetOwnerEventFilter;
+    "LogSetOwner(address)"(owner?: string | null): LogSetOwnerEventFilter;
+    LogSetOwner(owner?: string | null): LogSetOwnerEventFilter;
 
-    "Mint(address,uint256)"(
-      guy?: PromiseOrValue<string> | null,
-      wad?: null
-    ): MintEventFilter;
-    Mint(guy?: PromiseOrValue<string> | null, wad?: null): MintEventFilter;
+    "Mint(address,uint256)"(guy?: string | null, wad?: null): MintEventFilter;
+    Mint(guy?: string | null, wad?: null): MintEventFilter;
 
     "Transfer(address,address,uint256)"(
-      src?: PromiseOrValue<string> | null,
-      dst?: PromiseOrValue<string> | null,
+      src?: string | null,
+      dst?: string | null,
       wad?: null
     ): TransferEventFilter;
     Transfer(
-      src?: PromiseOrValue<string> | null,
-      dst?: PromiseOrValue<string> | null,
+      src?: string | null,
+      dst?: string | null,
       wad?: null
     ): TransferEventFilter;
   };
 
   estimateGas: {
     allowance(
-      src: PromiseOrValue<string>,
-      guy: PromiseOrValue<string>,
+      src: string,
+      guy: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     approve(
-      guy: PromiseOrValue<string>,
-      wad: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      guy: string,
+      wad: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     authority(overrides?: CallOverrides): Promise<BigNumber>;
 
-    balanceOf(
-      src: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    balanceOf(src: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     decimals(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -593,13 +554,13 @@ export interface Token extends BaseContract {
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
     setAuthority(
-      authority_: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      authority_: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     setOwner(
-      owner_: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      owner_: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     symbol(overrides?: CallOverrides): Promise<BigNumber>;
@@ -607,62 +568,60 @@ export interface Token extends BaseContract {
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
     transfer(
-      dst: PromiseOrValue<string>,
-      wad: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      dst: string,
+      wad: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     transferFrom(
-      src: PromiseOrValue<string>,
-      dst: PromiseOrValue<string>,
-      wad: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      src: string,
+      dst: string,
+      wad: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     "mint(address,uint256)"(
-      guy: PromiseOrValue<string>,
-      wad: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      guy: string,
+      wad: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     "mint(uint256)"(
-      wad: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      wad: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     "burn(uint256)"(
-      wad: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      wad: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     "burn(address,uint256)"(
-      guy: PromiseOrValue<string>,
-      wad: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      guy: string,
+      wad: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
-    unlock(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
+    unlock(overrides?: Overrides & { from?: string }): Promise<BigNumber>;
   };
 
   populateTransaction: {
     allowance(
-      src: PromiseOrValue<string>,
-      guy: PromiseOrValue<string>,
+      src: string,
+      guy: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     approve(
-      guy: PromiseOrValue<string>,
-      wad: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      guy: string,
+      wad: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     authority(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     balanceOf(
-      src: PromiseOrValue<string>,
+      src: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -675,13 +634,13 @@ export interface Token extends BaseContract {
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     setAuthority(
-      authority_: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      authority_: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     setOwner(
-      owner_: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      owner_: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -689,42 +648,42 @@ export interface Token extends BaseContract {
     totalSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     transfer(
-      dst: PromiseOrValue<string>,
-      wad: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      dst: string,
+      wad: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     transferFrom(
-      src: PromiseOrValue<string>,
-      dst: PromiseOrValue<string>,
-      wad: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      src: string,
+      dst: string,
+      wad: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     "mint(address,uint256)"(
-      guy: PromiseOrValue<string>,
-      wad: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      guy: string,
+      wad: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     "mint(uint256)"(
-      wad: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      wad: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     "burn(uint256)"(
-      wad: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      wad: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     "burn(address,uint256)"(
-      guy: PromiseOrValue<string>,
-      wad: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      guy: string,
+      wad: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     unlock(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
   };
 }

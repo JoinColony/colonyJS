@@ -24,7 +24,6 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
-  PromiseOrValue,
 } from "./common";
 
 export interface IBasicMetaTransactionInterface extends utils.Interface {
@@ -39,17 +38,11 @@ export interface IBasicMetaTransactionInterface extends utils.Interface {
 
   encodeFunctionData(
     functionFragment: "executeMetaTransaction",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BigNumberish>
-    ]
+    values: [string, BytesLike, BytesLike, BytesLike, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getMetatransactionNonce",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
 
   decodeFunctionResult(
@@ -117,12 +110,12 @@ export interface IBasicMetaTransaction extends BaseContract {
      * @param userAddress The address of the user that signed the metatransaction
      */
     executeMetaTransaction(
-      userAddress: PromiseOrValue<string>,
-      payload: PromiseOrValue<BytesLike>,
-      sigR: PromiseOrValue<BytesLike>,
-      sigS: PromiseOrValue<BytesLike>,
-      sigV: PromiseOrValue<BigNumberish>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      userAddress: string,
+      payload: BytesLike,
+      sigR: BytesLike,
+      sigS: BytesLike,
+      sigV: BigNumberish,
+      overrides?: PayableOverrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -130,7 +123,7 @@ export interface IBasicMetaTransaction extends BaseContract {
      * @param userAddress The address of the user that will sign the metatransaction
      */
     getMetatransactionNonce(
-      userAddress: PromiseOrValue<string>,
+      userAddress: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { nonce: BigNumber }>;
   };
@@ -144,12 +137,12 @@ export interface IBasicMetaTransaction extends BaseContract {
    * @param userAddress The address of the user that signed the metatransaction
    */
   executeMetaTransaction(
-    userAddress: PromiseOrValue<string>,
-    payload: PromiseOrValue<BytesLike>,
-    sigR: PromiseOrValue<BytesLike>,
-    sigS: PromiseOrValue<BytesLike>,
-    sigV: PromiseOrValue<BigNumberish>,
-    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+    userAddress: string,
+    payload: BytesLike,
+    sigR: BytesLike,
+    sigS: BytesLike,
+    sigV: BigNumberish,
+    overrides?: PayableOverrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -157,7 +150,7 @@ export interface IBasicMetaTransaction extends BaseContract {
    * @param userAddress The address of the user that will sign the metatransaction
    */
   getMetatransactionNonce(
-    userAddress: PromiseOrValue<string>,
+    userAddress: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
@@ -171,11 +164,11 @@ export interface IBasicMetaTransaction extends BaseContract {
      * @param userAddress The address of the user that signed the metatransaction
      */
     executeMetaTransaction(
-      userAddress: PromiseOrValue<string>,
-      payload: PromiseOrValue<BytesLike>,
-      sigR: PromiseOrValue<BytesLike>,
-      sigS: PromiseOrValue<BytesLike>,
-      sigV: PromiseOrValue<BigNumberish>,
+      userAddress: string,
+      payload: BytesLike,
+      sigR: BytesLike,
+      sigS: BytesLike,
+      sigV: BigNumberish,
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -184,7 +177,7 @@ export interface IBasicMetaTransaction extends BaseContract {
      * @param userAddress The address of the user that will sign the metatransaction
      */
     getMetatransactionNonce(
-      userAddress: PromiseOrValue<string>,
+      userAddress: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
   };
@@ -212,12 +205,12 @@ export interface IBasicMetaTransaction extends BaseContract {
      * @param userAddress The address of the user that signed the metatransaction
      */
     executeMetaTransaction(
-      userAddress: PromiseOrValue<string>,
-      payload: PromiseOrValue<BytesLike>,
-      sigR: PromiseOrValue<BytesLike>,
-      sigS: PromiseOrValue<BytesLike>,
-      sigV: PromiseOrValue<BigNumberish>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      userAddress: string,
+      payload: BytesLike,
+      sigR: BytesLike,
+      sigS: BytesLike,
+      sigV: BigNumberish,
+      overrides?: PayableOverrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -225,7 +218,7 @@ export interface IBasicMetaTransaction extends BaseContract {
      * @param userAddress The address of the user that will sign the metatransaction
      */
     getMetatransactionNonce(
-      userAddress: PromiseOrValue<string>,
+      userAddress: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
   };
@@ -240,12 +233,12 @@ export interface IBasicMetaTransaction extends BaseContract {
      * @param userAddress The address of the user that signed the metatransaction
      */
     executeMetaTransaction(
-      userAddress: PromiseOrValue<string>,
-      payload: PromiseOrValue<BytesLike>,
-      sigR: PromiseOrValue<BytesLike>,
-      sigS: PromiseOrValue<BytesLike>,
-      sigV: PromiseOrValue<BigNumberish>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      userAddress: string,
+      payload: BytesLike,
+      sigR: BytesLike,
+      sigS: BytesLike,
+      sigV: BigNumberish,
+      overrides?: PayableOverrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -253,7 +246,7 @@ export interface IBasicMetaTransaction extends BaseContract {
      * @param userAddress The address of the user that will sign the metatransaction
      */
     getMetatransactionNonce(
-      userAddress: PromiseOrValue<string>,
+      userAddress: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };

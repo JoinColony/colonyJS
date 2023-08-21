@@ -15,7 +15,6 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
-  PromiseOrValue,
 } from "./common";
 
 export interface IVotingReputationEventsInterface extends utils.Interface {
@@ -200,93 +199,93 @@ export interface IVotingReputationEvents extends BaseContract {
     ): MetaTransactionExecutedEventFilter;
 
     "MotionCreated(uint256,address,uint256)"(
-      motionId?: PromiseOrValue<BigNumberish> | null,
+      motionId?: BigNumberish | null,
       creator?: null,
-      domainId?: PromiseOrValue<BigNumberish> | null
+      domainId?: BigNumberish | null
     ): MotionCreatedEventFilter;
     MotionCreated(
-      motionId?: PromiseOrValue<BigNumberish> | null,
+      motionId?: BigNumberish | null,
       creator?: null,
-      domainId?: PromiseOrValue<BigNumberish> | null
+      domainId?: BigNumberish | null
     ): MotionCreatedEventFilter;
 
     "MotionEscalated(uint256,address,uint256,uint256)"(
-      motionId?: PromiseOrValue<BigNumberish> | null,
+      motionId?: BigNumberish | null,
       escalator?: null,
-      domainId?: PromiseOrValue<BigNumberish> | null,
-      newDomainId?: PromiseOrValue<BigNumberish> | null
+      domainId?: BigNumberish | null,
+      newDomainId?: BigNumberish | null
     ): MotionEscalatedEventFilter;
     MotionEscalated(
-      motionId?: PromiseOrValue<BigNumberish> | null,
+      motionId?: BigNumberish | null,
       escalator?: null,
-      domainId?: PromiseOrValue<BigNumberish> | null,
-      newDomainId?: PromiseOrValue<BigNumberish> | null
+      domainId?: BigNumberish | null,
+      newDomainId?: BigNumberish | null
     ): MotionEscalatedEventFilter;
 
     "MotionEventSet(uint256,uint256)"(
-      motionId?: PromiseOrValue<BigNumberish> | null,
+      motionId?: BigNumberish | null,
       eventIndex?: null
     ): MotionEventSetEventFilter;
     MotionEventSet(
-      motionId?: PromiseOrValue<BigNumberish> | null,
+      motionId?: BigNumberish | null,
       eventIndex?: null
     ): MotionEventSetEventFilter;
 
     "MotionFinalized(uint256,bytes,bool)"(
-      motionId?: PromiseOrValue<BigNumberish> | null,
+      motionId?: BigNumberish | null,
       action?: null,
       executed?: null
     ): MotionFinalizedEventFilter;
     MotionFinalized(
-      motionId?: PromiseOrValue<BigNumberish> | null,
+      motionId?: BigNumberish | null,
       action?: null,
       executed?: null
     ): MotionFinalizedEventFilter;
 
     "MotionRewardClaimed(uint256,address,uint256,uint256)"(
-      motionId?: PromiseOrValue<BigNumberish> | null,
-      staker?: PromiseOrValue<string> | null,
-      vote?: PromiseOrValue<BigNumberish> | null,
+      motionId?: BigNumberish | null,
+      staker?: string | null,
+      vote?: BigNumberish | null,
       amount?: null
     ): MotionRewardClaimedEventFilter;
     MotionRewardClaimed(
-      motionId?: PromiseOrValue<BigNumberish> | null,
-      staker?: PromiseOrValue<string> | null,
-      vote?: PromiseOrValue<BigNumberish> | null,
+      motionId?: BigNumberish | null,
+      staker?: string | null,
+      vote?: BigNumberish | null,
       amount?: null
     ): MotionRewardClaimedEventFilter;
 
     "MotionStaked(uint256,address,uint256,uint256)"(
-      motionId?: PromiseOrValue<BigNumberish> | null,
-      staker?: PromiseOrValue<string> | null,
-      vote?: PromiseOrValue<BigNumberish> | null,
+      motionId?: BigNumberish | null,
+      staker?: string | null,
+      vote?: BigNumberish | null,
       amount?: null
     ): MotionStakedEventFilter;
     MotionStaked(
-      motionId?: PromiseOrValue<BigNumberish> | null,
-      staker?: PromiseOrValue<string> | null,
-      vote?: PromiseOrValue<BigNumberish> | null,
+      motionId?: BigNumberish | null,
+      staker?: string | null,
+      vote?: BigNumberish | null,
       amount?: null
     ): MotionStakedEventFilter;
 
     "MotionVoteRevealed(uint256,address,uint256)"(
-      motionId?: PromiseOrValue<BigNumberish> | null,
-      voter?: PromiseOrValue<string> | null,
-      vote?: PromiseOrValue<BigNumberish> | null
+      motionId?: BigNumberish | null,
+      voter?: string | null,
+      vote?: BigNumberish | null
     ): MotionVoteRevealedEventFilter;
     MotionVoteRevealed(
-      motionId?: PromiseOrValue<BigNumberish> | null,
-      voter?: PromiseOrValue<string> | null,
-      vote?: PromiseOrValue<BigNumberish> | null
+      motionId?: BigNumberish | null,
+      voter?: string | null,
+      vote?: BigNumberish | null
     ): MotionVoteRevealedEventFilter;
 
     "MotionVoteSubmitted(uint256,address)"(
-      motionId?: PromiseOrValue<BigNumberish> | null,
-      voter?: PromiseOrValue<string> | null
+      motionId?: BigNumberish | null,
+      voter?: string | null
     ): MotionVoteSubmittedEventFilter;
     MotionVoteSubmitted(
-      motionId?: PromiseOrValue<BigNumberish> | null,
-      voter?: PromiseOrValue<string> | null
+      motionId?: BigNumberish | null,
+      voter?: string | null
     ): MotionVoteSubmittedEventFilter;
   };
 

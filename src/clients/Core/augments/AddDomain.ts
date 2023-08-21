@@ -14,6 +14,7 @@ import {
   IColonyV11,
   IColonyV12,
   IColonyV13,
+  IColonyV14,
 } from '../../../contracts/IColony/exports';
 
 import { ColonyRole } from '../../../constants';
@@ -33,7 +34,8 @@ type ValidColonyB =
   | IColonyV10
   | IColonyV11
   | IColonyV12
-  | IColonyV13;
+  | IColonyV13
+  | IColonyV14;
 
 export interface AddDomainEstimateGasA {
   /**

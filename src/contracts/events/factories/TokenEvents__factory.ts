@@ -109,7 +109,7 @@ const _abi = [
     name: "Transfer",
     type: "event",
   },
-];
+] as const;
 
 export class TokenEvents__factory {
   static readonly abi = _abi;

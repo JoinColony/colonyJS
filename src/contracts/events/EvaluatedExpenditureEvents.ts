@@ -9,7 +9,6 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
-  PromiseOrValue,
 } from "./common";
 
 export interface EvaluatedExpenditureEventsInterface extends utils.Interface {
@@ -102,16 +101,12 @@ export interface EvaluatedExpenditureEvents extends BaseContract {
     ExtensionInitialised(): ExtensionInitialisedEventFilter;
 
     "LogSetAuthority(address)"(
-      authority?: PromiseOrValue<string> | null
+      authority?: string | null
     ): LogSetAuthorityEventFilter;
-    LogSetAuthority(
-      authority?: PromiseOrValue<string> | null
-    ): LogSetAuthorityEventFilter;
+    LogSetAuthority(authority?: string | null): LogSetAuthorityEventFilter;
 
-    "LogSetOwner(address)"(
-      owner?: PromiseOrValue<string> | null
-    ): LogSetOwnerEventFilter;
-    LogSetOwner(owner?: PromiseOrValue<string> | null): LogSetOwnerEventFilter;
+    "LogSetOwner(address)"(owner?: string | null): LogSetOwnerEventFilter;
+    LogSetOwner(owner?: string | null): LogSetOwnerEventFilter;
 
     "MetaTransactionExecuted(address,address,bytes)"(
       user?: null,

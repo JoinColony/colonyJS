@@ -20,8 +20,11 @@ import getFundingQueueClientV4, {
 import getFundingQueueClientV5, {
   FundingQueueClientV5,
 } from './FundingQueueClientV5';
+import getFundingQueueClientV6, {
+  FundingQueueClientV6,
+} from './FundingQueueClientV6';
 
-const FUNDING_QUEUE_VERSION_NEXT = 6;
+const FUNDING_QUEUE_VERSION_NEXT = 7;
 
 /** @internal */
 export const FUNDING_QUEUE_VERSION_LATEST = FUNDING_QUEUE_VERSION_NEXT - 1;
@@ -31,13 +34,15 @@ export { FundingQueueClientV2 } from './FundingQueueClientV2';
 export { FundingQueueClientV3 } from './FundingQueueClientV3';
 export { FundingQueueClientV4 } from './FundingQueueClientV4';
 export { FundingQueueClientV5 } from './FundingQueueClientV5';
+export { FundingQueueClientV6 } from './FundingQueueClientV6';
 
 export type AnyFundingQueueClient =
   | FundingQueueClientV1
   | FundingQueueClientV2
   | FundingQueueClientV3
   | FundingQueueClientV4
-  | FundingQueueClientV5;
+  | FundingQueueClientV5
+  | FundingQueueClientV6;
 
 /** @internal */
 export const FUNDING_QUEUE_VERSIONS = createContractVersionArray(
@@ -56,6 +61,7 @@ export const fundingQueueIncompatibilityMap: Record<
   3: [],
   4: [],
   5: [],
+  6: [],
 };
 
 /** @internal */
@@ -75,6 +81,8 @@ export const getFundingQueueClient = (
       return getFundingQueueClientV4(colonyClient, address);
     case 5:
       return getFundingQueueClientV5(colonyClient, address);
+    case 6:
+      return getFundingQueueClientV6(colonyClient, address);
     default:
       return assertExhaustiveSwitch(
         version,

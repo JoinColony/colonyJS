@@ -417,7 +417,7 @@ const _abi = [
     name: "MetaTransactionExecuted",
     type: "event",
   },
-];
+] as const;
 
 export class TokenLockingEvents__factory {
   static readonly abi = _abi;

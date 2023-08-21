@@ -569,7 +569,7 @@ const _abi = [
     name: "TokenDeployed",
     type: "event",
   },
-];
+] as const;
 
 export class IColonyNetworkEvents__factory {
   static readonly abi = _abi;

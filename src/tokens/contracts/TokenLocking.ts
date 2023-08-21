@@ -25,15 +25,14 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
-  PromiseOrValue,
 } from "./common";
 
 export declare namespace TokenLockingDataTypes {
   export type LockStruct = {
-    lockCount: PromiseOrValue<BigNumberish>;
-    balance: PromiseOrValue<BigNumberish>;
-    DEPRECATED_timestamp: PromiseOrValue<BigNumberish>;
-    pendingBalance: PromiseOrValue<BigNumberish>;
+    lockCount: BigNumberish;
+    balance: BigNumberish;
+    DEPRECATED_timestamp: BigNumberish;
+    pendingBalance: BigNumberish;
   };
 
   export type LockStructOutput = [
@@ -118,13 +117,7 @@ export interface TokenLockingInterface extends utils.Interface {
   encodeFunctionData(functionFragment: "authority", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "executeMetaTransaction",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BigNumberish>
-    ]
+    values: [string, BytesLike, BytesLike, BytesLike, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getChainId",
@@ -133,157 +126,105 @@ export interface TokenLockingInterface extends utils.Interface {
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "setAuthority",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
-  encodeFunctionData(
-    functionFragment: "setOwner",
-    values: [PromiseOrValue<string>]
-  ): string;
+  encodeFunctionData(functionFragment: "setOwner", values: [string]): string;
   encodeFunctionData(
     functionFragment: "verify",
     values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BigNumberish>
+      string,
+      BigNumberish,
+      BigNumberish,
+      BytesLike,
+      BytesLike,
+      BytesLike,
+      BigNumberish
     ]
   ): string;
   encodeFunctionData(
     functionFragment: "getMetatransactionNonce",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "setColonyNetwork",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "getColonyNetwork",
     values?: undefined
   ): string;
-  encodeFunctionData(
-    functionFragment: "lockToken",
-    values: [PromiseOrValue<string>]
-  ): string;
+  encodeFunctionData(functionFragment: "lockToken", values: [string]): string;
   encodeFunctionData(
     functionFragment: "unlockTokenForUser",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>
-    ]
+    values: [string, string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "incrementLockCounterTo",
-    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "deposit(address,uint256,bool)",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<boolean>
-    ]
+    values: [string, BigNumberish, boolean]
   ): string;
   encodeFunctionData(
     functionFragment: "deposit(address,uint256)",
-    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "depositFor",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<string>
-    ]
+    values: [string, BigNumberish, string]
   ): string;
   encodeFunctionData(
     functionFragment: "transfer",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<string>,
-      PromiseOrValue<boolean>
-    ]
+    values: [string, BigNumberish, string, boolean]
   ): string;
   encodeFunctionData(
     functionFragment: "withdraw(address,uint256,bool)",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<boolean>
-    ]
+    values: [string, BigNumberish, boolean]
   ): string;
   encodeFunctionData(
     functionFragment: "withdraw(address,uint256)",
-    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "approveStake",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<string>
-    ]
+    values: [string, BigNumberish, string]
   ): string;
   encodeFunctionData(
     functionFragment: "obligateStake",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<string>
-    ]
+    values: [string, BigNumberish, string]
   ): string;
   encodeFunctionData(
     functionFragment: "deobligateStake",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<string>
-    ]
+    values: [string, BigNumberish, string]
   ): string;
   encodeFunctionData(
     functionFragment: "transferStake",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<string>,
-      PromiseOrValue<string>
-    ]
+    values: [string, BigNumberish, string, string]
   ): string;
   encodeFunctionData(
     functionFragment: "reward",
-    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getTotalLockCount",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "getUserLock",
-    values: [PromiseOrValue<string>, PromiseOrValue<string>]
+    values: [string, string]
   ): string;
   encodeFunctionData(
     functionFragment: "getTotalObligation",
-    values: [PromiseOrValue<string>, PromiseOrValue<string>]
+    values: [string, string]
   ): string;
   encodeFunctionData(
     functionFragment: "getApproval",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<string>
-    ]
+    values: [string, string, string]
   ): string;
   encodeFunctionData(
     functionFragment: "getObligation",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<string>
-    ]
+    values: [string, string, string]
   ): string;
 
   decodeFunctionResult(functionFragment: "authority", data: BytesLike): Result;
@@ -623,12 +564,12 @@ export interface TokenLocking extends BaseContract {
      * @param _user Address of user trying to do meta transaction
      */
     executeMetaTransaction(
-      _user: PromiseOrValue<string>,
-      _payload: PromiseOrValue<BytesLike>,
-      _sigR: PromiseOrValue<BytesLike>,
-      _sigS: PromiseOrValue<BytesLike>,
-      _sigV: PromiseOrValue<BigNumberish>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      _user: string,
+      _payload: BytesLike,
+      _sigR: BytesLike,
+      _sigS: BytesLike,
+      _sigV: BigNumberish,
+      overrides?: PayableOverrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     getChainId(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -636,140 +577,140 @@ export interface TokenLocking extends BaseContract {
     owner(overrides?: CallOverrides): Promise<[string]>;
 
     setAuthority(
-      authority_: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      authority_: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     setOwner(
-      owner_: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      owner_: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     verify(
-      _owner: PromiseOrValue<string>,
-      _nonce: PromiseOrValue<BigNumberish>,
-      _chainId: PromiseOrValue<BigNumberish>,
-      _payload: PromiseOrValue<BytesLike>,
-      _sigR: PromiseOrValue<BytesLike>,
-      _sigS: PromiseOrValue<BytesLike>,
-      _sigV: PromiseOrValue<BigNumberish>,
+      _owner: string,
+      _nonce: BigNumberish,
+      _chainId: BigNumberish,
+      _payload: BytesLike,
+      _sigR: BytesLike,
+      _sigS: BytesLike,
+      _sigV: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
     getMetatransactionNonce(
-      userAddress: PromiseOrValue<string>,
+      userAddress: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { nonce: BigNumber }>;
 
     setColonyNetwork(
-      _colonyNetwork: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _colonyNetwork: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     getColonyNetwork(overrides?: CallOverrides): Promise<[string]>;
 
     lockToken(
-      _token: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     unlockTokenForUser(
-      _token: PromiseOrValue<string>,
-      _user: PromiseOrValue<string>,
-      _lockId: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      _user: string,
+      _lockId: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     incrementLockCounterTo(
-      _token: PromiseOrValue<string>,
-      _lockId: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      _lockId: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     "deposit(address,uint256,bool)"(
-      _token: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _force: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      _amount: BigNumberish,
+      _force: boolean,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     "deposit(address,uint256)"(
-      _token: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      _amount: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     depositFor(
-      _token: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _recipient: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      _amount: BigNumberish,
+      _recipient: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     transfer(
-      _token: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _recipient: PromiseOrValue<string>,
-      _force: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      _amount: BigNumberish,
+      _recipient: string,
+      _force: boolean,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     "withdraw(address,uint256,bool)"(
-      _token: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _force: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      _amount: BigNumberish,
+      _force: boolean,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     "withdraw(address,uint256)"(
-      _token: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      _amount: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     approveStake(
-      _user: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _token: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _user: string,
+      _amount: BigNumberish,
+      _token: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     obligateStake(
-      _user: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _token: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _user: string,
+      _amount: BigNumberish,
+      _token: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     deobligateStake(
-      _user: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _token: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _user: string,
+      _amount: BigNumberish,
+      _token: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     transferStake(
-      _user: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _token: PromiseOrValue<string>,
-      _recipient: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _user: string,
+      _amount: BigNumberish,
+      _token: string,
+      _recipient: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     reward(
-      _recipient: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
+      _recipient: string,
+      _amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[void]>;
 
     getTotalLockCount(
-      _token: PromiseOrValue<string>,
+      _token: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     getUserLock(
-      _token: PromiseOrValue<string>,
-      _user: PromiseOrValue<string>,
+      _token: string,
+      _user: string,
       overrides?: CallOverrides
     ): Promise<
       [TokenLockingDataTypes.LockStructOutput] & {
@@ -778,22 +719,22 @@ export interface TokenLocking extends BaseContract {
     >;
 
     getTotalObligation(
-      _user: PromiseOrValue<string>,
-      _token: PromiseOrValue<string>,
+      _user: string,
+      _token: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     getApproval(
-      _user: PromiseOrValue<string>,
-      _token: PromiseOrValue<string>,
-      _obligator: PromiseOrValue<string>,
+      _user: string,
+      _token: string,
+      _obligator: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     getObligation(
-      _user: PromiseOrValue<string>,
-      _token: PromiseOrValue<string>,
-      _obligator: PromiseOrValue<string>,
+      _user: string,
+      _token: string,
+      _obligator: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
   };
@@ -809,12 +750,12 @@ export interface TokenLocking extends BaseContract {
    * @param _user Address of user trying to do meta transaction
    */
   executeMetaTransaction(
-    _user: PromiseOrValue<string>,
-    _payload: PromiseOrValue<BytesLike>,
-    _sigR: PromiseOrValue<BytesLike>,
-    _sigS: PromiseOrValue<BytesLike>,
-    _sigV: PromiseOrValue<BigNumberish>,
-    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+    _user: string,
+    _payload: BytesLike,
+    _sigR: BytesLike,
+    _sigS: BytesLike,
+    _sigV: BigNumberish,
+    overrides?: PayableOverrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   getChainId(overrides?: CallOverrides): Promise<BigNumber>;
@@ -822,160 +763,160 @@ export interface TokenLocking extends BaseContract {
   owner(overrides?: CallOverrides): Promise<string>;
 
   setAuthority(
-    authority_: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    authority_: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   setOwner(
-    owner_: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    owner_: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   verify(
-    _owner: PromiseOrValue<string>,
-    _nonce: PromiseOrValue<BigNumberish>,
-    _chainId: PromiseOrValue<BigNumberish>,
-    _payload: PromiseOrValue<BytesLike>,
-    _sigR: PromiseOrValue<BytesLike>,
-    _sigS: PromiseOrValue<BytesLike>,
-    _sigV: PromiseOrValue<BigNumberish>,
+    _owner: string,
+    _nonce: BigNumberish,
+    _chainId: BigNumberish,
+    _payload: BytesLike,
+    _sigR: BytesLike,
+    _sigS: BytesLike,
+    _sigV: BigNumberish,
     overrides?: CallOverrides
   ): Promise<boolean>;
 
   getMetatransactionNonce(
-    userAddress: PromiseOrValue<string>,
+    userAddress: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   setColonyNetwork(
-    _colonyNetwork: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _colonyNetwork: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   getColonyNetwork(overrides?: CallOverrides): Promise<string>;
 
   lockToken(
-    _token: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _token: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   unlockTokenForUser(
-    _token: PromiseOrValue<string>,
-    _user: PromiseOrValue<string>,
-    _lockId: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _token: string,
+    _user: string,
+    _lockId: BigNumberish,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   incrementLockCounterTo(
-    _token: PromiseOrValue<string>,
-    _lockId: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _token: string,
+    _lockId: BigNumberish,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   "deposit(address,uint256,bool)"(
-    _token: PromiseOrValue<string>,
-    _amount: PromiseOrValue<BigNumberish>,
-    _force: PromiseOrValue<boolean>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _token: string,
+    _amount: BigNumberish,
+    _force: boolean,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   "deposit(address,uint256)"(
-    _token: PromiseOrValue<string>,
-    _amount: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _token: string,
+    _amount: BigNumberish,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   depositFor(
-    _token: PromiseOrValue<string>,
-    _amount: PromiseOrValue<BigNumberish>,
-    _recipient: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _token: string,
+    _amount: BigNumberish,
+    _recipient: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   transfer(
-    _token: PromiseOrValue<string>,
-    _amount: PromiseOrValue<BigNumberish>,
-    _recipient: PromiseOrValue<string>,
-    _force: PromiseOrValue<boolean>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _token: string,
+    _amount: BigNumberish,
+    _recipient: string,
+    _force: boolean,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   "withdraw(address,uint256,bool)"(
-    _token: PromiseOrValue<string>,
-    _amount: PromiseOrValue<BigNumberish>,
-    _force: PromiseOrValue<boolean>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _token: string,
+    _amount: BigNumberish,
+    _force: boolean,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   "withdraw(address,uint256)"(
-    _token: PromiseOrValue<string>,
-    _amount: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _token: string,
+    _amount: BigNumberish,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   approveStake(
-    _user: PromiseOrValue<string>,
-    _amount: PromiseOrValue<BigNumberish>,
-    _token: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _user: string,
+    _amount: BigNumberish,
+    _token: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   obligateStake(
-    _user: PromiseOrValue<string>,
-    _amount: PromiseOrValue<BigNumberish>,
-    _token: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _user: string,
+    _amount: BigNumberish,
+    _token: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   deobligateStake(
-    _user: PromiseOrValue<string>,
-    _amount: PromiseOrValue<BigNumberish>,
-    _token: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _user: string,
+    _amount: BigNumberish,
+    _token: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   transferStake(
-    _user: PromiseOrValue<string>,
-    _amount: PromiseOrValue<BigNumberish>,
-    _token: PromiseOrValue<string>,
-    _recipient: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _user: string,
+    _amount: BigNumberish,
+    _token: string,
+    _recipient: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   reward(
-    _recipient: PromiseOrValue<string>,
-    _amount: PromiseOrValue<BigNumberish>,
+    _recipient: string,
+    _amount: BigNumberish,
     overrides?: CallOverrides
   ): Promise<void>;
 
   getTotalLockCount(
-    _token: PromiseOrValue<string>,
+    _token: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   getUserLock(
-    _token: PromiseOrValue<string>,
-    _user: PromiseOrValue<string>,
+    _token: string,
+    _user: string,
     overrides?: CallOverrides
   ): Promise<TokenLockingDataTypes.LockStructOutput>;
 
   getTotalObligation(
-    _user: PromiseOrValue<string>,
-    _token: PromiseOrValue<string>,
+    _user: string,
+    _token: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   getApproval(
-    _user: PromiseOrValue<string>,
-    _token: PromiseOrValue<string>,
-    _obligator: PromiseOrValue<string>,
+    _user: string,
+    _token: string,
+    _obligator: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   getObligation(
-    _user: PromiseOrValue<string>,
-    _token: PromiseOrValue<string>,
-    _obligator: PromiseOrValue<string>,
+    _user: string,
+    _token: string,
+    _obligator: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
@@ -991,11 +932,11 @@ export interface TokenLocking extends BaseContract {
      * @param _user Address of user trying to do meta transaction
      */
     executeMetaTransaction(
-      _user: PromiseOrValue<string>,
-      _payload: PromiseOrValue<BytesLike>,
-      _sigR: PromiseOrValue<BytesLike>,
-      _sigS: PromiseOrValue<BytesLike>,
-      _sigV: PromiseOrValue<BigNumberish>,
+      _user: string,
+      _payload: BytesLike,
+      _sigR: BytesLike,
+      _sigS: BytesLike,
+      _sigV: BigNumberish,
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -1003,161 +944,152 @@ export interface TokenLocking extends BaseContract {
 
     owner(overrides?: CallOverrides): Promise<string>;
 
-    setAuthority(
-      authority_: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setAuthority(authority_: string, overrides?: CallOverrides): Promise<void>;
 
-    setOwner(
-      owner_: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setOwner(owner_: string, overrides?: CallOverrides): Promise<void>;
 
     verify(
-      _owner: PromiseOrValue<string>,
-      _nonce: PromiseOrValue<BigNumberish>,
-      _chainId: PromiseOrValue<BigNumberish>,
-      _payload: PromiseOrValue<BytesLike>,
-      _sigR: PromiseOrValue<BytesLike>,
-      _sigS: PromiseOrValue<BytesLike>,
-      _sigV: PromiseOrValue<BigNumberish>,
+      _owner: string,
+      _nonce: BigNumberish,
+      _chainId: BigNumberish,
+      _payload: BytesLike,
+      _sigR: BytesLike,
+      _sigS: BytesLike,
+      _sigV: BigNumberish,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
     getMetatransactionNonce(
-      userAddress: PromiseOrValue<string>,
+      userAddress: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     setColonyNetwork(
-      _colonyNetwork: PromiseOrValue<string>,
+      _colonyNetwork: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
     getColonyNetwork(overrides?: CallOverrides): Promise<string>;
 
-    lockToken(
-      _token: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    lockToken(_token: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     unlockTokenForUser(
-      _token: PromiseOrValue<string>,
-      _user: PromiseOrValue<string>,
-      _lockId: PromiseOrValue<BigNumberish>,
+      _token: string,
+      _user: string,
+      _lockId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
     incrementLockCounterTo(
-      _token: PromiseOrValue<string>,
-      _lockId: PromiseOrValue<BigNumberish>,
+      _token: string,
+      _lockId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
     "deposit(address,uint256,bool)"(
-      _token: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _force: PromiseOrValue<boolean>,
+      _token: string,
+      _amount: BigNumberish,
+      _force: boolean,
       overrides?: CallOverrides
     ): Promise<void>;
 
     "deposit(address,uint256)"(
-      _token: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
+      _token: string,
+      _amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
     depositFor(
-      _token: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _recipient: PromiseOrValue<string>,
+      _token: string,
+      _amount: BigNumberish,
+      _recipient: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
     transfer(
-      _token: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _recipient: PromiseOrValue<string>,
-      _force: PromiseOrValue<boolean>,
+      _token: string,
+      _amount: BigNumberish,
+      _recipient: string,
+      _force: boolean,
       overrides?: CallOverrides
     ): Promise<void>;
 
     "withdraw(address,uint256,bool)"(
-      _token: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _force: PromiseOrValue<boolean>,
+      _token: string,
+      _amount: BigNumberish,
+      _force: boolean,
       overrides?: CallOverrides
     ): Promise<void>;
 
     "withdraw(address,uint256)"(
-      _token: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
+      _token: string,
+      _amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
     approveStake(
-      _user: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _token: PromiseOrValue<string>,
+      _user: string,
+      _amount: BigNumberish,
+      _token: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
     obligateStake(
-      _user: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _token: PromiseOrValue<string>,
+      _user: string,
+      _amount: BigNumberish,
+      _token: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
     deobligateStake(
-      _user: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _token: PromiseOrValue<string>,
+      _user: string,
+      _amount: BigNumberish,
+      _token: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
     transferStake(
-      _user: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _token: PromiseOrValue<string>,
-      _recipient: PromiseOrValue<string>,
+      _user: string,
+      _amount: BigNumberish,
+      _token: string,
+      _recipient: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
     reward(
-      _recipient: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
+      _recipient: string,
+      _amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
     getTotalLockCount(
-      _token: PromiseOrValue<string>,
+      _token: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getUserLock(
-      _token: PromiseOrValue<string>,
-      _user: PromiseOrValue<string>,
+      _token: string,
+      _user: string,
       overrides?: CallOverrides
     ): Promise<TokenLockingDataTypes.LockStructOutput>;
 
     getTotalObligation(
-      _user: PromiseOrValue<string>,
-      _token: PromiseOrValue<string>,
+      _user: string,
+      _token: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getApproval(
-      _user: PromiseOrValue<string>,
-      _token: PromiseOrValue<string>,
-      _obligator: PromiseOrValue<string>,
+      _user: string,
+      _token: string,
+      _obligator: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getObligation(
-      _user: PromiseOrValue<string>,
-      _token: PromiseOrValue<string>,
-      _obligator: PromiseOrValue<string>,
+      _user: string,
+      _token: string,
+      _obligator: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
   };
@@ -1169,16 +1101,12 @@ export interface TokenLocking extends BaseContract {
     ColonyNetworkSet(colonyNetwork?: null): ColonyNetworkSetEventFilter;
 
     "LogSetAuthority(address)"(
-      authority?: PromiseOrValue<string> | null
+      authority?: string | null
     ): LogSetAuthorityEventFilter;
-    LogSetAuthority(
-      authority?: PromiseOrValue<string> | null
-    ): LogSetAuthorityEventFilter;
+    LogSetAuthority(authority?: string | null): LogSetAuthorityEventFilter;
 
-    "LogSetOwner(address)"(
-      owner?: PromiseOrValue<string> | null
-    ): LogSetOwnerEventFilter;
-    LogSetOwner(owner?: PromiseOrValue<string> | null): LogSetOwnerEventFilter;
+    "LogSetOwner(address)"(owner?: string | null): LogSetOwnerEventFilter;
+    LogSetOwner(owner?: string | null): LogSetOwnerEventFilter;
 
     "MetaTransactionExecuted(address,address,bytes)"(
       user?: null,
@@ -1207,13 +1135,13 @@ export interface TokenLocking extends BaseContract {
     ): StakeTransferredEventFilter;
 
     "TokenLocked(address,address,uint256)"(
-      token?: PromiseOrValue<string> | null,
-      lockedBy?: PromiseOrValue<string> | null,
+      token?: string | null,
+      lockedBy?: string | null,
       lockCount?: null
     ): TokenLockedEventFilter;
     TokenLocked(
-      token?: PromiseOrValue<string> | null,
-      lockedBy?: PromiseOrValue<string> | null,
+      token?: string | null,
+      lockedBy?: string | null,
       lockCount?: null
     ): TokenLockedEventFilter;
 
@@ -1326,12 +1254,12 @@ export interface TokenLocking extends BaseContract {
      * @param _user Address of user trying to do meta transaction
      */
     executeMetaTransaction(
-      _user: PromiseOrValue<string>,
-      _payload: PromiseOrValue<BytesLike>,
-      _sigR: PromiseOrValue<BytesLike>,
-      _sigS: PromiseOrValue<BytesLike>,
-      _sigV: PromiseOrValue<BigNumberish>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      _user: string,
+      _payload: BytesLike,
+      _sigR: BytesLike,
+      _sigS: BytesLike,
+      _sigV: BigNumberish,
+      overrides?: PayableOverrides & { from?: string }
     ): Promise<BigNumber>;
 
     getChainId(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1339,160 +1267,160 @@ export interface TokenLocking extends BaseContract {
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
     setAuthority(
-      authority_: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      authority_: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     setOwner(
-      owner_: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      owner_: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     verify(
-      _owner: PromiseOrValue<string>,
-      _nonce: PromiseOrValue<BigNumberish>,
-      _chainId: PromiseOrValue<BigNumberish>,
-      _payload: PromiseOrValue<BytesLike>,
-      _sigR: PromiseOrValue<BytesLike>,
-      _sigS: PromiseOrValue<BytesLike>,
-      _sigV: PromiseOrValue<BigNumberish>,
+      _owner: string,
+      _nonce: BigNumberish,
+      _chainId: BigNumberish,
+      _payload: BytesLike,
+      _sigR: BytesLike,
+      _sigS: BytesLike,
+      _sigV: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getMetatransactionNonce(
-      userAddress: PromiseOrValue<string>,
+      userAddress: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     setColonyNetwork(
-      _colonyNetwork: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _colonyNetwork: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     getColonyNetwork(overrides?: CallOverrides): Promise<BigNumber>;
 
     lockToken(
-      _token: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     unlockTokenForUser(
-      _token: PromiseOrValue<string>,
-      _user: PromiseOrValue<string>,
-      _lockId: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      _user: string,
+      _lockId: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     incrementLockCounterTo(
-      _token: PromiseOrValue<string>,
-      _lockId: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      _lockId: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     "deposit(address,uint256,bool)"(
-      _token: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _force: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      _amount: BigNumberish,
+      _force: boolean,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     "deposit(address,uint256)"(
-      _token: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      _amount: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     depositFor(
-      _token: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _recipient: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      _amount: BigNumberish,
+      _recipient: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     transfer(
-      _token: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _recipient: PromiseOrValue<string>,
-      _force: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      _amount: BigNumberish,
+      _recipient: string,
+      _force: boolean,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     "withdraw(address,uint256,bool)"(
-      _token: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _force: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      _amount: BigNumberish,
+      _force: boolean,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     "withdraw(address,uint256)"(
-      _token: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      _amount: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     approveStake(
-      _user: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _token: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _user: string,
+      _amount: BigNumberish,
+      _token: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     obligateStake(
-      _user: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _token: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _user: string,
+      _amount: BigNumberish,
+      _token: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     deobligateStake(
-      _user: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _token: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _user: string,
+      _amount: BigNumberish,
+      _token: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     transferStake(
-      _user: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _token: PromiseOrValue<string>,
-      _recipient: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _user: string,
+      _amount: BigNumberish,
+      _token: string,
+      _recipient: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     reward(
-      _recipient: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
+      _recipient: string,
+      _amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getTotalLockCount(
-      _token: PromiseOrValue<string>,
+      _token: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getUserLock(
-      _token: PromiseOrValue<string>,
-      _user: PromiseOrValue<string>,
+      _token: string,
+      _user: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getTotalObligation(
-      _user: PromiseOrValue<string>,
-      _token: PromiseOrValue<string>,
+      _user: string,
+      _token: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getApproval(
-      _user: PromiseOrValue<string>,
-      _token: PromiseOrValue<string>,
-      _obligator: PromiseOrValue<string>,
+      _user: string,
+      _token: string,
+      _obligator: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getObligation(
-      _user: PromiseOrValue<string>,
-      _token: PromiseOrValue<string>,
-      _obligator: PromiseOrValue<string>,
+      _user: string,
+      _token: string,
+      _obligator: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
   };
@@ -1509,12 +1437,12 @@ export interface TokenLocking extends BaseContract {
      * @param _user Address of user trying to do meta transaction
      */
     executeMetaTransaction(
-      _user: PromiseOrValue<string>,
-      _payload: PromiseOrValue<BytesLike>,
-      _sigR: PromiseOrValue<BytesLike>,
-      _sigS: PromiseOrValue<BytesLike>,
-      _sigV: PromiseOrValue<BigNumberish>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      _user: string,
+      _payload: BytesLike,
+      _sigR: BytesLike,
+      _sigS: BytesLike,
+      _sigV: BigNumberish,
+      overrides?: PayableOverrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     getChainId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1522,160 +1450,160 @@ export interface TokenLocking extends BaseContract {
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     setAuthority(
-      authority_: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      authority_: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     setOwner(
-      owner_: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      owner_: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     verify(
-      _owner: PromiseOrValue<string>,
-      _nonce: PromiseOrValue<BigNumberish>,
-      _chainId: PromiseOrValue<BigNumberish>,
-      _payload: PromiseOrValue<BytesLike>,
-      _sigR: PromiseOrValue<BytesLike>,
-      _sigS: PromiseOrValue<BytesLike>,
-      _sigV: PromiseOrValue<BigNumberish>,
+      _owner: string,
+      _nonce: BigNumberish,
+      _chainId: BigNumberish,
+      _payload: BytesLike,
+      _sigR: BytesLike,
+      _sigS: BytesLike,
+      _sigV: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getMetatransactionNonce(
-      userAddress: PromiseOrValue<string>,
+      userAddress: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     setColonyNetwork(
-      _colonyNetwork: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _colonyNetwork: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     getColonyNetwork(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     lockToken(
-      _token: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     unlockTokenForUser(
-      _token: PromiseOrValue<string>,
-      _user: PromiseOrValue<string>,
-      _lockId: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      _user: string,
+      _lockId: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     incrementLockCounterTo(
-      _token: PromiseOrValue<string>,
-      _lockId: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      _lockId: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     "deposit(address,uint256,bool)"(
-      _token: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _force: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      _amount: BigNumberish,
+      _force: boolean,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     "deposit(address,uint256)"(
-      _token: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      _amount: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     depositFor(
-      _token: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _recipient: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      _amount: BigNumberish,
+      _recipient: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     transfer(
-      _token: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _recipient: PromiseOrValue<string>,
-      _force: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      _amount: BigNumberish,
+      _recipient: string,
+      _force: boolean,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     "withdraw(address,uint256,bool)"(
-      _token: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _force: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      _amount: BigNumberish,
+      _force: boolean,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     "withdraw(address,uint256)"(
-      _token: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      _amount: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     approveStake(
-      _user: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _token: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _user: string,
+      _amount: BigNumberish,
+      _token: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     obligateStake(
-      _user: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _token: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _user: string,
+      _amount: BigNumberish,
+      _token: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     deobligateStake(
-      _user: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _token: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _user: string,
+      _amount: BigNumberish,
+      _token: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     transferStake(
-      _user: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _token: PromiseOrValue<string>,
-      _recipient: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _user: string,
+      _amount: BigNumberish,
+      _token: string,
+      _recipient: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     reward(
-      _recipient: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
+      _recipient: string,
+      _amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getTotalLockCount(
-      _token: PromiseOrValue<string>,
+      _token: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getUserLock(
-      _token: PromiseOrValue<string>,
-      _user: PromiseOrValue<string>,
+      _token: string,
+      _user: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getTotalObligation(
-      _user: PromiseOrValue<string>,
-      _token: PromiseOrValue<string>,
+      _user: string,
+      _token: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getApproval(
-      _user: PromiseOrValue<string>,
-      _token: PromiseOrValue<string>,
-      _obligator: PromiseOrValue<string>,
+      _user: string,
+      _token: string,
+      _obligator: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getObligation(
-      _user: PromiseOrValue<string>,
-      _token: PromiseOrValue<string>,
-      _obligator: PromiseOrValue<string>,
+      _user: string,
+      _token: string,
+      _obligator: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };

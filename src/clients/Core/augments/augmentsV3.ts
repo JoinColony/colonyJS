@@ -12,6 +12,7 @@ import {
   IColonyV11,
   IColonyV12,
   IColonyV13,
+  IColonyV14,
 } from '../../../contracts/IColony/exports';
 import { ColonyRole } from '../../../constants';
 import { TxOverrides } from '../../../types';
@@ -33,7 +34,8 @@ type ValidColony =
   | IColonyV10
   | IColonyV11
   | IColonyV12
-  | IColonyV13;
+  | IColonyV13
+  | IColonyV14;
 
 export interface AugmentedEstimateV3 {
   /**

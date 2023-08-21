@@ -16,7 +16,6 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
-  PromiseOrValue,
 } from "./common";
 
 export interface IColonyNetworkEventsInterface extends utils.Interface {
@@ -535,13 +534,13 @@ export interface IColonyNetworkEvents extends BaseContract {
     ): MetaColonyCreatedEventFilter;
 
     "ColonyAdded(uint256,address,address)"(
-      colonyId?: PromiseOrValue<BigNumberish> | null,
-      colonyAddress?: PromiseOrValue<string> | null,
+      colonyId?: BigNumberish | null,
+      colonyAddress?: string | null,
       token?: null
     ): ColonyAddedEventFilter;
     ColonyAdded(
-      colonyId?: PromiseOrValue<BigNumberish> | null,
-      colonyAddress?: PromiseOrValue<string> | null,
+      colonyId?: BigNumberish | null,
+      colonyAddress?: string | null,
       token?: null
     ): ColonyAddedEventFilter;
 
@@ -592,80 +591,80 @@ export interface IColonyNetworkEvents extends BaseContract {
     ): ReputationRootHashSetEventFilter;
 
     "UserLabelRegistered(address,bytes32)"(
-      user?: PromiseOrValue<string> | null,
+      user?: string | null,
       label?: null
     ): UserLabelRegisteredEventFilter;
     UserLabelRegistered(
-      user?: PromiseOrValue<string> | null,
+      user?: string | null,
       label?: null
     ): UserLabelRegisteredEventFilter;
 
     "ColonyLabelRegistered(address,bytes32)"(
-      colony?: PromiseOrValue<string> | null,
+      colony?: string | null,
       label?: null
     ): ColonyLabelRegisteredEventFilter;
     ColonyLabelRegistered(
-      colony?: PromiseOrValue<string> | null,
+      colony?: string | null,
       label?: null
     ): ColonyLabelRegisteredEventFilter;
 
     "RecoveryRoleSet(address,bool)"(
-      user?: PromiseOrValue<string> | null,
+      user?: string | null,
       setTo?: null
     ): RecoveryRoleSetEventFilter;
     RecoveryRoleSet(
-      user?: PromiseOrValue<string> | null,
+      user?: string | null,
       setTo?: null
     ): RecoveryRoleSetEventFilter;
 
     "ExtensionAddedToNetwork(bytes32,uint256)"(
-      extensionId?: PromiseOrValue<BytesLike> | null,
+      extensionId?: BytesLike | null,
       version?: null
     ): ExtensionAddedToNetworkEventFilter;
     ExtensionAddedToNetwork(
-      extensionId?: PromiseOrValue<BytesLike> | null,
+      extensionId?: BytesLike | null,
       version?: null
     ): ExtensionAddedToNetworkEventFilter;
 
     "ExtensionDeprecated(bytes32,address,bool)"(
-      extensionId?: PromiseOrValue<BytesLike> | null,
-      colony?: PromiseOrValue<string> | null,
+      extensionId?: BytesLike | null,
+      colony?: string | null,
       deprecated?: null
     ): ExtensionDeprecatedEventFilter;
     ExtensionDeprecated(
-      extensionId?: PromiseOrValue<BytesLike> | null,
-      colony?: PromiseOrValue<string> | null,
+      extensionId?: BytesLike | null,
+      colony?: string | null,
       deprecated?: null
     ): ExtensionDeprecatedEventFilter;
 
     "ExtensionInstalled(bytes32,address,uint256)"(
-      extensionId?: PromiseOrValue<BytesLike> | null,
-      colony?: PromiseOrValue<string> | null,
+      extensionId?: BytesLike | null,
+      colony?: string | null,
       version?: null
     ): ExtensionInstalledEventFilter;
     ExtensionInstalled(
-      extensionId?: PromiseOrValue<BytesLike> | null,
-      colony?: PromiseOrValue<string> | null,
+      extensionId?: BytesLike | null,
+      colony?: string | null,
       version?: null
     ): ExtensionInstalledEventFilter;
 
     "ExtensionUninstalled(bytes32,address)"(
-      extensionId?: PromiseOrValue<BytesLike> | null,
-      colony?: PromiseOrValue<string> | null
+      extensionId?: BytesLike | null,
+      colony?: string | null
     ): ExtensionUninstalledEventFilter;
     ExtensionUninstalled(
-      extensionId?: PromiseOrValue<BytesLike> | null,
-      colony?: PromiseOrValue<string> | null
+      extensionId?: BytesLike | null,
+      colony?: string | null
     ): ExtensionUninstalledEventFilter;
 
     "ExtensionUpgraded(bytes32,address,uint256)"(
-      extensionId?: PromiseOrValue<BytesLike> | null,
-      colony?: PromiseOrValue<string> | null,
+      extensionId?: BytesLike | null,
+      colony?: string | null,
       version?: null
     ): ExtensionUpgradedEventFilter;
     ExtensionUpgraded(
-      extensionId?: PromiseOrValue<BytesLike> | null,
-      colony?: PromiseOrValue<string> | null,
+      extensionId?: BytesLike | null,
+      colony?: string | null,
       version?: null
     ): ExtensionUpgradedEventFilter;
 

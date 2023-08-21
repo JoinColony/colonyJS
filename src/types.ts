@@ -68,4 +68,4 @@ export type UserRoles = {
 export type ColonyRoles = UserRoles[];
 
 /** @internal */
-export type TxOverrides = Overrides & { from?: string | Promise<string> };
+export type TxOverrides = Overrides & { from?: string };

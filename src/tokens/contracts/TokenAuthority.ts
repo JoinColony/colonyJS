@@ -17,7 +17,6 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
-  PromiseOrValue,
 } from "./common";
 
 export interface TokenAuthorityInterface extends utils.Interface {
@@ -31,11 +30,7 @@ export interface TokenAuthorityInterface extends utils.Interface {
   encodeFunctionData(functionFragment: "token", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "canCall",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<BytesLike>
-    ]
+    values: [string, string, BytesLike]
   ): string;
 
   decodeFunctionResult(functionFragment: "token", data: BytesLike): Result;
@@ -74,9 +69,9 @@ export interface TokenAuthority extends BaseContract {
     token(overrides?: CallOverrides): Promise<[string]>;
 
     canCall(
-      src: PromiseOrValue<string>,
-      dst: PromiseOrValue<string>,
-      sig: PromiseOrValue<BytesLike>,
+      src: string,
+      dst: string,
+      sig: BytesLike,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
   };
@@ -84,9 +79,9 @@ export interface TokenAuthority extends BaseContract {
   token(overrides?: CallOverrides): Promise<string>;
 
   canCall(
-    src: PromiseOrValue<string>,
-    dst: PromiseOrValue<string>,
-    sig: PromiseOrValue<BytesLike>,
+    src: string,
+    dst: string,
+    sig: BytesLike,
     overrides?: CallOverrides
   ): Promise<boolean>;
 
@@ -94,9 +89,9 @@ export interface TokenAuthority extends BaseContract {
     token(overrides?: CallOverrides): Promise<string>;
 
     canCall(
-      src: PromiseOrValue<string>,
-      dst: PromiseOrValue<string>,
-      sig: PromiseOrValue<BytesLike>,
+      src: string,
+      dst: string,
+      sig: BytesLike,
       overrides?: CallOverrides
     ): Promise<boolean>;
   };
@@ -107,9 +102,9 @@ export interface TokenAuthority extends BaseContract {
     token(overrides?: CallOverrides): Promise<BigNumber>;
 
     canCall(
-      src: PromiseOrValue<string>,
-      dst: PromiseOrValue<string>,
-      sig: PromiseOrValue<BytesLike>,
+      src: string,
+      dst: string,
+      sig: BytesLike,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
   };
@@ -118,9 +113,9 @@ export interface TokenAuthority extends BaseContract {
     token(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     canCall(
-      src: PromiseOrValue<string>,
-      dst: PromiseOrValue<string>,
-      sig: PromiseOrValue<BytesLike>,
+      src: string,
+      dst: string,
+      sig: BytesLike,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };

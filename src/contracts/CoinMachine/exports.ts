@@ -7,9 +7,10 @@ import type { CoinMachine as CoinMachine5 } from './5';
 import type { CoinMachine as CoinMachine6 } from './6';
 import type { CoinMachine as CoinMachine7 } from './7';
 import type { CoinMachine as CoinMachine8 } from './8';
+import type { CoinMachine as CoinMachine9 } from './9';
 
 // Always adjust to the latest factory
-export { CoinMachine__factory as CoinMachineFactory } from './8/factories/CoinMachine__factory';
+export { CoinMachine__factory as CoinMachineFactory } from './9/factories/CoinMachine__factory';
 
 export type CoinMachineV1 = CoinMachine1;
 export type CoinMachineV2 = CoinMachine2;
@@ -19,6 +20,7 @@ export type CoinMachineV5 = CoinMachine5;
 export type CoinMachineV6 = CoinMachine6;
 export type CoinMachineV7 = CoinMachine7;
 export type CoinMachineV8 = CoinMachine8;
+export type CoinMachineV9 = CoinMachine9;
 
 export type AnyCoinMachine =
   | CoinMachine1
@@ -28,4 +30,5 @@ export type AnyCoinMachine =
   | CoinMachine5
   | CoinMachine6
   | CoinMachine7
-  | CoinMachine8;
+  | CoinMachine8
+  | CoinMachine9;

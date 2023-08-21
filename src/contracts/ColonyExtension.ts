@@ -23,7 +23,6 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
-  PromiseOrValue,
 } from "./common";
 
 export interface ColonyExtensionInterface extends utils.Interface {
@@ -65,38 +64,29 @@ export interface ColonyExtensionInterface extends utils.Interface {
   encodeFunctionData(functionFragment: "authority", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "multicall",
-    values: [PromiseOrValue<BytesLike>[]]
+    values: [BytesLike[]]
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "setAuthority",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
-  encodeFunctionData(
-    functionFragment: "setOwner",
-    values: [PromiseOrValue<string>]
-  ): string;
+  encodeFunctionData(functionFragment: "setOwner", values: [string]): string;
   encodeFunctionData(
     functionFragment: "identifier",
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "version", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "install",
-    values: [PromiseOrValue<string>]
-  ): string;
+  encodeFunctionData(functionFragment: "install", values: [string]): string;
   encodeFunctionData(
     functionFragment: "finishUpgrade",
     values?: undefined
   ): string;
-  encodeFunctionData(
-    functionFragment: "deprecate",
-    values: [PromiseOrValue<boolean>]
-  ): string;
+  encodeFunctionData(functionFragment: "deprecate", values: [boolean]): string;
   encodeFunctionData(functionFragment: "uninstall", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "getCapabilityRoles",
-    values: [PromiseOrValue<BytesLike>]
+    values: [BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "getDeprecated",
@@ -198,20 +188,20 @@ export interface ColonyExtension extends BaseContract {
     authority(overrides?: CallOverrides): Promise<[string]>;
 
     multicall(
-      data: PromiseOrValue<BytesLike>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      data: BytesLike[],
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     owner(overrides?: CallOverrides): Promise<[string]>;
 
     setAuthority(
-      authority_: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      authority_: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     setOwner(
-      owner_: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      owner_: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     identifier(overrides?: CallOverrides): Promise<[string]>;
@@ -219,25 +209,25 @@ export interface ColonyExtension extends BaseContract {
     version(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     install(
-      _colony: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _colony: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     finishUpgrade(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     deprecate(
-      _deprecated: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _deprecated: boolean,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     uninstall(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     getCapabilityRoles(
-      _sig: PromiseOrValue<BytesLike>,
+      _sig: BytesLike,
       overrides?: CallOverrides
     ): Promise<[string]>;
 
@@ -249,20 +239,20 @@ export interface ColonyExtension extends BaseContract {
   authority(overrides?: CallOverrides): Promise<string>;
 
   multicall(
-    data: PromiseOrValue<BytesLike>[],
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    data: BytesLike[],
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   owner(overrides?: CallOverrides): Promise<string>;
 
   setAuthority(
-    authority_: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    authority_: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   setOwner(
-    owner_: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    owner_: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   identifier(overrides?: CallOverrides): Promise<string>;
@@ -270,25 +260,25 @@ export interface ColonyExtension extends BaseContract {
   version(overrides?: CallOverrides): Promise<BigNumber>;
 
   install(
-    _colony: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _colony: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   finishUpgrade(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   deprecate(
-    _deprecated: PromiseOrValue<boolean>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _deprecated: boolean,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   uninstall(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   getCapabilityRoles(
-    _sig: PromiseOrValue<BytesLike>,
+    _sig: BytesLike,
     overrides?: CallOverrides
   ): Promise<string>;
 
@@ -299,43 +289,28 @@ export interface ColonyExtension extends BaseContract {
   callStatic: {
     authority(overrides?: CallOverrides): Promise<string>;
 
-    multicall(
-      data: PromiseOrValue<BytesLike>[],
-      overrides?: CallOverrides
-    ): Promise<string[]>;
+    multicall(data: BytesLike[], overrides?: CallOverrides): Promise<string[]>;
 
     owner(overrides?: CallOverrides): Promise<string>;
 
-    setAuthority(
-      authority_: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setAuthority(authority_: string, overrides?: CallOverrides): Promise<void>;
 
-    setOwner(
-      owner_: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setOwner(owner_: string, overrides?: CallOverrides): Promise<void>;
 
     identifier(overrides?: CallOverrides): Promise<string>;
 
     version(overrides?: CallOverrides): Promise<BigNumber>;
 
-    install(
-      _colony: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    install(_colony: string, overrides?: CallOverrides): Promise<void>;
 
     finishUpgrade(overrides?: CallOverrides): Promise<void>;
 
-    deprecate(
-      _deprecated: PromiseOrValue<boolean>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    deprecate(_deprecated: boolean, overrides?: CallOverrides): Promise<void>;
 
     uninstall(overrides?: CallOverrides): Promise<void>;
 
     getCapabilityRoles(
-      _sig: PromiseOrValue<BytesLike>,
+      _sig: BytesLike,
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -349,36 +324,32 @@ export interface ColonyExtension extends BaseContract {
     ExtensionInitialised(): ExtensionInitialisedEventFilter;
 
     "LogSetAuthority(address)"(
-      authority?: PromiseOrValue<string> | null
+      authority?: string | null
     ): LogSetAuthorityEventFilter;
-    LogSetAuthority(
-      authority?: PromiseOrValue<string> | null
-    ): LogSetAuthorityEventFilter;
+    LogSetAuthority(authority?: string | null): LogSetAuthorityEventFilter;
 
-    "LogSetOwner(address)"(
-      owner?: PromiseOrValue<string> | null
-    ): LogSetOwnerEventFilter;
-    LogSetOwner(owner?: PromiseOrValue<string> | null): LogSetOwnerEventFilter;
+    "LogSetOwner(address)"(owner?: string | null): LogSetOwnerEventFilter;
+    LogSetOwner(owner?: string | null): LogSetOwnerEventFilter;
   };
 
   estimateGas: {
     authority(overrides?: CallOverrides): Promise<BigNumber>;
 
     multicall(
-      data: PromiseOrValue<BytesLike>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      data: BytesLike[],
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
     setAuthority(
-      authority_: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      authority_: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     setOwner(
-      owner_: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      owner_: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     identifier(overrides?: CallOverrides): Promise<BigNumber>;
@@ -386,25 +357,23 @@ export interface ColonyExtension extends BaseContract {
     version(overrides?: CallOverrides): Promise<BigNumber>;
 
     install(
-      _colony: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _colony: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     finishUpgrade(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     deprecate(
-      _deprecated: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _deprecated: boolean,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
-    uninstall(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
+    uninstall(overrides?: Overrides & { from?: string }): Promise<BigNumber>;
 
     getCapabilityRoles(
-      _sig: PromiseOrValue<BytesLike>,
+      _sig: BytesLike,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -417,20 +386,20 @@ export interface ColonyExtension extends BaseContract {
     authority(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     multicall(
-      data: PromiseOrValue<BytesLike>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      data: BytesLike[],
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     setAuthority(
-      authority_: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      authority_: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     setOwner(
-      owner_: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      owner_: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     identifier(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -438,25 +407,25 @@ export interface ColonyExtension extends BaseContract {
     version(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     install(
-      _colony: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _colony: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     finishUpgrade(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     deprecate(
-      _deprecated: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _deprecated: boolean,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     uninstall(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     getCapabilityRoles(
-      _sig: PromiseOrValue<BytesLike>,
+      _sig: BytesLike,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 

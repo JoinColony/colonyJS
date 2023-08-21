@@ -131,7 +131,7 @@ const _abi = [
     name: "StakeReclaimed",
     type: "event",
   },
-];
+] as const;
 
 export class StakedExpenditureEvents__factory {
   static readonly abi = _abi;

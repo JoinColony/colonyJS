@@ -25,17 +25,16 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
-  PromiseOrValue,
 } from "./common";
 
 export declare namespace ColonyNetworkDataTypes {
   export type ReputationLogEntryStruct = {
-    user: PromiseOrValue<string>;
-    amount: PromiseOrValue<BigNumberish>;
-    skillId: PromiseOrValue<BigNumberish>;
-    colony: PromiseOrValue<string>;
-    nUpdates: PromiseOrValue<BigNumberish>;
-    nPreviousUpdates: PromiseOrValue<BigNumberish>;
+    user: string;
+    amount: BigNumberish;
+    skillId: BigNumberish;
+    colony: string;
+    nUpdates: BigNumberish;
+    nPreviousUpdates: BigNumberish;
   };
 
   export type ReputationLogEntryStructOutput = [
@@ -55,12 +54,12 @@ export declare namespace ColonyNetworkDataTypes {
   };
 
   export type SkillStruct = {
-    nParents: PromiseOrValue<BigNumberish>;
-    nChildren: PromiseOrValue<BigNumberish>;
-    parents: PromiseOrValue<BigNumberish>[];
-    children: PromiseOrValue<BigNumberish>[];
-    globalSkill: PromiseOrValue<boolean>;
-    deprecated: PromiseOrValue<boolean>;
+    nParents: BigNumberish;
+    nChildren: BigNumberish;
+    parents: BigNumberish[];
+    children: BigNumberish[];
+    globalSkill: boolean;
+    deprecated: boolean;
   };
 
   export type SkillStructOutput = [
@@ -80,8 +79,8 @@ export declare namespace ColonyNetworkDataTypes {
   };
 
   export type MiningStakeStruct = {
-    amount: PromiseOrValue<BigNumberish>;
-    timestamp: PromiseOrValue<BigNumberish>;
+    amount: BigNumberish;
+    timestamp: BigNumberish;
   };
 
   export type MiningStakeStructOutput = [BigNumber, BigNumber] & {
@@ -276,7 +275,7 @@ export interface IColonyNetworkInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "checkNotAdditionalProtectedVariable",
-    values: [PromiseOrValue<BigNumberish>]
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "enterRecoveryMode",
@@ -284,13 +283,7 @@ export interface IColonyNetworkInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "executeMetaTransaction",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BigNumberish>
-    ]
+    values: [string, BytesLike, BytesLike, BytesLike, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "exitRecoveryMode",
@@ -298,7 +291,7 @@ export interface IColonyNetworkInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "getMetatransactionNonce",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "isInRecoveryMode",
@@ -306,7 +299,7 @@ export interface IColonyNetworkInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "multicall",
-    values: [PromiseOrValue<BytesLike>[]]
+    values: [BytesLike[]]
   ): string;
   encodeFunctionData(
     functionFragment: "numRecoveryRoles",
@@ -314,40 +307,40 @@ export interface IColonyNetworkInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "removeRecoveryRole",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "setRecoveryRole",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "setStorageSlotRecovery",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BytesLike>]
+    values: [BigNumberish, BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "supportsInterface",
-    values: [PromiseOrValue<BytesLike>]
+    values: [BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "setReplacementReputationUpdateLogEntry",
     values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>
+      string,
+      BigNumberish,
+      string,
+      BigNumberish,
+      BigNumberish,
+      string,
+      BigNumberish,
+      BigNumberish
     ]
   ): string;
   encodeFunctionData(
     functionFragment: "getReplacementReputationUpdateLogEntry",
-    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getReplacementReputationUpdateLogsExist",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "getMetaColony",
@@ -357,25 +350,22 @@ export interface IColonyNetworkInterface extends utils.Interface {
     functionFragment: "getColonyCount",
     values?: undefined
   ): string;
-  encodeFunctionData(
-    functionFragment: "isColony",
-    values: [PromiseOrValue<string>]
-  ): string;
+  encodeFunctionData(functionFragment: "isColony", values: [string]): string;
   encodeFunctionData(
     functionFragment: "addSkill",
-    values: [PromiseOrValue<BigNumberish>]
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getSkill",
-    values: [PromiseOrValue<BigNumberish>]
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "deprecateSkill(uint256)",
-    values: [PromiseOrValue<BigNumberish>]
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "deprecateSkill(uint256,bool)",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<boolean>]
+    values: [BigNumberish, boolean]
   ): string;
   encodeFunctionData(
     functionFragment: "initialiseRootLocalSkill",
@@ -383,11 +373,7 @@ export interface IColonyNetworkInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "appendReputationUpdateLog",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>
-    ]
+    values: [string, BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getSkillCount",
@@ -399,7 +385,7 @@ export interface IColonyNetworkInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "setTokenLocking",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "getTokenLocking",
@@ -407,62 +393,39 @@ export interface IColonyNetworkInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "createMetaColony",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "createColony(address)",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "createColony(address,uint256,string,string)",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<string>,
-      PromiseOrValue<string>
-    ]
+    values: [string, BigNumberish, string, string]
   ): string;
   encodeFunctionData(
     functionFragment: "createColony(address,uint256,string)",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<string>
-    ]
+    values: [string, BigNumberish, string]
   ): string;
   encodeFunctionData(
     functionFragment: "createColony(address,uint256,string,string,bool)",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<boolean>
-    ]
+    values: [string, BigNumberish, string, string, boolean]
   ): string;
   encodeFunctionData(
     functionFragment: "createColonyForFrontend",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<string>,
-      PromiseOrValue<string>
-    ]
+    values: [string, string, string, BigNumberish, BigNumberish, string, string]
   ): string;
   encodeFunctionData(
     functionFragment: "addColonyVersion",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
+    values: [BigNumberish, string]
   ): string;
   encodeFunctionData(
     functionFragment: "initialise",
-    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getColony",
-    values: [PromiseOrValue<BigNumberish>]
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getCurrentColonyVersion",
@@ -470,31 +433,27 @@ export interface IColonyNetworkInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "getParentSkillId",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
+    values: [BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getChildSkillId",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
+    values: [BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getReputationMiningCycle",
-    values: [PromiseOrValue<boolean>]
+    values: [boolean]
   ): string;
   encodeFunctionData(
     functionFragment: "calculateMinerWeight",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
+    values: [BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getColonyVersionResolver",
-    values: [PromiseOrValue<BigNumberish>]
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "setReputationRootHash",
-    values: [
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<string>[]
-    ]
+    values: [BytesLike, BigNumberish, string[]]
   ): string;
   encodeFunctionData(
     functionFragment: "startNextCycle",
@@ -518,47 +477,44 @@ export interface IColonyNetworkInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "startTokenAuction",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "setupRegistrar",
-    values: [PromiseOrValue<string>, PromiseOrValue<BytesLike>]
+    values: [string, BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "registerUserLabel",
-    values: [PromiseOrValue<string>, PromiseOrValue<string>]
+    values: [string, string]
   ): string;
   encodeFunctionData(
     functionFragment: "registerColonyLabel",
-    values: [PromiseOrValue<string>, PromiseOrValue<string>]
+    values: [string, string]
   ): string;
   encodeFunctionData(
     functionFragment: "updateColonyOrbitDB",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "updateUserOrbitDB",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "getProfileDBAddress",
-    values: [PromiseOrValue<BytesLike>]
+    values: [BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "lookupRegisteredENSDomain",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
-  encodeFunctionData(
-    functionFragment: "addr",
-    values: [PromiseOrValue<BytesLike>]
-  ): string;
+  encodeFunctionData(functionFragment: "addr", values: [BytesLike]): string;
   encodeFunctionData(
     functionFragment: "getENSRegistrar",
     values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "setMiningResolver",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "getMiningResolver",
@@ -566,31 +522,31 @@ export interface IColonyNetworkInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "addExtensionToNetwork",
-    values: [PromiseOrValue<BytesLike>, PromiseOrValue<string>]
+    values: [BytesLike, string]
   ): string;
   encodeFunctionData(
     functionFragment: "installExtension",
-    values: [PromiseOrValue<BytesLike>, PromiseOrValue<BigNumberish>]
+    values: [BytesLike, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "upgradeExtension",
-    values: [PromiseOrValue<BytesLike>, PromiseOrValue<BigNumberish>]
+    values: [BytesLike, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "deprecateExtension",
-    values: [PromiseOrValue<BytesLike>, PromiseOrValue<boolean>]
+    values: [BytesLike, boolean]
   ): string;
   encodeFunctionData(
     functionFragment: "uninstallExtension",
-    values: [PromiseOrValue<BytesLike>]
+    values: [BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "getExtensionResolver",
-    values: [PromiseOrValue<BytesLike>, PromiseOrValue<BigNumberish>]
+    values: [BytesLike, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getExtensionInstallation",
-    values: [PromiseOrValue<BytesLike>, PromiseOrValue<string>]
+    values: [BytesLike, string]
   ): string;
   encodeFunctionData(
     functionFragment: "getFeeInverse",
@@ -598,47 +554,47 @@ export interface IColonyNetworkInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "setFeeInverse",
-    values: [PromiseOrValue<BigNumberish>]
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getPayoutWhitelist",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "setPayoutWhitelist",
-    values: [PromiseOrValue<string>, PromiseOrValue<boolean>]
+    values: [string, boolean]
   ): string;
   encodeFunctionData(
     functionFragment: "punishStakers",
-    values: [PromiseOrValue<string>[], PromiseOrValue<BigNumberish>]
+    values: [string[], BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "stakeForMining",
-    values: [PromiseOrValue<BigNumberish>]
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "unstakeForMining",
-    values: [PromiseOrValue<BigNumberish>]
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getMiningStake",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "reward",
-    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "burnUnneededRewards",
-    values: [PromiseOrValue<BigNumberish>]
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "claimMiningReward",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "setReputationMiningCycleReward",
-    values: [PromiseOrValue<BigNumberish>]
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getReputationMiningCycleReward",
@@ -646,27 +602,19 @@ export interface IColonyNetworkInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "deployTokenViaNetwork",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>
-    ]
+    values: [string, string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "deployTokenAuthority",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<string>[]
-    ]
+    values: [string, string, string[]]
   ): string;
   encodeFunctionData(
     functionFragment: "setMiningDelegate",
-    values: [PromiseOrValue<string>, PromiseOrValue<boolean>]
+    values: [string, boolean]
   ): string;
   encodeFunctionData(
     functionFragment: "getMiningDelegator",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
 
   decodeFunctionResult(
@@ -1456,7 +1404,7 @@ export interface IColonyNetwork extends BaseContract {
      * Indicate approval to exit recovery mode. Can only be called by user with recovery role.
      */
     approveExitRecovery(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -1465,7 +1413,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _slot The storage slot number to check.
      */
     checkNotAdditionalProtectedVariable(
-      _slot: PromiseOrValue<BigNumberish>,
+      _slot: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[void]>;
 
@@ -1473,7 +1421,7 @@ export interface IColonyNetwork extends BaseContract {
      * Put colony network mining into recovery mode. Can only be called by user with recovery role.
      */
     enterRecoveryMode(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -1485,19 +1433,19 @@ export interface IColonyNetwork extends BaseContract {
      * @param userAddress The address of the user that signed the metatransaction
      */
     executeMetaTransaction(
-      userAddress: PromiseOrValue<string>,
-      payload: PromiseOrValue<BytesLike>,
-      sigR: PromiseOrValue<BytesLike>,
-      sigS: PromiseOrValue<BytesLike>,
-      sigV: PromiseOrValue<BigNumberish>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      userAddress: string,
+      payload: BytesLike,
+      sigR: BytesLike,
+      sigS: BytesLike,
+      sigV: BigNumberish,
+      overrides?: PayableOverrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
      * Exit recovery mode, can be called by anyone if enough whitelist approvals are given.
      */
     exitRecoveryMode(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -1505,7 +1453,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param userAddress The address of the user that will sign the metatransaction
      */
     getMetatransactionNonce(
-      userAddress: PromiseOrValue<string>,
+      userAddress: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { nonce: BigNumber }>;
 
@@ -1522,8 +1470,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param data The encoded function data for each of the calls to make to this contract
      */
     multicall(
-      data: PromiseOrValue<BytesLike>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      data: BytesLike[],
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -1538,8 +1486,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _user User we want to remove recovery role from
      */
     removeRecoveryRole(
-      _user: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _user: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -1547,8 +1495,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _user User we want to give a recovery role to
      */
     setRecoveryRole(
-      _user: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _user: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -1558,9 +1506,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _value word of data to be set
      */
     setStorageSlotRecovery(
-      _slot: PromiseOrValue<BigNumberish>,
-      _value: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _slot: BigNumberish,
+      _value: BytesLike,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -1569,7 +1517,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _interfaceID The interface identifier, as specified in ERC-165
      */
     supportsInterface(
-      _interfaceID: PromiseOrValue<BytesLike>,
+      _interfaceID: BytesLike,
       overrides?: CallOverrides
     ): Promise<[boolean] & { _status: boolean }>;
 
@@ -1586,15 +1534,15 @@ export interface IColonyNetwork extends BaseContract {
      * @param _user The address of the user earning / losing the reputation
      */
     setReplacementReputationUpdateLogEntry(
-      _reputationMiningCycle: PromiseOrValue<string>,
-      _id: PromiseOrValue<BigNumberish>,
-      _user: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _skillId: PromiseOrValue<BigNumberish>,
-      _colony: PromiseOrValue<string>,
-      _nUpdates: PromiseOrValue<BigNumberish>,
-      _nPreviousUpdates: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _reputationMiningCycle: string,
+      _id: BigNumberish,
+      _user: string,
+      _amount: BigNumberish,
+      _skillId: BigNumberish,
+      _colony: string,
+      _nUpdates: BigNumberish,
+      _nPreviousUpdates: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -1603,8 +1551,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _reputationMiningCycle The address of the reputation mining cycle we are asking about
      */
     getReplacementReputationUpdateLogEntry(
-      _reputationMiningCycle: PromiseOrValue<string>,
-      _id: PromiseOrValue<BigNumberish>,
+      _reputationMiningCycle: string,
+      _id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
       [ColonyNetworkDataTypes.ReputationLogEntryStructOutput] & {
@@ -1617,7 +1565,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _reputationMiningCycle The reputation mining cycle address we want to know if any entries have been replaced in.
      */
     getReplacementReputationUpdateLogsExist(
-      _reputationMiningCycle: PromiseOrValue<string>,
+      _reputationMiningCycle: string,
       overrides?: CallOverrides
     ): Promise<[boolean] & { _exists: boolean }>;
 
@@ -1640,7 +1588,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _colony Address of the colony
      */
     isColony(
-      _colony: PromiseOrValue<string>,
+      _colony: string,
       overrides?: CallOverrides
     ): Promise<[boolean] & { _addressIsColony: boolean }>;
 
@@ -1650,8 +1598,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _parentSkillId Id of the skill under which the new skill will be added. If 0, a global skill is added with no parent.
      */
     addSkill(
-      _parentSkillId: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _parentSkillId: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -1659,7 +1607,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _skillId Id of the skill
      */
     getSkill(
-      _skillId: PromiseOrValue<BigNumberish>,
+      _skillId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
       [ColonyNetworkDataTypes.SkillStructOutput] & {
@@ -1673,8 +1621,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _skillId Id of the skill
      */
     "deprecateSkill(uint256)"(
-      _skillId: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _skillId: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -1683,16 +1631,16 @@ export interface IColonyNetwork extends BaseContract {
      * @param _skillId Id of the skill
      */
     "deprecateSkill(uint256,bool)"(
-      _skillId: PromiseOrValue<BigNumberish>,
-      _deprecated: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _skillId: BigNumberish,
+      _deprecated: boolean,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
      * Initialise the local skills tree for a colony
      */
     initialiseRootLocalSkill(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -1703,10 +1651,10 @@ export interface IColonyNetwork extends BaseContract {
      * @param _user The address of the user for the reputation update
      */
     appendReputationUpdateLog(
-      _user: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _skillId: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _user: string,
+      _amount: BigNumberish,
+      _skillId: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -1728,8 +1676,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _tokenLockingAddress Address of the locking contract
      */
     setTokenLocking(
-      _tokenLockingAddress: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _tokenLockingAddress: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -1744,8 +1692,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _tokenAddress Address of the CLNY token
      */
     createMetaColony(
-      _tokenAddress: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _tokenAddress: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -1754,8 +1702,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _tokenAddress Address of an ERC20 token to serve as the colony token.
      */
     "createColony(address)"(
-      _tokenAddress: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _tokenAddress: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -1767,11 +1715,11 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version The version of colony to deploy (pass 0 for the current version)
      */
     "createColony(address,uint256,string,string)"(
-      _tokenAddress: PromiseOrValue<string>,
-      _version: PromiseOrValue<BigNumberish>,
-      _colonyName: PromiseOrValue<string>,
-      _metadata: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _tokenAddress: string,
+      _version: BigNumberish,
+      _colonyName: string,
+      _metadata: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -1782,10 +1730,10 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version The version of colony to deploy (pass 0 for the current version)
      */
     "createColony(address,uint256,string)"(
-      _tokenAddress: PromiseOrValue<string>,
-      _version: PromiseOrValue<BigNumberish>,
-      _colonyName: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _tokenAddress: string,
+      _version: BigNumberish,
+      _colonyName: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -1798,12 +1746,12 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version The version of colony to deploy (pass 0 for the current version)
      */
     "createColony(address,uint256,string,string,bool)"(
-      _tokenAddress: PromiseOrValue<string>,
-      _version: PromiseOrValue<BigNumberish>,
-      _colonyName: PromiseOrValue<string>,
-      _orbitdb: PromiseOrValue<string>,
-      _useExtensionManager: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _tokenAddress: string,
+      _version: BigNumberish,
+      _colonyName: string,
+      _orbitdb: string,
+      _useExtensionManager: boolean,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -1818,14 +1766,14 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version The version of colony to deploy (pass 0 for the current version)
      */
     createColonyForFrontend(
-      _tokenAddress: PromiseOrValue<string>,
-      _name: PromiseOrValue<string>,
-      _symbol: PromiseOrValue<string>,
-      _decimals: PromiseOrValue<BigNumberish>,
-      _version: PromiseOrValue<BigNumberish>,
-      _colonyName: PromiseOrValue<string>,
-      _metadata: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _tokenAddress: string,
+      _name: string,
+      _symbol: string,
+      _decimals: BigNumberish,
+      _version: BigNumberish,
+      _colonyName: string,
+      _metadata: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -1834,9 +1782,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version The new Colony contract version
      */
     addColonyVersion(
-      _version: PromiseOrValue<BigNumberish>,
-      _resolver: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _version: BigNumberish,
+      _resolver: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -1846,9 +1794,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version Version of the Colony contract the resolver represents
      */
     initialise(
-      _resolver: PromiseOrValue<string>,
-      _version: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _resolver: string,
+      _version: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -1856,7 +1804,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _id Id of the colony to get
      */
     getColony(
-      _id: PromiseOrValue<BigNumberish>,
+      _id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[string] & { _colonyAddress: string }>;
 
@@ -1873,8 +1821,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _skillId Id of the skill
      */
     getParentSkillId(
-      _skillId: PromiseOrValue<BigNumberish>,
-      _parentSkillIndex: PromiseOrValue<BigNumberish>,
+      _skillId: BigNumberish,
+      _parentSkillIndex: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { _parentSkillId: BigNumber }>;
 
@@ -1884,8 +1832,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _skillId Id of the skill
      */
     getChildSkillId(
-      _skillId: PromiseOrValue<BigNumberish>,
-      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _skillId: BigNumberish,
+      _childSkillIndex: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { _childSkillId: BigNumber }>;
 
@@ -1894,7 +1842,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _active Whether the user wants the active or inactive reputation mining cycle
      */
     getReputationMiningCycle(
-      _active: PromiseOrValue<boolean>,
+      _active: boolean,
       overrides?: CallOverrides
     ): Promise<[string] & { _repMiningCycleAddress: string }>;
 
@@ -1904,8 +1852,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _timeStaked Amount of time (in seconds) that the miner has staked their CLNY
      */
     calculateMinerWeight(
-      _timeStaked: PromiseOrValue<BigNumberish>,
-      _submissonIndex: PromiseOrValue<BigNumberish>,
+      _timeStaked: BigNumberish,
+      _submissonIndex: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { _minerWeight: BigNumber }>;
 
@@ -1914,7 +1862,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version The Colony contract version
      */
     getColonyVersionResolver(
-      _version: PromiseOrValue<BigNumberish>,
+      _version: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[string] & { _resolverAddress: string }>;
 
@@ -1925,24 +1873,24 @@ export interface IColonyNetwork extends BaseContract {
      * @param _stakers Array of users who submitted or backed the hash, being accepted here as the new reputation root hash
      */
     setReputationRootHash(
-      _newHash: PromiseOrValue<BytesLike>,
-      _newNLeaves: PromiseOrValue<BigNumberish>,
-      _stakers: PromiseOrValue<string>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _newHash: BytesLike,
+      _newNLeaves: BigNumberish,
+      _stakers: string[],
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
      * Starts a new Reputation Mining cycle. Explicitly called only the first time, subsequently called from within `setReputationRootHash`.
      */
     startNextCycle(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
      * Creates initial inactive reputation mining cycle.
      */
     initialiseReputationMining(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -1973,8 +1921,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _token Address of the token held by the network to be auctioned
      */
     startTokenAuction(
-      _token: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -1983,9 +1931,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _rootNode Namehash of the root node for the domain
      */
     setupRegistrar(
-      _ens: PromiseOrValue<string>,
-      _rootNode: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _ens: string,
+      _rootNode: BytesLike,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -1994,9 +1942,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _username The label to register
      */
     registerUserLabel(
-      _username: PromiseOrValue<string>,
-      _orbitdb: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _username: string,
+      _orbitdb: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -2005,9 +1953,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _orbitdb The path of the orbitDB database associated with the colony name
      */
     registerColonyLabel(
-      _colonyName: PromiseOrValue<string>,
-      _orbitdb: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _colonyName: string,
+      _orbitdb: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -2015,8 +1963,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _orbitdb The path of the orbitDB database to be associated with the colony
      */
     updateColonyOrbitDB(
-      _orbitdb: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _orbitdb: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -2024,8 +1972,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _orbitdb The path of the orbitDB database to be associated with the user
      */
     updateUserOrbitDB(
-      _orbitdb: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _orbitdb: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -2033,7 +1981,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _node The Namehash of the account being queried.
      */
     getProfileDBAddress(
-      _node: PromiseOrValue<BytesLike>,
+      _node: BytesLike,
       overrides?: CallOverrides
     ): Promise<[string] & { _orbitdb: string }>;
 
@@ -2042,7 +1990,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _addr The address we wish to find the corresponding ENS domain for (if any)
      */
     lookupRegisteredENSDomain(
-      _addr: PromiseOrValue<string>,
+      _addr: string,
       overrides?: CallOverrides
     ): Promise<[string] & { _domain: string }>;
 
@@ -2051,7 +1999,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _node The namehash of the ENS address being requested
      */
     addr(
-      _node: PromiseOrValue<BytesLike>,
+      _node: BytesLike,
       overrides?: CallOverrides
     ): Promise<[string] & { _address: string }>;
 
@@ -2067,8 +2015,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _miningResolverAddress The address of the Resolver contract with the functions correctly wired.
      */
     setMiningResolver(
-      _miningResolverAddress: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _miningResolverAddress: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -2085,9 +2033,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _resolver The deployed resolver containing the extension contract logic
      */
     addExtensionToNetwork(
-      _extensionId: PromiseOrValue<BytesLike>,
-      _resolver: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _extensionId: BytesLike,
+      _resolver: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -2096,9 +2044,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version Version of the extension to install
      */
     installExtension(
-      _extensionId: PromiseOrValue<BytesLike>,
-      _version: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _extensionId: BytesLike,
+      _version: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -2107,9 +2055,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _newVersion Version of the extension to upgrade to (must be one greater than current)
      */
     upgradeExtension(
-      _extensionId: PromiseOrValue<BytesLike>,
-      _newVersion: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _extensionId: BytesLike,
+      _newVersion: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -2118,9 +2066,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _extensionId keccak256 hash of the extension name, used as an indentifier
      */
     deprecateExtension(
-      _extensionId: PromiseOrValue<BytesLike>,
-      _deprecated: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _extensionId: BytesLike,
+      _deprecated: boolean,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -2128,8 +2076,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _extensionId keccak256 hash of the extension name, used as an indentifier
      */
     uninstallExtension(
-      _extensionId: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _extensionId: BytesLike,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -2138,8 +2086,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version Version of the extension
      */
     getExtensionResolver(
-      _extensionId: PromiseOrValue<BytesLike>,
-      _version: PromiseOrValue<BigNumberish>,
+      _extensionId: BytesLike,
+      _version: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[string] & { _resolver: string }>;
 
@@ -2149,8 +2097,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _extensionId keccak256 hash of the extension name, used as an indentifier
      */
     getExtensionInstallation(
-      _extensionId: PromiseOrValue<BytesLike>,
-      _colony: PromiseOrValue<string>,
+      _extensionId: BytesLike,
+      _colony: string,
       overrides?: CallOverrides
     ): Promise<[string] & { _installation: string }>;
 
@@ -2166,8 +2114,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _feeInverse The inverse of the network fee to set
      */
     setFeeInverse(
-      _feeInverse: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _feeInverse: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -2175,7 +2123,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _token The token being queried
      */
     getPayoutWhitelist(
-      _token: PromiseOrValue<string>,
+      _token: string,
       overrides?: CallOverrides
     ): Promise<[boolean] & { _status: boolean }>;
 
@@ -2185,9 +2133,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _token The token being set
      */
     setPayoutWhitelist(
-      _token: PromiseOrValue<string>,
-      _status: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      _status: boolean,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -2197,9 +2145,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _stakers Array of the addresses of stakers to punish
      */
     punishStakers(
-      _stakers: PromiseOrValue<string>[],
-      _amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _stakers: string[],
+      _amount: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -2207,8 +2155,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _amount Amount of CLNY to stake for the purposes of mining
      */
     stakeForMining(
-      _amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _amount: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -2216,8 +2164,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _amount Amount of CLNY staked for mining to unstake
      */
     unstakeForMining(
-      _amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _amount: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -2225,7 +2173,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _user The user to query
      */
     getMiningStake(
-      _user: PromiseOrValue<string>,
+      _user: string,
       overrides?: CallOverrides
     ): Promise<
       [ColonyNetworkDataTypes.MiningStakeStructOutput] & {
@@ -2240,9 +2188,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _recipient The address receiving the award
      */
     reward(
-      _recipient: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _recipient: string,
+      _amount: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -2251,8 +2199,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _amount The amount of CLNY to burn
      */
     burnUnneededRewards(
-      _amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _amount: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -2261,8 +2209,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _recipient The user whose rewards to claim
      */
     claimMiningReward(
-      _recipient: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _recipient: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -2271,8 +2219,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _amount The CLNY awarded per mining cycle to the miners
      */
     setReputationMiningCycleReward(
-      _amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _amount: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -2290,10 +2238,10 @@ export interface IColonyNetwork extends BaseContract {
      * @param _symbol The short 'ticket' symbol for the token
      */
     deployTokenViaNetwork(
-      _name: PromiseOrValue<string>,
-      _symbol: PromiseOrValue<string>,
-      _decimals: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _name: string,
+      _symbol: string,
+      _decimals: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -2304,10 +2252,10 @@ export interface IColonyNetwork extends BaseContract {
      * @param _token The address of the token
      */
     deployTokenAuthority(
-      _token: PromiseOrValue<string>,
-      _colony: PromiseOrValue<string>,
-      _allowedToTransfer: PromiseOrValue<string>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      _colony: string,
+      _allowedToTransfer: string[],
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -2316,9 +2264,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _delegate The address you're giving or removing permission from
      */
     setMiningDelegate(
-      _delegate: PromiseOrValue<string>,
-      _allowed: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _delegate: string,
+      _allowed: boolean,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     /**
@@ -2326,7 +2274,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _delegate The address that wants to mine
      */
     getMiningDelegator(
-      _delegate: PromiseOrValue<string>,
+      _delegate: string,
       overrides?: CallOverrides
     ): Promise<[string] & { _delegator: string }>;
   };
@@ -2335,7 +2283,7 @@ export interface IColonyNetwork extends BaseContract {
    * Indicate approval to exit recovery mode. Can only be called by user with recovery role.
    */
   approveExitRecovery(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2344,7 +2292,7 @@ export interface IColonyNetwork extends BaseContract {
    * @param _slot The storage slot number to check.
    */
   checkNotAdditionalProtectedVariable(
-    _slot: PromiseOrValue<BigNumberish>,
+    _slot: BigNumberish,
     overrides?: CallOverrides
   ): Promise<void>;
 
@@ -2352,7 +2300,7 @@ export interface IColonyNetwork extends BaseContract {
    * Put colony network mining into recovery mode. Can only be called by user with recovery role.
    */
   enterRecoveryMode(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2364,19 +2312,19 @@ export interface IColonyNetwork extends BaseContract {
    * @param userAddress The address of the user that signed the metatransaction
    */
   executeMetaTransaction(
-    userAddress: PromiseOrValue<string>,
-    payload: PromiseOrValue<BytesLike>,
-    sigR: PromiseOrValue<BytesLike>,
-    sigS: PromiseOrValue<BytesLike>,
-    sigV: PromiseOrValue<BigNumberish>,
-    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+    userAddress: string,
+    payload: BytesLike,
+    sigR: BytesLike,
+    sigS: BytesLike,
+    sigV: BigNumberish,
+    overrides?: PayableOverrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
    * Exit recovery mode, can be called by anyone if enough whitelist approvals are given.
    */
   exitRecoveryMode(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2384,7 +2332,7 @@ export interface IColonyNetwork extends BaseContract {
    * @param userAddress The address of the user that will sign the metatransaction
    */
   getMetatransactionNonce(
-    userAddress: PromiseOrValue<string>,
+    userAddress: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
@@ -2399,8 +2347,8 @@ export interface IColonyNetwork extends BaseContract {
    * @param data The encoded function data for each of the calls to make to this contract
    */
   multicall(
-    data: PromiseOrValue<BytesLike>[],
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    data: BytesLike[],
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2413,8 +2361,8 @@ export interface IColonyNetwork extends BaseContract {
    * @param _user User we want to remove recovery role from
    */
   removeRecoveryRole(
-    _user: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _user: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2422,8 +2370,8 @@ export interface IColonyNetwork extends BaseContract {
    * @param _user User we want to give a recovery role to
    */
   setRecoveryRole(
-    _user: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _user: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2433,9 +2381,9 @@ export interface IColonyNetwork extends BaseContract {
    * @param _value word of data to be set
    */
   setStorageSlotRecovery(
-    _slot: PromiseOrValue<BigNumberish>,
-    _value: PromiseOrValue<BytesLike>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _slot: BigNumberish,
+    _value: BytesLike,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2444,7 +2392,7 @@ export interface IColonyNetwork extends BaseContract {
    * @param _interfaceID The interface identifier, as specified in ERC-165
    */
   supportsInterface(
-    _interfaceID: PromiseOrValue<BytesLike>,
+    _interfaceID: BytesLike,
     overrides?: CallOverrides
   ): Promise<boolean>;
 
@@ -2461,15 +2409,15 @@ export interface IColonyNetwork extends BaseContract {
    * @param _user The address of the user earning / losing the reputation
    */
   setReplacementReputationUpdateLogEntry(
-    _reputationMiningCycle: PromiseOrValue<string>,
-    _id: PromiseOrValue<BigNumberish>,
-    _user: PromiseOrValue<string>,
-    _amount: PromiseOrValue<BigNumberish>,
-    _skillId: PromiseOrValue<BigNumberish>,
-    _colony: PromiseOrValue<string>,
-    _nUpdates: PromiseOrValue<BigNumberish>,
-    _nPreviousUpdates: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _reputationMiningCycle: string,
+    _id: BigNumberish,
+    _user: string,
+    _amount: BigNumberish,
+    _skillId: BigNumberish,
+    _colony: string,
+    _nUpdates: BigNumberish,
+    _nPreviousUpdates: BigNumberish,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2478,8 +2426,8 @@ export interface IColonyNetwork extends BaseContract {
    * @param _reputationMiningCycle The address of the reputation mining cycle we are asking about
    */
   getReplacementReputationUpdateLogEntry(
-    _reputationMiningCycle: PromiseOrValue<string>,
-    _id: PromiseOrValue<BigNumberish>,
+    _reputationMiningCycle: string,
+    _id: BigNumberish,
     overrides?: CallOverrides
   ): Promise<ColonyNetworkDataTypes.ReputationLogEntryStructOutput>;
 
@@ -2488,7 +2436,7 @@ export interface IColonyNetwork extends BaseContract {
    * @param _reputationMiningCycle The reputation mining cycle address we want to know if any entries have been replaced in.
    */
   getReplacementReputationUpdateLogsExist(
-    _reputationMiningCycle: PromiseOrValue<string>,
+    _reputationMiningCycle: string,
     overrides?: CallOverrides
   ): Promise<boolean>;
 
@@ -2506,10 +2454,7 @@ export interface IColonyNetwork extends BaseContract {
    * Check if specific address is a colony created on colony network.
    * @param _colony Address of the colony
    */
-  isColony(
-    _colony: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<boolean>;
+  isColony(_colony: string, overrides?: CallOverrides): Promise<boolean>;
 
   /**
    * Errors if the parent skill does not exist or if this is called by an unauthorised sender.
@@ -2517,8 +2462,8 @@ export interface IColonyNetwork extends BaseContract {
    * @param _parentSkillId Id of the skill under which the new skill will be added. If 0, a global skill is added with no parent.
    */
   addSkill(
-    _parentSkillId: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _parentSkillId: BigNumberish,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2526,7 +2471,7 @@ export interface IColonyNetwork extends BaseContract {
    * @param _skillId Id of the skill
    */
   getSkill(
-    _skillId: PromiseOrValue<BigNumberish>,
+    _skillId: BigNumberish,
     overrides?: CallOverrides
   ): Promise<ColonyNetworkDataTypes.SkillStructOutput>;
 
@@ -2536,8 +2481,8 @@ export interface IColonyNetwork extends BaseContract {
    * @param _skillId Id of the skill
    */
   "deprecateSkill(uint256)"(
-    _skillId: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _skillId: BigNumberish,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2546,16 +2491,16 @@ export interface IColonyNetwork extends BaseContract {
    * @param _skillId Id of the skill
    */
   "deprecateSkill(uint256,bool)"(
-    _skillId: PromiseOrValue<BigNumberish>,
-    _deprecated: PromiseOrValue<boolean>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _skillId: BigNumberish,
+    _deprecated: boolean,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
    * Initialise the local skills tree for a colony
    */
   initialiseRootLocalSkill(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2566,10 +2511,10 @@ export interface IColonyNetwork extends BaseContract {
    * @param _user The address of the user for the reputation update
    */
   appendReputationUpdateLog(
-    _user: PromiseOrValue<string>,
-    _amount: PromiseOrValue<BigNumberish>,
-    _skillId: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _user: string,
+    _amount: BigNumberish,
+    _skillId: BigNumberish,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2587,8 +2532,8 @@ export interface IColonyNetwork extends BaseContract {
    * @param _tokenLockingAddress Address of the locking contract
    */
   setTokenLocking(
-    _tokenLockingAddress: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _tokenLockingAddress: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2601,8 +2546,8 @@ export interface IColonyNetwork extends BaseContract {
    * @param _tokenAddress Address of the CLNY token
    */
   createMetaColony(
-    _tokenAddress: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _tokenAddress: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2611,8 +2556,8 @@ export interface IColonyNetwork extends BaseContract {
    * @param _tokenAddress Address of an ERC20 token to serve as the colony token.
    */
   "createColony(address)"(
-    _tokenAddress: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _tokenAddress: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2624,11 +2569,11 @@ export interface IColonyNetwork extends BaseContract {
    * @param _version The version of colony to deploy (pass 0 for the current version)
    */
   "createColony(address,uint256,string,string)"(
-    _tokenAddress: PromiseOrValue<string>,
-    _version: PromiseOrValue<BigNumberish>,
-    _colonyName: PromiseOrValue<string>,
-    _metadata: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _tokenAddress: string,
+    _version: BigNumberish,
+    _colonyName: string,
+    _metadata: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2639,10 +2584,10 @@ export interface IColonyNetwork extends BaseContract {
    * @param _version The version of colony to deploy (pass 0 for the current version)
    */
   "createColony(address,uint256,string)"(
-    _tokenAddress: PromiseOrValue<string>,
-    _version: PromiseOrValue<BigNumberish>,
-    _colonyName: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _tokenAddress: string,
+    _version: BigNumberish,
+    _colonyName: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2655,12 +2600,12 @@ export interface IColonyNetwork extends BaseContract {
    * @param _version The version of colony to deploy (pass 0 for the current version)
    */
   "createColony(address,uint256,string,string,bool)"(
-    _tokenAddress: PromiseOrValue<string>,
-    _version: PromiseOrValue<BigNumberish>,
-    _colonyName: PromiseOrValue<string>,
-    _orbitdb: PromiseOrValue<string>,
-    _useExtensionManager: PromiseOrValue<boolean>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _tokenAddress: string,
+    _version: BigNumberish,
+    _colonyName: string,
+    _orbitdb: string,
+    _useExtensionManager: boolean,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2675,14 +2620,14 @@ export interface IColonyNetwork extends BaseContract {
    * @param _version The version of colony to deploy (pass 0 for the current version)
    */
   createColonyForFrontend(
-    _tokenAddress: PromiseOrValue<string>,
-    _name: PromiseOrValue<string>,
-    _symbol: PromiseOrValue<string>,
-    _decimals: PromiseOrValue<BigNumberish>,
-    _version: PromiseOrValue<BigNumberish>,
-    _colonyName: PromiseOrValue<string>,
-    _metadata: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _tokenAddress: string,
+    _name: string,
+    _symbol: string,
+    _decimals: BigNumberish,
+    _version: BigNumberish,
+    _colonyName: string,
+    _metadata: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2691,9 +2636,9 @@ export interface IColonyNetwork extends BaseContract {
    * @param _version The new Colony contract version
    */
   addColonyVersion(
-    _version: PromiseOrValue<BigNumberish>,
-    _resolver: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _version: BigNumberish,
+    _resolver: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2703,19 +2648,16 @@ export interface IColonyNetwork extends BaseContract {
    * @param _version Version of the Colony contract the resolver represents
    */
   initialise(
-    _resolver: PromiseOrValue<string>,
-    _version: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _resolver: string,
+    _version: BigNumberish,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
    * Get a colony address by its Id in the network.
    * @param _id Id of the colony to get
    */
-  getColony(
-    _id: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
-  ): Promise<string>;
+  getColony(_id: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
   /**
    * Returns the latest Colony contract version. This is the version used to create all new colonies.
@@ -2728,8 +2670,8 @@ export interface IColonyNetwork extends BaseContract {
    * @param _skillId Id of the skill
    */
   getParentSkillId(
-    _skillId: PromiseOrValue<BigNumberish>,
-    _parentSkillIndex: PromiseOrValue<BigNumberish>,
+    _skillId: BigNumberish,
+    _parentSkillIndex: BigNumberish,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
@@ -2739,8 +2681,8 @@ export interface IColonyNetwork extends BaseContract {
    * @param _skillId Id of the skill
    */
   getChildSkillId(
-    _skillId: PromiseOrValue<BigNumberish>,
-    _childSkillIndex: PromiseOrValue<BigNumberish>,
+    _skillId: BigNumberish,
+    _childSkillIndex: BigNumberish,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
@@ -2749,7 +2691,7 @@ export interface IColonyNetwork extends BaseContract {
    * @param _active Whether the user wants the active or inactive reputation mining cycle
    */
   getReputationMiningCycle(
-    _active: PromiseOrValue<boolean>,
+    _active: boolean,
     overrides?: CallOverrides
   ): Promise<string>;
 
@@ -2759,8 +2701,8 @@ export interface IColonyNetwork extends BaseContract {
    * @param _timeStaked Amount of time (in seconds) that the miner has staked their CLNY
    */
   calculateMinerWeight(
-    _timeStaked: PromiseOrValue<BigNumberish>,
-    _submissonIndex: PromiseOrValue<BigNumberish>,
+    _timeStaked: BigNumberish,
+    _submissonIndex: BigNumberish,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
@@ -2769,7 +2711,7 @@ export interface IColonyNetwork extends BaseContract {
    * @param _version The Colony contract version
    */
   getColonyVersionResolver(
-    _version: PromiseOrValue<BigNumberish>,
+    _version: BigNumberish,
     overrides?: CallOverrides
   ): Promise<string>;
 
@@ -2780,24 +2722,24 @@ export interface IColonyNetwork extends BaseContract {
    * @param _stakers Array of users who submitted or backed the hash, being accepted here as the new reputation root hash
    */
   setReputationRootHash(
-    _newHash: PromiseOrValue<BytesLike>,
-    _newNLeaves: PromiseOrValue<BigNumberish>,
-    _stakers: PromiseOrValue<string>[],
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _newHash: BytesLike,
+    _newNLeaves: BigNumberish,
+    _stakers: string[],
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
    * Starts a new Reputation Mining cycle. Explicitly called only the first time, subsequently called from within `setReputationRootHash`.
    */
   startNextCycle(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
    * Creates initial inactive reputation mining cycle.
    */
   initialiseReputationMining(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2822,8 +2764,8 @@ export interface IColonyNetwork extends BaseContract {
    * @param _token Address of the token held by the network to be auctioned
    */
   startTokenAuction(
-    _token: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _token: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2832,9 +2774,9 @@ export interface IColonyNetwork extends BaseContract {
    * @param _rootNode Namehash of the root node for the domain
    */
   setupRegistrar(
-    _ens: PromiseOrValue<string>,
-    _rootNode: PromiseOrValue<BytesLike>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _ens: string,
+    _rootNode: BytesLike,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2843,9 +2785,9 @@ export interface IColonyNetwork extends BaseContract {
    * @param _username The label to register
    */
   registerUserLabel(
-    _username: PromiseOrValue<string>,
-    _orbitdb: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _username: string,
+    _orbitdb: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2854,9 +2796,9 @@ export interface IColonyNetwork extends BaseContract {
    * @param _orbitdb The path of the orbitDB database associated with the colony name
    */
   registerColonyLabel(
-    _colonyName: PromiseOrValue<string>,
-    _orbitdb: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _colonyName: string,
+    _orbitdb: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2864,8 +2806,8 @@ export interface IColonyNetwork extends BaseContract {
    * @param _orbitdb The path of the orbitDB database to be associated with the colony
    */
   updateColonyOrbitDB(
-    _orbitdb: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _orbitdb: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2873,8 +2815,8 @@ export interface IColonyNetwork extends BaseContract {
    * @param _orbitdb The path of the orbitDB database to be associated with the user
    */
   updateUserOrbitDB(
-    _orbitdb: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _orbitdb: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2882,7 +2824,7 @@ export interface IColonyNetwork extends BaseContract {
    * @param _node The Namehash of the account being queried.
    */
   getProfileDBAddress(
-    _node: PromiseOrValue<BytesLike>,
+    _node: BytesLike,
     overrides?: CallOverrides
   ): Promise<string>;
 
@@ -2891,7 +2833,7 @@ export interface IColonyNetwork extends BaseContract {
    * @param _addr The address we wish to find the corresponding ENS domain for (if any)
    */
   lookupRegisteredENSDomain(
-    _addr: PromiseOrValue<string>,
+    _addr: string,
     overrides?: CallOverrides
   ): Promise<string>;
 
@@ -2899,10 +2841,7 @@ export interface IColonyNetwork extends BaseContract {
    * Returns the address the supplied node resolves do, if we are the resolver.
    * @param _node The namehash of the ENS address being requested
    */
-  addr(
-    _node: PromiseOrValue<BytesLike>,
-    overrides?: CallOverrides
-  ): Promise<string>;
+  addr(_node: BytesLike, overrides?: CallOverrides): Promise<string>;
 
   /**
    * Returns the address of the ENSRegistrar for the Network.
@@ -2914,8 +2853,8 @@ export interface IColonyNetwork extends BaseContract {
    * @param _miningResolverAddress The address of the Resolver contract with the functions correctly wired.
    */
   setMiningResolver(
-    _miningResolverAddress: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _miningResolverAddress: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2930,9 +2869,9 @@ export interface IColonyNetwork extends BaseContract {
    * @param _resolver The deployed resolver containing the extension contract logic
    */
   addExtensionToNetwork(
-    _extensionId: PromiseOrValue<BytesLike>,
-    _resolver: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _extensionId: BytesLike,
+    _resolver: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2941,9 +2880,9 @@ export interface IColonyNetwork extends BaseContract {
    * @param _version Version of the extension to install
    */
   installExtension(
-    _extensionId: PromiseOrValue<BytesLike>,
-    _version: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _extensionId: BytesLike,
+    _version: BigNumberish,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2952,9 +2891,9 @@ export interface IColonyNetwork extends BaseContract {
    * @param _newVersion Version of the extension to upgrade to (must be one greater than current)
    */
   upgradeExtension(
-    _extensionId: PromiseOrValue<BytesLike>,
-    _newVersion: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _extensionId: BytesLike,
+    _newVersion: BigNumberish,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2963,9 +2902,9 @@ export interface IColonyNetwork extends BaseContract {
    * @param _extensionId keccak256 hash of the extension name, used as an indentifier
    */
   deprecateExtension(
-    _extensionId: PromiseOrValue<BytesLike>,
-    _deprecated: PromiseOrValue<boolean>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _extensionId: BytesLike,
+    _deprecated: boolean,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2973,8 +2912,8 @@ export interface IColonyNetwork extends BaseContract {
    * @param _extensionId keccak256 hash of the extension name, used as an indentifier
    */
   uninstallExtension(
-    _extensionId: PromiseOrValue<BytesLike>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _extensionId: BytesLike,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -2983,8 +2922,8 @@ export interface IColonyNetwork extends BaseContract {
    * @param _version Version of the extension
    */
   getExtensionResolver(
-    _extensionId: PromiseOrValue<BytesLike>,
-    _version: PromiseOrValue<BigNumberish>,
+    _extensionId: BytesLike,
+    _version: BigNumberish,
     overrides?: CallOverrides
   ): Promise<string>;
 
@@ -2994,8 +2933,8 @@ export interface IColonyNetwork extends BaseContract {
    * @param _extensionId keccak256 hash of the extension name, used as an indentifier
    */
   getExtensionInstallation(
-    _extensionId: PromiseOrValue<BytesLike>,
-    _colony: PromiseOrValue<string>,
+    _extensionId: BytesLike,
+    _colony: string,
     overrides?: CallOverrides
   ): Promise<string>;
 
@@ -3009,8 +2948,8 @@ export interface IColonyNetwork extends BaseContract {
    * @param _feeInverse The inverse of the network fee to set
    */
   setFeeInverse(
-    _feeInverse: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _feeInverse: BigNumberish,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -3018,7 +2957,7 @@ export interface IColonyNetwork extends BaseContract {
    * @param _token The token being queried
    */
   getPayoutWhitelist(
-    _token: PromiseOrValue<string>,
+    _token: string,
     overrides?: CallOverrides
   ): Promise<boolean>;
 
@@ -3028,9 +2967,9 @@ export interface IColonyNetwork extends BaseContract {
    * @param _token The token being set
    */
   setPayoutWhitelist(
-    _token: PromiseOrValue<string>,
-    _status: PromiseOrValue<boolean>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _token: string,
+    _status: boolean,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -3040,9 +2979,9 @@ export interface IColonyNetwork extends BaseContract {
    * @param _stakers Array of the addresses of stakers to punish
    */
   punishStakers(
-    _stakers: PromiseOrValue<string>[],
-    _amount: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _stakers: string[],
+    _amount: BigNumberish,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -3050,8 +2989,8 @@ export interface IColonyNetwork extends BaseContract {
    * @param _amount Amount of CLNY to stake for the purposes of mining
    */
   stakeForMining(
-    _amount: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _amount: BigNumberish,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -3059,8 +2998,8 @@ export interface IColonyNetwork extends BaseContract {
    * @param _amount Amount of CLNY staked for mining to unstake
    */
   unstakeForMining(
-    _amount: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _amount: BigNumberish,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -3068,7 +3007,7 @@ export interface IColonyNetwork extends BaseContract {
    * @param _user The user to query
    */
   getMiningStake(
-    _user: PromiseOrValue<string>,
+    _user: string,
     overrides?: CallOverrides
   ): Promise<ColonyNetworkDataTypes.MiningStakeStructOutput>;
 
@@ -3079,9 +3018,9 @@ export interface IColonyNetwork extends BaseContract {
    * @param _recipient The address receiving the award
    */
   reward(
-    _recipient: PromiseOrValue<string>,
-    _amount: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _recipient: string,
+    _amount: BigNumberish,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -3090,8 +3029,8 @@ export interface IColonyNetwork extends BaseContract {
    * @param _amount The amount of CLNY to burn
    */
   burnUnneededRewards(
-    _amount: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _amount: BigNumberish,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -3100,8 +3039,8 @@ export interface IColonyNetwork extends BaseContract {
    * @param _recipient The user whose rewards to claim
    */
   claimMiningReward(
-    _recipient: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _recipient: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -3110,8 +3049,8 @@ export interface IColonyNetwork extends BaseContract {
    * @param _amount The CLNY awarded per mining cycle to the miners
    */
   setReputationMiningCycleReward(
-    _amount: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _amount: BigNumberish,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -3127,10 +3066,10 @@ export interface IColonyNetwork extends BaseContract {
    * @param _symbol The short 'ticket' symbol for the token
    */
   deployTokenViaNetwork(
-    _name: PromiseOrValue<string>,
-    _symbol: PromiseOrValue<string>,
-    _decimals: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _name: string,
+    _symbol: string,
+    _decimals: BigNumberish,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -3141,10 +3080,10 @@ export interface IColonyNetwork extends BaseContract {
    * @param _token The address of the token
    */
   deployTokenAuthority(
-    _token: PromiseOrValue<string>,
-    _colony: PromiseOrValue<string>,
-    _allowedToTransfer: PromiseOrValue<string>[],
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _token: string,
+    _colony: string,
+    _allowedToTransfer: string[],
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -3153,9 +3092,9 @@ export interface IColonyNetwork extends BaseContract {
    * @param _delegate The address you're giving or removing permission from
    */
   setMiningDelegate(
-    _delegate: PromiseOrValue<string>,
-    _allowed: PromiseOrValue<boolean>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _delegate: string,
+    _allowed: boolean,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   /**
@@ -3163,7 +3102,7 @@ export interface IColonyNetwork extends BaseContract {
    * @param _delegate The address that wants to mine
    */
   getMiningDelegator(
-    _delegate: PromiseOrValue<string>,
+    _delegate: string,
     overrides?: CallOverrides
   ): Promise<string>;
 
@@ -3179,7 +3118,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _slot The storage slot number to check.
      */
     checkNotAdditionalProtectedVariable(
-      _slot: PromiseOrValue<BigNumberish>,
+      _slot: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3197,11 +3136,11 @@ export interface IColonyNetwork extends BaseContract {
      * @param userAddress The address of the user that signed the metatransaction
      */
     executeMetaTransaction(
-      userAddress: PromiseOrValue<string>,
-      payload: PromiseOrValue<BytesLike>,
-      sigR: PromiseOrValue<BytesLike>,
-      sigS: PromiseOrValue<BytesLike>,
-      sigV: PromiseOrValue<BigNumberish>,
+      userAddress: string,
+      payload: BytesLike,
+      sigR: BytesLike,
+      sigS: BytesLike,
+      sigV: BigNumberish,
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -3215,7 +3154,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param userAddress The address of the user that will sign the metatransaction
      */
     getMetatransactionNonce(
-      userAddress: PromiseOrValue<string>,
+      userAddress: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -3229,10 +3168,7 @@ export interface IColonyNetwork extends BaseContract {
      * Call multiple functions in the current contract and return the data from all of them if they all succeed
      * @param data The encoded function data for each of the calls to make to this contract
      */
-    multicall(
-      data: PromiseOrValue<BytesLike>[],
-      overrides?: CallOverrides
-    ): Promise<string[]>;
+    multicall(data: BytesLike[], overrides?: CallOverrides): Promise<string[]>;
 
     /**
      * Return number of recovery roles.
@@ -3243,19 +3179,13 @@ export interface IColonyNetwork extends BaseContract {
      * Remove colony recovery role. Can only be called by root role.
      * @param _user User we want to remove recovery role from
      */
-    removeRecoveryRole(
-      _user: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    removeRecoveryRole(_user: string, overrides?: CallOverrides): Promise<void>;
 
     /**
      * Set new colony recovery role. Can be called by root.
      * @param _user User we want to give a recovery role to
      */
-    setRecoveryRole(
-      _user: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setRecoveryRole(_user: string, overrides?: CallOverrides): Promise<void>;
 
     /**
      * certain critical variables are protected from editing in this function
@@ -3264,8 +3194,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _value word of data to be set
      */
     setStorageSlotRecovery(
-      _slot: PromiseOrValue<BigNumberish>,
-      _value: PromiseOrValue<BytesLike>,
+      _slot: BigNumberish,
+      _value: BytesLike,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3275,7 +3205,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _interfaceID The interface identifier, as specified in ERC-165
      */
     supportsInterface(
-      _interfaceID: PromiseOrValue<BytesLike>,
+      _interfaceID: BytesLike,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
@@ -3292,14 +3222,14 @@ export interface IColonyNetwork extends BaseContract {
      * @param _user The address of the user earning / losing the reputation
      */
     setReplacementReputationUpdateLogEntry(
-      _reputationMiningCycle: PromiseOrValue<string>,
-      _id: PromiseOrValue<BigNumberish>,
-      _user: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _skillId: PromiseOrValue<BigNumberish>,
-      _colony: PromiseOrValue<string>,
-      _nUpdates: PromiseOrValue<BigNumberish>,
-      _nPreviousUpdates: PromiseOrValue<BigNumberish>,
+      _reputationMiningCycle: string,
+      _id: BigNumberish,
+      _user: string,
+      _amount: BigNumberish,
+      _skillId: BigNumberish,
+      _colony: string,
+      _nUpdates: BigNumberish,
+      _nPreviousUpdates: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3309,8 +3239,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _reputationMiningCycle The address of the reputation mining cycle we are asking about
      */
     getReplacementReputationUpdateLogEntry(
-      _reputationMiningCycle: PromiseOrValue<string>,
-      _id: PromiseOrValue<BigNumberish>,
+      _reputationMiningCycle: string,
+      _id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<ColonyNetworkDataTypes.ReputationLogEntryStructOutput>;
 
@@ -3319,7 +3249,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _reputationMiningCycle The reputation mining cycle address we want to know if any entries have been replaced in.
      */
     getReplacementReputationUpdateLogsExist(
-      _reputationMiningCycle: PromiseOrValue<string>,
+      _reputationMiningCycle: string,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
@@ -3337,10 +3267,7 @@ export interface IColonyNetwork extends BaseContract {
      * Check if specific address is a colony created on colony network.
      * @param _colony Address of the colony
      */
-    isColony(
-      _colony: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
+    isColony(_colony: string, overrides?: CallOverrides): Promise<boolean>;
 
     /**
      * Errors if the parent skill does not exist or if this is called by an unauthorised sender.
@@ -3348,7 +3275,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _parentSkillId Id of the skill under which the new skill will be added. If 0, a global skill is added with no parent.
      */
     addSkill(
-      _parentSkillId: PromiseOrValue<BigNumberish>,
+      _parentSkillId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -3357,7 +3284,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _skillId Id of the skill
      */
     getSkill(
-      _skillId: PromiseOrValue<BigNumberish>,
+      _skillId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<ColonyNetworkDataTypes.SkillStructOutput>;
 
@@ -3367,7 +3294,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _skillId Id of the skill
      */
     "deprecateSkill(uint256)"(
-      _skillId: PromiseOrValue<BigNumberish>,
+      _skillId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3377,8 +3304,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _skillId Id of the skill
      */
     "deprecateSkill(uint256,bool)"(
-      _skillId: PromiseOrValue<BigNumberish>,
-      _deprecated: PromiseOrValue<boolean>,
+      _skillId: BigNumberish,
+      _deprecated: boolean,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
@@ -3395,9 +3322,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _user The address of the user for the reputation update
      */
     appendReputationUpdateLog(
-      _user: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _skillId: PromiseOrValue<BigNumberish>,
+      _user: string,
+      _amount: BigNumberish,
+      _skillId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3416,7 +3343,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _tokenLockingAddress Address of the locking contract
      */
     setTokenLocking(
-      _tokenLockingAddress: PromiseOrValue<string>,
+      _tokenLockingAddress: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3430,7 +3357,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _tokenAddress Address of the CLNY token
      */
     createMetaColony(
-      _tokenAddress: PromiseOrValue<string>,
+      _tokenAddress: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3440,7 +3367,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _tokenAddress Address of an ERC20 token to serve as the colony token.
      */
     "createColony(address)"(
-      _tokenAddress: PromiseOrValue<string>,
+      _tokenAddress: string,
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -3453,10 +3380,10 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version The version of colony to deploy (pass 0 for the current version)
      */
     "createColony(address,uint256,string,string)"(
-      _tokenAddress: PromiseOrValue<string>,
-      _version: PromiseOrValue<BigNumberish>,
-      _colonyName: PromiseOrValue<string>,
-      _metadata: PromiseOrValue<string>,
+      _tokenAddress: string,
+      _version: BigNumberish,
+      _colonyName: string,
+      _metadata: string,
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -3468,9 +3395,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version The version of colony to deploy (pass 0 for the current version)
      */
     "createColony(address,uint256,string)"(
-      _tokenAddress: PromiseOrValue<string>,
-      _version: PromiseOrValue<BigNumberish>,
-      _colonyName: PromiseOrValue<string>,
+      _tokenAddress: string,
+      _version: BigNumberish,
+      _colonyName: string,
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -3484,11 +3411,11 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version The version of colony to deploy (pass 0 for the current version)
      */
     "createColony(address,uint256,string,string,bool)"(
-      _tokenAddress: PromiseOrValue<string>,
-      _version: PromiseOrValue<BigNumberish>,
-      _colonyName: PromiseOrValue<string>,
-      _orbitdb: PromiseOrValue<string>,
-      _useExtensionManager: PromiseOrValue<boolean>,
+      _tokenAddress: string,
+      _version: BigNumberish,
+      _colonyName: string,
+      _orbitdb: string,
+      _useExtensionManager: boolean,
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -3504,13 +3431,13 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version The version of colony to deploy (pass 0 for the current version)
      */
     createColonyForFrontend(
-      _tokenAddress: PromiseOrValue<string>,
-      _name: PromiseOrValue<string>,
-      _symbol: PromiseOrValue<string>,
-      _decimals: PromiseOrValue<BigNumberish>,
-      _version: PromiseOrValue<BigNumberish>,
-      _colonyName: PromiseOrValue<string>,
-      _metadata: PromiseOrValue<string>,
+      _tokenAddress: string,
+      _name: string,
+      _symbol: string,
+      _decimals: BigNumberish,
+      _version: BigNumberish,
+      _colonyName: string,
+      _metadata: string,
       overrides?: CallOverrides
     ): Promise<[string, string] & { token: string; colony: string }>;
 
@@ -3520,8 +3447,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version The new Colony contract version
      */
     addColonyVersion(
-      _version: PromiseOrValue<BigNumberish>,
-      _resolver: PromiseOrValue<string>,
+      _version: BigNumberish,
+      _resolver: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3532,8 +3459,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version Version of the Colony contract the resolver represents
      */
     initialise(
-      _resolver: PromiseOrValue<string>,
-      _version: PromiseOrValue<BigNumberish>,
+      _resolver: string,
+      _version: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3541,10 +3468,7 @@ export interface IColonyNetwork extends BaseContract {
      * Get a colony address by its Id in the network.
      * @param _id Id of the colony to get
      */
-    getColony(
-      _id: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<string>;
+    getColony(_id: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
     /**
      * Returns the latest Colony contract version. This is the version used to create all new colonies.
@@ -3557,8 +3481,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _skillId Id of the skill
      */
     getParentSkillId(
-      _skillId: PromiseOrValue<BigNumberish>,
-      _parentSkillIndex: PromiseOrValue<BigNumberish>,
+      _skillId: BigNumberish,
+      _parentSkillIndex: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -3568,8 +3492,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _skillId Id of the skill
      */
     getChildSkillId(
-      _skillId: PromiseOrValue<BigNumberish>,
-      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _skillId: BigNumberish,
+      _childSkillIndex: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -3578,7 +3502,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _active Whether the user wants the active or inactive reputation mining cycle
      */
     getReputationMiningCycle(
-      _active: PromiseOrValue<boolean>,
+      _active: boolean,
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -3588,8 +3512,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _timeStaked Amount of time (in seconds) that the miner has staked their CLNY
      */
     calculateMinerWeight(
-      _timeStaked: PromiseOrValue<BigNumberish>,
-      _submissonIndex: PromiseOrValue<BigNumberish>,
+      _timeStaked: BigNumberish,
+      _submissonIndex: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -3598,7 +3522,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version The Colony contract version
      */
     getColonyVersionResolver(
-      _version: PromiseOrValue<BigNumberish>,
+      _version: BigNumberish,
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -3609,9 +3533,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _stakers Array of users who submitted or backed the hash, being accepted here as the new reputation root hash
      */
     setReputationRootHash(
-      _newHash: PromiseOrValue<BytesLike>,
-      _newNLeaves: PromiseOrValue<BigNumberish>,
-      _stakers: PromiseOrValue<string>[],
+      _newHash: BytesLike,
+      _newNLeaves: BigNumberish,
+      _stakers: string[],
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3646,10 +3570,7 @@ export interface IColonyNetwork extends BaseContract {
      * Create and start a new `DutchAuction` for the entire amount of `_token` owned by the Colony Network.
      * @param _token Address of the token held by the network to be auctioned
      */
-    startTokenAuction(
-      _token: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    startTokenAuction(_token: string, overrides?: CallOverrides): Promise<void>;
 
     /**
      * Setup registrar with ENS and root node.
@@ -3657,8 +3578,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _rootNode Namehash of the root node for the domain
      */
     setupRegistrar(
-      _ens: PromiseOrValue<string>,
-      _rootNode: PromiseOrValue<BytesLike>,
+      _ens: string,
+      _rootNode: BytesLike,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3668,8 +3589,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _username The label to register
      */
     registerUserLabel(
-      _username: PromiseOrValue<string>,
-      _orbitdb: PromiseOrValue<string>,
+      _username: string,
+      _orbitdb: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3679,8 +3600,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _orbitdb The path of the orbitDB database associated with the colony name
      */
     registerColonyLabel(
-      _colonyName: PromiseOrValue<string>,
-      _orbitdb: PromiseOrValue<string>,
+      _colonyName: string,
+      _orbitdb: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3689,7 +3610,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _orbitdb The path of the orbitDB database to be associated with the colony
      */
     updateColonyOrbitDB(
-      _orbitdb: PromiseOrValue<string>,
+      _orbitdb: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3698,7 +3619,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _orbitdb The path of the orbitDB database to be associated with the user
      */
     updateUserOrbitDB(
-      _orbitdb: PromiseOrValue<string>,
+      _orbitdb: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3707,7 +3628,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _node The Namehash of the account being queried.
      */
     getProfileDBAddress(
-      _node: PromiseOrValue<BytesLike>,
+      _node: BytesLike,
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -3716,7 +3637,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _addr The address we wish to find the corresponding ENS domain for (if any)
      */
     lookupRegisteredENSDomain(
-      _addr: PromiseOrValue<string>,
+      _addr: string,
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -3724,10 +3645,7 @@ export interface IColonyNetwork extends BaseContract {
      * Returns the address the supplied node resolves do, if we are the resolver.
      * @param _node The namehash of the ENS address being requested
      */
-    addr(
-      _node: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
-    ): Promise<string>;
+    addr(_node: BytesLike, overrides?: CallOverrides): Promise<string>;
 
     /**
      * Returns the address of the ENSRegistrar for the Network.
@@ -3739,7 +3657,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _miningResolverAddress The address of the Resolver contract with the functions correctly wired.
      */
     setMiningResolver(
-      _miningResolverAddress: PromiseOrValue<string>,
+      _miningResolverAddress: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3755,8 +3673,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _resolver The deployed resolver containing the extension contract logic
      */
     addExtensionToNetwork(
-      _extensionId: PromiseOrValue<BytesLike>,
-      _resolver: PromiseOrValue<string>,
+      _extensionId: BytesLike,
+      _resolver: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3766,8 +3684,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version Version of the extension to install
      */
     installExtension(
-      _extensionId: PromiseOrValue<BytesLike>,
-      _version: PromiseOrValue<BigNumberish>,
+      _extensionId: BytesLike,
+      _version: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3777,8 +3695,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _newVersion Version of the extension to upgrade to (must be one greater than current)
      */
     upgradeExtension(
-      _extensionId: PromiseOrValue<BytesLike>,
-      _newVersion: PromiseOrValue<BigNumberish>,
+      _extensionId: BytesLike,
+      _newVersion: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3788,8 +3706,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _extensionId keccak256 hash of the extension name, used as an indentifier
      */
     deprecateExtension(
-      _extensionId: PromiseOrValue<BytesLike>,
-      _deprecated: PromiseOrValue<boolean>,
+      _extensionId: BytesLike,
+      _deprecated: boolean,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3798,7 +3716,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _extensionId keccak256 hash of the extension name, used as an indentifier
      */
     uninstallExtension(
-      _extensionId: PromiseOrValue<BytesLike>,
+      _extensionId: BytesLike,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3808,8 +3726,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version Version of the extension
      */
     getExtensionResolver(
-      _extensionId: PromiseOrValue<BytesLike>,
-      _version: PromiseOrValue<BigNumberish>,
+      _extensionId: BytesLike,
+      _version: BigNumberish,
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -3819,8 +3737,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _extensionId keccak256 hash of the extension name, used as an indentifier
      */
     getExtensionInstallation(
-      _extensionId: PromiseOrValue<BytesLike>,
-      _colony: PromiseOrValue<string>,
+      _extensionId: BytesLike,
+      _colony: string,
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -3834,7 +3752,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _feeInverse The inverse of the network fee to set
      */
     setFeeInverse(
-      _feeInverse: PromiseOrValue<BigNumberish>,
+      _feeInverse: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3843,7 +3761,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _token The token being queried
      */
     getPayoutWhitelist(
-      _token: PromiseOrValue<string>,
+      _token: string,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
@@ -3853,8 +3771,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _token The token being set
      */
     setPayoutWhitelist(
-      _token: PromiseOrValue<string>,
-      _status: PromiseOrValue<boolean>,
+      _token: string,
+      _status: boolean,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3865,8 +3783,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _stakers Array of the addresses of stakers to punish
      */
     punishStakers(
-      _stakers: PromiseOrValue<string>[],
-      _amount: PromiseOrValue<BigNumberish>,
+      _stakers: string[],
+      _amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3875,7 +3793,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _amount Amount of CLNY to stake for the purposes of mining
      */
     stakeForMining(
-      _amount: PromiseOrValue<BigNumberish>,
+      _amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3884,7 +3802,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _amount Amount of CLNY staked for mining to unstake
      */
     unstakeForMining(
-      _amount: PromiseOrValue<BigNumberish>,
+      _amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3893,7 +3811,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _user The user to query
      */
     getMiningStake(
-      _user: PromiseOrValue<string>,
+      _user: string,
       overrides?: CallOverrides
     ): Promise<ColonyNetworkDataTypes.MiningStakeStructOutput>;
 
@@ -3904,8 +3822,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _recipient The address receiving the award
      */
     reward(
-      _recipient: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
+      _recipient: string,
+      _amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3915,7 +3833,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _amount The amount of CLNY to burn
      */
     burnUnneededRewards(
-      _amount: PromiseOrValue<BigNumberish>,
+      _amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3925,7 +3843,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _recipient The user whose rewards to claim
      */
     claimMiningReward(
-      _recipient: PromiseOrValue<string>,
+      _recipient: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3935,7 +3853,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _amount The CLNY awarded per mining cycle to the miners
      */
     setReputationMiningCycleReward(
-      _amount: PromiseOrValue<BigNumberish>,
+      _amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3954,9 +3872,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _symbol The short 'ticket' symbol for the token
      */
     deployTokenViaNetwork(
-      _name: PromiseOrValue<string>,
-      _symbol: PromiseOrValue<string>,
-      _decimals: PromiseOrValue<BigNumberish>,
+      _name: string,
+      _symbol: string,
+      _decimals: BigNumberish,
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -3968,9 +3886,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _token The address of the token
      */
     deployTokenAuthority(
-      _token: PromiseOrValue<string>,
-      _colony: PromiseOrValue<string>,
-      _allowedToTransfer: PromiseOrValue<string>[],
+      _token: string,
+      _colony: string,
+      _allowedToTransfer: string[],
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -3980,8 +3898,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _delegate The address you're giving or removing permission from
      */
     setMiningDelegate(
-      _delegate: PromiseOrValue<string>,
-      _allowed: PromiseOrValue<boolean>,
+      _delegate: string,
+      _allowed: boolean,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3990,7 +3908,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _delegate The address that wants to mine
      */
     getMiningDelegator(
-      _delegate: PromiseOrValue<string>,
+      _delegate: string,
       overrides?: CallOverrides
     ): Promise<string>;
   };
@@ -4008,22 +3926,22 @@ export interface IColonyNetwork extends BaseContract {
     ): AuctionCreatedEventFilter;
 
     "ColonyAdded(uint256,address,address)"(
-      colonyId?: PromiseOrValue<BigNumberish> | null,
-      colonyAddress?: PromiseOrValue<string> | null,
+      colonyId?: BigNumberish | null,
+      colonyAddress?: string | null,
       token?: null
     ): ColonyAddedEventFilter;
     ColonyAdded(
-      colonyId?: PromiseOrValue<BigNumberish> | null,
-      colonyAddress?: PromiseOrValue<string> | null,
+      colonyId?: BigNumberish | null,
+      colonyAddress?: string | null,
       token?: null
     ): ColonyAddedEventFilter;
 
     "ColonyLabelRegistered(address,bytes32)"(
-      colony?: PromiseOrValue<string> | null,
+      colony?: string | null,
       label?: null
     ): ColonyLabelRegisteredEventFilter;
     ColonyLabelRegistered(
-      colony?: PromiseOrValue<string> | null,
+      colony?: string | null,
       label?: null
     ): ColonyLabelRegisteredEventFilter;
 
@@ -4044,53 +3962,53 @@ export interface IColonyNetwork extends BaseContract {
     ): ColonyVersionAddedEventFilter;
 
     "ExtensionAddedToNetwork(bytes32,uint256)"(
-      extensionId?: PromiseOrValue<BytesLike> | null,
+      extensionId?: BytesLike | null,
       version?: null
     ): ExtensionAddedToNetworkEventFilter;
     ExtensionAddedToNetwork(
-      extensionId?: PromiseOrValue<BytesLike> | null,
+      extensionId?: BytesLike | null,
       version?: null
     ): ExtensionAddedToNetworkEventFilter;
 
     "ExtensionDeprecated(bytes32,address,bool)"(
-      extensionId?: PromiseOrValue<BytesLike> | null,
-      colony?: PromiseOrValue<string> | null,
+      extensionId?: BytesLike | null,
+      colony?: string | null,
       deprecated?: null
     ): ExtensionDeprecatedEventFilter;
     ExtensionDeprecated(
-      extensionId?: PromiseOrValue<BytesLike> | null,
-      colony?: PromiseOrValue<string> | null,
+      extensionId?: BytesLike | null,
+      colony?: string | null,
       deprecated?: null
     ): ExtensionDeprecatedEventFilter;
 
     "ExtensionInstalled(bytes32,address,uint256)"(
-      extensionId?: PromiseOrValue<BytesLike> | null,
-      colony?: PromiseOrValue<string> | null,
+      extensionId?: BytesLike | null,
+      colony?: string | null,
       version?: null
     ): ExtensionInstalledEventFilter;
     ExtensionInstalled(
-      extensionId?: PromiseOrValue<BytesLike> | null,
-      colony?: PromiseOrValue<string> | null,
+      extensionId?: BytesLike | null,
+      colony?: string | null,
       version?: null
     ): ExtensionInstalledEventFilter;
 
     "ExtensionUninstalled(bytes32,address)"(
-      extensionId?: PromiseOrValue<BytesLike> | null,
-      colony?: PromiseOrValue<string> | null
+      extensionId?: BytesLike | null,
+      colony?: string | null
     ): ExtensionUninstalledEventFilter;
     ExtensionUninstalled(
-      extensionId?: PromiseOrValue<BytesLike> | null,
-      colony?: PromiseOrValue<string> | null
+      extensionId?: BytesLike | null,
+      colony?: string | null
     ): ExtensionUninstalledEventFilter;
 
     "ExtensionUpgraded(bytes32,address,uint256)"(
-      extensionId?: PromiseOrValue<BytesLike> | null,
-      colony?: PromiseOrValue<string> | null,
+      extensionId?: BytesLike | null,
+      colony?: string | null,
       version?: null
     ): ExtensionUpgradedEventFilter;
     ExtensionUpgraded(
-      extensionId?: PromiseOrValue<BytesLike> | null,
-      colony?: PromiseOrValue<string> | null,
+      extensionId?: BytesLike | null,
+      colony?: string | null,
       version?: null
     ): ExtensionUpgradedEventFilter;
 
@@ -4140,11 +4058,11 @@ export interface IColonyNetwork extends BaseContract {
     RecoveryModeExited(user?: null): RecoveryModeExitedEventFilter;
 
     "RecoveryRoleSet(address,bool)"(
-      user?: PromiseOrValue<string> | null,
+      user?: string | null,
       setTo?: null
     ): RecoveryRoleSetEventFilter;
     RecoveryRoleSet(
-      user?: PromiseOrValue<string> | null,
+      user?: string | null,
       setTo?: null
     ): RecoveryRoleSetEventFilter;
 
@@ -4245,11 +4163,11 @@ export interface IColonyNetwork extends BaseContract {
     TokenWhitelisted(token?: null, status?: null): TokenWhitelistedEventFilter;
 
     "UserLabelRegistered(address,bytes32)"(
-      user?: PromiseOrValue<string> | null,
+      user?: string | null,
       label?: null
     ): UserLabelRegisteredEventFilter;
     UserLabelRegistered(
-      user?: PromiseOrValue<string> | null,
+      user?: string | null,
       label?: null
     ): UserLabelRegisteredEventFilter;
   };
@@ -4259,7 +4177,7 @@ export interface IColonyNetwork extends BaseContract {
      * Indicate approval to exit recovery mode. Can only be called by user with recovery role.
      */
     approveExitRecovery(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4268,7 +4186,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _slot The storage slot number to check.
      */
     checkNotAdditionalProtectedVariable(
-      _slot: PromiseOrValue<BigNumberish>,
+      _slot: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -4276,7 +4194,7 @@ export interface IColonyNetwork extends BaseContract {
      * Put colony network mining into recovery mode. Can only be called by user with recovery role.
      */
     enterRecoveryMode(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4288,19 +4206,19 @@ export interface IColonyNetwork extends BaseContract {
      * @param userAddress The address of the user that signed the metatransaction
      */
     executeMetaTransaction(
-      userAddress: PromiseOrValue<string>,
-      payload: PromiseOrValue<BytesLike>,
-      sigR: PromiseOrValue<BytesLike>,
-      sigS: PromiseOrValue<BytesLike>,
-      sigV: PromiseOrValue<BigNumberish>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      userAddress: string,
+      payload: BytesLike,
+      sigR: BytesLike,
+      sigS: BytesLike,
+      sigV: BigNumberish,
+      overrides?: PayableOverrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
      * Exit recovery mode, can be called by anyone if enough whitelist approvals are given.
      */
     exitRecoveryMode(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4308,7 +4226,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param userAddress The address of the user that will sign the metatransaction
      */
     getMetatransactionNonce(
-      userAddress: PromiseOrValue<string>,
+      userAddress: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -4323,8 +4241,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param data The encoded function data for each of the calls to make to this contract
      */
     multicall(
-      data: PromiseOrValue<BytesLike>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      data: BytesLike[],
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4337,8 +4255,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _user User we want to remove recovery role from
      */
     removeRecoveryRole(
-      _user: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _user: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4346,8 +4264,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _user User we want to give a recovery role to
      */
     setRecoveryRole(
-      _user: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _user: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4357,9 +4275,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _value word of data to be set
      */
     setStorageSlotRecovery(
-      _slot: PromiseOrValue<BigNumberish>,
-      _value: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _slot: BigNumberish,
+      _value: BytesLike,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4368,7 +4286,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _interfaceID The interface identifier, as specified in ERC-165
      */
     supportsInterface(
-      _interfaceID: PromiseOrValue<BytesLike>,
+      _interfaceID: BytesLike,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -4385,15 +4303,15 @@ export interface IColonyNetwork extends BaseContract {
      * @param _user The address of the user earning / losing the reputation
      */
     setReplacementReputationUpdateLogEntry(
-      _reputationMiningCycle: PromiseOrValue<string>,
-      _id: PromiseOrValue<BigNumberish>,
-      _user: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _skillId: PromiseOrValue<BigNumberish>,
-      _colony: PromiseOrValue<string>,
-      _nUpdates: PromiseOrValue<BigNumberish>,
-      _nPreviousUpdates: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _reputationMiningCycle: string,
+      _id: BigNumberish,
+      _user: string,
+      _amount: BigNumberish,
+      _skillId: BigNumberish,
+      _colony: string,
+      _nUpdates: BigNumberish,
+      _nPreviousUpdates: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4402,8 +4320,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _reputationMiningCycle The address of the reputation mining cycle we are asking about
      */
     getReplacementReputationUpdateLogEntry(
-      _reputationMiningCycle: PromiseOrValue<string>,
-      _id: PromiseOrValue<BigNumberish>,
+      _reputationMiningCycle: string,
+      _id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -4412,7 +4330,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _reputationMiningCycle The reputation mining cycle address we want to know if any entries have been replaced in.
      */
     getReplacementReputationUpdateLogsExist(
-      _reputationMiningCycle: PromiseOrValue<string>,
+      _reputationMiningCycle: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -4430,10 +4348,7 @@ export interface IColonyNetwork extends BaseContract {
      * Check if specific address is a colony created on colony network.
      * @param _colony Address of the colony
      */
-    isColony(
-      _colony: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    isColony(_colony: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     /**
      * Errors if the parent skill does not exist or if this is called by an unauthorised sender.
@@ -4441,8 +4356,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _parentSkillId Id of the skill under which the new skill will be added. If 0, a global skill is added with no parent.
      */
     addSkill(
-      _parentSkillId: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _parentSkillId: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4450,7 +4365,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _skillId Id of the skill
      */
     getSkill(
-      _skillId: PromiseOrValue<BigNumberish>,
+      _skillId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -4460,8 +4375,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _skillId Id of the skill
      */
     "deprecateSkill(uint256)"(
-      _skillId: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _skillId: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4470,16 +4385,16 @@ export interface IColonyNetwork extends BaseContract {
      * @param _skillId Id of the skill
      */
     "deprecateSkill(uint256,bool)"(
-      _skillId: PromiseOrValue<BigNumberish>,
-      _deprecated: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _skillId: BigNumberish,
+      _deprecated: boolean,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
      * Initialise the local skills tree for a colony
      */
     initialiseRootLocalSkill(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4490,10 +4405,10 @@ export interface IColonyNetwork extends BaseContract {
      * @param _user The address of the user for the reputation update
      */
     appendReputationUpdateLog(
-      _user: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _skillId: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _user: string,
+      _amount: BigNumberish,
+      _skillId: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4511,8 +4426,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _tokenLockingAddress Address of the locking contract
      */
     setTokenLocking(
-      _tokenLockingAddress: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _tokenLockingAddress: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4525,8 +4440,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _tokenAddress Address of the CLNY token
      */
     createMetaColony(
-      _tokenAddress: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _tokenAddress: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4535,8 +4450,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _tokenAddress Address of an ERC20 token to serve as the colony token.
      */
     "createColony(address)"(
-      _tokenAddress: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _tokenAddress: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4548,11 +4463,11 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version The version of colony to deploy (pass 0 for the current version)
      */
     "createColony(address,uint256,string,string)"(
-      _tokenAddress: PromiseOrValue<string>,
-      _version: PromiseOrValue<BigNumberish>,
-      _colonyName: PromiseOrValue<string>,
-      _metadata: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _tokenAddress: string,
+      _version: BigNumberish,
+      _colonyName: string,
+      _metadata: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4563,10 +4478,10 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version The version of colony to deploy (pass 0 for the current version)
      */
     "createColony(address,uint256,string)"(
-      _tokenAddress: PromiseOrValue<string>,
-      _version: PromiseOrValue<BigNumberish>,
-      _colonyName: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _tokenAddress: string,
+      _version: BigNumberish,
+      _colonyName: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4579,12 +4494,12 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version The version of colony to deploy (pass 0 for the current version)
      */
     "createColony(address,uint256,string,string,bool)"(
-      _tokenAddress: PromiseOrValue<string>,
-      _version: PromiseOrValue<BigNumberish>,
-      _colonyName: PromiseOrValue<string>,
-      _orbitdb: PromiseOrValue<string>,
-      _useExtensionManager: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _tokenAddress: string,
+      _version: BigNumberish,
+      _colonyName: string,
+      _orbitdb: string,
+      _useExtensionManager: boolean,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4599,14 +4514,14 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version The version of colony to deploy (pass 0 for the current version)
      */
     createColonyForFrontend(
-      _tokenAddress: PromiseOrValue<string>,
-      _name: PromiseOrValue<string>,
-      _symbol: PromiseOrValue<string>,
-      _decimals: PromiseOrValue<BigNumberish>,
-      _version: PromiseOrValue<BigNumberish>,
-      _colonyName: PromiseOrValue<string>,
-      _metadata: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _tokenAddress: string,
+      _name: string,
+      _symbol: string,
+      _decimals: BigNumberish,
+      _version: BigNumberish,
+      _colonyName: string,
+      _metadata: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4615,9 +4530,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version The new Colony contract version
      */
     addColonyVersion(
-      _version: PromiseOrValue<BigNumberish>,
-      _resolver: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _version: BigNumberish,
+      _resolver: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4627,19 +4542,16 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version Version of the Colony contract the resolver represents
      */
     initialise(
-      _resolver: PromiseOrValue<string>,
-      _version: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _resolver: string,
+      _version: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
      * Get a colony address by its Id in the network.
      * @param _id Id of the colony to get
      */
-    getColony(
-      _id: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    getColony(_id: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
     /**
      * Returns the latest Colony contract version. This is the version used to create all new colonies.
@@ -4652,8 +4564,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _skillId Id of the skill
      */
     getParentSkillId(
-      _skillId: PromiseOrValue<BigNumberish>,
-      _parentSkillIndex: PromiseOrValue<BigNumberish>,
+      _skillId: BigNumberish,
+      _parentSkillIndex: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -4663,8 +4575,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _skillId Id of the skill
      */
     getChildSkillId(
-      _skillId: PromiseOrValue<BigNumberish>,
-      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _skillId: BigNumberish,
+      _childSkillIndex: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -4673,7 +4585,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _active Whether the user wants the active or inactive reputation mining cycle
      */
     getReputationMiningCycle(
-      _active: PromiseOrValue<boolean>,
+      _active: boolean,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -4683,8 +4595,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _timeStaked Amount of time (in seconds) that the miner has staked their CLNY
      */
     calculateMinerWeight(
-      _timeStaked: PromiseOrValue<BigNumberish>,
-      _submissonIndex: PromiseOrValue<BigNumberish>,
+      _timeStaked: BigNumberish,
+      _submissonIndex: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -4693,7 +4605,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version The Colony contract version
      */
     getColonyVersionResolver(
-      _version: PromiseOrValue<BigNumberish>,
+      _version: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -4704,24 +4616,24 @@ export interface IColonyNetwork extends BaseContract {
      * @param _stakers Array of users who submitted or backed the hash, being accepted here as the new reputation root hash
      */
     setReputationRootHash(
-      _newHash: PromiseOrValue<BytesLike>,
-      _newNLeaves: PromiseOrValue<BigNumberish>,
-      _stakers: PromiseOrValue<string>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _newHash: BytesLike,
+      _newNLeaves: BigNumberish,
+      _stakers: string[],
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
      * Starts a new Reputation Mining cycle. Explicitly called only the first time, subsequently called from within `setReputationRootHash`.
      */
     startNextCycle(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
      * Creates initial inactive reputation mining cycle.
      */
     initialiseReputationMining(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4746,8 +4658,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _token Address of the token held by the network to be auctioned
      */
     startTokenAuction(
-      _token: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4756,9 +4668,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _rootNode Namehash of the root node for the domain
      */
     setupRegistrar(
-      _ens: PromiseOrValue<string>,
-      _rootNode: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _ens: string,
+      _rootNode: BytesLike,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4767,9 +4679,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _username The label to register
      */
     registerUserLabel(
-      _username: PromiseOrValue<string>,
-      _orbitdb: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _username: string,
+      _orbitdb: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4778,9 +4690,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _orbitdb The path of the orbitDB database associated with the colony name
      */
     registerColonyLabel(
-      _colonyName: PromiseOrValue<string>,
-      _orbitdb: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _colonyName: string,
+      _orbitdb: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4788,8 +4700,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _orbitdb The path of the orbitDB database to be associated with the colony
      */
     updateColonyOrbitDB(
-      _orbitdb: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _orbitdb: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4797,8 +4709,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _orbitdb The path of the orbitDB database to be associated with the user
      */
     updateUserOrbitDB(
-      _orbitdb: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _orbitdb: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4806,7 +4718,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _node The Namehash of the account being queried.
      */
     getProfileDBAddress(
-      _node: PromiseOrValue<BytesLike>,
+      _node: BytesLike,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -4815,7 +4727,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _addr The address we wish to find the corresponding ENS domain for (if any)
      */
     lookupRegisteredENSDomain(
-      _addr: PromiseOrValue<string>,
+      _addr: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -4823,10 +4735,7 @@ export interface IColonyNetwork extends BaseContract {
      * Returns the address the supplied node resolves do, if we are the resolver.
      * @param _node The namehash of the ENS address being requested
      */
-    addr(
-      _node: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    addr(_node: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
 
     /**
      * Returns the address of the ENSRegistrar for the Network.
@@ -4838,8 +4747,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _miningResolverAddress The address of the Resolver contract with the functions correctly wired.
      */
     setMiningResolver(
-      _miningResolverAddress: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _miningResolverAddress: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4854,9 +4763,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _resolver The deployed resolver containing the extension contract logic
      */
     addExtensionToNetwork(
-      _extensionId: PromiseOrValue<BytesLike>,
-      _resolver: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _extensionId: BytesLike,
+      _resolver: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4865,9 +4774,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version Version of the extension to install
      */
     installExtension(
-      _extensionId: PromiseOrValue<BytesLike>,
-      _version: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _extensionId: BytesLike,
+      _version: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4876,9 +4785,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _newVersion Version of the extension to upgrade to (must be one greater than current)
      */
     upgradeExtension(
-      _extensionId: PromiseOrValue<BytesLike>,
-      _newVersion: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _extensionId: BytesLike,
+      _newVersion: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4887,9 +4796,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _extensionId keccak256 hash of the extension name, used as an indentifier
      */
     deprecateExtension(
-      _extensionId: PromiseOrValue<BytesLike>,
-      _deprecated: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _extensionId: BytesLike,
+      _deprecated: boolean,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4897,8 +4806,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _extensionId keccak256 hash of the extension name, used as an indentifier
      */
     uninstallExtension(
-      _extensionId: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _extensionId: BytesLike,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4907,8 +4816,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version Version of the extension
      */
     getExtensionResolver(
-      _extensionId: PromiseOrValue<BytesLike>,
-      _version: PromiseOrValue<BigNumberish>,
+      _extensionId: BytesLike,
+      _version: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -4918,8 +4827,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _extensionId keccak256 hash of the extension name, used as an indentifier
      */
     getExtensionInstallation(
-      _extensionId: PromiseOrValue<BytesLike>,
-      _colony: PromiseOrValue<string>,
+      _extensionId: BytesLike,
+      _colony: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -4933,8 +4842,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _feeInverse The inverse of the network fee to set
      */
     setFeeInverse(
-      _feeInverse: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _feeInverse: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4942,7 +4851,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _token The token being queried
      */
     getPayoutWhitelist(
-      _token: PromiseOrValue<string>,
+      _token: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -4952,9 +4861,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _token The token being set
      */
     setPayoutWhitelist(
-      _token: PromiseOrValue<string>,
-      _status: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      _status: boolean,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4964,9 +4873,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _stakers Array of the addresses of stakers to punish
      */
     punishStakers(
-      _stakers: PromiseOrValue<string>[],
-      _amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _stakers: string[],
+      _amount: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4974,8 +4883,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _amount Amount of CLNY to stake for the purposes of mining
      */
     stakeForMining(
-      _amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _amount: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4983,8 +4892,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _amount Amount of CLNY staked for mining to unstake
      */
     unstakeForMining(
-      _amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _amount: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -4992,7 +4901,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _user The user to query
      */
     getMiningStake(
-      _user: PromiseOrValue<string>,
+      _user: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -5003,9 +4912,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _recipient The address receiving the award
      */
     reward(
-      _recipient: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _recipient: string,
+      _amount: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -5014,8 +4923,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _amount The amount of CLNY to burn
      */
     burnUnneededRewards(
-      _amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _amount: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -5024,8 +4933,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _recipient The user whose rewards to claim
      */
     claimMiningReward(
-      _recipient: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _recipient: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -5034,8 +4943,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _amount The CLNY awarded per mining cycle to the miners
      */
     setReputationMiningCycleReward(
-      _amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _amount: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -5053,10 +4962,10 @@ export interface IColonyNetwork extends BaseContract {
      * @param _symbol The short 'ticket' symbol for the token
      */
     deployTokenViaNetwork(
-      _name: PromiseOrValue<string>,
-      _symbol: PromiseOrValue<string>,
-      _decimals: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _name: string,
+      _symbol: string,
+      _decimals: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -5067,10 +4976,10 @@ export interface IColonyNetwork extends BaseContract {
      * @param _token The address of the token
      */
     deployTokenAuthority(
-      _token: PromiseOrValue<string>,
-      _colony: PromiseOrValue<string>,
-      _allowedToTransfer: PromiseOrValue<string>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      _colony: string,
+      _allowedToTransfer: string[],
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -5079,9 +4988,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _delegate The address you're giving or removing permission from
      */
     setMiningDelegate(
-      _delegate: PromiseOrValue<string>,
-      _allowed: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _delegate: string,
+      _allowed: boolean,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -5089,7 +4998,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _delegate The address that wants to mine
      */
     getMiningDelegator(
-      _delegate: PromiseOrValue<string>,
+      _delegate: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
   };
@@ -5099,7 +5008,7 @@ export interface IColonyNetwork extends BaseContract {
      * Indicate approval to exit recovery mode. Can only be called by user with recovery role.
      */
     approveExitRecovery(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5108,7 +5017,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _slot The storage slot number to check.
      */
     checkNotAdditionalProtectedVariable(
-      _slot: PromiseOrValue<BigNumberish>,
+      _slot: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -5116,7 +5025,7 @@ export interface IColonyNetwork extends BaseContract {
      * Put colony network mining into recovery mode. Can only be called by user with recovery role.
      */
     enterRecoveryMode(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5128,19 +5037,19 @@ export interface IColonyNetwork extends BaseContract {
      * @param userAddress The address of the user that signed the metatransaction
      */
     executeMetaTransaction(
-      userAddress: PromiseOrValue<string>,
-      payload: PromiseOrValue<BytesLike>,
-      sigR: PromiseOrValue<BytesLike>,
-      sigS: PromiseOrValue<BytesLike>,
-      sigV: PromiseOrValue<BigNumberish>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      userAddress: string,
+      payload: BytesLike,
+      sigR: BytesLike,
+      sigS: BytesLike,
+      sigV: BigNumberish,
+      overrides?: PayableOverrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Exit recovery mode, can be called by anyone if enough whitelist approvals are given.
      */
     exitRecoveryMode(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5148,7 +5057,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param userAddress The address of the user that will sign the metatransaction
      */
     getMetatransactionNonce(
-      userAddress: PromiseOrValue<string>,
+      userAddress: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -5163,8 +5072,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param data The encoded function data for each of the calls to make to this contract
      */
     multicall(
-      data: PromiseOrValue<BytesLike>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      data: BytesLike[],
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5177,8 +5086,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _user User we want to remove recovery role from
      */
     removeRecoveryRole(
-      _user: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _user: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5186,8 +5095,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _user User we want to give a recovery role to
      */
     setRecoveryRole(
-      _user: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _user: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5197,9 +5106,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _value word of data to be set
      */
     setStorageSlotRecovery(
-      _slot: PromiseOrValue<BigNumberish>,
-      _value: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _slot: BigNumberish,
+      _value: BytesLike,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5208,7 +5117,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _interfaceID The interface identifier, as specified in ERC-165
      */
     supportsInterface(
-      _interfaceID: PromiseOrValue<BytesLike>,
+      _interfaceID: BytesLike,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -5225,15 +5134,15 @@ export interface IColonyNetwork extends BaseContract {
      * @param _user The address of the user earning / losing the reputation
      */
     setReplacementReputationUpdateLogEntry(
-      _reputationMiningCycle: PromiseOrValue<string>,
-      _id: PromiseOrValue<BigNumberish>,
-      _user: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _skillId: PromiseOrValue<BigNumberish>,
-      _colony: PromiseOrValue<string>,
-      _nUpdates: PromiseOrValue<BigNumberish>,
-      _nPreviousUpdates: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _reputationMiningCycle: string,
+      _id: BigNumberish,
+      _user: string,
+      _amount: BigNumberish,
+      _skillId: BigNumberish,
+      _colony: string,
+      _nUpdates: BigNumberish,
+      _nPreviousUpdates: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5242,8 +5151,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _reputationMiningCycle The address of the reputation mining cycle we are asking about
      */
     getReplacementReputationUpdateLogEntry(
-      _reputationMiningCycle: PromiseOrValue<string>,
-      _id: PromiseOrValue<BigNumberish>,
+      _reputationMiningCycle: string,
+      _id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -5252,7 +5161,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _reputationMiningCycle The reputation mining cycle address we want to know if any entries have been replaced in.
      */
     getReplacementReputationUpdateLogsExist(
-      _reputationMiningCycle: PromiseOrValue<string>,
+      _reputationMiningCycle: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -5271,7 +5180,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _colony Address of the colony
      */
     isColony(
-      _colony: PromiseOrValue<string>,
+      _colony: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -5281,8 +5190,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _parentSkillId Id of the skill under which the new skill will be added. If 0, a global skill is added with no parent.
      */
     addSkill(
-      _parentSkillId: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _parentSkillId: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5290,7 +5199,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _skillId Id of the skill
      */
     getSkill(
-      _skillId: PromiseOrValue<BigNumberish>,
+      _skillId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -5300,8 +5209,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _skillId Id of the skill
      */
     "deprecateSkill(uint256)"(
-      _skillId: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _skillId: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5310,16 +5219,16 @@ export interface IColonyNetwork extends BaseContract {
      * @param _skillId Id of the skill
      */
     "deprecateSkill(uint256,bool)"(
-      _skillId: PromiseOrValue<BigNumberish>,
-      _deprecated: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _skillId: BigNumberish,
+      _deprecated: boolean,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Initialise the local skills tree for a colony
      */
     initialiseRootLocalSkill(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5330,10 +5239,10 @@ export interface IColonyNetwork extends BaseContract {
      * @param _user The address of the user for the reputation update
      */
     appendReputationUpdateLog(
-      _user: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _skillId: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _user: string,
+      _amount: BigNumberish,
+      _skillId: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5353,8 +5262,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _tokenLockingAddress Address of the locking contract
      */
     setTokenLocking(
-      _tokenLockingAddress: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _tokenLockingAddress: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5367,8 +5276,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _tokenAddress Address of the CLNY token
      */
     createMetaColony(
-      _tokenAddress: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _tokenAddress: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5377,8 +5286,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _tokenAddress Address of an ERC20 token to serve as the colony token.
      */
     "createColony(address)"(
-      _tokenAddress: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _tokenAddress: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5390,11 +5299,11 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version The version of colony to deploy (pass 0 for the current version)
      */
     "createColony(address,uint256,string,string)"(
-      _tokenAddress: PromiseOrValue<string>,
-      _version: PromiseOrValue<BigNumberish>,
-      _colonyName: PromiseOrValue<string>,
-      _metadata: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _tokenAddress: string,
+      _version: BigNumberish,
+      _colonyName: string,
+      _metadata: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5405,10 +5314,10 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version The version of colony to deploy (pass 0 for the current version)
      */
     "createColony(address,uint256,string)"(
-      _tokenAddress: PromiseOrValue<string>,
-      _version: PromiseOrValue<BigNumberish>,
-      _colonyName: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _tokenAddress: string,
+      _version: BigNumberish,
+      _colonyName: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5421,12 +5330,12 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version The version of colony to deploy (pass 0 for the current version)
      */
     "createColony(address,uint256,string,string,bool)"(
-      _tokenAddress: PromiseOrValue<string>,
-      _version: PromiseOrValue<BigNumberish>,
-      _colonyName: PromiseOrValue<string>,
-      _orbitdb: PromiseOrValue<string>,
-      _useExtensionManager: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _tokenAddress: string,
+      _version: BigNumberish,
+      _colonyName: string,
+      _orbitdb: string,
+      _useExtensionManager: boolean,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5441,14 +5350,14 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version The version of colony to deploy (pass 0 for the current version)
      */
     createColonyForFrontend(
-      _tokenAddress: PromiseOrValue<string>,
-      _name: PromiseOrValue<string>,
-      _symbol: PromiseOrValue<string>,
-      _decimals: PromiseOrValue<BigNumberish>,
-      _version: PromiseOrValue<BigNumberish>,
-      _colonyName: PromiseOrValue<string>,
-      _metadata: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _tokenAddress: string,
+      _name: string,
+      _symbol: string,
+      _decimals: BigNumberish,
+      _version: BigNumberish,
+      _colonyName: string,
+      _metadata: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5457,9 +5366,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version The new Colony contract version
      */
     addColonyVersion(
-      _version: PromiseOrValue<BigNumberish>,
-      _resolver: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _version: BigNumberish,
+      _resolver: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5469,9 +5378,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version Version of the Colony contract the resolver represents
      */
     initialise(
-      _resolver: PromiseOrValue<string>,
-      _version: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _resolver: string,
+      _version: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5479,7 +5388,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _id Id of the colony to get
      */
     getColony(
-      _id: PromiseOrValue<BigNumberish>,
+      _id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -5496,8 +5405,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _skillId Id of the skill
      */
     getParentSkillId(
-      _skillId: PromiseOrValue<BigNumberish>,
-      _parentSkillIndex: PromiseOrValue<BigNumberish>,
+      _skillId: BigNumberish,
+      _parentSkillIndex: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -5507,8 +5416,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _skillId Id of the skill
      */
     getChildSkillId(
-      _skillId: PromiseOrValue<BigNumberish>,
-      _childSkillIndex: PromiseOrValue<BigNumberish>,
+      _skillId: BigNumberish,
+      _childSkillIndex: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -5517,7 +5426,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _active Whether the user wants the active or inactive reputation mining cycle
      */
     getReputationMiningCycle(
-      _active: PromiseOrValue<boolean>,
+      _active: boolean,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -5527,8 +5436,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _timeStaked Amount of time (in seconds) that the miner has staked their CLNY
      */
     calculateMinerWeight(
-      _timeStaked: PromiseOrValue<BigNumberish>,
-      _submissonIndex: PromiseOrValue<BigNumberish>,
+      _timeStaked: BigNumberish,
+      _submissonIndex: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -5537,7 +5446,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version The Colony contract version
      */
     getColonyVersionResolver(
-      _version: PromiseOrValue<BigNumberish>,
+      _version: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -5548,24 +5457,24 @@ export interface IColonyNetwork extends BaseContract {
      * @param _stakers Array of users who submitted or backed the hash, being accepted here as the new reputation root hash
      */
     setReputationRootHash(
-      _newHash: PromiseOrValue<BytesLike>,
-      _newNLeaves: PromiseOrValue<BigNumberish>,
-      _stakers: PromiseOrValue<string>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _newHash: BytesLike,
+      _newNLeaves: BigNumberish,
+      _stakers: string[],
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Starts a new Reputation Mining cycle. Explicitly called only the first time, subsequently called from within `setReputationRootHash`.
      */
     startNextCycle(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
      * Creates initial inactive reputation mining cycle.
      */
     initialiseReputationMining(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5596,8 +5505,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _token Address of the token held by the network to be auctioned
      */
     startTokenAuction(
-      _token: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5606,9 +5515,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _rootNode Namehash of the root node for the domain
      */
     setupRegistrar(
-      _ens: PromiseOrValue<string>,
-      _rootNode: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _ens: string,
+      _rootNode: BytesLike,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5617,9 +5526,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _username The label to register
      */
     registerUserLabel(
-      _username: PromiseOrValue<string>,
-      _orbitdb: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _username: string,
+      _orbitdb: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5628,9 +5537,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _orbitdb The path of the orbitDB database associated with the colony name
      */
     registerColonyLabel(
-      _colonyName: PromiseOrValue<string>,
-      _orbitdb: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _colonyName: string,
+      _orbitdb: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5638,8 +5547,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _orbitdb The path of the orbitDB database to be associated with the colony
      */
     updateColonyOrbitDB(
-      _orbitdb: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _orbitdb: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5647,8 +5556,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _orbitdb The path of the orbitDB database to be associated with the user
      */
     updateUserOrbitDB(
-      _orbitdb: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _orbitdb: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5656,7 +5565,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _node The Namehash of the account being queried.
      */
     getProfileDBAddress(
-      _node: PromiseOrValue<BytesLike>,
+      _node: BytesLike,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -5665,7 +5574,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _addr The address we wish to find the corresponding ENS domain for (if any)
      */
     lookupRegisteredENSDomain(
-      _addr: PromiseOrValue<string>,
+      _addr: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -5674,7 +5583,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _node The namehash of the ENS address being requested
      */
     addr(
-      _node: PromiseOrValue<BytesLike>,
+      _node: BytesLike,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -5688,8 +5597,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _miningResolverAddress The address of the Resolver contract with the functions correctly wired.
      */
     setMiningResolver(
-      _miningResolverAddress: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _miningResolverAddress: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5704,9 +5613,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _resolver The deployed resolver containing the extension contract logic
      */
     addExtensionToNetwork(
-      _extensionId: PromiseOrValue<BytesLike>,
-      _resolver: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _extensionId: BytesLike,
+      _resolver: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5715,9 +5624,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version Version of the extension to install
      */
     installExtension(
-      _extensionId: PromiseOrValue<BytesLike>,
-      _version: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _extensionId: BytesLike,
+      _version: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5726,9 +5635,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _newVersion Version of the extension to upgrade to (must be one greater than current)
      */
     upgradeExtension(
-      _extensionId: PromiseOrValue<BytesLike>,
-      _newVersion: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _extensionId: BytesLike,
+      _newVersion: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5737,9 +5646,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _extensionId keccak256 hash of the extension name, used as an indentifier
      */
     deprecateExtension(
-      _extensionId: PromiseOrValue<BytesLike>,
-      _deprecated: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _extensionId: BytesLike,
+      _deprecated: boolean,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5747,8 +5656,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _extensionId keccak256 hash of the extension name, used as an indentifier
      */
     uninstallExtension(
-      _extensionId: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _extensionId: BytesLike,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5757,8 +5666,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _version Version of the extension
      */
     getExtensionResolver(
-      _extensionId: PromiseOrValue<BytesLike>,
-      _version: PromiseOrValue<BigNumberish>,
+      _extensionId: BytesLike,
+      _version: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -5768,8 +5677,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _extensionId keccak256 hash of the extension name, used as an indentifier
      */
     getExtensionInstallation(
-      _extensionId: PromiseOrValue<BytesLike>,
-      _colony: PromiseOrValue<string>,
+      _extensionId: BytesLike,
+      _colony: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -5783,8 +5692,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _feeInverse The inverse of the network fee to set
      */
     setFeeInverse(
-      _feeInverse: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _feeInverse: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5792,7 +5701,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _token The token being queried
      */
     getPayoutWhitelist(
-      _token: PromiseOrValue<string>,
+      _token: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -5802,9 +5711,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _token The token being set
      */
     setPayoutWhitelist(
-      _token: PromiseOrValue<string>,
-      _status: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      _status: boolean,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5814,9 +5723,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _stakers Array of the addresses of stakers to punish
      */
     punishStakers(
-      _stakers: PromiseOrValue<string>[],
-      _amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _stakers: string[],
+      _amount: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5824,8 +5733,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _amount Amount of CLNY to stake for the purposes of mining
      */
     stakeForMining(
-      _amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _amount: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5833,8 +5742,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _amount Amount of CLNY staked for mining to unstake
      */
     unstakeForMining(
-      _amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _amount: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5842,7 +5751,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _user The user to query
      */
     getMiningStake(
-      _user: PromiseOrValue<string>,
+      _user: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -5853,9 +5762,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _recipient The address receiving the award
      */
     reward(
-      _recipient: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _recipient: string,
+      _amount: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5864,8 +5773,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _amount The amount of CLNY to burn
      */
     burnUnneededRewards(
-      _amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _amount: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5874,8 +5783,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _recipient The user whose rewards to claim
      */
     claimMiningReward(
-      _recipient: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _recipient: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5884,8 +5793,8 @@ export interface IColonyNetwork extends BaseContract {
      * @param _amount The CLNY awarded per mining cycle to the miners
      */
     setReputationMiningCycleReward(
-      _amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _amount: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5903,10 +5812,10 @@ export interface IColonyNetwork extends BaseContract {
      * @param _symbol The short 'ticket' symbol for the token
      */
     deployTokenViaNetwork(
-      _name: PromiseOrValue<string>,
-      _symbol: PromiseOrValue<string>,
-      _decimals: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _name: string,
+      _symbol: string,
+      _decimals: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5917,10 +5826,10 @@ export interface IColonyNetwork extends BaseContract {
      * @param _token The address of the token
      */
     deployTokenAuthority(
-      _token: PromiseOrValue<string>,
-      _colony: PromiseOrValue<string>,
-      _allowedToTransfer: PromiseOrValue<string>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _token: string,
+      _colony: string,
+      _allowedToTransfer: string[],
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5929,9 +5838,9 @@ export interface IColonyNetwork extends BaseContract {
      * @param _delegate The address you're giving or removing permission from
      */
     setMiningDelegate(
-      _delegate: PromiseOrValue<string>,
-      _allowed: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _delegate: string,
+      _allowed: boolean,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**
@@ -5939,7 +5848,7 @@ export interface IColonyNetwork extends BaseContract {
      * @param _delegate The address that wants to mine
      */
     getMiningDelegator(
-      _delegate: PromiseOrValue<string>,
+      _delegate: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };
