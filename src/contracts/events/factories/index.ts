@@ -10,6 +10,7 @@ export { IVotingReputationEvents__factory } from "./IVotingReputationEvents__fac
 export { MetaTxTokenEvents__factory } from "./MetaTxTokenEvents__factory";
 export { OneTxPaymentEvents__factory } from "./OneTxPaymentEvents__factory";
 export { ReputationBootstrapperEvents__factory } from "./ReputationBootstrapperEvents__factory";
+export { StagedExpenditureEvents__factory } from "./StagedExpenditureEvents__factory";
 export { StakedExpenditureEvents__factory } from "./StakedExpenditureEvents__factory";
 export { StreamingPaymentsEvents__factory } from "./StreamingPaymentsEvents__factory";
 export { TokenEvents__factory } from "./TokenEvents__factory";

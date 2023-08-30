@@ -87,6 +87,9 @@ export const RELEASE_MAP = {
     glwss4: 2,
     next: 3,
   },
+  StagedExpenditure: {
+    next: 1,
+  },
   StakedExpenditure: {
     glwss: 1,
     glwss2: 2,

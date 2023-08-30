@@ -61,6 +61,7 @@ export interface IColonyEventsInterface extends utils.Interface {
     "TaskFinalized(address,uint256)": EventFragment;
     "PayoutClaimed(uint256,address,uint256)": EventFragment;
     "PayoutClaimed(address,uint256,address,uint256)": EventFragment;
+    "PayoutClaimed(address,uint256,uint256,address,uint256)": EventFragment;
     "TaskCanceled(uint256)": EventFragment;
     "DomainAdded(uint256)": EventFragment;
     "DomainAdded(address,uint256)": EventFragment;
@@ -207,6 +208,9 @@ export interface IColonyEventsInterface extends utils.Interface {
   ): EventFragment;
   getEvent(
     nameOrSignatureOrTopic: "PayoutClaimed(address,uint256,address,uint256)"
+  ): EventFragment;
+  getEvent(
+    nameOrSignatureOrTopic: "PayoutClaimed(address,uint256,uint256,address,uint256)"
   ): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TaskCanceled"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "DomainAdded(uint256)"): EventFragment;
@@ -783,6 +787,22 @@ export type PayoutClaimed_address_uint256_address_uint256_Event = TypedEvent<
 
 export type PayoutClaimed_address_uint256_address_uint256_EventFilter =
   TypedEventFilter<PayoutClaimed_address_uint256_address_uint256_Event>;
+
+export interface PayoutClaimed_address_uint256_uint256_address_uint256_EventObject {
+  agent: string;
+  id: BigNumber;
+  slot: BigNumber;
+  token: string;
+  tokenPayout: BigNumber;
+}
+export type PayoutClaimed_address_uint256_uint256_address_uint256_Event =
+  TypedEvent<
+    [string, BigNumber, BigNumber, string, BigNumber],
+    PayoutClaimed_address_uint256_uint256_address_uint256_EventObject
+  >;
+
+export type PayoutClaimed_address_uint256_uint256_address_uint256_EventFilter =
+  TypedEventFilter<PayoutClaimed_address_uint256_uint256_address_uint256_Event>;
 
 export interface TaskCanceledEventObject {
   taskId: BigNumber;
@@ -1667,6 +1687,13 @@ export interface IColonyEvents extends BaseContract {
       token?: null,
       amount?: null
     ): PayoutClaimed_address_uint256_address_uint256_EventFilter;
+    "PayoutClaimed(address,uint256,uint256,address,uint256)"(
+      agent?: null,
+      id?: null,
+      slot?: null,
+      token?: null,
+      tokenPayout?: null
+    ): PayoutClaimed_address_uint256_uint256_address_uint256_EventFilter;
 
     "TaskCanceled(uint256)"(
       taskId?: BigNumberish | null

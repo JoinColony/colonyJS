@@ -981,6 +981,43 @@ const _abi = [
       {
         indexed: false,
         internalType: "address",
+        name: "agent",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "id",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "slot",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "address",
+        name: "token",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "tokenPayout",
+        type: "uint256",
+      },
+    ],
+    name: "PayoutClaimed",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
         name: "user",
         type: "address",
       },

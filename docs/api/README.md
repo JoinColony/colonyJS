@@ -73,6 +73,7 @@
 - [OneTxPaymentClientV4](interfaces/OneTxPaymentClientV4.md)
 - [OneTxPaymentClientV5](interfaces/OneTxPaymentClientV5.md)
 - [OneTxPaymentClientV6](interfaces/OneTxPaymentClientV6.md)
+- [StagedExpenditureClientV1](interfaces/StagedExpenditureClientV1.md)
 - [StakedExpenditureClientV1](interfaces/StakedExpenditureClientV1.md)
 - [StakedExpenditureClientV2](interfaces/StakedExpenditureClientV2.md)
 - [StakedExpenditureClientV3](interfaces/StakedExpenditureClientV3.md)
@@ -162,6 +163,12 @@ ___
 
 ___
 
+### AnyStagedExpenditureClient
+
+Ƭ **AnyStagedExpenditureClient**: [`StagedExpenditureClientV1`](interfaces/StagedExpenditureClientV1.md)
+
+___
+
 ### AnyStakedExpenditureClient
 
 Ƭ **AnyStakedExpenditureClient**: [`StakedExpenditureClientV1`](interfaces/StakedExpenditureClientV1.md) \| [`StakedExpenditureClientV2`](interfaces/StakedExpenditureClientV2.md) \| [`StakedExpenditureClientV3`](interfaces/StakedExpenditureClientV3.md) \| [`StakedExpenditureClientV4`](interfaces/StakedExpenditureClientV4.md)
@@ -223,13 +230,13 @@ ___
 
 ### EventsClient
 
-Ƭ **EventsClient**: `CoinMachineEvents` \| `EvaluatedExpenditureEvents` \| `IColonyEvents` \| `IColonyNetworkEvents` \| `IVotingReputationEvents` \| `MetaTxTokenEvents` \| `OneTxPaymentEvents` \| `StakedExpenditureEvents` \| `StreamingPaymentsEvents` \| `TokenSupplierEvents` \| `VotingReputationEvents` \| `WhitelistEvents`
+Ƭ **EventsClient**: `CoinMachineEvents` \| `EvaluatedExpenditureEvents` \| `IColonyEvents` \| `IColonyNetworkEvents` \| `IVotingReputationEvents` \| `MetaTxTokenEvents` \| `OneTxPaymentEvents` \| `StagedExpenditureEvents` \| `StakedExpenditureEvents` \| `StreamingPaymentsEvents` \| `TokenSupplierEvents` \| `VotingReputationEvents` \| `WhitelistEvents`
 
 ___
 
 ### ExtensionClient
 
-Ƭ **ExtensionClient**: [`AnyCoinMachineClient`](README.md#anycoinmachineclient) \| [`AnyEvaluatedExpenditureClient`](README.md#anyevaluatedexpenditureclient) \| `AnyFundingQueueClient` \| [`AnyOneTxPaymentClient`](README.md#anyonetxpaymentclient) \| `AnyReputationBootstrapperClient` \| [`AnyStakedExpenditureClient`](README.md#anystakedexpenditureclient) \| [`AnyStreamingPaymentsClient`](README.md#anystreamingpaymentsclient) \| [`AnyTokenSupplierClient`](README.md#anytokensupplierclient) \| [`AnyVotingReputationClient`](README.md#anyvotingreputationclient) \| [`AnyWhitelistClient`](README.md#anywhitelistclient)
+Ƭ **ExtensionClient**: [`AnyCoinMachineClient`](README.md#anycoinmachineclient) \| [`AnyEvaluatedExpenditureClient`](README.md#anyevaluatedexpenditureclient) \| `AnyFundingQueueClient` \| [`AnyOneTxPaymentClient`](README.md#anyonetxpaymentclient) \| `AnyReputationBootstrapperClient` \| [`AnyStagedExpenditureClient`](README.md#anystagedexpenditureclient) \| [`AnyStakedExpenditureClient`](README.md#anystakedexpenditureclient) \| [`AnyStreamingPaymentsClient`](README.md#anystreamingpaymentsclient) \| [`AnyTokenSupplierClient`](README.md#anytokensupplierclient) \| [`AnyVotingReputationClient`](README.md#anyvotingreputationclient) \| [`AnyWhitelistClient`](README.md#anywhitelistclient)
 
 ___
 
@@ -292,6 +299,7 @@ ___
 | `IVotingReputation` | `number` |
 | `OneTxPayment` | `number` |
 | `ReputationBootstrapper` | `number` |
+| `StagedExpenditure` | `number` |
 | `StakedExpenditure` | `number` |
 | `StreamingPayments` | `number` |
 | `TokenSupplier` | `number` |

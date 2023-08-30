@@ -10,6 +10,7 @@ export type { IVotingReputationEvents } from "./IVotingReputationEvents";
 export type { MetaTxTokenEvents } from "./MetaTxTokenEvents";
 export type { OneTxPaymentEvents } from "./OneTxPaymentEvents";
 export type { ReputationBootstrapperEvents } from "./ReputationBootstrapperEvents";
+export type { StagedExpenditureEvents } from "./StagedExpenditureEvents";
 export type { StakedExpenditureEvents } from "./StakedExpenditureEvents";
 export type { StreamingPaymentsEvents } from "./StreamingPaymentsEvents";
 export type { TokenEvents } from "./TokenEvents";
@@ -27,6 +28,7 @@ export { IVotingReputationEvents__factory } from "./factories/IVotingReputationE
 export { MetaTxTokenEvents__factory } from "./factories/MetaTxTokenEvents__factory";
 export { OneTxPaymentEvents__factory } from "./factories/OneTxPaymentEvents__factory";
 export { ReputationBootstrapperEvents__factory } from "./factories/ReputationBootstrapperEvents__factory";
+export { StagedExpenditureEvents__factory } from "./factories/StagedExpenditureEvents__factory";
 export { StakedExpenditureEvents__factory } from "./factories/StakedExpenditureEvents__factory";
 export { StreamingPaymentsEvents__factory } from "./factories/StreamingPaymentsEvents__factory";
 export { TokenEvents__factory } from "./factories/TokenEvents__factory";

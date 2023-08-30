@@ -1758,6 +1758,7 @@ export interface IColonyInterface extends utils.Interface {
     "PaymentRecipientSet(address,uint256,address)": EventFragment;
     "PaymentSkillSet(address,uint256,uint256)": EventFragment;
     "PayoutClaimed(address,uint256,address,uint256)": EventFragment;
+    "PayoutClaimed(address,uint256,uint256,address,uint256)": EventFragment;
     "RecoveryModeEntered(address)": EventFragment;
     "RecoveryModeExitApproved(address)": EventFragment;
     "RecoveryModeExited(address)": EventFragment;
@@ -1826,7 +1827,12 @@ export interface IColonyInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "PaymentPayoutSet"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "PaymentRecipientSet"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "PaymentSkillSet"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "PayoutClaimed"): EventFragment;
+  getEvent(
+    nameOrSignatureOrTopic: "PayoutClaimed(address,uint256,address,uint256)"
+  ): EventFragment;
+  getEvent(
+    nameOrSignatureOrTopic: "PayoutClaimed(address,uint256,uint256,address,uint256)"
+  ): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RecoveryModeEntered"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RecoveryModeExitApproved"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RecoveryModeExited"): EventFragment;
@@ -2325,18 +2331,35 @@ export type PaymentSkillSetEvent = TypedEvent<
 
 export type PaymentSkillSetEventFilter = TypedEventFilter<PaymentSkillSetEvent>;
 
-export interface PayoutClaimedEventObject {
+export interface PayoutClaimed_address_uint256_address_uint256_EventObject {
   agent: string;
   fundingPotId: BigNumber;
   token: string;
   amount: BigNumber;
 }
-export type PayoutClaimedEvent = TypedEvent<
+export type PayoutClaimed_address_uint256_address_uint256_Event = TypedEvent<
   [string, BigNumber, string, BigNumber],
-  PayoutClaimedEventObject
+  PayoutClaimed_address_uint256_address_uint256_EventObject
 >;
 
-export type PayoutClaimedEventFilter = TypedEventFilter<PayoutClaimedEvent>;
+export type PayoutClaimed_address_uint256_address_uint256_EventFilter =
+  TypedEventFilter<PayoutClaimed_address_uint256_address_uint256_Event>;
+
+export interface PayoutClaimed_address_uint256_uint256_address_uint256_EventObject {
+  agent: string;
+  id: BigNumber;
+  slot: BigNumber;
+  token: string;
+  tokenPayout: BigNumber;
+}
+export type PayoutClaimed_address_uint256_uint256_address_uint256_Event =
+  TypedEvent<
+    [string, BigNumber, BigNumber, string, BigNumber],
+    PayoutClaimed_address_uint256_uint256_address_uint256_EventObject
+  >;
+
+export type PayoutClaimed_address_uint256_uint256_address_uint256_EventFilter =
+  TypedEventFilter<PayoutClaimed_address_uint256_uint256_address_uint256_Event>;
 
 export interface RecoveryModeEnteredEventObject {
   user: string;
@@ -8627,13 +8650,14 @@ export interface IColony extends BaseContract {
       fundingPotId?: BigNumberish | null,
       token?: null,
       amount?: null
-    ): PayoutClaimedEventFilter;
-    PayoutClaimed(
+    ): PayoutClaimed_address_uint256_address_uint256_EventFilter;
+    "PayoutClaimed(address,uint256,uint256,address,uint256)"(
       agent?: null,
-      fundingPotId?: BigNumberish | null,
+      id?: null,
+      slot?: null,
       token?: null,
-      amount?: null
-    ): PayoutClaimedEventFilter;
+      tokenPayout?: null
+    ): PayoutClaimed_address_uint256_uint256_address_uint256_EventFilter;
 
     "RecoveryModeEntered(address)"(user?: null): RecoveryModeEnteredEventFilter;
     RecoveryModeEntered(user?: null): RecoveryModeEnteredEventFilter;

@@ -16,6 +16,7 @@ const VERSIONED_CONTRACTS = [
   'IVotingReputation',
   'OneTxPayment',
   'ReputationBootstrapper',
+  'StagedExpenditure',
   'StakedExpenditure',
   'StreamingPayments',
   'TokenSupplier',
@@ -170,17 +171,19 @@ const buildStaticTokenContracts = async () => {
   await typechain;
 };
 
-const buildEventsContracts = async () => {
+const buildEventsContracts = async (tag: string) => {
   const contractGlobs = `{${EVENTS_CONTRACTS.map((c) => `${c}Events.json`).join(
     ',',
   )}}`;
+
+  const eventsDir = tag === 'next' ? `${EVENTS_DIR}/next` : EVENTS_DIR;
 
   const typechain = execa('typechain', [
     '--target',
     'ethers-v5',
     '--out-dir',
     OUT_EVENTS_DIR,
-    `${EVENTS_DIR}/${contractGlobs}`,
+    `${eventsDir}/${contractGlobs}`,
   ]);
 
   if (typechain.stdout) typechain.stdout.pipe(process.stdout);
@@ -208,7 +211,7 @@ const build = async () => {
   if (tag === LATEST_TAG || tag === 'next') {
     await buildLatestContracts(versionDir);
     await buildLatestTokentContracts(versionDir);
-    await buildEventsContracts();
+    await buildEventsContracts(tag);
   }
 };
 

@@ -17,6 +17,7 @@ import {
   IVotingReputationEvents,
   MetaTxTokenEvents,
   OneTxPaymentEvents,
+  StagedExpenditureEvents,
   StakedExpenditureEvents,
   StreamingPaymentsEvents,
   TokenSupplierEvents,
@@ -34,6 +35,7 @@ export type EventsClient =
   | IVotingReputationEvents
   | MetaTxTokenEvents
   | OneTxPaymentEvents
+  | StagedExpenditureEvents
   | StakedExpenditureEvents
   | StreamingPaymentsEvents
   | TokenSupplierEvents
