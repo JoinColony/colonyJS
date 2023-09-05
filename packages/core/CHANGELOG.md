@@ -1,5 +1,15 @@
 # @colony/core
 
+## 2.0.0-next.3
+
+### Major Changes
+
+- c8f5f743: **`cross-fetch` was removed as a dependency.**
+
+  Users of this library have to make sure that a fetch function exists in the global namespace (e.g. by using `node-fetch` and [adding it to the `globalThis`](https://github.com/node-fetch/node-fetch#providing-global-access)).
+
+  It also adds another build target for Colony SDK which is a minified bundle of the library
+
 ## 1.2.0-next.2
 
 ### Minor Changes

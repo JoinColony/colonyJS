@@ -46,7 +46,7 @@
     "prepare": "npm run build-contracts"
   },
   "devDependencies": {
-    "@colony/core": "^1.2.0-next.2",
+    "@colony/core": "^2.0.0-next.3",
     "@colony/contractor": "^1.1.0-next.2",
     "@ethersproject/abi": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",
