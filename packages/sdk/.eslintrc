@@ -15,7 +15,9 @@
             {
                 "devDependencies": [
                     "examples/node/*.ts",
-                    "examples/browser/src/*.ts"
+                    "examples/browser/src/*.ts",
+                    "tsup.config.ts",
+                    "tsup.min.config.ts"
                 ]
             }
         ],
