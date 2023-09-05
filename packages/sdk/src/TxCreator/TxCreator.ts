@@ -2,7 +2,6 @@ import type { MotionCreatedEventObject } from '@colony/events/types';
 import type { TransactionResponse } from '@ethersproject/abstract-provider';
 
 import { Contract, ContractReceipt, ContractTransaction } from 'ethers';
-import { fetch } from 'cross-fetch';
 import { parseLogs } from '@colony/core';
 import {
   type MetadataTypeMap,

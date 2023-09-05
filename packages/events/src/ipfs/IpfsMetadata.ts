@@ -1,4 +1,3 @@
-import fetch from 'cross-fetch';
 import wrapFetch from 'fetch-retry';
 
 import { createMetadataFor, parseEventMetadata } from './metadata.js';

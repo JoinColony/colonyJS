@@ -5,6 +5,7 @@
       "esModuleInterop": true,
       "inlineSourceMap": false,
       "lib": [
+        "dom",
         "esnext"
       ],
       "listEmittedFiles": false,

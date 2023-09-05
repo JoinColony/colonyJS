@@ -1,4 +1,3 @@
-import fetch from 'cross-fetch';
 import { BigNumber, BigNumberish, constants } from 'ethers';
 
 import { Network, ReputationOracleEndpoint } from '../constants.js';
