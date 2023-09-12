@@ -42,6 +42,7 @@ export declare namespace VotingReputationDataTypes {
     escalated: boolean;
     finalized: boolean;
     altTarget: string;
+    sig: BytesLike;
     action: BytesLike;
   };
 
@@ -59,6 +60,7 @@ export declare namespace VotingReputationDataTypes {
     boolean,
     boolean,
     string,
+    string,
     string
   ] & {
     events: [BigNumber, BigNumber, BigNumber];
@@ -74,7 +76,20 @@ export declare namespace VotingReputationDataTypes {
     escalated: boolean;
     finalized: boolean;
     altTarget: string;
+    sig: string;
     action: string;
+  };
+
+  export type ActionSummaryStruct = {
+    sig: BytesLike;
+    domainSkillId: BigNumberish;
+    expenditureId: BigNumberish;
+  };
+
+  export type ActionSummaryStructOutput = [string, BigNumber, BigNumber] & {
+    sig: string;
+    domainSkillId: BigNumber;
+    expenditureId: BigNumber;
   };
 }
 
@@ -113,12 +128,14 @@ export interface IVotingReputationInterface extends utils.Interface {
     "getMotion(uint256)": FunctionFragment;
     "getStake(uint256,address,uint256)": FunctionFragment;
     "getExpenditureMotionCount(bytes32)": FunctionFragment;
-    "getExpenditurePastVote(bytes32)": FunctionFragment;
+    "getExpenditureMotionLock(uint256)": FunctionFragment;
+    "getExpenditurePastVote(uint256)": FunctionFragment;
+    "getExpenditurePastVotes_DEPRECATED(bytes32)": FunctionFragment;
     "getMotionState(uint256)": FunctionFragment;
     "getVoterReward(uint256,uint256)": FunctionFragment;
     "getVoterRewardRange(uint256,uint256,address)": FunctionFragment;
+    "getActionSummary(bytes,address)": FunctionFragment;
     "getStakerReward(uint256,address,uint256)": FunctionFragment;
-    "createClaimDelayAction(bytes,uint256)": FunctionFragment;
     "claimMisalignedReward(uint256,uint256,uint256,address,uint256)": FunctionFragment;
   };
 
@@ -157,12 +174,14 @@ export interface IVotingReputationInterface extends utils.Interface {
       | "getMotion"
       | "getStake"
       | "getExpenditureMotionCount"
+      | "getExpenditureMotionLock"
       | "getExpenditurePastVote"
+      | "getExpenditurePastVotes_DEPRECATED"
       | "getMotionState"
       | "getVoterReward"
       | "getVoterRewardRange"
+      | "getActionSummary"
       | "getStakerReward"
-      | "createClaimDelayAction"
       | "claimMisalignedReward"
   ): FunctionFragment;
 
@@ -335,7 +354,15 @@ export interface IVotingReputationInterface extends utils.Interface {
     values: [BytesLike]
   ): string;
   encodeFunctionData(
+    functionFragment: "getExpenditureMotionLock",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "getExpenditurePastVote",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getExpenditurePastVotes_DEPRECATED",
     values: [BytesLike]
   ): string;
   encodeFunctionData(
@@ -351,12 +378,12 @@ export interface IVotingReputationInterface extends utils.Interface {
     values: [BigNumberish, BigNumberish, string]
   ): string;
   encodeFunctionData(
-    functionFragment: "getStakerReward",
-    values: [BigNumberish, string, BigNumberish]
+    functionFragment: "getActionSummary",
+    values: [BytesLike, string]
   ): string;
   encodeFunctionData(
-    functionFragment: "createClaimDelayAction",
-    values: [BytesLike, BigNumberish]
+    functionFragment: "getStakerReward",
+    values: [BigNumberish, string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "claimMisalignedReward",
@@ -460,7 +487,15 @@ export interface IVotingReputationInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "getExpenditureMotionLock",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "getExpenditurePastVote",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getExpenditurePastVotes_DEPRECATED",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -476,11 +511,11 @@ export interface IVotingReputationInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getStakerReward",
+    functionFragment: "getActionSummary",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "createClaimDelayAction",
+    functionFragment: "getStakerReward",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -971,8 +1006,8 @@ export interface IVotingReputation extends BaseContract {
     ): Promise<[BigNumber] & { _stake: BigNumber }>;
 
     /**
-     * Get the number of ongoing motions for a single expenditure / expenditure slot
-     * @param _structHash The hash of the expenditureId or expenditureId*expenditureSlot
+     * DEPRECATED Get the count of active motions for an expenditure slot
+     * @param _structHash Hash of an expenditure id and slot
      */
     getExpenditureMotionCount(
       _structHash: BytesLike,
@@ -980,11 +1015,31 @@ export interface IVotingReputation extends BaseContract {
     ): Promise<[BigNumber] & { _count: BigNumber }>;
 
     /**
-     * Get the largest past vote on a single expenditure variable
-     * @param _actionHash The hash of the particular expenditure action
+     * Get the motion which holds the lock on an expenditure
+     * @param _expenditureId The expenditureId
+     */
+    getExpenditureMotionLock(
+      _expenditureId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber] & { _motionId: BigNumber }>;
+
+    /**
+     * The previous version of this function which took an actionHash has been deprecated
+     * Get the largest past vote on an expenditure
+     * @param _expenditureId The expenditureId
      */
     getExpenditurePastVote(
-      _actionHash: BytesLike,
+      _expenditureId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber] & { _vote: BigNumber }>;
+
+    /**
+     * This is deprecated, and allows visibility on to this variable for any v9 motions that are still ongoing.
+     * DEPRECATED Get the largest past vote on an expenditure
+     * @param _slotSignature The slot signature
+     */
+    getExpenditurePastVotes_DEPRECATED(
+      _slotSignature: BytesLike,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { _vote: BigNumber }>;
 
@@ -998,7 +1053,8 @@ export interface IVotingReputation extends BaseContract {
     ): Promise<[number] & { _motionState: number }>;
 
     /**
-     * Get the voter reward NB This function will only return a meaningful value if in the reveal state. Prior to the reveal state, getVoterRewardRange should be used.
+     * This function will only return an accurate value if in the reveal state. Otherwise, use getVoterRewardRange
+     * Get the voter reward
      * @param _motionId The id of the motion
      * @param _voterRep The reputation the voter has in the domain
      */
@@ -1024,6 +1080,21 @@ export interface IVotingReputation extends BaseContract {
     >;
 
     /**
+     * Return a summary of the multicall action
+     * @param _action The id of the motion
+     * @param _altTarget The address of the altTarget, or 0x0 if none exists
+     */
+    getActionSummary(
+      _action: BytesLike,
+      _altTarget: string,
+      overrides?: CallOverrides
+    ): Promise<
+      [VotingReputationDataTypes.ActionSummaryStructOutput] & {
+        _summary: VotingReputationDataTypes.ActionSummaryStructOutput;
+      }
+    >;
+
+    /**
      * Get the staker reward
      * @param _motionId The id of the motion
      * @param _staker The staker's address
@@ -1037,18 +1108,6 @@ export interface IVotingReputation extends BaseContract {
     ): Promise<
       [BigNumber, BigNumber] & { _reward: BigNumber; _penalty: BigNumber }
     >;
-
-    /**
-     * Not expected to be used directly, could be made private in the future
-     * Create the action that should be taken based on the passed action to appropriately set the claim window of an expenditure from starting.
-     * @param _action The action being voted on
-     * @param _value The value to set the claim delay to
-     */
-    createClaimDelayAction(
-      _action: BytesLike,
-      _value: BigNumberish,
-      overrides?: Overrides & { from?: string }
-    ): Promise<ContractTransaction>;
 
     /**
      * Claim the staker's reward from a motion that was created with v4 of the extension, and is now missing and cannot be interacted with via the normal claim function.
@@ -1366,8 +1425,8 @@ export interface IVotingReputation extends BaseContract {
   ): Promise<BigNumber>;
 
   /**
-   * Get the number of ongoing motions for a single expenditure / expenditure slot
-   * @param _structHash The hash of the expenditureId or expenditureId*expenditureSlot
+   * DEPRECATED Get the count of active motions for an expenditure slot
+   * @param _structHash Hash of an expenditure id and slot
    */
   getExpenditureMotionCount(
     _structHash: BytesLike,
@@ -1375,11 +1434,31 @@ export interface IVotingReputation extends BaseContract {
   ): Promise<BigNumber>;
 
   /**
-   * Get the largest past vote on a single expenditure variable
-   * @param _actionHash The hash of the particular expenditure action
+   * Get the motion which holds the lock on an expenditure
+   * @param _expenditureId The expenditureId
+   */
+  getExpenditureMotionLock(
+    _expenditureId: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  /**
+   * The previous version of this function which took an actionHash has been deprecated
+   * Get the largest past vote on an expenditure
+   * @param _expenditureId The expenditureId
    */
   getExpenditurePastVote(
-    _actionHash: BytesLike,
+    _expenditureId: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  /**
+   * This is deprecated, and allows visibility on to this variable for any v9 motions that are still ongoing.
+   * DEPRECATED Get the largest past vote on an expenditure
+   * @param _slotSignature The slot signature
+   */
+  getExpenditurePastVotes_DEPRECATED(
+    _slotSignature: BytesLike,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
@@ -1393,7 +1472,8 @@ export interface IVotingReputation extends BaseContract {
   ): Promise<number>;
 
   /**
-   * Get the voter reward NB This function will only return a meaningful value if in the reveal state. Prior to the reveal state, getVoterRewardRange should be used.
+   * This function will only return an accurate value if in the reveal state. Otherwise, use getVoterRewardRange
+   * Get the voter reward
    * @param _motionId The id of the motion
    * @param _voterRep The reputation the voter has in the domain
    */
@@ -1419,6 +1499,17 @@ export interface IVotingReputation extends BaseContract {
   >;
 
   /**
+   * Return a summary of the multicall action
+   * @param _action The id of the motion
+   * @param _altTarget The address of the altTarget, or 0x0 if none exists
+   */
+  getActionSummary(
+    _action: BytesLike,
+    _altTarget: string,
+    overrides?: CallOverrides
+  ): Promise<VotingReputationDataTypes.ActionSummaryStructOutput>;
+
+  /**
    * Get the staker reward
    * @param _motionId The id of the motion
    * @param _staker The staker's address
@@ -1432,18 +1523,6 @@ export interface IVotingReputation extends BaseContract {
   ): Promise<
     [BigNumber, BigNumber] & { _reward: BigNumber; _penalty: BigNumber }
   >;
-
-  /**
-   * Not expected to be used directly, could be made private in the future
-   * Create the action that should be taken based on the passed action to appropriately set the claim window of an expenditure from starting.
-   * @param _action The action being voted on
-   * @param _value The value to set the claim delay to
-   */
-  createClaimDelayAction(
-    _action: BytesLike,
-    _value: BigNumberish,
-    overrides?: Overrides & { from?: string }
-  ): Promise<ContractTransaction>;
 
   /**
    * Claim the staker's reward from a motion that was created with v4 of the extension, and is now missing and cannot be interacted with via the normal claim function.
@@ -1748,8 +1827,8 @@ export interface IVotingReputation extends BaseContract {
     ): Promise<BigNumber>;
 
     /**
-     * Get the number of ongoing motions for a single expenditure / expenditure slot
-     * @param _structHash The hash of the expenditureId or expenditureId*expenditureSlot
+     * DEPRECATED Get the count of active motions for an expenditure slot
+     * @param _structHash Hash of an expenditure id and slot
      */
     getExpenditureMotionCount(
       _structHash: BytesLike,
@@ -1757,11 +1836,31 @@ export interface IVotingReputation extends BaseContract {
     ): Promise<BigNumber>;
 
     /**
-     * Get the largest past vote on a single expenditure variable
-     * @param _actionHash The hash of the particular expenditure action
+     * Get the motion which holds the lock on an expenditure
+     * @param _expenditureId The expenditureId
+     */
+    getExpenditureMotionLock(
+      _expenditureId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * The previous version of this function which took an actionHash has been deprecated
+     * Get the largest past vote on an expenditure
+     * @param _expenditureId The expenditureId
      */
     getExpenditurePastVote(
-      _actionHash: BytesLike,
+      _expenditureId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * This is deprecated, and allows visibility on to this variable for any v9 motions that are still ongoing.
+     * DEPRECATED Get the largest past vote on an expenditure
+     * @param _slotSignature The slot signature
+     */
+    getExpenditurePastVotes_DEPRECATED(
+      _slotSignature: BytesLike,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1775,7 +1874,8 @@ export interface IVotingReputation extends BaseContract {
     ): Promise<number>;
 
     /**
-     * Get the voter reward NB This function will only return a meaningful value if in the reveal state. Prior to the reveal state, getVoterRewardRange should be used.
+     * This function will only return an accurate value if in the reveal state. Otherwise, use getVoterRewardRange
+     * Get the voter reward
      * @param _motionId The id of the motion
      * @param _voterRep The reputation the voter has in the domain
      */
@@ -1801,6 +1901,17 @@ export interface IVotingReputation extends BaseContract {
     >;
 
     /**
+     * Return a summary of the multicall action
+     * @param _action The id of the motion
+     * @param _altTarget The address of the altTarget, or 0x0 if none exists
+     */
+    getActionSummary(
+      _action: BytesLike,
+      _altTarget: string,
+      overrides?: CallOverrides
+    ): Promise<VotingReputationDataTypes.ActionSummaryStructOutput>;
+
+    /**
      * Get the staker reward
      * @param _motionId The id of the motion
      * @param _staker The staker's address
@@ -1814,18 +1925,6 @@ export interface IVotingReputation extends BaseContract {
     ): Promise<
       [BigNumber, BigNumber] & { _reward: BigNumber; _penalty: BigNumber }
     >;
-
-    /**
-     * Not expected to be used directly, could be made private in the future
-     * Create the action that should be taken based on the passed action to appropriately set the claim window of an expenditure from starting.
-     * @param _action The action being voted on
-     * @param _value The value to set the claim delay to
-     */
-    createClaimDelayAction(
-      _action: BytesLike,
-      _value: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<string>;
 
     /**
      * Claim the staker's reward from a motion that was created with v4 of the extension, and is now missing and cannot be interacted with via the normal claim function.
@@ -2245,8 +2344,8 @@ export interface IVotingReputation extends BaseContract {
     ): Promise<BigNumber>;
 
     /**
-     * Get the number of ongoing motions for a single expenditure / expenditure slot
-     * @param _structHash The hash of the expenditureId or expenditureId*expenditureSlot
+     * DEPRECATED Get the count of active motions for an expenditure slot
+     * @param _structHash Hash of an expenditure id and slot
      */
     getExpenditureMotionCount(
       _structHash: BytesLike,
@@ -2254,11 +2353,31 @@ export interface IVotingReputation extends BaseContract {
     ): Promise<BigNumber>;
 
     /**
-     * Get the largest past vote on a single expenditure variable
-     * @param _actionHash The hash of the particular expenditure action
+     * Get the motion which holds the lock on an expenditure
+     * @param _expenditureId The expenditureId
+     */
+    getExpenditureMotionLock(
+      _expenditureId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * The previous version of this function which took an actionHash has been deprecated
+     * Get the largest past vote on an expenditure
+     * @param _expenditureId The expenditureId
      */
     getExpenditurePastVote(
-      _actionHash: BytesLike,
+      _expenditureId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * This is deprecated, and allows visibility on to this variable for any v9 motions that are still ongoing.
+     * DEPRECATED Get the largest past vote on an expenditure
+     * @param _slotSignature The slot signature
+     */
+    getExpenditurePastVotes_DEPRECATED(
+      _slotSignature: BytesLike,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -2272,7 +2391,8 @@ export interface IVotingReputation extends BaseContract {
     ): Promise<BigNumber>;
 
     /**
-     * Get the voter reward NB This function will only return a meaningful value if in the reveal state. Prior to the reveal state, getVoterRewardRange should be used.
+     * This function will only return an accurate value if in the reveal state. Otherwise, use getVoterRewardRange
+     * Get the voter reward
      * @param _motionId The id of the motion
      * @param _voterRep The reputation the voter has in the domain
      */
@@ -2296,6 +2416,17 @@ export interface IVotingReputation extends BaseContract {
     ): Promise<BigNumber>;
 
     /**
+     * Return a summary of the multicall action
+     * @param _action The id of the motion
+     * @param _altTarget The address of the altTarget, or 0x0 if none exists
+     */
+    getActionSummary(
+      _action: BytesLike,
+      _altTarget: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    /**
      * Get the staker reward
      * @param _motionId The id of the motion
      * @param _staker The staker's address
@@ -2306,18 +2437,6 @@ export interface IVotingReputation extends BaseContract {
       _staker: string,
       _vote: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Not expected to be used directly, could be made private in the future
-     * Create the action that should be taken based on the passed action to appropriately set the claim window of an expenditure from starting.
-     * @param _action The action being voted on
-     * @param _value The value to set the claim delay to
-     */
-    createClaimDelayAction(
-      _action: BytesLike,
-      _value: BigNumberish,
-      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     /**
@@ -2647,8 +2766,8 @@ export interface IVotingReputation extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     /**
-     * Get the number of ongoing motions for a single expenditure / expenditure slot
-     * @param _structHash The hash of the expenditureId or expenditureId*expenditureSlot
+     * DEPRECATED Get the count of active motions for an expenditure slot
+     * @param _structHash Hash of an expenditure id and slot
      */
     getExpenditureMotionCount(
       _structHash: BytesLike,
@@ -2656,11 +2775,31 @@ export interface IVotingReputation extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     /**
-     * Get the largest past vote on a single expenditure variable
-     * @param _actionHash The hash of the particular expenditure action
+     * Get the motion which holds the lock on an expenditure
+     * @param _expenditureId The expenditureId
+     */
+    getExpenditureMotionLock(
+      _expenditureId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    /**
+     * The previous version of this function which took an actionHash has been deprecated
+     * Get the largest past vote on an expenditure
+     * @param _expenditureId The expenditureId
      */
     getExpenditurePastVote(
-      _actionHash: BytesLike,
+      _expenditureId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    /**
+     * This is deprecated, and allows visibility on to this variable for any v9 motions that are still ongoing.
+     * DEPRECATED Get the largest past vote on an expenditure
+     * @param _slotSignature The slot signature
+     */
+    getExpenditurePastVotes_DEPRECATED(
+      _slotSignature: BytesLike,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -2674,7 +2813,8 @@ export interface IVotingReputation extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     /**
-     * Get the voter reward NB This function will only return a meaningful value if in the reveal state. Prior to the reveal state, getVoterRewardRange should be used.
+     * This function will only return an accurate value if in the reveal state. Otherwise, use getVoterRewardRange
+     * Get the voter reward
      * @param _motionId The id of the motion
      * @param _voterRep The reputation the voter has in the domain
      */
@@ -2698,6 +2838,17 @@ export interface IVotingReputation extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     /**
+     * Return a summary of the multicall action
+     * @param _action The id of the motion
+     * @param _altTarget The address of the altTarget, or 0x0 if none exists
+     */
+    getActionSummary(
+      _action: BytesLike,
+      _altTarget: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    /**
      * Get the staker reward
      * @param _motionId The id of the motion
      * @param _staker The staker's address
@@ -2708,18 +2859,6 @@ export interface IVotingReputation extends BaseContract {
       _staker: string,
       _vote: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Not expected to be used directly, could be made private in the future
-     * Create the action that should be taken based on the passed action to appropriately set the claim window of an expenditure from starting.
-     * @param _action The action being voted on
-     * @param _value The value to set the claim delay to
-     */
-    createClaimDelayAction(
-      _action: BytesLike,
-      _value: BigNumberish,
-      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     /**

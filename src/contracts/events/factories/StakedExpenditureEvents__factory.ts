@@ -131,6 +131,25 @@ const _abi = [
     name: "StakeReclaimed",
     type: "event",
   },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "expenditureId",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "bool",
+        name: "punished",
+        type: "bool",
+      },
+    ],
+    name: "ExpenditureCancelled",
+    type: "event",
+  },
 ] as const;
 
 export class StakedExpenditureEvents__factory {

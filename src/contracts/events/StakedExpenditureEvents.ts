@@ -16,6 +16,7 @@ export interface StakedExpenditureEventsInterface extends utils.Interface {
 
   events: {
     "ExpenditureCancelled(uint256)": EventFragment;
+    "ExpenditureCancelled(uint256,bool)": EventFragment;
     "ExpenditureMadeViaStake(address,uint256,uint256)": EventFragment;
     "ExtensionInitialised()": EventFragment;
     "LogSetAuthority(address)": EventFragment;
@@ -25,7 +26,12 @@ export interface StakedExpenditureEventsInterface extends utils.Interface {
     "StakeReclaimed(uint256)": EventFragment;
   };
 
-  getEvent(nameOrSignatureOrTopic: "ExpenditureCancelled"): EventFragment;
+  getEvent(
+    nameOrSignatureOrTopic: "ExpenditureCancelled(uint256)"
+  ): EventFragment;
+  getEvent(
+    nameOrSignatureOrTopic: "ExpenditureCancelled(uint256,bool)"
+  ): EventFragment;
   getEvent(nameOrSignatureOrTopic: "ExpenditureMadeViaStake"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "ExtensionInitialised"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "LogSetAuthority"): EventFragment;
@@ -35,16 +41,28 @@ export interface StakedExpenditureEventsInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "StakeReclaimed"): EventFragment;
 }
 
-export interface ExpenditureCancelledEventObject {
+export interface ExpenditureCancelled_uint256_EventObject {
   expenditureId: BigNumber;
 }
-export type ExpenditureCancelledEvent = TypedEvent<
+export type ExpenditureCancelled_uint256_Event = TypedEvent<
   [BigNumber],
-  ExpenditureCancelledEventObject
+  ExpenditureCancelled_uint256_EventObject
 >;
 
-export type ExpenditureCancelledEventFilter =
-  TypedEventFilter<ExpenditureCancelledEvent>;
+export type ExpenditureCancelled_uint256_EventFilter =
+  TypedEventFilter<ExpenditureCancelled_uint256_Event>;
+
+export interface ExpenditureCancelled_uint256_bool_EventObject {
+  expenditureId: BigNumber;
+  punished: boolean;
+}
+export type ExpenditureCancelled_uint256_bool_Event = TypedEvent<
+  [BigNumber, boolean],
+  ExpenditureCancelled_uint256_bool_EventObject
+>;
+
+export type ExpenditureCancelled_uint256_bool_EventFilter =
+  TypedEventFilter<ExpenditureCancelled_uint256_bool_Event>;
 
 export interface ExpenditureMadeViaStakeEventObject {
   creator: string;
@@ -152,8 +170,11 @@ export interface StakedExpenditureEvents extends BaseContract {
   filters: {
     "ExpenditureCancelled(uint256)"(
       expenditureId?: null
-    ): ExpenditureCancelledEventFilter;
-    ExpenditureCancelled(expenditureId?: null): ExpenditureCancelledEventFilter;
+    ): ExpenditureCancelled_uint256_EventFilter;
+    "ExpenditureCancelled(uint256,bool)"(
+      expenditureId?: null,
+      punished?: null
+    ): ExpenditureCancelled_uint256_bool_EventFilter;
 
     "ExpenditureMadeViaStake(address,uint256,uint256)"(
       creator?: string | null,

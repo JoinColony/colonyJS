@@ -157,8 +157,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `ExpenditureCancelled` | (`expenditureId?`: ``null``) => `ExpenditureCancelledEventFilter` |
-| `ExpenditureCancelled(uint256)` | (`expenditureId?`: ``null``) => `ExpenditureCancelledEventFilter` |
+| `ExpenditureCancelled` | (`expenditureId?`: ``null``, `punished?`: ``null``) => `ExpenditureCancelledEventFilter` |
+| `ExpenditureCancelled(uint256,bool)` | (`expenditureId?`: ``null``, `punished?`: ``null``) => `ExpenditureCancelledEventFilter` |
 | `ExpenditureMadeViaStake` | (`creator?`: ``null`` \| `string`, `expenditureId?`: ``null``, `stake?`: ``null``) => `ExpenditureMadeViaStakeEventFilter` |
 | `ExpenditureMadeViaStake(address,uint256,uint256)` | (`creator?`: ``null`` \| `string`, `expenditureId?`: ``null``, `stake?`: ``null``) => `ExpenditureMadeViaStakeEventFilter` |
 | `ExtensionInitialised` | () => `ExtensionInitialisedEventFilter` |

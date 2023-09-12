@@ -264,7 +264,7 @@ export interface StakedExpenditureInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: "getStake", data: BytesLike): Result;
 
   events: {
-    "ExpenditureCancelled(uint256)": EventFragment;
+    "ExpenditureCancelled(uint256,bool)": EventFragment;
     "ExpenditureMadeViaStake(address,uint256,uint256)": EventFragment;
     "ExtensionInitialised()": EventFragment;
     "LogSetAuthority(address)": EventFragment;
@@ -286,9 +286,10 @@ export interface StakedExpenditureInterface extends utils.Interface {
 
 export interface ExpenditureCancelledEventObject {
   expenditureId: BigNumber;
+  punished: boolean;
 }
 export type ExpenditureCancelledEvent = TypedEvent<
-  [BigNumber],
+  [BigNumber, boolean],
   ExpenditureCancelledEventObject
 >;
 
@@ -987,10 +988,14 @@ export interface StakedExpenditure extends BaseContract {
   };
 
   filters: {
-    "ExpenditureCancelled(uint256)"(
-      expenditureId?: null
+    "ExpenditureCancelled(uint256,bool)"(
+      expenditureId?: null,
+      punished?: null
     ): ExpenditureCancelledEventFilter;
-    ExpenditureCancelled(expenditureId?: null): ExpenditureCancelledEventFilter;
+    ExpenditureCancelled(
+      expenditureId?: null,
+      punished?: null
+    ): ExpenditureCancelledEventFilter;
 
     "ExpenditureMadeViaStake(address,uint256,uint256)"(
       creator?: string | null,

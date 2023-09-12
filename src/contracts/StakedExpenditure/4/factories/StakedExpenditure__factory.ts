@@ -19,6 +19,12 @@ const _abi = [
         name: "expenditureId",
         type: "uint256",
       },
+      {
+        indexed: false,
+        internalType: "bool",
+        name: "punished",
+        type: "bool",
+      },
     ],
     name: "ExpenditureCancelled",
     type: "event",

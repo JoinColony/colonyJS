@@ -962,6 +962,11 @@ const _abi = [
             type: "address",
           },
           {
+            internalType: "bytes4",
+            name: "sig",
+            type: "bytes4",
+          },
+          {
             internalType: "bytes",
             name: "action",
             type: "bytes",
@@ -1026,12 +1031,50 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "bytes32",
-        name: "_actionHash",
-        type: "bytes32",
+        internalType: "uint256",
+        name: "_expenditureId",
+        type: "uint256",
+      },
+    ],
+    name: "getExpenditureMotionLock",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "_motionId",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_expenditureId",
+        type: "uint256",
       },
     ],
     name: "getExpenditurePastVote",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "_vote",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "_slotSignature",
+        type: "bytes32",
+      },
+    ],
+    name: "getExpenditurePastVotes_DEPRECATED",
     outputs: [
       {
         internalType: "uint256",
@@ -1122,6 +1165,47 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "bytes",
+        name: "_action",
+        type: "bytes",
+      },
+      {
+        internalType: "address",
+        name: "_altTarget",
+        type: "address",
+      },
+    ],
+    name: "getActionSummary",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "bytes4",
+            name: "sig",
+            type: "bytes4",
+          },
+          {
+            internalType: "uint256",
+            name: "domainSkillId",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "expenditureId",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct VotingReputationDataTypes.ActionSummary",
+        name: "_summary",
+        type: "tuple",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "uint256",
         name: "_motionId",
         type: "uint256",
@@ -1151,30 +1235,6 @@ const _abi = [
       },
     ],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes",
-        name: "_action",
-        type: "bytes",
-      },
-      {
-        internalType: "uint256",
-        name: "_value",
-        type: "uint256",
-      },
-    ],
-    name: "createClaimDelayAction",
-    outputs: [
-      {
-        internalType: "bytes",
-        name: "_delayAction",
-        type: "bytes",
-      },
-    ],
-    stateMutability: "nonpayable",
     type: "function",
   },
   {
