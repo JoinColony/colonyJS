@@ -264,18 +264,20 @@ export interface StakedExpenditureInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: "getStake", data: BytesLike): Result;
 
   events: {
-    "ExpenditureCancelled(uint256,bool)": EventFragment;
+    "ExpenditureCancelled(address,uint256)": EventFragment;
     "ExpenditureMadeViaStake(address,uint256,uint256)": EventFragment;
+    "ExpenditureStakerPunished(address,uint256,bool)": EventFragment;
     "ExtensionInitialised()": EventFragment;
     "LogSetAuthority(address)": EventFragment;
     "LogSetOwner(address)": EventFragment;
     "MetaTransactionExecuted(address,address,bytes)": EventFragment;
-    "StakeFractionSet(uint256)": EventFragment;
+    "StakeFractionSet(address,uint256)": EventFragment;
     "StakeReclaimed(uint256)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "ExpenditureCancelled"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "ExpenditureMadeViaStake"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "ExpenditureStakerPunished"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "ExtensionInitialised"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "LogSetAuthority"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "LogSetOwner"): EventFragment;
@@ -285,11 +287,11 @@ export interface StakedExpenditureInterface extends utils.Interface {
 }
 
 export interface ExpenditureCancelledEventObject {
+  agent: string;
   expenditureId: BigNumber;
-  punished: boolean;
 }
 export type ExpenditureCancelledEvent = TypedEvent<
-  [BigNumber, boolean],
+  [string, BigNumber],
   ExpenditureCancelledEventObject
 >;
 
@@ -308,6 +310,19 @@ export type ExpenditureMadeViaStakeEvent = TypedEvent<
 
 export type ExpenditureMadeViaStakeEventFilter =
   TypedEventFilter<ExpenditureMadeViaStakeEvent>;
+
+export interface ExpenditureStakerPunishedEventObject {
+  agent: string;
+  expenditureId: BigNumber;
+  punished: boolean;
+}
+export type ExpenditureStakerPunishedEvent = TypedEvent<
+  [string, BigNumber, boolean],
+  ExpenditureStakerPunishedEventObject
+>;
+
+export type ExpenditureStakerPunishedEventFilter =
+  TypedEventFilter<ExpenditureStakerPunishedEvent>;
 
 export interface ExtensionInitialisedEventObject {}
 export type ExtensionInitialisedEvent = TypedEvent<
@@ -349,10 +364,11 @@ export type MetaTransactionExecutedEventFilter =
   TypedEventFilter<MetaTransactionExecutedEvent>;
 
 export interface StakeFractionSetEventObject {
+  agent: string;
   stakeFraction: BigNumber;
 }
 export type StakeFractionSetEvent = TypedEvent<
-  [BigNumber],
+  [string, BigNumber],
   StakeFractionSetEventObject
 >;
 
@@ -988,13 +1004,13 @@ export interface StakedExpenditure extends BaseContract {
   };
 
   filters: {
-    "ExpenditureCancelled(uint256,bool)"(
-      expenditureId?: null,
-      punished?: null
+    "ExpenditureCancelled(address,uint256)"(
+      agent?: null,
+      expenditureId?: null
     ): ExpenditureCancelledEventFilter;
     ExpenditureCancelled(
-      expenditureId?: null,
-      punished?: null
+      agent?: null,
+      expenditureId?: null
     ): ExpenditureCancelledEventFilter;
 
     "ExpenditureMadeViaStake(address,uint256,uint256)"(
@@ -1007,6 +1023,17 @@ export interface StakedExpenditure extends BaseContract {
       expenditureId?: null,
       stake?: null
     ): ExpenditureMadeViaStakeEventFilter;
+
+    "ExpenditureStakerPunished(address,uint256,bool)"(
+      agent?: null,
+      expenditureId?: null,
+      punished?: null
+    ): ExpenditureStakerPunishedEventFilter;
+    ExpenditureStakerPunished(
+      agent?: null,
+      expenditureId?: null,
+      punished?: null
+    ): ExpenditureStakerPunishedEventFilter;
 
     "ExtensionInitialised()"(): ExtensionInitialisedEventFilter;
     ExtensionInitialised(): ExtensionInitialisedEventFilter;
@@ -1030,10 +1057,14 @@ export interface StakedExpenditure extends BaseContract {
       functionSignature?: null
     ): MetaTransactionExecutedEventFilter;
 
-    "StakeFractionSet(uint256)"(
+    "StakeFractionSet(address,uint256)"(
+      agent?: null,
       stakeFraction?: null
     ): StakeFractionSetEventFilter;
-    StakeFractionSet(stakeFraction?: null): StakeFractionSetEventFilter;
+    StakeFractionSet(
+      agent?: null,
+      stakeFraction?: null
+    ): StakeFractionSetEventFilter;
 
     "StakeReclaimed(uint256)"(expenditureId?: null): StakeReclaimedEventFilter;
     StakeReclaimed(expenditureId?: null): StakeReclaimedEventFilter;

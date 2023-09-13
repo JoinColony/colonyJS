@@ -157,10 +157,12 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `ExpenditureCancelled` | (`expenditureId?`: ``null``, `punished?`: ``null``) => `ExpenditureCancelledEventFilter` |
-| `ExpenditureCancelled(uint256,bool)` | (`expenditureId?`: ``null``, `punished?`: ``null``) => `ExpenditureCancelledEventFilter` |
+| `ExpenditureCancelled` | (`agent?`: ``null``, `expenditureId?`: ``null``) => `ExpenditureCancelledEventFilter` |
+| `ExpenditureCancelled(address,uint256)` | (`agent?`: ``null``, `expenditureId?`: ``null``) => `ExpenditureCancelledEventFilter` |
 | `ExpenditureMadeViaStake` | (`creator?`: ``null`` \| `string`, `expenditureId?`: ``null``, `stake?`: ``null``) => `ExpenditureMadeViaStakeEventFilter` |
 | `ExpenditureMadeViaStake(address,uint256,uint256)` | (`creator?`: ``null`` \| `string`, `expenditureId?`: ``null``, `stake?`: ``null``) => `ExpenditureMadeViaStakeEventFilter` |
+| `ExpenditureStakerPunished` | (`agent?`: ``null``, `expenditureId?`: ``null``, `punished?`: ``null``) => `ExpenditureStakerPunishedEventFilter` |
+| `ExpenditureStakerPunished(address,uint256,bool)` | (`agent?`: ``null``, `expenditureId?`: ``null``, `punished?`: ``null``) => `ExpenditureStakerPunishedEventFilter` |
 | `ExtensionInitialised` | () => `ExtensionInitialisedEventFilter` |
 | `ExtensionInitialised()` | () => `ExtensionInitialisedEventFilter` |
 | `LogSetAuthority` | (`authority?`: ``null`` \| `string`) => `LogSetAuthorityEventFilter` |
@@ -169,8 +171,8 @@ ___
 | `LogSetOwner(address)` | (`owner?`: ``null`` \| `string`) => `LogSetOwnerEventFilter` |
 | `MetaTransactionExecuted` | (`user?`: ``null``, `relayerAddress?`: ``null``, `functionSignature?`: ``null``) => `MetaTransactionExecutedEventFilter` |
 | `MetaTransactionExecuted(address,address,bytes)` | (`user?`: ``null``, `relayerAddress?`: ``null``, `functionSignature?`: ``null``) => `MetaTransactionExecutedEventFilter` |
-| `StakeFractionSet` | (`stakeFraction?`: ``null``) => `StakeFractionSetEventFilter` |
-| `StakeFractionSet(uint256)` | (`stakeFraction?`: ``null``) => `StakeFractionSetEventFilter` |
+| `StakeFractionSet` | (`agent?`: ``null``, `stakeFraction?`: ``null``) => `StakeFractionSetEventFilter` |
+| `StakeFractionSet(address,uint256)` | (`agent?`: ``null``, `stakeFraction?`: ``null``) => `StakeFractionSetEventFilter` |
 | `StakeReclaimed` | (`expenditureId?`: ``null``) => `StakeReclaimedEventFilter` |
 | `StakeReclaimed(uint256)` | (`expenditureId?`: ``null``) => `StakeReclaimedEventFilter` |
 

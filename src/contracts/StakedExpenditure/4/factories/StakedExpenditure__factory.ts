@@ -15,15 +15,15 @@ const _abi = [
     inputs: [
       {
         indexed: false,
-        internalType: "uint256",
-        name: "expenditureId",
-        type: "uint256",
+        internalType: "address",
+        name: "agent",
+        type: "address",
       },
       {
         indexed: false,
-        internalType: "bool",
-        name: "punished",
-        type: "bool",
+        internalType: "uint256",
+        name: "expenditureId",
+        type: "uint256",
       },
     ],
     name: "ExpenditureCancelled",
@@ -52,6 +52,31 @@ const _abi = [
       },
     ],
     name: "ExpenditureMadeViaStake",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "expenditureId",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "bool",
+        name: "punished",
+        type: "bool",
+      },
+    ],
+    name: "ExpenditureStakerPunished",
     type: "event",
   },
   {
@@ -114,6 +139,12 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address",
+      },
       {
         indexed: false,
         internalType: "uint256",
