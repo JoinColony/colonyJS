@@ -19,10 +19,6 @@ import {
 
 import { ColonyNetworkClient } from '../../ColonyNetworkClient.js';
 import {
-  IColonyV5,
-  IColonyV6,
-  IColonyV7,
-  IColonyV8,
   IColonyV9,
   IColonyV10,
   IColonyV11,
@@ -38,10 +34,6 @@ import {
 } from './augmentsV4.js';
 
 type ValidColony =
-  | IColonyV5
-  | IColonyV6
-  | IColonyV7
-  | IColonyV8
   | IColonyV9
   | IColonyV10
   | IColonyV11

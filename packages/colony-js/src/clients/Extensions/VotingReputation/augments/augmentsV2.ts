@@ -8,9 +8,6 @@ import { type TxOverrides, getCreateMotionProofs } from '@colony/core';
 
 import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
 import {
-  VotingReputationV2,
-  VotingReputationV3,
-  VotingReputationV4,
   VotingReputationV5,
   VotingReputationV6,
   VotingReputationV7,
@@ -23,9 +20,6 @@ import {
 } from './commonAugments.js';
 
 type ValidVotingReputation =
-  | VotingReputationV2
-  | VotingReputationV3
-  | VotingReputationV4
   | VotingReputationV5
   | VotingReputationV6
   | VotingReputationV7

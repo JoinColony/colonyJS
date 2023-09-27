@@ -7,7 +7,7 @@ import {
 import {
   type IColonyEvents,
   IColonyEvents__factory as IColonyEventsFactory,
-} from '@colony/events';
+} from '@colony/events/types';
 import { TokenClient } from '@colony/tokens';
 
 import {
@@ -870,3 +870,5 @@ export const addAugments = <T extends AugmentedIColony>(
   /* eslint-enable no-param-reassign */
   return instance;
 };
+
+export type UnknownIColonyClient = AugmentedIColony<any>;

@@ -3,7 +3,7 @@ import type { TokenSupplierVersion } from '@colony/core';
 import {
   type TokenSupplierEvents,
   TokenSupplierEvents__factory as TokenSupplierEventsFactory,
-} from '@colony/events';
+} from '@colony/events/types';
 
 import { ClientType } from '../../../../constants.js';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
@@ -41,3 +41,5 @@ export const addAugments = <T extends AugmentedTokenSupplier>(
   return instance;
   /* eslint-enable no-param-reassign */
 };
+
+export type UnkonwnTokenSupplierClient = AugmentedTokenSupplier<any>;

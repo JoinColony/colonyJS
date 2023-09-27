@@ -21,9 +21,6 @@ export type CoinMachineV7 = CoinMachine7;
 export type CoinMachineV8 = CoinMachine8;
 
 export type AnyCoinMachine =
-  | CoinMachine1
-  | CoinMachine2
-  | CoinMachine3
   | CoinMachine4
   | CoinMachine5
   | CoinMachine6

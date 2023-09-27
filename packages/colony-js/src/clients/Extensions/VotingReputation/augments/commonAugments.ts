@@ -9,7 +9,7 @@ import {
 import {
   type VotingReputationEvents,
   VotingReputationEvents__factory as VotingReputationEventsFactory,
-} from '@colony/events';
+} from '@colony/events/types';
 
 import { ClientType } from '../../../../constants.js';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
@@ -333,3 +333,5 @@ export const addAugments = <T extends AugmentedVotingReputation>(
   return instance;
   /* eslint-enable no-param-reassign */
 };
+
+export type UnkonwnVotingReputationClient = AugmentedVotingReputation<any>;

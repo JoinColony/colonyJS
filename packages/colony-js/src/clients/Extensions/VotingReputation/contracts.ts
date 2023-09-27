@@ -22,10 +22,6 @@ export type VotingReputationV8 = VotingReputation8;
 export type VotingReputationV9 = VotingReputation9;
 
 export type AnyVotingReputation =
-  | VotingReputation1
-  | VotingReputation2
-  | VotingReputation3
-  | VotingReputation4
   | VotingReputation5
   | VotingReputation6
   | VotingReputation7

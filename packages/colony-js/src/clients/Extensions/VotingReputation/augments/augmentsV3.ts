@@ -6,13 +6,20 @@ import {
 } from '@colony/core';
 
 import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
-import { VotingReputationV7, VotingReputationV8 } from '../contracts.js';
+import {
+  VotingReputationV7,
+  VotingReputationV8,
+  VotingReputationV9,
+} from '../contracts.js';
 import {
   addAugments as addCommonAugments,
   AugmentedVotingReputation,
 } from './commonAugments.js';
 
-type ValidVotingReputation = VotingReputationV7 | VotingReputationV8;
+type ValidVotingReputation =
+  | VotingReputationV7
+  | VotingReputationV8
+  | VotingReputationV9;
 
 export interface AugmentedEstimateV3 {
   /**

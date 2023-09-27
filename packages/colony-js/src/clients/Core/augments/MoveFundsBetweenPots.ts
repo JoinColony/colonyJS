@@ -9,35 +9,20 @@ import {
 } from '@colony/core';
 
 import {
-  IColonyV1,
-  IColonyV2,
-  IColonyV3,
-  IColonyV4,
-  IColonyV5,
   IColonyV6,
-  IColonyV7,
-  IColonyV8,
   IColonyV9,
   IColonyV10,
   IColonyV11,
   IColonyV12,
   IColonyV13,
 } from '../contracts.js';
-import { AugmentedIColony } from './commonAugments.js';
+import { AugmentedIColony, UnknownIColonyClient } from './commonAugments.js';
 
 // Colonies that support the earlier (not-overloaded) method
-type ValidColonyA =
-  | IColonyV1
-  | IColonyV2
-  | IColonyV3
-  | IColonyV4
-  | IColonyV5
-  | IColonyV6;
+type ValidColonyA = IColonyV6;
 
 // Colonies that support the later (overloaded) methods
 type ValidColonyB =
-  | IColonyV7
-  | IColonyV8
   | IColonyV9
   | IColonyV10
   | IColonyV11
@@ -160,8 +145,7 @@ export type MoveFundsBetweenPotsAugmentsA<T extends ValidColonyA> = {
 };
 
 async function moveFundsBetweenPotsWithProofsA(
-  this: AugmentedIColony<ValidColonyA> &
-    MoveFundsBetweenPotsAugmentsA<ValidColonyA>,
+  this: UnknownIColonyClient & MoveFundsBetweenPotsAugmentsA<ValidColonyA>,
   _fromPot: BigNumberish,
   _toPot: BigNumberish,
   _amount: BigNumberish,
@@ -184,8 +168,7 @@ async function moveFundsBetweenPotsWithProofsA(
 }
 
 async function estimateMoveFundsBetweenPotsWithProofsA(
-  this: AugmentedIColony<ValidColonyA> &
-    MoveFundsBetweenPotsAugmentsA<ValidColonyA>,
+  this: UnknownIColonyClient & MoveFundsBetweenPotsAugmentsA<ValidColonyA>,
   _fromPot: BigNumberish,
   _toPot: BigNumberish,
   _amount: BigNumberish,
@@ -208,8 +191,7 @@ async function estimateMoveFundsBetweenPotsWithProofsA(
 }
 
 export const addAugmentsA = (
-  contract: AugmentedIColony<ValidColonyA> &
-    MoveFundsBetweenPotsAugmentsA<ValidColonyA>,
+  contract: UnknownIColonyClient & MoveFundsBetweenPotsAugmentsA<ValidColonyA>,
 ) => {
   /* eslint-disable no-param-reassign */
   contract.moveFundsBetweenPotsWithProofs =

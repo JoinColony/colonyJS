@@ -6,31 +6,23 @@ import {
 } from '@colony/core';
 
 import {
-  IColonyV1,
-  IColonyV2,
-  IColonyV3,
   IColonyV4,
-  IColonyV5,
-  IColonyV6,
-  IColonyV7,
-  IColonyV8,
   IColonyV9,
   IColonyV10,
   IColonyV11,
   IColonyV12,
   IColonyV13,
 } from '../contracts.js';
-import { AugmentedIColony } from './commonAugments.js';
+import type {
+  AugmentedIColony,
+  UnknownIColonyClient,
+} from './commonAugments.js';
 
 // Colonies that support the early (not-overloaded) method
-type ValidColonyA = IColonyV1 | IColonyV2 | IColonyV3 | IColonyV4;
+type ValidColonyA = IColonyV4;
 
 // Colonies that support the later (overloaded) methods
 type ValidColonyB =
-  | IColonyV5
-  | IColonyV6
-  | IColonyV7
-  | IColonyV8
   | IColonyV9
   | IColonyV10
   | IColonyV11
@@ -64,7 +56,7 @@ export type AddDomainAugmentsA<T extends ValidColonyA> = {
 };
 
 async function addDomainWithProofsA(
-  this: AugmentedIColony<ValidColonyA>,
+  this: UnknownIColonyClient,
   _parentDomainId: BigNumberish,
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
@@ -83,7 +75,7 @@ async function addDomainWithProofsA(
 }
 
 async function estimateAddDomainWithProofsA(
-  this: AugmentedIColony<ValidColonyA>,
+  this: UnknownIColonyClient,
   _parentDomainId: BigNumberish,
   overrides: TxOverrides = {},
 ): Promise<BigNumber> {
@@ -102,7 +94,7 @@ async function estimateAddDomainWithProofsA(
 }
 
 export const addAugmentsA = (
-  contract: AugmentedIColony<ValidColonyA> & AddDomainAugmentsA<ValidColonyA>,
+  contract: UnknownIColonyClient & AddDomainAugmentsA<ValidColonyA>,
 ) => {
   /* eslint-disable no-param-reassign */
   contract.addDomainWithProofs = addDomainWithProofsA.bind(contract);

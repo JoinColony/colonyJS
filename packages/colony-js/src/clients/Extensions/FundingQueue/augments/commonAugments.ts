@@ -3,7 +3,7 @@ import type { FundingQueueVersion } from '@colony/core';
 import {
   type FundingQueueEvents,
   FundingQueueEvents__factory as FundingQueueEventsFactory,
-} from '@colony/events';
+} from '@colony/events/types';
 
 import { ClientType } from '../../../../constants.js';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
@@ -41,3 +41,5 @@ export const addAugments = <T extends AugmentedFundingQueue>(
   return instance;
   /* eslint-enable no-param-reassign */
 };
+
+export type UnkonwnFundingQueueClient = AugmentedFundingQueue<any>;

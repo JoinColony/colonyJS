@@ -9,7 +9,7 @@ import { ContractTransaction, BigNumberish, BigNumber } from 'ethers';
 import {
   type OneTxPaymentEvents,
   OneTxPaymentEvents__factory as OneTxPaymentEventsFactory,
-} from '@colony/events';
+} from '@colony/events/types';
 
 import { ClientType } from '../../../../constants.js';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
@@ -281,3 +281,5 @@ export const addAugments = <T extends AugmentedOneTxPayment>(
   return instance;
   /* eslint-enable no-param-reassign */
 };
+
+export type UnkonwnOneTxPaymentClient = AugmentedOneTxPayment<any>;
