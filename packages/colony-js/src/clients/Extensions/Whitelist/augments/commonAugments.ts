@@ -3,7 +3,7 @@ import type { WhitelistVersion } from '@colony/core';
 import {
   type WhitelistEvents,
   WhitelistEvents__factory as WhitelistEventsFactory,
-} from '@colony/events';
+} from '@colony/events/types';
 
 import { ClientType } from '../../../../constants.js';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
@@ -39,3 +39,5 @@ export const addAugments = <T extends AugmentedWhitelist>(
   return instance;
   /* eslint-enable no-param-reassign */
 };
+
+export type UnkonwnWhitelistClient = AugmentedWhitelist<any>;

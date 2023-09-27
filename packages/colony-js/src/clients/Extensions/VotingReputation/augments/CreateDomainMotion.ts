@@ -12,10 +12,6 @@ import {
 } from '@colony/core';
 
 import {
-  VotingReputationV1,
-  VotingReputationV2,
-  VotingReputationV3,
-  VotingReputationV4,
   VotingReputationV5,
   VotingReputationV6,
   VotingReputationV7,
@@ -24,10 +20,6 @@ import { AugmentedVotingReputation } from './commonAugments.js';
 
 // VotingReputation versions that support this method
 type ValidVotingReputation =
-  | VotingReputationV1
-  | VotingReputationV2
-  | VotingReputationV3
-  | VotingReputationV4
   | VotingReputationV5
   | VotingReputationV6
   | VotingReputationV7;

@@ -13,16 +13,11 @@ import {
 import {
   type StakedExpenditureEvents,
   StakedExpenditureEvents__factory as StakedExpenditureEventsFactory,
-} from '@colony/events';
+} from '@colony/events/types';
 
 import { ClientType } from '../../../../constants.js';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
 import {
-  IColonyV4,
-  IColonyV5,
-  IColonyV6,
-  IColonyV7,
-  IColonyV8,
   IColonyV9,
   IColonyV10,
   IColonyV11,
@@ -32,11 +27,6 @@ import {
 import { AnyStakedExpenditure } from '../contracts.js';
 
 export type ValidColony =
-  | IColonyV4
-  | IColonyV5
-  | IColonyV6
-  | IColonyV7
-  | IColonyV8
   | IColonyV9
   | IColonyV10
   | IColonyV11
@@ -347,3 +337,5 @@ export const addAugments = <T extends AugmentedStakedExpenditure>(
   return instance;
   /* eslint-enable no-param-reassign */
 };
+
+export type UnkonwnStakedExpenditureClient = AugmentedStakedExpenditure<any>;

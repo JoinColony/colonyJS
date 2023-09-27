@@ -5,11 +5,11 @@ import {
   getPermissionProofs,
 } from '@colony/core';
 
-import { IColonyV4, IColonyV5, IColonyV6, IColonyV7 } from '../contracts.js';
-import { AugmentedIColony } from './commonAugments.js';
+import type { IColonyV7 } from '../contracts.js';
+import type { UnknownIColonyClient } from './commonAugments.js';
 
 // Colonies that support this method
-type ValidColony = IColonyV4 | IColonyV5 | IColonyV6 | IColonyV7;
+type ValidColony = IColonyV7;
 
 export interface SetExpenditureClaimDelayEstimateGas {
   /**
@@ -49,8 +49,7 @@ export type SetExpenditureClaimDelayAugments<T extends ValidColony> = {
 };
 
 async function setExpenditureClaimDelayWithProofs(
-  this: AugmentedIColony<ValidColony> &
-    SetExpenditureClaimDelayAugments<ValidColony>,
+  this: UnknownIColonyClient & SetExpenditureClaimDelayAugments<ValidColony>,
   _id: BigNumberish,
   _slot: BigNumberish,
   _claimDelay: BigNumberish,
@@ -74,8 +73,7 @@ async function setExpenditureClaimDelayWithProofs(
 }
 
 async function estimateSetExpenditureClaimDelayWithProofs(
-  this: AugmentedIColony<ValidColony> &
-    SetExpenditureClaimDelayAugments<ValidColony>,
+  this: UnknownIColonyClient & SetExpenditureClaimDelayAugments<ValidColony>,
   _id: BigNumberish,
   _slot: BigNumberish,
   _claimDelay: BigNumberish,
@@ -99,7 +97,7 @@ async function estimateSetExpenditureClaimDelayWithProofs(
 }
 
 export const addAugments = (
-  contract: AugmentedIColony<ValidColony> &
+  contract: UnknownIColonyClient &
     SetExpenditureClaimDelayAugments<ValidColony>,
 ) => {
   /* eslint-disable no-param-reassign */

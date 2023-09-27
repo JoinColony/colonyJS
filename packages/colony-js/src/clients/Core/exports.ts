@@ -4,28 +4,20 @@ import { getTokenClient } from '@colony/tokens';
 import { ColonyNetworkClient } from '../ColonyNetworkClient.js';
 import getColonyVersionClient from './ColonyVersionClient.js';
 
-import getColonyClientV1, { ColonyClientV1 } from './ColonyClientV1.js';
-import getColonyClientV2, { ColonyClientV2 } from './ColonyClientV2.js';
-import getColonyClientV3, { ColonyClientV3 } from './ColonyClientV3.js';
-import getColonyClientV4, { ColonyClientV4 } from './ColonyClientV4.js';
-import getColonyClientV5, { ColonyClientV5 } from './ColonyClientV5.js';
-import getColonyClientV6, { ColonyClientV6 } from './ColonyClientV6.js';
-import getColonyClientV7, { ColonyClientV7 } from './ColonyClientV7.js';
-import getColonyClientV8, { ColonyClientV8 } from './ColonyClientV8.js';
+import getColonyClientV1 from './ColonyClientV1.js';
+import getColonyClientV2 from './ColonyClientV2.js';
+import getColonyClientV3 from './ColonyClientV3.js';
+import getColonyClientV4 from './ColonyClientV4.js';
+import getColonyClientV5 from './ColonyClientV5.js';
+import getColonyClientV6 from './ColonyClientV6.js';
+import getColonyClientV7 from './ColonyClientV7.js';
+import getColonyClientV8 from './ColonyClientV8.js';
 import getColonyClientV9, { ColonyClientV9 } from './ColonyClientV9.js';
 import getColonyClientV10, { ColonyClientV10 } from './ColonyClientV10.js';
 import getColonyClientV11, { ColonyClientV11 } from './ColonyClientV11.js';
 import getColonyClientV12, { ColonyClientV12 } from './ColonyClientV12.js';
 import getColonyClientV13, { ColonyClientV13 } from './ColonyClientV13.js';
 
-export { ColonyClientV1 } from './ColonyClientV1.js';
-export { ColonyClientV2 } from './ColonyClientV2.js';
-export { ColonyClientV3 } from './ColonyClientV3.js';
-export { ColonyClientV4 } from './ColonyClientV4.js';
-export { ColonyClientV5 } from './ColonyClientV5.js';
-export { ColonyClientV6 } from './ColonyClientV6.js';
-export { ColonyClientV7 } from './ColonyClientV7.js';
-export { ColonyClientV8 } from './ColonyClientV8.js';
 export { ColonyClientV9 } from './ColonyClientV9.js';
 export { ColonyClientV10 } from './ColonyClientV10.js';
 export { ColonyClientV11 } from './ColonyClientV11.js';
@@ -33,14 +25,6 @@ export { ColonyClientV12 } from './ColonyClientV12.js';
 export { ColonyClientV13 } from './ColonyClientV13.js';
 
 export type AnyColonyClient =
-  | ColonyClientV1
-  | ColonyClientV2
-  | ColonyClientV3
-  | ColonyClientV4
-  | ColonyClientV5
-  | ColonyClientV6
-  | ColonyClientV7
-  | ColonyClientV8
   | ColonyClientV9
   | ColonyClientV10
   | ColonyClientV11
@@ -87,7 +71,7 @@ export async function getColonyClient(
         this,
         colonyAddress,
         signerOrProvider,
-      );
+      ) as ColonyClientV9;
       break;
     }
     case 2: {
@@ -95,7 +79,7 @@ export async function getColonyClient(
         this,
         colonyAddress,
         signerOrProvider,
-      );
+      ) as ColonyClientV9;
       break;
     }
     case 3: {
@@ -103,7 +87,7 @@ export async function getColonyClient(
         this,
         colonyAddress,
         signerOrProvider,
-      );
+      ) as ColonyClientV9;
       break;
     }
     case 4: {
@@ -111,7 +95,7 @@ export async function getColonyClient(
         this,
         colonyAddress,
         signerOrProvider,
-      );
+      ) as ColonyClientV9;
       break;
     }
     case 5: {
@@ -119,7 +103,7 @@ export async function getColonyClient(
         this,
         colonyAddress,
         signerOrProvider,
-      );
+      ) as ColonyClientV9;
       break;
     }
     case 6: {
@@ -127,7 +111,7 @@ export async function getColonyClient(
         this,
         colonyAddress,
         signerOrProvider,
-      );
+      ) as ColonyClientV9;
       break;
     }
     case 7: {
@@ -135,7 +119,7 @@ export async function getColonyClient(
         this,
         colonyAddress,
         signerOrProvider,
-      );
+      ) as ColonyClientV9;
       break;
     }
     case 8: {
@@ -143,7 +127,7 @@ export async function getColonyClient(
         this,
         colonyAddress,
         signerOrProvider,
-      );
+      ) as ColonyClientV9;
       break;
     }
     case 9: {

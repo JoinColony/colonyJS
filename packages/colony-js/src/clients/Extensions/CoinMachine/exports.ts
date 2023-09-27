@@ -4,15 +4,9 @@ import { assertExhaustiveSwitch } from '@colony/core/utils';
 
 import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
 
-import getCoinMachineClientV1, {
-  CoinMachineClientV1,
-} from './CoinMachineClientV1.js';
-import getCoinMachineClientV2, {
-  CoinMachineClientV2,
-} from './CoinMachineClientV2.js';
-import getCoinMachineClientV3, {
-  CoinMachineClientV3,
-} from './CoinMachineClientV3.js';
+import getCoinMachineClientV1 from './CoinMachineClientV1.js';
+import getCoinMachineClientV2 from './CoinMachineClientV2.js';
+import getCoinMachineClientV3 from './CoinMachineClientV3.js';
 import getCoinMachineClientV4, {
   CoinMachineClientV4,
 } from './CoinMachineClientV4.js';
@@ -29,9 +23,6 @@ import getCoinMachineClientV8, {
   CoinMachineClientV8,
 } from './CoinMachineClientV8.js';
 
-export { CoinMachineClientV1 } from './CoinMachineClientV1.js';
-export { CoinMachineClientV2 } from './CoinMachineClientV2.js';
-export { CoinMachineClientV3 } from './CoinMachineClientV3.js';
 export { CoinMachineClientV4 } from './CoinMachineClientV4.js';
 export { CoinMachineClientV5 } from './CoinMachineClientV5.js';
 export { CoinMachineClientV6 } from './CoinMachineClientV6.js';
@@ -39,9 +30,6 @@ export { CoinMachineClientV7 } from './CoinMachineClientV7.js';
 export { CoinMachineClientV8 } from './CoinMachineClientV8.js';
 
 export type AnyCoinMachineClient =
-  | CoinMachineClientV1
-  | CoinMachineClientV2
-  | CoinMachineClientV3
   | CoinMachineClientV4
   | CoinMachineClientV5
   | CoinMachineClientV6
@@ -56,11 +44,20 @@ export const getCoinMachineClient = (
 ): AnyCoinMachineClient => {
   switch (version) {
     case 1:
-      return getCoinMachineClientV1(colonyClient, address);
+      return getCoinMachineClientV1(
+        colonyClient,
+        address,
+      ) as CoinMachineClientV4;
     case 2:
-      return getCoinMachineClientV2(colonyClient, address);
+      return getCoinMachineClientV2(
+        colonyClient,
+        address,
+      ) as CoinMachineClientV4;
     case 3:
-      return getCoinMachineClientV3(colonyClient, address);
+      return getCoinMachineClientV3(
+        colonyClient,
+        address,
+      ) as CoinMachineClientV4;
     case 4:
       return getCoinMachineClientV4(colonyClient, address);
     case 5:

@@ -13,16 +13,11 @@ import {
 import {
   StreamingPaymentsEvents,
   StreamingPaymentsEvents__factory as StreamingPaymentsEventsFactory,
-} from '@colony/events';
+} from '@colony/events/types';
 
 import { ClientType } from '../../../../constants.js';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
 import {
-  IColonyV4,
-  IColonyV5,
-  IColonyV6,
-  IColonyV7,
-  IColonyV8,
   IColonyV9,
   IColonyV10,
   IColonyV11,
@@ -34,11 +29,6 @@ import { AnyStreamingPayments } from '../contracts.js';
 const { MaxUint256 } = constants;
 
 export type ValidColony =
-  | IColonyV4
-  | IColonyV5
-  | IColonyV6
-  | IColonyV7
-  | IColonyV8
   | IColonyV9
   | IColonyV10
   | IColonyV11
@@ -703,3 +693,5 @@ export const addAugments = <T extends AugmentedStreamingPayments>(
   return instance;
   /* eslint-enable no-param-reassign */
 };
+
+export type UnkonwnStreamingPaymentsClient = AugmentedStreamingPayments<any>;

@@ -3,7 +3,7 @@ import type { CoinMachineVersion } from '@colony/core';
 import {
   type CoinMachineEvents,
   CoinMachineEvents__factory as CoinMachineEventsFactory,
-} from '@colony/events';
+} from '@colony/events/types';
 
 import { ClientType } from '../../../../constants.js';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
@@ -40,3 +40,5 @@ export const addAugments = <T extends AugmentedCoinMachine>(
   return instance;
   /* eslint-enable no-param-reassign */
 };
+
+export type UnkonwnCoinMachineClient = AugmentedCoinMachine<any>;

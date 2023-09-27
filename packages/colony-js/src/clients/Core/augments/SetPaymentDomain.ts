@@ -5,11 +5,11 @@ import {
   getPermissionProofs,
 } from '@colony/core';
 
-import { IColonyV1, IColonyV2, IColonyV3 } from '../contracts.js';
-import { AugmentedIColony } from './commonAugments.js';
+import type { IColonyV3 } from '../contracts.js';
+import type { UnknownIColonyClient } from './commonAugments.js';
 
 // Colonies that support this method
-type ValidColony = IColonyV1 | IColonyV2 | IColonyV3;
+type ValidColony = IColonyV3;
 
 export interface SetPaymentDomainEstimateGas {
   /**
@@ -45,7 +45,7 @@ export type SetPaymentDomainAugments<T extends ValidColony> = {
 };
 
 async function setPaymentDomainWithProofs(
-  this: AugmentedIColony<ValidColony> & SetPaymentDomainAugments<ValidColony>,
+  this: UnknownIColonyClient & SetPaymentDomainAugments<ValidColony>,
   _id: BigNumberish,
   _domainId: string,
   overrides: TxOverrides = {},
@@ -67,7 +67,7 @@ async function setPaymentDomainWithProofs(
 }
 
 async function estimateSetPaymentDomainWithProofs(
-  this: AugmentedIColony<ValidColony> & SetPaymentDomainAugments<ValidColony>,
+  this: UnknownIColonyClient & SetPaymentDomainAugments<ValidColony>,
   _id: BigNumberish,
   _domainId: BigNumberish,
   overrides: TxOverrides = {},
@@ -88,8 +88,7 @@ async function estimateSetPaymentDomainWithProofs(
   );
 }
 export const addAugments = (
-  contract: AugmentedIColony<ValidColony> &
-    SetPaymentDomainAugments<ValidColony>,
+  contract: UnknownIColonyClient & SetPaymentDomainAugments<ValidColony>,
 ) => {
   /* eslint-disable no-param-reassign */
   contract.setPaymentDomainWithProofs =

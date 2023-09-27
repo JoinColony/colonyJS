@@ -3,7 +3,7 @@ import type { ReputationBootstrapperVersion } from '@colony/core';
 import {
   type ReputationBootstrapperEvents,
   ReputationBootstrapperEvents__factory as ReputationBootstrapperEventsFactory,
-} from '@colony/events';
+} from '@colony/events/types';
 
 import { ClientType } from '../../../../constants.js';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
@@ -42,3 +42,6 @@ export const addAugments = <T extends AugmentedReputationBootstrapper>(
   return instance;
   /* eslint-enable no-param-reassign */
 };
+
+export type UnkonwnReputationBootstrapperClient =
+  AugmentedReputationBootstrapper<any>;
