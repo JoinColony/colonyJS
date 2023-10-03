@@ -14,15 +14,20 @@ import getStakedExpenditureClientV2, {
 import getStakedExpenditureClientV3, {
   StakedExpenditureClientV3,
 } from './StakedExpenditureClientV3.js';
+import getStakedExpenditureClientV4, {
+  StakedExpenditureClientV4,
+} from './StakedExpenditureClientV4.js';
 
 export { StakedExpenditureClientV1 } from './StakedExpenditureClientV1.js';
 export { StakedExpenditureClientV2 } from './StakedExpenditureClientV2.js';
 export { StakedExpenditureClientV3 } from './StakedExpenditureClientV3.js';
+export { StakedExpenditureClientV4 } from './StakedExpenditureClientV4.js';
 
 export type AnyStakedExpenditureClient =
   | StakedExpenditureClientV1
   | StakedExpenditureClientV2
-  | StakedExpenditureClientV3;
+  | StakedExpenditureClientV3
+  | StakedExpenditureClientV4;
 
 /** @internal */
 export const getStakedExpenditureClient = (
@@ -43,6 +48,11 @@ export const getStakedExpenditureClient = (
       );
     case 3:
       return getStakedExpenditureClientV3(
+        colonyClient as AugmentedIColony<ValidColony>,
+        address,
+      );
+    case 4:
+      return getStakedExpenditureClientV4(
         colonyClient as AugmentedIColony<ValidColony>,
         address,
       );

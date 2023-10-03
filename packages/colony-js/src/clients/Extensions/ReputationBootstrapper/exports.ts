@@ -10,13 +10,18 @@ import getReputationBootstrapperClientV1, {
 import getReputationBootstrapperClientV2, {
   ReputationBootstrapperClientV2,
 } from './ReputationBootstrapperClientV2.js';
+import getReputationBootstrapperClientV3, {
+  ReputationBootstrapperClientV3,
+} from './ReputationBootstrapperClientV3.js';
 
 export { ReputationBootstrapperClientV1 } from './ReputationBootstrapperClientV1.js';
 export { ReputationBootstrapperClientV2 } from './ReputationBootstrapperClientV2.js';
+export { ReputationBootstrapperClientV3 } from './ReputationBootstrapperClientV3.js';
 
 export type AnyReputationBootstrapperClient =
   | ReputationBootstrapperClientV1
-  | ReputationBootstrapperClientV2;
+  | ReputationBootstrapperClientV2
+  | ReputationBootstrapperClientV3;
 
 /** @internal */
 export const getReputationBootstrapperClient = (
@@ -29,6 +34,8 @@ export const getReputationBootstrapperClient = (
       return getReputationBootstrapperClientV1(colonyClient, address);
     case 2:
       return getReputationBootstrapperClientV2(colonyClient, address);
+    case 3:
+      return getReputationBootstrapperClientV3(colonyClient, address);
     default:
       return assertExhaustiveSwitch(
         version,

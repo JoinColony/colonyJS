@@ -1,6 +1,8 @@
+import type { AugmentedIColony } from '../../Core/augments/commonAugments.js';
+import type { StakedExpenditure } from '../../../contracts/StakedExpenditure/1/StakedExpenditure.js';
+
 import { StakedExpenditure__factory as StakedExpenditureFactory } from '../../../contracts/StakedExpenditure/1/factories/StakedExpenditure__factory.js';
-import { StakedExpenditure } from '../../../contracts/StakedExpenditure/1/StakedExpenditure.js';
-import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
+import { ClientType } from '../../../constants.js';
 import {
   addAugments,
   AugmentedStakedExpenditure,
@@ -16,13 +18,14 @@ export default function getStakedExpenditureClient(
   colonyClient: AugmentedIColony<ValidColony>,
   address: string,
 ): StakedExpenditureClientV1 {
-  const evaluatedExpenditureClient = StakedExpenditureFactory.connect(
+  const stakedExpenditureClient = StakedExpenditureFactory.connect(
     address,
     colonyClient.signer || colonyClient.provider,
   ) as StakedExpenditureClientV1;
 
-  evaluatedExpenditureClient.clientVersion = 1;
-  addAugments(evaluatedExpenditureClient, colonyClient);
+  stakedExpenditureClient.clientType = ClientType.StakedExpenditureClient;
+  stakedExpenditureClient.clientVersion = 1;
+  addAugments(stakedExpenditureClient, colonyClient);
 
-  return evaluatedExpenditureClient;
+  return stakedExpenditureClient;
 }

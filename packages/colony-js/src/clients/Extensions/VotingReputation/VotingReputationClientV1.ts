@@ -5,6 +5,7 @@ import {
   addAugments,
   type UnkonwnVotingReputationClient,
 } from './augments/commonAugments.js';
+import { ClientType } from '../../../constants.js';
 import { addAugments as addCreateDomainMotionAugments } from './augments/CreateDomainMotion.js';
 
 export default function getVotingReputationClient(
@@ -16,6 +17,7 @@ export default function getVotingReputationClient(
     colonyClient.signer || colonyClient.provider,
   ) as UnkonwnVotingReputationClient;
 
+  votingReputationClient.clientType = ClientType.VotingReputationClient;
   votingReputationClient.clientVersion = 1;
   addAugments(votingReputationClient, colonyClient);
   addCreateDomainMotionAugments(votingReputationClient);

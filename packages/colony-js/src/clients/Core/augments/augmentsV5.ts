@@ -19,11 +19,11 @@ import {
 
 import { ColonyNetworkClient } from '../../ColonyNetworkClient.js';
 import {
-  IColonyV9,
   IColonyV10,
   IColonyV11,
   IColonyV12,
   IColonyV13,
+  IColonyV14,
 } from '../contracts.js';
 import { AugmentedIColony } from './commonAugments.js';
 import { ColonyAugmentsV3 } from './augmentsV3.js';
@@ -34,11 +34,11 @@ import {
 } from './augmentsV4.js';
 
 type ValidColony =
-  | IColonyV9
   | IColonyV10
   | IColonyV11
   | IColonyV12
-  | IColonyV13;
+  | IColonyV13
+  | IColonyV14;
 
 /*
  * Estimates

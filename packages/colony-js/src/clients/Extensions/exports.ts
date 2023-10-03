@@ -6,6 +6,7 @@ import {
   type FundingQueueVersion,
   type OneTxPaymentVersion,
   type ReputationBootstrapperVersion,
+  type StagedExpenditureVersion,
   type StakedExpenditureVersion,
   type StreamingPaymentsVersion,
   type TokenSupplierVersion,
@@ -41,6 +42,10 @@ import {
   AnyEvaluatedExpenditureClient,
 } from './EvaluatedExpenditure/exports.js';
 import {
+  getStagedExpenditureClient,
+  AnyStagedExpenditureClient,
+} from './StagedExpenditure/exports.js';
+import {
   getStakedExpenditureClient,
   AnyStakedExpenditureClient,
 } from './StakedExpenditure/exports.js';
@@ -64,6 +69,7 @@ const { AddressZero } = constants;
 export * from './CoinMachine/exports.js';
 export * from './EvaluatedExpenditure/exports.js';
 export * from './OneTxPayment/exports.js';
+export * from './StagedExpenditure/exports.js';
 export * from './StakedExpenditure/exports.js';
 export * from './StreamingPayments/exports.js';
 export * from './TokenSupplier/exports.js';
@@ -76,6 +82,7 @@ export type ExtensionClient =
   | AnyFundingQueueClient
   | AnyOneTxPaymentClient
   | AnyReputationBootstrapperClient
+  | AnyStagedExpenditureClient
   | AnyStakedExpenditureClient
   | AnyStreamingPaymentsClient
   | AnyTokenSupplierClient
@@ -90,6 +97,7 @@ export type GetExtensionClientReturns = {
   [Extension.IVotingReputation]: AnyVotingReputationClient;
   [Extension.OneTxPayment]: AnyOneTxPaymentClient;
   [Extension.ReputationBootstrapper]: AnyReputationBootstrapperClient;
+  [Extension.StagedExpenditure]: AnyStagedExpenditureClient;
   [Extension.StakedExpenditure]: AnyStakedExpenditureClient;
   [Extension.StreamingPayments]: AnyStreamingPaymentsClient;
   [Extension.TokenSupplier]: AnyTokenSupplierClient;
@@ -172,6 +180,13 @@ export async function getExtensionClient(
         this,
         address,
         version as ReputationBootstrapperVersion,
+      );
+    }
+    case Extension.StagedExpenditure: {
+      return getStagedExpenditureClient(
+        this,
+        address,
+        version as StagedExpenditureVersion,
       );
     }
     case Extension.StakedExpenditure: {

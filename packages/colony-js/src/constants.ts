@@ -14,6 +14,7 @@ export enum ClientType {
   NetworkClient = 'NetworkClient',
   OneTxPaymentClient = 'OneTxPaymentClient',
   ReputationBootstrapperClient = 'ReputationBootstrapperClient',
+  StagedExpenditureClient = 'StagedExpenditureClient',
   StakedExpenditureClient = 'StakedExpenditureClient',
   StreamingPaymentsClient = 'StreamingPaymentsClient',
   TokenSupplierClient = 'TokenSupplierClient',

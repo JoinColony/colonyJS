@@ -1,7 +1,9 @@
+import type { AugmentedIColony } from '../../Core/augments/commonAugments.js';
+
 import { CoinMachine__factory as CoinMachineFactory } from '../../../contracts/CoinMachine/3/factories/CoinMachine__factory.js';
-import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
+import { ClientType } from '../../../constants.js';
 import {
-  UnkonwnCoinMachineClient,
+  type UnkonwnCoinMachineClient,
   addAugments,
 } from './augments/commonAugments.js';
 
@@ -14,6 +16,7 @@ export default function getCoinMachineClient(
     colonyClient.signer || colonyClient.provider,
   ) as UnkonwnCoinMachineClient;
 
+  coinMachineClient.clientType = ClientType.CoinMachineClient;
   coinMachineClient.clientVersion = 3;
   addAugments(coinMachineClient, colonyClient);
 

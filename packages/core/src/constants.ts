@@ -201,6 +201,7 @@ export enum Extension {
   IVotingReputation = 'IVotingReputation',
   OneTxPayment = 'OneTxPayment',
   ReputationBootstrapper = 'ReputationBootstrapper',
+  StagedExpenditure = 'StagedExpenditure',
   StakedExpenditure = 'StakedExpenditure',
   StreamingPayments = 'StreamingPayments',
   TokenSupplier = 'TokenSupplier',

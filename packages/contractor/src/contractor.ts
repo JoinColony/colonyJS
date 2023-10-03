@@ -3,7 +3,11 @@ import { rimraf } from 'rimraf';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 import { runTypeChain, glob } from 'typechain';
-import { latest as latestTag, releases, releaseMap } from '@colony/abis';
+import {
+  latest as latestTag,
+  releases,
+  releaseMap,
+} from '@colony/abis/versions';
 
 // Contracts needed in the core package
 const CORE_CONTRACTS = ['MotionTarget', 'Versioned'];
@@ -17,6 +21,7 @@ const VERSIONED_CONTRACTS = [
   'IVotingReputation',
   'OneTxPayment',
   'ReputationBootstrapper',
+  'StagedExpenditure',
   'StakedExpenditure',
   'StreamingPayments',
   'TokenSupplier',
@@ -52,7 +57,7 @@ const TOKEN_STATIC_CONTRACTS = [
   'TokenSAI',
 ];
 
-const ABI_DIR = dirname(require.resolve('@colony/abis'));
+const ABI_DIR = dirname(require.resolve('@colony/abis/versions'));
 const VERSIONED_DIR = resolvePath(ABI_DIR, 'versions');
 const CORE_DIR = resolvePath(ABI_DIR, 'core');
 const EVENTS_DIR = resolvePath(ABI_DIR, 'events');
@@ -106,14 +111,22 @@ const buildVersionedContracts = async (
 const buildLatestVersionedContracts = async (
   outputDir: string,
   plugin: string,
+  includeNext: boolean,
 ) => {
   const promises = VERSIONED_CONTRACTS.map(async (contractName) => {
     const availableVersions =
       releaseMap[contractName as keyof typeof releaseMap];
-    const [tag, version] = Object.entries(availableVersions).reduce(
-      (max, current) => (max[1] > current[1] ? max : current),
-      ['_', 0],
-    );
+    const [tag, version] = Object.entries(availableVersions)
+      .filter(([t]) => {
+        if (includeNext) {
+          return true;
+        }
+        return t !== 'next';
+      })
+      .reduce(
+        (max, current) => (max[1] > current[1] ? max : current),
+        ['_', 0],
+      );
 
     const outDir = resolvePath(outputDir, contractName, String(version));
     const versionDir = resolvePath(VERSIONED_DIR, tag);
@@ -131,8 +144,13 @@ const buildLatestVersionedContracts = async (
   return Promise.all(promises);
 };
 
-const buildLatestContracts = async (outputDir: string, plugin: string) => {
-  const inputDir = resolvePath(VERSIONED_DIR, latestTag);
+const buildLatestContracts = async (
+  outputDir: string,
+  plugin: string,
+  latest: string,
+) => {
+  const inputDir = resolvePath(VERSIONED_DIR, latest);
+
   const contractGlobs = `{${[...UPGRADABLE_CONTRACTS, ...UNVERSIONED_CONTRACTS]
     .map((c) => `${c}.json`)
     .join(',')}}`;
@@ -184,11 +202,16 @@ const buildStaticTokenContracts = async (outputDir: string, plugin: string) => {
   });
 };
 
-const buildEventsContracts = async (outputDir: string, plugin: string) => {
+const buildEventsContracts = async (
+  outputDir: string,
+  plugin: string,
+  includeNext: boolean,
+) => {
   const contractGlobs = `{${EVENTS_CONTRACTS.map((c) => `${c}Events.json`).join(
     ',',
   )}}`;
-  const files = glob(CWD, [`${EVENTS_DIR}/${contractGlobs}`]);
+  const dir = includeNext ? resolvePath(EVENTS_DIR, 'next') : EVENTS_DIR;
+  const files = glob(CWD, [`${dir}/${contractGlobs}`]);
 
   return runTypeChain({
     cwd: CWD,
@@ -216,19 +239,24 @@ const buildCoreContracts = async (outputDir: string, plugin: string) => {
 const buildTag = async (tag: string, outputDir: string, plugin: string) => {
   const inputDir = resolvePath(VERSIONED_DIR, tag);
   await buildVersionedContracts(inputDir, tag, outputDir, plugin);
-
-  if (tag === latestTag) {
-    await buildLatestContracts(outputDir, plugin);
-  }
 };
 
-const buildAllLatest = async (outputDir: string, plugin: string) => {
-  await buildLatestVersionedContracts(outputDir, plugin);
-  await buildLatestContracts(outputDir, plugin);
+const buildAllLatest = async (
+  outputDir: string,
+  plugin: string,
+  latest: string,
+  includeNext: boolean,
+) => {
+  await buildLatestVersionedContracts(outputDir, plugin, includeNext);
+  await buildLatestContracts(outputDir, plugin, latest);
 };
 
-const buildTokenContracts = async (outputDir: string, plugin: string) => {
-  const versionDir = resolvePath(VERSIONED_DIR, latestTag);
+const buildTokenContracts = async (
+  outputDir: string,
+  plugin: string,
+  latest: string,
+) => {
+  const versionDir = resolvePath(VERSIONED_DIR, latest);
   await buildLatestTokentContracts(versionDir, outputDir, plugin);
   await buildStaticTokenContracts(outputDir, plugin);
 };
@@ -240,7 +268,7 @@ const start = async () => {
       tag: {
         alias: 't',
         array: true,
-        default: releases.length,
+        default: releases.length + 1,
         describe: `Colony Network release tag(s) to build (e.g. glwss), or a number determining to build the latest X tags`,
       },
     })
@@ -252,6 +280,12 @@ const start = async () => {
       type: 'string',
       default: './dist',
       describe: 'Output directory (relative to cwd)',
+    })
+    .option('include-next', {
+      alias: 'n',
+      type: 'boolean',
+      default: false,
+      describe: 'Include the next release tag (development version)',
     })
     .option('plugin', {
       alias: 'p',
@@ -269,8 +303,11 @@ const start = async () => {
     .strict();
 
   const args = await argv;
-  const { clean, out, plugin, tag, _ } = args;
+  const { clean, includeNext, out, plugin, tag, _ } = args;
   const [command] = _;
+
+  const allReleases = includeNext ? [...releases, 'next'] : releases;
+  const latest = includeNext ? 'next' : latestTag;
 
   const outputDir = resolvePath(process.cwd(), out);
   if (clean) {
@@ -286,12 +323,12 @@ const start = async () => {
       const argTag = tag as (number | string)[];
       const tags =
         typeof argTag[0] == 'number'
-          ? releases.slice(releases.length - argTag[0])
+          ? allReleases.slice(allReleases.length - argTag[0])
           : (argTag as string[]);
       await Promise.all(
         tags.map(async (releaseTag) => {
-          if (releaseTag === latestTag) {
-            await buildAllLatest(outputDir, plugin);
+          if (releaseTag === latest) {
+            await buildAllLatest(outputDir, plugin, latest, includeNext);
           } else {
             await buildTag(releaseTag, outputDir, plugin);
           }
@@ -300,11 +337,11 @@ const start = async () => {
       break;
     }
     case 'tokens': {
-      await buildTokenContracts(outputDir, plugin);
+      await buildTokenContracts(outputDir, plugin, latest);
       break;
     }
     case 'events': {
-      await buildEventsContracts(outputDir, plugin);
+      await buildEventsContracts(outputDir, plugin, includeNext);
       break;
     }
     default:

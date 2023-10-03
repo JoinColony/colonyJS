@@ -25,6 +25,10 @@ import {
   StakedExpenditureVersion,
 } from './StakedExpenditure.js';
 import {
+  STAGED_EXPENDITURE_VERSION_LATEST,
+  StagedExpenditureVersion,
+} from './StagedExpenditure.js';
+import {
   STREAMING_PAYMENTS_VERSION_LATEST,
   StreamingPaymentsVersion,
 } from './StreamingPayments.js';
@@ -50,6 +54,7 @@ export const ExtensionVersions = {
   [Extension.IVotingReputation]: VOTING_REPUTATION_VERSION_LATEST,
   [Extension.OneTxPayment]: ONE_TX_PAYMENT_VERSION_LATEST,
   [Extension.ReputationBootstrapper]: REPUTATION_BOOTSTRAPPER_VERSION_LATEST,
+  [Extension.StagedExpenditure]: STAGED_EXPENDITURE_VERSION_LATEST,
   [Extension.StakedExpenditure]: STAKED_EXPENDITURE_VERSION_LATEST,
   [Extension.StreamingPayments]: STREAMING_PAYMENTS_VERSION_LATEST,
   [Extension.TokenSupplier]: TOKEN_SUPPLIER_VERSION_LATEST,
@@ -66,6 +71,7 @@ export type ExtensionVersion =
   | FundingQueueVersion
   | OneTxPaymentVersion
   | ReputationBootstrapperVersion
+  | StagedExpenditureVersion
   | StakedExpenditureVersion
   | StreamingPaymentsVersion
   | TokenSupplierVersion
@@ -101,6 +107,10 @@ export { OneTxPaymentVersion } from './OneTxPayment.js';
  * All possible ReputationBootstrapper versions
  */
 export { ReputationBootstrapperVersion } from './ReputationBootstrapper.js';
+/**
+ * All possible StagedExpenditure versions
+ */
+export { StagedExpenditureVersion } from './StagedExpenditure.js';
 /**
  * All possible StakedExpenditure versions
  */

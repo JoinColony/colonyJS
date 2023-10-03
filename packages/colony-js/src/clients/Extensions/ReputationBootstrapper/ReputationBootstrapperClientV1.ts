@@ -1,6 +1,8 @@
+import type { AugmentedIColony } from '../../Core/augments/commonAugments.js';
+import type { ReputationBootstrapper } from '../../../contracts/ReputationBootstrapper/1/ReputationBootstrapper.js';
+
 import { ReputationBootstrapper__factory as ReputationBootstrapperFactory } from '../../../contracts/ReputationBootstrapper/1/factories/ReputationBootstrapper__factory.js';
-import { ReputationBootstrapper } from '../../../contracts/ReputationBootstrapper/1/ReputationBootstrapper.js';
-import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
+import { ClientType } from '../../../constants.js';
 import {
   addAugments,
   AugmentedReputationBootstrapper,
@@ -20,6 +22,8 @@ export default function getReputationBootstrapperClient(
     colonyClient.signer || colonyClient.provider,
   ) as ReputationBootstrapperClientV1;
 
+  reputationBootstrapperClient.clientType =
+    ClientType.ReputationBootstrapperClient;
   reputationBootstrapperClient.clientVersion = 1;
   addAugments(reputationBootstrapperClient, colonyClient);
 

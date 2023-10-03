@@ -26,6 +26,10 @@ import {
   reputationBootstrapperIncompatibilityMap,
 } from './ReputationBootstrapper.js';
 import {
+  StagedExpenditureVersion,
+  stagedExpenditureIncompatibilityMap,
+} from './StagedExpenditure.js';
+import {
   StakedExpenditureVersion,
   stakedExpenditureIncompatibilityMap,
 } from './StakedExpenditure.js';
@@ -88,6 +92,13 @@ export const isExtensionCompatible = (
       const map =
         reputationBootstrapperIncompatibilityMap[
           extensionVersion as ReputationBootstrapperVersion
+        ];
+      return !!map && !map.includes(colonyVersion);
+    }
+    case Extension.StagedExpenditure: {
+      const map =
+        stagedExpenditureIncompatibilityMap[
+          extensionVersion as StagedExpenditureVersion
         ];
       return !!map && !map.includes(colonyVersion);
     }

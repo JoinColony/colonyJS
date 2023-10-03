@@ -10,16 +10,16 @@ import {
   VotingReputationV7,
   VotingReputationV8,
   VotingReputationV9,
+  VotingReputationV10,
 } from '../contracts.js';
-import {
-  addAugments as addCommonAugments,
-  AugmentedVotingReputation,
-} from './commonAugments.js';
+import { AugmentedVotingReputation } from './commonAugments.js';
+import { addAugments as addAugmentsV2, AugmentsV2 } from './augmentsV2.js';
 
 type ValidVotingReputation =
   | VotingReputationV7
   | VotingReputationV8
-  | VotingReputationV9;
+  | VotingReputationV9
+  | VotingReputationV10;
 
 export interface AugmentedEstimateV3 {
   /**
@@ -57,6 +57,7 @@ export type AugmentsV3<T extends ValidVotingReputation> = {
 
 type FullAugmentedVotingReputation =
   AugmentedVotingReputation<ValidVotingReputation> &
+    AugmentsV2<ValidVotingReputation> &
     AugmentsV3<ValidVotingReputation>;
 
 async function claimMisalignedRewardWithProofs(
@@ -117,7 +118,7 @@ export const addAugments = (
   instance: AugmentedVotingReputation<ValidVotingReputation>,
   colonyClient: AugmentedIColony,
 ): FullAugmentedVotingReputation => {
-  const augmentedInstance = addCommonAugments(
+  const augmentedInstance = addAugmentsV2(
     instance,
     colonyClient,
   ) as FullAugmentedVotingReputation;

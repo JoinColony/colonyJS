@@ -11,18 +11,11 @@ import {
   parsePermissionedAction,
 } from '@colony/core';
 
-import {
-  VotingReputationV5,
-  VotingReputationV6,
-  VotingReputationV7,
-} from '../contracts.js';
+import { VotingReputationV6, VotingReputationV7 } from '../contracts.js';
 import { AugmentedVotingReputation } from './commonAugments.js';
 
 // VotingReputation versions that support this method
-type ValidVotingReputation =
-  | VotingReputationV5
-  | VotingReputationV6
-  | VotingReputationV7;
+type ValidVotingReputation = VotingReputationV6 | VotingReputationV7;
 
 const { MaxUint256 } = constants;
 
