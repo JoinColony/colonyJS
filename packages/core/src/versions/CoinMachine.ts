@@ -3,7 +3,7 @@ import type { ColonyVersion } from './IColony.js';
 import { createContractVersionArray } from './utils.js';
 
 // This is the latest CoinMachine version + 1. It's for generating types and compatibility maps
-const COIN_MACHINE_VERSION_NEXT = 9;
+const COIN_MACHINE_VERSION_NEXT = 10;
 
 /** @internal */
 const COIN_MACHINE_VERSIONS = createContractVersionArray(
@@ -25,6 +25,7 @@ export const coinMachineIncompatibilityMap: Record<
   6: [],
   7: [],
   8: [],
+  9: [],
 };
 
 /** @internal */

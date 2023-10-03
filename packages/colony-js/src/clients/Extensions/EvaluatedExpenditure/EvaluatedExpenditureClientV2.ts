@@ -1,6 +1,8 @@
+import type { AugmentedIColony } from '../../Core/augments/commonAugments.js';
+import type { EvaluatedExpenditure } from '../../../contracts/EvaluatedExpenditure/2/EvaluatedExpenditure.js';
+
 import { EvaluatedExpenditure__factory as EvaluatedExpenditureFactory } from '../../../contracts/EvaluatedExpenditure/2/factories/EvaluatedExpenditure__factory.js';
-import { EvaluatedExpenditure } from '../../../contracts/EvaluatedExpenditure/2/EvaluatedExpenditure.js';
-import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
+import { ClientType } from '../../../constants.js';
 import {
   addAugments,
   AugmentedEvaluatedExpenditure,
@@ -16,13 +18,14 @@ export default function getEvaluatedExpenditureClient(
   colonyClient: AugmentedIColony<ValidColony>,
   address: string,
 ): EvaluatedExpenditureClientV2 {
-  const whitelistClient = EvaluatedExpenditureFactory.connect(
+  const evaluatedExpenditureClient = EvaluatedExpenditureFactory.connect(
     address,
     colonyClient.signer || colonyClient.provider,
   ) as EvaluatedExpenditureClientV2;
 
-  whitelistClient.clientVersion = 2;
-  addAugments(whitelistClient, colonyClient);
+  evaluatedExpenditureClient.clientType = ClientType.EvaluatedExpenditureClient;
+  evaluatedExpenditureClient.clientVersion = 2;
+  addAugments(evaluatedExpenditureClient, colonyClient);
 
-  return whitelistClient;
+  return evaluatedExpenditureClient;
 }

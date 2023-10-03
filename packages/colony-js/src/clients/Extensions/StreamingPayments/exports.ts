@@ -11,13 +11,18 @@ import getStreamingPaymentsClientV1, {
 import getStreamingPaymentsClientV2, {
   StreamingPaymentsClientV2,
 } from './StreamingPaymentsClientV2.js';
+import getStreamingPaymentsClientV3, {
+  StreamingPaymentsClientV3,
+} from './StreamingPaymentsClientV3.js';
 
 export { StreamingPaymentsClientV1 } from './StreamingPaymentsClientV1.js';
 export { StreamingPaymentsClientV2 } from './StreamingPaymentsClientV2.js';
+export { StreamingPaymentsClientV3 } from './StreamingPaymentsClientV3.js';
 
 export type AnyStreamingPaymentsClient =
   | StreamingPaymentsClientV1
-  | StreamingPaymentsClientV2;
+  | StreamingPaymentsClientV2
+  | StreamingPaymentsClientV3;
 
 /** @internal */
 export const getStreamingPaymentsClient = (
@@ -33,6 +38,11 @@ export const getStreamingPaymentsClient = (
       );
     case 2:
       return getStreamingPaymentsClientV2(
+        colonyClient as AugmentedIColony<ValidColony>,
+        address,
+      );
+    case 3:
+      return getStreamingPaymentsClientV3(
         colonyClient as AugmentedIColony<ValidColony>,
         address,
       );

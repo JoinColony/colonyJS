@@ -1,5 +1,8 @@
+import type { AugmentedIColony } from '../../Core/augments/commonAugments.js';
+import type { IVotingReputation } from '../../../contracts/IVotingReputation/6/IVotingReputation.js';
+
 import { IVotingReputation__factory as VotingReputationFactory } from '../../../contracts/IVotingReputation/6/factories/IVotingReputation__factory.js';
-import { IVotingReputation } from '../../../contracts/IVotingReputation/6/IVotingReputation.js';
+import { ClientType } from '../../../constants.js';
 import {
   AugmentedEstimate,
   AugmentedVotingReputation,
@@ -14,7 +17,6 @@ import {
   CreateDomainMotionAugments,
   CreateDomainMotionEstimateGas,
 } from './augments/CreateDomainMotion.js';
-import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
 
 interface VotingReputationEstimate
   extends AugmentedEstimate<IVotingReputation>,
@@ -38,6 +40,7 @@ export default function getVotingReputationClient(
     colonyClient.signer || colonyClient.provider,
   ) as VotingReputationClientV6;
 
+  votingReputationClient.clientType = ClientType.VotingReputationClient;
   votingReputationClient.clientVersion = 6;
   addAugments(votingReputationClient, colonyClient);
   addCreateDomainMotionAugments(votingReputationClient);

@@ -17,17 +17,22 @@ import getEvaluatedExpenditureClientV3, {
 import getEvaluatedExpenditureClientV4, {
   EvaluatedExpenditureClientV4,
 } from './EvaluatedExpenditureClientV4.js';
+import getEvaluatedExpenditureClientV5, {
+  EvaluatedExpenditureClientV5,
+} from './EvaluatedExpenditureClientV5.js';
 
 export { EvaluatedExpenditureClientV1 } from './EvaluatedExpenditureClientV1.js';
 export { EvaluatedExpenditureClientV2 } from './EvaluatedExpenditureClientV2.js';
 export { EvaluatedExpenditureClientV3 } from './EvaluatedExpenditureClientV3.js';
 export { EvaluatedExpenditureClientV4 } from './EvaluatedExpenditureClientV4.js';
+export { EvaluatedExpenditureClientV5 } from './EvaluatedExpenditureClientV5.js';
 
 export type AnyEvaluatedExpenditureClient =
   | EvaluatedExpenditureClientV1
   | EvaluatedExpenditureClientV2
   | EvaluatedExpenditureClientV3
-  | EvaluatedExpenditureClientV4;
+  | EvaluatedExpenditureClientV4
+  | EvaluatedExpenditureClientV5;
 
 /** @internal */
 export const getEvaluatedExpenditureClient = (
@@ -53,6 +58,11 @@ export const getEvaluatedExpenditureClient = (
       );
     case 4:
       return getEvaluatedExpenditureClientV4(
+        colonyClient as AugmentedIColony<ValidColony>,
+        address,
+      );
+    case 5:
+      return getEvaluatedExpenditureClientV5(
         colonyClient as AugmentedIColony<ValidColony>,
         address,
       );

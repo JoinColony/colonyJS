@@ -2,7 +2,7 @@ import type { ColonyVersion } from './IColony.js';
 
 import { createContractVersionArray } from './utils.js';
 
-const EVALUATED_EXPENDITURE_VERSION_NEXT = 5;
+const EVALUATED_EXPENDITURE_VERSION_NEXT = 6;
 
 /** @internal */
 export const EVALUATED_EXPENDITURE_VERSIONS = createContractVersionArray(
@@ -21,6 +21,7 @@ export const evaluatedExpenditureIncompatibilityMap: Record<
   2: [1, 2, 3],
   3: [1, 2, 3],
   4: [1, 2, 3],
+  5: [1, 2, 3],
 };
 
 /** @internal */
