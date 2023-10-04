@@ -22,6 +22,9 @@ jobs:
     - run: pnpm install --frozen-lockfile
     - run: pnpm run lint
     - run: pnpm run build
+      env:
+        NODE_OPTIONS: --max-old-space-size=4096
     - run: pnpm run test
       env:
         CI: true
+        NODE_OPTIONS: --max-old-space-size=4096
