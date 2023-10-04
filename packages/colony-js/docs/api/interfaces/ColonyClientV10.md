@@ -365,7 +365,7 @@ ___
 
 ### tokenClient
 
-• **tokenClient**: `TokenClient`
+• **tokenClient**: [`TokenClient`](../README.md#tokenclient)
 
 An instance of the TokenClient for the Colony's native token
 
