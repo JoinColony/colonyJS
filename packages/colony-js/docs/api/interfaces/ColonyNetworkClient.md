@@ -3323,13 +3323,13 @@ ___
 
 ### getTokenLockingClient
 
-▸ **getTokenLockingClient**(): `Promise`<`TokenLockingClient`\>
+▸ **getTokenLockingClient**(): `Promise`<[`TokenLockingClient`](TokenLockingClient.md)\>
 
 Gets the TokenLockingClient
 
 #### Returns
 
-`Promise`<`TokenLockingClient`\>
+`Promise`<[`TokenLockingClient`](TokenLockingClient.md)\>
 
 an initialized version of the TokenLockingClient
 

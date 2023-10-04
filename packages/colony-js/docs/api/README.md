@@ -3,10 +3,12 @@
 ## Namespaces
 
 - [Tokens](modules/Tokens.md)
+- [factories](modules/factories.md)
 
 ## Enumerations
 
 - [ClientType](enums/ClientType.md)
+- [ClientTypeTokens](enums/ClientTypeTokens.md)
 - [ColonyLabelSuffix](enums/ColonyLabelSuffix.md)
 - [ColonyNetworkAddress](enums/ColonyNetworkAddress.md)
 - [ColonyRole](enums/ColonyRole.md)
@@ -19,10 +21,14 @@
 - [MotionState](enums/MotionState.md)
 - [Network](enums/Network.md)
 - [ReputationOracleEndpoint](enums/ReputationOracleEndpoint.md)
+- [TokenClientType](enums/TokenClientType.md)
 - [UserLabelSuffix](enums/UserLabelSuffix.md)
 
 ## Classes
 
+- [ColonyTokenFactory](classes/ColonyTokenFactory.md)
+- [ERC20TokenFactory](classes/ERC20TokenFactory.md)
+- [ERC2612TokenFactory](classes/ERC2612TokenFactory.md)
 - [ReputationClient](classes/ReputationClient.md)
 
 ## Interfaces
@@ -38,14 +44,21 @@
 - [ColonyClientV13](interfaces/ColonyClientV13.md)
 - [ColonyClientV14](interfaces/ColonyClientV14.md)
 - [ColonyNetworkClient](interfaces/ColonyNetworkClient.md)
+- [ColonyToken](interfaces/ColonyToken.md)
+- [ColonyTokenClient](interfaces/ColonyTokenClient.md)
 - [CommonColony](interfaces/CommonColony.md)
 - [ContractReceipt](interfaces/ContractReceipt.md)
+- [ERC20Token](interfaces/ERC20Token.md)
+- [ERC2612Token](interfaces/ERC2612Token.md)
+- [Erc20TokenClient](interfaces/Erc20TokenClient.md)
+- [Erc2612TokenClient](interfaces/Erc2612TokenClient.md)
 - [EvaluatedExpenditureClientV1](interfaces/EvaluatedExpenditureClientV1.md)
 - [EvaluatedExpenditureClientV2](interfaces/EvaluatedExpenditureClientV2.md)
 - [EvaluatedExpenditureClientV3](interfaces/EvaluatedExpenditureClientV3.md)
 - [EvaluatedExpenditureClientV4](interfaces/EvaluatedExpenditureClientV4.md)
 - [EvaluatedExpenditureClientV5](interfaces/EvaluatedExpenditureClientV5.md)
 - [IBasicMetaTransaction](interfaces/IBasicMetaTransaction.md)
+- [LegacyColonyTokenClient](interfaces/LegacyColonyTokenClient.md)
 - [NetworkClientOptions](interfaces/NetworkClientOptions.md)
 - [OneTxPaymentClientV2](interfaces/OneTxPaymentClientV2.md)
 - [OneTxPaymentClientV3](interfaces/OneTxPaymentClientV3.md)
@@ -60,6 +73,10 @@
 - [StreamingPaymentsClientV1](interfaces/StreamingPaymentsClientV1.md)
 - [StreamingPaymentsClientV2](interfaces/StreamingPaymentsClientV2.md)
 - [StreamingPaymentsClientV3](interfaces/StreamingPaymentsClientV3.md)
+- [Token](interfaces/Token.md)
+- [TokenAuthority](interfaces/TokenAuthority.md)
+- [TokenLocking](interfaces/TokenLocking.md)
+- [TokenLockingClient](interfaces/TokenLockingClient.md)
 - [TokenSupplierClientV2](interfaces/TokenSupplierClientV2.md)
 - [TokenSupplierClientV3](interfaces/TokenSupplierClientV3.md)
 - [TokenSupplierClientV4](interfaces/TokenSupplierClientV4.md)
@@ -75,6 +92,36 @@
 - [WhitelistClientV3](interfaces/WhitelistClientV3.md)
 - [WhitelistClientV4](interfaces/WhitelistClientV4.md)
 - [WhitelistClientV5](interfaces/WhitelistClientV5.md)
+
+## References
+
+### MetaTxToken
+
+Renames and re-exports [ColonyToken](interfaces/ColonyToken.md)
+
+___
+
+### MetaTxToken\_\_factory
+
+Renames and re-exports [ColonyTokenFactory](classes/ColonyTokenFactory.md)
+
+___
+
+### TokenAuthority\_\_factory
+
+Re-exports [TokenAuthority__factory](classes/factories.TokenAuthority__factory.md)
+
+___
+
+### TokenLocking\_\_factory
+
+Re-exports [TokenLocking__factory](classes/factories.TokenLocking__factory.md)
+
+___
+
+### Token\_\_factory
+
+Re-exports [Token__factory](classes/factories.Token__factory.md)
 
 ## Type Aliases
 
@@ -160,7 +207,7 @@ ___
 
 ### ContractClient
 
-Ƭ **ContractClient**: [`AnyColonyClient`](README.md#anycolonyclient) \| [`ColonyNetworkClient`](interfaces/ColonyNetworkClient.md) \| [`EventsClient`](README.md#eventsclient) \| [`ExtensionClient`](README.md#extensionclient) \| `TokenContractClient` \| `TokenLockingContractClient`
+Ƭ **ContractClient**: [`AnyColonyClient`](README.md#anycolonyclient) \| [`ColonyNetworkClient`](interfaces/ColonyNetworkClient.md) \| [`EventsClient`](README.md#eventsclient) \| [`ExtensionClient`](README.md#extensionclient) \| [`TokenClient`](README.md#tokenclient) \| [`TokenLockingClient`](interfaces/TokenLockingClient.md)
 
 ___
 
@@ -249,6 +296,12 @@ ___
 
 ___
 
+### TokenClient
+
+Ƭ **TokenClient**: [`ColonyTokenClient`](interfaces/ColonyTokenClient.md) \| [`LegacyColonyTokenClient`](interfaces/LegacyColonyTokenClient.md) \| [`Erc20TokenClient`](interfaces/Erc20TokenClient.md) \| [`Erc2612TokenClient`](interfaces/Erc2612TokenClient.md)
+
+___
+
 ### TokenSupplierVersion
 
 Ƭ **TokenSupplierVersion**: typeof `TOKEN_SUPPLIER_VERSIONS`[`number`]
@@ -298,6 +351,24 @@ Usually there's no need to use this directly.
 
 ___
 
+### ERC20
+
+• `Const` **ERC20**: `TokenERC20Interface`
+
+___
+
+### ERC2612
+
+• `Const` **ERC2612**: `TokenERC2612Interface`
+
+___
+
+### ERC721
+
+• `Const` **ERC721**: `TokenERC721Interface`
+
+___
+
 ### ExtensionVersions
 
 • `Const` **ExtensionVersions**: `Object`
@@ -320,6 +391,12 @@ Latest versions of all extension contracts
 | `TokenSupplier` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` |
 | `VotingReputation` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` |
 | `Whitelist` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` |
+
+___
+
+### LATEST\_TAG
+
+• `Const` **LATEST\_TAG**: ``"glwss4"``
 
 ## Functions
 
@@ -754,6 +831,40 @@ See [[`FundingPotAssociatedType`]] for details
 `Promise`<`BigNumberish`\>
 
 The associated domainId
+
+___
+
+### getTokenClient
+
+▸ **getTokenClient**(`address`, `signerOrProvider`): `Promise`<[`TokenClient`](README.md#tokenclient)\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `address` | `string` |
+| `signerOrProvider` | [`SignerOrProvider`](README.md#signerorprovider) |
+
+#### Returns
+
+`Promise`<[`TokenClient`](README.md#tokenclient)\>
+
+___
+
+### getTokenLockingClient
+
+▸ **getTokenLockingClient**(`address`, `signerOrProvider`): [`TokenLockingClient`](interfaces/TokenLockingClient.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `address` | `string` |
+| `signerOrProvider` | [`SignerOrProvider`](README.md#signerorprovider) |
+
+#### Returns
+
+[`TokenLockingClient`](interfaces/TokenLockingClient.md)
 
 ___
 
