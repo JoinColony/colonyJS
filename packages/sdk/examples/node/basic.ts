@@ -1,4 +1,5 @@
 import { providers } from 'ethers';
+import 'cross-fetch/dist/node-polyfill.js';
 
 import { ColonyNetwork, ColonyRpcEndpoint, toEth } from '../../src/index.js';
 

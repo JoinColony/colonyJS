@@ -1,4 +1,5 @@
 import { constants, providers, Wallet } from 'ethers';
+import 'cross-fetch/dist/node-polyfill.js';
 
 import { ColonyNetwork, ColonyRpcEndpoint } from '../../src/index.js';
 
