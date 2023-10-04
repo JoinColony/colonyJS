@@ -1,5 +1,22 @@
 # @colony/colony-js
 
+## 7.0.0-next.6
+
+### Major Changes
+
+- 029288cd: This changes the way `colony-js` clients are typed. We retain only the types of the last 5 versions of the types, all older versions will go untyped. This will give us some breathing room, at least for the amount of extensions that we have now.
+
+  Furthermore the most recent (upcoming) contract changes were included in ColonyJS.
+
+  Some changes were made to fix builds.
+
+### Patch Changes
+
+- Updated dependencies [029288cd]
+  - @colony/core@2.0.0-next.4
+  - @colony/events@0.3.0-next.4
+  - @colony/tokens@0.2.0-next.2
+
 ## 7.0.0-next.5
 
 ### Patch Changes
