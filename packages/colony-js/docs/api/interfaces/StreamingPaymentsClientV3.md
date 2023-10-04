@@ -1,10 +1,10 @@
-# Interface: StreamingPaymentsClientV2
+# Interface: StreamingPaymentsClientV3
 
 ## Hierarchy
 
 - `AugmentedStreamingPayments`<`StreamingPayments`\>
 
-  ↳ **`StreamingPaymentsClientV2`**
+  ↳ **`StreamingPaymentsClientV3`**
 
 ## Properties
 
@@ -143,7 +143,7 @@ ___
 
 ### clientVersion
 
-• **clientVersion**: ``2``
+• **clientVersion**: ``3``
 
 #### Overrides
 
@@ -299,7 +299,7 @@ ___
 
 ### off
 
-• **off**: `OnEvent`<[`StreamingPaymentsClientV2`](StreamingPaymentsClientV2.md)\>
+• **off**: `OnEvent`<[`StreamingPaymentsClientV3`](StreamingPaymentsClientV3.md)\>
 
 #### Inherited from
 
@@ -309,7 +309,7 @@ ___
 
 ### on
 
-• **on**: `OnEvent`<[`StreamingPaymentsClientV2`](StreamingPaymentsClientV2.md)\>
+• **on**: `OnEvent`<[`StreamingPaymentsClientV3`](StreamingPaymentsClientV3.md)\>
 
 #### Inherited from
 
@@ -319,7 +319,7 @@ ___
 
 ### once
 
-• **once**: `OnEvent`<[`StreamingPaymentsClientV2`](StreamingPaymentsClientV2.md)\>
+• **once**: `OnEvent`<[`StreamingPaymentsClientV3`](StreamingPaymentsClientV3.md)\>
 
 #### Inherited from
 
@@ -414,7 +414,7 @@ ___
 
 ### removeListener
 
-• **removeListener**: `OnEvent`<[`StreamingPaymentsClientV2`](StreamingPaymentsClientV2.md)\>
+• **removeListener**: `OnEvent`<[`StreamingPaymentsClientV3`](StreamingPaymentsClientV3.md)\>
 
 #### Inherited from
 
@@ -576,7 +576,7 @@ ___
 
 ▸ **addTokenWithProofs**(`_id`, `_token`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Same as [addToken](StreamingPaymentsClientV2.md#addtoken), but let colonyJS figure out the permission proofs for you.
+Same as [addToken](StreamingPaymentsClientV3.md#addtoken), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -600,7 +600,7 @@ ___
 
 ### attach
 
-▸ **attach**(`addressOrName`): [`StreamingPaymentsClientV2`](StreamingPaymentsClientV2.md)
+▸ **attach**(`addressOrName`): [`StreamingPaymentsClientV3`](StreamingPaymentsClientV3.md)
 
 #### Parameters
 
@@ -610,7 +610,7 @@ ___
 
 #### Returns
 
-[`StreamingPaymentsClientV2`](StreamingPaymentsClientV2.md)
+[`StreamingPaymentsClientV3`](StreamingPaymentsClientV3.md)
 
 #### Inherited from
 
@@ -760,7 +760,7 @@ ___
 
 ▸ **cancelWithProofs**(`_id`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Same as [cancel](StreamingPaymentsClientV2.md#cancel), but let colonyJS figure out the permission proofs for you.
+Same as [cancel](StreamingPaymentsClientV3.md#cancel), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -840,7 +840,7 @@ ___
 
 ▸ **claimWithProofs**(`_id`, `_tokens`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Same as [claim](StreamingPaymentsClientV2.md#claim), but let colonyJS figure out the permission proofs for you.
+Same as [claim](StreamingPaymentsClientV3.md#claim), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -863,7 +863,7 @@ ___
 
 ### connect
 
-▸ **connect**(`signerOrProvider`): [`StreamingPaymentsClientV2`](StreamingPaymentsClientV2.md)
+▸ **connect**(`signerOrProvider`): [`StreamingPaymentsClientV3`](StreamingPaymentsClientV3.md)
 
 #### Parameters
 
@@ -873,7 +873,7 @@ ___
 
 #### Returns
 
-[`StreamingPaymentsClientV2`](StreamingPaymentsClientV2.md)
+[`StreamingPaymentsClientV3`](StreamingPaymentsClientV3.md)
 
 #### Inherited from
 
@@ -951,7 +951,7 @@ ___
 
 ▸ **createWithProofs**(`_domainId`, `_startTime`, `_endTime`, `_interval`, `_recipient`, `_tokens`, `_amounts`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Same as [create](StreamingPaymentsClientV2.md#create), but let colonyJS figure out the permission proofs for you.
+Same as [create](StreamingPaymentsClientV3.md#create), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -979,11 +979,11 @@ ___
 
 ### deployed
 
-▸ **deployed**(): `Promise`<[`StreamingPaymentsClientV2`](StreamingPaymentsClientV2.md)\>
+▸ **deployed**(): `Promise`<[`StreamingPaymentsClientV3`](StreamingPaymentsClientV3.md)\>
 
 #### Returns
 
-`Promise`<[`StreamingPaymentsClientV2`](StreamingPaymentsClientV2.md)\>
+`Promise`<[`StreamingPaymentsClientV3`](StreamingPaymentsClientV3.md)\>
 
 #### Inherited from
 
@@ -1830,7 +1830,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`StreamingPaymentsClientV2`](StreamingPaymentsClientV2.md)
+▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`StreamingPaymentsClientV3`](StreamingPaymentsClientV3.md)
 
 #### Type parameters
 
@@ -1846,13 +1846,13 @@ ___
 
 #### Returns
 
-[`StreamingPaymentsClientV2`](StreamingPaymentsClientV2.md)
+[`StreamingPaymentsClientV3`](StreamingPaymentsClientV3.md)
 
 #### Inherited from
 
 AugmentedStreamingPayments.removeAllListeners
 
-▸ **removeAllListeners**(`eventName?`): [`StreamingPaymentsClientV2`](StreamingPaymentsClientV2.md)
+▸ **removeAllListeners**(`eventName?`): [`StreamingPaymentsClientV3`](StreamingPaymentsClientV3.md)
 
 #### Parameters
 
@@ -1862,7 +1862,7 @@ AugmentedStreamingPayments.removeAllListeners
 
 #### Returns
 
-[`StreamingPaymentsClientV2`](StreamingPaymentsClientV2.md)
+[`StreamingPaymentsClientV3`](StreamingPaymentsClientV3.md)
 
 #### Inherited from
 
@@ -1968,7 +1968,7 @@ ___
 
 ▸ **setEndTimeWithProofs**(`_id`, `_endTime`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Same as [setEndTime](StreamingPaymentsClientV2.md#setendtime), but let colonyJS figure out the permission proofs for you.
+Same as [setEndTime](StreamingPaymentsClientV3.md#setendtime), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -2087,7 +2087,7 @@ ___
 
 ▸ **setStartTimeWithProofs**(`_id`, `_startTime`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Same as [setStartTime](StreamingPaymentsClientV2.md#setstarttime), but let colonyJS figure out the permission proofs for you.
+Same as [setStartTime](StreamingPaymentsClientV3.md#setstarttime), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -2174,7 +2174,7 @@ ___
 
 ▸ **setTokenAmountWithProofs**(`_id`, `_token`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Same as [setTokenAmount](StreamingPaymentsClientV2.md#settokenamount), but let colonyJS figure out the permission proofs for you.
+Same as [setTokenAmount](StreamingPaymentsClientV3.md#settokenamount), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters

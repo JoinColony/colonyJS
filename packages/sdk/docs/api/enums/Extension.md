@@ -40,6 +40,12 @@ ___
 
 ___
 
+### StagedExpenditure
+
+• **StagedExpenditure** = ``"StagedExpenditure"``
+
+___
+
 ### StakedExpenditure
 
 • **StakedExpenditure** = ``"StakedExpenditure"``

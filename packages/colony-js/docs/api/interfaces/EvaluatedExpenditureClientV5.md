@@ -1,10 +1,10 @@
-# Interface: EvaluatedExpenditureClientV2
+# Interface: EvaluatedExpenditureClientV5
 
 ## Hierarchy
 
 - `AugmentedEvaluatedExpenditure`<`EvaluatedExpenditure`\>
 
-  ↳ **`EvaluatedExpenditureClientV2`**
+  ↳ **`EvaluatedExpenditureClientV5`**
 
 ## Properties
 
@@ -86,6 +86,8 @@ ___
 | `identifier()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `install` | (`_colony`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `install(address)` | (`_colony`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `multicall` | (`data`: `BytesLike`[], `overrides?`: `CallOverrides`) => `Promise`<`string`[]\> |
+| `multicall(bytes[])` | (`data`: `BytesLike`[], `overrides?`: `CallOverrides`) => `Promise`<`string`[]\> |
 | `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `owner()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `setAuthority` | (`authority_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
@@ -119,7 +121,7 @@ ___
 
 ### clientVersion
 
-• **clientVersion**: ``2``
+• **clientVersion**: ``5``
 
 #### Overrides
 
@@ -222,10 +224,12 @@ ___
 | `getDeprecated()` | (`overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
 | `getMetatransactionNonce` | (`_userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
 | `getMetatransactionNonce(address)` | (`_userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
-| `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `identifier()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
+| `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_identifier`: `string`  }\> |
+| `identifier()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_identifier`: `string`  }\> |
 | `install` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `install(address)` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `multicall` | (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `multicall(bytes[])` | (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `owner` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `owner()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `setAuthority` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
@@ -238,8 +242,8 @@ ___
 | `uninstall()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `verify` | (`_owner`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
 | `verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)` | (`_owner`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
-| `version` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
-| `version()` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
+| `version` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_version`: `BigNumber`  }\> |
+| `version()` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_version`: `BigNumber`  }\> |
 
 #### Inherited from
 
@@ -259,7 +263,7 @@ ___
 
 ### off
 
-• **off**: `OnEvent`<[`EvaluatedExpenditureClientV2`](EvaluatedExpenditureClientV2.md)\>
+• **off**: `OnEvent`<[`EvaluatedExpenditureClientV5`](EvaluatedExpenditureClientV5.md)\>
 
 #### Inherited from
 
@@ -269,7 +273,7 @@ ___
 
 ### on
 
-• **on**: `OnEvent`<[`EvaluatedExpenditureClientV2`](EvaluatedExpenditureClientV2.md)\>
+• **on**: `OnEvent`<[`EvaluatedExpenditureClientV5`](EvaluatedExpenditureClientV5.md)\>
 
 #### Inherited from
 
@@ -279,7 +283,7 @@ ___
 
 ### once
 
-• **once**: `OnEvent`<[`EvaluatedExpenditureClientV2`](EvaluatedExpenditureClientV2.md)\>
+• **once**: `OnEvent`<[`EvaluatedExpenditureClientV5`](EvaluatedExpenditureClientV5.md)\>
 
 #### Inherited from
 
@@ -317,6 +321,8 @@ ___
 | `identifier()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `install` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `install(address)` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `multicall` | (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `multicall(bytes[])` | (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `owner()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `setAuthority` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
@@ -350,7 +356,7 @@ ___
 
 ### removeListener
 
-• **removeListener**: `OnEvent`<[`EvaluatedExpenditureClientV2`](EvaluatedExpenditureClientV2.md)\>
+• **removeListener**: `OnEvent`<[`EvaluatedExpenditureClientV5`](EvaluatedExpenditureClientV5.md)\>
 
 #### Inherited from
 
@@ -442,7 +448,7 @@ ___
 
 ### attach
 
-▸ **attach**(`addressOrName`): [`EvaluatedExpenditureClientV2`](EvaluatedExpenditureClientV2.md)
+▸ **attach**(`addressOrName`): [`EvaluatedExpenditureClientV5`](EvaluatedExpenditureClientV5.md)
 
 #### Parameters
 
@@ -452,7 +458,7 @@ ___
 
 #### Returns
 
-[`EvaluatedExpenditureClientV2`](EvaluatedExpenditureClientV2.md)
+[`EvaluatedExpenditureClientV5`](EvaluatedExpenditureClientV5.md)
 
 #### Inherited from
 
@@ -502,7 +508,7 @@ ___
 
 ### connect
 
-▸ **connect**(`signerOrProvider`): [`EvaluatedExpenditureClientV2`](EvaluatedExpenditureClientV2.md)
+▸ **connect**(`signerOrProvider`): [`EvaluatedExpenditureClientV5`](EvaluatedExpenditureClientV5.md)
 
 #### Parameters
 
@@ -512,7 +518,7 @@ ___
 
 #### Returns
 
-[`EvaluatedExpenditureClientV2`](EvaluatedExpenditureClientV2.md)
+[`EvaluatedExpenditureClientV5`](EvaluatedExpenditureClientV5.md)
 
 #### Inherited from
 
@@ -522,11 +528,11 @@ ___
 
 ### deployed
 
-▸ **deployed**(): `Promise`<[`EvaluatedExpenditureClientV2`](EvaluatedExpenditureClientV2.md)\>
+▸ **deployed**(): `Promise`<[`EvaluatedExpenditureClientV5`](EvaluatedExpenditureClientV5.md)\>
 
 #### Returns
 
-`Promise`<[`EvaluatedExpenditureClientV2`](EvaluatedExpenditureClientV2.md)\>
+`Promise`<[`EvaluatedExpenditureClientV5`](EvaluatedExpenditureClientV5.md)\>
 
 #### Inherited from
 
@@ -542,10 +548,10 @@ Called when deprecating (or undeprecating) the extension
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_deprecated` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_deprecated` | `boolean` | Indicates whether the extension should be deprecated or undeprecated |
+| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
 
 #### Returns
 
@@ -565,10 +571,10 @@ Called when deprecating (or undeprecating) the extension
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_deprecated` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_deprecated` | `boolean` | Indicates whether the extension should be deprecated or undeprecated |
+| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
 
 #### Returns
 
@@ -885,12 +891,14 @@ ___
 
 ▸ **getMetatransactionNonce**(`_userAddress`, `overrides?`): `Promise`<`BigNumber`\>
 
+Gets the next nonce for a meta-transaction
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_userAddress` | `string` |
-| `overrides?` | `CallOverrides` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_userAddress` | `string` | The user's address |
+| `overrides?` | `CallOverrides` | - |
 
 #### Returns
 
@@ -906,12 +914,14 @@ ___
 
 ▸ **getMetatransactionNonce(address)**(`_userAddress`, `overrides?`): `Promise`<`BigNumber`\>
 
+Gets the next nonce for a meta-transaction
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_userAddress` | `string` |
-| `overrides?` | `CallOverrides` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_userAddress` | `string` | The user's address |
+| `overrides?` | `CallOverrides` | - |
 
 #### Returns
 
@@ -1075,6 +1085,48 @@ AugmentedEvaluatedExpenditure.listeners
 
 ___
 
+### multicall
+
+▸ **multicall**(`data`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `data` | `BytesLike`[] |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedEvaluatedExpenditure.multicall
+
+___
+
+### multicall(bytes[])
+
+▸ **multicall(bytes[])**(`data`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `data` | `BytesLike`[] |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedEvaluatedExpenditure.multicall(bytes[])
+
+___
+
 ### owner
 
 ▸ **owner**(`overrides?`): `Promise`<`string`\>
@@ -1145,7 +1197,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`EvaluatedExpenditureClientV2`](EvaluatedExpenditureClientV2.md)
+▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`EvaluatedExpenditureClientV5`](EvaluatedExpenditureClientV5.md)
 
 #### Type parameters
 
@@ -1161,13 +1213,13 @@ ___
 
 #### Returns
 
-[`EvaluatedExpenditureClientV2`](EvaluatedExpenditureClientV2.md)
+[`EvaluatedExpenditureClientV5`](EvaluatedExpenditureClientV5.md)
 
 #### Inherited from
 
 AugmentedEvaluatedExpenditure.removeAllListeners
 
-▸ **removeAllListeners**(`eventName?`): [`EvaluatedExpenditureClientV2`](EvaluatedExpenditureClientV2.md)
+▸ **removeAllListeners**(`eventName?`): [`EvaluatedExpenditureClientV5`](EvaluatedExpenditureClientV5.md)
 
 #### Parameters
 
@@ -1177,7 +1229,7 @@ AugmentedEvaluatedExpenditure.removeAllListeners
 
 #### Returns
 
-[`EvaluatedExpenditureClientV2`](EvaluatedExpenditureClientV2.md)
+[`EvaluatedExpenditureClientV5`](EvaluatedExpenditureClientV5.md)
 
 #### Inherited from
 
@@ -1285,7 +1337,7 @@ ___
 
 ▸ **setExpenditurePayoutModifiersWithProofs**(`_id`, `_slots`, `_payoutModifiers`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Same as [setExpenditurePayoutModifiers](EvaluatedExpenditureClientV2.md#setexpenditurepayoutmodifiers), but let colonyJS figure out the permission proofs for you.
+Same as [setExpenditurePayoutModifiers](EvaluatedExpenditureClientV5.md#setexpenditurepayoutmodifiers), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters

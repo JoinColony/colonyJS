@@ -6,6 +6,8 @@
 
 - `AugmentsV2`<`IVotingReputation`\>
 
+- `AugmentsV3`<`IVotingReputation`\>
+
 - `CreateDomainMotionAugments`<`IVotingReputation`\>
 
   ↳ **`VotingReputationClientV7`**
@@ -663,6 +665,32 @@ Claim the staker's reward from a motion that was created with v4 of the extensio
 #### Inherited from
 
 AugmentedVotingReputation.claimMisalignedReward(uint256,uint256,uint256,address,uint256)
+
+___
+
+### claimMisalignedRewardWithProofs
+
+▸ **claimMisalignedRewardWithProofs**(`_motionId`, `_staker`, `_vote`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Same as [claimMisalignedReward](VotingReputationClientV7.md#claimmisalignedreward), but let colonyJS figure out the permission proofs for you.
+Always prefer this method, except when you have good reason not to.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_motionId` | `BigNumberish` | The id of the motion |
+| `_staker` | `string` | The staker whose reward is being claimed |
+| `_vote` | `BigNumberish` | The side being supported (0 = NAY, 1 = YAY) |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentsV3.claimMisalignedRewardWithProofs
 
 ___
 
@@ -2527,7 +2555,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `TEvent` | extends `TypedEvent`<`any`, `any`, `TEvent`\> |
+| `TEvent` | extends `TypedEvent`<`any`, `any`\> |
 
 #### Parameters
 
@@ -2569,7 +2597,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `TEvent` | extends `TypedEvent`<`any`, `any`, `TEvent`\> |
+| `TEvent` | extends `TypedEvent`<`any`, `any`\> |
 
 #### Parameters
 
@@ -2597,7 +2625,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `TEvent` | extends `TypedEvent`<`any`, `any`, `TEvent`\> |
+| `TEvent` | extends `TypedEvent`<`any`, `any`\> |
 
 #### Parameters
 

@@ -57,6 +57,12 @@ ___
 
 ___
 
+### StagedExpenditureClient
+
+• **StagedExpenditureClient** = ``"StagedExpenditureClient"``
+
+___
+
 ### StakedExpenditureClient
 
 • **StakedExpenditureClient** = ``"StakedExpenditureClient"``

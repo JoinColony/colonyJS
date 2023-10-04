@@ -167,17 +167,18 @@ Latest versions of all extension contracts
 
 | Name | Type |
 | :------ | :------ |
-| `CoinMachine` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` |
-| `EvaluatedExpenditure` | ``1`` \| ``2`` \| ``3`` \| ``4`` |
-| `FundingQueue` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` |
-| `IVotingReputation` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` |
-| `OneTxPayment` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` |
-| `ReputationBootstrapper` | ``1`` \| ``2`` |
-| `StakedExpenditure` | ``1`` \| ``2`` \| ``3`` |
-| `StreamingPayments` | ``1`` \| ``2`` |
-| `TokenSupplier` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` |
-| `VotingReputation` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` |
-| `Whitelist` | ``1`` \| ``2`` \| ``3`` \| ``4`` |
+| `CoinMachine` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` |
+| `EvaluatedExpenditure` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` |
+| `FundingQueue` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` |
+| `IVotingReputation` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` |
+| `OneTxPayment` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` |
+| `ReputationBootstrapper` | ``1`` \| ``2`` \| ``3`` |
+| `StagedExpenditure` | ``1`` |
+| `StakedExpenditure` | ``1`` \| ``2`` \| ``3`` \| ``4`` |
+| `StreamingPayments` | ``1`` \| ``2`` \| ``3`` |
+| `TokenSupplier` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` |
+| `VotingReputation` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` |
+| `Whitelist` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` |
 
 ___
 
@@ -331,7 +332,7 @@ Returns `true` if an extension version is compatible with the given colony versi
 | :------ | :------ | :------ |
 | `extension` | [`Extension`](enums/Extension.md) | A valid `Extension` contract name |
 | `extensionVersion` | `ExtensionVersion` | The version of the extension to check against the colony |
-| `colonyVersion` | ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12`` \| ``13`` | The version of the colony to check for |
+| `colonyVersion` | ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12`` \| ``13`` \| ``14`` | The version of the colony to check for |
 
 #### Returns
 
