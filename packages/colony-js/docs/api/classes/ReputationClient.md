@@ -11,7 +11,7 @@
 | Name | Type |
 | :------ | :------ |
 | `network` | `CommonNetwork` |
-| `colony` | `CommonColony` |
+| `colony` | [`CommonColony`](../interfaces/CommonColony.md) |
 | `config?` | `ReputationClientOptions` |
 
 ## Methods

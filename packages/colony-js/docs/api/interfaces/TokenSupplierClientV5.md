@@ -1,10 +1,10 @@
-# Interface: EvaluatedExpenditureClientV2
+# Interface: TokenSupplierClientV5
 
 ## Hierarchy
 
-- `AugmentedEvaluatedExpenditure`<`EvaluatedExpenditure`\>
+- `AugmentedTokenSupplier`<`TokenSupplier`\>
 
-  ↳ **`EvaluatedExpenditureClientV2`**
+  ↳ **`TokenSupplierClientV5`**
 
 ## Properties
 
@@ -14,7 +14,7 @@
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.\_deployedPromise
+AugmentedTokenSupplier.\_deployedPromise
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.\_runningEvents
+AugmentedTokenSupplier.\_runningEvents
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.\_wrappedEmits
+AugmentedTokenSupplier.\_wrappedEmits
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.address
+AugmentedTokenSupplier.address
 
 ___
 
@@ -80,20 +80,36 @@ ___
 | `getColony()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 | `getDeprecated()` | (`overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
-| `getMetatransactionNonce` | (`_userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getMetatransactionNonce(address)` | (`_userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getLastPinged` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getLastPinged()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getLastRateUpdate` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getLastRateUpdate()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getMetatransactionNonce` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getMetatransactionNonce(address)` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getTokenIssuanceRate` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getTokenIssuanceRate()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getTokenSupplyCeiling` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getTokenSupplyCeiling()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `identifier()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `initialise` | (`_tokenSupplyCeiling`: `BigNumberish`, `_tokenIssuanceRate`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `initialise(uint256,uint256)` | (`_tokenSupplyCeiling`: `BigNumberish`, `_tokenIssuanceRate`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `install` | (`_colony`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `install(address)` | (`_colony`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `issueTokens` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `issueTokens()` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `multicall` | (`data`: `BytesLike`[], `overrides?`: `CallOverrides`) => `Promise`<`string`[]\> |
+| `multicall(bytes[])` | (`data`: `BytesLike`[], `overrides?`: `CallOverrides`) => `Promise`<`string`[]\> |
 | `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `owner()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `setAuthority` | (`authority_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `setAuthority(address)` | (`authority_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setExpenditurePayoutModifiers` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `_slots`: `BigNumberish`[], `_payoutModifiers`: `BigNumberish`[], `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setExpenditurePayoutModifiers(uint256,uint256,uint256,uint256[],int256[])` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `_slots`: `BigNumberish`[], `_payoutModifiers`: `BigNumberish`[], `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `setOwner` | (`owner_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `setOwner(address)` | (`owner_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setTokenIssuanceRate` | (`_tokenIssuanceRate`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setTokenIssuanceRate(uint256)` | (`_tokenIssuanceRate`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setTokenSupplyCeiling` | (`_tokenSupplyCeiling`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setTokenSupplyCeiling(uint256)` | (`_tokenSupplyCeiling`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `uninstall` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `uninstall()` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `verify` | (`_owner`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
@@ -103,39 +119,39 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.callStatic
+AugmentedTokenSupplier.callStatic
 
 ___
 
 ### clientType
 
-• **clientType**: [`EvaluatedExpenditureClient`](../enums/ClientType.md#evaluatedexpenditureclient)
+• **clientType**: [`TokenSupplierClient`](../enums/ClientType.md#tokensupplierclient)
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.clientType
+AugmentedTokenSupplier.clientType
 
 ___
 
 ### clientVersion
 
-• **clientVersion**: ``2``
+• **clientVersion**: ``5``
 
 #### Overrides
 
-AugmentedEvaluatedExpenditure.clientVersion
+AugmentedTokenSupplier.clientVersion
 
 ___
 
 ### colonyClient
 
-• **colonyClient**: `AugmentedIColony`<`ValidColony`\>
+• **colonyClient**: `AugmentedIColony`
 
 An instance of the corresponding ColonyClient
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.colonyClient
+AugmentedTokenSupplier.colonyClient
 
 ___
 
@@ -145,7 +161,7 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.deployTransaction
+AugmentedTokenSupplier.deployTransaction
 
 ___
 
@@ -153,23 +169,66 @@ ___
 
 • **estimateGas**: `Object`
 
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `authority` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `authority()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `deprecate` | (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `deprecate(bool)` | (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `executeMetaTransaction` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `finishUpgrade` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `finishUpgrade()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `getCapabilityRoles` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getCapabilityRoles(bytes4)` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getChainId` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getChainId()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getColony()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getDeprecated()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getLastPinged` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getLastPinged()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getLastRateUpdate` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getLastRateUpdate()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getMetatransactionNonce` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getMetatransactionNonce(address)` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getTokenIssuanceRate` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getTokenIssuanceRate()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getTokenSupplyCeiling` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getTokenSupplyCeiling()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `identifier()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `initialise` | (`_tokenSupplyCeiling`: `BigNumberish`, `_tokenIssuanceRate`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `initialise(uint256,uint256)` | (`_tokenSupplyCeiling`: `BigNumberish`, `_tokenIssuanceRate`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `install` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `install(address)` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `issueTokens` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `issueTokens()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `multicall` | (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `multicall(bytes[])` | (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `owner()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `setAuthority` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `setAuthority(address)` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `setOwner` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `setOwner(address)` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `setTokenIssuanceRate` | (`_tokenIssuanceRate`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `setTokenIssuanceRate(uint256)` | (`_tokenIssuanceRate`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `setTokenSupplyCeiling` | (`_tokenSupplyCeiling`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `setTokenSupplyCeiling(uint256)` | (`_tokenSupplyCeiling`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `uninstall` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `uninstall()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `verify` | (`_owner`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)` | (`_owner`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `version` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `version()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.estimateGas
-
-___
-
-### evaluatedExpenditureEvents
-
-• **evaluatedExpenditureEvents**: `EvaluatedExpenditureEvents`
-
-The evaluatedExpenditureEvents contract supports all events across all versions.
-Isn't that amazing?
-It's an ethers contract with only events to filter
-
-#### Inherited from
-
-AugmentedEvaluatedExpenditure.evaluatedExpenditureEvents
+AugmentedTokenSupplier.estimateGas
 
 ___
 
@@ -189,10 +248,16 @@ ___
 | `LogSetOwner(address)` | (`owner?`: ``null`` \| `string`) => `LogSetOwnerEventFilter` |
 | `MetaTransactionExecuted` | (`user?`: ``null``, `relayerAddress?`: ``null``, `functionSignature?`: ``null``) => `MetaTransactionExecutedEventFilter` |
 | `MetaTransactionExecuted(address,address,bytes)` | (`user?`: ``null``, `relayerAddress?`: ``null``, `functionSignature?`: ``null``) => `MetaTransactionExecutedEventFilter` |
+| `TokenIssuanceRateSet` | (`tokenIssuanceRate?`: ``null``) => `TokenIssuanceRateSetEventFilter` |
+| `TokenIssuanceRateSet(uint256)` | (`tokenIssuanceRate?`: ``null``) => `TokenIssuanceRateSetEventFilter` |
+| `TokenSupplyCeilingSet` | (`tokenSupplyCeiling?`: ``null``) => `TokenSupplyCeilingSetEventFilter` |
+| `TokenSupplyCeilingSet(uint256)` | (`tokenSupplyCeiling?`: ``null``) => `TokenSupplyCeilingSetEventFilter` |
+| `TokensIssued` | (`numTokens?`: ``null``) => `TokensIssuedEventFilter` |
+| `TokensIssued(uint256)` | (`numTokens?`: ``null``) => `TokensIssuedEventFilter` |
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.filters
+AugmentedTokenSupplier.filters
 
 ___
 
@@ -220,70 +285,86 @@ ___
 | `getColony()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
 | `getDeprecated()` | (`overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
-| `getMetatransactionNonce` | (`_userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
-| `getMetatransactionNonce(address)` | (`_userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
-| `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `identifier()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
+| `getLastPinged` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `lastPinged`: `BigNumber`  }\> |
+| `getLastPinged()` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `lastPinged`: `BigNumber`  }\> |
+| `getLastRateUpdate` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `lastUpdate`: `BigNumber`  }\> |
+| `getLastRateUpdate()` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `lastUpdate`: `BigNumber`  }\> |
+| `getMetatransactionNonce` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
+| `getMetatransactionNonce(address)` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
+| `getTokenIssuanceRate` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `issuanceRate`: `BigNumber`  }\> |
+| `getTokenIssuanceRate()` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `issuanceRate`: `BigNumber`  }\> |
+| `getTokenSupplyCeiling` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `supplyCeiling`: `BigNumber`  }\> |
+| `getTokenSupplyCeiling()` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `supplyCeiling`: `BigNumber`  }\> |
+| `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_identifier`: `string`  }\> |
+| `identifier()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_identifier`: `string`  }\> |
+| `initialise` | (`_tokenSupplyCeiling`: `BigNumberish`, `_tokenIssuanceRate`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `initialise(uint256,uint256)` | (`_tokenSupplyCeiling`: `BigNumberish`, `_tokenIssuanceRate`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `install` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `install(address)` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `issueTokens` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `issueTokens()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `multicall` | (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `multicall(bytes[])` | (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `owner` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `owner()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `setAuthority` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `setAuthority(address)` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `setExpenditurePayoutModifiers` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `_slots`: `BigNumberish`[], `_payoutModifiers`: `BigNumberish`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `setExpenditurePayoutModifiers(uint256,uint256,uint256,uint256[],int256[])` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `_slots`: `BigNumberish`[], `_payoutModifiers`: `BigNumberish`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `setOwner` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `setOwner(address)` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `setTokenIssuanceRate` | (`_tokenIssuanceRate`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `setTokenIssuanceRate(uint256)` | (`_tokenIssuanceRate`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `setTokenSupplyCeiling` | (`_tokenSupplyCeiling`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `setTokenSupplyCeiling(uint256)` | (`_tokenSupplyCeiling`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `uninstall` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `uninstall()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `verify` | (`_owner`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
 | `verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)` | (`_owner`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
-| `version` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
-| `version()` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
+| `version` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_version`: `BigNumber`  }\> |
+| `version()` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_version`: `BigNumber`  }\> |
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.functions
+AugmentedTokenSupplier.functions
 
 ___
 
 ### interface
 
-• **interface**: `EvaluatedExpenditureInterface`
+• **interface**: `TokenSupplierInterface`
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.interface
+AugmentedTokenSupplier.interface
 
 ___
 
 ### off
 
-• **off**: `OnEvent`<[`EvaluatedExpenditureClientV2`](EvaluatedExpenditureClientV2.md)\>
+• **off**: `OnEvent`<[`TokenSupplierClientV5`](TokenSupplierClientV5.md)\>
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.off
+AugmentedTokenSupplier.off
 
 ___
 
 ### on
 
-• **on**: `OnEvent`<[`EvaluatedExpenditureClientV2`](EvaluatedExpenditureClientV2.md)\>
+• **on**: `OnEvent`<[`TokenSupplierClientV5`](TokenSupplierClientV5.md)\>
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.on
+AugmentedTokenSupplier.on
 
 ___
 
 ### once
 
-• **once**: `OnEvent`<[`EvaluatedExpenditureClientV2`](EvaluatedExpenditureClientV2.md)\>
+• **once**: `OnEvent`<[`TokenSupplierClientV5`](TokenSupplierClientV5.md)\>
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.once
+AugmentedTokenSupplier.once
 
 ___
 
@@ -311,20 +392,36 @@ ___
 | `getColony()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getDeprecated()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getMetatransactionNonce` | (`_userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getMetatransactionNonce(address)` | (`_userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getLastPinged` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getLastPinged()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getLastRateUpdate` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getLastRateUpdate()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getMetatransactionNonce` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getMetatransactionNonce(address)` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getTokenIssuanceRate` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getTokenIssuanceRate()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getTokenSupplyCeiling` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getTokenSupplyCeiling()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `identifier()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `initialise` | (`_tokenSupplyCeiling`: `BigNumberish`, `_tokenIssuanceRate`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `initialise(uint256,uint256)` | (`_tokenSupplyCeiling`: `BigNumberish`, `_tokenIssuanceRate`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `install` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `install(address)` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `issueTokens` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `issueTokens()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `multicall` | (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `multicall(bytes[])` | (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `owner()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `setAuthority` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `setAuthority(address)` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `setExpenditurePayoutModifiers` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `_slots`: `BigNumberish`[], `_payoutModifiers`: `BigNumberish`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `setExpenditurePayoutModifiers(uint256,uint256,uint256,uint256[],int256[])` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `_slots`: `BigNumberish`[], `_payoutModifiers`: `BigNumberish`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `setOwner` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `setOwner(address)` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `setTokenIssuanceRate` | (`_tokenIssuanceRate`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `setTokenIssuanceRate(uint256)` | (`_tokenIssuanceRate`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `setTokenSupplyCeiling` | (`_tokenSupplyCeiling`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `setTokenSupplyCeiling(uint256)` | (`_tokenSupplyCeiling`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `uninstall` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `uninstall()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `verify` | (`_owner`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
@@ -334,7 +431,7 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.populateTransaction
+AugmentedTokenSupplier.populateTransaction
 
 ___
 
@@ -344,17 +441,17 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.provider
+AugmentedTokenSupplier.provider
 
 ___
 
 ### removeListener
 
-• **removeListener**: `OnEvent`<[`EvaluatedExpenditureClientV2`](EvaluatedExpenditureClientV2.md)\>
+• **removeListener**: `OnEvent`<[`TokenSupplierClientV5`](TokenSupplierClientV5.md)\>
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.removeListener
+AugmentedTokenSupplier.removeListener
 
 ___
 
@@ -364,7 +461,7 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.resolvedAddress
+AugmentedTokenSupplier.resolvedAddress
 
 ___
 
@@ -374,7 +471,21 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.signer
+AugmentedTokenSupplier.signer
+
+___
+
+### tokenSupplierEvents
+
+• **tokenSupplierEvents**: `TokenSupplierEvents`
+
+The tokenSupplierEvents contract supports all events across all versions.
+Isn't that amazing?
+It's an ethers contract with only events to filter
+
+#### Inherited from
+
+AugmentedTokenSupplier.tokenSupplierEvents
 
 ## Methods
 
@@ -394,7 +505,7 @@ AugmentedEvaluatedExpenditure.signer
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.\_checkRunningEvents
+AugmentedTokenSupplier.\_checkRunningEvents
 
 ___
 
@@ -414,7 +525,7 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.\_deployed
+AugmentedTokenSupplier.\_deployed
 
 ___
 
@@ -436,13 +547,13 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.\_wrapEvent
+AugmentedTokenSupplier.\_wrapEvent
 
 ___
 
 ### attach
 
-▸ **attach**(`addressOrName`): [`EvaluatedExpenditureClientV2`](EvaluatedExpenditureClientV2.md)
+▸ **attach**(`addressOrName`): [`TokenSupplierClientV5`](TokenSupplierClientV5.md)
 
 #### Parameters
 
@@ -452,11 +563,11 @@ ___
 
 #### Returns
 
-[`EvaluatedExpenditureClientV2`](EvaluatedExpenditureClientV2.md)
+[`TokenSupplierClientV5`](TokenSupplierClientV5.md)
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.attach
+AugmentedTokenSupplier.attach
 
 ___
 
@@ -476,7 +587,7 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.authority
+AugmentedTokenSupplier.authority
 
 ___
 
@@ -496,13 +607,13 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.authority()
+AugmentedTokenSupplier.authority()
 
 ___
 
 ### connect
 
-▸ **connect**(`signerOrProvider`): [`EvaluatedExpenditureClientV2`](EvaluatedExpenditureClientV2.md)
+▸ **connect**(`signerOrProvider`): [`TokenSupplierClientV5`](TokenSupplierClientV5.md)
 
 #### Parameters
 
@@ -512,25 +623,25 @@ ___
 
 #### Returns
 
-[`EvaluatedExpenditureClientV2`](EvaluatedExpenditureClientV2.md)
+[`TokenSupplierClientV5`](TokenSupplierClientV5.md)
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.connect
+AugmentedTokenSupplier.connect
 
 ___
 
 ### deployed
 
-▸ **deployed**(): `Promise`<[`EvaluatedExpenditureClientV2`](EvaluatedExpenditureClientV2.md)\>
+▸ **deployed**(): `Promise`<[`TokenSupplierClientV5`](TokenSupplierClientV5.md)\>
 
 #### Returns
 
-`Promise`<[`EvaluatedExpenditureClientV2`](EvaluatedExpenditureClientV2.md)\>
+`Promise`<[`TokenSupplierClientV5`](TokenSupplierClientV5.md)\>
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.deployed
+AugmentedTokenSupplier.deployed
 
 ___
 
@@ -542,10 +653,10 @@ Called when deprecating (or undeprecating) the extension
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_deprecated` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_deprecated` | `boolean` | Indicates whether the extension should be deprecated or undeprecated |
+| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
 
 #### Returns
 
@@ -553,7 +664,7 @@ Called when deprecating (or undeprecating) the extension
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.deprecate
+AugmentedTokenSupplier.deprecate
 
 ___
 
@@ -565,10 +676,10 @@ Called when deprecating (or undeprecating) the extension
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_deprecated` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_deprecated` | `boolean` | Indicates whether the extension should be deprecated or undeprecated |
+| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
 
 #### Returns
 
@@ -576,7 +687,7 @@ Called when deprecating (or undeprecating) the extension
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.deprecate(bool)
+AugmentedTokenSupplier.deprecate(bool)
 
 ___
 
@@ -597,7 +708,7 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.emit
+AugmentedTokenSupplier.emit
 
 ___
 
@@ -624,7 +735,7 @@ Main function to be called when user wants to execute meta transaction. The actu
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.executeMetaTransaction
+AugmentedTokenSupplier.executeMetaTransaction
 
 ___
 
@@ -651,7 +762,7 @@ Main function to be called when user wants to execute meta transaction. The actu
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)
+AugmentedTokenSupplier.executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)
 
 ___
 
@@ -671,7 +782,7 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.fallback
+AugmentedTokenSupplier.fallback
 
 ___
 
@@ -679,7 +790,7 @@ ___
 
 ▸ **finishUpgrade**(`overrides?`): `Promise`<`ContractTransaction`\>
 
-Called when upgrading the extension
+Called when upgrading the extension (currently a no-op)
 
 #### Parameters
 
@@ -693,7 +804,7 @@ Called when upgrading the extension
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.finishUpgrade
+AugmentedTokenSupplier.finishUpgrade
 
 ___
 
@@ -701,7 +812,7 @@ ___
 
 ▸ **finishUpgrade()**(`overrides?`): `Promise`<`ContractTransaction`\>
 
-Called when upgrading the extension
+Called when upgrading the extension (currently a no-op)
 
 #### Parameters
 
@@ -715,7 +826,7 @@ Called when upgrading the extension
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.finishUpgrade()
+AugmentedTokenSupplier.finishUpgrade()
 
 ___
 
@@ -736,7 +847,7 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.getCapabilityRoles
+AugmentedTokenSupplier.getCapabilityRoles
 
 ___
 
@@ -757,7 +868,7 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.getCapabilityRoles(bytes4)
+AugmentedTokenSupplier.getCapabilityRoles(bytes4)
 
 ___
 
@@ -777,7 +888,7 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.getChainId
+AugmentedTokenSupplier.getChainId
 
 ___
 
@@ -797,7 +908,7 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.getChainId()
+AugmentedTokenSupplier.getChainId()
 
 ___
 
@@ -817,7 +928,7 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.getColony
+AugmentedTokenSupplier.getColony
 
 ___
 
@@ -837,7 +948,7 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.getColony()
+AugmentedTokenSupplier.getColony()
 
 ___
 
@@ -857,7 +968,7 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.getDeprecated
+AugmentedTokenSupplier.getDeprecated
 
 ___
 
@@ -877,20 +988,110 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.getDeprecated()
+AugmentedTokenSupplier.getDeprecated()
+
+___
+
+### getLastPinged
+
+▸ **getLastPinged**(`overrides?`): `Promise`<`BigNumber`\>
+
+Get the time of the last token minting event
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+#### Inherited from
+
+AugmentedTokenSupplier.getLastPinged
+
+___
+
+### getLastPinged()
+
+▸ **getLastPinged()**(`overrides?`): `Promise`<`BigNumber`\>
+
+Get the time of the last token minting event
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+#### Inherited from
+
+AugmentedTokenSupplier.getLastPinged()
+
+___
+
+### getLastRateUpdate
+
+▸ **getLastRateUpdate**(`overrides?`): `Promise`<`BigNumber`\>
+
+Get the time of the last change in issuance rate
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+#### Inherited from
+
+AugmentedTokenSupplier.getLastRateUpdate
+
+___
+
+### getLastRateUpdate()
+
+▸ **getLastRateUpdate()**(`overrides?`): `Promise`<`BigNumber`\>
+
+Get the time of the last change in issuance rate
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+#### Inherited from
+
+AugmentedTokenSupplier.getLastRateUpdate()
 
 ___
 
 ### getMetatransactionNonce
 
-▸ **getMetatransactionNonce**(`_userAddress`, `overrides?`): `Promise`<`BigNumber`\>
+▸ **getMetatransactionNonce**(`userAddress`, `overrides?`): `Promise`<`BigNumber`\>
+
+Gets the next nonce for a meta-transaction
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_userAddress` | `string` |
-| `overrides?` | `CallOverrides` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `userAddress` | `string` | The user's address |
+| `overrides?` | `CallOverrides` | - |
 
 #### Returns
 
@@ -898,19 +1099,43 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.getMetatransactionNonce
+AugmentedTokenSupplier.getMetatransactionNonce
 
 ___
 
 ### getMetatransactionNonce(address)
 
-▸ **getMetatransactionNonce(address)**(`_userAddress`, `overrides?`): `Promise`<`BigNumber`\>
+▸ **getMetatransactionNonce(address)**(`userAddress`, `overrides?`): `Promise`<`BigNumber`\>
+
+Gets the next nonce for a meta-transaction
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `userAddress` | `string` | The user's address |
+| `overrides?` | `CallOverrides` | - |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+#### Inherited from
+
+AugmentedTokenSupplier.getMetatransactionNonce(address)
+
+___
+
+### getTokenIssuanceRate
+
+▸ **getTokenIssuanceRate**(`overrides?`): `Promise`<`BigNumber`\>
+
+Get the token issuance rate
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `_userAddress` | `string` |
 | `overrides?` | `CallOverrides` |
 
 #### Returns
@@ -919,7 +1144,73 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.getMetatransactionNonce(address)
+AugmentedTokenSupplier.getTokenIssuanceRate
+
+___
+
+### getTokenIssuanceRate()
+
+▸ **getTokenIssuanceRate()**(`overrides?`): `Promise`<`BigNumber`\>
+
+Get the token issuance rate
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+#### Inherited from
+
+AugmentedTokenSupplier.getTokenIssuanceRate()
+
+___
+
+### getTokenSupplyCeiling
+
+▸ **getTokenSupplyCeiling**(`overrides?`): `Promise`<`BigNumber`\>
+
+Get the token supply ceiling
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+#### Inherited from
+
+AugmentedTokenSupplier.getTokenSupplyCeiling
+
+___
+
+### getTokenSupplyCeiling()
+
+▸ **getTokenSupplyCeiling()**(`overrides?`): `Promise`<`BigNumber`\>
+
+Get the token supply ceiling
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+#### Inherited from
+
+AugmentedTokenSupplier.getTokenSupplyCeiling()
 
 ___
 
@@ -941,7 +1232,7 @@ Returns the identifier of the extension
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.identifier
+AugmentedTokenSupplier.identifier
 
 ___
 
@@ -963,7 +1254,55 @@ Returns the identifier of the extension
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.identifier()
+AugmentedTokenSupplier.identifier()
+
+___
+
+### initialise
+
+▸ **initialise**(`_tokenSupplyCeiling`, `_tokenIssuanceRate`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Initialise the extension, must be called before any tokens can be issued
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_tokenSupplyCeiling` | `BigNumberish` | Total amount of tokens to issue |
+| `_tokenIssuanceRate` | `BigNumberish` | Number of tokens to issue per day |
+| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedTokenSupplier.initialise
+
+___
+
+### initialise(uint256,uint256)
+
+▸ **initialise(uint256,uint256)**(`_tokenSupplyCeiling`, `_tokenIssuanceRate`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Initialise the extension, must be called before any tokens can be issued
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_tokenSupplyCeiling` | `BigNumberish` | Total amount of tokens to issue |
+| `_tokenIssuanceRate` | `BigNumberish` | Number of tokens to issue per day |
+| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedTokenSupplier.initialise(uint256,uint256)
 
 ___
 
@@ -986,7 +1325,7 @@ Configures the extension
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.install
+AugmentedTokenSupplier.install
 
 ___
 
@@ -1009,7 +1348,51 @@ Configures the extension
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.install(address)
+AugmentedTokenSupplier.install(address)
+
+___
+
+### issueTokens
+
+▸ **issueTokens**(`overrides?`): `Promise`<`ContractTransaction`\>
+
+Issue the appropriate amount of tokens
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedTokenSupplier.issueTokens
+
+___
+
+### issueTokens()
+
+▸ **issueTokens()**(`overrides?`): `Promise`<`ContractTransaction`\>
+
+Issue the appropriate amount of tokens
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedTokenSupplier.issueTokens()
 
 ___
 
@@ -1029,7 +1412,7 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.listenerCount
+AugmentedTokenSupplier.listenerCount
 
 ___
 
@@ -1055,7 +1438,7 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.listeners
+AugmentedTokenSupplier.listeners
 
 ▸ **listeners**(`eventName?`): `Listener`[]
 
@@ -1071,7 +1454,49 @@ AugmentedEvaluatedExpenditure.listeners
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.listeners
+AugmentedTokenSupplier.listeners
+
+___
+
+### multicall
+
+▸ **multicall**(`data`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `data` | `BytesLike`[] |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedTokenSupplier.multicall
+
+___
+
+### multicall(bytes[])
+
+▸ **multicall(bytes[])**(`data`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `data` | `BytesLike`[] |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedTokenSupplier.multicall(bytes[])
 
 ___
 
@@ -1091,7 +1516,7 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.owner
+AugmentedTokenSupplier.owner
 
 ___
 
@@ -1111,7 +1536,7 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.owner()
+AugmentedTokenSupplier.owner()
 
 ___
 
@@ -1139,13 +1564,13 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.queryFilter
+AugmentedTokenSupplier.queryFilter
 
 ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`EvaluatedExpenditureClientV2`](EvaluatedExpenditureClientV2.md)
+▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`TokenSupplierClientV5`](TokenSupplierClientV5.md)
 
 #### Type parameters
 
@@ -1161,13 +1586,13 @@ ___
 
 #### Returns
 
-[`EvaluatedExpenditureClientV2`](EvaluatedExpenditureClientV2.md)
+[`TokenSupplierClientV5`](TokenSupplierClientV5.md)
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.removeAllListeners
+AugmentedTokenSupplier.removeAllListeners
 
-▸ **removeAllListeners**(`eventName?`): [`EvaluatedExpenditureClientV2`](EvaluatedExpenditureClientV2.md)
+▸ **removeAllListeners**(`eventName?`): [`TokenSupplierClientV5`](TokenSupplierClientV5.md)
 
 #### Parameters
 
@@ -1177,11 +1602,11 @@ AugmentedEvaluatedExpenditure.removeAllListeners
 
 #### Returns
 
-[`EvaluatedExpenditureClientV2`](EvaluatedExpenditureClientV2.md)
+[`TokenSupplierClientV5`](TokenSupplierClientV5.md)
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.removeAllListeners
+AugmentedTokenSupplier.removeAllListeners
 
 ___
 
@@ -1202,7 +1627,7 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.setAuthority
+AugmentedTokenSupplier.setAuthority
 
 ___
 
@@ -1223,87 +1648,7 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.setAuthority(address)
-
-___
-
-### setExpenditurePayoutModifiers
-
-▸ **setExpenditurePayoutModifiers**(`_permissionDomainId`, `_childSkillIndex`, `_id`, `_slots`, `_payoutModifiers`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-Sets the payout modifiers in given expenditure slots, using the arbitration permission
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` | The domainId in which the extension has the arbitration permission |
-| `_childSkillIndex` | `BigNumberish` | The index that the `_domainId` is relative to `_permissionDomainId` |
-| `_id` | `BigNumberish` | Expenditure identifier |
-| `_slots` | `BigNumberish`[] | Array of slots to set payout modifiers |
-| `_payoutModifiers` | `BigNumberish`[] | Values (between +/- WAD) to modify the payout & reputation bonus |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedEvaluatedExpenditure.setExpenditurePayoutModifiers
-
-___
-
-### setExpenditurePayoutModifiers(uint256,uint256,uint256,uint256[],int256[])
-
-▸ **setExpenditurePayoutModifiers(uint256,uint256,uint256,uint256[],int256[])**(`_permissionDomainId`, `_childSkillIndex`, `_id`, `_slots`, `_payoutModifiers`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-Sets the payout modifiers in given expenditure slots, using the arbitration permission
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` | The domainId in which the extension has the arbitration permission |
-| `_childSkillIndex` | `BigNumberish` | The index that the `_domainId` is relative to `_permissionDomainId` |
-| `_id` | `BigNumberish` | Expenditure identifier |
-| `_slots` | `BigNumberish`[] | Array of slots to set payout modifiers |
-| `_payoutModifiers` | `BigNumberish`[] | Values (between +/- WAD) to modify the payout & reputation bonus |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedEvaluatedExpenditure.setExpenditurePayoutModifiers(uint256,uint256,uint256,uint256[],int256[])
-
-___
-
-### setExpenditurePayoutModifiersWithProofs
-
-▸ **setExpenditurePayoutModifiersWithProofs**(`_id`, `_slots`, `_payoutModifiers`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-Same as [setExpenditurePayoutModifiers](EvaluatedExpenditureClientV2.md#setexpenditurepayoutmodifiers), but let colonyJS figure out the permission proofs for you.
-Always prefer this method, except when you have good reason not to.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Expenditure identifier |
-| `_slots` | `BigNumberish`[] | Array of slots to set payout modifiers |
-| `_payoutModifiers` | `BigNumberish`[] | Values (between +/- WAD) to modify the payout & reputation bonus |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedEvaluatedExpenditure.setExpenditurePayoutModifiersWithProofs
+AugmentedTokenSupplier.setAuthority(address)
 
 ___
 
@@ -1324,7 +1669,7 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.setOwner
+AugmentedTokenSupplier.setOwner
 
 ___
 
@@ -1345,7 +1690,99 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.setOwner(address)
+AugmentedTokenSupplier.setOwner(address)
+
+___
+
+### setTokenIssuanceRate
+
+▸ **setTokenIssuanceRate**(`_tokenIssuanceRate`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Update the tokenIssuanceRate
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_tokenIssuanceRate` | `BigNumberish` | Number of tokens to issue per day |
+| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedTokenSupplier.setTokenIssuanceRate
+
+___
+
+### setTokenIssuanceRate(uint256)
+
+▸ **setTokenIssuanceRate(uint256)**(`_tokenIssuanceRate`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Update the tokenIssuanceRate
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_tokenIssuanceRate` | `BigNumberish` | Number of tokens to issue per day |
+| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedTokenSupplier.setTokenIssuanceRate(uint256)
+
+___
+
+### setTokenSupplyCeiling
+
+▸ **setTokenSupplyCeiling**(`_tokenSupplyCeiling`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Update the tokenSupplyCeiling, cannot set below current tokenSupply
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_tokenSupplyCeiling` | `BigNumberish` | Total amount of tokens to issue |
+| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedTokenSupplier.setTokenSupplyCeiling
+
+___
+
+### setTokenSupplyCeiling(uint256)
+
+▸ **setTokenSupplyCeiling(uint256)**(`_tokenSupplyCeiling`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Update the tokenSupplyCeiling, cannot set below current tokenSupply
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_tokenSupplyCeiling` | `BigNumberish` | Total amount of tokens to issue |
+| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedTokenSupplier.setTokenSupplyCeiling(uint256)
 
 ___
 
@@ -1367,7 +1804,7 @@ Called when uninstalling the extension
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.uninstall
+AugmentedTokenSupplier.uninstall
 
 ___
 
@@ -1389,7 +1826,7 @@ Called when uninstalling the extension
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.uninstall()
+AugmentedTokenSupplier.uninstall()
 
 ___
 
@@ -1416,7 +1853,7 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.verify
+AugmentedTokenSupplier.verify
 
 ___
 
@@ -1443,7 +1880,7 @@ ___
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)
+AugmentedTokenSupplier.verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)
 
 ___
 
@@ -1465,7 +1902,7 @@ Returns the version of the extension
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.version
+AugmentedTokenSupplier.version
 
 ___
 
@@ -1487,4 +1924,4 @@ Returns the version of the extension
 
 #### Inherited from
 
-AugmentedEvaluatedExpenditure.version()
+AugmentedTokenSupplier.version()

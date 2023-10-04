@@ -1,10 +1,10 @@
-# Interface: WhitelistClientV3
+# Interface: StagedExpenditureClientV1
 
 ## Hierarchy
 
-- `AugmentedWhitelist`<`Whitelist`\>
+- `AugmentedStagedExpenditure`<`StagedExpenditure`\>
 
-  ↳ **`WhitelistClientV3`**
+  ↳ **`StagedExpenditureClientV1`**
 
 ## Properties
 
@@ -14,7 +14,7 @@
 
 #### Inherited from
 
-AugmentedWhitelist.\_deployedPromise
+AugmentedStagedExpenditure.\_deployedPromise
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.\_runningEvents
+AugmentedStagedExpenditure.\_runningEvents
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.\_wrappedEmits
+AugmentedStagedExpenditure.\_wrappedEmits
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.address
+AugmentedStagedExpenditure.address
 
 ___
 
@@ -64,8 +64,6 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `approveUsers` | (`_users`: `string`[], `_status`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `approveUsers(address[],bool)` | (`_users`: `string`[], `_status`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `authority` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `authority()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `deprecate` | (`_deprecated`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
@@ -74,10 +72,6 @@ ___
 | `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `finishUpgrade` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `finishUpgrade()` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `getAgreementHash` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `getAgreementHash()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `getApproval` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
-| `getApproval(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 | `getCapabilityRoles` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getCapabilityRoles(bytes4)` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getChainId` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
@@ -86,30 +80,24 @@ ___
 | `getColony()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 | `getDeprecated()` | (`overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
-| `getMetatransactionNonce` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getMetatransactionNonce(address)` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getSignature` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
-| `getSignature(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
-| `getUseApprovals` | (`overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
-| `getUseApprovals()` | (`overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
+| `getMetatransactionNonce` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getMetatransactionNonce(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `identifier()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `initialise` | (`_useApprovals`: `boolean`, `_agreementHash`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `initialise(bool,string)` | (`_useApprovals`: `boolean`, `_agreementHash`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `install` | (`_colony`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `install(address)` | (`_colony`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `isApproved` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
-| `isApproved(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 | `multicall` | (`data`: `BytesLike`[], `overrides?`: `CallOverrides`) => `Promise`<`string`[]\> |
 | `multicall(bytes[])` | (`data`: `BytesLike`[], `overrides?`: `CallOverrides`) => `Promise`<`string`[]\> |
 | `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `owner()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `releaseStagedPayment` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `releaseStagedPayment(uint256,uint256,uint256,uint256,address[])` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `setAuthority` | (`authority_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `setAuthority(address)` | (`authority_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setExpenditureStaged` | (`_expenditureId`: `BigNumberish`, `_staged`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setExpenditureStaged(uint256,bool)` | (`_expenditureId`: `BigNumberish`, `_staged`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `setOwner` | (`owner_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `setOwner(address)` | (`owner_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `signAgreement` | (`_agreementHash`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `signAgreement(string)` | (`_agreementHash`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `uninstall` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `uninstall()` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `verify` | (`_owner`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
@@ -119,39 +107,39 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.callStatic
+AugmentedStagedExpenditure.callStatic
 
 ___
 
 ### clientType
 
-• **clientType**: [`WhitelistClient`](../enums/ClientType.md#whitelistclient)
+• **clientType**: [`StagedExpenditureClient`](../enums/ClientType.md#stagedexpenditureclient)
 
 #### Inherited from
 
-AugmentedWhitelist.clientType
+AugmentedStagedExpenditure.clientType
 
 ___
 
 ### clientVersion
 
-• **clientVersion**: ``3``
+• **clientVersion**: ``1``
 
 #### Overrides
 
-AugmentedWhitelist.clientVersion
+AugmentedStagedExpenditure.clientVersion
 
 ___
 
 ### colonyClient
 
-• **colonyClient**: `AugmentedIColony`
+• **colonyClient**: `AugmentedIColony`<`IColony`\>
 
 An instance of the corresponding ColonyClient
 
 #### Inherited from
 
-AugmentedWhitelist.colonyClient
+AugmentedStagedExpenditure.colonyClient
 
 ___
 
@@ -161,7 +149,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.deployTransaction
+AugmentedStagedExpenditure.deployTransaction
 
 ___
 
@@ -173,8 +161,6 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `approveUsers` | (`_users`: `string`[], `_status`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `approveUsers(address[],bool)` | (`_users`: `string`[], `_status`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
 | `authority` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `authority()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `deprecate` | (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
@@ -183,10 +169,6 @@ ___
 | `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
 | `finishUpgrade` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
 | `finishUpgrade()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `getAgreementHash` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getAgreementHash()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getApproval` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getApproval(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getCapabilityRoles` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getCapabilityRoles(bytes4)` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getChainId` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
@@ -195,30 +177,24 @@ ___
 | `getColony()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getDeprecated()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getMetatransactionNonce` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getMetatransactionNonce(address)` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getSignature` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getSignature(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getUseApprovals` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getUseApprovals()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getMetatransactionNonce` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getMetatransactionNonce(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `identifier()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `initialise` | (`_useApprovals`: `boolean`, `_agreementHash`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `initialise(bool,string)` | (`_useApprovals`: `boolean`, `_agreementHash`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
 | `install` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
 | `install(address)` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `isApproved` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `isApproved(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `multicall` | (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
 | `multicall(bytes[])` | (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
 | `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `owner()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `releaseStagedPayment` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `releaseStagedPayment(uint256,uint256,uint256,uint256,address[])` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
 | `setAuthority` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
 | `setAuthority(address)` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `setExpenditureStaged` | (`_expenditureId`: `BigNumberish`, `_staged`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+| `setExpenditureStaged(uint256,bool)` | (`_expenditureId`: `BigNumberish`, `_staged`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
 | `setOwner` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
 | `setOwner(address)` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `signAgreement` | (`_agreementHash`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `signAgreement(string)` | (`_agreementHash`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
 | `uninstall` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
 | `uninstall()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
 | `verify` | (`_owner`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
@@ -228,7 +204,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.estimateGas
+AugmentedStagedExpenditure.estimateGas
 
 ___
 
@@ -240,22 +216,132 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `AgreementSigned` | (`_user?`: ``null`` \| `string`) => `AgreementSignedEventFilter` |
-| `AgreementSigned(address)` | (`_user?`: ``null`` \| `string`) => `AgreementSignedEventFilter` |
+| `Annotation` | (`agent?`: ``null`` \| `string`, `txHash?`: ``null`` \| `BytesLike`, `metadata?`: ``null``) => `AnnotationEventFilter` |
+| `Annotation(address,bytes32,string)` | (`agent?`: ``null`` \| `string`, `txHash?`: ``null`` \| `BytesLike`, `metadata?`: ``null``) => `AnnotationEventFilter` |
+| `ArbitraryReputationUpdate` | (`agent?`: ``null``, `user?`: ``null``, `skillId?`: ``null``, `amount?`: ``null``) => `ArbitraryReputationUpdateEventFilter` |
+| `ArbitraryReputationUpdate(address,address,uint256,int256)` | (`agent?`: ``null``, `user?`: ``null``, `skillId?`: ``null``, `amount?`: ``null``) => `ArbitraryReputationUpdateEventFilter` |
+| `ArbitraryTransaction` | (`target?`: ``null``, `data?`: ``null``, `success?`: ``null``) => `ArbitraryTransactionEventFilter` |
+| `ArbitraryTransaction(address,bytes,bool)` | (`target?`: ``null``, `data?`: ``null``, `success?`: ``null``) => `ArbitraryTransactionEventFilter` |
+| `ColonyBootstrapped` | (`agent?`: ``null``, `users?`: ``null``, `amounts?`: ``null``) => `ColonyBootstrappedEventFilter` |
+| `ColonyBootstrapped(address,address[],int256[])` | (`agent?`: ``null``, `users?`: ``null``, `amounts?`: ``null``) => `ColonyBootstrappedEventFilter` |
+| `ColonyFundsClaimed` | (`agent?`: ``null``, `token?`: ``null``, `fee?`: ``null``, `payoutRemainder?`: ``null``) => `ColonyFundsClaimedEventFilter` |
+| `ColonyFundsClaimed(address,address,uint256,uint256)` | (`agent?`: ``null``, `token?`: ``null``, `fee?`: ``null``, `payoutRemainder?`: ``null``) => `ColonyFundsClaimedEventFilter` |
+| `ColonyFundsMovedBetweenFundingPots` | (`agent?`: ``null``, `fromPot?`: ``null`` \| `BigNumberish`, `toPot?`: ``null`` \| `BigNumberish`, `amount?`: ``null``, `token?`: ``null``) => `ColonyFundsMovedBetweenFundingPotsEventFilter` |
+| `ColonyFundsMovedBetweenFundingPots(address,uint256,uint256,uint256,address)` | (`agent?`: ``null``, `fromPot?`: ``null`` \| `BigNumberish`, `toPot?`: ``null`` \| `BigNumberish`, `amount?`: ``null``, `token?`: ``null``) => `ColonyFundsMovedBetweenFundingPotsEventFilter` |
+| `ColonyInitialised` | (`agent?`: ``null``, `colonyNetwork?`: ``null``, `token?`: ``null``) => `ColonyInitialisedEventFilter` |
+| `ColonyInitialised(address,address,address)` | (`agent?`: ``null``, `colonyNetwork?`: ``null``, `token?`: ``null``) => `ColonyInitialisedEventFilter` |
+| `ColonyMetadata` | (`agent?`: ``null``, `metadata?`: ``null``) => `ColonyMetadataEventFilter` |
+| `ColonyMetadata(address,string)` | (`agent?`: ``null``, `metadata?`: ``null``) => `ColonyMetadataEventFilter` |
+| `ColonyMetadataDelta` | (`agent?`: ``null``, `metadata?`: ``null``) => `ColonyMetadataDeltaEventFilter` |
+| `ColonyMetadataDelta(address,string)` | (`agent?`: ``null``, `metadata?`: ``null``) => `ColonyMetadataDeltaEventFilter` |
+| `ColonyRewardInverseSet` | (`agent?`: ``null``, `rewardInverse?`: ``null``) => `ColonyRewardInverseSetEventFilter` |
+| `ColonyRewardInverseSet(address,uint256)` | (`agent?`: ``null``, `rewardInverse?`: ``null``) => `ColonyRewardInverseSetEventFilter` |
+| `ColonyRoleSet` | (`agent?`: ``null``, `user?`: ``null`` \| `string`, `domainId?`: ``null`` \| `BigNumberish`, `role?`: ``null`` \| `BigNumberish`, `setTo?`: ``null``) => `ColonyRoleSetEventFilter` |
+| `ColonyRoleSet(address,address,uint256,uint8,bool)` | (`agent?`: ``null``, `user?`: ``null`` \| `string`, `domainId?`: ``null`` \| `BigNumberish`, `role?`: ``null`` \| `BigNumberish`, `setTo?`: ``null``) => `ColonyRoleSetEventFilter` |
+| `ColonyUpgraded` | (`agent?`: ``null``, `oldVersion?`: ``null``, `newVersion?`: ``null``) => `ColonyUpgradedEventFilter` |
+| `ColonyUpgraded(address,uint256,uint256)` | (`agent?`: ``null``, `oldVersion?`: ``null``, `newVersion?`: ``null``) => `ColonyUpgradedEventFilter` |
+| `DomainAdded` | (`agent?`: ``null``, `domainId?`: ``null``) => `DomainAddedEventFilter` |
+| `DomainAdded(address,uint256)` | (`agent?`: ``null``, `domainId?`: ``null``) => `DomainAddedEventFilter` |
+| `DomainDeprecated` | (`agent?`: ``null``, `domainId?`: ``null`` \| `BigNumberish`, `deprecated?`: ``null``) => `DomainDeprecatedEventFilter` |
+| `DomainDeprecated(address,uint256,bool)` | (`agent?`: ``null``, `domainId?`: ``null`` \| `BigNumberish`, `deprecated?`: ``null``) => `DomainDeprecatedEventFilter` |
+| `DomainMetadata` | (`agent?`: ``null``, `domainId?`: ``null`` \| `BigNumberish`, `metadata?`: ``null``) => `DomainMetadataEventFilter` |
+| `DomainMetadata(address,uint256,string)` | (`agent?`: ``null``, `domainId?`: ``null`` \| `BigNumberish`, `metadata?`: ``null``) => `DomainMetadataEventFilter` |
+| `ExpenditureAdded` | (`agent?`: ``null``, `expenditureId?`: ``null``) => `ExpenditureAddedEventFilter` |
+| `ExpenditureAdded(address,uint256)` | (`agent?`: ``null``, `expenditureId?`: ``null``) => `ExpenditureAddedEventFilter` |
+| `ExpenditureCancelled` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`) => `ExpenditureCancelledEventFilter` |
+| `ExpenditureCancelled(address,uint256)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`) => `ExpenditureCancelledEventFilter` |
+| `ExpenditureClaimDelaySet` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `claimDelay?`: ``null``) => `ExpenditureClaimDelaySetEventFilter` |
+| `ExpenditureClaimDelaySet(address,uint256,uint256,uint256)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `claimDelay?`: ``null``) => `ExpenditureClaimDelaySetEventFilter` |
+| `ExpenditureFinalized` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`) => `ExpenditureFinalizedEventFilter` |
+| `ExpenditureFinalized(address,uint256)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`) => `ExpenditureFinalizedEventFilter` |
+| `ExpenditureGlobalClaimDelaySet` | (`agent?`: ``null``, `globalClaimDelay?`: ``null``) => `ExpenditureGlobalClaimDelaySetEventFilter` |
+| `ExpenditureGlobalClaimDelaySet(address,uint256)` | (`agent?`: ``null``, `globalClaimDelay?`: ``null``) => `ExpenditureGlobalClaimDelaySetEventFilter` |
+| `ExpenditureLocked` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`) => `ExpenditureLockedEventFilter` |
+| `ExpenditureLocked(address,uint256)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`) => `ExpenditureLockedEventFilter` |
+| `ExpenditureMadeStaged` | (`expenditureId?`: ``null`` \| `BigNumberish`, `staged?`: ``null``) => `ExpenditureMadeStagedEventFilter` |
+| `ExpenditureMadeStaged(uint256,bool)` | (`expenditureId?`: ``null`` \| `BigNumberish`, `staged?`: ``null``) => `ExpenditureMadeStagedEventFilter` |
+| `ExpenditureMetadataSet` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `metadata?`: ``null``) => `ExpenditureMetadataSetEventFilter` |
+| `ExpenditureMetadataSet(address,uint256,string)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `metadata?`: ``null``) => `ExpenditureMetadataSetEventFilter` |
+| `ExpenditurePayoutModifierSet` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `payoutModifier?`: ``null``) => `ExpenditurePayoutModifierSetEventFilter` |
+| `ExpenditurePayoutModifierSet(address,uint256,uint256,int256)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `payoutModifier?`: ``null``) => `ExpenditurePayoutModifierSetEventFilter` |
+| `ExpenditurePayoutSet` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `token?`: ``null`` \| `string`, `amount?`: ``null``) => `ExpenditurePayoutSetEventFilter` |
+| `ExpenditurePayoutSet(address,uint256,uint256,address,uint256)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `token?`: ``null`` \| `string`, `amount?`: ``null``) => `ExpenditurePayoutSetEventFilter` |
+| `ExpenditureRecipientSet` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `recipient?`: ``null`` \| `string`) => `ExpenditureRecipientSetEventFilter` |
+| `ExpenditureRecipientSet(address,uint256,uint256,address)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `recipient?`: ``null`` \| `string`) => `ExpenditureRecipientSetEventFilter` |
+| `ExpenditureSkillSet` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `skillId?`: ``null`` \| `BigNumberish`) => `ExpenditureSkillSetEventFilter` |
+| `ExpenditureSkillSet(address,uint256,uint256,uint256)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `skillId?`: ``null`` \| `BigNumberish`) => `ExpenditureSkillSetEventFilter` |
+| `ExpenditureStateChanged` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `storageSlot?`: ``null`` \| `BigNumberish`, `mask?`: ``null``, `keys?`: ``null``, `value?`: ``null``) => `ExpenditureStateChangedEventFilter` |
+| `ExpenditureStateChanged(address,uint256,uint256,bool[],bytes32[],bytes32)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `storageSlot?`: ``null`` \| `BigNumberish`, `mask?`: ``null``, `keys?`: ``null``, `value?`: ``null``) => `ExpenditureStateChangedEventFilter` |
+| `ExpenditureTransferred` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `owner?`: ``null`` \| `string`) => `ExpenditureTransferredEventFilter` |
+| `ExpenditureTransferred(address,uint256,address)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `owner?`: ``null`` \| `string`) => `ExpenditureTransferredEventFilter` |
 | `ExtensionInitialised` | () => `ExtensionInitialisedEventFilter` |
 | `ExtensionInitialised()` | () => `ExtensionInitialisedEventFilter` |
+| `FundingPotAdded` | (`fundingPotId?`: ``null``) => `FundingPotAddedEventFilter` |
+| `FundingPotAdded(uint256)` | (`fundingPotId?`: ``null``) => `FundingPotAddedEventFilter` |
+| `LocalSkillAdded` | (`agent?`: ``null``, `localSkillId?`: ``null``) => `LocalSkillAddedEventFilter` |
+| `LocalSkillAdded(address,uint256)` | (`agent?`: ``null``, `localSkillId?`: ``null``) => `LocalSkillAddedEventFilter` |
+| `LocalSkillDeprecated` | (`agent?`: ``null``, `localSkillId?`: ``null``, `deprecated?`: ``null``) => `LocalSkillDeprecatedEventFilter` |
+| `LocalSkillDeprecated(address,uint256,bool)` | (`agent?`: ``null``, `localSkillId?`: ``null``, `deprecated?`: ``null``) => `LocalSkillDeprecatedEventFilter` |
 | `LogSetAuthority` | (`authority?`: ``null`` \| `string`) => `LogSetAuthorityEventFilter` |
 | `LogSetAuthority(address)` | (`authority?`: ``null`` \| `string`) => `LogSetAuthorityEventFilter` |
 | `LogSetOwner` | (`owner?`: ``null`` \| `string`) => `LogSetOwnerEventFilter` |
 | `LogSetOwner(address)` | (`owner?`: ``null`` \| `string`) => `LogSetOwnerEventFilter` |
 | `MetaTransactionExecuted` | (`user?`: ``null``, `relayerAddress?`: ``null``, `functionSignature?`: ``null``) => `MetaTransactionExecutedEventFilter` |
 | `MetaTransactionExecuted(address,address,bytes)` | (`user?`: ``null``, `relayerAddress?`: ``null``, `functionSignature?`: ``null``) => `MetaTransactionExecutedEventFilter` |
-| `UserApproved` | (`_user?`: ``null`` \| `string`, `_status?`: ``null``) => `UserApprovedEventFilter` |
-| `UserApproved(address,bool)` | (`_user?`: ``null`` \| `string`, `_status?`: ``null``) => `UserApprovedEventFilter` |
+| `PaymentAdded` | (`agent?`: ``null``, `paymentId?`: ``null``) => `PaymentAddedEventFilter` |
+| `PaymentAdded(address,uint256)` | (`agent?`: ``null``, `paymentId?`: ``null``) => `PaymentAddedEventFilter` |
+| `PaymentFinalized` | (`agent?`: ``null``, `paymentId?`: ``null`` \| `BigNumberish`) => `PaymentFinalizedEventFilter` |
+| `PaymentFinalized(address,uint256)` | (`agent?`: ``null``, `paymentId?`: ``null`` \| `BigNumberish`) => `PaymentFinalizedEventFilter` |
+| `PaymentPayoutSet` | (`agent?`: ``null``, `paymentId?`: ``null`` \| `BigNumberish`, `token?`: ``null``, `amount?`: ``null``) => `PaymentPayoutSetEventFilter` |
+| `PaymentPayoutSet(address,uint256,address,uint256)` | (`agent?`: ``null``, `paymentId?`: ``null`` \| `BigNumberish`, `token?`: ``null``, `amount?`: ``null``) => `PaymentPayoutSetEventFilter` |
+| `PaymentRecipientSet` | (`agent?`: ``null``, `paymentId?`: ``null`` \| `BigNumberish`, `recipient?`: ``null``) => `PaymentRecipientSetEventFilter` |
+| `PaymentRecipientSet(address,uint256,address)` | (`agent?`: ``null``, `paymentId?`: ``null`` \| `BigNumberish`, `recipient?`: ``null``) => `PaymentRecipientSetEventFilter` |
+| `PaymentSkillSet` | (`agent?`: ``null``, `paymentId?`: ``null`` \| `BigNumberish`, `skillId?`: ``null``) => `PaymentSkillSetEventFilter` |
+| `PaymentSkillSet(address,uint256,uint256)` | (`agent?`: ``null``, `paymentId?`: ``null`` \| `BigNumberish`, `skillId?`: ``null``) => `PaymentSkillSetEventFilter` |
+| `PayoutClaimed(address,uint256,address,uint256)` | (`agent?`: ``null``, `fundingPotId?`: ``null`` \| `BigNumberish`, `token?`: ``null``, `amount?`: ``null``) => `PayoutClaimed_address_uint256_address_uint256_EventFilter` |
+| `PayoutClaimed(address,uint256,uint256,address,uint256)` | (`agent?`: ``null``, `id?`: ``null``, `slot?`: ``null``, `token?`: ``null``, `tokenPayout?`: ``null``) => `PayoutClaimed_address_uint256_uint256_address_uint256_EventFilter` |
+| `RewardPayoutClaimed` | (`rewardPayoutId?`: ``null``, `user?`: ``null``, `fee?`: ``null``, `rewardRemainder?`: ``null``) => `RewardPayoutClaimedEventFilter` |
+| `RewardPayoutClaimed(uint256,address,uint256,uint256)` | (`rewardPayoutId?`: ``null``, `user?`: ``null``, `fee?`: ``null``, `rewardRemainder?`: ``null``) => `RewardPayoutClaimedEventFilter` |
+| `RewardPayoutCycleEnded` | (`agent?`: ``null``, `rewardPayoutId?`: ``null``) => `RewardPayoutCycleEndedEventFilter` |
+| `RewardPayoutCycleEnded(address,uint256)` | (`agent?`: ``null``, `rewardPayoutId?`: ``null``) => `RewardPayoutCycleEndedEventFilter` |
+| `RewardPayoutCycleStarted` | (`agent?`: ``null``, `rewardPayoutId?`: ``null``) => `RewardPayoutCycleStartedEventFilter` |
+| `RewardPayoutCycleStarted(address,uint256)` | (`agent?`: ``null``, `rewardPayoutId?`: ``null``) => `RewardPayoutCycleStartedEventFilter` |
+| `StagedPaymentReleased` | (`expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null``) => `StagedPaymentReleasedEventFilter` |
+| `StagedPaymentReleased(uint256,uint256)` | (`expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null``) => `StagedPaymentReleasedEventFilter` |
+| `TaskAdded` | (`agent?`: ``null``, `taskId?`: ``null``) => `TaskAddedEventFilter` |
+| `TaskAdded(address,uint256)` | (`agent?`: ``null``, `taskId?`: ``null``) => `TaskAddedEventFilter` |
+| `TaskBriefSet` | (`taskId?`: ``null`` \| `BigNumberish`, `specificationHash?`: ``null``) => `TaskBriefSetEventFilter` |
+| `TaskBriefSet(uint256,bytes32)` | (`taskId?`: ``null`` \| `BigNumberish`, `specificationHash?`: ``null``) => `TaskBriefSetEventFilter` |
+| `TaskCanceled` | (`taskId?`: ``null`` \| `BigNumberish`) => `TaskCanceledEventFilter` |
+| `TaskCanceled(uint256)` | (`taskId?`: ``null`` \| `BigNumberish`) => `TaskCanceledEventFilter` |
+| `TaskChangedViaSignatures` | (`reviewerAddresses?`: ``null``) => `TaskChangedViaSignaturesEventFilter` |
+| `TaskChangedViaSignatures(address[])` | (`reviewerAddresses?`: ``null``) => `TaskChangedViaSignaturesEventFilter` |
+| `TaskCompleted` | (`agent?`: ``null``, `taskId?`: ``null`` \| `BigNumberish`) => `TaskCompletedEventFilter` |
+| `TaskCompleted(address,uint256)` | (`agent?`: ``null``, `taskId?`: ``null`` \| `BigNumberish`) => `TaskCompletedEventFilter` |
+| `TaskDeliverableSubmitted` | (`agent?`: ``null``, `taskId?`: ``null`` \| `BigNumberish`, `deliverableHash?`: ``null``) => `TaskDeliverableSubmittedEventFilter` |
+| `TaskDeliverableSubmitted(address,uint256,bytes32)` | (`agent?`: ``null``, `taskId?`: ``null`` \| `BigNumberish`, `deliverableHash?`: ``null``) => `TaskDeliverableSubmittedEventFilter` |
+| `TaskDueDateSet` | (`taskId?`: ``null`` \| `BigNumberish`, `dueDate?`: ``null``) => `TaskDueDateSetEventFilter` |
+| `TaskDueDateSet(uint256,uint256)` | (`taskId?`: ``null`` \| `BigNumberish`, `dueDate?`: ``null``) => `TaskDueDateSetEventFilter` |
+| `TaskFinalized` | (`agent?`: ``null``, `taskId?`: ``null`` \| `BigNumberish`) => `TaskFinalizedEventFilter` |
+| `TaskFinalized(address,uint256)` | (`agent?`: ``null``, `taskId?`: ``null`` \| `BigNumberish`) => `TaskFinalizedEventFilter` |
+| `TaskPayoutSet` | (`taskId?`: ``null`` \| `BigNumberish`, `role?`: ``null``, `token?`: ``null``, `amount?`: ``null``) => `TaskPayoutSetEventFilter` |
+| `TaskPayoutSet(uint256,uint8,address,uint256)` | (`taskId?`: ``null`` \| `BigNumberish`, `role?`: ``null``, `token?`: ``null``, `amount?`: ``null``) => `TaskPayoutSetEventFilter` |
+| `TaskRoleUserSet` | (`taskId?`: ``null`` \| `BigNumberish`, `role?`: ``null``, `user?`: ``null`` \| `string`) => `TaskRoleUserSetEventFilter` |
+| `TaskRoleUserSet(uint256,uint8,address)` | (`taskId?`: ``null`` \| `BigNumberish`, `role?`: ``null``, `user?`: ``null`` \| `string`) => `TaskRoleUserSetEventFilter` |
+| `TaskSkillSet` | (`taskId?`: ``null`` \| `BigNumberish`, `skillId?`: ``null`` \| `BigNumberish`) => `TaskSkillSetEventFilter` |
+| `TaskSkillSet(uint256,uint256)` | (`taskId?`: ``null`` \| `BigNumberish`, `skillId?`: ``null`` \| `BigNumberish`) => `TaskSkillSetEventFilter` |
+| `TaskWorkRatingRevealed` | (`agent?`: ``null``, `taskId?`: ``null`` \| `BigNumberish`, `role?`: ``null``, `rating?`: ``null``) => `TaskWorkRatingRevealedEventFilter` |
+| `TaskWorkRatingRevealed(address,uint256,uint8,uint8)` | (`agent?`: ``null``, `taskId?`: ``null`` \| `BigNumberish`, `role?`: ``null``, `rating?`: ``null``) => `TaskWorkRatingRevealedEventFilter` |
+| `TokenUnlocked` | (`agent?`: ``null``) => `TokenUnlockedEventFilter` |
+| `TokenUnlocked(address)` | (`agent?`: ``null``) => `TokenUnlockedEventFilter` |
+| `TokensBurned` | (`agent?`: ``null``, `token?`: ``null``, `amount?`: ``null``) => `TokensBurnedEventFilter` |
+| `TokensBurned(address,address,uint256)` | (`agent?`: ``null``, `token?`: ``null``, `amount?`: ``null``) => `TokensBurnedEventFilter` |
+| `TokensMinted` | (`agent?`: ``null``, `who?`: ``null``, `amount?`: ``null``) => `TokensMintedEventFilter` |
+| `TokensMinted(address,address,uint256)` | (`agent?`: ``null``, `who?`: ``null``, `amount?`: ``null``) => `TokensMintedEventFilter` |
 
 #### Inherited from
 
-AugmentedWhitelist.filters
+AugmentedStagedExpenditure.filters
 
 ___
 
@@ -267,8 +353,6 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `approveUsers` | (`_users`: `string`[], `_status`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `approveUsers(address[],bool)` | (`_users`: `string`[], `_status`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `authority` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `authority()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `deprecate` | (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
@@ -277,10 +361,6 @@ ___
 | `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `finishUpgrade` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `finishUpgrade()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `getAgreementHash` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_hash`: `string`  }\> |
-| `getAgreementHash()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_hash`: `string`  }\> |
-| `getApproval` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`] & { `_status`: `boolean`  }\> |
-| `getApproval(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`] & { `_status`: `boolean`  }\> |
 | `getCapabilityRoles` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `getCapabilityRoles(bytes4)` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `getChainId` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
@@ -289,30 +369,24 @@ ___
 | `getColony()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
 | `getDeprecated()` | (`overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
-| `getMetatransactionNonce` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
-| `getMetatransactionNonce(address)` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
-| `getSignature` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`] & { `_status`: `boolean`  }\> |
-| `getSignature(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`] & { `_status`: `boolean`  }\> |
-| `getUseApprovals` | (`overrides?`: `CallOverrides`) => `Promise`<[`boolean`] & { `_useApprovals`: `boolean`  }\> |
-| `getUseApprovals()` | (`overrides?`: `CallOverrides`) => `Promise`<[`boolean`] & { `_useApprovals`: `boolean`  }\> |
+| `getMetatransactionNonce` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
+| `getMetatransactionNonce(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
 | `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_identifier`: `string`  }\> |
 | `identifier()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_identifier`: `string`  }\> |
-| `initialise` | (`_useApprovals`: `boolean`, `_agreementHash`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `initialise(bool,string)` | (`_useApprovals`: `boolean`, `_agreementHash`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `install` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `install(address)` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `isApproved` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`] & { `_approved`: `boolean`  }\> |
-| `isApproved(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`] & { `_approved`: `boolean`  }\> |
 | `multicall` | (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `multicall(bytes[])` | (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `owner` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `owner()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
+| `releaseStagedPayment` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `releaseStagedPayment(uint256,uint256,uint256,uint256,address[])` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `setAuthority` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `setAuthority(address)` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `setExpenditureStaged` | (`_expenditureId`: `BigNumberish`, `_staged`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `setExpenditureStaged(uint256,bool)` | (`_expenditureId`: `BigNumberish`, `_staged`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `setOwner` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `setOwner(address)` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `signAgreement` | (`_agreementHash`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `signAgreement(string)` | (`_agreementHash`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `uninstall` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `uninstall()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `verify` | (`_owner`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
@@ -322,47 +396,47 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.functions
+AugmentedStagedExpenditure.functions
 
 ___
 
 ### interface
 
-• **interface**: `WhitelistInterface`
+• **interface**: `StagedExpenditureInterface`
 
 #### Inherited from
 
-AugmentedWhitelist.interface
+AugmentedStagedExpenditure.interface
 
 ___
 
 ### off
 
-• **off**: `OnEvent`<[`WhitelistClientV3`](WhitelistClientV3.md)\>
+• **off**: `OnEvent`<[`StagedExpenditureClientV1`](StagedExpenditureClientV1.md)\>
 
 #### Inherited from
 
-AugmentedWhitelist.off
+AugmentedStagedExpenditure.off
 
 ___
 
 ### on
 
-• **on**: `OnEvent`<[`WhitelistClientV3`](WhitelistClientV3.md)\>
+• **on**: `OnEvent`<[`StagedExpenditureClientV1`](StagedExpenditureClientV1.md)\>
 
 #### Inherited from
 
-AugmentedWhitelist.on
+AugmentedStagedExpenditure.on
 
 ___
 
 ### once
 
-• **once**: `OnEvent`<[`WhitelistClientV3`](WhitelistClientV3.md)\>
+• **once**: `OnEvent`<[`StagedExpenditureClientV1`](StagedExpenditureClientV1.md)\>
 
 #### Inherited from
 
-AugmentedWhitelist.once
+AugmentedStagedExpenditure.once
 
 ___
 
@@ -374,8 +448,6 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `approveUsers` | (`_users`: `string`[], `_status`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `approveUsers(address[],bool)` | (`_users`: `string`[], `_status`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `authority` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `authority()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `deprecate` | (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
@@ -384,10 +456,6 @@ ___
 | `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `finishUpgrade` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `finishUpgrade()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `getAgreementHash` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getAgreementHash()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getApproval` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getApproval(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getCapabilityRoles` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getCapabilityRoles(bytes4)` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getChainId` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
@@ -396,30 +464,24 @@ ___
 | `getColony()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getDeprecated()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getMetatransactionNonce` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getMetatransactionNonce(address)` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getSignature` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getSignature(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getUseApprovals` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getUseApprovals()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getMetatransactionNonce` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getMetatransactionNonce(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `identifier()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `initialise` | (`_useApprovals`: `boolean`, `_agreementHash`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `initialise(bool,string)` | (`_useApprovals`: `boolean`, `_agreementHash`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `install` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `install(address)` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `isApproved` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `isApproved(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `multicall` | (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `multicall(bytes[])` | (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `owner()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `releaseStagedPayment` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `releaseStagedPayment(uint256,uint256,uint256,uint256,address[])` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `setAuthority` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `setAuthority(address)` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `setExpenditureStaged` | (`_expenditureId`: `BigNumberish`, `_staged`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `setExpenditureStaged(uint256,bool)` | (`_expenditureId`: `BigNumberish`, `_staged`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `setOwner` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `setOwner(address)` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `signAgreement` | (`_agreementHash`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `signAgreement(string)` | (`_agreementHash`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `uninstall` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `uninstall()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `verify` | (`_owner`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
@@ -429,7 +491,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.populateTransaction
+AugmentedStagedExpenditure.populateTransaction
 
 ___
 
@@ -439,17 +501,17 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.provider
+AugmentedStagedExpenditure.provider
 
 ___
 
 ### removeListener
 
-• **removeListener**: `OnEvent`<[`WhitelistClientV3`](WhitelistClientV3.md)\>
+• **removeListener**: `OnEvent`<[`StagedExpenditureClientV1`](StagedExpenditureClientV1.md)\>
 
 #### Inherited from
 
-AugmentedWhitelist.removeListener
+AugmentedStagedExpenditure.removeListener
 
 ___
 
@@ -459,7 +521,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.resolvedAddress
+AugmentedStagedExpenditure.resolvedAddress
 
 ___
 
@@ -469,21 +531,21 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.signer
+AugmentedStagedExpenditure.signer
 
 ___
 
-### whitelistEvents
+### stagedExpenditureEvents
 
-• **whitelistEvents**: `WhitelistEvents`
+• **stagedExpenditureEvents**: `StagedExpenditureEvents`
 
-The whitelistEvents contract supports all events across all versions.
+The stagedExpenditureEvents contract supports all events across all versions.
 Isn't that amazing?
 It's an ethers contract with only events to filter
 
 #### Inherited from
 
-AugmentedWhitelist.whitelistEvents
+AugmentedStagedExpenditure.stagedExpenditureEvents
 
 ## Methods
 
@@ -503,7 +565,7 @@ AugmentedWhitelist.whitelistEvents
 
 #### Inherited from
 
-AugmentedWhitelist.\_checkRunningEvents
+AugmentedStagedExpenditure.\_checkRunningEvents
 
 ___
 
@@ -523,7 +585,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.\_deployed
+AugmentedStagedExpenditure.\_deployed
 
 ___
 
@@ -545,61 +607,13 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.\_wrapEvent
-
-___
-
-### approveUsers
-
-▸ **approveUsers**(`_users`, `_status`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-Sets user statuses in the whitelist
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_users` | `string`[] | An array of user addresses |
-| `_status` | `boolean` | The whitelist status to set |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedWhitelist.approveUsers
-
-___
-
-### approveUsers(address[],bool)
-
-▸ **approveUsers(address[],bool)**(`_users`, `_status`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-Sets user statuses in the whitelist
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_users` | `string`[] | An array of user addresses |
-| `_status` | `boolean` | The whitelist status to set |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedWhitelist.approveUsers(address[],bool)
+AugmentedStagedExpenditure.\_wrapEvent
 
 ___
 
 ### attach
 
-▸ **attach**(`addressOrName`): [`WhitelistClientV3`](WhitelistClientV3.md)
+▸ **attach**(`addressOrName`): [`StagedExpenditureClientV1`](StagedExpenditureClientV1.md)
 
 #### Parameters
 
@@ -609,11 +623,11 @@ ___
 
 #### Returns
 
-[`WhitelistClientV3`](WhitelistClientV3.md)
+[`StagedExpenditureClientV1`](StagedExpenditureClientV1.md)
 
 #### Inherited from
 
-AugmentedWhitelist.attach
+AugmentedStagedExpenditure.attach
 
 ___
 
@@ -633,7 +647,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.authority
+AugmentedStagedExpenditure.authority
 
 ___
 
@@ -653,13 +667,13 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.authority()
+AugmentedStagedExpenditure.authority()
 
 ___
 
 ### connect
 
-▸ **connect**(`signerOrProvider`): [`WhitelistClientV3`](WhitelistClientV3.md)
+▸ **connect**(`signerOrProvider`): [`StagedExpenditureClientV1`](StagedExpenditureClientV1.md)
 
 #### Parameters
 
@@ -669,25 +683,25 @@ ___
 
 #### Returns
 
-[`WhitelistClientV3`](WhitelistClientV3.md)
+[`StagedExpenditureClientV1`](StagedExpenditureClientV1.md)
 
 #### Inherited from
 
-AugmentedWhitelist.connect
+AugmentedStagedExpenditure.connect
 
 ___
 
 ### deployed
 
-▸ **deployed**(): `Promise`<[`WhitelistClientV3`](WhitelistClientV3.md)\>
+▸ **deployed**(): `Promise`<[`StagedExpenditureClientV1`](StagedExpenditureClientV1.md)\>
 
 #### Returns
 
-`Promise`<[`WhitelistClientV3`](WhitelistClientV3.md)\>
+`Promise`<[`StagedExpenditureClientV1`](StagedExpenditureClientV1.md)\>
 
 #### Inherited from
 
-AugmentedWhitelist.deployed
+AugmentedStagedExpenditure.deployed
 
 ___
 
@@ -710,7 +724,7 @@ Called when deprecating (or undeprecating) the extension
 
 #### Inherited from
 
-AugmentedWhitelist.deprecate
+AugmentedStagedExpenditure.deprecate
 
 ___
 
@@ -733,7 +747,7 @@ Called when deprecating (or undeprecating) the extension
 
 #### Inherited from
 
-AugmentedWhitelist.deprecate(bool)
+AugmentedStagedExpenditure.deprecate(bool)
 
 ___
 
@@ -754,7 +768,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.emit
+AugmentedStagedExpenditure.emit
 
 ___
 
@@ -781,7 +795,7 @@ Main function to be called when user wants to execute meta transaction. The actu
 
 #### Inherited from
 
-AugmentedWhitelist.executeMetaTransaction
+AugmentedStagedExpenditure.executeMetaTransaction
 
 ___
 
@@ -808,7 +822,7 @@ Main function to be called when user wants to execute meta transaction. The actu
 
 #### Inherited from
 
-AugmentedWhitelist.executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)
+AugmentedStagedExpenditure.executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)
 
 ___
 
@@ -828,7 +842,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.fallback
+AugmentedStagedExpenditure.fallback
 
 ___
 
@@ -850,7 +864,7 @@ Called when upgrading the extension
 
 #### Inherited from
 
-AugmentedWhitelist.finishUpgrade
+AugmentedStagedExpenditure.finishUpgrade
 
 ___
 
@@ -872,97 +886,7 @@ Called when upgrading the extension
 
 #### Inherited from
 
-AugmentedWhitelist.finishUpgrade()
-
-___
-
-### getAgreementHash
-
-▸ **getAgreementHash**(`overrides?`): `Promise`<`string`\>
-
-Get the agreementHash
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
-
-#### Returns
-
-`Promise`<`string`\>
-
-#### Inherited from
-
-AugmentedWhitelist.getAgreementHash
-
-___
-
-### getAgreementHash()
-
-▸ **getAgreementHash()**(`overrides?`): `Promise`<`string`\>
-
-Get the agreementHash
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
-
-#### Returns
-
-`Promise`<`string`\>
-
-#### Inherited from
-
-AugmentedWhitelist.getAgreementHash()
-
-___
-
-### getApproval
-
-▸ **getApproval**(`_user`, `overrides?`): `Promise`<`boolean`\>
-
-Get the user's approval status
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_user` | `string` | The address of the user |
-| `overrides?` | `CallOverrides` | - |
-
-#### Returns
-
-`Promise`<`boolean`\>
-
-#### Inherited from
-
-AugmentedWhitelist.getApproval
-
-___
-
-### getApproval(address)
-
-▸ **getApproval(address)**(`_user`, `overrides?`): `Promise`<`boolean`\>
-
-Get the user's approval status
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_user` | `string` | The address of the user |
-| `overrides?` | `CallOverrides` | - |
-
-#### Returns
-
-`Promise`<`boolean`\>
-
-#### Inherited from
-
-AugmentedWhitelist.getApproval(address)
+AugmentedStagedExpenditure.finishUpgrade()
 
 ___
 
@@ -983,7 +907,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.getCapabilityRoles
+AugmentedStagedExpenditure.getCapabilityRoles
 
 ___
 
@@ -1004,7 +928,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.getCapabilityRoles(bytes4)
+AugmentedStagedExpenditure.getCapabilityRoles(bytes4)
 
 ___
 
@@ -1024,7 +948,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.getChainId
+AugmentedStagedExpenditure.getChainId
 
 ___
 
@@ -1044,7 +968,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.getChainId()
+AugmentedStagedExpenditure.getChainId()
 
 ___
 
@@ -1064,7 +988,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.getColony
+AugmentedStagedExpenditure.getColony
 
 ___
 
@@ -1084,7 +1008,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.getColony()
+AugmentedStagedExpenditure.getColony()
 
 ___
 
@@ -1104,7 +1028,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.getDeprecated
+AugmentedStagedExpenditure.getDeprecated
 
 ___
 
@@ -1124,22 +1048,20 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.getDeprecated()
+AugmentedStagedExpenditure.getDeprecated()
 
 ___
 
 ### getMetatransactionNonce
 
-▸ **getMetatransactionNonce**(`userAddress`, `overrides?`): `Promise`<`BigNumber`\>
-
-Gets the next nonce for a meta-transaction
+▸ **getMetatransactionNonce**(`_user`, `overrides?`): `Promise`<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `userAddress` | `string` | The user's address |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_user` | `string` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -1147,22 +1069,20 @@ Gets the next nonce for a meta-transaction
 
 #### Inherited from
 
-AugmentedWhitelist.getMetatransactionNonce
+AugmentedStagedExpenditure.getMetatransactionNonce
 
 ___
 
 ### getMetatransactionNonce(address)
 
-▸ **getMetatransactionNonce(address)**(`userAddress`, `overrides?`): `Promise`<`BigNumber`\>
-
-Gets the next nonce for a meta-transaction
+▸ **getMetatransactionNonce(address)**(`_user`, `overrides?`): `Promise`<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `userAddress` | `string` | The user's address |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_user` | `string` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -1170,97 +1090,7 @@ Gets the next nonce for a meta-transaction
 
 #### Inherited from
 
-AugmentedWhitelist.getMetatransactionNonce(address)
-
-___
-
-### getSignature
-
-▸ **getSignature**(`_user`, `overrides?`): `Promise`<`boolean`\>
-
-Get the user's signature status
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_user` | `string` | The address of the user |
-| `overrides?` | `CallOverrides` | - |
-
-#### Returns
-
-`Promise`<`boolean`\>
-
-#### Inherited from
-
-AugmentedWhitelist.getSignature
-
-___
-
-### getSignature(address)
-
-▸ **getSignature(address)**(`_user`, `overrides?`): `Promise`<`boolean`\>
-
-Get the user's signature status
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_user` | `string` | The address of the user |
-| `overrides?` | `CallOverrides` | - |
-
-#### Returns
-
-`Promise`<`boolean`\>
-
-#### Inherited from
-
-AugmentedWhitelist.getSignature(address)
-
-___
-
-### getUseApprovals
-
-▸ **getUseApprovals**(`overrides?`): `Promise`<`boolean`\>
-
-Get the useApprovals boolean
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
-
-#### Returns
-
-`Promise`<`boolean`\>
-
-#### Inherited from
-
-AugmentedWhitelist.getUseApprovals
-
-___
-
-### getUseApprovals()
-
-▸ **getUseApprovals()**(`overrides?`): `Promise`<`boolean`\>
-
-Get the useApprovals boolean
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
-
-#### Returns
-
-`Promise`<`boolean`\>
-
-#### Inherited from
-
-AugmentedWhitelist.getUseApprovals()
+AugmentedStagedExpenditure.getMetatransactionNonce(address)
 
 ___
 
@@ -1282,7 +1112,7 @@ Returns the identifier of the extension
 
 #### Inherited from
 
-AugmentedWhitelist.identifier
+AugmentedStagedExpenditure.identifier
 
 ___
 
@@ -1304,55 +1134,7 @@ Returns the identifier of the extension
 
 #### Inherited from
 
-AugmentedWhitelist.identifier()
-
-___
-
-### initialise
-
-▸ **initialise**(`_useApprovals`, `_agreementHash`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-Initialise the extension
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_useApprovals` | `boolean` | Whether or not to require administrative approval |
-| `_agreementHash` | `string` | An agreement hash (such as an IPFS URI) |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedWhitelist.initialise
-
-___
-
-### initialise(bool,string)
-
-▸ **initialise(bool,string)**(`_useApprovals`, `_agreementHash`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-Initialise the extension
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_useApprovals` | `boolean` | Whether or not to require administrative approval |
-| `_agreementHash` | `string` | An agreement hash (such as an IPFS URI) |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedWhitelist.initialise(bool,string)
+AugmentedStagedExpenditure.identifier()
 
 ___
 
@@ -1375,7 +1157,7 @@ Configures the extension
 
 #### Inherited from
 
-AugmentedWhitelist.install
+AugmentedStagedExpenditure.install
 
 ___
 
@@ -1398,53 +1180,7 @@ Configures the extension
 
 #### Inherited from
 
-AugmentedWhitelist.install(address)
-
-___
-
-### isApproved
-
-▸ **isApproved**(`_user`, `overrides?`): `Promise`<`boolean`\>
-
-Get the user's overall whitelist status
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_user` | `string` | The address of the user |
-| `overrides?` | `CallOverrides` | - |
-
-#### Returns
-
-`Promise`<`boolean`\>
-
-#### Inherited from
-
-AugmentedWhitelist.isApproved
-
-___
-
-### isApproved(address)
-
-▸ **isApproved(address)**(`_user`, `overrides?`): `Promise`<`boolean`\>
-
-Get the user's overall whitelist status
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_user` | `string` | The address of the user |
-| `overrides?` | `CallOverrides` | - |
-
-#### Returns
-
-`Promise`<`boolean`\>
-
-#### Inherited from
-
-AugmentedWhitelist.isApproved(address)
+AugmentedStagedExpenditure.install(address)
 
 ___
 
@@ -1464,7 +1200,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.listenerCount
+AugmentedStagedExpenditure.listenerCount
 
 ___
 
@@ -1490,7 +1226,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.listeners
+AugmentedStagedExpenditure.listeners
 
 ▸ **listeners**(`eventName?`): `Listener`[]
 
@@ -1506,7 +1242,7 @@ AugmentedWhitelist.listeners
 
 #### Inherited from
 
-AugmentedWhitelist.listeners
+AugmentedStagedExpenditure.listeners
 
 ___
 
@@ -1527,7 +1263,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.multicall
+AugmentedStagedExpenditure.multicall
 
 ___
 
@@ -1548,7 +1284,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.multicall(bytes[])
+AugmentedStagedExpenditure.multicall(bytes[])
 
 ___
 
@@ -1568,7 +1304,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.owner
+AugmentedStagedExpenditure.owner
 
 ___
 
@@ -1588,7 +1324,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.owner()
+AugmentedStagedExpenditure.owner()
 
 ___
 
@@ -1616,13 +1352,69 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.queryFilter
+AugmentedStagedExpenditure.queryFilter
+
+___
+
+### releaseStagedPayment
+
+▸ **releaseStagedPayment**(`_permissionDomainId`, `_childSkillIndex`, `_expenditureId`, `_slot`, `_tokens`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Only owner can call this function, must be in finalized state
+Release a staged payment slot and claim tokens
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_permissionDomainId` | `BigNumberish` | The domainId in which the extension has the arbitration permission |
+| `_childSkillIndex` | `BigNumberish` | The index that the `_expenditureId` is relative to `_permissionDomainId`, |
+| `_expenditureId` | `BigNumberish` | The id of the expenditure |
+| `_slot` | `BigNumberish` | The slot being released |
+| `_tokens` | `string`[] | An array of payment tokens associated with the slot |
+| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedStagedExpenditure.releaseStagedPayment
+
+___
+
+### releaseStagedPayment(uint256,uint256,uint256,uint256,address[])
+
+▸ **releaseStagedPayment(uint256,uint256,uint256,uint256,address[])**(`_permissionDomainId`, `_childSkillIndex`, `_expenditureId`, `_slot`, `_tokens`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Only owner can call this function, must be in finalized state
+Release a staged payment slot and claim tokens
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_permissionDomainId` | `BigNumberish` | The domainId in which the extension has the arbitration permission |
+| `_childSkillIndex` | `BigNumberish` | The index that the `_expenditureId` is relative to `_permissionDomainId`, |
+| `_expenditureId` | `BigNumberish` | The id of the expenditure |
+| `_slot` | `BigNumberish` | The slot being released |
+| `_tokens` | `string`[] | An array of payment tokens associated with the slot |
+| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedStagedExpenditure.releaseStagedPayment(uint256,uint256,uint256,uint256,address[])
 
 ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`WhitelistClientV3`](WhitelistClientV3.md)
+▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`StagedExpenditureClientV1`](StagedExpenditureClientV1.md)
 
 #### Type parameters
 
@@ -1638,13 +1430,13 @@ ___
 
 #### Returns
 
-[`WhitelistClientV3`](WhitelistClientV3.md)
+[`StagedExpenditureClientV1`](StagedExpenditureClientV1.md)
 
 #### Inherited from
 
-AugmentedWhitelist.removeAllListeners
+AugmentedStagedExpenditure.removeAllListeners
 
-▸ **removeAllListeners**(`eventName?`): [`WhitelistClientV3`](WhitelistClientV3.md)
+▸ **removeAllListeners**(`eventName?`): [`StagedExpenditureClientV1`](StagedExpenditureClientV1.md)
 
 #### Parameters
 
@@ -1654,11 +1446,11 @@ AugmentedWhitelist.removeAllListeners
 
 #### Returns
 
-[`WhitelistClientV3`](WhitelistClientV3.md)
+[`StagedExpenditureClientV1`](StagedExpenditureClientV1.md)
 
 #### Inherited from
 
-AugmentedWhitelist.removeAllListeners
+AugmentedStagedExpenditure.removeAllListeners
 
 ___
 
@@ -1679,7 +1471,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.setAuthority
+AugmentedStagedExpenditure.setAuthority
 
 ___
 
@@ -1700,7 +1492,57 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.setAuthority(address)
+AugmentedStagedExpenditure.setAuthority(address)
+
+___
+
+### setExpenditureStaged
+
+▸ **setExpenditureStaged**(`_expenditureId`, `_staged`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Only owner can call this function, must be in draft state
+Mark an expenditure as staged
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_expenditureId` | `BigNumberish` | Which expenditure we are changing |
+| `_staged` | `boolean` | Indcating whether the expenditure is staged or not |
+| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedStagedExpenditure.setExpenditureStaged
+
+___
+
+### setExpenditureStaged(uint256,bool)
+
+▸ **setExpenditureStaged(uint256,bool)**(`_expenditureId`, `_staged`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Only owner can call this function, must be in draft state
+Mark an expenditure as staged
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_expenditureId` | `BigNumberish` | Which expenditure we are changing |
+| `_staged` | `boolean` | Indcating whether the expenditure is staged or not |
+| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedStagedExpenditure.setExpenditureStaged(uint256,bool)
 
 ___
 
@@ -1721,7 +1563,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.setOwner
+AugmentedStagedExpenditure.setOwner
 
 ___
 
@@ -1742,53 +1584,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.setOwner(address)
-
-___
-
-### signAgreement
-
-▸ **signAgreement**(`_agreementHash`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-The user's signature on the agreement
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_agreementHash` | `string` | The agreement hash being signed |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedWhitelist.signAgreement
-
-___
-
-### signAgreement(string)
-
-▸ **signAgreement(string)**(`_agreementHash`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-The user's signature on the agreement
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_agreementHash` | `string` | The agreement hash being signed |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedWhitelist.signAgreement(string)
+AugmentedStagedExpenditure.setOwner(address)
 
 ___
 
@@ -1810,7 +1606,7 @@ Called when uninstalling the extension
 
 #### Inherited from
 
-AugmentedWhitelist.uninstall
+AugmentedStagedExpenditure.uninstall
 
 ___
 
@@ -1832,7 +1628,7 @@ Called when uninstalling the extension
 
 #### Inherited from
 
-AugmentedWhitelist.uninstall()
+AugmentedStagedExpenditure.uninstall()
 
 ___
 
@@ -1859,7 +1655,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.verify
+AugmentedStagedExpenditure.verify
 
 ___
 
@@ -1886,7 +1682,7 @@ ___
 
 #### Inherited from
 
-AugmentedWhitelist.verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)
+AugmentedStagedExpenditure.verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)
 
 ___
 
@@ -1908,7 +1704,7 @@ Returns the version of the extension
 
 #### Inherited from
 
-AugmentedWhitelist.version
+AugmentedStagedExpenditure.version
 
 ___
 
@@ -1930,4 +1726,4 @@ Returns the version of the extension
 
 #### Inherited from
 
-AugmentedWhitelist.version()
+AugmentedStagedExpenditure.version()

@@ -1,4 +1,4 @@
-# Interface: ColonyClientV8
+# Interface: ColonyClientV14
 
 ## Hierarchy
 
@@ -10,11 +10,15 @@
 
 - `ColonyAugmentsV5`<`IColony`\>
 
+- `ColonyAugmentsV6`<`IColony`\>
+
+- `ColonyAugmentsV7`<`IColony`\>
+
 - `AddDomainAugmentsB`<`IColony`\>
 
 - `MoveFundsBetweenPotsAugmentsB`<`IColony`\>
 
-  ↳ **`ColonyClientV8`**
+  ↳ **`ColonyClientV14`**
 
 ## Properties
 
@@ -78,7 +82,7 @@ ___
 
 ### clientVersion
 
-• **clientVersion**: ``8``
+• **clientVersion**: ``14``
 
 #### Overrides
 
@@ -112,7 +116,7 @@ ___
 
 ### estimateGas
 
-• **estimateGas**: `ColonyClientV8Estimate`
+• **estimateGas**: `ColonyClientV14Estimate`
 
 #### Overrides
 
@@ -132,6 +136,8 @@ ___
 | `Annotation(address,bytes32,string)` | (`agent?`: ``null`` \| `string`, `txHash?`: ``null`` \| `BytesLike`, `metadata?`: ``null``) => `AnnotationEventFilter` |
 | `ArbitraryReputationUpdate` | (`agent?`: ``null``, `user?`: ``null``, `skillId?`: ``null``, `amount?`: ``null``) => `ArbitraryReputationUpdateEventFilter` |
 | `ArbitraryReputationUpdate(address,address,uint256,int256)` | (`agent?`: ``null``, `user?`: ``null``, `skillId?`: ``null``, `amount?`: ``null``) => `ArbitraryReputationUpdateEventFilter` |
+| `ArbitraryTransaction` | (`target?`: ``null``, `data?`: ``null``, `success?`: ``null``) => `ArbitraryTransactionEventFilter` |
+| `ArbitraryTransaction(address,bytes,bool)` | (`target?`: ``null``, `data?`: ``null``, `success?`: ``null``) => `ArbitraryTransactionEventFilter` |
 | `ColonyBootstrapped` | (`agent?`: ``null``, `users?`: ``null``, `amounts?`: ``null``) => `ColonyBootstrappedEventFilter` |
 | `ColonyBootstrapped(address,address[],int256[])` | (`agent?`: ``null``, `users?`: ``null``, `amounts?`: ``null``) => `ColonyBootstrappedEventFilter` |
 | `ColonyFundsClaimed` | (`agent?`: ``null``, `token?`: ``null``, `fee?`: ``null``, `payoutRemainder?`: ``null``) => `ColonyFundsClaimedEventFilter` |
@@ -142,6 +148,8 @@ ___
 | `ColonyInitialised(address,address,address)` | (`agent?`: ``null``, `colonyNetwork?`: ``null``, `token?`: ``null``) => `ColonyInitialisedEventFilter` |
 | `ColonyMetadata` | (`agent?`: ``null``, `metadata?`: ``null``) => `ColonyMetadataEventFilter` |
 | `ColonyMetadata(address,string)` | (`agent?`: ``null``, `metadata?`: ``null``) => `ColonyMetadataEventFilter` |
+| `ColonyMetadataDelta` | (`agent?`: ``null``, `metadata?`: ``null``) => `ColonyMetadataDeltaEventFilter` |
+| `ColonyMetadataDelta(address,string)` | (`agent?`: ``null``, `metadata?`: ``null``) => `ColonyMetadataDeltaEventFilter` |
 | `ColonyRewardInverseSet` | (`agent?`: ``null``, `rewardInverse?`: ``null``) => `ColonyRewardInverseSetEventFilter` |
 | `ColonyRewardInverseSet(address,uint256)` | (`agent?`: ``null``, `rewardInverse?`: ``null``) => `ColonyRewardInverseSetEventFilter` |
 | `ColonyRoleSet` | (`agent?`: ``null``, `user?`: ``null`` \| `string`, `domainId?`: ``null`` \| `BigNumberish`, `role?`: ``null`` \| `BigNumberish`, `setTo?`: ``null``) => `ColonyRoleSetEventFilter` |
@@ -150,6 +158,8 @@ ___
 | `ColonyUpgraded(address,uint256,uint256)` | (`agent?`: ``null``, `oldVersion?`: ``null``, `newVersion?`: ``null``) => `ColonyUpgradedEventFilter` |
 | `DomainAdded` | (`agent?`: ``null``, `domainId?`: ``null``) => `DomainAddedEventFilter` |
 | `DomainAdded(address,uint256)` | (`agent?`: ``null``, `domainId?`: ``null``) => `DomainAddedEventFilter` |
+| `DomainDeprecated` | (`agent?`: ``null``, `domainId?`: ``null`` \| `BigNumberish`, `deprecated?`: ``null``) => `DomainDeprecatedEventFilter` |
+| `DomainDeprecated(address,uint256,bool)` | (`agent?`: ``null``, `domainId?`: ``null`` \| `BigNumberish`, `deprecated?`: ``null``) => `DomainDeprecatedEventFilter` |
 | `DomainMetadata` | (`agent?`: ``null``, `domainId?`: ``null`` \| `BigNumberish`, `metadata?`: ``null``) => `DomainMetadataEventFilter` |
 | `DomainMetadata(address,uint256,string)` | (`agent?`: ``null``, `domainId?`: ``null`` \| `BigNumberish`, `metadata?`: ``null``) => `DomainMetadataEventFilter` |
 | `ExpenditureAdded` | (`agent?`: ``null``, `expenditureId?`: ``null``) => `ExpenditureAddedEventFilter` |
@@ -174,10 +184,18 @@ ___
 | `ExpenditureRecipientSet(address,uint256,uint256,address)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `recipient?`: ``null`` \| `string`) => `ExpenditureRecipientSetEventFilter` |
 | `ExpenditureSkillSet` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `skillId?`: ``null`` \| `BigNumberish`) => `ExpenditureSkillSetEventFilter` |
 | `ExpenditureSkillSet(address,uint256,uint256,uint256)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `skillId?`: ``null`` \| `BigNumberish`) => `ExpenditureSkillSetEventFilter` |
+| `ExpenditureStateChanged` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `storageSlot?`: ``null`` \| `BigNumberish`, `mask?`: ``null``, `keys?`: ``null``, `value?`: ``null``) => `ExpenditureStateChangedEventFilter` |
+| `ExpenditureStateChanged(address,uint256,uint256,bool[],bytes32[],bytes32)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `storageSlot?`: ``null`` \| `BigNumberish`, `mask?`: ``null``, `keys?`: ``null``, `value?`: ``null``) => `ExpenditureStateChangedEventFilter` |
 | `ExpenditureTransferred` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `owner?`: ``null`` \| `string`) => `ExpenditureTransferredEventFilter` |
 | `ExpenditureTransferred(address,uint256,address)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `owner?`: ``null`` \| `string`) => `ExpenditureTransferredEventFilter` |
 | `FundingPotAdded` | (`fundingPotId?`: ``null``) => `FundingPotAddedEventFilter` |
 | `FundingPotAdded(uint256)` | (`fundingPotId?`: ``null``) => `FundingPotAddedEventFilter` |
+| `LocalSkillAdded` | (`agent?`: ``null``, `localSkillId?`: ``null``) => `LocalSkillAddedEventFilter` |
+| `LocalSkillAdded(address,uint256)` | (`agent?`: ``null``, `localSkillId?`: ``null``) => `LocalSkillAddedEventFilter` |
+| `LocalSkillDeprecated` | (`agent?`: ``null``, `localSkillId?`: ``null``, `deprecated?`: ``null``) => `LocalSkillDeprecatedEventFilter` |
+| `LocalSkillDeprecated(address,uint256,bool)` | (`agent?`: ``null``, `localSkillId?`: ``null``, `deprecated?`: ``null``) => `LocalSkillDeprecatedEventFilter` |
+| `MetaTransactionExecuted` | (`userAddress?`: ``null``, `relayerAddress?`: ``null``, `payload?`: ``null``) => `MetaTransactionExecutedEventFilter` |
+| `MetaTransactionExecuted(address,address,bytes)` | (`userAddress?`: ``null``, `relayerAddress?`: ``null``, `payload?`: ``null``) => `MetaTransactionExecutedEventFilter` |
 | `PaymentAdded` | (`agent?`: ``null``, `paymentId?`: ``null``) => `PaymentAddedEventFilter` |
 | `PaymentAdded(address,uint256)` | (`agent?`: ``null``, `paymentId?`: ``null``) => `PaymentAddedEventFilter` |
 | `PaymentFinalized` | (`agent?`: ``null``, `paymentId?`: ``null`` \| `BigNumberish`) => `PaymentFinalizedEventFilter` |
@@ -188,8 +206,8 @@ ___
 | `PaymentRecipientSet(address,uint256,address)` | (`agent?`: ``null``, `paymentId?`: ``null`` \| `BigNumberish`, `recipient?`: ``null``) => `PaymentRecipientSetEventFilter` |
 | `PaymentSkillSet` | (`agent?`: ``null``, `paymentId?`: ``null`` \| `BigNumberish`, `skillId?`: ``null``) => `PaymentSkillSetEventFilter` |
 | `PaymentSkillSet(address,uint256,uint256)` | (`agent?`: ``null``, `paymentId?`: ``null`` \| `BigNumberish`, `skillId?`: ``null``) => `PaymentSkillSetEventFilter` |
-| `PayoutClaimed` | (`agent?`: ``null``, `fundingPotId?`: ``null`` \| `BigNumberish`, `token?`: ``null``, `amount?`: ``null``) => `PayoutClaimedEventFilter` |
-| `PayoutClaimed(address,uint256,address,uint256)` | (`agent?`: ``null``, `fundingPotId?`: ``null`` \| `BigNumberish`, `token?`: ``null``, `amount?`: ``null``) => `PayoutClaimedEventFilter` |
+| `PayoutClaimed(address,uint256,address,uint256)` | (`agent?`: ``null``, `fundingPotId?`: ``null`` \| `BigNumberish`, `token?`: ``null``, `amount?`: ``null``) => `PayoutClaimed_address_uint256_address_uint256_EventFilter` |
+| `PayoutClaimed(address,uint256,uint256,address,uint256)` | (`agent?`: ``null``, `id?`: ``null``, `slot?`: ``null``, `token?`: ``null``, `tokenPayout?`: ``null``) => `PayoutClaimed_address_uint256_uint256_address_uint256_EventFilter` |
 | `RecoveryModeEntered` | (`user?`: ``null``) => `RecoveryModeEnteredEventFilter` |
 | `RecoveryModeEntered(address)` | (`user?`: ``null``) => `RecoveryModeEnteredEventFilter` |
 | `RecoveryModeExitApproved` | (`user?`: ``null``) => `RecoveryModeExitApprovedEventFilter` |
@@ -230,8 +248,8 @@ ___
 | `TaskSkillSet(uint256,uint256)` | (`taskId?`: ``null`` \| `BigNumberish`, `skillId?`: ``null`` \| `BigNumberish`) => `TaskSkillSetEventFilter` |
 | `TaskWorkRatingRevealed` | (`agent?`: ``null``, `taskId?`: ``null`` \| `BigNumberish`, `role?`: ``null``, `rating?`: ``null``) => `TaskWorkRatingRevealedEventFilter` |
 | `TaskWorkRatingRevealed(address,uint256,uint8,uint8)` | (`agent?`: ``null``, `taskId?`: ``null`` \| `BigNumberish`, `role?`: ``null``, `rating?`: ``null``) => `TaskWorkRatingRevealedEventFilter` |
-| `TokenUnlocked` | () => `TokenUnlockedEventFilter` |
-| `TokenUnlocked()` | () => `TokenUnlockedEventFilter` |
+| `TokenUnlocked` | (`agent?`: ``null``) => `TokenUnlockedEventFilter` |
+| `TokenUnlocked(address)` | (`agent?`: ``null``) => `TokenUnlockedEventFilter` |
 | `TokensBurned` | (`agent?`: ``null``, `token?`: ``null``, `amount?`: ``null``) => `TokensBurnedEventFilter` |
 | `TokensBurned(address,address,uint256)` | (`agent?`: ``null``, `token?`: ``null``, `amount?`: ``null``) => `TokensBurnedEventFilter` |
 | `TokensMinted` | (`agent?`: ``null``, `who?`: ``null``, `amount?`: ``null``) => `TokensMintedEventFilter` |
@@ -267,7 +285,7 @@ ___
 
 ### off
 
-• **off**: `OnEvent`<[`ColonyClientV8`](ColonyClientV8.md)\>
+• **off**: `OnEvent`<[`ColonyClientV14`](ColonyClientV14.md)\>
 
 #### Inherited from
 
@@ -277,7 +295,7 @@ ___
 
 ### on
 
-• **on**: `OnEvent`<[`ColonyClientV8`](ColonyClientV8.md)\>
+• **on**: `OnEvent`<[`ColonyClientV14`](ColonyClientV14.md)\>
 
 #### Inherited from
 
@@ -287,7 +305,7 @@ ___
 
 ### once
 
-• **once**: `OnEvent`<[`ColonyClientV8`](ColonyClientV8.md)\>
+• **once**: `OnEvent`<[`ColonyClientV14`](ColonyClientV14.md)\>
 
 #### Inherited from
 
@@ -307,7 +325,7 @@ ___
 
 ### removeListener
 
-• **removeListener**: `OnEvent`<[`ColonyClientV8`](ColonyClientV8.md)\>
+• **removeListener**: `OnEvent`<[`ColonyClientV14`](ColonyClientV14.md)\>
 
 #### Inherited from
 
@@ -478,7 +496,7 @@ ___
 
 ▸ **addDomainWithProofs(uint256)**(`_parentDomainId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Same as [addDomain(uint256,uint256,uint256)](ColonyClientV8.md#adddomain(uint256,uint256,uint256)), but let colonyJS figure out the permission proofs for you.
+Same as [addDomain(uint256,uint256,uint256)](ColonyClientV14.md#adddomain(uint256,uint256,uint256)), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -502,7 +520,7 @@ ___
 
 ▸ **addDomainWithProofs(uint256,string)**(`_parentDomainId`, `_metadata`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Same as [addDomain(uint256,uint256,uint256,string)](ColonyClientV8.md#adddomain(uint256,uint256,uint256,string)), but let colonyJS figure out the permission proofs for you.
+Same as [addDomain(uint256,uint256,uint256,string)](ColonyClientV14.md#adddomain(uint256,uint256,uint256,string)), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -520,6 +538,50 @@ Always prefer this method, except when you have good reason not to.
 #### Inherited from
 
 AddDomainAugmentsB.addDomainWithProofs(uint256,string)
+
+___
+
+### addLocalSkill
+
+▸ **addLocalSkill**(`overrides?`): `Promise`<`ContractTransaction`\>
+
+Add a new local skill for the colony. Secured function to authorised members.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedIColony.addLocalSkill
+
+___
+
+### addLocalSkill()
+
+▸ **addLocalSkill()**(`overrides?`): `Promise`<`ContractTransaction`\>
+
+Add a new local skill for the colony. Secured function to authorised members.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedIColony.addLocalSkill()
 
 ___
 
@@ -585,7 +647,7 @@ ___
 
 ▸ **addPaymentWithProofs**(`_recipient`, `_token`, `_amount`, `_domainId`, `_skillId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Same as [addPayment](ColonyClientV8.md#addpayment), but let colonyJS figure out the permission proofs for you.
+Same as [addPayment](ColonyClientV14.md#addpayment), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -753,7 +815,7 @@ ___
 
 ### attach
 
-▸ **attach**(`addressOrName`): [`ColonyClientV8`](ColonyClientV8.md)
+▸ **attach**(`addressOrName`): [`ColonyClientV14`](ColonyClientV14.md)
 
 #### Parameters
 
@@ -763,7 +825,7 @@ ___
 
 #### Returns
 
-[`ColonyClientV8`](ColonyClientV8.md)
+[`ColonyClientV14`](ColonyClientV14.md)
 
 #### Inherited from
 
@@ -1353,7 +1415,7 @@ ___
 
 ### connect
 
-▸ **connect**(`signerOrProvider`): [`ColonyClientV8`](ColonyClientV8.md)
+▸ **connect**(`signerOrProvider`): [`ColonyClientV14`](ColonyClientV14.md)
 
 #### Parameters
 
@@ -1363,7 +1425,7 @@ ___
 
 #### Returns
 
-[`ColonyClientV8`](ColonyClientV8.md)
+[`ColonyClientV14`](ColonyClientV14.md)
 
 #### Inherited from
 
@@ -1423,15 +1485,92 @@ ___
 
 ### deployed
 
-▸ **deployed**(): `Promise`<[`ColonyClientV8`](ColonyClientV8.md)\>
+▸ **deployed**(): `Promise`<[`ColonyClientV14`](ColonyClientV14.md)\>
 
 #### Returns
 
-`Promise`<[`ColonyClientV8`](ColonyClientV8.md)\>
+`Promise`<[`ColonyClientV14`](ColonyClientV14.md)\>
 
 #### Inherited from
 
 AugmentedIColony.deployed
+
+___
+
+### deprecateDomain
+
+▸ **deprecateDomain**(`_permissionDomainId`, `_childSkillIndex`, `_domainId`, `_deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Deprecate a domain, preventing certain actions from happening there
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_permissionDomainId` | `BigNumberish` | The domainId in which I have the permission to take this action |
+| `_childSkillIndex` | `BigNumberish` | The index that the `_domainId` is relative to `_permissionDomainId` |
+| `_domainId` | `BigNumberish` | Id of the domain being deprecated |
+| `_deprecated` | `boolean` | Whether or not the domain is deprecated |
+| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedIColony.deprecateDomain
+
+___
+
+### deprecateDomain(uint256,uint256,uint256,bool)
+
+▸ **deprecateDomain(uint256,uint256,uint256,bool)**(`_permissionDomainId`, `_childSkillIndex`, `_domainId`, `_deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Deprecate a domain, preventing certain actions from happening there
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_permissionDomainId` | `BigNumberish` | The domainId in which I have the permission to take this action |
+| `_childSkillIndex` | `BigNumberish` | The index that the `_domainId` is relative to `_permissionDomainId` |
+| `_domainId` | `BigNumberish` | Id of the domain being deprecated |
+| `_deprecated` | `boolean` | Whether or not the domain is deprecated |
+| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedIColony.deprecateDomain(uint256,uint256,uint256,bool)
+
+___
+
+### deprecateDomainWithProofs
+
+▸ **deprecateDomainWithProofs**(`_domainId`, `_deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Same as [deprecateDomain](ColonyClientV14.md#deprecatedomain), but let colonyJS figure out the permission proofs for you.
+Always prefer this method, except when you have good reason not to.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_domainId` | `BigNumberish` | Id of the domain being deprecated |
+| `_deprecated` | `boolean` | Whether the domain should be deprecated (true) or undeprecated (false) |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+ColonyAugmentsV6.deprecateDomainWithProofs
 
 ___
 
@@ -1483,6 +1622,54 @@ AugmentedIColony.deprecateExtension(bytes32,bool)
 
 ___
 
+### deprecateLocalSkill
+
+▸ **deprecateLocalSkill**(`localSkillId`, `deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Deprecate a local skill for the colony. Secured function to authorised members.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `localSkillId` | `BigNumberish` | Id for the local skill |
+| `deprecated` | `boolean` | Deprecation status to set for the skill |
+| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedIColony.deprecateLocalSkill
+
+___
+
+### deprecateLocalSkill(uint256,bool)
+
+▸ **deprecateLocalSkill(uint256,bool)**(`localSkillId`, `deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Deprecate a local skill for the colony. Secured function to authorised members.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `localSkillId` | `BigNumberish` | Id for the local skill |
+| `deprecated` | `boolean` | Deprecation status to set for the skill |
+| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedIColony.deprecateLocalSkill(uint256,bool)
+
+___
+
 ### editColony
 
 ▸ **editColony**(`_metadata`, `overrides?`): `Promise`<`ContractTransaction`\>
@@ -1526,6 +1713,52 @@ Called to change the metadata associated with a colony. Expected to be a IPFS ha
 #### Inherited from
 
 AugmentedIColony.editColony(string)
+
+___
+
+### editColonyByDelta
+
+▸ **editColonyByDelta**(`_metadataDelta`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Called to change the metadata associated with a colony. Expected to be a IPFS hash of a delta to a JSON blob, but not enforced to any degree by the contracts
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_metadataDelta` | `string` | IPFS hash of the metadata delta |
+| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedIColony.editColonyByDelta
+
+___
+
+### editColonyByDelta(string)
+
+▸ **editColonyByDelta(string)**(`_metadataDelta`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Called to change the metadata associated with a colony. Expected to be a IPFS hash of a delta to a JSON blob, but not enforced to any degree by the contracts
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_metadataDelta` | `string` | IPFS hash of the metadata delta |
+| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedIColony.editColonyByDelta(string)
 
 ___
 
@@ -1585,7 +1818,7 @@ ___
 
 ▸ **editDomainWithProofs**(`_domainId`, `_metadata`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Same as [editDomain](ColonyClientV8.md#editdomain), but let colonyJS figure out the permission proofs for you.
+Same as [editDomain](ColonyClientV14.md#editdomain), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -1685,7 +1918,7 @@ ___
 
 ▸ **emitDomainReputationPenaltyWithProofs**(`_domainId`, `_user`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Same as [emitDomainReputationPenalty](ColonyClientV8.md#emitdomainreputationpenalty), but let colonyJS figure out the permission proofs for you.
+Same as [emitDomainReputationPenalty](ColonyClientV14.md#emitdomainreputationpenalty), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -1898,6 +2131,60 @@ Put colony network mining into recovery mode. Can only be called by user with re
 #### Inherited from
 
 AugmentedIColony.enterRecoveryMode()
+
+___
+
+### executeMetaTransaction
+
+▸ **executeMetaTransaction**(`userAddress`, `payload`, `sigR`, `sigS`, `sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Executes a metatransaction targeting this contract
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `userAddress` | `string` | The address of the user that signed the metatransaction |
+| `payload` | `BytesLike` | The transaction data that will be executed if signature valid |
+| `sigR` | `BytesLike` | The 'r' part of the signature |
+| `sigS` | `BytesLike` | The 's' part of the signature |
+| `sigV` | `BigNumberish` | The 'v' part of the signature |
+| `overrides?` | `PayableOverrides` & { `from?`: `string`  } | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedIColony.executeMetaTransaction
+
+___
+
+### executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)
+
+▸ **executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)**(`userAddress`, `payload`, `sigR`, `sigS`, `sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Executes a metatransaction targeting this contract
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `userAddress` | `string` | The address of the user that signed the metatransaction |
+| `payload` | `BytesLike` | The transaction data that will be executed if signature valid |
+| `sigR` | `BytesLike` | The 'r' part of the signature |
+| `sigS` | `BytesLike` | The 's' part of the signature |
+| `sigV` | `BigNumberish` | The 'v' part of the signature |
+| `overrides?` | `PayableOverrides` & { `from?`: `string`  } | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedIColony.executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)
 
 ___
 
@@ -2179,7 +2466,7 @@ ___
 
 ▸ **finalizePaymentWithProofs**(`_id`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Same as [finalizePayment](ColonyClientV8.md#finalizepayment), but let colonyJS figure out the permission proofs for you.
+Same as [finalizePayment](ColonyClientV14.md#finalizepayment), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -3076,7 +3363,7 @@ ___
 ▸ **getMembersReputation**(`skillId`): `Promise`<{ `addresses`: `string`[]  }\>
 
 Get all addresses that have reputation for a given skill.
-If you need the skillId for a certain domain you can use the [getDomain](ColonyClientV8.md#getdomain) function.
+If you need the skillId for a certain domain you can use the [getDomain](ColonyClientV14.md#getdomain) function.
 
 #### Parameters
 
@@ -3093,6 +3380,52 @@ All addresses that have a non-zero reputation for the given skill
 #### Inherited from
 
 AugmentedIColony.getMembersReputation
+
+___
+
+### getMetatransactionNonce
+
+▸ **getMetatransactionNonce**(`userAddress`, `overrides?`): `Promise`<`BigNumber`\>
+
+Gets the next metatransaction nonce for user that should be used targeting this contract
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `userAddress` | `string` | The address of the user that will sign the metatransaction |
+| `overrides?` | `CallOverrides` | - |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+#### Inherited from
+
+AugmentedIColony.getMetatransactionNonce
+
+___
+
+### getMetatransactionNonce(address)
+
+▸ **getMetatransactionNonce(address)**(`userAddress`, `overrides?`): `Promise`<`BigNumber`\>
+
+Gets the next metatransaction nonce for user that should be used targeting this contract
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `userAddress` | `string` | The address of the user that will sign the metatransaction |
+| `overrides?` | `CallOverrides` | - |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+#### Inherited from
+
+AugmentedIColony.getMetatransactionNonce(address)
 
 ___
 
@@ -3287,13 +3620,13 @@ ___
 ▸ **getReputation**(`skillId`, `address`, `customRootHash?`): `Promise`<{ `branchMask`: `string` ; `key`: `string` ; `reputationAmount`: `BigNumber` ; `siblings`: `string`[] ; `value`: `string`  }\>
 
 Get the reputation for an address and a certain skill.
-If you need the skillId for a certain domain you can use the [getDomain](ColonyClientV8.md#getdomain) function.
+If you need the skillId for a certain domain you can use the [getDomain](ColonyClientV14.md#getdomain) function.
 
 **`Remarks`**
 
 This function also retrieves the proofs (`branchMask`, `siblings`) that are needed to verify the reputation on chain.
 If you don't need to do that (e.g. in order to proof the reputation when calling a contract method), you should probably just use
-the [getReputationWithoutProofs](ColonyClientV8.md#getreputationwithoutproofs) method as it requires fewer computations
+the [getReputationWithoutProofs](ColonyClientV14.md#getreputationwithoutproofs) method as it requires fewer computations
 
 #### Parameters
 
@@ -3345,7 +3678,7 @@ ___
 ▸ **getReputationWithoutProofs**(`skillId`, `address`, `customRootHash?`): `Promise`<{ `key`: `string` ; `reputationAmount`: `BigNumber` ; `value`: `string`  }\>
 
 Get the reputation for an address and a certain skill.
-If you need the skillId for a certain domain you can use the [getDomain](ColonyClientV8.md#getdomain) function.
+If you need the skillId for a certain domain you can use the [getDomain](ColonyClientV14.md#getdomain) function.
 
 #### Parameters
 
@@ -3454,6 +3787,50 @@ Get useful information about specific reward payout.
 #### Inherited from
 
 AugmentedIColony.getRewardPayoutInfo(uint256)
+
+___
+
+### getRootLocalSkill
+
+▸ **getRootLocalSkill**(`overrides?`): `Promise`<`BigNumber`\>
+
+Get the root local skill id
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+#### Inherited from
+
+AugmentedIColony.getRootLocalSkill
+
+___
+
+### getRootLocalSkill()
+
+▸ **getRootLocalSkill()**(`overrides?`): `Promise`<`BigNumber`\>
+
+Get the root local skill id
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+#### Inherited from
+
+AugmentedIColony.getRootLocalSkill()
 
 ___
 
@@ -3975,7 +4352,7 @@ ___
 
 ▸ **hasInheritedUserRole**(`_user`, `_domainId`, `_role`, `_childSkillIndex`, `_childDomainId`, `overrides?`): `Promise`<`boolean`\>
 
-Check whether a given user has a given role for the colony, in a child domain. Calls the function of the same name on the colony's authority contract and an internal inheritence validator function
+Check whether a given user has a given role for the colony, in a child domain. Calls the function of the same name on the colony's authority contract and an internal inheritance validator function
 
 #### Parameters
 
@@ -4002,7 +4379,7 @@ ___
 
 ▸ **hasInheritedUserRole(address,uint256,uint8,uint256,uint256)**(`_user`, `_domainId`, `_role`, `_childSkillIndex`, `_childDomainId`, `overrides?`): `Promise`<`boolean`\>
 
-Check whether a given user has a given role for the colony, in a child domain. Calls the function of the same name on the colony's authority contract and an internal inheritence validator function
+Check whether a given user has a given role for the colony, in a child domain. Calls the function of the same name on the colony's authority contract and an internal inheritance validator function
 
 #### Parameters
 
@@ -4029,7 +4406,7 @@ ___
 
 ▸ **hasInheritedUserRoleWithProofs**(`_user`, `_domainId`, `_role`, `overrides?`): `Promise`<`boolean`\>
 
-Same as [hasInheritedUserRole](ColonyClientV8.md#hasinheriteduserrole), but let colonyJS figure out the permission proofs for you.
+Same as [hasInheritedUserRole](ColonyClientV14.md#hasinheriteduserrole), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -4151,6 +4528,50 @@ AugmentedIColony.initialiseColony(address,address)
 
 ___
 
+### initialiseRootLocalSkill
+
+▸ **initialiseRootLocalSkill**(`overrides?`): `Promise`<`ContractTransaction`\>
+
+Initialise the local skill tree for the colony.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedIColony.initialiseRootLocalSkill
+
+___
+
+### initialiseRootLocalSkill()
+
+▸ **initialiseRootLocalSkill()**(`overrides?`): `Promise`<`ContractTransaction`\>
+
+Initialise the local skill tree for the colony.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedIColony.initialiseRootLocalSkill()
+
+___
+
 ### installExtension
 
 ▸ **installExtension**(`extensionId`, `version`, `overrides?`): `Promise`<`ContractTransaction`\>
@@ -4203,7 +4624,7 @@ ___
 
 ▸ **installExtensionChecked**(`extension`, `version?`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Similar to [installExtension](ColonyClientV8.md#installextension), but first check whether the desired extension can be installed in this Colony
+Similar to [installExtension](ColonyClientV14.md#installextension), but first check whether the desired extension can be installed in this Colony
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -4296,7 +4717,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `TEvent` | extends `TypedEvent`<`any`, `any`, `TEvent`\> |
+| `TEvent` | extends `TypedEvent`<`any`, `any`\> |
 
 #### Parameters
 
@@ -4424,7 +4845,9 @@ ___
 
 ▸ **makeArbitraryTransaction**(`_to`, `_action`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Execute arbitrary transaction on behalf of the Colony DEPRECATED
+**`Deprecated Execute`**
+
+arbitrary transaction on behalf of the Colony
 
 #### Parameters
 
@@ -4448,7 +4871,9 @@ ___
 
 ▸ **makeArbitraryTransaction(address,bytes)**(`_to`, `_action`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Execute arbitrary transaction on behalf of the Colony DEPRECATED
+**`Deprecated Execute`**
+
+arbitrary transaction on behalf of the Colony
 
 #### Parameters
 
@@ -4572,7 +4997,7 @@ ___
 
 ▸ **makeExpenditureWithProofs**(`_domainId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Same as [makeExpenditure](ColonyClientV8.md#makeexpenditure), but let colonyJS figure out the permission proofs for you.
+Same as [makeExpenditure](ColonyClientV14.md#makeexpenditure), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -4702,7 +5127,7 @@ ___
 
 ▸ **makeTaskWithProofs**(`_specificationHash`, `_domainId`, `_skillId`, `_dueDate`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Same as [makeTask](ColonyClientV8.md#maketask), but let colonyJS figure out the permission proofs for you.
+Same as [makeTask](ColonyClientV14.md#maketask), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -4823,7 +5248,9 @@ ___
 
 ▸ **moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)**(`_permissionDomainId`, `_fromChildSkillIndex`, `_toChildSkillIndex`, `_fromPot`, `_toPot`, `_amount`, `_token`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-DEPRECATEDMove a given amount: `_amount` of `_token` funds from funding pot with id `_fromPot` to one with id `_toPot`.
+**`Deprecated Move`**
+
+a given amount: `_amount` of `_token` funds from funding pot with id `_fromPot` to one with id `_toPot`.
 
 #### Parameters
 
@@ -4885,7 +5312,7 @@ ___
 
 **`Deprecated`**
 
-Same as [moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)](ColonyClientV8.md#movefundsbetweenpots(uint256,uint256,uint256,uint256,uint256,uint256,address)), but let colonyJS figure out the permission proofs for you.
+Same as [moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)](ColonyClientV14.md#movefundsbetweenpots(uint256,uint256,uint256,uint256,uint256,uint256,address)), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -4912,7 +5339,7 @@ ___
 
 ▸ **moveFundsBetweenPotsWithProofs(uint256,uint256,uint256,uint256,address)**(`_domainId`, `_fromPot`, `_toPot`, `_amount`, `_token`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Same as [moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)](ColonyClientV8.md#movefundsbetweenpots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)), but let colonyJS figure out the permission proofs for you.
+Same as [moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)](ColonyClientV14.md#movefundsbetweenpots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -4933,6 +5360,54 @@ Always prefer this method, except when you have good reason not to.
 #### Inherited from
 
 MoveFundsBetweenPotsAugmentsB.moveFundsBetweenPotsWithProofs(uint256,uint256,uint256,uint256,address)
+
+___
+
+### multicall
+
+▸ **multicall**(`data`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+The `msg.value` should not be trusted for any method callable from multicall.
+Call multiple functions in the current contract and return the data from all of them if they all succeed
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `data` | `BytesLike`[] | The encoded function data for each of the calls to make to this contract |
+| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedIColony.multicall
+
+___
+
+### multicall(bytes[])
+
+▸ **multicall(bytes[])**(`data`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+The `msg.value` should not be trusted for any method callable from multicall.
+Call multiple functions in the current contract and return the data from all of them if they all succeed
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `data` | `BytesLike`[] | The encoded function data for each of the calls to make to this contract |
+| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedIColony.multicall(bytes[])
 
 ___
 
@@ -5084,7 +5559,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `TEvent` | extends `TypedEvent`<`any`, `any`, `TEvent`\> |
+| `TEvent` | extends `TypedEvent`<`any`, `any`\> |
 
 #### Parameters
 
@@ -5154,13 +5629,13 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`ColonyClientV8`](ColonyClientV8.md)
+▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`ColonyClientV14`](ColonyClientV14.md)
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `TEvent` | extends `TypedEvent`<`any`, `any`, `TEvent`\> |
+| `TEvent` | extends `TypedEvent`<`any`, `any`\> |
 
 #### Parameters
 
@@ -5170,13 +5645,13 @@ ___
 
 #### Returns
 
-[`ColonyClientV8`](ColonyClientV8.md)
+[`ColonyClientV14`](ColonyClientV14.md)
 
 #### Inherited from
 
 AugmentedIColony.removeAllListeners
 
-▸ **removeAllListeners**(`eventName?`): [`ColonyClientV8`](ColonyClientV8.md)
+▸ **removeAllListeners**(`eventName?`): [`ColonyClientV14`](ColonyClientV14.md)
 
 #### Parameters
 
@@ -5186,7 +5661,7 @@ AugmentedIColony.removeAllListeners
 
 #### Returns
 
-[`ColonyClientV8`](ColonyClientV8.md)
+[`ColonyClientV14`](ColonyClientV14.md)
 
 #### Inherited from
 
@@ -5444,7 +5919,7 @@ ___
 
 ▸ **setAdministrationRoleWithProofs**(`_user`, `_domainId`, `_setTo`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Same as [setAdministrationRole](ColonyClientV8.md#setadministrationrole), but let colonyJS figure out the permission proofs for you.
+Same as [setAdministrationRole](ColonyClientV14.md#setadministrationrole), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -5580,7 +6055,7 @@ ___
 
 ▸ **setArbitrationRoleWithProofs**(`_user`, `_domainId`, `_setTo`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Same as [setArbitrationRole](ColonyClientV8.md#setarbitrationrole), but let colonyJS figure out the permission proofs for you.
+Same as [setArbitrationRole](ColonyClientV14.md#setarbitrationrole), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -5660,7 +6135,7 @@ ___
 
 ▸ **setArchitectureRoleWithProofs**(`_user`, `_domainId`, `_setTo`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Same as [setArchitectureRole](ColonyClientV8.md#setarchitecturerole), but let colonyJS figure out the permission proofs for you.
+Same as [setArchitectureRole](ColonyClientV14.md#setarchitecturerole), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -5732,7 +6207,9 @@ ___
 
 ▸ **setExpenditureClaimDelay**(`_id`, `_slot`, `_claimDelay`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-DeprecatedSets the claim delay on an expenditure slot. Can only be called by expenditure owner.
+**`Deprecated Sets`**
+
+the claim delay on an expenditure slot. Can only be called by expenditure owner.
 
 #### Parameters
 
@@ -5757,7 +6234,9 @@ ___
 
 ▸ **setExpenditureClaimDelay(uint256,uint256,uint256)**(`_id`, `_slot`, `_claimDelay`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-DeprecatedSets the claim delay on an expenditure slot. Can only be called by expenditure owner.
+**`Deprecated Sets`**
+
+the claim delay on an expenditure slot. Can only be called by expenditure owner.
 
 #### Parameters
 
@@ -5832,6 +6311,7 @@ ___
 
 ▸ **setExpenditureMetadata(uint256,string)**(`_id`, `_metadata`, `overrides?`): `Promise`<`ContractTransaction`\>
 
+Can only be called while expenditure is in draft state.
 Sets the metadata for an expenditure. Can only be called by expenditure owner.
 
 #### Parameters
@@ -5878,37 +6358,15 @@ AugmentedIColony.setExpenditureMetadata(uint256,uint256,uint256,string)
 
 ___
 
-### setExpenditurePayout
-
-▸ **setExpenditurePayout**(`_id`, `_slot`, `_token`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-DeprecatedSet the token payout on an expenditure slot. Can only be called by expenditure owner.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the expenditure |
-| `_slot` | `BigNumberish` | Number of the slot |
-| `_token` | `string` | Address of the token, `0x0` value indicates Ether |
-| `_amount` | `BigNumberish` | Payout amount |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedIColony.setExpenditurePayout
-
-___
-
 ### setExpenditurePayout(uint256,uint256,address,uint256)
 
 ▸ **setExpenditurePayout(uint256,uint256,address,uint256)**(`_id`, `_slot`, `_token`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-DeprecatedSet the token payout on an expenditure slot. Can only be called by expenditure owner.
+Can only be called while expenditure is in draft state.
+
+**`Deprecated Set`**
+
+the token payout on an expenditure slot. Can only be called by expenditure owner.
 
 #### Parameters
 
@@ -5927,6 +6385,34 @@ DeprecatedSet the token payout on an expenditure slot. Can only be called by exp
 #### Inherited from
 
 AugmentedIColony.setExpenditurePayout(uint256,uint256,address,uint256)
+
+___
+
+### setExpenditurePayout(uint256,uint256,uint256,uint256,address,uint256)
+
+▸ **setExpenditurePayout(uint256,uint256,uint256,uint256,address,uint256)**(`_permissionDomainId`, `_childSkillIndex`, `_id`, `_slot`, `_token`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Set the token payout in a given expenditure slot. Can only be called by an Arbitration user.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_permissionDomainId` | `BigNumberish` | The domainId in which I have the permission to take this action |
+| `_childSkillIndex` | `BigNumberish` | The index that the `_domainId` is relative to `_permissionDomainId` |
+| `_id` | `BigNumberish` | Id of the expenditure |
+| `_slot` | `BigNumberish` | The slot to set the payout |
+| `_token` | `string` | Address of the token, `0x0` value indicates Ether |
+| `_amount` | `BigNumberish` | Payout amount |
+| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedIColony.setExpenditurePayout(uint256,uint256,uint256,uint256,address,uint256)
 
 ___
 
@@ -5980,10 +6466,38 @@ AugmentedIColony.setExpenditurePayoutModifiers(uint256,uint256[],int256[])
 
 ___
 
+### setExpenditurePayoutWithProofs
+
+▸ **setExpenditurePayoutWithProofs**(`_id`, `_slot`, `_token`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Same as the permissioned overload of [setExpenditurePayout(uint256,uint256,uint256,uint256,address,uint256)](ColonyClientV14.md#setexpenditurepayout(uint256,uint256,uint256,uint256,address,uint256)), but let colonyJS figure out the permission proofs for you.
+Always prefer this method, except when you have good reason not to.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_id` | `BigNumberish` | Id of the expenditure |
+| `_slot` | `BigNumberish` | Number of the slot |
+| `_token` | `string` | Address of the token, `0x0` value indicates Ether |
+| `_amount` | `BigNumberish` | Payout amount |
+| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+ColonyAugmentsV7.setExpenditurePayoutWithProofs
+
+___
+
 ### setExpenditurePayouts
 
 ▸ **setExpenditurePayouts**(`_id`, `_slots`, `_token`, `_amounts`, `overrides?`): `Promise`<`ContractTransaction`\>
 
+Can only be called while expenditure is in draft state.
 Set the token payouts in given expenditure slots. Can only be called by expenditure owner.
 
 #### Parameters
@@ -6010,6 +6524,7 @@ ___
 
 ▸ **setExpenditurePayouts(uint256,uint256[],address,uint256[])**(`_id`, `_slots`, `_token`, `_amounts`, `overrides?`): `Promise`<`ContractTransaction`\>
 
+Can only be called while expenditure is in draft state.
 Set the token payouts in given expenditure slots. Can only be called by expenditure owner.
 
 #### Parameters
@@ -6036,7 +6551,11 @@ ___
 
 ▸ **setExpenditureRecipient**(`_id`, `_slot`, `_recipient`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-DeprecatedSets the recipient on an expenditure slot. Can only be called by expenditure owner.
+Can only be called while expenditure is in draft state.
+
+**`Deprecated Sets`**
+
+the recipient on an expenditure slot. Can only be called by expenditure owner.
 
 #### Parameters
 
@@ -6061,7 +6580,11 @@ ___
 
 ▸ **setExpenditureRecipient(uint256,uint256,address)**(`_id`, `_slot`, `_recipient`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-DeprecatedSets the recipient on an expenditure slot. Can only be called by expenditure owner.
+Can only be called while expenditure is in draft state.
+
+**`Deprecated Sets`**
+
+the recipient on an expenditure slot. Can only be called by expenditure owner.
 
 #### Parameters
 
@@ -6086,6 +6609,7 @@ ___
 
 ▸ **setExpenditureRecipients**(`_id`, `_slots`, `_recipients`, `overrides?`): `Promise`<`ContractTransaction`\>
 
+Can only be called while expenditure is in draft state.
 Sets the recipients in given expenditure slots. Can only be called by expenditure owner.
 
 #### Parameters
@@ -6111,6 +6635,7 @@ ___
 
 ▸ **setExpenditureRecipients(uint256,uint256[],address[])**(`_id`, `_slots`, `_recipients`, `overrides?`): `Promise`<`ContractTransaction`\>
 
+Can only be called while expenditure is in draft state.
 Sets the recipients in given expenditure slots. Can only be called by expenditure owner.
 
 #### Parameters
@@ -6136,7 +6661,9 @@ ___
 
 ▸ **setExpenditureSkill**(`_id`, `_slot`, `_skillId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-DeprecatedSets the skill on an expenditure slot. Can only be called by expenditure owner.
+**`Deprecated Sets`**
+
+the skill on an expenditure slot. Can only be called by expenditure owner.
 
 #### Parameters
 
@@ -6161,7 +6688,9 @@ ___
 
 ▸ **setExpenditureSkill(uint256,uint256,uint256)**(`_id`, `_slot`, `_skillId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-DeprecatedSets the skill on an expenditure slot. Can only be called by expenditure owner.
+**`Deprecated Sets`**
+
+the skill on an expenditure slot. Can only be called by expenditure owner.
 
 #### Parameters
 
@@ -6294,7 +6823,7 @@ ___
 
 ▸ **setExpenditureStateWithProofs**(`_id`, `_storageSlot`, `_mask`, `_keys`, `_value`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Same as [editDomain](ColonyClientV8.md#editdomain), but let colonyJS figure out the permission proofs for you.
+Same as [editDomain](ColonyClientV14.md#editdomain), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -6315,6 +6844,74 @@ Always prefer this method, except when you have good reason not to.
 #### Inherited from
 
 ColonyAugmentsV5.setExpenditureStateWithProofs
+
+___
+
+### setExpenditureValues
+
+▸ **setExpenditureValues**(`_id`, `_recipientSlots`, `_recipients`, `_skillIdSlots`, `_skillIds`, `_claimDelaySlots`, `_claimDelays`, `_payoutModifierSlots`, `_payoutModifiers`, `_payoutTokens`, `_payoutSlots`, `_payoutValues`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Set many values of an expenditure simultaneously. Can only be called by expenditure owner.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_id` | `BigNumberish` | Expenditure identifier |
+| `_recipientSlots` | `BigNumberish`[] | Array of slots to set recipients |
+| `_recipients` | `string`[] | Addresses of the recipients |
+| `_skillIdSlots` | `BigNumberish`[] | Array of slots to set skills |
+| `_skillIds` | `BigNumberish`[] | Ids of the new skills to set |
+| `_claimDelaySlots` | `BigNumberish`[] | Array of slots to set claim delays |
+| `_claimDelays` | `BigNumberish`[] | Durations of time (in seconds) to delay |
+| `_payoutModifierSlots` | `BigNumberish`[] | Array of slots to set payout modifiers |
+| `_payoutModifiers` | `BigNumberish`[] | Values (between +/- WAD) to modify the payout & reputation bonus |
+| `_payoutTokens` | `string`[] | Addresses of the tokens, `0x0` value indicates Ether |
+| `_payoutSlots` | `BigNumberish`[][] | 2-dimensional array of slots to set payouts |
+| `_payoutValues` | `BigNumberish`[][] | 2-dimensional array of the payout amounts |
+| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedIColony.setExpenditureValues
+
+___
+
+### setExpenditureValues(uint256,uint256[],address[],uint256[],uint256[],uint256[],uint256[],uint256[],int256[],address[],uint256[][],uint256[][])
+
+▸ **setExpenditureValues(uint256,uint256[],address[],uint256[],uint256[],uint256[],uint256[],uint256[],int256[],address[],uint256[][],uint256[][])**(`_id`, `_recipientSlots`, `_recipients`, `_skillIdSlots`, `_skillIds`, `_claimDelaySlots`, `_claimDelays`, `_payoutModifierSlots`, `_payoutModifiers`, `_payoutTokens`, `_payoutSlots`, `_payoutValues`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+Set many values of an expenditure simultaneously. Can only be called by expenditure owner.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_id` | `BigNumberish` | Expenditure identifier |
+| `_recipientSlots` | `BigNumberish`[] | Array of slots to set recipients |
+| `_recipients` | `string`[] | Addresses of the recipients |
+| `_skillIdSlots` | `BigNumberish`[] | Array of slots to set skills |
+| `_skillIds` | `BigNumberish`[] | Ids of the new skills to set |
+| `_claimDelaySlots` | `BigNumberish`[] | Array of slots to set claim delays |
+| `_claimDelays` | `BigNumberish`[] | Durations of time (in seconds) to delay |
+| `_payoutModifierSlots` | `BigNumberish`[] | Array of slots to set payout modifiers |
+| `_payoutModifiers` | `BigNumberish`[] | Values (between +/- WAD) to modify the payout & reputation bonus |
+| `_payoutTokens` | `string`[] | Addresses of the tokens, `0x0` value indicates Ether |
+| `_payoutSlots` | `BigNumberish`[][] | 2-dimensional array of slots to set payouts |
+| `_payoutValues` | `BigNumberish`[][] | 2-dimensional array of the payout amounts |
+| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedIColony.setExpenditureValues(uint256,uint256[],address[],uint256[],uint256[],uint256[],uint256[],uint256[],int256[],address[],uint256[][],uint256[][])
 
 ___
 
@@ -6376,7 +6973,7 @@ ___
 
 ▸ **setFundingRoleWithProofs**(`_user`, `_domainId`, `_setTo`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Same as [setFundingRole](ColonyClientV8.md#setfundingrole), but let colonyJS figure out the permission proofs for you.
+Same as [setFundingRole](ColonyClientV14.md#setfundingrole), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -6456,7 +7053,7 @@ ___
 
 ▸ **setPaymentPayoutWithProofs**(`_id`, `_token`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Same as [setPaymentPayout](ColonyClientV8.md#setpaymentpayout), but let colonyJS figure out the permission proofs for you.
+Same as [setPaymentPayout](ColonyClientV14.md#setpaymentpayout), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -6534,7 +7131,7 @@ ___
 
 ▸ **setPaymentRecipientWithProofs**(`_id`, `_recipient`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Same as [setPaymentRecipient](ColonyClientV8.md#setpaymentrecipient), but let colonyJS figure out the permission proofs for you.
+Same as [setPaymentRecipient](ColonyClientV14.md#setpaymentrecipient), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -6611,7 +7208,7 @@ ___
 
 ▸ **setPaymentSkillWithProofs**(`_id`, `_skillId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Same as [setPaymentSkill](ColonyClientV8.md#setpaymentskill), but let colonyJS figure out the permission proofs for you.
+Same as [setPaymentSkill](ColonyClientV14.md#setpaymentskill), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -7330,7 +7927,7 @@ ___
 
 ▸ **setUserRolesWithProofs**(`_user`, `_domainId`, `_roles`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Same as [setUserRoles](ColonyClientV8.md#setuserroles), but let colonyJS figure out the permission proofs for you.
+Same as [setUserRoles](ColonyClientV14.md#setuserroles), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -7611,7 +8208,10 @@ ___
 ▸ **transferExpenditureViaArbitration**(`_permissionDomainId`, `_childSkillIndex`, `_id`, `_newOwner`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 This is now deprecated and will be removed in a future version
-DEPRECATED Updates the expenditure owner. Can only be called by Arbitration role.
+
+**`Deprecated Updates`**
+
+the expenditure owner. Can only be called by Arbitration role.
 
 #### Parameters
 
@@ -7638,7 +8238,10 @@ ___
 ▸ **transferExpenditureViaArbitration(uint256,uint256,uint256,address)**(`_permissionDomainId`, `_childSkillIndex`, `_id`, `_newOwner`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 This is now deprecated and will be removed in a future version
-DEPRECATED Updates the expenditure owner. Can only be called by Arbitration role.
+
+**`Deprecated Updates`**
+
+the expenditure owner. Can only be called by Arbitration role.
 
 #### Parameters
 
@@ -7666,7 +8269,7 @@ ___
 
 **`Deprecated`**
 
-Same as [transferExpenditureViaArbitration](ColonyClientV8.md#transferexpenditureviaarbitration), but let colonyJS figure out the permission proofs for you.
+Same as [transferExpenditureViaArbitration](ColonyClientV14.md#transferexpenditureviaarbitration), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -7749,7 +8352,7 @@ ___
 
 ▸ **transferStakeWithProofs**(`_obligator`, `_user`, `_domainId`, `_amount`, `_recipient`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Same as [transferStake](ColonyClientV8.md#transferstake), but let colonyJS figure out the permission proofs for you.
+Same as [transferStake](ColonyClientV14.md#transferstake), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -8107,7 +8710,7 @@ ___
 
 ▸ **upgradeExtensionChecked**(`extension`, `newVersion?`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Similar to [upgradeExtension](ColonyClientV8.md#upgradeextension), but first check whether the desired extension can be upgraded to the desired version in this Colony
+Similar to [upgradeExtension](ColonyClientV14.md#upgradeextension), but first check whether the desired extension can be upgraded to the desired version in this Colony
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters

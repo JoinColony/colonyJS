@@ -436,17 +436,17 @@ AugmentedStreamingPayments.signer
 
 ___
 
-### stakedExpenditureEvents
+### streamingPaymentsEvents
 
-• **stakedExpenditureEvents**: `StreamingPaymentsEvents`
+• **streamingPaymentsEvents**: `StreamingPaymentsEvents`
 
-The stakedExpenditureEvents contract supports all events across all versions.
+The streamingPaymentsEvents contract supports all events across all versions.
 Isn't that amazing?
 It's an ethers contract with only events to filter
 
 #### Inherited from
 
-AugmentedStreamingPayments.stakedExpenditureEvents
+AugmentedStreamingPayments.streamingPaymentsEvents
 
 ## Methods
 
@@ -1678,7 +1678,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `TEvent` | extends `TypedEvent`<`any`, `any`, `TEvent`\> |
+| `TEvent` | extends `TypedEvent`<`any`, `any`\> |
 
 #### Parameters
 
@@ -1760,7 +1760,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `TEvent` | extends `TypedEvent`<`any`, `any`, `TEvent`\> |
+| `TEvent` | extends `TypedEvent`<`any`, `any`\> |
 
 #### Parameters
 
@@ -1788,7 +1788,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `TEvent` | extends `TypedEvent`<`any`, `any`, `TEvent`\> |
+| `TEvent` | extends `TypedEvent`<`any`, `any`\> |
 
 #### Parameters
 
