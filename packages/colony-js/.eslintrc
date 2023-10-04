@@ -16,6 +16,19 @@
                 "eslint-comments/disable-enable-pair": "off",
                 "eslint-comments/no-unlimited-disable": "off"
             }
+        },
+        {
+            "files": [
+                "tsup.config.ts"
+            ],
+            "rules": {
+                "import/no-extraneous-dependencies": [
+                    "error",
+                    {
+                        "packageDir": "../.."
+                    }
+                ]
+            }
         }
     ]
 }

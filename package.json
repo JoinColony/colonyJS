@@ -41,6 +41,7 @@
     "lint-staged": "^13.2.1",
     "prettier": "^2.8.8",
     "rimraf": "^5.0.0",
+    "tsup": "^7.2.0",
     "typescript": "^5.0.4"
   },
   "dependencies": {
