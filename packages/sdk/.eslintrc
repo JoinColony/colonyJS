@@ -15,9 +15,7 @@
             {
                 "devDependencies": [
                     "examples/node/*.ts",
-                    "examples/browser/src/*.ts",
-                    "tsup.config.ts",
-                    "tsup.min.config.ts"
+                    "examples/browser/src/*.ts"
                 ]
             }
         ],
@@ -31,6 +29,20 @@
             "rules": {
                 "eslint-comments/disable-enable-pair": "off",
                 "eslint-comments/no-unlimited-disable": "off"
+            }
+        },
+        {
+            "files": [
+                "tsup.config.ts",
+                "tsup.min.config.ts"
+            ],
+            "rules": {
+                "import/no-extraneous-dependencies": [
+                    "error",
+                    {
+                        "packageDir": "../.."
+                    }
+                ]
             }
         }
     ]
