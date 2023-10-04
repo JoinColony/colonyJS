@@ -20,6 +20,8 @@ jobs:
     # Exclude the build of sdk and colony-js as it's not necessary for the docs to build
     - run: pnpm --filter '!sdk' --filter '!colony-js' run build
     - run: pnpm run build-docs
+      env:
+        NODE_OPTIONS: --max-old-space-size=4096
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: "chore: Generate docs"
