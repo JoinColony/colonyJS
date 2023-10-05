@@ -1,5 +1,11 @@
 # @colony/colony-js
 
+## 7.0.0-next.7
+
+### Patch Changes
+
+- 415be09e: Do not overwrite or delete build files
+
 ## 7.0.0-next.6
 
 ### Major Changes

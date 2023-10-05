@@ -1,5 +1,11 @@
 # @colony/sdk
 
+## 2.0.0-next.10
+
+### Patch Changes
+
+- 415be09e: Do not overwrite or delete build files
+
 ## 2.0.0-next.9
 
 ### Major Changes
