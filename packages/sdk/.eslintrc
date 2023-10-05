@@ -33,8 +33,7 @@
         },
         {
             "files": [
-                "tsup.config.ts",
-                "tsup.min.config.ts"
+                "tsup.config.ts"
             ],
             "rules": {
                 "import/no-extraneous-dependencies": [
