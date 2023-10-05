@@ -1,5 +1,11 @@
 # @colony/colony-js
 
+## 7.0.0-next.8
+
+### Patch Changes
+
+- dd5e3c57: Use tsc for compilation in colony-js and sdk
+
 ## 7.0.0-next.7
 
 ### Patch Changes

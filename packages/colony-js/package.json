@@ -1,7 +1,7 @@
 {
   "name": "@colony/colony-js",
   "description": "📜 The Colony TypeScript reference implementation",
-  "version": "7.0.0-next.7",
+  "version": "7.0.0-next.8",
   "type": "module",
   "exports": {
     ".": {
