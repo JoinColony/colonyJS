@@ -1,5 +1,15 @@
 # @colony/colony-js
 
+## 7.0.0-next.9
+
+### Minor Changes
+
+- 83d7828e: Add some more exports to the entry point. Now we have
+
+  - `ColonyTokenFactory` (the `MetaTxToken`)
+  - `ColonyFactory` (the `IColony` of the latest version)
+  - `ColonyNetworkFactory` (`IColonyNetwork`)
+
 ## 7.0.0-next.8
 
 ### Patch Changes
