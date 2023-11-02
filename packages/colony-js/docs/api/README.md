@@ -26,6 +26,8 @@
 
 ## Classes
 
+- [ColonyFactory](classes/ColonyFactory.md)
+- [ColonyNetworkFactory](classes/ColonyNetworkFactory.md)
 - [ColonyTokenFactory](classes/ColonyTokenFactory.md)
 - [ERC20TokenFactory](classes/ERC20TokenFactory.md)
 - [ERC2612TokenFactory](classes/ERC2612TokenFactory.md)
