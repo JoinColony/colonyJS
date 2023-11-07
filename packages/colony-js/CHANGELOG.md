@@ -1,5 +1,11 @@
 # @colony/colony-js
 
+## 7.0.0-next.10
+
+### Minor Changes
+
+- 0ebb76ab: Exported VotingReputationFactory
+
 ## 7.0.0-next.9
 
 ### Minor Changes
