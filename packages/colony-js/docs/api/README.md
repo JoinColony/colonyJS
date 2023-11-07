@@ -32,6 +32,7 @@
 - [ERC20TokenFactory](classes/ERC20TokenFactory.md)
 - [ERC2612TokenFactory](classes/ERC2612TokenFactory.md)
 - [ReputationClient](classes/ReputationClient.md)
+- [VotingReputationFactory](classes/VotingReputationFactory.md)
 
 ## Interfaces
 
