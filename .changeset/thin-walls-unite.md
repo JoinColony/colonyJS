@@ -2,7 +2,6 @@
 "@colony/colony-js": patch
 "@colony/contractor": patch
 "@colony/core": patch
-"@colony/event-metadata": patch
 "@colony/events": patch
 "@colony/sdk": patch
 "@colony/tokens": patch

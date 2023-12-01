@@ -10,8 +10,7 @@ We are providing the following packages in this monorepo:
 * [`@colony/colony-js`](packages/colony-js) - The Colony TypeScript reference implementation
 * [`@colony/core`](packages/core) - Shared utilities, types and constants for all Colony TypeScript libraries
 * [`@colony/contractor`](packages/contractor) - A nifty tool that creates Colony Network TypeScript bindings
-* [`@colony/event-metadata`](packages/event-metadata) - Parse and serialize Colony event metadata
-* [`@colony/events`](packages/events) - Pre-built Colony event contract bindings
+* [`@colony/events`](packages/events) - All Colony event types in one! Parse and serialize Colony event metadata
 * [`@colony/tokens`](packages/tokens) - Pre-built Colony token contract bindings
 
 ## Developing

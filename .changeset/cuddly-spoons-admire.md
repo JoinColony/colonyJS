@@ -1,5 +1,5 @@
 ---
-"@colony/event-metadata": patch
+"@colony/events": patch
 "@colony/colony-js": patch
 "@colony/core": patch
 "@colony/sdk": patch
