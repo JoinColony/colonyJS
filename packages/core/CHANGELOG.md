@@ -1,5 +1,44 @@
 # @colony/core
 
+## 2.0.0
+
+### Major Changes
+
+- 029288c: This changes the way `colony-js` clients are typed. We retain only the types of the last 5 versions of the types, all older versions will go untyped. This will give us some breathing room, at least for the amount of extensions that we have now.
+
+  Furthermore the most recent (upcoming) contract changes were included in ColonyJS.
+
+  Some changes were made to fix builds.
+
+- c8f5f74: **`cross-fetch` was removed as a dependency.**
+
+  Users of this library have to make sure that a fetch function exists in the global namespace (e.g. by using `node-fetch` and [adding it to the `globalThis`](https://github.com/node-fetch/node-fetch#providing-global-access)).
+
+  It also adds another build target for Colony SDK which is a minified bundle of the library
+
+### Minor Changes
+
+- 245fc59: Add support for `glwss4` contracts in Colony SDK. No API changes were necessary.
+  Contractor was bumped to v1.0.1 of the `@colony/abis` package
+  In `core`, a guard was added to prevent trying to get permission proofs without an address.
+- 3a87d0c: **`sdk`**
+
+  - `getReputation` now returns reputation within a domain as a percentag of the whole reputation within the team
+  - `getReputationPoints` can be used to get the previous behavior
+  - Added an `initialize` function to the `VotingReputation` extension
+
+- 3439729: colony-js gets support for the latest colonyNetwork release hmwss.
+
+### Patch Changes
+
+- 8de9d9c: Upgrade TypeDoc to v0.24.8 and adjust link syntax style
+- 542ffad: Adjust import/export statements to be compatible with ESM only within node.js
+- 50eefa9: Improve compatibility between ESM package.json generation and changesets:
+  - Use template file for package.json stub files (for changeset compatibility)
+  - Add .js extensions also for type imports and exports
+  - Add type entries to all package.json files
+  - Rename all .js config files to .cjs
+
 ## 2.0.0-next.4
 
 ### Major Changes

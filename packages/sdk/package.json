@@ -1,7 +1,7 @@
 {
   "name": "@colony/sdk",
   "description": "🚀 The development kit to build on top of Colony",
-  "version": "2.0.0-next.11",
+  "version": "2.0.0",
   "type": "module",
   "engines": {
     "node": "^16 || ^18",
@@ -49,12 +49,12 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@colony/core": "^2.0.0-next.4",
-    "@colony/events": "^0.3.0-next.4",
-    "@colony/tokens": "^0.2.0-next.2"
+    "@colony/core": "^2.0.0",
+    "@colony/events": "^0.3.0",
+    "@colony/tokens": "^0.2.0"
   },
   "devDependencies": {
-    "@colony/contractor": "^2.0.0-next.3",
+    "@colony/contractor": "^2.0.0",
     "@ethersproject/abi": "^5.7.0",
     "@ethersproject/abstract-provider": "^5.7.0",
     "@ethersproject/abstract-signer": "^5.7.0",
