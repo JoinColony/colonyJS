@@ -205,23 +205,6 @@ export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   /**
-   * Same as {@link addPayment}, but let colonyJS figure out the permission proofs for you.
-   * Always prefer this method, except when you have good reason not to.
-   * @param _amount - Payout amount
-   * @param _domainId - The domain where the payment belongs
-   * @param _recipient - Address of the payment recipient
-   * @param _skillId - The skill associated with the payment
-   * @param _token - Address of the token, `0x0` value indicates Ether
-   */
-  addPaymentWithProofs(
-    _recipient: string,
-    _token: string,
-    _amount: BigNumberish,
-    _domainId: BigNumberish,
-    _skillId: BigNumberish,
-    overrides?: TxOverrides,
-  ): Promise<ContractTransaction>;
-  /**
    * Same as {@link finalizePayment}, but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _id - Payment identifier
@@ -453,146 +436,6 @@ async function setAdministrationRoleWithProofs(
   );
 }
 
-async function addPaymentWithProofs(
-  this: AugmentedIColony,
-  _recipient: string,
-  _token: string,
-  _amount: BigNumberish,
-  _domainId: BigNumberish,
-  _skillId: BigNumberish,
-  overrides: TxOverrides = {},
-): Promise<ContractTransaction> {
-  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
-    this.networkClient,
-    this,
-    _domainId,
-    ColonyRole.Administration,
-  );
-  return this.addPayment(
-    permissionDomainId,
-    childSkillIndex,
-    _recipient,
-    _token,
-    _amount,
-    _domainId,
-    _skillId,
-    overrides,
-  );
-}
-
-async function finalizePaymentWithProofs(
-  this: AugmentedIColony,
-  _id: BigNumberish,
-  overrides: TxOverrides = {},
-): Promise<ContractTransaction> {
-  const { domainId } = await this.getPayment(_id);
-  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
-    this.networkClient,
-    this,
-    domainId,
-    ColonyRole.Administration,
-  );
-  return this.finalizePayment(
-    permissionDomainId,
-    childSkillIndex,
-    _id,
-    overrides,
-  );
-}
-
-async function setPaymentRecipientWithProofs(
-  this: AugmentedIColony,
-  _id: BigNumberish,
-  _recipient: string,
-  overrides: TxOverrides = {},
-): Promise<ContractTransaction> {
-  const { domainId } = await this.getPayment(_id);
-  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
-    this.networkClient,
-    this,
-    domainId,
-    ColonyRole.Administration,
-  );
-  return this.setPaymentRecipient(
-    permissionDomainId,
-    childSkillIndex,
-    _id,
-    _recipient,
-    overrides,
-  );
-}
-
-async function setPaymentSkillWithProofs(
-  this: AugmentedIColony,
-  _id: BigNumberish,
-  _skillId: string,
-  overrides: TxOverrides = {},
-): Promise<ContractTransaction> {
-  const { domainId } = await this.getPayment(_id);
-  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
-    this.networkClient,
-    this,
-    domainId,
-    ColonyRole.Administration,
-  );
-  return this.setPaymentSkill(
-    permissionDomainId,
-    childSkillIndex,
-    _id,
-    _skillId,
-    overrides,
-  );
-}
-
-async function setPaymentPayoutWithProofs(
-  this: AugmentedIColony,
-  _id: BigNumberish,
-  _token: string,
-  _amount: BigNumberish,
-  overrides: TxOverrides = {},
-): Promise<ContractTransaction> {
-  const { domainId } = await this.getPayment(_id);
-  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
-    this.networkClient,
-    this,
-    domainId,
-    ColonyRole.Administration,
-  );
-  return this.setPaymentPayout(
-    permissionDomainId,
-    childSkillIndex,
-    _id,
-    _token,
-    _amount,
-    overrides,
-  );
-}
-
-async function makeTaskWithProofs(
-  this: AugmentedIColony,
-  _specificationHash: BytesLike,
-  _domainId: BigNumberish,
-  _skillId: BigNumberish,
-  _dueDate: BigNumberish,
-  overrides: TxOverrides = {},
-): Promise<ContractTransaction> {
-  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
-    this.networkClient,
-    this,
-    _domainId,
-    ColonyRole.Administration,
-  );
-  return this.makeTask(
-    permissionDomainId,
-    childSkillIndex,
-    _specificationHash,
-    _domainId,
-    _skillId,
-    _dueDate,
-    overrides,
-  );
-}
-
 async function estimateSetArchitectureRoleWithProofs(
   this: AugmentedIColony,
   _user: string,
@@ -660,144 +503,6 @@ async function estimateSetAdministrationRoleWithProofs(
   );
 }
 
-async function estimateAddPaymentWithProofs(
-  this: AugmentedIColony,
-  _recipient: string,
-  _token: string,
-  _amount: BigNumberish,
-  _domainId: BigNumberish,
-  _skillId: BigNumberish,
-): Promise<BigNumber> {
-  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
-    this.networkClient,
-    this,
-    _domainId,
-    ColonyRole.Administration,
-  );
-  return this.estimateGas.addPayment(
-    permissionDomainId,
-    childSkillIndex,
-    _recipient,
-    _token,
-    _amount,
-    _domainId,
-    _skillId,
-  );
-}
-
-async function estimateFinalizePaymentWithProofs(
-  this: AugmentedIColony,
-  _id: BigNumberish,
-  overrides: TxOverrides = {},
-): Promise<BigNumber> {
-  const { domainId } = await this.getPayment(_id);
-  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
-    this.networkClient,
-    this,
-    domainId,
-    ColonyRole.Administration,
-  );
-  return this.estimateGas.finalizePayment(
-    permissionDomainId,
-    childSkillIndex,
-    _id,
-    overrides,
-  );
-}
-
-async function estimateSetPaymentRecipientWithProofs(
-  this: AugmentedIColony,
-  _id: BigNumberish,
-  _recipient: string,
-  overrides: TxOverrides = {},
-): Promise<BigNumber> {
-  const { domainId } = await this.getPayment(_id);
-  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
-    this.networkClient,
-    this,
-    domainId,
-    ColonyRole.Administration,
-  );
-  return this.estimateGas.setPaymentRecipient(
-    permissionDomainId,
-    childSkillIndex,
-    _id,
-    _recipient,
-    overrides,
-  );
-}
-
-async function estimateSetPaymentSkillWithProofs(
-  this: AugmentedIColony,
-  _id: BigNumberish,
-  _skillId: BigNumberish,
-  overrides: TxOverrides = {},
-): Promise<BigNumber> {
-  const { domainId } = await this.getPayment(_id);
-  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
-    this.networkClient,
-    this,
-    domainId,
-    ColonyRole.Administration,
-  );
-  return this.estimateGas.setPaymentSkill(
-    permissionDomainId,
-    childSkillIndex,
-    _id,
-    _skillId,
-    overrides,
-  );
-}
-
-async function estimateSetPaymentPayoutWithProofs(
-  this: AugmentedIColony,
-  _id: BigNumberish,
-  _token: string,
-  _amount: BigNumberish,
-  overrides: TxOverrides = {},
-): Promise<BigNumber> {
-  const { domainId } = await this.getPayment(_id);
-  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
-    this.networkClient,
-    this,
-    domainId,
-    ColonyRole.Administration,
-  );
-  return this.estimateGas.setPaymentPayout(
-    permissionDomainId,
-    childSkillIndex,
-    _id,
-    _token,
-    _amount,
-    overrides,
-  );
-}
-
-async function estimateMakeTaskWithProofs(
-  this: AugmentedIColony,
-  _specificationHash: BytesLike,
-  _domainId: BigNumberish,
-  _skillId: BigNumberish,
-  _dueDate: BigNumberish,
-  overrides: TxOverrides = {},
-): Promise<BigNumber> {
-  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
-    this.networkClient,
-    this,
-    _domainId,
-    ColonyRole.Administration,
-  );
-  return this.estimateGas.makeTask(
-    permissionDomainId,
-    childSkillIndex,
-    _specificationHash,
-    _domainId,
-    _skillId,
-    _dueDate,
-    overrides,
-  );
-}
-
 export const addAugments = <T extends AugmentedIColony>(
   instance: T,
   networkClient: ColonyNetworkClient,
@@ -819,14 +524,6 @@ export const addAugments = <T extends AugmentedIColony>(
   instance.setFundingRoleWithProofs = setFundingRoleWithProofs.bind(instance);
   instance.setAdministrationRoleWithProofs =
     setAdministrationRoleWithProofs.bind(instance);
-  instance.addPaymentWithProofs = addPaymentWithProofs.bind(instance);
-  instance.finalizePaymentWithProofs = finalizePaymentWithProofs.bind(instance);
-  instance.setPaymentRecipientWithProofs =
-    setPaymentRecipientWithProofs.bind(instance);
-  instance.setPaymentSkillWithProofs = setPaymentSkillWithProofs.bind(instance);
-  instance.setPaymentPayoutWithProofs =
-    setPaymentPayoutWithProofs.bind(instance);
-  instance.makeTaskWithProofs = makeTaskWithProofs.bind(instance);
 
   instance.estimateGas.setArchitectureRoleWithProofs =
     estimateSetArchitectureRoleWithProofs.bind(instance);
@@ -834,18 +531,6 @@ export const addAugments = <T extends AugmentedIColony>(
     estimateSetFundingRoleWithProofs.bind(instance);
   instance.estimateGas.setAdministrationRoleWithProofs =
     estimateSetAdministrationRoleWithProofs.bind(instance);
-  instance.estimateGas.addPaymentWithProofs =
-    estimateAddPaymentWithProofs.bind(instance);
-  instance.estimateGas.finalizePaymentWithProofs =
-    estimateFinalizePaymentWithProofs.bind(instance);
-  instance.estimateGas.setPaymentRecipientWithProofs =
-    estimateSetPaymentRecipientWithProofs.bind(instance);
-  instance.estimateGas.setPaymentSkillWithProofs =
-    estimateSetPaymentSkillWithProofs.bind(instance);
-  instance.estimateGas.setPaymentPayoutWithProofs =
-    estimateSetPaymentPayoutWithProofs.bind(instance);
-  instance.estimateGas.makeTaskWithProofs =
-    estimateMakeTaskWithProofs.bind(instance);
 
   instance.colonyEvents = IColonyEventsFactory.connect(
     instance.address,
