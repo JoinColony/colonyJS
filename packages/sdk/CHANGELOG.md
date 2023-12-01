@@ -1,5 +1,101 @@
 # @colony/sdk
 
+## 2.0.0
+
+### Major Changes
+
+- 36f9df2: Calling `getBalance` on a Colony without specifying a `teamId` will now return the total balance of the specified token across the whole Colony (including not-yet-claimed funds)
+- 3a87d0c: **`sdk`**
+
+  - `getReputation` now returns reputation within a domain as a percentag of the whole reputation within the team
+  - `getReputationPoints` can be used to get the previous behavior
+  - Added an `initialize` function to the `VotingReputation` extension
+
+- 029288c: This changes the way `colony-js` clients are typed. We retain only the types of the last 5 versions of the types, all older versions will go untyped. This will give us some breathing room, at least for the amount of extensions that we have now.
+
+  Furthermore the most recent (upcoming) contract changes were included in ColonyJS.
+
+  Some changes were made to fix builds.
+
+- beb7608: Breaking: Change the transaction API to allow for just sending txns and not waiting for them to be mined
+
+  This change adds the new Colony SDK transaction API. The following is now applicable for all transaction methods (motions and metatransactions included)
+
+  ```ts
+  // Send off the transaction and only wait for the transaction hash
+  const [tx, mined] = await colony.oneTx.pay(/* args */).tx().send(); // you can call mined() later (will yield the same as the fn below)
+  // Send off the transaction and wait for it to be mined. Gets receipt and event data
+  const [eventData, receipt] = await colony.oneTx.pay(/* args */).tx().mined();
+  // Same for metatransactions
+  await colony.oneTx.pay(/* args */).metaTx().send();
+  await colony.oneTx.pay(/* args */).metaTx().mined();
+  await; // And motions
+  await colony.oneTx.pay(/* args */).motion().send();
+  await colony.oneTx.pay(/* args */).motion().mined();
+  await; // And metatransaction motions
+  await colony.oneTx.pay(/* args */).metaMotion().send();
+  await colony.oneTx.pay(/* args */).metaMotion().mined();
+  ```
+
+  Furthermore one can now encode regular transactions and motions into raw strings:
+
+  ```ts
+  const encoded_str = await colony.oneTx.pay(/* args */).tx().encode();
+  const encoded_motion_str = await colony.oneTx
+    .pay(/* args */)
+    .motion()
+    .encode();
+  ```
+
+- d703cc6: All examples, docs and guides are now adjusted to the v2 API.
+- c8f5f74: **`cross-fetch` was removed as a dependency.**
+
+  Users of this library have to make sure that a fetch function exists in the global namespace (e.g. by using `node-fetch` and [adding it to the `globalThis`](https://github.com/node-fetch/node-fetch#providing-global-access)).
+
+  It also adds another build target for Colony SDK which is a minified bundle of the library
+
+- 3a1251c: - Adjusted docs, examples and guides to v2
+  - Event sources for the `EventManger` can now be hot-plugged and are not hardcoded anymore.
+
+### Minor Changes
+
+- e931d0e: - `event-metadata` package was removed and all its functionality went into the `events` package
+
+  - `ColonyEventManager` was moved to the `events` package as well
+  - `sdk/graph` was removed and will be added back at a later point
+
+  - There is now a `getMotionResult` method to get the result of a finalizeable motion.
+
+- 245fc59: Add support for `glwss4` contracts in Colony SDK. No API changes were necessary.
+  Contractor was bumped to v1.0.1 of the `@colony/abis` package
+  In `core`, a guard was added to prevent trying to get permission proofs without an address.
+
+### Patch Changes
+
+- 8de9d9c: Upgrade TypeDoc to v0.24.8 and adjust link syntax style
+- b3793fc: - Fix version incompatibility detection of the VotingReputation extension
+  - Support version 3 of the OneTxPayment contract
+- dd5e3c5: Use tsc for compilation in colony-js and sdk
+- 415be09: Do not overwrite or delete build files
+- 542ffad: Adjust import/export statements to be compatible with ESM only within node.js
+- 50eefa9: Improve compatibility between ESM package.json generation and changesets:
+  - Use template file for package.json stub files (for changeset compatibility)
+  - Add .js extensions also for type imports and exports
+  - Add type entries to all package.json files
+  - Rename all .js config files to .cjs
+- Updated dependencies [e931d0e]
+- Updated dependencies [245fc59]
+- Updated dependencies [8de9d9c]
+- Updated dependencies [3a87d0c]
+- Updated dependencies [029288c]
+- Updated dependencies [c8f5f74]
+- Updated dependencies [3439729]
+- Updated dependencies [542ffad]
+- Updated dependencies [50eefa9]
+  - @colony/events@0.3.0
+  - @colony/core@2.0.0
+  - @colony/tokens@0.2.0
+
 ## 2.0.0-next.11
 
 ### Patch Changes
