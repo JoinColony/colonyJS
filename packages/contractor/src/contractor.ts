@@ -268,8 +268,9 @@ const start = async () => {
       tag: {
         alias: 't',
         array: true,
-        default: releases.length + 1,
-        describe: `Colony Network release tag(s) to build (e.g. glwss), or a number determining to build the latest X tags`,
+        // 0 is all releases
+        default: 0,
+        describe: `Colony Network release tag(s) to build (e.g. glwss), separated by spaces, or a number determining to build the latest X tags`,
       },
     })
     .command('tokens', 'Make token contracts')
@@ -323,7 +324,7 @@ const start = async () => {
       const argTag = tag as (number | string)[];
       const tags =
         typeof argTag[0] == 'number'
-          ? allReleases.slice(allReleases.length - argTag[0])
+          ? allReleases.slice(-argTag[0])
           : (argTag as string[]);
       await Promise.all(
         tags.map(async (releaseTag) => {
