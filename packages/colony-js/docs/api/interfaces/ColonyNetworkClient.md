@@ -959,7 +959,7 @@ ___
 ▸ **addSkill**(`_parentSkillId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Errors if the parent skill does not exist or if this is called by an unauthorised sender.
-Adds a new skill to the global or local skills tree, under skill `_parentSkillId`. Only the Meta Colony is allowed to add a global skill, called via `IColony.addGlobalSkill`. Any colony is allowed to add a local skill and which is associated with a new domain via `IColony.addDomain`.
+Adds a new skill to the domain or local skills tree, under skill `_parentSkillId`. Any colony is allowed to add a local skill and which is associated with a new domain via `IColony.addDomain`.
 
 #### Parameters
 
@@ -983,7 +983,7 @@ ___
 ▸ **addSkill(uint256)**(`_parentSkillId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Errors if the parent skill does not exist or if this is called by an unauthorised sender.
-Adds a new skill to the global or local skills tree, under skill `_parentSkillId`. Only the Meta Colony is allowed to add a global skill, called via `IColony.addGlobalSkill`. Any colony is allowed to add a local skill and which is associated with a new domain via `IColony.addDomain`.
+Adds a new skill to the domain or local skills tree, under skill `_parentSkillId`. Any colony is allowed to add a local skill and which is associated with a new domain via `IColony.addDomain`.
 
 #### Parameters
 
@@ -1784,7 +1784,7 @@ ___
 
 ▸ **deprecateSkill(uint256)**(`_skillId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-This function is deprecated and will be removed in a future release
+This function is deprecated and will be removed in a future releaseCurrently disabled, and will error if called even by a colony
 Mark a skill as deprecated which stops new tasks and payments from using it.
 
 #### Parameters
@@ -1808,6 +1808,7 @@ ___
 
 ▸ **deprecateSkill(uint256,bool)**(`_skillId`, `_deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
 
+Currently disabled, and will error if called even by a colony
 Set deprecation status for a skill
 
 #### Parameters
