@@ -643,34 +643,6 @@ AugmentedIColony.addPayment(uint256,uint256,address,address,uint256,uint256,uint
 
 ___
 
-### addPaymentWithProofs
-
-▸ **addPaymentWithProofs**(`_recipient`, `_token`, `_amount`, `_domainId`, `_skillId`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-Same as [addPayment](ColonyClientV13.md#addpayment), but let colonyJS figure out the permission proofs for you.
-Always prefer this method, except when you have good reason not to.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_recipient` | `string` | Address of the payment recipient |
-| `_token` | `string` | Address of the token, `0x0` value indicates Ether |
-| `_amount` | `BigNumberish` | Payout amount |
-| `_domainId` | `BigNumberish` | The domain where the payment belongs |
-| `_skillId` | `BigNumberish` | The skill associated with the payment |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedIColony.addPaymentWithProofs
-
-___
-
 ### annotateTransaction
 
 ▸ **annotateTransaction**(`_txHash`, `_metadata`, `overrides?`): `Promise`<`ContractTransaction`\>
