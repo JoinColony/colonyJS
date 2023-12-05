@@ -399,7 +399,7 @@ ___
 
 ### LATEST\_TAG
 
-• `Const` **LATEST\_TAG**: ``"glwss4"``
+• `Const` **LATEST\_TAG**: ``"hmwss"``
 
 ## Functions
 
