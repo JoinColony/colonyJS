@@ -1,5 +1,11 @@
 # @colony/colony-js
 
+## 7.0.1
+
+### Patch Changes
+
+- 9de57ee: Fix some exports related to hmwss. W still export `VotingReputationFactory` but this will be removed soon.
+
 ## 7.0.0
 
 ### Major Changes
