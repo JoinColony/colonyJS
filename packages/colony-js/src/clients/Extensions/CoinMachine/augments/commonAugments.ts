@@ -3,7 +3,7 @@ import type { CoinMachineVersion } from '@colony/core';
 import {
   type CoinMachineEvents,
   CoinMachineEvents__factory as CoinMachineEventsFactory,
-} from '@colony/events/types';
+} from '@colony/events';
 
 import { ClientType } from '../../../../constants.js';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';

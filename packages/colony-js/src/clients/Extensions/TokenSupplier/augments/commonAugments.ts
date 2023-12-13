@@ -3,7 +3,7 @@ import type { TokenSupplierVersion } from '@colony/core';
 import {
   type TokenSupplierEvents,
   TokenSupplierEvents__factory as TokenSupplierEventsFactory,
-} from '@colony/events/types';
+} from '@colony/events';
 
 import { ClientType } from '../../../../constants.js';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';

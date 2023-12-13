@@ -3,7 +3,7 @@ import type { FundingQueueVersion } from '@colony/core';
 import {
   type FundingQueueEvents,
   FundingQueueEvents__factory as FundingQueueEventsFactory,
-} from '@colony/events/types';
+} from '@colony/events';
 
 import { ClientType } from '../../../../constants.js';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';

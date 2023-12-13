@@ -11,7 +11,7 @@ import type {
   TokenSupplierEvents,
   VotingReputationEvents,
   WhitelistEvents,
-} from '@colony/events/types';
+} from '@colony/events';
 import type {
   TokenClient as TokenContractClient,
   TokenLockingClient as TokenLockingContractClient,

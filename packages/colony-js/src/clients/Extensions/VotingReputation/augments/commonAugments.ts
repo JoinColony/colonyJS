@@ -9,7 +9,7 @@ import {
 import {
   type VotingReputationEvents,
   VotingReputationEvents__factory as VotingReputationEventsFactory,
-} from '@colony/events/types';
+} from '@colony/events';
 
 import { ClientType } from '../../../../constants.js';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';

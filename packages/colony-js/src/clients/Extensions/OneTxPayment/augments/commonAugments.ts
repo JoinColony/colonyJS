@@ -9,7 +9,7 @@ import { ContractTransaction, BigNumberish, BigNumber } from 'ethers';
 import {
   type OneTxPaymentEvents,
   OneTxPaymentEvents__factory as OneTxPaymentEventsFactory,
-} from '@colony/events/types';
+} from '@colony/events';
 
 import { ClientType } from '../../../../constants.js';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';

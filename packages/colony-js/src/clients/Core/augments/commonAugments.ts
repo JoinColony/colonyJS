@@ -7,7 +7,7 @@ import {
 import {
   type IColonyEvents,
   IColonyEvents__factory as IColonyEventsFactory,
-} from '@colony/events/types';
+} from '@colony/events';
 import { TokenClient } from '@colony/tokens';
 
 import {
