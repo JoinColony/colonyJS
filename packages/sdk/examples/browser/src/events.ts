@@ -1,5 +1,5 @@
 import { providers, utils } from 'ethers';
-import { IColonyEvents__factory as ColonyEventsFactory } from '@colony/events/types';
+import { IColonyEvents__factory as ColonyEventsFactory } from '@colony/events';
 
 import {
   ColonyEventManager,

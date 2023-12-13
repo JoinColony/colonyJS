@@ -1,7 +1,7 @@
 import type {
   ExtensionUpgradedEventObject,
   OneTxPaymentMadeEventObject,
-} from '@colony/events/types';
+} from '@colony/events';
 
 import {
   type OneTxPaymentVersion,

@@ -1,17 +1,3 @@
-import type {
-  MotionEventSetEventObject,
-  MotionFinalizedEventObject,
-  MotionStakedEventObject,
-  MotionVoteRevealedEventObject,
-  MotionVoteSubmittedEventObject,
-  UserTokenApprovedEventObject,
-  MotionCreatedEventObject,
-  ExtensionUpgradedEventObject,
-  AnnotationEventObject,
-  MotionEscalatedEventObject,
-  ExtensionInitialisedEventObject,
-} from '@colony/events/types';
-
 import { constants, BigNumber, BigNumberish, utils } from 'ethers';
 import {
   type ReputationClient,
@@ -29,7 +15,21 @@ import {
   isExtensionCompatible,
   toEth,
 } from '@colony/core';
-import { DecisionData, MetadataType } from '@colony/events';
+import {
+  type MotionEventSetEventObject,
+  type MotionFinalizedEventObject,
+  type MotionStakedEventObject,
+  type MotionVoteRevealedEventObject,
+  type MotionVoteSubmittedEventObject,
+  type UserTokenApprovedEventObject,
+  type MotionCreatedEventObject,
+  type ExtensionUpgradedEventObject,
+  type AnnotationEventObject,
+  type MotionEscalatedEventObject,
+  type ExtensionInitialisedEventObject,
+  DecisionData,
+  MetadataType,
+} from '@colony/events';
 
 import type { VotingReputationDataTypes as VotingReputationDataTypes7 } from '../contracts/IVotingReputation/7/IVotingReputation.js';
 import type { VotingReputationDataTypes as VotingReputationDataTypes8 } from '../contracts/IVotingReputation/8/IVotingReputation.js';

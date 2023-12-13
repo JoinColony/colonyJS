@@ -1,11 +1,3 @@
-import type {
-  ColonyAddedEventObject,
-  ColonyMetadataEventObject,
-  TokenAuthorityDeployedEventObject,
-  TokenDeployedEventObject,
-  UserLabelRegisteredEventObject,
-} from '@colony/events/types';
-
 import {
   BigNumberish,
   ContractReceipt,
@@ -26,6 +18,11 @@ import { type ERC2612Token as ERC2612TokenType } from '@colony/tokens';
 import {
   type ColonyData,
   type IpfsAdapter,
+  type ColonyAddedEventObject,
+  type ColonyMetadataEventObject,
+  type TokenAuthorityDeployedEventObject,
+  type TokenDeployedEventObject,
+  type UserLabelRegisteredEventObject,
   IpfsMetadata,
   MetadataType,
 } from '@colony/events';
