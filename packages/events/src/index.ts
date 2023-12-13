@@ -11,3 +11,5 @@ export {
 export * from './ipfs/index.js';
 
 export * from './types.js';
+
+export * from './contracts.js';

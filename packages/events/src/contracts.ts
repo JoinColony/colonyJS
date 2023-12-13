@@ -46,3 +46,5 @@ export * from './contracts/OneTxPaymentEvents.js';
 export * from './contracts/TokenLockingEvents.js';
 export * from './contracts/VotingReputationEvents.js';
 export * from './contracts/WhitelistEvents.js';
+
+export * from './contracts/factories/index.js';
