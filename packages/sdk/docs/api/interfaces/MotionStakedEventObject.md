@@ -1,0 +1,25 @@
+# Interface: MotionStakedEventObject
+
+## Properties
+
+### amount
+
+• **amount**: `BigNumber`
+
+___
+
+### motionId
+
+• **motionId**: `BigNumber`
+
+___
+
+### staker
+
+• **staker**: `string`
+
+___
+
+### vote
+
+• **vote**: `BigNumber`

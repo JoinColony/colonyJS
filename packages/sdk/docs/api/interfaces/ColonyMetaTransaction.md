@@ -25,7 +25,7 @@ See also https://docs.colony.io/colonysdk/guides/transactions for more informati
 | Name | Type |
 | :------ | :------ |
 | `C` | extends [`TransactionResponse`](TransactionResponse.md) |
-| `E` | extends [`EventData`](EventData.md) \| `MotionCreatedEventObject` |
+| `E` | extends [`EventData`](EventData.md) \| [`MotionCreatedEventObject`](MotionCreatedEventObject.md) |
 | `R` | extends [`ParsedLogTransactionReceipt`](ParsedLogTransactionReceipt.md) |
 | `MD` | extends [`MetadataType`](../enums/MetadataType.md) |
 

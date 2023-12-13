@@ -60,7 +60,7 @@ Learn more about these functions in their individual documentation
 
 ### metaMotion
 
-▸ **metaMotion**(`motionDomain?`): [`ColonyMetaTransaction`](../interfaces/ColonyMetaTransaction.md)<[`TransactionResponse`](../interfaces/TransactionResponse.md), `MotionCreatedEventObject`, [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md), `MD`\>
+▸ **metaMotion**(`motionDomain?`): [`ColonyMetaTransaction`](../interfaces/ColonyMetaTransaction.md)<[`TransactionResponse`](../interfaces/TransactionResponse.md), [`MotionCreatedEventObject`](../interfaces/MotionCreatedEventObject.md), [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md), `MD`\>
 
 Creates a motion for an action, using a gasless transaction
 
@@ -81,7 +81,7 @@ This will only work if the [VotingReputation](VotingReputation.md) extension is 
 
 #### Returns
 
-[`ColonyMetaTransaction`](../interfaces/ColonyMetaTransaction.md)<[`TransactionResponse`](../interfaces/TransactionResponse.md), `MotionCreatedEventObject`, [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md), `MD`\>
+[`ColonyMetaTransaction`](../interfaces/ColonyMetaTransaction.md)<[`TransactionResponse`](../interfaces/TransactionResponse.md), [`MotionCreatedEventObject`](../interfaces/MotionCreatedEventObject.md), [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md), `MD`\>
 
 A motion transaction that can be `send` or `mined` or `encode`d.
 
@@ -114,7 +114,7 @@ ___
 
 ### motion
 
-▸ **motion**(`motionDomain?`): [`ColonyTransaction`](../interfaces/ColonyTransaction.md)<[`ContractTransaction`](../interfaces/ContractTransaction.md), `MotionCreatedEventObject`, [`ContractReceipt`](../interfaces/ContractReceipt.md), `MD`\>
+▸ **motion**(`motionDomain?`): [`ColonyTransaction`](../interfaces/ColonyTransaction.md)<[`ContractTransaction`](../interfaces/ContractTransaction.md), [`MotionCreatedEventObject`](../interfaces/MotionCreatedEventObject.md), [`ContractReceipt`](../interfaces/ContractReceipt.md), `MD`\>
 
 Creates a motion for an action
 
@@ -135,7 +135,7 @@ This will only work if the [VotingReputation](VotingReputation.md) extension is 
 
 #### Returns
 
-[`ColonyTransaction`](../interfaces/ColonyTransaction.md)<[`ContractTransaction`](../interfaces/ContractTransaction.md), `MotionCreatedEventObject`, [`ContractReceipt`](../interfaces/ContractReceipt.md), `MD`\>
+[`ColonyTransaction`](../interfaces/ColonyTransaction.md)<[`ContractTransaction`](../interfaces/ContractTransaction.md), [`MotionCreatedEventObject`](../interfaces/MotionCreatedEventObject.md), [`ContractReceipt`](../interfaces/ContractReceipt.md), `MD`\>
 
 A motion transaction that can be `send` or `mined` or `encode`d.
 
