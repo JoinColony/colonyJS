@@ -1,7 +1,7 @@
 {
   "name": "@colony/sdk",
   "description": "🚀 The development kit to build on top of Colony",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "type": "module",
   "engines": {
     "node": "^16 || ^18",
@@ -49,7 +49,7 @@
   },
   "dependencies": {
     "@colony/core": "^2.0.0",
-    "@colony/events": "^0.3.0",
+    "@colony/events": "^1.0.0",
     "@colony/tokens": "^0.2.0"
   },
   "devDependencies": {
