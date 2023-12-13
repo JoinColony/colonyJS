@@ -1,5 +1,6 @@
 import type { JsonRpcProvider } from '@ethersproject/providers';
 
+import 'cross-fetch/polyfill';
 import { providers } from 'ethers';
 import { Network, ColonyRpcEndpoint } from '@colony/core';
 
