@@ -52,6 +52,7 @@
     "@colony/core": "^2.0.0",
     "@colony/events": "^0.3.0",
     "@colony/tokens": "^0.2.0",
+    "cross-fetch": "^4.0.0",
     "ts-jest-resolver": "^2.0.1"
   },
   "devDependencies": {
