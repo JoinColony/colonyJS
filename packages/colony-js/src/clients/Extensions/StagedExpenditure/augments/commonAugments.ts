@@ -2,7 +2,7 @@ import { type StagedExpenditureVersion } from '@colony/core';
 import {
   type StagedExpenditureEvents,
   StagedExpenditureEvents__factory as StagedExpenditureEventsFactory,
-} from '@colony/events/types';
+} from '@colony/events';
 
 import { ClientType } from '../../../../constants.js';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';

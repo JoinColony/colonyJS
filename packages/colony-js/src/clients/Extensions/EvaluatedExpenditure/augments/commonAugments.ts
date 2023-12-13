@@ -8,7 +8,7 @@ import {
 import {
   type EvaluatedExpenditureEvents,
   EvaluatedExpenditureEvents__factory as EvaluatedExpenditureEventsFactory,
-} from '@colony/events/types';
+} from '@colony/events';
 
 import { ClientType } from '../../../../constants.js';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';

@@ -3,7 +3,7 @@ import type { ReputationBootstrapperVersion } from '@colony/core';
 import {
   type ReputationBootstrapperEvents,
   ReputationBootstrapperEvents__factory as ReputationBootstrapperEventsFactory,
-} from '@colony/events/types';
+} from '@colony/events';
 
 import { ClientType } from '../../../../constants.js';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
