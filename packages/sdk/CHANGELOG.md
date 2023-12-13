@@ -1,5 +1,12 @@
 # @colony/sdk
 
+## 2.0.1
+
+### Patch Changes
+
+- Updated dependencies [301493e]
+  - @colony/events@1.0.0
+
 ## 2.0.0
 
 ### Major Changes

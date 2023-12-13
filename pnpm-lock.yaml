@@ -69,7 +69,7 @@ importers:
         specifier: ^2.0.0
         version: link:../core
       '@colony/events':
-        specifier: ^0.3.0
+        specifier: ^1.0.0
         version: link:../events
       '@colony/tokens':
         specifier: ^0.2.0
@@ -210,7 +210,7 @@ importers:
         specifier: ^2.0.0
         version: link:../core
       '@colony/events':
-        specifier: ^0.3.0
+        specifier: ^1.0.0
         version: link:../events
       '@colony/tokens':
         specifier: ^0.2.0

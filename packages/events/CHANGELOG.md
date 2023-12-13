@@ -1,5 +1,11 @@
 # @colony/events
 
+## 1.0.0
+
+### Major Changes
+
+- 301493e: Move all exports to main entrypoint
+
 ## 0.3.0
 
 ### Minor Changes
