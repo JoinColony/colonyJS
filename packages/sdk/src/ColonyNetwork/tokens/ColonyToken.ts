@@ -1,7 +1,7 @@
 import type {
   LogSetAuthorityEventObject,
   LogSetOwnerEventObject,
-} from '@colony/events/types';
+} from '@colony/events';
 
 import {
   ColonyToken as ColonyTokenType,

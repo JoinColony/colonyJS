@@ -1,25 +1,3 @@
-import type {
-  AnnotationEventObject,
-  ArbitraryReputationUpdateEventObject,
-  ArbitraryTransactionEventObject,
-  ColonyFundsClaimed_address_uint256_uint256_EventObject,
-  // eslint-disable-next-line max-len
-  ColonyFundsMovedBetweenFundingPots_address_uint256_uint256_uint256_address_EventObject,
-  ColonyMetadataEventObject,
-  ColonyRoleSet_address_address_uint256_uint8_bool_EventObject,
-  ColonyUpgraded_uint256_uint256_EventObject,
-  DomainAdded_uint256_EventObject,
-  DomainDeprecatedEventObject,
-  DomainMetadataEventObject,
-  ExtensionInstalledEventObject,
-  FundingPotAddedEventObject,
-  RecoveryModeEnteredEventObject,
-  RecoveryModeExitedEventObject,
-  RecoveryRoleSetEventObject,
-  TokenAuthorityDeployedEventObject,
-  TokensMintedEventObject,
-} from '@colony/events/types';
-
 import { BigNumber, BigNumberish, BytesLike, ContractReceipt } from 'ethers';
 import {
   type ColonyVersion,
@@ -38,6 +16,25 @@ import {
   type AnnotationData,
   type ColonyData,
   type DomainData,
+  type AnnotationEventObject,
+  type ArbitraryReputationUpdateEventObject,
+  type ArbitraryTransactionEventObject,
+  type ColonyFundsClaimed_address_uint256_uint256_EventObject,
+  // eslint-disable-next-line max-len
+  type ColonyFundsMovedBetweenFundingPots_address_uint256_uint256_uint256_address_EventObject,
+  type ColonyMetadataEventObject,
+  type ColonyRoleSet_address_address_uint256_uint8_bool_EventObject,
+  type ColonyUpgraded_uint256_uint256_EventObject,
+  type DomainAdded_uint256_EventObject,
+  type DomainDeprecatedEventObject,
+  type DomainMetadataEventObject,
+  type ExtensionInstalledEventObject,
+  type FundingPotAddedEventObject,
+  type RecoveryModeEnteredEventObject,
+  type RecoveryModeExitedEventObject,
+  type RecoveryRoleSetEventObject,
+  type TokenAuthorityDeployedEventObject,
+  type TokensMintedEventObject,
   MetadataType,
 } from '@colony/events';
 

@@ -1,8 +1,5 @@
 import type { BigNumber, BigNumberish } from 'ethers';
-import type {
-  ApprovalEventObject,
-  TransferEventObject,
-} from '@colony/events/types';
+import type { ApprovalEventObject, TransferEventObject } from '@colony/events';
 
 import {
   ERC20Token as ERC20TokenType,
