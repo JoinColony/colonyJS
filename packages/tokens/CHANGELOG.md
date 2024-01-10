@@ -1,5 +1,11 @@
 # @colony/tokens
 
+## 0.2.1
+
+### Patch Changes
+
+- 07d6863: Allow for nodeJS version 20 support
+
 ## 0.2.0
 
 ### Minor Changes

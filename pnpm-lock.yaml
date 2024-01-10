@@ -66,13 +66,13 @@ importers:
   packages/colony-js:
     dependencies:
       '@colony/core':
-        specifier: ^2.0.0
+        specifier: ^2.0.1
         version: link:../core
       '@colony/events':
-        specifier: ^1.0.0
+        specifier: ^1.0.1
         version: link:../events
       '@colony/tokens':
-        specifier: ^0.2.0
+        specifier: ^0.2.1
         version: link:../tokens
       cross-fetch:
         specifier: ^4.0.0
@@ -82,7 +82,7 @@ importers:
         version: 2.0.1
     devDependencies:
       '@colony/contractor':
-        specifier: ^2.0.0
+        specifier: ^2.0.1
         version: link:../contractor
       '@ethersproject/abi':
         specifier: ^5.7.0
@@ -152,7 +152,7 @@ importers:
   packages/core:
     devDependencies:
       '@colony/contractor':
-        specifier: 2.0.0
+        specifier: 2.0.1
         version: link:../contractor
       '@ethersproject/abi':
         specifier: ^5.7.0
@@ -170,7 +170,7 @@ importers:
   packages/events:
     dependencies:
       '@colony/core':
-        specifier: workspace:^2.0.0
+        specifier: workspace:^2.0.1
         version: link:../core
       fetch-retry:
         specifier: ^5.0.4
@@ -180,7 +180,7 @@ importers:
         version: 3.8.3(typescript@5.1.6)
     devDependencies:
       '@colony/contractor':
-        specifier: ^2.0.0
+        specifier: ^2.0.1
         version: link:../contractor
       '@ethersproject/abi':
         specifier: ^5.7.0
@@ -207,17 +207,17 @@ importers:
   packages/sdk:
     dependencies:
       '@colony/core':
-        specifier: ^2.0.0
+        specifier: ^2.0.1
         version: link:../core
       '@colony/events':
-        specifier: ^1.0.0
+        specifier: ^1.0.1
         version: link:../events
       '@colony/tokens':
-        specifier: ^0.2.0
+        specifier: ^0.2.1
         version: link:../tokens
     devDependencies:
       '@colony/contractor':
-        specifier: ^2.0.0
+        specifier: ^2.0.1
         version: link:../contractor
       '@ethersproject/abi':
         specifier: ^5.7.0
@@ -283,10 +283,10 @@ importers:
   packages/tokens:
     devDependencies:
       '@colony/contractor':
-        specifier: ^2.0.0
+        specifier: ^2.0.1
         version: link:../contractor
       '@colony/core':
-        specifier: ^2.0.0
+        specifier: ^2.0.1
         version: link:../core
       '@ethersproject/abi':
         specifier: ^5.7.0
