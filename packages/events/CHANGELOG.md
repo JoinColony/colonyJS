@@ -1,5 +1,13 @@
 # @colony/events
 
+## 1.0.1
+
+### Patch Changes
+
+- 07d6863: Allow for nodeJS version 20 support
+- Updated dependencies [07d6863]
+  - @colony/core@2.0.1
+
 ## 1.0.0
 
 ### Major Changes
