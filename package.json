@@ -13,7 +13,7 @@
     "typecheck": "pnpm -r typecheck"
   },
   "engines": {
-    "node": "^16 || ^18",
+    "node": "^16 || ^18 || ^20",
     "pnpm": "^8"
   },
   "repository": {
