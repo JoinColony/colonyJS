@@ -1,5 +1,11 @@
 # @colony/colony-js
 
+## 7.0.4
+
+### Patch Changes
+
+- 6a03abe: Make `cross-fetch` and `ts-jest-resolver` devDependencies
+
 ## 7.0.3
 
 ### Patch Changes
