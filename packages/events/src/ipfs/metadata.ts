@@ -137,7 +137,7 @@ export const createMetadataFor = <T extends MetadataType>(
       : data;
 
   const res = typia.validate<Metadata>({
-    type,
+    name: type,
     data: result,
     version: METADATA_VERSION,
   });
