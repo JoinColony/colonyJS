@@ -1,6 +1,6 @@
 // Attention: always adjust to newest versions!
 export const LATEST_TAG = 'hmwss';
-export { IColony__factory as ColonyFactory } from './contracts/IColony/14/index.js';
+export { IColony__factory as ColonyFactory } from './contracts/IColony/15/index.js';
 export { IVotingReputation__factory as VotingReputationFactory } from './contracts/IVotingReputation/10/index.js';
 
 export * from '@colony/core';
