@@ -17,7 +17,9 @@ We are providing the following packages in this monorepo:
 
 To start development on any of the included libraries, make sure you have Node v16.x and [`pnpm`](https://pnpm.io) v8.x installed.
 
-To install all required dependencies run `pnpm install` in the root directory of the repository.
+Run `pnpm run bootstrap` first
+
+To install all required dependencies run `pnpm run bootstrap` (this is important!) the first time, later you can just do `pnpm install --frozen-lockfile` in the root directory of the repository.
 
 You can run `pnpm lint`, `pnpm typecheck`, `pnpm test` and `pnpm build` in the root directory (will build all packages) or in the individual package directories.
 

@@ -2,6 +2,7 @@
   "name": "@colony/colony-js-mono",
   "version": "1.0.0",
   "scripts": {
+    "bootstrap": "pnpm --filter contractor install --ignore-scripts && pnpm --filter contractor run build && pnpm install --frozen-lockfile",
     "build": "pnpm -r build",
     "build-docs": "pnpm -r build-docs",
     "lint": "pnpm -r lint",

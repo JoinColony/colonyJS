@@ -14,9 +14,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '20.x'
-    - run: pnpm --filter "contractor" install --ignore-scripts
-    - run: pnpm --filter "contractor" run build
-    - run: pnpm install --frozen-lockfile
+    - run: pnpm run bootstrap
     # Exclude the build of sdk and colony-js as it's not necessary for the docs to build
     - run: pnpm --filter '!sdk' --filter '!colony-js' run build
     - run: pnpm run build-docs

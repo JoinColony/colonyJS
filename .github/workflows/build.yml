@@ -17,9 +17,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: pnpm --filter "contractor" install --ignore-scripts
-    - run: pnpm --filter "contractor" run build
-    - run: pnpm install --frozen-lockfile
+    - run: pnpm run bootstrap
     - run: pnpm run lint
     - run: pnpm run build
       env:

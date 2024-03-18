@@ -22,9 +22,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: pnpm --filter "contractor" install --ignore-scripts
-      - run: pnpm --filter "contractor" run build
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm run bootstrap
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
