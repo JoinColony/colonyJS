@@ -8,11 +8,8 @@
     "lint": "pnpm -r lint",
     "no-git-changes": "./scripts/no-git-changes.sh",
     "prepare": "husky install",
-    "prerelease": "pnpm run lint && pnpm run build && pnpm run test && pnpm run no-git-changes",
-    "release": "pnpm run prerelease && changeset publish",
-    "release-snapshot": "pnpm run prerelease && changeset publish --no-git-tag --snapshot",
+    "release": "pnpm run lint && pnpm run build && pnpm run test && pnpm run no-git-changes && changeset publish",
     "version": "changeset version && pnpm install --lockfile-only",
-    "version-snapshot": "changeset version --snapshot next && pnpm install --lockfile-only",
     "test": "pnpm -r test",
     "typecheck": "pnpm -r typecheck"
   },
