@@ -170,7 +170,7 @@ importers:
   packages/events:
     dependencies:
       '@colony/core':
-        specifier: workspace:^2.0.1
+        specifier: ^2.0.1
         version: link:../core
       fetch-retry:
         specifier: ^5.0.4

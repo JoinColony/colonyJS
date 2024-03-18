@@ -59,7 +59,7 @@
     "ethers": "^5.1.3"
   },
   "dependencies": {
-    "@colony/core": "workspace:^2.0.1",
+    "@colony/core": "^2.0.1",
     "fetch-retry": "^5.0.4",
     "typia": "^3.8.3"
   }
