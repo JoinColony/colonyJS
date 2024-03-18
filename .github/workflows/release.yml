@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - next
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -15,6 +16,15 @@ jobs:
         node-version: [20.10.0]
     steps:
       - uses: actions/checkout@v2
+      - name: If we're in next, check if pre.json exists
+        if: github.ref == 'refs/heads/next'
+        run: |
+          [ -f ./.changeset/pre.json ] || { echo "Error: pre.json does not exist but needed for 'next' release" >&2; exit 1; }
+
+      - name: If we're in main, make sure pre.json isn't there
+        if: github.ref == 'refs/heads/main'
+        run: |
+          [ ! -f ./.changesets/pre.json ] || { echo "Error: pre.json should not exist when releasing main" >&2; exit 1; }
       - uses: pnpm/action-setup@v2
         with:
           version: 8.14.1
