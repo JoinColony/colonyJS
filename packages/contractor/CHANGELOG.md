@@ -1,5 +1,11 @@
 # @colony/contractor
 
+## 0.0.0-next-20240319003400
+
+### Minor Changes
+
+- b43a217: Add first iteration of ColonyClientV15 in ColonyJS for hmwss-next release
+
 ## 2.0.1
 
 ### Patch Changes

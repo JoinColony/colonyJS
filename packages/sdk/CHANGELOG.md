@@ -1,5 +1,16 @@
 # @colony/sdk
 
+## 0.0.0-next-20240319003400
+
+### Minor Changes
+
+- b43a217: Add first iteration of ColonyClientV15 in ColonyJS for hmwss-next release
+
+### Patch Changes
+
+- Updated dependencies [b43a217]
+  - @colony/core@0.0.0-next-20240319003400
+
 ## 2.0.2
 
 ### Patch Changes
