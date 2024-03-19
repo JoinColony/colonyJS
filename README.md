@@ -25,9 +25,23 @@ You can run `pnpm lint`, `pnpm typecheck`, `pnpm test` and `pnpm build` in the r
 
 **Please make sure to include a [changeset](https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md) when submitting a PR.**
 
-## Creating a release
+## Creating a main release
 
-From the main directory, run `pnpm run version`, then `pnpm run release`.
+colonyJS is using [changesets]() to create releases. Here's the workflow:
+
+1) Create a PR and add a [changeset](https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md) within the PR
+2) Have the PR reviewed and merged into `main`
+3) `changesets` will create a release PR which collects all changes that have been merged since the last release
+4) This PR can be merged at any point to then create a new main release
+
+## Creating a snapshot (development) release
+
+1) Push your desired changes to a branch named `next-xxx` (replace `xxx` with your feature or custom name)
+2) Use the "Release a snapshot" action under "Actions"
+  ![image](https://github.com/JoinColony/colonyJS/assets/2174084/0961174c-fee0-417f-a0d8-8fc286e4fa2d)
+4) Pick your branch you would like to release a snapshot from
+  ![image](https://github.com/JoinColony/colonyJS/assets/2174084/365ab525-3b36-472e-9f73-56557fc8812d)
+5) The snapshot release will be available in npm under `0.0.0-next-TIMESTAMP` or `@next`
 
 ## Contributing
 
