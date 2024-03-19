@@ -45,4 +45,4 @@ jobs:
         with:
           commit_message: "chore: version snapshot"
       - name: Publish snapshot to npm
-        run: npx changeset publish --no-git-tag --snapshot
+        run: npx changeset publish --snapshot --tag next --no-git-tag
