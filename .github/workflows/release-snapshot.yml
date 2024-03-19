@@ -1,9 +1,8 @@
 name: Release a snapshot
 
 on:
-  push:
-    branches:
-      - next
+  # Only manual workflow trigger
+  workflow_dispatch:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -12,12 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20.10.0]
+        node-version: [20.11.0]
     steps:
       - uses: actions/checkout@v2
       - uses: pnpm/action-setup@v2
         with:
-          version: 8.14.1
+          version: 8.15.5
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -41,8 +40,5 @@ jobs:
           NODE_OPTIONS: --max-old-space-size=4096
       - name: Version snapshot
         run: npx changeset version --snapshot next && pnpm install --lockfile-only
-      - uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: "chore: version snapshot"
       - name: Publish snapshot to npm
         run: npx changeset publish --snapshot --tag next --no-git-tag
