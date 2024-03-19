@@ -39,6 +39,6 @@ jobs:
           CI: true
           NODE_OPTIONS: --max-old-space-size=4096
       - name: Version snapshot
-        run: npx changeset version --snapshot next && pnpm install --lockfile-only
+        run: npx changeset version --snapshot snapshot && pnpm install --lockfile-only
       - name: Publish snapshot to npm
-        run: npx changeset publish --snapshot --tag next --no-git-tag
+        run: npx changeset publish --snapshot --tag snapshot --no-git-tag
