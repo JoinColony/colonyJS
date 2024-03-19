@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  sdk-examples:
     runs-on: ubuntu-latest
     strategy:
       matrix:
