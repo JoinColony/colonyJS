@@ -1,0 +1,40 @@
+name: Release a snapshot
+
+on:
+  push:
+    branches:
+      - next
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.10.0]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8.14.1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: pnpm run bootstrap
+      - run: pnpm run bootstrap
+      - run: pnpm run lint
+      - run: pnpm run build
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096
+      - run: pnpm run test
+        env:
+          CI: true
+          NODE_OPTIONS: --max-old-space-size=4096
+      - name: Publish snapshot to npm
+        run: npx changeset version --snapshot next && pnpm install --lockfile-only
+        run: npx changeset publish --no-git-tag --snapshot
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_OPTIONS: --max-old-space-size=4096
