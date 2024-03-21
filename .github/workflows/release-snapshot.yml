@@ -29,7 +29,6 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run: pnpm run bootstrap
-      - run: pnpm run bootstrap
       - run: pnpm run lint
       - run: pnpm run build
         env:
