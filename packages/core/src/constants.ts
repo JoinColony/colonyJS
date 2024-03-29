@@ -14,6 +14,10 @@ export enum Network {
   Xdai = 'Xdai',
   /** Gnosis chain custom fork */
   XdaiQa = 'XdaiQa',
+  /** Polygon (Matic) */
+  Polygon = 'Polygon',
+  /** Matic Testnet */
+  Amoy = 'Amoy',
 }
 
 /**
@@ -30,6 +34,10 @@ export enum ColonyNetworkAddress {
   XdaiQa = '0x78163f593D1Fa151B4B7cacD146586aD2b686294',
   /** Placeholder for a locally deployed EtherRouter address */
   Custom = '',
+  /** The ColonyNetwork EtherRouter fork address on Polygon */
+  Polygon = '', // @TODO
+  /** The ColonyNetwork EtherRouter fork address on the Matic Testnet */
+  Amoy = '', // @TODO
 }
 
 /**
@@ -41,6 +49,8 @@ export enum ReputationOracleEndpoint {
   Xdai = 'https://xdai.colony.io/reputation/xdai',
   XdaiQa = 'https://qa-xdai.colony.io/reputation/xdai',
   Custom = 'http://localhost:3000',
+  Polygon = '', // @TODO
+  Amoy = '', // @TODO
 }
 
 /**
@@ -59,6 +69,10 @@ export enum MetaTxBroadCasterEndpoint {
   XdaiQa = 'https://xdai.colony.io/metatransaction/xdai',
   /** The metatransaction broadcaster endpoint for a custom network */
   Custom = '',
+  /** The metatransaction broadcaster endpoint on the Polygon (Matic) mainnet */
+  Polygon = '',
+  /** The metatransaction broadcaster endpoint on the Matic testnet */
+  Amoy = '',
 }
 
 /**
@@ -77,6 +91,10 @@ export enum ColonyRpcEndpoint {
   XdaiQa = 'https://xdai.colony.io/rpc/',
   /** Colony's own RPC2 endpoint for a custom network */
   Custom = '',
+  /** Colony's own RPC2 endpoint for Polygon (Matic) mainnet */
+  Polygon = '',
+  /** Colony's own RPC2 endpoint for the Matic testnet */
+  Amoy = '',
 }
 
 /**
@@ -89,6 +107,8 @@ export enum ColonyLabelSuffix {
   Xdai = '.colony.joincolony.colonyxdai',
   XdaiQa = '.colony.joincolony.colonyxdai',
   Custom = '.colony.joincolony.test',
+  Polygon = '.colony.joincolony.matic',
+  Amoy = '.colony.joincolony.test',
 }
 
 /**
@@ -101,6 +121,8 @@ export enum UserLabelSuffix {
   Xdai = '.user.joincolony.colonyxdai',
   XdaiQa = '.user.joincolony.colonyxdai',
   Custom = '.user.joincolony.test',
+  Polygon = '.user.joincolony.matic',
+  Amoy = '.user.joincolony.test',
 }
 
 /**
