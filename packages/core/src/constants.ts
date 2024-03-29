@@ -14,6 +14,10 @@ export enum Network {
   Xdai = 'Xdai',
   /** Gnosis chain custom fork */
   XdaiQa = 'XdaiQa',
+  /** Arbitrum One Mainnet */
+  ArbitrumOne = 'ArbitrumOne',
+  /** Arbitrum Testnet */
+  ArbitrumSepolia = 'ArbitrumSepolia',
 }
 
 /**
@@ -30,6 +34,8 @@ export enum ColonyNetworkAddress {
   XdaiQa = '0x78163f593D1Fa151B4B7cacD146586aD2b686294',
   /** Placeholder for a locally deployed EtherRouter address */
   Custom = '',
+  ArbitrumOne = '',
+  ArbitrumSepolia = '',
 }
 
 /**
@@ -41,6 +47,8 @@ export enum ReputationOracleEndpoint {
   Xdai = 'https://xdai.colony.io/reputation/xdai',
   XdaiQa = 'https://qa-xdai.colony.io/reputation/xdai',
   Custom = 'http://localhost:3000',
+  ArbitrumOne = 'https://arbitrum.colony.io/reputation/arbitrum',
+  ArbitrumSepolia = 'https://sepolia.colony.io/reputation/sepolia',
 }
 
 /**
@@ -59,6 +67,8 @@ export enum MetaTxBroadCasterEndpoint {
   XdaiQa = 'https://xdai.colony.io/metatransaction/xdai',
   /** The metatransaction broadcaster endpoint for a custom network */
   Custom = '',
+  ArbitrumOne = 'https://arbitrum.colony.io/metatransaction/arbitrum',
+  ArbitrumSepolia = 'https://sepolia.colony.io/metatransaction/sepolia',
 }
 
 /**
@@ -77,6 +87,8 @@ export enum ColonyRpcEndpoint {
   XdaiQa = 'https://xdai.colony.io/rpc/',
   /** Colony's own RPC2 endpoint for a custom network */
   Custom = '',
+  ArbitrumOne = 'https://arbitrum.colony.io/rpc/',
+  ArbitrumSepolia = 'https://sepolia.colony.io/rpc/',
 }
 
 /**
@@ -89,6 +101,8 @@ export enum ColonyLabelSuffix {
   Xdai = '.colony.joincolony.colonyxdai',
   XdaiQa = '.colony.joincolony.colonyxdai',
   Custom = '.colony.joincolony.test',
+  ArbitrumOne = '.colony.joincolony.arbitrum',
+  ArbitrumSepolia = '.colony.joincolony.sepolia',
 }
 
 /**
@@ -101,6 +115,8 @@ export enum UserLabelSuffix {
   Xdai = '.user.joincolony.colonyxdai',
   XdaiQa = '.user.joincolony.colonyxdai',
   Custom = '.user.joincolony.test',
+  ArbitrumOne = '.user.joincolony.arbitrum',
+  ArbitrumSepolia = '.user.joincolony.sepolia',
 }
 
 /**
