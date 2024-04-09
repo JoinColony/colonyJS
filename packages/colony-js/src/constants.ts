@@ -6,9 +6,7 @@
  * Every contract-client in ColonyJS needs to have a clientType property which a value of this enum needs to be assigned to
  */
 export enum ClientType {
-  CoinMachineClient = 'CoinMachineClient',
   ColonyClient = 'ColonyClient',
-  EvaluatedExpenditureClient = 'EvaluatedExpenditureClient',
   FundingQueueClient = 'FundingQueueClient',
   MotionTargetClient = 'MotionTargetClient',
   NetworkClient = 'NetworkClient',
@@ -21,5 +19,4 @@ export enum ClientType {
   TokenClient = 'TokenClient',
   TokenLockingClient = 'TokenLockingClient',
   VotingReputationClient = 'VotingReputationClient',
-  WhitelistClient = 'WhitelistClient',
 }
