@@ -1,6 +1,6 @@
 {
   "name": "@colony/core",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Colony core package",
   "type": "module",
   "exports": {
@@ -51,7 +51,7 @@
   },
   "homepage": "https://docs.colony.io/develop",
   "devDependencies": {
-    "@colony/contractor": "2.0.1",
+    "@colony/contractor": "2.1.0",
     "@ethersproject/abi": "^5.7.0",
     "@ethersproject/abstract-provider": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",
