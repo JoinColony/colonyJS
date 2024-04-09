@@ -380,18 +380,16 @@ ___
 
 ▸ **executeMetaTransaction**(`userAddress`, `payload`, `sigR`, `sigS`, `sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Executes a metatransaction targeting this contract
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `userAddress` | `string` | The address of the user that signed the metatransaction |
-| `payload` | `BytesLike` | The transaction data that will be executed if signature valid |
-| `sigR` | `BytesLike` | The 'r' part of the signature |
-| `sigS` | `BytesLike` | The 's' part of the signature |
-| `sigV` | `BigNumberish` | The 'v' part of the signature |
-| `overrides?` | `PayableOverrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `userAddress` | `string` |
+| `payload` | `BytesLike` |
+| `sigR` | `BytesLike` |
+| `sigS` | `BytesLike` |
+| `sigV` | `BigNumberish` |
+| `overrides?` | `PayableOverrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -403,18 +401,16 @@ ___
 
 ▸ **executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)**(`userAddress`, `payload`, `sigR`, `sigS`, `sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Executes a metatransaction targeting this contract
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `userAddress` | `string` | The address of the user that signed the metatransaction |
-| `payload` | `BytesLike` | The transaction data that will be executed if signature valid |
-| `sigR` | `BytesLike` | The 'r' part of the signature |
-| `sigS` | `BytesLike` | The 's' part of the signature |
-| `sigV` | `BigNumberish` | The 'v' part of the signature |
-| `overrides?` | `PayableOverrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `userAddress` | `string` |
+| `payload` | `BytesLike` |
+| `sigR` | `BytesLike` |
+| `sigS` | `BytesLike` |
+| `sigV` | `BigNumberish` |
+| `overrides?` | `PayableOverrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -446,14 +442,12 @@ ___
 
 ▸ **getMetatransactionNonce**(`userAddress`, `overrides?`): `Promise`<`BigNumber`\>
 
-Gets the next metatransaction nonce for user that should be used targeting this contract
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `userAddress` | `string` | The address of the user that will sign the metatransaction |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `userAddress` | `string` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -465,14 +459,12 @@ ___
 
 ▸ **getMetatransactionNonce(address)**(`userAddress`, `overrides?`): `Promise`<`BigNumber`\>
 
-Gets the next metatransaction nonce for user that should be used targeting this contract
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `userAddress` | `string` | The address of the user that will sign the metatransaction |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `userAddress` | `string` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 

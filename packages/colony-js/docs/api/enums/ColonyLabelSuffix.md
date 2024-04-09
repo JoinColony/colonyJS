@@ -4,6 +4,18 @@ ENS label suffix for Colonies
 
 ## Enumeration Members
 
+### ArbitrumOne
+
+• **ArbitrumOne** = ``".colony.joincolony.arbitrum"``
+
+___
+
+### ArbitrumSepolia
+
+• **ArbitrumSepolia** = ``".colony.joincolony.sepolia"``
+
+___
+
 ### Custom
 
 • **Custom** = ``".colony.joincolony.test"``

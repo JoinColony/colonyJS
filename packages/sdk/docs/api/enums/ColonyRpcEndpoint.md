@@ -4,6 +4,22 @@ Official Colony RPC2 endpoint (node)
 
 ## Enumeration Members
 
+### ArbitrumOne
+
+• **ArbitrumOne** = ``"https://arbitrum.colony.io/publicrpc/"``
+
+Colony's own RPC2 endpoint for Arbitrum One
+
+___
+
+### ArbitrumSepolia
+
+• **ArbitrumSepolia** = ``"https://arbitrum-sepolia.colony.io/publicrpc/"``
+
+Colony's own RPC2 endpoint for Arbitrum Sepolia testnet
+
+___
+
 ### Custom
 
 • **Custom** = ``""``

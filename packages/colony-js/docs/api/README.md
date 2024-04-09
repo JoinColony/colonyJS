@@ -36,16 +36,12 @@
 
 ## Interfaces
 
-- [CoinMachineClientV5](interfaces/CoinMachineClientV5.md)
-- [CoinMachineClientV6](interfaces/CoinMachineClientV6.md)
-- [CoinMachineClientV7](interfaces/CoinMachineClientV7.md)
-- [CoinMachineClientV8](interfaces/CoinMachineClientV8.md)
-- [CoinMachineClientV9](interfaces/CoinMachineClientV9.md)
 - [ColonyClientV10](interfaces/ColonyClientV10.md)
 - [ColonyClientV11](interfaces/ColonyClientV11.md)
 - [ColonyClientV12](interfaces/ColonyClientV12.md)
 - [ColonyClientV13](interfaces/ColonyClientV13.md)
 - [ColonyClientV14](interfaces/ColonyClientV14.md)
+- [ColonyClientV15](interfaces/ColonyClientV15.md)
 - [ColonyNetworkClient](interfaces/ColonyNetworkClient.md)
 - [ColonyToken](interfaces/ColonyToken.md)
 - [ColonyTokenClient](interfaces/ColonyTokenClient.md)
@@ -55,11 +51,6 @@
 - [ERC2612Token](interfaces/ERC2612Token.md)
 - [Erc20TokenClient](interfaces/Erc20TokenClient.md)
 - [Erc2612TokenClient](interfaces/Erc2612TokenClient.md)
-- [EvaluatedExpenditureClientV1](interfaces/EvaluatedExpenditureClientV1.md)
-- [EvaluatedExpenditureClientV2](interfaces/EvaluatedExpenditureClientV2.md)
-- [EvaluatedExpenditureClientV3](interfaces/EvaluatedExpenditureClientV3.md)
-- [EvaluatedExpenditureClientV4](interfaces/EvaluatedExpenditureClientV4.md)
-- [EvaluatedExpenditureClientV5](interfaces/EvaluatedExpenditureClientV5.md)
 - [IBasicMetaTransaction](interfaces/IBasicMetaTransaction.md)
 - [LegacyColonyTokenClient](interfaces/LegacyColonyTokenClient.md)
 - [NetworkClientOptions](interfaces/NetworkClientOptions.md)
@@ -68,14 +59,18 @@
 - [OneTxPaymentClientV4](interfaces/OneTxPaymentClientV4.md)
 - [OneTxPaymentClientV5](interfaces/OneTxPaymentClientV5.md)
 - [OneTxPaymentClientV6](interfaces/OneTxPaymentClientV6.md)
+- [OneTxPaymentClientV7](interfaces/OneTxPaymentClientV7.md)
 - [StagedExpenditureClientV1](interfaces/StagedExpenditureClientV1.md)
+- [StagedExpenditureClientV2](interfaces/StagedExpenditureClientV2.md)
 - [StakedExpenditureClientV1](interfaces/StakedExpenditureClientV1.md)
 - [StakedExpenditureClientV2](interfaces/StakedExpenditureClientV2.md)
 - [StakedExpenditureClientV3](interfaces/StakedExpenditureClientV3.md)
 - [StakedExpenditureClientV4](interfaces/StakedExpenditureClientV4.md)
+- [StakedExpenditureClientV5](interfaces/StakedExpenditureClientV5.md)
 - [StreamingPaymentsClientV1](interfaces/StreamingPaymentsClientV1.md)
 - [StreamingPaymentsClientV2](interfaces/StreamingPaymentsClientV2.md)
 - [StreamingPaymentsClientV3](interfaces/StreamingPaymentsClientV3.md)
+- [StreamingPaymentsClientV4](interfaces/StreamingPaymentsClientV4.md)
 - [Token](interfaces/Token.md)
 - [TokenAuthority](interfaces/TokenAuthority.md)
 - [TokenLocking](interfaces/TokenLocking.md)
@@ -85,16 +80,13 @@
 - [TokenSupplierClientV4](interfaces/TokenSupplierClientV4.md)
 - [TokenSupplierClientV5](interfaces/TokenSupplierClientV5.md)
 - [TokenSupplierClientV6](interfaces/TokenSupplierClientV6.md)
+- [TokenSupplierClientV7](interfaces/TokenSupplierClientV7.md)
 - [VotingReputationClientV10](interfaces/VotingReputationClientV10.md)
+- [VotingReputationClientV11](interfaces/VotingReputationClientV11.md)
 - [VotingReputationClientV6](interfaces/VotingReputationClientV6.md)
 - [VotingReputationClientV7](interfaces/VotingReputationClientV7.md)
 - [VotingReputationClientV8](interfaces/VotingReputationClientV8.md)
 - [VotingReputationClientV9](interfaces/VotingReputationClientV9.md)
-- [WhitelistClientV1](interfaces/WhitelistClientV1.md)
-- [WhitelistClientV2](interfaces/WhitelistClientV2.md)
-- [WhitelistClientV3](interfaces/WhitelistClientV3.md)
-- [WhitelistClientV4](interfaces/WhitelistClientV4.md)
-- [WhitelistClientV5](interfaces/WhitelistClientV5.md)
 
 ## References
 
@@ -128,69 +120,45 @@ Re-exports [Token__factory](classes/factories.Token__factory.md)
 
 ## Type Aliases
 
-### AnyCoinMachineClient
-
-Ƭ **AnyCoinMachineClient**: [`CoinMachineClientV5`](interfaces/CoinMachineClientV5.md) \| [`CoinMachineClientV6`](interfaces/CoinMachineClientV6.md) \| [`CoinMachineClientV7`](interfaces/CoinMachineClientV7.md) \| [`CoinMachineClientV8`](interfaces/CoinMachineClientV8.md) \| [`CoinMachineClientV9`](interfaces/CoinMachineClientV9.md)
-
-___
-
 ### AnyColonyClient
 
-Ƭ **AnyColonyClient**: [`ColonyClientV10`](interfaces/ColonyClientV10.md) \| [`ColonyClientV11`](interfaces/ColonyClientV11.md) \| [`ColonyClientV12`](interfaces/ColonyClientV12.md) \| [`ColonyClientV13`](interfaces/ColonyClientV13.md) \| [`ColonyClientV14`](interfaces/ColonyClientV14.md)
-
-___
-
-### AnyEvaluatedExpenditureClient
-
-Ƭ **AnyEvaluatedExpenditureClient**: [`EvaluatedExpenditureClientV1`](interfaces/EvaluatedExpenditureClientV1.md) \| [`EvaluatedExpenditureClientV2`](interfaces/EvaluatedExpenditureClientV2.md) \| [`EvaluatedExpenditureClientV3`](interfaces/EvaluatedExpenditureClientV3.md) \| [`EvaluatedExpenditureClientV4`](interfaces/EvaluatedExpenditureClientV4.md) \| [`EvaluatedExpenditureClientV5`](interfaces/EvaluatedExpenditureClientV5.md)
+Ƭ **AnyColonyClient**: [`ColonyClientV10`](interfaces/ColonyClientV10.md) \| [`ColonyClientV11`](interfaces/ColonyClientV11.md) \| [`ColonyClientV12`](interfaces/ColonyClientV12.md) \| [`ColonyClientV13`](interfaces/ColonyClientV13.md) \| [`ColonyClientV14`](interfaces/ColonyClientV14.md) \| [`ColonyClientV15`](interfaces/ColonyClientV15.md)
 
 ___
 
 ### AnyOneTxPaymentClient
 
-Ƭ **AnyOneTxPaymentClient**: [`OneTxPaymentClientV2`](interfaces/OneTxPaymentClientV2.md) \| [`OneTxPaymentClientV3`](interfaces/OneTxPaymentClientV3.md) \| [`OneTxPaymentClientV4`](interfaces/OneTxPaymentClientV4.md) \| [`OneTxPaymentClientV5`](interfaces/OneTxPaymentClientV5.md) \| [`OneTxPaymentClientV6`](interfaces/OneTxPaymentClientV6.md)
+Ƭ **AnyOneTxPaymentClient**: [`OneTxPaymentClientV2`](interfaces/OneTxPaymentClientV2.md) \| [`OneTxPaymentClientV3`](interfaces/OneTxPaymentClientV3.md) \| [`OneTxPaymentClientV4`](interfaces/OneTxPaymentClientV4.md) \| [`OneTxPaymentClientV5`](interfaces/OneTxPaymentClientV5.md) \| [`OneTxPaymentClientV6`](interfaces/OneTxPaymentClientV6.md) \| [`OneTxPaymentClientV7`](interfaces/OneTxPaymentClientV7.md)
 
 ___
 
 ### AnyStagedExpenditureClient
 
-Ƭ **AnyStagedExpenditureClient**: [`StagedExpenditureClientV1`](interfaces/StagedExpenditureClientV1.md)
+Ƭ **AnyStagedExpenditureClient**: [`StagedExpenditureClientV1`](interfaces/StagedExpenditureClientV1.md) \| [`StagedExpenditureClientV2`](interfaces/StagedExpenditureClientV2.md)
 
 ___
 
 ### AnyStakedExpenditureClient
 
-Ƭ **AnyStakedExpenditureClient**: [`StakedExpenditureClientV1`](interfaces/StakedExpenditureClientV1.md) \| [`StakedExpenditureClientV2`](interfaces/StakedExpenditureClientV2.md) \| [`StakedExpenditureClientV3`](interfaces/StakedExpenditureClientV3.md) \| [`StakedExpenditureClientV4`](interfaces/StakedExpenditureClientV4.md)
+Ƭ **AnyStakedExpenditureClient**: [`StakedExpenditureClientV1`](interfaces/StakedExpenditureClientV1.md) \| [`StakedExpenditureClientV2`](interfaces/StakedExpenditureClientV2.md) \| [`StakedExpenditureClientV3`](interfaces/StakedExpenditureClientV3.md) \| [`StakedExpenditureClientV4`](interfaces/StakedExpenditureClientV4.md) \| [`StakedExpenditureClientV5`](interfaces/StakedExpenditureClientV5.md)
 
 ___
 
 ### AnyStreamingPaymentsClient
 
-Ƭ **AnyStreamingPaymentsClient**: [`StreamingPaymentsClientV1`](interfaces/StreamingPaymentsClientV1.md) \| [`StreamingPaymentsClientV2`](interfaces/StreamingPaymentsClientV2.md) \| [`StreamingPaymentsClientV3`](interfaces/StreamingPaymentsClientV3.md)
+Ƭ **AnyStreamingPaymentsClient**: [`StreamingPaymentsClientV1`](interfaces/StreamingPaymentsClientV1.md) \| [`StreamingPaymentsClientV2`](interfaces/StreamingPaymentsClientV2.md) \| [`StreamingPaymentsClientV3`](interfaces/StreamingPaymentsClientV3.md) \| [`StreamingPaymentsClientV4`](interfaces/StreamingPaymentsClientV4.md)
 
 ___
 
 ### AnyTokenSupplierClient
 
-Ƭ **AnyTokenSupplierClient**: [`TokenSupplierClientV2`](interfaces/TokenSupplierClientV2.md) \| [`TokenSupplierClientV3`](interfaces/TokenSupplierClientV3.md) \| [`TokenSupplierClientV4`](interfaces/TokenSupplierClientV4.md) \| [`TokenSupplierClientV5`](interfaces/TokenSupplierClientV5.md) \| [`TokenSupplierClientV6`](interfaces/TokenSupplierClientV6.md)
+Ƭ **AnyTokenSupplierClient**: [`TokenSupplierClientV2`](interfaces/TokenSupplierClientV2.md) \| [`TokenSupplierClientV3`](interfaces/TokenSupplierClientV3.md) \| [`TokenSupplierClientV4`](interfaces/TokenSupplierClientV4.md) \| [`TokenSupplierClientV5`](interfaces/TokenSupplierClientV5.md) \| [`TokenSupplierClientV6`](interfaces/TokenSupplierClientV6.md) \| [`TokenSupplierClientV7`](interfaces/TokenSupplierClientV7.md)
 
 ___
 
 ### AnyVotingReputationClient
 
-Ƭ **AnyVotingReputationClient**: [`VotingReputationClientV6`](interfaces/VotingReputationClientV6.md) \| [`VotingReputationClientV7`](interfaces/VotingReputationClientV7.md) \| [`VotingReputationClientV8`](interfaces/VotingReputationClientV8.md) \| [`VotingReputationClientV9`](interfaces/VotingReputationClientV9.md) \| [`VotingReputationClientV10`](interfaces/VotingReputationClientV10.md)
-
-___
-
-### AnyWhitelistClient
-
-Ƭ **AnyWhitelistClient**: [`WhitelistClientV1`](interfaces/WhitelistClientV1.md) \| [`WhitelistClientV2`](interfaces/WhitelistClientV2.md) \| [`WhitelistClientV3`](interfaces/WhitelistClientV3.md) \| [`WhitelistClientV4`](interfaces/WhitelistClientV4.md) \| [`WhitelistClientV5`](interfaces/WhitelistClientV5.md)
-
-___
-
-### CoinMachineVersion
-
-Ƭ **CoinMachineVersion**: typeof `COIN_MACHINE_VERSIONS`[`number`]
+Ƭ **AnyVotingReputationClient**: [`VotingReputationClientV6`](interfaces/VotingReputationClientV6.md) \| [`VotingReputationClientV7`](interfaces/VotingReputationClientV7.md) \| [`VotingReputationClientV8`](interfaces/VotingReputationClientV8.md) \| [`VotingReputationClientV9`](interfaces/VotingReputationClientV9.md) \| [`VotingReputationClientV10`](interfaces/VotingReputationClientV10.md) \| [`VotingReputationClientV11`](interfaces/VotingReputationClientV11.md)
 
 ___
 
@@ -237,12 +205,6 @@ All roles a user has in `domainId`
 
 ___
 
-### EvaluatedExpenditureVersion
-
-Ƭ **EvaluatedExpenditureVersion**: typeof `EVALUATED_EXPENDITURE_VERSIONS`[`number`]
-
-___
-
 ### EventsClient
 
 Ƭ **EventsClient**: `CoinMachineEvents` \| `EvaluatedExpenditureEvents` \| `IColonyEvents` \| `IColonyNetworkEvents` \| `IVotingReputationEvents` \| `MetaTxTokenEvents` \| `OneTxPaymentEvents` \| `StakedExpenditureEvents` \| `StreamingPaymentsEvents` \| `TokenSupplierEvents` \| `VotingReputationEvents` \| `WhitelistEvents`
@@ -251,13 +213,13 @@ ___
 
 ### ExtensionClient
 
-Ƭ **ExtensionClient**: [`AnyCoinMachineClient`](README.md#anycoinmachineclient) \| [`AnyEvaluatedExpenditureClient`](README.md#anyevaluatedexpenditureclient) \| `AnyFundingQueueClient` \| [`AnyOneTxPaymentClient`](README.md#anyonetxpaymentclient) \| `AnyReputationBootstrapperClient` \| [`AnyStagedExpenditureClient`](README.md#anystagedexpenditureclient) \| [`AnyStakedExpenditureClient`](README.md#anystakedexpenditureclient) \| [`AnyStreamingPaymentsClient`](README.md#anystreamingpaymentsclient) \| [`AnyTokenSupplierClient`](README.md#anytokensupplierclient) \| [`AnyVotingReputationClient`](README.md#anyvotingreputationclient) \| [`AnyWhitelistClient`](README.md#anywhitelistclient)
+Ƭ **ExtensionClient**: `AnyFundingQueueClient` \| [`AnyOneTxPaymentClient`](README.md#anyonetxpaymentclient) \| `AnyReputationBootstrapperClient` \| [`AnyStagedExpenditureClient`](README.md#anystagedexpenditureclient) \| [`AnyStakedExpenditureClient`](README.md#anystakedexpenditureclient) \| [`AnyStreamingPaymentsClient`](README.md#anystreamingpaymentsclient) \| [`AnyTokenSupplierClient`](README.md#anytokensupplierclient) \| [`AnyVotingReputationClient`](README.md#anyvotingreputationclient)
 
 ___
 
 ### ExtensionVersion
 
-Ƭ **ExtensionVersion**: [`CoinMachineVersion`](README.md#coinmachineversion) \| [`EvaluatedExpenditureVersion`](README.md#evaluatedexpenditureversion) \| [`FundingQueueVersion`](README.md#fundingqueueversion) \| [`OneTxPaymentVersion`](README.md#onetxpaymentversion) \| [`ReputationBootstrapperVersion`](README.md#reputationbootstrapperversion) \| [`StagedExpenditureVersion`](README.md#stagedexpenditureversion) \| [`StakedExpenditureVersion`](README.md#stakedexpenditureversion) \| `StreamingPaymentsVersion` \| [`TokenSupplierVersion`](README.md#tokensupplierversion) \| [`VotingReputationVersion`](README.md#votingreputationversion) \| [`WhitelistVersion`](README.md#whitelistversion)
+Ƭ **ExtensionVersion**: [`FundingQueueVersion`](README.md#fundingqueueversion) \| [`OneTxPaymentVersion`](README.md#onetxpaymentversion) \| [`ReputationBootstrapperVersion`](README.md#reputationbootstrapperversion) \| [`StagedExpenditureVersion`](README.md#stagedexpenditureversion) \| [`StakedExpenditureVersion`](README.md#stakedexpenditureversion) \| `StreamingPaymentsVersion` \| [`TokenSupplierVersion`](README.md#tokensupplierversion) \| [`VotingReputationVersion`](README.md#votingreputationversion)
 
 All possible extension versions
 
@@ -336,12 +298,6 @@ ___
 
 Ƭ **VotingReputationVersion**: typeof `VOTING_REPUTATION_VERSIONS`[`number`]
 
-___
-
-### WhitelistVersion
-
-Ƭ **WhitelistVersion**: typeof `WHITELIST_VERSIONS`[`number`]
-
 ## Variables
 
 ### DecisionMotionCode
@@ -382,18 +338,15 @@ Latest versions of all extension contracts
 
 | Name | Type |
 | :------ | :------ |
-| `CoinMachine` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` |
-| `EvaluatedExpenditure` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` |
-| `FundingQueue` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` |
-| `IVotingReputation` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` |
-| `OneTxPayment` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` |
-| `ReputationBootstrapper` | ``1`` \| ``2`` \| ``3`` |
-| `StagedExpenditure` | ``1`` |
-| `StakedExpenditure` | ``1`` \| ``2`` \| ``3`` \| ``4`` |
-| `StreamingPayments` | ``1`` \| ``2`` \| ``3`` |
-| `TokenSupplier` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` |
-| `VotingReputation` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` |
-| `Whitelist` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` |
+| `FundingQueue` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` |
+| `IVotingReputation` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` |
+| `OneTxPayment` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` |
+| `ReputationBootstrapper` | ``1`` \| ``2`` \| ``3`` \| ``4`` |
+| `StagedExpenditure` | ``1`` \| ``2`` |
+| `StakedExpenditure` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` |
+| `StreamingPayments` | ``1`` \| ``2`` \| ``3`` \| ``4`` |
+| `TokenSupplier` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` |
+| `VotingReputation` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` |
 
 ___
 
@@ -911,7 +864,7 @@ Returns `true` if an extension version is compatible with the given colony versi
 | :------ | :------ | :------ |
 | `extension` | [`Extension`](enums/Extension.md) | A valid `Extension` contract name |
 | `extensionVersion` | [`ExtensionVersion`](README.md#extensionversion) | The version of the extension to check against the colony |
-| `colonyVersion` | ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12`` \| ``13`` \| ``14`` | The version of the colony to check for |
+| `colonyVersion` | ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12`` \| ``13`` \| ``14`` \| ``15`` | The version of the colony to check for |
 
 #### Returns
 

@@ -4,6 +4,22 @@ HTTP endpoint of the official Colony MetaTransaction (gasless transaction) broad
 
 ## Enumeration Members
 
+### ArbitrumOne
+
+• **ArbitrumOne** = ``"https://arbitrum.colony.io/metatransaction/arbitrum-one"``
+
+The metatransaction broadcaster endpoint on Arbitrum One
+
+___
+
+### ArbitrumSepolia
+
+• **ArbitrumSepolia** = ``"https://arbitrum-sepolia.colony.io/metatransaction/arbitrum-sepolia"``
+
+The metatransaction broadcaster endpoint on Arbitrum Sepolia testnet
+
+___
+
 ### Custom
 
 • **Custom** = ``""``

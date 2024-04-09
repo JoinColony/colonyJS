@@ -68,14 +68,28 @@ ___
 | `addColonyVersion(uint256,address)` | (`_version`: `BigNumberish`, `_resolver`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `addExtensionToNetwork` | (`_extensionId`: `BytesLike`, `_resolver`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `addExtensionToNetwork(bytes32,address)` | (`_extensionId`: `BytesLike`, `_resolver`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `addPendingReputationUpdate` | (`_chainId`: `BigNumberish`, `_colony`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `addPendingReputationUpdate(uint256,address)` | (`_chainId`: `BigNumberish`, `_colony`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `addPendingSkill` | (`_skillId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `addPendingSkill(uint256)` | (`_skillId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `addReputationUpdateLogFromBridge` | (`_colony`: `string`, `_user`: `string`, `_amount`: `BigNumberish`, `_skillId`: `BigNumberish`, `_updateNumber`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `addReputationUpdateLogFromBridge(address,address,int256,uint256,uint256)` | (`_colony`: `string`, `_user`: `string`, `_amount`: `BigNumberish`, `_skillId`: `BigNumberish`, `_updateNumber`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `addSkill` | (`_parentSkillId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `addSkill(uint256)` | (`_parentSkillId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `addSkillFromBridge` | (`_parentSkillId`: `BigNumberish`, `_skillCount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `addSkillFromBridge(uint256,uint256)` | (`_parentSkillId`: `BigNumberish`, `_skillCount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `addr` | (`_node`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `addr(bytes32)` | (`_node`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `appendReputationUpdateLog` | (`_user`: `string`, `_amount`: `BigNumberish`, `_skillId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `appendReputationUpdateLog(address,int256,uint256)` | (`_user`: `string`, `_amount`: `BigNumberish`, `_skillId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `approveExitRecovery` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `approveExitRecovery()` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `bridgeCurrentRootHash` | (`chainId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `bridgeCurrentRootHash(uint256)` | (`chainId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `bridgePendingReputationUpdate` | (`_colony`: `string`, `_updateNumber`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `bridgePendingReputationUpdate(address,uint256)` | (`_colony`: `string`, `_updateNumber`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `bridgeSkillIfNotMiningChain` | (`skillId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `bridgeSkillIfNotMiningChain(uint256)` | (`skillId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `burnUnneededRewards` | (`_amount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `burnUnneededRewards(uint256)` | (`_amount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `calculateMinerWeight` | (`_timeStaked`: `BigNumberish`, `_submissonIndex`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
@@ -106,12 +120,20 @@ ___
 | `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)` | (`userAddress`: `string`, `payload`: `BytesLike`, `sigR`: `BytesLike`, `sigS`: `BytesLike`, `sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `exitRecoveryMode` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `exitRecoveryMode()` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `getBridgedReputationUpdateCount` | (`_chainId`: `BigNumberish`, `_colony`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getBridgedReputationUpdateCount(uint256,address)` | (`_chainId`: `BigNumberish`, `_colony`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getBridgedSkillCounts` | (`_chainId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getBridgedSkillCounts(uint256)` | (`_chainId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getChildSkillId` | (`_skillId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getChildSkillId(uint256,uint256)` | (`_skillId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getColony` | (`_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getColony(uint256)` | (`_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `getColonyBridgeAddress` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `getColonyBridgeAddress()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getColonyCount` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getColonyCount()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getColonyCreationSalt` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `getColonyCreationSalt()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getColonyVersionResolver` | (`_version`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getColonyVersionResolver(uint256)` | (`_version`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getCurrentColonyVersion` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
@@ -128,6 +150,8 @@ ___
 | `getMetaColony()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getMetatransactionNonce` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getMetatransactionNonce(address)` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getMiningChainId` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getMiningChainId()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getMiningDelegator` | (`_delegate`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getMiningDelegator(address)` | (`_delegate`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getMiningResolver` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
@@ -138,6 +162,10 @@ ___
 | `getParentSkillId(uint256,uint256)` | (`_skillId`: `BigNumberish`, `_parentSkillIndex`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getPayoutWhitelist` | (`_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 | `getPayoutWhitelist(address)` | (`_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
+| `getPendingReputationUpdate` | (`_chainId`: `BigNumberish`, `_colony`: `string`, `_updateNumber`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PendingReputationUpdateStructOutput`\> |
+| `getPendingReputationUpdate(uint256,address,uint256)` | (`_chainId`: `BigNumberish`, `_colony`: `string`, `_updateNumber`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PendingReputationUpdateStructOutput`\> |
+| `getPendingSkillAddition` | (`_chainId`: `BigNumberish`, `_skillCount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+| `getPendingSkillAddition(uint256,uint256)` | (`_chainId`: `BigNumberish`, `_skillCount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getProfileDBAddress` | (`_node`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getProfileDBAddress(bytes32)` | (`_node`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getReplacementReputationUpdateLogEntry` | (`_reputationMiningCycle`: `string`, `_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`ReputationLogEntryStructOutput`\> |
@@ -164,8 +192,8 @@ ___
 | `getTokenLocking()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `initialise` | (`_resolver`: `string`, `_version`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `initialise(address,uint256)` | (`_resolver`: `string`, `_version`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `initialiseReputationMining` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `initialiseReputationMining()` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `initialiseReputationMining` | (`miningChainId`: `BigNumberish`, `newHash`: `BytesLike`, `newNLeaves`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `initialiseReputationMining(uint256,bytes32,uint256)` | (`miningChainId`: `BigNumberish`, `newHash`: `BytesLike`, `newNLeaves`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `initialiseRootLocalSkill` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `initialiseRootLocalSkill()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `installExtension` | (`_extensionId`: `BytesLike`, `_version`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
@@ -190,6 +218,8 @@ ___
 | `removeRecoveryRole(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `reward` | (`_recipient`: `string`, `_amount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `reward(address,uint256)` | (`_recipient`: `string`, `_amount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setColonyBridgeAddress` | (`_bridgeAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setColonyBridgeAddress(address)` | (`_bridgeAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `setFeeInverse` | (`_feeInverse`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `setFeeInverse(uint256)` | (`_feeInverse`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `setMiningDelegate` | (`_delegate`: `string`, `_allowed`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
@@ -206,6 +236,8 @@ ___
 | `setReputationMiningCycleReward(uint256)` | (`_amount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `setReputationRootHash` | (`_newHash`: `BytesLike`, `_newNLeaves`: `BigNumberish`, `_stakers`: `string`[], `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `setReputationRootHash(bytes32,uint256,address[])` | (`_newHash`: `BytesLike`, `_newNLeaves`: `BigNumberish`, `_stakers`: `string`[], `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setReputationRootHashFromBridge` | (`newHash`: `BytesLike`, `newNLeaves`: `BigNumberish`, `nonce`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `setReputationRootHashFromBridge(bytes32,uint256,uint256)` | (`newHash`: `BytesLike`, `newNLeaves`: `BigNumberish`, `nonce`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `setStorageSlotRecovery` | (`_slot`: `BigNumberish`, `_value`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `setStorageSlotRecovery(uint256,bytes32)` | (`_slot`: `BigNumberish`, `_value`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `setTokenLocking` | (`_tokenLockingAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
@@ -273,6 +305,8 @@ ___
 | :------ | :------ |
 | `AuctionCreated` | (`auction?`: ``null``, `token?`: ``null``, `quantity?`: ``null``) => `AuctionCreatedEventFilter` |
 | `AuctionCreated(address,address,uint256)` | (`auction?`: ``null``, `token?`: ``null``, `quantity?`: ``null``) => `AuctionCreatedEventFilter` |
+| `BridgeSet` | (`bridgeAddress?`: ``null``) => `BridgeSetEventFilter` |
+| `BridgeSet(address)` | (`bridgeAddress?`: ``null``) => `BridgeSetEventFilter` |
 | `ColonyAdded` | (`colonyId?`: ``null`` \| `BigNumberish`, `colonyAddress?`: ``null`` \| `string`, `token?`: ``null``) => `ColonyAddedEventFilter` |
 | `ColonyAdded(uint256,address,address)` | (`colonyId?`: ``null`` \| `BigNumberish`, `colonyAddress?`: ``null`` \| `string`, `token?`: ``null``) => `ColonyAddedEventFilter` |
 | `ColonyLabelRegistered` | (`colony?`: ``null`` \| `string`, `label?`: ``null``) => `ColonyLabelRegisteredEventFilter` |
@@ -321,8 +355,22 @@ ___
 | `ReputationMiningRewardSet(uint256)` | (`amount?`: ``null``) => `ReputationMiningRewardSetEventFilter` |
 | `ReputationRootHashSet` | (`newHash?`: ``null``, `newNLeaves?`: ``null``, `stakers?`: ``null``, `reward?`: ``null``) => `ReputationRootHashSetEventFilter` |
 | `ReputationRootHashSet(bytes32,uint256,address[],uint256)` | (`newHash?`: ``null``, `newNLeaves?`: ``null``, `stakers?`: ``null``, `reward?`: ``null``) => `ReputationRootHashSetEventFilter` |
+| `ReputationUpdateAddedFromBridge` | (`chainId?`: ``null``, `colony?`: ``null``, `updateNumber?`: ``null``) => `ReputationUpdateAddedFromBridgeEventFilter` |
+| `ReputationUpdateAddedFromBridge(uint256,address,uint256)` | (`chainId?`: ``null``, `colony?`: ``null``, `updateNumber?`: ``null``) => `ReputationUpdateAddedFromBridgeEventFilter` |
+| `ReputationUpdateSentToBridge` | (`colony?`: ``null``, `count?`: ``null``) => `ReputationUpdateSentToBridgeEventFilter` |
+| `ReputationUpdateSentToBridge(address,uint256)` | (`colony?`: ``null``, `count?`: ``null``) => `ReputationUpdateSentToBridgeEventFilter` |
+| `ReputationUpdateStored` | (`colony?`: ``null``, `count?`: ``null``) => `ReputationUpdateStoredEventFilter` |
+| `ReputationUpdateStored(address,uint256)` | (`colony?`: ``null``, `count?`: ``null``) => `ReputationUpdateStoredEventFilter` |
+| `ReputationUpdateStoredFromBridge` | (`chainId?`: ``null``, `colony?`: ``null``, `updateNumber?`: ``null``) => `ReputationUpdateStoredFromBridgeEventFilter` |
+| `ReputationUpdateStoredFromBridge(uint256,address,uint256)` | (`chainId?`: ``null``, `colony?`: ``null``, `updateNumber?`: ``null``) => `ReputationUpdateStoredFromBridgeEventFilter` |
 | `SkillAdded` | (`skillId?`: ``null``, `parentSkillId?`: ``null``) => `SkillAddedEventFilter` |
 | `SkillAdded(uint256,uint256)` | (`skillId?`: ``null``, `parentSkillId?`: ``null``) => `SkillAddedEventFilter` |
+| `SkillAddedFromBridge` | (`skillId?`: ``null``) => `SkillAddedFromBridgeEventFilter` |
+| `SkillAddedFromBridge(uint256)` | (`skillId?`: ``null``) => `SkillAddedFromBridgeEventFilter` |
+| `SkillCreationStored` | (`skillId?`: ``null``) => `SkillCreationStoredEventFilter` |
+| `SkillCreationStored(uint256)` | (`skillId?`: ``null``) => `SkillCreationStoredEventFilter` |
+| `SkillStoredFromBridge` | (`skillId?`: ``null``) => `SkillStoredFromBridgeEventFilter` |
+| `SkillStoredFromBridge(uint256)` | (`skillId?`: ``null``) => `SkillStoredFromBridgeEventFilter` |
 | `TokenAuthorityDeployed` | (`tokenAuthorityAddress?`: ``null``) => `TokenAuthorityDeployedEventFilter` |
 | `TokenAuthorityDeployed(address)` | (`tokenAuthorityAddress?`: ``null``) => `TokenAuthorityDeployedEventFilter` |
 | `TokenDeployed` | (`tokenAddress?`: ``null``) => `TokenDeployedEventFilter` |
@@ -352,14 +400,28 @@ ___
 | `addColonyVersion(uint256,address)` | (`_version`: `BigNumberish`, `_resolver`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `addExtensionToNetwork` | (`_extensionId`: `BytesLike`, `_resolver`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `addExtensionToNetwork(bytes32,address)` | (`_extensionId`: `BytesLike`, `_resolver`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `addPendingReputationUpdate` | (`_chainId`: `BigNumberish`, `_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `addPendingReputationUpdate(uint256,address)` | (`_chainId`: `BigNumberish`, `_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `addPendingSkill` | (`_skillId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `addPendingSkill(uint256)` | (`_skillId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `addReputationUpdateLogFromBridge` | (`_colony`: `string`, `_user`: `string`, `_amount`: `BigNumberish`, `_skillId`: `BigNumberish`, `_updateNumber`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `addReputationUpdateLogFromBridge(address,address,int256,uint256,uint256)` | (`_colony`: `string`, `_user`: `string`, `_amount`: `BigNumberish`, `_skillId`: `BigNumberish`, `_updateNumber`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `addSkill` | (`_parentSkillId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `addSkill(uint256)` | (`_parentSkillId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `addSkillFromBridge` | (`_parentSkillId`: `BigNumberish`, `_skillCount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `addSkillFromBridge(uint256,uint256)` | (`_parentSkillId`: `BigNumberish`, `_skillCount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `addr` | (`_node`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_address`: `string`  }\> |
 | `addr(bytes32)` | (`_node`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_address`: `string`  }\> |
 | `appendReputationUpdateLog` | (`_user`: `string`, `_amount`: `BigNumberish`, `_skillId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `appendReputationUpdateLog(address,int256,uint256)` | (`_user`: `string`, `_amount`: `BigNumberish`, `_skillId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `approveExitRecovery` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `approveExitRecovery()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `bridgeCurrentRootHash` | (`chainId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `bridgeCurrentRootHash(uint256)` | (`chainId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `bridgePendingReputationUpdate` | (`_colony`: `string`, `_updateNumber`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `bridgePendingReputationUpdate(address,uint256)` | (`_colony`: `string`, `_updateNumber`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `bridgeSkillIfNotMiningChain` | (`skillId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `bridgeSkillIfNotMiningChain(uint256)` | (`skillId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `burnUnneededRewards` | (`_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `burnUnneededRewards(uint256)` | (`_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `calculateMinerWeight` | (`_timeStaked`: `BigNumberish`, `_submissonIndex`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_minerWeight`: `BigNumber`  }\> |
@@ -390,12 +452,20 @@ ___
 | `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)` | (`userAddress`: `string`, `payload`: `BytesLike`, `sigR`: `BytesLike`, `sigS`: `BytesLike`, `sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `exitRecoveryMode` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `exitRecoveryMode()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `getBridgedReputationUpdateCount` | (`_chainId`: `BigNumberish`, `_colony`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `bridgedReputationCount`: `BigNumber`  }\> |
+| `getBridgedReputationUpdateCount(uint256,address)` | (`_chainId`: `BigNumberish`, `_colony`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `bridgedReputationCount`: `BigNumber`  }\> |
+| `getBridgedSkillCounts` | (`_chainId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `skillCount`: `BigNumber`  }\> |
+| `getBridgedSkillCounts(uint256)` | (`_chainId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `skillCount`: `BigNumber`  }\> |
 | `getChildSkillId` | (`_skillId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_childSkillId`: `BigNumber`  }\> |
 | `getChildSkillId(uint256,uint256)` | (`_skillId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_childSkillId`: `BigNumber`  }\> |
 | `getColony` | (`_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_colonyAddress`: `string`  }\> |
 | `getColony(uint256)` | (`_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_colonyAddress`: `string`  }\> |
+| `getColonyBridgeAddress` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `bridge`: `string`  }\> |
+| `getColonyBridgeAddress()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `bridge`: `string`  }\> |
 | `getColonyCount` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_count`: `BigNumber`  }\> |
 | `getColonyCount()` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_count`: `BigNumber`  }\> |
+| `getColonyCreationSalt` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `salt`: `string`  }\> |
+| `getColonyCreationSalt()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `salt`: `string`  }\> |
 | `getColonyVersionResolver` | (`_version`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_resolverAddress`: `string`  }\> |
 | `getColonyVersionResolver(uint256)` | (`_version`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_resolverAddress`: `string`  }\> |
 | `getCurrentColonyVersion` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_version`: `BigNumber`  }\> |
@@ -412,6 +482,8 @@ ___
 | `getMetaColony()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_colonyAddress`: `string`  }\> |
 | `getMetatransactionNonce` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
 | `getMetatransactionNonce(address)` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
+| `getMiningChainId` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `reputationMiningChainId`: `BigNumber`  }\> |
+| `getMiningChainId()` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `reputationMiningChainId`: `BigNumber`  }\> |
 | `getMiningDelegator` | (`_delegate`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_delegator`: `string`  }\> |
 | `getMiningDelegator(address)` | (`_delegate`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_delegator`: `string`  }\> |
 | `getMiningResolver` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `miningResolverAddress`: `string`  }\> |
@@ -422,6 +494,10 @@ ___
 | `getParentSkillId(uint256,uint256)` | (`_skillId`: `BigNumberish`, `_parentSkillIndex`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_parentSkillId`: `BigNumber`  }\> |
 | `getPayoutWhitelist` | (`_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`] & { `_status`: `boolean`  }\> |
 | `getPayoutWhitelist(address)` | (`_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`] & { `_status`: `boolean`  }\> |
+| `getPendingReputationUpdate` | (`_chainId`: `BigNumberish`, `_colony`: `string`, `_updateNumber`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`PendingReputationUpdateStructOutput`] & { `update`: `PendingReputationUpdateStructOutput`  }\> |
+| `getPendingReputationUpdate(uint256,address,uint256)` | (`_chainId`: `BigNumberish`, `_colony`: `string`, `_updateNumber`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`PendingReputationUpdateStructOutput`] & { `update`: `PendingReputationUpdateStructOutput`  }\> |
+| `getPendingSkillAddition` | (`_chainId`: `BigNumberish`, `_skillCount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `parentId`: `BigNumber`  }\> |
+| `getPendingSkillAddition(uint256,uint256)` | (`_chainId`: `BigNumberish`, `_skillCount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `parentId`: `BigNumber`  }\> |
 | `getProfileDBAddress` | (`_node`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_orbitdb`: `string`  }\> |
 | `getProfileDBAddress(bytes32)` | (`_node`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_orbitdb`: `string`  }\> |
 | `getReplacementReputationUpdateLogEntry` | (`_reputationMiningCycle`: `string`, `_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`ReputationLogEntryStructOutput`] & { `_reputationLogEntry`: `ReputationLogEntryStructOutput`  }\> |
@@ -448,8 +524,8 @@ ___
 | `getTokenLocking()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_lockingAddress`: `string`  }\> |
 | `initialise` | (`_resolver`: `string`, `_version`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `initialise(address,uint256)` | (`_resolver`: `string`, `_version`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `initialiseReputationMining` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `initialiseReputationMining()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `initialiseReputationMining` | (`miningChainId`: `BigNumberish`, `newHash`: `BytesLike`, `newNLeaves`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `initialiseReputationMining(uint256,bytes32,uint256)` | (`miningChainId`: `BigNumberish`, `newHash`: `BytesLike`, `newNLeaves`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `initialiseRootLocalSkill` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `initialiseRootLocalSkill()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `installExtension` | (`_extensionId`: `BytesLike`, `_version`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
@@ -474,6 +550,8 @@ ___
 | `removeRecoveryRole(address)` | (`_user`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `reward` | (`_recipient`: `string`, `_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `reward(address,uint256)` | (`_recipient`: `string`, `_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `setColonyBridgeAddress` | (`_bridgeAddress`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `setColonyBridgeAddress(address)` | (`_bridgeAddress`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `setFeeInverse` | (`_feeInverse`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `setFeeInverse(uint256)` | (`_feeInverse`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `setMiningDelegate` | (`_delegate`: `string`, `_allowed`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
@@ -490,6 +568,8 @@ ___
 | `setReputationMiningCycleReward(uint256)` | (`_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `setReputationRootHash` | (`_newHash`: `BytesLike`, `_newNLeaves`: `BigNumberish`, `_stakers`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `setReputationRootHash(bytes32,uint256,address[])` | (`_newHash`: `BytesLike`, `_newNLeaves`: `BigNumberish`, `_stakers`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `setReputationRootHashFromBridge` | (`newHash`: `BytesLike`, `newNLeaves`: `BigNumberish`, `nonce`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `setReputationRootHashFromBridge(bytes32,uint256,uint256)` | (`newHash`: `BytesLike`, `newNLeaves`: `BigNumberish`, `nonce`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `setStorageSlotRecovery` | (`_slot`: `BigNumberish`, `_value`: `BytesLike`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `setStorageSlotRecovery(uint256,bytes32)` | (`_slot`: `BigNumberish`, `_value`: `BytesLike`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `setTokenLocking` | (`_tokenLockingAddress`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
@@ -579,14 +659,28 @@ ___
 | `addColonyVersion(uint256,address)` | (`_version`: `BigNumberish`, `_resolver`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `addExtensionToNetwork` | (`_extensionId`: `BytesLike`, `_resolver`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `addExtensionToNetwork(bytes32,address)` | (`_extensionId`: `BytesLike`, `_resolver`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `addPendingReputationUpdate` | (`_chainId`: `BigNumberish`, `_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `addPendingReputationUpdate(uint256,address)` | (`_chainId`: `BigNumberish`, `_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `addPendingSkill` | (`_skillId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `addPendingSkill(uint256)` | (`_skillId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `addReputationUpdateLogFromBridge` | (`_colony`: `string`, `_user`: `string`, `_amount`: `BigNumberish`, `_skillId`: `BigNumberish`, `_updateNumber`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `addReputationUpdateLogFromBridge(address,address,int256,uint256,uint256)` | (`_colony`: `string`, `_user`: `string`, `_amount`: `BigNumberish`, `_skillId`: `BigNumberish`, `_updateNumber`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `addSkill` | (`_parentSkillId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `addSkill(uint256)` | (`_parentSkillId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `addSkillFromBridge` | (`_parentSkillId`: `BigNumberish`, `_skillCount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `addSkillFromBridge(uint256,uint256)` | (`_parentSkillId`: `BigNumberish`, `_skillCount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `addr` | (`_node`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `addr(bytes32)` | (`_node`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `appendReputationUpdateLog` | (`_user`: `string`, `_amount`: `BigNumberish`, `_skillId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `appendReputationUpdateLog(address,int256,uint256)` | (`_user`: `string`, `_amount`: `BigNumberish`, `_skillId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `approveExitRecovery` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `approveExitRecovery()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `bridgeCurrentRootHash` | (`chainId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `bridgeCurrentRootHash(uint256)` | (`chainId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `bridgePendingReputationUpdate` | (`_colony`: `string`, `_updateNumber`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `bridgePendingReputationUpdate(address,uint256)` | (`_colony`: `string`, `_updateNumber`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `bridgeSkillIfNotMiningChain` | (`skillId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `bridgeSkillIfNotMiningChain(uint256)` | (`skillId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `burnUnneededRewards` | (`_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `burnUnneededRewards(uint256)` | (`_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `calculateMinerWeight` | (`_timeStaked`: `BigNumberish`, `_submissonIndex`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
@@ -617,12 +711,20 @@ ___
 | `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)` | (`userAddress`: `string`, `payload`: `BytesLike`, `sigR`: `BytesLike`, `sigS`: `BytesLike`, `sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `exitRecoveryMode` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `exitRecoveryMode()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `getBridgedReputationUpdateCount` | (`_chainId`: `BigNumberish`, `_colony`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getBridgedReputationUpdateCount(uint256,address)` | (`_chainId`: `BigNumberish`, `_colony`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getBridgedSkillCounts` | (`_chainId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getBridgedSkillCounts(uint256)` | (`_chainId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getChildSkillId` | (`_skillId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getChildSkillId(uint256,uint256)` | (`_skillId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getColony` | (`_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getColony(uint256)` | (`_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getColonyBridgeAddress` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getColonyBridgeAddress()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getColonyCount` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getColonyCount()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getColonyCreationSalt` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getColonyCreationSalt()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getColonyVersionResolver` | (`_version`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getColonyVersionResolver(uint256)` | (`_version`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getCurrentColonyVersion` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
@@ -639,6 +741,8 @@ ___
 | `getMetaColony()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getMetatransactionNonce` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getMetatransactionNonce(address)` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getMiningChainId` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getMiningChainId()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getMiningDelegator` | (`_delegate`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getMiningDelegator(address)` | (`_delegate`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getMiningResolver` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
@@ -649,6 +753,10 @@ ___
 | `getParentSkillId(uint256,uint256)` | (`_skillId`: `BigNumberish`, `_parentSkillIndex`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getPayoutWhitelist` | (`_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getPayoutWhitelist(address)` | (`_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getPendingReputationUpdate` | (`_chainId`: `BigNumberish`, `_colony`: `string`, `_updateNumber`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getPendingReputationUpdate(uint256,address,uint256)` | (`_chainId`: `BigNumberish`, `_colony`: `string`, `_updateNumber`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getPendingSkillAddition` | (`_chainId`: `BigNumberish`, `_skillCount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getPendingSkillAddition(uint256,uint256)` | (`_chainId`: `BigNumberish`, `_skillCount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getProfileDBAddress` | (`_node`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getProfileDBAddress(bytes32)` | (`_node`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getReplacementReputationUpdateLogEntry` | (`_reputationMiningCycle`: `string`, `_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
@@ -675,8 +783,8 @@ ___
 | `getTokenLocking()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `initialise` | (`_resolver`: `string`, `_version`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `initialise(address,uint256)` | (`_resolver`: `string`, `_version`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `initialiseReputationMining` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `initialiseReputationMining()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `initialiseReputationMining` | (`miningChainId`: `BigNumberish`, `newHash`: `BytesLike`, `newNLeaves`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `initialiseReputationMining(uint256,bytes32,uint256)` | (`miningChainId`: `BigNumberish`, `newHash`: `BytesLike`, `newNLeaves`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `initialiseRootLocalSkill` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `initialiseRootLocalSkill()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `installExtension` | (`_extensionId`: `BytesLike`, `_version`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
@@ -701,6 +809,8 @@ ___
 | `removeRecoveryRole(address)` | (`_user`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `reward` | (`_recipient`: `string`, `_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `reward(address,uint256)` | (`_recipient`: `string`, `_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `setColonyBridgeAddress` | (`_bridgeAddress`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `setColonyBridgeAddress(address)` | (`_bridgeAddress`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `setFeeInverse` | (`_feeInverse`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `setFeeInverse(uint256)` | (`_feeInverse`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `setMiningDelegate` | (`_delegate`: `string`, `_allowed`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
@@ -717,6 +827,8 @@ ___
 | `setReputationMiningCycleReward(uint256)` | (`_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `setReputationRootHash` | (`_newHash`: `BytesLike`, `_newNLeaves`: `BigNumberish`, `_stakers`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `setReputationRootHash(bytes32,uint256,address[])` | (`_newHash`: `BytesLike`, `_newNLeaves`: `BigNumberish`, `_stakers`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `setReputationRootHashFromBridge` | (`newHash`: `BytesLike`, `newNLeaves`: `BigNumberish`, `nonce`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `setReputationRootHashFromBridge(bytes32,uint256,uint256)` | (`newHash`: `BytesLike`, `newNLeaves`: `BigNumberish`, `nonce`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `setStorageSlotRecovery` | (`_slot`: `BigNumberish`, `_value`: `BytesLike`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `setStorageSlotRecovery(uint256,bytes32)` | (`_slot`: `BigNumberish`, `_value`: `BytesLike`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `setTokenLocking` | (`_tokenLockingAddress`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
@@ -860,15 +972,13 @@ ___
 
 ▸ **addColonyVersion**(`_version`, `_resolver`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Adds a new Colony contract version and the address of associated `_resolver` contract. Secured function to authorised members. Allowed to be called by the Meta Colony only.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_version` | `BigNumberish` | The new Colony contract version |
-| `_resolver` | `string` | Address of the `Resolver` contract which will be used with the underlying `EtherRouter` contract |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_version` | `BigNumberish` |
+| `_resolver` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -884,15 +994,13 @@ ___
 
 ▸ **addColonyVersion(uint256,address)**(`_version`, `_resolver`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Adds a new Colony contract version and the address of associated `_resolver` contract. Secured function to authorised members. Allowed to be called by the Meta Colony only.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_version` | `BigNumberish` | The new Colony contract version |
-| `_resolver` | `string` | Address of the `Resolver` contract which will be used with the underlying `EtherRouter` contract |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_version` | `BigNumberish` |
+| `_resolver` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -908,16 +1016,13 @@ ___
 
 ▸ **addExtensionToNetwork**(`_extensionId`, `_resolver`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Can only be called by the MetaColony.The extension version is queried from the resolver itself.
-Add a new extension resolver to the Extensions repository.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_extensionId` | `BytesLike` | keccak256 hash of the extension name, used as an indentifier |
-| `_resolver` | `string` | The deployed resolver containing the extension contract logic |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_extensionId` | `BytesLike` |
+| `_resolver` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -933,16 +1038,13 @@ ___
 
 ▸ **addExtensionToNetwork(bytes32,address)**(`_extensionId`, `_resolver`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Can only be called by the MetaColony.The extension version is queried from the resolver itself.
-Add a new extension resolver to the Extensions repository.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_extensionId` | `BytesLike` | keccak256 hash of the extension name, used as an indentifier |
-| `_resolver` | `string` | The deployed resolver containing the extension contract logic |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_extensionId` | `BytesLike` |
+| `_resolver` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -954,19 +1056,152 @@ IColonyNetwork.addExtensionToNetwork(bytes32,address)
 
 ___
 
+### addPendingReputationUpdate
+
+▸ **addPendingReputationUpdate**(`_chainId`, `_colony`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_chainId` | `BigNumberish` |
+| `_colony` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+IColonyNetwork.addPendingReputationUpdate
+
+___
+
+### addPendingReputationUpdate(uint256,address)
+
+▸ **addPendingReputationUpdate(uint256,address)**(`_chainId`, `_colony`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_chainId` | `BigNumberish` |
+| `_colony` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+IColonyNetwork.addPendingReputationUpdate(uint256,address)
+
+___
+
+### addPendingSkill
+
+▸ **addPendingSkill**(`_skillId`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_skillId` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+IColonyNetwork.addPendingSkill
+
+___
+
+### addPendingSkill(uint256)
+
+▸ **addPendingSkill(uint256)**(`_skillId`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_skillId` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+IColonyNetwork.addPendingSkill(uint256)
+
+___
+
+### addReputationUpdateLogFromBridge
+
+▸ **addReputationUpdateLogFromBridge**(`_colony`, `_user`, `_amount`, `_skillId`, `_updateNumber`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_colony` | `string` |
+| `_user` | `string` |
+| `_amount` | `BigNumberish` |
+| `_skillId` | `BigNumberish` |
+| `_updateNumber` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+IColonyNetwork.addReputationUpdateLogFromBridge
+
+___
+
+### addReputationUpdateLogFromBridge(address,address,int256,uint256,uint256)
+
+▸ **addReputationUpdateLogFromBridge(address,address,int256,uint256,uint256)**(`_colony`, `_user`, `_amount`, `_skillId`, `_updateNumber`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_colony` | `string` |
+| `_user` | `string` |
+| `_amount` | `BigNumberish` |
+| `_skillId` | `BigNumberish` |
+| `_updateNumber` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+IColonyNetwork.addReputationUpdateLogFromBridge(address,address,int256,uint256,uint256)
+
+___
+
 ### addSkill
 
 ▸ **addSkill**(`_parentSkillId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Errors if the parent skill does not exist or if this is called by an unauthorised sender.
-Adds a new skill to the domain or local skills tree, under skill `_parentSkillId`. Any colony is allowed to add a local skill and which is associated with a new domain via `IColony.addDomain`.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_parentSkillId` | `BigNumberish` | Id of the skill under which the new skill will be added. If 0, a global skill is added with no parent. |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_parentSkillId` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -982,15 +1217,12 @@ ___
 
 ▸ **addSkill(uint256)**(`_parentSkillId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Errors if the parent skill does not exist or if this is called by an unauthorised sender.
-Adds a new skill to the domain or local skills tree, under skill `_parentSkillId`. Any colony is allowed to add a local skill and which is associated with a new domain via `IColony.addDomain`.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_parentSkillId` | `BigNumberish` | Id of the skill under which the new skill will be added. If 0, a global skill is added with no parent. |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_parentSkillId` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1002,18 +1234,60 @@ IColonyNetwork.addSkill(uint256)
 
 ___
 
+### addSkillFromBridge
+
+▸ **addSkillFromBridge**(`_parentSkillId`, `_skillCount`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_parentSkillId` | `BigNumberish` |
+| `_skillCount` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+IColonyNetwork.addSkillFromBridge
+
+___
+
+### addSkillFromBridge(uint256,uint256)
+
+▸ **addSkillFromBridge(uint256,uint256)**(`_parentSkillId`, `_skillCount`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_parentSkillId` | `BigNumberish` |
+| `_skillCount` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+IColonyNetwork.addSkillFromBridge(uint256,uint256)
+
+___
+
 ### addr
 
 ▸ **addr**(`_node`, `overrides?`): `Promise`<`string`\>
 
-Returns the address the supplied node resolves do, if we are the resolver.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_node` | `BytesLike` | The namehash of the ENS address being requested |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_node` | `BytesLike` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -1029,14 +1303,12 @@ ___
 
 ▸ **addr(bytes32)**(`_node`, `overrides?`): `Promise`<`string`\>
 
-Returns the address the supplied node resolves do, if we are the resolver.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_node` | `BytesLike` | The namehash of the ENS address being requested |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_node` | `BytesLike` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -1052,17 +1324,14 @@ ___
 
 ▸ **appendReputationUpdateLog**(`_user`, `_amount`, `_skillId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Errors if it is called by anyone but a colony or if skill with id `_skillId` does not exist or.
-Adds a reputation update entry to log.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_user` | `string` | The address of the user for the reputation update |
-| `_amount` | `BigNumberish` | The amount of reputation change for the update, this can be a negative as well as a positive value |
-| `_skillId` | `BigNumberish` | The skill for the reputation update |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_user` | `string` |
+| `_amount` | `BigNumberish` |
+| `_skillId` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1078,17 +1347,14 @@ ___
 
 ▸ **appendReputationUpdateLog(address,int256,uint256)**(`_user`, `_amount`, `_skillId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Errors if it is called by anyone but a colony or if skill with id `_skillId` does not exist or.
-Adds a reputation update entry to log.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_user` | `string` | The address of the user for the reputation update |
-| `_amount` | `BigNumberish` | The amount of reputation change for the update, this can be a negative as well as a positive value |
-| `_skillId` | `BigNumberish` | The skill for the reputation update |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_user` | `string` |
+| `_amount` | `BigNumberish` |
+| `_skillId` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1103,8 +1369,6 @@ ___
 ### approveExitRecovery
 
 ▸ **approveExitRecovery**(`overrides?`): `Promise`<`ContractTransaction`\>
-
-Indicate approval to exit recovery mode. Can only be called by user with recovery role.
 
 #### Parameters
 
@@ -1125,8 +1389,6 @@ ___
 ### approveExitRecovery()
 
 ▸ **approveExitRecovery()**(`overrides?`): `Promise`<`ContractTransaction`\>
-
-Indicate approval to exit recovery mode. Can only be called by user with recovery role.
 
 #### Parameters
 
@@ -1164,19 +1426,144 @@ IColonyNetwork.attach
 
 ___
 
+### bridgeCurrentRootHash
+
+▸ **bridgeCurrentRootHash**(`chainId`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `chainId` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+IColonyNetwork.bridgeCurrentRootHash
+
+___
+
+### bridgeCurrentRootHash(uint256)
+
+▸ **bridgeCurrentRootHash(uint256)**(`chainId`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `chainId` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+IColonyNetwork.bridgeCurrentRootHash(uint256)
+
+___
+
+### bridgePendingReputationUpdate
+
+▸ **bridgePendingReputationUpdate**(`_colony`, `_updateNumber`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_colony` | `string` |
+| `_updateNumber` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+IColonyNetwork.bridgePendingReputationUpdate
+
+___
+
+### bridgePendingReputationUpdate(address,uint256)
+
+▸ **bridgePendingReputationUpdate(address,uint256)**(`_colony`, `_updateNumber`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_colony` | `string` |
+| `_updateNumber` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+IColonyNetwork.bridgePendingReputationUpdate(address,uint256)
+
+___
+
+### bridgeSkillIfNotMiningChain
+
+▸ **bridgeSkillIfNotMiningChain**(`skillId`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `skillId` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+IColonyNetwork.bridgeSkillIfNotMiningChain
+
+___
+
+### bridgeSkillIfNotMiningChain(uint256)
+
+▸ **bridgeSkillIfNotMiningChain(uint256)**(`skillId`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `skillId` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+IColonyNetwork.bridgeSkillIfNotMiningChain(uint256)
+
+___
+
 ### burnUnneededRewards
 
 ▸ **burnUnneededRewards**(`_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Only callable by the active reputation mining cycle
-Used to burn tokens that are not needed to pay out rewards (because not every possible defence was made for all submissions)
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_amount` | `BigNumberish` | The amount of CLNY to burn |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_amount` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1192,15 +1579,12 @@ ___
 
 ▸ **burnUnneededRewards(uint256)**(`_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Only callable by the active reputation mining cycle
-Used to burn tokens that are not needed to pay out rewards (because not every possible defence was made for all submissions)
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_amount` | `BigNumberish` | The amount of CLNY to burn |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_amount` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1216,15 +1600,13 @@ ___
 
 ▸ **calculateMinerWeight**(`_timeStaked`, `_submissonIndex`, `overrides?`): `Promise`<`BigNumber`\>
 
-Calculate raw miner weight in WADs.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_timeStaked` | `BigNumberish` | Amount of time (in seconds) that the miner has staked their CLNY |
-| `_submissonIndex` | `BigNumberish` | Index of reputation hash submission (between 0 and 11) |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_timeStaked` | `BigNumberish` |
+| `_submissonIndex` | `BigNumberish` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -1240,15 +1622,13 @@ ___
 
 ▸ **calculateMinerWeight(uint256,uint256)**(`_timeStaked`, `_submissonIndex`, `overrides?`): `Promise`<`BigNumber`\>
 
-Calculate raw miner weight in WADs.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_timeStaked` | `BigNumberish` | Amount of time (in seconds) that the miner has staked their CLNY |
-| `_submissonIndex` | `BigNumberish` | Index of reputation hash submission (between 0 and 11) |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_timeStaked` | `BigNumberish` |
+| `_submissonIndex` | `BigNumberish` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -1264,15 +1644,12 @@ ___
 
 ▸ **checkNotAdditionalProtectedVariable**(`_slot`, `overrides?`): `Promise`<`void`\>
 
-No return value, but should throw if protected.This is external, but is only expected to be called from ContractRecovery; no need toexpose this to any users.
-Check whether the supplied slot is a protected variable specific to this contract
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_slot` | `BigNumberish` | The storage slot number to check. |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_slot` | `BigNumberish` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -1288,15 +1665,12 @@ ___
 
 ▸ **checkNotAdditionalProtectedVariable(uint256)**(`_slot`, `overrides?`): `Promise`<`void`\>
 
-No return value, but should throw if protected.This is external, but is only expected to be called from ContractRecovery; no need toexpose this to any users.
-Check whether the supplied slot is a protected variable specific to this contract
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_slot` | `BigNumberish` | The storage slot number to check. |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_slot` | `BigNumberish` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -1312,15 +1686,12 @@ ___
 
 ▸ **claimMiningReward**(`_recipient`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Can be called by anyone, not just _recipient
-Used by a user to claim any mining rewards due to them. This will place them in their balance or pending balance, as appropriate.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_recipient` | `string` | The user whose rewards to claim |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_recipient` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1336,15 +1707,12 @@ ___
 
 ▸ **claimMiningReward(address)**(`_recipient`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Can be called by anyone, not just _recipient
-Used by a user to claim any mining rewards due to them. This will place them in their balance or pending balance, as appropriate.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_recipient` | `string` | The user whose rewards to claim |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_recipient` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1380,15 +1748,12 @@ ___
 
 ▸ **createColony(address)**(`_tokenAddress`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-This is now deprecated and will be removed in a future versionFor the colony to mint tokens, token ownership must be transferred to the new colony
-Creates a new colony in the network, at version 3
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_tokenAddress` | `string` | Address of an ERC20 token to serve as the colony token. |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_tokenAddress` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1404,17 +1769,14 @@ ___
 
 ▸ **createColony(address,uint256,string)**(`_tokenAddress`, `_version`, `_colonyName`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-For the colony to mint tokens, token ownership must be transferred to the new colony
-Creates a new colony in the network, with an optional ENS name
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_tokenAddress` | `string` | Address of an ERC20 token to serve as the colony token |
-| `_version` | `BigNumberish` | The version of colony to deploy (pass 0 for the current version) |
-| `_colonyName` | `string` | The label to register (if null, no label is registered) |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_tokenAddress` | `string` |
+| `_version` | `BigNumberish` |
+| `_colonyName` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1430,18 +1792,15 @@ ___
 
 ▸ **createColony(address,uint256,string,string)**(`_tokenAddress`, `_version`, `_colonyName`, `_metadata`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-For the colony to mint tokens, token ownership must be transferred to the new colonyWe expect this function to only be used by the dapp
-Creates a new colony in the network, with an optional ENS name
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_tokenAddress` | `string` | Address of an ERC20 token to serve as the colony token |
-| `_version` | `BigNumberish` | The version of colony to deploy (pass 0 for the current version) |
-| `_colonyName` | `string` | The label to register (if null, no label is registered) |
-| `_metadata` | `string` | The metadata associated with the new colony |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_tokenAddress` | `string` |
+| `_version` | `BigNumberish` |
+| `_colonyName` | `string` |
+| `_metadata` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1457,19 +1816,16 @@ ___
 
 ▸ **createColony(address,uint256,string,string,bool)**(`_tokenAddress`, `_version`, `_colonyName`, `_orbitdb`, `_useExtensionManager`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-This is now deprecated and will be removed in a future versionFor the colony to mint tokens, token ownership must be transferred to the new colony
-Overload of the simpler `createColony` -- creates a new colony in the network with a variety of options, at version 4
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_tokenAddress` | `string` | Address of an ERC20 token to serve as the colony token |
-| `_version` | `BigNumberish` | The version of colony to deploy (pass 0 for the current version) |
-| `_colonyName` | `string` | The label to register (if null, no label is registered) |
-| `_orbitdb` | `string` | DEPRECATED Currently a no-op |
-| `_useExtensionManager` | `boolean` | DEPRECATED Currently a no-op |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_tokenAddress` | `string` |
+| `_version` | `BigNumberish` |
+| `_colonyName` | `string` |
+| `_orbitdb` | `string` |
+| `_useExtensionManager` | `boolean` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1485,21 +1841,18 @@ ___
 
 ▸ **createColonyForFrontend**(`_tokenAddress`, `_name`, `_symbol`, `_decimals`, `_version`, `_colonyName`, `_metadata`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-We expect this function to only be used by the dapp
-Creates a new colony in the network, possibly with a token and token authority, with an optional ENS name
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_tokenAddress` | `string` | Address of an ERC20 token to serve as the colony token (optional) |
-| `_name` | `string` | The name of the token (optional) |
-| `_symbol` | `string` | The short 'ticket' symbol for the token (optional) |
-| `_decimals` | `BigNumberish` | The number of decimal places that 1 user-facing token can be divided up in to (optional) In the case of ETH, and most tokens, this is 18. |
-| `_version` | `BigNumberish` | The version of colony to deploy (pass 0 for the current version) |
-| `_colonyName` | `string` | The label to register (if null, no label is registered) |
-| `_metadata` | `string` | The metadata associated with the new colony |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_tokenAddress` | `string` |
+| `_name` | `string` |
+| `_symbol` | `string` |
+| `_decimals` | `BigNumberish` |
+| `_version` | `BigNumberish` |
+| `_colonyName` | `string` |
+| `_metadata` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1515,21 +1868,18 @@ ___
 
 ▸ **createColonyForFrontend(address,string,string,uint8,uint256,string,string)**(`_tokenAddress`, `_name`, `_symbol`, `_decimals`, `_version`, `_colonyName`, `_metadata`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-We expect this function to only be used by the dapp
-Creates a new colony in the network, possibly with a token and token authority, with an optional ENS name
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_tokenAddress` | `string` | Address of an ERC20 token to serve as the colony token (optional) |
-| `_name` | `string` | The name of the token (optional) |
-| `_symbol` | `string` | The short 'ticket' symbol for the token (optional) |
-| `_decimals` | `BigNumberish` | The number of decimal places that 1 user-facing token can be divided up in to (optional) In the case of ETH, and most tokens, this is 18. |
-| `_version` | `BigNumberish` | The version of colony to deploy (pass 0 for the current version) |
-| `_colonyName` | `string` | The label to register (if null, no label is registered) |
-| `_metadata` | `string` | The metadata associated with the new colony |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_tokenAddress` | `string` |
+| `_name` | `string` |
+| `_symbol` | `string` |
+| `_decimals` | `BigNumberish` |
+| `_version` | `BigNumberish` |
+| `_colonyName` | `string` |
+| `_metadata` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1545,14 +1895,12 @@ ___
 
 ▸ **createMetaColony**(`_tokenAddress`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Create the Meta Colony, same as a normal colony plus the root skill.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_tokenAddress` | `string` | Address of the CLNY token |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_tokenAddress` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1568,14 +1916,12 @@ ___
 
 ▸ **createMetaColony(address)**(`_tokenAddress`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Create the Meta Colony, same as a normal colony plus the root skill.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_tokenAddress` | `string` | Address of the CLNY token |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_tokenAddress` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1618,17 +1964,14 @@ ___
 
 ▸ **deployTokenAuthority**(`_token`, `_colony`, `_allowedToTransfer`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-This is more expensive than deploying a token directly, but is able to be done via a metatransaction
-Called to deploy a token authority
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_token` | `string` | The address of the token |
-| `_colony` | `string` | The address of the colony in control of the token |
-| `_allowedToTransfer` | `string`[] | An array of addresses that are allowed to transfer the token even if it's locked |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_token` | `string` |
+| `_colony` | `string` |
+| `_allowedToTransfer` | `string`[] |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1644,17 +1987,14 @@ ___
 
 ▸ **deployTokenAuthority(address,address,address[])**(`_token`, `_colony`, `_allowedToTransfer`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-This is more expensive than deploying a token directly, but is able to be done via a metatransaction
-Called to deploy a token authority
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_token` | `string` | The address of the token |
-| `_colony` | `string` | The address of the colony in control of the token |
-| `_allowedToTransfer` | `string`[] | An array of addresses that are allowed to transfer the token even if it's locked |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_token` | `string` |
+| `_colony` | `string` |
+| `_allowedToTransfer` | `string`[] |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1670,17 +2010,14 @@ ___
 
 ▸ **deployTokenViaNetwork**(`_name`, `_symbol`, `_decimals`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-This is more expensive than deploying a token directly, but is able to be done via a metatransaction
-Called to deploy a token.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_name` | `string` | The name of the token |
-| `_symbol` | `string` | The short 'ticket' symbol for the token |
-| `_decimals` | `BigNumberish` | The number of decimal places that 1 user-facing token can be divided up in to In the case of ETH, and most tokens, this is 18. |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_name` | `string` |
+| `_symbol` | `string` |
+| `_decimals` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1696,17 +2033,14 @@ ___
 
 ▸ **deployTokenViaNetwork(string,string,uint8)**(`_name`, `_symbol`, `_decimals`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-This is more expensive than deploying a token directly, but is able to be done via a metatransaction
-Called to deploy a token.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_name` | `string` | The name of the token |
-| `_symbol` | `string` | The short 'ticket' symbol for the token |
-| `_decimals` | `BigNumberish` | The number of decimal places that 1 user-facing token can be divided up in to In the case of ETH, and most tokens, this is 18. |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_name` | `string` |
+| `_symbol` | `string` |
+| `_decimals` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1736,15 +2070,13 @@ ___
 
 ▸ **deprecateExtension**(`_extensionId`, `_deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Set the deprecation of an extension in a colony. Can only be called by a Colony.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_extensionId` | `BytesLike` | keccak256 hash of the extension name, used as an indentifier |
-| `_deprecated` | `boolean` | Whether to deprecate the extension or not |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_extensionId` | `BytesLike` |
+| `_deprecated` | `boolean` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1760,15 +2092,13 @@ ___
 
 ▸ **deprecateExtension(bytes32,bool)**(`_extensionId`, `_deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Set the deprecation of an extension in a colony. Can only be called by a Colony.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_extensionId` | `BytesLike` | keccak256 hash of the extension name, used as an indentifier |
-| `_deprecated` | `boolean` | Whether to deprecate the extension or not |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_extensionId` | `BytesLike` |
+| `_deprecated` | `boolean` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1784,15 +2114,12 @@ ___
 
 ▸ **deprecateSkill(uint256)**(`_skillId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-This function is deprecated and will be removed in a future releaseCurrently disabled, and will error if called even by a colony
-Mark a skill as deprecated which stops new tasks and payments from using it.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_skillId` | `BigNumberish` | Id of the skill |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_skillId` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1808,16 +2135,13 @@ ___
 
 ▸ **deprecateSkill(uint256,bool)**(`_skillId`, `_deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Currently disabled, and will error if called even by a colony
-Set deprecation status for a skill
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_skillId` | `BigNumberish` | Id of the skill |
-| `_deprecated` | `boolean` | Deprecation status |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_skillId` | `BigNumberish` |
+| `_deprecated` | `boolean` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1854,8 +2178,6 @@ ___
 
 ▸ **enterRecoveryMode**(`overrides?`): `Promise`<`ContractTransaction`\>
 
-Put colony network mining into recovery mode. Can only be called by user with recovery role.
-
 #### Parameters
 
 | Name | Type |
@@ -1875,8 +2197,6 @@ ___
 ### enterRecoveryMode()
 
 ▸ **enterRecoveryMode()**(`overrides?`): `Promise`<`ContractTransaction`\>
-
-Put colony network mining into recovery mode. Can only be called by user with recovery role.
 
 #### Parameters
 
@@ -1898,18 +2218,16 @@ ___
 
 ▸ **executeMetaTransaction**(`userAddress`, `payload`, `sigR`, `sigS`, `sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Executes a metatransaction targeting this contract
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `userAddress` | `string` | The address of the user that signed the metatransaction |
-| `payload` | `BytesLike` | The transaction data that will be executed if signature valid |
-| `sigR` | `BytesLike` | The 'r' part of the signature |
-| `sigS` | `BytesLike` | The 's' part of the signature |
-| `sigV` | `BigNumberish` | The 'v' part of the signature |
-| `overrides?` | `PayableOverrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `userAddress` | `string` |
+| `payload` | `BytesLike` |
+| `sigR` | `BytesLike` |
+| `sigS` | `BytesLike` |
+| `sigV` | `BigNumberish` |
+| `overrides?` | `PayableOverrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1925,18 +2243,16 @@ ___
 
 ▸ **executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)**(`userAddress`, `payload`, `sigR`, `sigS`, `sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Executes a metatransaction targeting this contract
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `userAddress` | `string` | The address of the user that signed the metatransaction |
-| `payload` | `BytesLike` | The transaction data that will be executed if signature valid |
-| `sigR` | `BytesLike` | The 'r' part of the signature |
-| `sigS` | `BytesLike` | The 's' part of the signature |
-| `sigV` | `BigNumberish` | The 'v' part of the signature |
-| `overrides?` | `PayableOverrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `userAddress` | `string` |
+| `payload` | `BytesLike` |
+| `sigR` | `BytesLike` |
+| `sigS` | `BytesLike` |
+| `sigV` | `BigNumberish` |
+| `overrides?` | `PayableOverrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1951,8 +2267,6 @@ ___
 ### exitRecoveryMode
 
 ▸ **exitRecoveryMode**(`overrides?`): `Promise`<`ContractTransaction`\>
-
-Exit recovery mode, can be called by anyone if enough whitelist approvals are given.
 
 #### Parameters
 
@@ -1973,8 +2287,6 @@ ___
 ### exitRecoveryMode()
 
 ▸ **exitRecoveryMode()**(`overrides?`): `Promise`<`ContractTransaction`\>
-
-Exit recovery mode, can be called by anyone if enough whitelist approvals are given.
 
 #### Parameters
 
@@ -2012,19 +2324,103 @@ IColonyNetwork.fallback
 
 ___
 
+### getBridgedReputationUpdateCount
+
+▸ **getBridgedReputationUpdateCount**(`_chainId`, `_colony`, `overrides?`): `Promise`<`BigNumber`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_chainId` | `BigNumberish` |
+| `_colony` | `string` |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+#### Inherited from
+
+IColonyNetwork.getBridgedReputationUpdateCount
+
+___
+
+### getBridgedReputationUpdateCount(uint256,address)
+
+▸ **getBridgedReputationUpdateCount(uint256,address)**(`_chainId`, `_colony`, `overrides?`): `Promise`<`BigNumber`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_chainId` | `BigNumberish` |
+| `_colony` | `string` |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+#### Inherited from
+
+IColonyNetwork.getBridgedReputationUpdateCount(uint256,address)
+
+___
+
+### getBridgedSkillCounts
+
+▸ **getBridgedSkillCounts**(`_chainId`, `overrides?`): `Promise`<`BigNumber`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_chainId` | `BigNumberish` |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+#### Inherited from
+
+IColonyNetwork.getBridgedSkillCounts
+
+___
+
+### getBridgedSkillCounts(uint256)
+
+▸ **getBridgedSkillCounts(uint256)**(`_chainId`, `overrides?`): `Promise`<`BigNumber`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_chainId` | `BigNumberish` |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+#### Inherited from
+
+IColonyNetwork.getBridgedSkillCounts(uint256)
+
+___
+
 ### getChildSkillId
 
 ▸ **getChildSkillId**(`_skillId`, `_childSkillIndex`, `overrides?`): `Promise`<`BigNumber`\>
 
-Get the id of the child skill at index `_childSkillIndex` for skill with Id `_skillId`.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_skillId` | `BigNumberish` | Id of the skill |
-| `_childSkillIndex` | `BigNumberish` | Index of the `skill.children` array to get |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_skillId` | `BigNumberish` |
+| `_childSkillIndex` | `BigNumberish` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -2040,15 +2436,13 @@ ___
 
 ▸ **getChildSkillId(uint256,uint256)**(`_skillId`, `_childSkillIndex`, `overrides?`): `Promise`<`BigNumber`\>
 
-Get the id of the child skill at index `_childSkillIndex` for skill with Id `_skillId`.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_skillId` | `BigNumberish` | Id of the skill |
-| `_childSkillIndex` | `BigNumberish` | Index of the `skill.children` array to get |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_skillId` | `BigNumberish` |
+| `_childSkillIndex` | `BigNumberish` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -2064,14 +2458,12 @@ ___
 
 ▸ **getColony**(`_id`, `overrides?`): `Promise`<`string`\>
 
-Get a colony address by its Id in the network.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the colony to get |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_id` | `BigNumberish` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -2087,14 +2479,12 @@ ___
 
 ▸ **getColony(uint256)**(`_id`, `overrides?`): `Promise`<`string`\>
 
-Get a colony address by its Id in the network.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the colony to get |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_id` | `BigNumberish` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -2103,6 +2493,46 @@ Get a colony address by its Id in the network.
 #### Inherited from
 
 IColonyNetwork.getColony(uint256)
+
+___
+
+### getColonyBridgeAddress
+
+▸ **getColonyBridgeAddress**(`overrides?`): `Promise`<`string`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`string`\>
+
+#### Inherited from
+
+IColonyNetwork.getColonyBridgeAddress
+
+___
+
+### getColonyBridgeAddress()
+
+▸ **getColonyBridgeAddress()**(`overrides?`): `Promise`<`string`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`string`\>
+
+#### Inherited from
+
+IColonyNetwork.getColonyBridgeAddress()
 
 ___
 
@@ -2130,8 +2560,6 @@ ___
 
 ▸ **getColonyCount**(`overrides?`): `Promise`<`BigNumber`\>
 
-Get the number of colonies in the network.
-
 #### Parameters
 
 | Name | Type |
@@ -2152,8 +2580,6 @@ ___
 
 ▸ **getColonyCount()**(`overrides?`): `Promise`<`BigNumber`\>
 
-Get the number of colonies in the network.
-
 #### Parameters
 
 | Name | Type |
@@ -2170,18 +2596,56 @@ IColonyNetwork.getColonyCount()
 
 ___
 
+### getColonyCreationSalt
+
+▸ **getColonyCreationSalt**(`overrides?`): `Promise`<`string`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`string`\>
+
+#### Inherited from
+
+IColonyNetwork.getColonyCreationSalt
+
+___
+
+### getColonyCreationSalt()
+
+▸ **getColonyCreationSalt()**(`overrides?`): `Promise`<`string`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`string`\>
+
+#### Inherited from
+
+IColonyNetwork.getColonyCreationSalt()
+
+___
+
 ### getColonyVersionResolver
 
 ▸ **getColonyVersionResolver**(`_version`, `overrides?`): `Promise`<`string`\>
 
-Get the `Resolver` address for Colony contract version `_version`.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_version` | `BigNumberish` | The Colony contract version |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_version` | `BigNumberish` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -2197,14 +2661,12 @@ ___
 
 ▸ **getColonyVersionResolver(uint256)**(`_version`, `overrides?`): `Promise`<`string`\>
 
-Get the `Resolver` address for Colony contract version `_version`.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_version` | `BigNumberish` | The Colony contract version |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_version` | `BigNumberish` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -2219,8 +2681,6 @@ ___
 ### getCurrentColonyVersion
 
 ▸ **getCurrentColonyVersion**(`overrides?`): `Promise`<`BigNumber`\>
-
-Returns the latest Colony contract version. This is the version used to create all new colonies.
 
 #### Parameters
 
@@ -2242,8 +2702,6 @@ ___
 
 ▸ **getCurrentColonyVersion()**(`overrides?`): `Promise`<`BigNumber`\>
 
-Returns the latest Colony contract version. This is the version used to create all new colonies.
-
 #### Parameters
 
 | Name | Type |
@@ -2263,8 +2721,6 @@ ___
 ### getENSRegistrar
 
 ▸ **getENSRegistrar**(`overrides?`): `Promise`<`string`\>
-
-Returns the address of the ENSRegistrar for the Network.
 
 #### Parameters
 
@@ -2286,8 +2742,6 @@ ___
 
 ▸ **getENSRegistrar()**(`overrides?`): `Promise`<`string`\>
 
-Returns the address of the ENSRegistrar for the Network.
-
 #### Parameters
 
 | Name | Type |
@@ -2308,15 +2762,13 @@ ___
 
 ▸ **getExtensionInstallation**(`_extensionId`, `_colony`, `overrides?`): `Promise`<`string`\>
 
-Get an extension's installation.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_extensionId` | `BytesLike` | keccak256 hash of the extension name, used as an indentifier |
-| `_colony` | `string` | Address of the colony the extension is installed in |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_extensionId` | `BytesLike` |
+| `_colony` | `string` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -2332,15 +2784,13 @@ ___
 
 ▸ **getExtensionInstallation(bytes32,address)**(`_extensionId`, `_colony`, `overrides?`): `Promise`<`string`\>
 
-Get an extension's installation.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_extensionId` | `BytesLike` | keccak256 hash of the extension name, used as an indentifier |
-| `_colony` | `string` | Address of the colony the extension is installed in |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_extensionId` | `BytesLike` |
+| `_colony` | `string` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -2356,15 +2806,13 @@ ___
 
 ▸ **getExtensionResolver**(`_extensionId`, `_version`, `overrides?`): `Promise`<`string`\>
 
-Get an extension's resolver.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_extensionId` | `BytesLike` | keccak256 hash of the extension name, used as an indentifier |
-| `_version` | `BigNumberish` | Version of the extension |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_extensionId` | `BytesLike` |
+| `_version` | `BigNumberish` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -2380,15 +2828,13 @@ ___
 
 ▸ **getExtensionResolver(bytes32,uint256)**(`_extensionId`, `_version`, `overrides?`): `Promise`<`string`\>
 
-Get an extension's resolver.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_extensionId` | `BytesLike` | keccak256 hash of the extension name, used as an indentifier |
-| `_version` | `BigNumberish` | Version of the extension |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_extensionId` | `BytesLike` |
+| `_version` | `BigNumberish` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -2403,8 +2849,6 @@ ___
 ### getFeeInverse
 
 ▸ **getFeeInverse**(`overrides?`): `Promise`<`BigNumber`\>
-
-Return 1 / the fee to pay to the network. e.g. if the fee is 1% (or 0.01), return 100.
 
 #### Parameters
 
@@ -2426,8 +2870,6 @@ ___
 
 ▸ **getFeeInverse()**(`overrides?`): `Promise`<`BigNumber`\>
 
-Return 1 / the fee to pay to the network. e.g. if the fee is 1% (or 0.01), return 100.
-
 #### Parameters
 
 | Name | Type |
@@ -2448,8 +2890,6 @@ ___
 
 ▸ **getMetaColony**(`overrides?`): `Promise`<`string`\>
 
-Get the Meta Colony address.
-
 #### Parameters
 
 | Name | Type |
@@ -2469,8 +2909,6 @@ ___
 ### getMetaColony()
 
 ▸ **getMetaColony()**(`overrides?`): `Promise`<`string`\>
-
-Get the Meta Colony address.
 
 #### Parameters
 
@@ -2506,14 +2944,12 @@ ___
 
 ▸ **getMetatransactionNonce**(`userAddress`, `overrides?`): `Promise`<`BigNumber`\>
 
-Gets the next metatransaction nonce for user that should be used targeting this contract
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `userAddress` | `string` | The address of the user that will sign the metatransaction |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `userAddress` | `string` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -2529,14 +2965,12 @@ ___
 
 ▸ **getMetatransactionNonce(address)**(`userAddress`, `overrides?`): `Promise`<`BigNumber`\>
 
-Gets the next metatransaction nonce for user that should be used targeting this contract
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `userAddress` | `string` | The address of the user that will sign the metatransaction |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `userAddress` | `string` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -2548,18 +2982,56 @@ IColonyNetwork.getMetatransactionNonce(address)
 
 ___
 
+### getMiningChainId
+
+▸ **getMiningChainId**(`overrides?`): `Promise`<`BigNumber`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+#### Inherited from
+
+IColonyNetwork.getMiningChainId
+
+___
+
+### getMiningChainId()
+
+▸ **getMiningChainId()**(`overrides?`): `Promise`<`BigNumber`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+#### Inherited from
+
+IColonyNetwork.getMiningChainId()
+
+___
+
 ### getMiningDelegator
 
 ▸ **getMiningDelegator**(`_delegate`, `overrides?`): `Promise`<`string`\>
 
-Called to get the address _delegate is allowed to mine for
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_delegate` | `string` | The address that wants to mine |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_delegate` | `string` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -2575,14 +3047,12 @@ ___
 
 ▸ **getMiningDelegator(address)**(`_delegate`, `overrides?`): `Promise`<`string`\>
 
-Called to get the address _delegate is allowed to mine for
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_delegate` | `string` | The address that wants to mine |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_delegate` | `string` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -2597,8 +3067,6 @@ ___
 ### getMiningResolver
 
 ▸ **getMiningResolver**(`overrides?`): `Promise`<`string`\>
-
-Get the resolver to be used by new instances of ReputationMiningCycle.
 
 #### Parameters
 
@@ -2620,8 +3088,6 @@ ___
 
 ▸ **getMiningResolver()**(`overrides?`): `Promise`<`string`\>
 
-Get the resolver to be used by new instances of ReputationMiningCycle.
-
 #### Parameters
 
 | Name | Type |
@@ -2642,14 +3108,12 @@ ___
 
 ▸ **getMiningStake**(`_user`, `overrides?`): `Promise`<`MiningStakeStructOutput`\>
 
-returns how much CLNY _user has staked for the purposes of reputation mining
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_user` | `string` | The user to query |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_user` | `string` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -2665,14 +3129,12 @@ ___
 
 ▸ **getMiningStake(address)**(`_user`, `overrides?`): `Promise`<`MiningStakeStructOutput`\>
 
-returns how much CLNY _user has staked for the purposes of reputation mining
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_user` | `string` | The user to query |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_user` | `string` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -2688,15 +3150,13 @@ ___
 
 ▸ **getParentSkillId**(`_skillId`, `_parentSkillIndex`, `overrides?`): `Promise`<`BigNumber`\>
 
-Get the id of the parent skill at index `_parentSkillIndex` for skill with Id `_skillId`.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_skillId` | `BigNumberish` | Id of the skill |
-| `_parentSkillIndex` | `BigNumberish` | Index of the `skill.parents` array to get Note that not all parent skill ids are stored here. See `Skill.parents` member for definition on which parents are stored |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_skillId` | `BigNumberish` |
+| `_parentSkillIndex` | `BigNumberish` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -2712,15 +3172,13 @@ ___
 
 ▸ **getParentSkillId(uint256,uint256)**(`_skillId`, `_parentSkillIndex`, `overrides?`): `Promise`<`BigNumber`\>
 
-Get the id of the parent skill at index `_parentSkillIndex` for skill with Id `_skillId`.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_skillId` | `BigNumberish` | Id of the skill |
-| `_parentSkillIndex` | `BigNumberish` | Index of the `skill.parents` array to get Note that not all parent skill ids are stored here. See `Skill.parents` member for definition on which parents are stored |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_skillId` | `BigNumberish` |
+| `_parentSkillIndex` | `BigNumberish` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -2736,14 +3194,12 @@ ___
 
 ▸ **getPayoutWhitelist**(`_token`, `overrides?`): `Promise`<`boolean`\>
 
-Get a token's status in the payout whitelist
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_token` | `string` | The token being queried |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_token` | `string` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -2759,14 +3215,12 @@ ___
 
 ▸ **getPayoutWhitelist(address)**(`_token`, `overrides?`): `Promise`<`boolean`\>
 
-Get a token's status in the payout whitelist
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_token` | `string` | The token being queried |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_token` | `string` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -2778,18 +3232,106 @@ IColonyNetwork.getPayoutWhitelist(address)
 
 ___
 
+### getPendingReputationUpdate
+
+▸ **getPendingReputationUpdate**(`_chainId`, `_colony`, `_updateNumber`, `overrides?`): `Promise`<`PendingReputationUpdateStructOutput`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_chainId` | `BigNumberish` |
+| `_colony` | `string` |
+| `_updateNumber` | `BigNumberish` |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`PendingReputationUpdateStructOutput`\>
+
+#### Inherited from
+
+IColonyNetwork.getPendingReputationUpdate
+
+___
+
+### getPendingReputationUpdate(uint256,address,uint256)
+
+▸ **getPendingReputationUpdate(uint256,address,uint256)**(`_chainId`, `_colony`, `_updateNumber`, `overrides?`): `Promise`<`PendingReputationUpdateStructOutput`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_chainId` | `BigNumberish` |
+| `_colony` | `string` |
+| `_updateNumber` | `BigNumberish` |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`PendingReputationUpdateStructOutput`\>
+
+#### Inherited from
+
+IColonyNetwork.getPendingReputationUpdate(uint256,address,uint256)
+
+___
+
+### getPendingSkillAddition
+
+▸ **getPendingSkillAddition**(`_chainId`, `_skillCount`, `overrides?`): `Promise`<`BigNumber`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_chainId` | `BigNumberish` |
+| `_skillCount` | `BigNumberish` |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+#### Inherited from
+
+IColonyNetwork.getPendingSkillAddition
+
+___
+
+### getPendingSkillAddition(uint256,uint256)
+
+▸ **getPendingSkillAddition(uint256,uint256)**(`_chainId`, `_skillCount`, `overrides?`): `Promise`<`BigNumber`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_chainId` | `BigNumberish` |
+| `_skillCount` | `BigNumberish` |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`BigNumber`\>
+
+#### Inherited from
+
+IColonyNetwork.getPendingSkillAddition(uint256,uint256)
+
+___
+
 ### getProfileDBAddress
 
 ▸ **getProfileDBAddress**(`_node`, `overrides?`): `Promise`<`string`\>
 
-Retrieve the orbitdb address corresponding to a registered account.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_node` | `BytesLike` | The Namehash of the account being queried. |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_node` | `BytesLike` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -2805,14 +3347,12 @@ ___
 
 ▸ **getProfileDBAddress(bytes32)**(`_node`, `overrides?`): `Promise`<`string`\>
 
-Retrieve the orbitdb address corresponding to a registered account.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_node` | `BytesLike` | The Namehash of the account being queried. |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_node` | `BytesLike` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -2828,15 +3368,13 @@ ___
 
 ▸ **getReplacementReputationUpdateLogEntry**(`_reputationMiningCycle`, `_id`, `overrides?`): `Promise`<`ReputationLogEntryStructOutput`\>
 
-Get a replacement log entry (if set) for the log entry `_id` in the mining cycle that was at the address `_reputationMiningCycle`.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_reputationMiningCycle` | `string` | The address of the reputation mining cycle we are asking about |
-| `_id` | `BigNumberish` | The log entry number we wish to see if there is a replacement for |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_reputationMiningCycle` | `string` |
+| `_id` | `BigNumberish` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -2852,15 +3390,13 @@ ___
 
 ▸ **getReplacementReputationUpdateLogEntry(address,uint256)**(`_reputationMiningCycle`, `_id`, `overrides?`): `Promise`<`ReputationLogEntryStructOutput`\>
 
-Get a replacement log entry (if set) for the log entry `_id` in the mining cycle that was at the address `_reputationMiningCycle`.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_reputationMiningCycle` | `string` | The address of the reputation mining cycle we are asking about |
-| `_id` | `BigNumberish` | The log entry number we wish to see if there is a replacement for |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_reputationMiningCycle` | `string` |
+| `_id` | `BigNumberish` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -2876,14 +3412,12 @@ ___
 
 ▸ **getReplacementReputationUpdateLogsExist**(`_reputationMiningCycle`, `overrides?`): `Promise`<`boolean`\>
 
-Get whether any replacement log entries have been set for the supplied reputation mining cycle.Used by the client to avoid doubling the number of RPC calls when syncing from scratch.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_reputationMiningCycle` | `string` | The reputation mining cycle address we want to know if any entries have been replaced in. |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_reputationMiningCycle` | `string` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -2899,14 +3433,12 @@ ___
 
 ▸ **getReplacementReputationUpdateLogsExist(address)**(`_reputationMiningCycle`, `overrides?`): `Promise`<`boolean`\>
 
-Get whether any replacement log entries have been set for the supplied reputation mining cycle.Used by the client to avoid doubling the number of RPC calls when syncing from scratch.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_reputationMiningCycle` | `string` | The reputation mining cycle address we want to know if any entries have been replaced in. |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_reputationMiningCycle` | `string` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -2922,14 +3454,12 @@ ___
 
 ▸ **getReputationMiningCycle**(`_active`, `overrides?`): `Promise`<`string`\>
 
-Get the address of either the active or inactive reputation mining cycle, based on `active`. The active reputation mining cycle is the one currently under consideration by reputation miners. The inactive reputation cycle is the one with the log that is being appended to.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_active` | `boolean` | Whether the user wants the active or inactive reputation mining cycle |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_active` | `boolean` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -2945,14 +3475,12 @@ ___
 
 ▸ **getReputationMiningCycle(bool)**(`_active`, `overrides?`): `Promise`<`string`\>
 
-Get the address of either the active or inactive reputation mining cycle, based on `active`. The active reputation mining cycle is the one currently under consideration by reputation miners. The inactive reputation cycle is the one with the log that is being appended to.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_active` | `boolean` | Whether the user wants the active or inactive reputation mining cycle |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_active` | `boolean` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -2967,8 +3495,6 @@ ___
 ### getReputationMiningCycleReward
 
 ▸ **getReputationMiningCycleReward**(`overrides?`): `Promise`<`BigNumber`\>
-
-Called to get the total per-cycle reputation mining reward.
 
 #### Parameters
 
@@ -2990,8 +3516,6 @@ ___
 
 ▸ **getReputationMiningCycleReward()**(`overrides?`): `Promise`<`BigNumber`\>
 
-Called to get the total per-cycle reputation mining reward.
-
 #### Parameters
 
 | Name | Type |
@@ -3011,8 +3535,6 @@ ___
 ### getReputationMiningSkillId
 
 ▸ **getReputationMiningSkillId**(`overrides?`): `Promise`<`BigNumber`\>
-
-Get the `skillId` of the reputation mining skill. Only set once the metacolony is set up.
 
 #### Parameters
 
@@ -3034,8 +3556,6 @@ ___
 
 ▸ **getReputationMiningSkillId()**(`overrides?`): `Promise`<`BigNumber`\>
 
-Get the `skillId` of the reputation mining skill. Only set once the metacolony is set up.
-
 #### Parameters
 
 | Name | Type |
@@ -3055,8 +3575,6 @@ ___
 ### getReputationRootHash
 
 ▸ **getReputationRootHash**(`overrides?`): `Promise`<`string`\>
-
-Get the root hash of the current reputation state tree.
 
 #### Parameters
 
@@ -3078,8 +3596,6 @@ ___
 
 ▸ **getReputationRootHash()**(`overrides?`): `Promise`<`string`\>
 
-Get the root hash of the current reputation state tree.
-
 #### Parameters
 
 | Name | Type |
@@ -3099,9 +3615,6 @@ ___
 ### getReputationRootHashNLeaves
 
 ▸ **getReputationRootHashNLeaves**(`overrides?`): `Promise`<`BigNumber`\>
-
-I cannot see a reason why a user's client would need to call this - only stored to help with some edge cases in reputation mining dispute resolution.
-Get the number of leaves in the current reputation state tree.
 
 #### Parameters
 
@@ -3123,9 +3636,6 @@ ___
 
 ▸ **getReputationRootHashNLeaves()**(`overrides?`): `Promise`<`BigNumber`\>
 
-I cannot see a reason why a user's client would need to call this - only stored to help with some edge cases in reputation mining dispute resolution.
-Get the number of leaves in the current reputation state tree.
-
 #### Parameters
 
 | Name | Type |
@@ -3145,9 +3655,6 @@ ___
 ### getReputationRootHashNNodes
 
 ▸ **getReputationRootHashNNodes**(`overrides?`): `Promise`<`BigNumber`\>
-
-Deprecated, replaced by getReputationRootHashNLeaves which does the same thing but is more accurately named.will be removed in a later version.
-Get the number of leaves in the current reputation state tree.
 
 #### Parameters
 
@@ -3169,9 +3676,6 @@ ___
 
 ▸ **getReputationRootHashNNodes()**(`overrides?`): `Promise`<`BigNumber`\>
 
-Deprecated, replaced by getReputationRootHashNLeaves which does the same thing but is more accurately named.will be removed in a later version.
-Get the number of leaves in the current reputation state tree.
-
 #### Parameters
 
 | Name | Type |
@@ -3192,14 +3696,12 @@ ___
 
 ▸ **getSkill**(`_skillId`, `overrides?`): `Promise`<`SkillStructOutput`\>
 
-Get the `nParents` and `nChildren` of skill with id `_skillId`.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_skillId` | `BigNumberish` | Id of the skill |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_skillId` | `BigNumberish` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -3215,14 +3717,12 @@ ___
 
 ▸ **getSkill(uint256)**(`_skillId`, `overrides?`): `Promise`<`SkillStructOutput`\>
 
-Get the `nParents` and `nChildren` of skill with id `_skillId`.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_skillId` | `BigNumberish` | Id of the skill |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_skillId` | `BigNumberish` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -3237,8 +3737,6 @@ ___
 ### getSkillCount
 
 ▸ **getSkillCount**(`overrides?`): `Promise`<`BigNumber`\>
-
-Get the number of skills in the network including both global and local skills.
 
 #### Parameters
 
@@ -3260,8 +3758,6 @@ ___
 
 ▸ **getSkillCount()**(`overrides?`): `Promise`<`BigNumber`\>
 
-Get the number of skills in the network including both global and local skills.
-
 #### Parameters
 
 | Name | Type |
@@ -3282,8 +3778,6 @@ ___
 
 ▸ **getTokenLocking**(`overrides?`): `Promise`<`string`\>
 
-Get token locking contract address.
-
 #### Parameters
 
 | Name | Type |
@@ -3303,8 +3797,6 @@ ___
 ### getTokenLocking()
 
 ▸ **getTokenLocking()**(`overrides?`): `Promise`<`string`\>
-
-Get token locking contract address.
 
 #### Parameters
 
@@ -3340,16 +3832,13 @@ ___
 
 ▸ **initialise**(`_resolver`, `_version`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Only allowed to be run once, by the Network owner before any Colony versions are added.
-Initialises the colony network by setting the first Colony version resolver to `_resolver` address.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_resolver` | `string` | Address of the resolver for Colony contract |
-| `_version` | `BigNumberish` | Version of the Colony contract the resolver represents |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_resolver` | `string` |
+| `_version` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -3365,16 +3854,13 @@ ___
 
 ▸ **initialise(address,uint256)**(`_resolver`, `_version`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Only allowed to be run once, by the Network owner before any Colony versions are added.
-Initialises the colony network by setting the first Colony version resolver to `_resolver` address.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_resolver` | `string` | Address of the resolver for Colony contract |
-| `_version` | `BigNumberish` | Version of the Colony contract the resolver represents |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_resolver` | `string` |
+| `_version` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -3388,14 +3874,15 @@ ___
 
 ### initialiseReputationMining
 
-▸ **initialiseReputationMining**(`overrides?`): `Promise`<`ContractTransaction`\>
-
-Creates initial inactive reputation mining cycle.
+▸ **initialiseReputationMining**(`miningChainId`, `newHash`, `newNLeaves`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
+| `miningChainId` | `BigNumberish` |
+| `newHash` | `BytesLike` |
+| `newNLeaves` | `BigNumberish` |
 | `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
@@ -3408,16 +3895,17 @@ IColonyNetwork.initialiseReputationMining
 
 ___
 
-### initialiseReputationMining()
+### initialiseReputationMining(uint256,bytes32,uint256)
 
-▸ **initialiseReputationMining()**(`overrides?`): `Promise`<`ContractTransaction`\>
-
-Creates initial inactive reputation mining cycle.
+▸ **initialiseReputationMining(uint256,bytes32,uint256)**(`miningChainId`, `newHash`, `newNLeaves`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
+| `miningChainId` | `BigNumberish` |
+| `newHash` | `BytesLike` |
+| `newNLeaves` | `BigNumberish` |
 | `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
@@ -3426,15 +3914,13 @@ Creates initial inactive reputation mining cycle.
 
 #### Inherited from
 
-IColonyNetwork.initialiseReputationMining()
+IColonyNetwork.initialiseReputationMining(uint256,bytes32,uint256)
 
 ___
 
 ### initialiseRootLocalSkill
 
 ▸ **initialiseRootLocalSkill**(`overrides?`): `Promise`<`ContractTransaction`\>
-
-Initialise the local skills tree for a colony
 
 #### Parameters
 
@@ -3456,8 +3942,6 @@ ___
 
 ▸ **initialiseRootLocalSkill()**(`overrides?`): `Promise`<`ContractTransaction`\>
 
-Initialise the local skills tree for a colony
-
 #### Parameters
 
 | Name | Type |
@@ -3478,15 +3962,13 @@ ___
 
 ▸ **installExtension**(`_extensionId`, `_version`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Install an extension in a colony. Can only be called by a Colony.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_extensionId` | `BytesLike` | keccak256 hash of the extension name, used as an indentifier |
-| `_version` | `BigNumberish` | Version of the extension to install |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_extensionId` | `BytesLike` |
+| `_version` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -3502,15 +3984,13 @@ ___
 
 ▸ **installExtension(bytes32,uint256)**(`_extensionId`, `_version`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Install an extension in a colony. Can only be called by a Colony.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_extensionId` | `BytesLike` | keccak256 hash of the extension name, used as an indentifier |
-| `_version` | `BigNumberish` | Version of the extension to install |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_extensionId` | `BytesLike` |
+| `_version` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -3526,14 +4006,12 @@ ___
 
 ▸ **isColony**(`_colony`, `overrides?`): `Promise`<`boolean`\>
 
-Check if specific address is a colony created on colony network.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_colony` | `string` | Address of the colony |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_colony` | `string` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -3549,14 +4027,12 @@ ___
 
 ▸ **isColony(address)**(`_colony`, `overrides?`): `Promise`<`boolean`\>
 
-Check if specific address is a colony created on colony network.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_colony` | `string` | Address of the colony |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_colony` | `string` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -3571,8 +4047,6 @@ ___
 ### isInRecoveryMode
 
 ▸ **isInRecoveryMode**(`overrides?`): `Promise`<`boolean`\>
-
-Is colony network in recovery mode.
 
 #### Parameters
 
@@ -3593,8 +4067,6 @@ ___
 ### isInRecoveryMode()
 
 ▸ **isInRecoveryMode()**(`overrides?`): `Promise`<`boolean`\>
-
-Is colony network in recovery mode.
 
 #### Parameters
 
@@ -3678,14 +4150,12 @@ ___
 
 ▸ **lookupRegisteredENSDomain**(`_addr`, `overrides?`): `Promise`<`string`\>
 
-Reverse lookup a username from an address.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_addr` | `string` | The address we wish to find the corresponding ENS domain for (if any) |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_addr` | `string` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -3701,14 +4171,12 @@ ___
 
 ▸ **lookupRegisteredENSDomain(address)**(`_addr`, `overrides?`): `Promise`<`string`\>
 
-Reverse lookup a username from an address.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_addr` | `string` | The address we wish to find the corresponding ENS domain for (if any) |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_addr` | `string` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -3750,15 +4218,12 @@ ___
 
 ▸ **multicall**(`data`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-The `msg.value` should not be trusted for any method callable from multicall.
-Call multiple functions in the current contract and return the data from all of them if they all succeed
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `data` | `BytesLike`[] | The encoded function data for each of the calls to make to this contract |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `data` | `BytesLike`[] |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -3774,15 +4239,12 @@ ___
 
 ▸ **multicall(bytes[])**(`data`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-The `msg.value` should not be trusted for any method callable from multicall.
-Call multiple functions in the current contract and return the data from all of them if they all succeed
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `data` | `BytesLike`[] | The encoded function data for each of the calls to make to this contract |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `data` | `BytesLike`[] |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -3797,8 +4259,6 @@ ___
 ### numRecoveryRoles
 
 ▸ **numRecoveryRoles**(`overrides?`): `Promise`<`BigNumber`\>
-
-Return number of recovery roles.
 
 #### Parameters
 
@@ -3820,8 +4280,6 @@ ___
 
 ▸ **numRecoveryRoles()**(`overrides?`): `Promise`<`BigNumber`\>
 
-Return number of recovery roles.
-
 #### Parameters
 
 | Name | Type |
@@ -3842,16 +4300,13 @@ ___
 
 ▸ **punishStakers**(`_stakers`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-While external, it can only be called successfully by the current ReputationMiningCycle.
-Function called to punish people who staked against a new reputation root hash that turned out to be incorrect.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_stakers` | `string`[] | Array of the addresses of stakers to punish |
-| `_amount` | `BigNumberish` | Amount of stake to slash |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_stakers` | `string`[] |
+| `_amount` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -3867,16 +4322,13 @@ ___
 
 ▸ **punishStakers(address[],uint256)**(`_stakers`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-While external, it can only be called successfully by the current ReputationMiningCycle.
-Function called to punish people who staked against a new reputation root hash that turned out to be incorrect.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_stakers` | `string`[] | Array of the addresses of stakers to punish |
-| `_amount` | `BigNumberish` | Amount of stake to slash |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_stakers` | `string`[] |
+| `_amount` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -3920,15 +4372,13 @@ ___
 
 ▸ **registerColonyLabel**(`_colonyName`, `_orbitdb`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Register a "colony.joincolony.eth" label. Can only be called by a Colony.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_colonyName` | `string` | The label to register. |
-| `_orbitdb` | `string` | The path of the orbitDB database associated with the colony name |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_colonyName` | `string` |
+| `_orbitdb` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -3944,15 +4394,13 @@ ___
 
 ▸ **registerColonyLabel(string,string)**(`_colonyName`, `_orbitdb`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Register a "colony.joincolony.eth" label. Can only be called by a Colony.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_colonyName` | `string` | The label to register. |
-| `_orbitdb` | `string` | The path of the orbitDB database associated with the colony name |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_colonyName` | `string` |
+| `_orbitdb` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -3968,15 +4416,13 @@ ___
 
 ▸ **registerUserLabel**(`_username`, `_orbitdb`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Register a "user.joincolony.eth" label.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_username` | `string` | The label to register |
-| `_orbitdb` | `string` | The path of the orbitDB database associated with the user profile |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_username` | `string` |
+| `_orbitdb` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -3992,15 +4438,13 @@ ___
 
 ▸ **registerUserLabel(string,string)**(`_username`, `_orbitdb`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Register a "user.joincolony.eth" label.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_username` | `string` | The label to register |
-| `_orbitdb` | `string` | The path of the orbitDB database associated with the user profile |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_username` | `string` |
+| `_orbitdb` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4058,14 +4502,12 @@ ___
 
 ▸ **removeRecoveryRole**(`_user`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Remove colony recovery role. Can only be called by root role.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_user` | `string` | User we want to remove recovery role from |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_user` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4081,14 +4523,12 @@ ___
 
 ▸ **removeRecoveryRole(address)**(`_user`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Remove colony recovery role. Can only be called by root role.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_user` | `string` | User we want to remove recovery role from |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_user` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4104,16 +4544,13 @@ ___
 
 ▸ **reward**(`_recipient`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Only callable by the active reputation mining cycle
-Used to track that a user is eligible to claim a reward
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_recipient` | `string` | The address receiving the award |
-| `_amount` | `BigNumberish` | The amount of CLNY to be awarded |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_recipient` | `string` |
+| `_amount` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4129,16 +4566,13 @@ ___
 
 ▸ **reward(address,uint256)**(`_recipient`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Only callable by the active reputation mining cycle
-Used to track that a user is eligible to claim a reward
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_recipient` | `string` | The address receiving the award |
-| `_amount` | `BigNumberish` | The amount of CLNY to be awarded |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_recipient` | `string` |
+| `_amount` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4150,18 +4584,58 @@ IColonyNetwork.reward(address,uint256)
 
 ___
 
+### setColonyBridgeAddress
+
+▸ **setColonyBridgeAddress**(`_bridgeAddress`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_bridgeAddress` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+IColonyNetwork.setColonyBridgeAddress
+
+___
+
+### setColonyBridgeAddress(address)
+
+▸ **setColonyBridgeAddress(address)**(`_bridgeAddress`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_bridgeAddress` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+IColonyNetwork.setColonyBridgeAddress(address)
+
+___
+
 ### setFeeInverse
 
 ▸ **setFeeInverse**(`_feeInverse`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Set the colony network fee to pay. e.g. if the fee is 1% (or 0.01), pass 100 as `_feeInverse`.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_feeInverse` | `BigNumberish` | The inverse of the network fee to set |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_feeInverse` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4177,14 +4651,12 @@ ___
 
 ▸ **setFeeInverse(uint256)**(`_feeInverse`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Set the colony network fee to pay. e.g. if the fee is 1% (or 0.01), pass 100 as `_feeInverse`.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_feeInverse` | `BigNumberish` | The inverse of the network fee to set |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_feeInverse` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4200,15 +4672,13 @@ ___
 
 ▸ **setMiningDelegate**(`_delegate`, `_allowed`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Called to give or remove another address's permission to mine on your behalf
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_delegate` | `string` | The address you're giving or removing permission from |
-| `_allowed` | `boolean` | Whether they are allowed (true) or not (false) to mine on your behalf |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_delegate` | `string` |
+| `_allowed` | `boolean` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4224,15 +4694,13 @@ ___
 
 ▸ **setMiningDelegate(address,bool)**(`_delegate`, `_allowed`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Called to give or remove another address's permission to mine on your behalf
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_delegate` | `string` | The address you're giving or removing permission from |
-| `_allowed` | `boolean` | Whether they are allowed (true) or not (false) to mine on your behalf |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_delegate` | `string` |
+| `_allowed` | `boolean` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4248,14 +4716,12 @@ ___
 
 ▸ **setMiningResolver**(`_miningResolverAddress`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Set the resolver to be used by new instances of ReputationMiningCycle.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_miningResolverAddress` | `string` | The address of the Resolver contract with the functions correctly wired. |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_miningResolverAddress` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4271,14 +4737,12 @@ ___
 
 ▸ **setMiningResolver(address)**(`_miningResolverAddress`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Set the resolver to be used by new instances of ReputationMiningCycle.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_miningResolverAddress` | `string` | The address of the Resolver contract with the functions correctly wired. |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_miningResolverAddress` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4294,15 +4758,13 @@ ___
 
 ▸ **setPayoutWhitelist**(`_token`, `_status`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Set a token's status in the payout whitelist
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_token` | `string` | The token being set |
-| `_status` | `boolean` | The whitelist status |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_token` | `string` |
+| `_status` | `boolean` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4318,15 +4780,13 @@ ___
 
 ▸ **setPayoutWhitelist(address,bool)**(`_token`, `_status`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Set a token's status in the payout whitelist
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_token` | `string` | The token being set |
-| `_status` | `boolean` | The whitelist status |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_token` | `string` |
+| `_status` | `boolean` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4342,14 +4802,12 @@ ___
 
 ▸ **setRecoveryRole**(`_user`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Set new colony recovery role. Can be called by root.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_user` | `string` | User we want to give a recovery role to |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_user` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4365,14 +4823,12 @@ ___
 
 ▸ **setRecoveryRole(address)**(`_user`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Set new colony recovery role. Can be called by root.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_user` | `string` | User we want to give a recovery role to |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_user` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4388,22 +4844,19 @@ ___
 
 ▸ **setReplacementReputationUpdateLogEntry**(`_reputationMiningCycle`, `_id`, `_user`, `_amount`, `_skillId`, `_colony`, `_nUpdates`, `_nPreviousUpdates`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Note that strictly, `_nUpdates` and `_nPreviousUpdates` don't need to be set - they're only used during dispute resolution, which these replacement log entries are never used for. However, for ease of resyncing the client, we have decided to include them for now.
-Set a replacement log entry if we're in recovery mode.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_reputationMiningCycle` | `string` | The address of the reputation mining cycle that the log was in. |
-| `_id` | `BigNumberish` | The number of the log entry in the reputation mining cycle in question. |
-| `_user` | `string` | The address of the user earning / losing the reputation |
-| `_amount` | `BigNumberish` | The amount of reputation being earned / lost |
-| `_skillId` | `BigNumberish` | The id of the origin skill for the reputation update |
-| `_colony` | `string` | The address of the colony being updated |
-| `_nUpdates` | `BigNumberish` | The number of updates the log entry corresponds to |
-| `_nPreviousUpdates` | `BigNumberish` | The number of updates in the log before this entry |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_reputationMiningCycle` | `string` |
+| `_id` | `BigNumberish` |
+| `_user` | `string` |
+| `_amount` | `BigNumberish` |
+| `_skillId` | `BigNumberish` |
+| `_colony` | `string` |
+| `_nUpdates` | `BigNumberish` |
+| `_nPreviousUpdates` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4419,22 +4872,19 @@ ___
 
 ▸ **setReplacementReputationUpdateLogEntry(address,uint256,address,int256,uint256,address,uint128,uint128)**(`_reputationMiningCycle`, `_id`, `_user`, `_amount`, `_skillId`, `_colony`, `_nUpdates`, `_nPreviousUpdates`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Note that strictly, `_nUpdates` and `_nPreviousUpdates` don't need to be set - they're only used during dispute resolution, which these replacement log entries are never used for. However, for ease of resyncing the client, we have decided to include them for now.
-Set a replacement log entry if we're in recovery mode.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_reputationMiningCycle` | `string` | The address of the reputation mining cycle that the log was in. |
-| `_id` | `BigNumberish` | The number of the log entry in the reputation mining cycle in question. |
-| `_user` | `string` | The address of the user earning / losing the reputation |
-| `_amount` | `BigNumberish` | The amount of reputation being earned / lost |
-| `_skillId` | `BigNumberish` | The id of the origin skill for the reputation update |
-| `_colony` | `string` | The address of the colony being updated |
-| `_nUpdates` | `BigNumberish` | The number of updates the log entry corresponds to |
-| `_nPreviousUpdates` | `BigNumberish` | The number of updates in the log before this entry |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_reputationMiningCycle` | `string` |
+| `_id` | `BigNumberish` |
+| `_user` | `string` |
+| `_amount` | `BigNumberish` |
+| `_skillId` | `BigNumberish` |
+| `_colony` | `string` |
+| `_nUpdates` | `BigNumberish` |
+| `_nPreviousUpdates` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4450,15 +4900,12 @@ ___
 
 ▸ **setReputationMiningCycleReward**(`_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Can only be called by the MetaColony.
-Called to set the total per-cycle reputation reward, which will be split between all miners.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_amount` | `BigNumberish` | The CLNY awarded per mining cycle to the miners |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_amount` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4474,15 +4921,12 @@ ___
 
 ▸ **setReputationMiningCycleReward(uint256)**(`_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Can only be called by the MetaColony.
-Called to set the total per-cycle reputation reward, which will be split between all miners.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_amount` | `BigNumberish` | The CLNY awarded per mining cycle to the miners |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_amount` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4498,16 +4942,14 @@ ___
 
 ▸ **setReputationRootHash**(`_newHash`, `_newNLeaves`, `_stakers`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Set a new Reputation root hash and starts a new mining cycle. Can only be called by the ReputationMiningCycle contract.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_newHash` | `BytesLike` | The reputation root hash |
-| `_newNLeaves` | `BigNumberish` | The updated leaves count value |
-| `_stakers` | `string`[] | Array of users who submitted or backed the hash, being accepted here as the new reputation root hash |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_newHash` | `BytesLike` |
+| `_newNLeaves` | `BigNumberish` |
+| `_stakers` | `string`[] |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4523,16 +4965,14 @@ ___
 
 ▸ **setReputationRootHash(bytes32,uint256,address[])**(`_newHash`, `_newNLeaves`, `_stakers`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Set a new Reputation root hash and starts a new mining cycle. Can only be called by the ReputationMiningCycle contract.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_newHash` | `BytesLike` | The reputation root hash |
-| `_newNLeaves` | `BigNumberish` | The updated leaves count value |
-| `_stakers` | `string`[] | Array of users who submitted or backed the hash, being accepted here as the new reputation root hash |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_newHash` | `BytesLike` |
+| `_newNLeaves` | `BigNumberish` |
+| `_stakers` | `string`[] |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4544,20 +4984,63 @@ IColonyNetwork.setReputationRootHash(bytes32,uint256,address[])
 
 ___
 
+### setReputationRootHashFromBridge
+
+▸ **setReputationRootHashFromBridge**(`newHash`, `newNLeaves`, `nonce`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `newHash` | `BytesLike` |
+| `newNLeaves` | `BigNumberish` |
+| `nonce` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+IColonyNetwork.setReputationRootHashFromBridge
+
+___
+
+### setReputationRootHashFromBridge(bytes32,uint256,uint256)
+
+▸ **setReputationRootHashFromBridge(bytes32,uint256,uint256)**(`newHash`, `newNLeaves`, `nonce`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `newHash` | `BytesLike` |
+| `newNLeaves` | `BigNumberish` |
+| `nonce` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+IColonyNetwork.setReputationRootHashFromBridge(bytes32,uint256,uint256)
+
+___
+
 ### setStorageSlotRecovery
 
 ▸ **setStorageSlotRecovery**(`_slot`, `_value`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-certain critical variables are protected from editing in this function
-Update value of arbitrary storage variable. Can only be called by user with recovery role.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_slot` | `BigNumberish` | Uint address of storage slot to be updated |
-| `_value` | `BytesLike` | word of data to be set |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_slot` | `BigNumberish` |
+| `_value` | `BytesLike` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4573,16 +5056,13 @@ ___
 
 ▸ **setStorageSlotRecovery(uint256,bytes32)**(`_slot`, `_value`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-certain critical variables are protected from editing in this function
-Update value of arbitrary storage variable. Can only be called by user with recovery role.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_slot` | `BigNumberish` | Uint address of storage slot to be updated |
-| `_value` | `BytesLike` | word of data to be set |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_slot` | `BigNumberish` |
+| `_value` | `BytesLike` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4598,14 +5078,12 @@ ___
 
 ▸ **setTokenLocking**(`_tokenLockingAddress`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Sets the token locking address. This is only set once, and can't be changed afterwards.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_tokenLockingAddress` | `string` | Address of the locking contract |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_tokenLockingAddress` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4621,14 +5099,12 @@ ___
 
 ▸ **setTokenLocking(address)**(`_tokenLockingAddress`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Sets the token locking address. This is only set once, and can't be changed afterwards.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_tokenLockingAddress` | `string` | Address of the locking contract |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_tokenLockingAddress` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4644,15 +5120,13 @@ ___
 
 ▸ **setupRegistrar**(`_ens`, `_rootNode`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Setup registrar with ENS and root node.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_ens` | `string` | Address of ENS registrar |
-| `_rootNode` | `BytesLike` | Namehash of the root node for the domain |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_ens` | `string` |
+| `_rootNode` | `BytesLike` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4668,15 +5142,13 @@ ___
 
 ▸ **setupRegistrar(address,bytes32)**(`_ens`, `_rootNode`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Setup registrar with ENS and root node.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_ens` | `string` | Address of ENS registrar |
-| `_rootNode` | `BytesLike` | Namehash of the root node for the domain |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_ens` | `string` |
+| `_rootNode` | `BytesLike` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4692,14 +5164,12 @@ ___
 
 ▸ **stakeForMining**(`_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Stake CLNY to allow the staker to participate in reputation mining.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_amount` | `BigNumberish` | Amount of CLNY to stake for the purposes of mining |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_amount` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4715,14 +5185,12 @@ ___
 
 ▸ **stakeForMining(uint256)**(`_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Stake CLNY to allow the staker to participate in reputation mining.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_amount` | `BigNumberish` | Amount of CLNY to stake for the purposes of mining |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_amount` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4737,8 +5205,6 @@ ___
 ### startNextCycle
 
 ▸ **startNextCycle**(`overrides?`): `Promise`<`ContractTransaction`\>
-
-Starts a new Reputation Mining cycle. Explicitly called only the first time, subsequently called from within `setReputationRootHash`.
 
 #### Parameters
 
@@ -4760,8 +5226,6 @@ ___
 
 ▸ **startNextCycle()**(`overrides?`): `Promise`<`ContractTransaction`\>
 
-Starts a new Reputation Mining cycle. Explicitly called only the first time, subsequently called from within `setReputationRootHash`.
-
 #### Parameters
 
 | Name | Type |
@@ -4782,14 +5246,12 @@ ___
 
 ▸ **startTokenAuction**(`_token`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Create and start a new `DutchAuction` for the entire amount of `_token` owned by the Colony Network.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_token` | `string` | Address of the token held by the network to be auctioned |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_token` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4805,14 +5267,12 @@ ___
 
 ▸ **startTokenAuction(address)**(`_token`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Create and start a new `DutchAuction` for the entire amount of `_token` owned by the Colony Network.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_token` | `string` | Address of the token held by the network to be auctioned |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_token` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4828,15 +5288,12 @@ ___
 
 ▸ **supportsInterface**(`_interfaceID`, `overrides?`): `Promise`<`boolean`\>
 
-Interface identification is specified in ERC-165.
-Query if a contract implements an interface
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_interfaceID` | `BytesLike` | The interface identifier, as specified in ERC-165 |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_interfaceID` | `BytesLike` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -4852,15 +5309,12 @@ ___
 
 ▸ **supportsInterface(bytes4)**(`_interfaceID`, `overrides?`): `Promise`<`boolean`\>
 
-Interface identification is specified in ERC-165.
-Query if a contract implements an interface
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_interfaceID` | `BytesLike` | The interface identifier, as specified in ERC-165 |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_interfaceID` | `BytesLike` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -4876,14 +5330,12 @@ ___
 
 ▸ **uninstallExtension**(`_extensionId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Uninstall an extension in a colony. Can only be called by a Colony.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_extensionId` | `BytesLike` | keccak256 hash of the extension name, used as an indentifier |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_extensionId` | `BytesLike` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4899,14 +5351,12 @@ ___
 
 ▸ **uninstallExtension(bytes32)**(`_extensionId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Uninstall an extension in a colony. Can only be called by a Colony.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_extensionId` | `BytesLike` | keccak256 hash of the extension name, used as an indentifier |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_extensionId` | `BytesLike` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4922,14 +5372,12 @@ ___
 
 ▸ **unstakeForMining**(`_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Unstake CLNY currently staked for reputation mining.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_amount` | `BigNumberish` | Amount of CLNY staked for mining to unstake |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_amount` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4945,14 +5393,12 @@ ___
 
 ▸ **unstakeForMining(uint256)**(`_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Unstake CLNY currently staked for reputation mining.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_amount` | `BigNumberish` | Amount of CLNY staked for mining to unstake |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_amount` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4968,14 +5414,12 @@ ___
 
 ▸ **updateColonyOrbitDB**(`_orbitdb`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Update a colony's orbitdb address. Can only be called by a colony with a registered subdomain
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_orbitdb` | `string` | The path of the orbitDB database to be associated with the colony |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_orbitdb` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -4991,14 +5435,12 @@ ___
 
 ▸ **updateColonyOrbitDB(string)**(`_orbitdb`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Update a colony's orbitdb address. Can only be called by a colony with a registered subdomain
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_orbitdb` | `string` | The path of the orbitDB database to be associated with the colony |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_orbitdb` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -5014,14 +5456,12 @@ ___
 
 ▸ **updateUserOrbitDB**(`_orbitdb`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Update a user's orbitdb address. Can only be called by a user with a registered subdomain
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_orbitdb` | `string` | The path of the orbitDB database to be associated with the user |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_orbitdb` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -5037,14 +5477,12 @@ ___
 
 ▸ **updateUserOrbitDB(string)**(`_orbitdb`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Update a user's orbitdb address. Can only be called by a user with a registered subdomain
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_orbitdb` | `string` | The path of the orbitDB database to be associated with the user |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_orbitdb` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -5060,15 +5498,13 @@ ___
 
 ▸ **upgradeExtension**(`_extensionId`, `_newVersion`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Upgrade an extension in a colony. Can only be called by a Colony.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_extensionId` | `BytesLike` | keccak256 hash of the extension name, used as an indentifier |
-| `_newVersion` | `BigNumberish` | Version of the extension to upgrade to (must be one greater than current) |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_extensionId` | `BytesLike` |
+| `_newVersion` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -5084,15 +5520,13 @@ ___
 
 ▸ **upgradeExtension(bytes32,uint256)**(`_extensionId`, `_newVersion`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Upgrade an extension in a colony. Can only be called by a Colony.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_extensionId` | `BytesLike` | keccak256 hash of the extension name, used as an indentifier |
-| `_newVersion` | `BigNumberish` | Version of the extension to upgrade to (must be one greater than current) |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_extensionId` | `BytesLike` |
+| `_newVersion` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 

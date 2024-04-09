@@ -4,6 +4,22 @@ Addresses of the deployed ColonyNetwork EtherRouter contracts in all networks
 
 ## Enumeration Members
 
+### ArbitrumOne
+
+• **ArbitrumOne** = ``"0xcccccdcc0ccf6c708d860e19353c5f9a49accccc"``
+
+The ColonyNetwork EtherRouter address on Arbitrum One
+
+___
+
+### ArbitrumSepolia
+
+• **ArbitrumSepolia** = ``"0x7777494e3d8cce0D3570E21FEf820F9Fee077777"``
+
+The ColonyNetwork EtherRouter address on Arbitrum Sepolia testnet
+
+___
+
 ### Custom
 
 • **Custom** = ``""``

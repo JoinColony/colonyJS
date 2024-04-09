@@ -4,6 +4,18 @@ HTTP endpoint of the official Colony reputation oracle
 
 ## Enumeration Members
 
+### ArbitrumOne
+
+• **ArbitrumOne** = ``"https://arbitrum.colony.io/reputation/arbitrum-one"``
+
+___
+
+### ArbitrumSepolia
+
+• **ArbitrumSepolia** = ``"https://arbitrum-sepolia.colony.io/reputation/arbitrum-sepolia"``
+
+___
+
 ### Custom
 
 • **Custom** = ``"http://localhost:3000"``
