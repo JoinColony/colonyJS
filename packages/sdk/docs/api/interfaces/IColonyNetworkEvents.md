@@ -96,6 +96,8 @@ ___
 | :------ | :------ |
 | `AuctionCreated` | (`auction?`: ``null``, `token?`: ``null``, `quantity?`: ``null``) => [`AuctionCreatedEventFilter`](../README.md#auctioncreatedeventfilter) |
 | `AuctionCreated(address,address,uint256)` | (`auction?`: ``null``, `token?`: ``null``, `quantity?`: ``null``) => [`AuctionCreatedEventFilter`](../README.md#auctioncreatedeventfilter) |
+| `BridgeSet` | (`bridgeAddress?`: ``null``) => [`BridgeSetEventFilter`](../README.md#bridgeseteventfilter) |
+| `BridgeSet(address)` | (`bridgeAddress?`: ``null``) => [`BridgeSetEventFilter`](../README.md#bridgeseteventfilter) |
 | `ColonyAdded` | (`colonyId?`: ``null`` \| `BigNumberish`, `colonyAddress?`: ``null`` \| `string`, `token?`: ``null``) => [`ColonyAddedEventFilter`](../README.md#colonyaddedeventfilter) |
 | `ColonyAdded(uint256,address,address)` | (`colonyId?`: ``null`` \| `BigNumberish`, `colonyAddress?`: ``null`` \| `string`, `token?`: ``null``) => [`ColonyAddedEventFilter`](../README.md#colonyaddedeventfilter) |
 | `ColonyLabelRegistered` | (`colony?`: ``null`` \| `string`, `label?`: ``null``) => [`ColonyLabelRegisteredEventFilter`](../README.md#colonylabelregisteredeventfilter) |
@@ -144,8 +146,22 @@ ___
 | `ReputationMiningRewardSet(uint256)` | (`amount?`: ``null``) => [`ReputationMiningRewardSetEventFilter`](../README.md#reputationminingrewardseteventfilter) |
 | `ReputationRootHashSet` | (`newHash?`: ``null``, `newNNodes?`: ``null``, `stakers?`: ``null``, `reward?`: ``null``) => [`ReputationRootHashSetEventFilter`](../README.md#reputationroothashseteventfilter) |
 | `ReputationRootHashSet(bytes32,uint256,address[],uint256)` | (`newHash?`: ``null``, `newNNodes?`: ``null``, `stakers?`: ``null``, `reward?`: ``null``) => [`ReputationRootHashSetEventFilter`](../README.md#reputationroothashseteventfilter) |
+| `ReputationUpdateAddedFromBridge` | (`chainId?`: ``null``, `colony?`: ``null``, `updateNumber?`: ``null``) => [`ReputationUpdateAddedFromBridgeEventFilter`](../README.md#reputationupdateaddedfrombridgeeventfilter) |
+| `ReputationUpdateAddedFromBridge(uint256,address,uint256)` | (`chainId?`: ``null``, `colony?`: ``null``, `updateNumber?`: ``null``) => [`ReputationUpdateAddedFromBridgeEventFilter`](../README.md#reputationupdateaddedfrombridgeeventfilter) |
+| `ReputationUpdateSentToBridge` | (`colony?`: ``null``, `count?`: ``null``) => [`ReputationUpdateSentToBridgeEventFilter`](../README.md#reputationupdatesenttobridgeeventfilter) |
+| `ReputationUpdateSentToBridge(address,uint256)` | (`colony?`: ``null``, `count?`: ``null``) => [`ReputationUpdateSentToBridgeEventFilter`](../README.md#reputationupdatesenttobridgeeventfilter) |
+| `ReputationUpdateStored` | (`colony?`: ``null``, `count?`: ``null``) => [`ReputationUpdateStoredEventFilter`](../README.md#reputationupdatestoredeventfilter) |
+| `ReputationUpdateStored(address,uint256)` | (`colony?`: ``null``, `count?`: ``null``) => [`ReputationUpdateStoredEventFilter`](../README.md#reputationupdatestoredeventfilter) |
+| `ReputationUpdateStoredFromBridge` | (`chainId?`: ``null``, `colony?`: ``null``, `updateNumber?`: ``null``) => [`ReputationUpdateStoredFromBridgeEventFilter`](../README.md#reputationupdatestoredfrombridgeeventfilter) |
+| `ReputationUpdateStoredFromBridge(uint256,address,uint256)` | (`chainId?`: ``null``, `colony?`: ``null``, `updateNumber?`: ``null``) => [`ReputationUpdateStoredFromBridgeEventFilter`](../README.md#reputationupdatestoredfrombridgeeventfilter) |
 | `SkillAdded` | (`skillId?`: ``null``, `parentSkillId?`: ``null``) => [`SkillAddedEventFilter`](../README.md#skilladdedeventfilter) |
 | `SkillAdded(uint256,uint256)` | (`skillId?`: ``null``, `parentSkillId?`: ``null``) => [`SkillAddedEventFilter`](../README.md#skilladdedeventfilter) |
+| `SkillAddedFromBridge` | (`skillId?`: ``null``) => [`SkillAddedFromBridgeEventFilter`](../README.md#skilladdedfrombridgeeventfilter) |
+| `SkillAddedFromBridge(uint256)` | (`skillId?`: ``null``) => [`SkillAddedFromBridgeEventFilter`](../README.md#skilladdedfrombridgeeventfilter) |
+| `SkillCreationStored` | (`skillId?`: ``null``) => [`SkillCreationStoredEventFilter`](../README.md#skillcreationstoredeventfilter) |
+| `SkillCreationStored(uint256)` | (`skillId?`: ``null``) => [`SkillCreationStoredEventFilter`](../README.md#skillcreationstoredeventfilter) |
+| `SkillStoredFromBridge` | (`skillId?`: ``null``) => [`SkillStoredFromBridgeEventFilter`](../README.md#skillstoredfrombridgeeventfilter) |
+| `SkillStoredFromBridge(uint256)` | (`skillId?`: ``null``) => [`SkillStoredFromBridgeEventFilter`](../README.md#skillstoredfrombridgeeventfilter) |
 | `TokenAuthorityDeployed` | (`tokenAuthorityAddress?`: ``null``) => [`TokenAuthorityDeployedEventFilter`](../README.md#tokenauthoritydeployedeventfilter) |
 | `TokenAuthorityDeployed(address)` | (`tokenAuthorityAddress?`: ``null``) => [`TokenAuthorityDeployedEventFilter`](../README.md#tokenauthoritydeployedeventfilter) |
 | `TokenDeployed` | (`tokenAddress?`: ``null``) => [`TokenDeployedEventFilter`](../README.md#tokendeployedeventfilter) |

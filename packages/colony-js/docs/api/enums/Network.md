@@ -4,6 +4,22 @@ Supported Ethereum networks. Use `Custom` if you'd like to bring your own deploy
 
 ## Enumeration Members
 
+### ArbitrumOne
+
+• **ArbitrumOne** = ``"ArbitrumOne"``
+
+Arbitrum One Mainnet
+
+___
+
+### ArbitrumSepolia
+
+• **ArbitrumSepolia** = ``"ArbitrumSepolia"``
+
+Arbitrum Testnet
+
+___
+
 ### Custom
 
 • **Custom** = ``"Custom"``

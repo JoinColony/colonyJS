@@ -1,10 +1,10 @@
-# Interface: StagedExpenditureClientV1
+# Interface: StagedExpenditureClientV2
 
 ## Hierarchy
 
 - `AugmentedStagedExpenditure`<`StagedExpenditure`\>
 
-  ↳ **`StagedExpenditureClientV1`**
+  ↳ **`StagedExpenditureClientV2`**
 
 ## Properties
 
@@ -74,8 +74,6 @@ ___
 | `finishUpgrade()` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `getCapabilityRoles` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getCapabilityRoles(bytes4)` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `getChainId` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getChainId()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getColony()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
@@ -125,7 +123,7 @@ ___
 
 ### clientVersion
 
-• **clientVersion**: ``1``
+• **clientVersion**: ``2``
 
 #### Overrides
 
@@ -157,7 +155,7 @@ ___
 
 ### estimateGas
 
-• **estimateGas**: { `authority`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `authority()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `deprecate`: (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `deprecate(bool)`: (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `executeMetaTransaction`: (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)`: (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `finishUpgrade`: (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `finishUpgrade()`: (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `getCapabilityRoles`: (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getCapabilityRoles(bytes4)`: (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getChainId`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getChainId()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getColony`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getColony()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getDeprecated`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getDeprecated()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getMetatransactionNonce`: (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getMetatransactionNonce(address)`: (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `identifier`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `identifier()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `install`: (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `install(address)`: (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `multicall`: (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `multicall(bytes[])`: (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `owner`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `owner()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `releaseStagedPayment`: (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `releaseStagedPayment(uint256,uint256,uint256,uint256,address[])`: (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `releaseStagedPaymentViaArbitration`: (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_extensionPermissionDomainId`: `BigNumberish`, `_extensionChildSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `releaseStagedPaymentViaArbitration(uint256,uint256,uint256,uint256,uint256,uint256,address[])`: (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_extensionPermissionDomainId`: `BigNumberish`, `_extensionChildSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setAuthority`: (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setAuthority(address)`: (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setExpenditureStaged`: (`_expenditureId`: `BigNumberish`, `_staged`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setExpenditureStaged(uint256,bool)`: (`_expenditureId`: `BigNumberish`, `_staged`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setOwner`: (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setOwner(address)`: (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `uninstall`: (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `uninstall()`: (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `verify`: (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)`: (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `version`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `version()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\>  } \| { `authority`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `authority()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `deprecate`: (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `deprecate(bool)`: (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `executeMetaTransaction`: (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)`: (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `finishUpgrade`: (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `finishUpgrade()`: (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `getCapabilityRoles`: (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getCapabilityRoles(bytes4)`: (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getChainId`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getChainId()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getColony`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getColony()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getDeprecated`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getDeprecated()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getMetatransactionNonce`: (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getMetatransactionNonce(address)`: (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `identifier`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `identifier()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `install`: (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `install(address)`: (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `multicall`: (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `multicall(bytes[])`: (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `owner`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `owner()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `releaseStagedPayment`: (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `releaseStagedPayment(uint256,uint256,uint256,uint256,address[])`: (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `releaseStagedPaymentViaArbitration`: (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_extensionPermissionDomainId`: `BigNumberish`, `_extensionChildSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `releaseStagedPaymentViaArbitration(uint256,uint256,uint256,uint256,uint256,uint256,address[])`: (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_extensionPermissionDomainId`: `BigNumberish`, `_extensionChildSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setAuthority`: (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setAuthority(address)`: (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setExpenditureStaged`: (`_expenditureId`: `BigNumberish`, `_staged`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setExpenditureStaged(uint256,bool)`: (`_expenditureId`: `BigNumberish`, `_staged`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setOwner`: (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setOwner(address)`: (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `uninstall`: (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `uninstall()`: (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `verify`: (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)`: (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `version`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `version()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\>  } & { `authority`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `authority()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `deprecate`: (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `deprecate(bool)`: (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `executeMetaTransaction`: (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)`: (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `finishUpgrade`: (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `finishUpgrade()`: (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `getCapabilityRoles`: (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getCapabilityRoles(bytes4)`: (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getColony`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getColony()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getDeprecated`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getDeprecated()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getMetatransactionNonce`: (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getMetatransactionNonce(address)`: (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `identifier`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `identifier()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `install`: (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `install(address)`: (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `multicall`: (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `multicall(bytes[])`: (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `owner`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `owner()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `releaseStagedPayment`: (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `releaseStagedPayment(uint256,uint256,uint256,uint256,address[])`: (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `releaseStagedPaymentViaArbitration`: (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_extensionPermissionDomainId`: `BigNumberish`, `_extensionChildSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `releaseStagedPaymentViaArbitration(uint256,uint256,uint256,uint256,uint256,uint256,address[])`: (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_extensionPermissionDomainId`: `BigNumberish`, `_extensionChildSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setAuthority`: (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setAuthority(address)`: (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setExpenditureStaged`: (`_expenditureId`: `BigNumberish`, `_staged`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setExpenditureStaged(uint256,bool)`: (`_expenditureId`: `BigNumberish`, `_staged`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setOwner`: (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setOwner(address)`: (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `uninstall`: (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `uninstall()`: (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `verify`: (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)`: (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `version`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `version()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\>  }
+• **estimateGas**: { `authority`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `authority()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `deprecate`: (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `deprecate(bool)`: (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `executeMetaTransaction`: (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)`: (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `finishUpgrade`: (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `finishUpgrade()`: (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `getCapabilityRoles`: (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getCapabilityRoles(bytes4)`: (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getColony`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getColony()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getDeprecated`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getDeprecated()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getMetatransactionNonce`: (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getMetatransactionNonce(address)`: (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `identifier`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `identifier()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `install`: (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `install(address)`: (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `multicall`: (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `multicall(bytes[])`: (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `owner`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `owner()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `releaseStagedPayment`: (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `releaseStagedPayment(uint256,uint256,uint256,uint256,address[])`: (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `releaseStagedPaymentViaArbitration`: (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_extensionPermissionDomainId`: `BigNumberish`, `_extensionChildSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `releaseStagedPaymentViaArbitration(uint256,uint256,uint256,uint256,uint256,uint256,address[])`: (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_extensionPermissionDomainId`: `BigNumberish`, `_extensionChildSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setAuthority`: (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setAuthority(address)`: (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setExpenditureStaged`: (`_expenditureId`: `BigNumberish`, `_staged`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setExpenditureStaged(uint256,bool)`: (`_expenditureId`: `BigNumberish`, `_staged`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setOwner`: (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setOwner(address)`: (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `uninstall`: (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `uninstall()`: (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `verify`: (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)`: (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `version`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `version()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\>  } \| { `authority`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `authority()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `deprecate`: (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `deprecate(bool)`: (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `executeMetaTransaction`: (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)`: (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `finishUpgrade`: (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `finishUpgrade()`: (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `getCapabilityRoles`: (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getCapabilityRoles(bytes4)`: (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getColony`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getColony()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getDeprecated`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getDeprecated()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getMetatransactionNonce`: (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getMetatransactionNonce(address)`: (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `identifier`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `identifier()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `install`: (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `install(address)`: (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `multicall`: (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `multicall(bytes[])`: (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `owner`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `owner()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `releaseStagedPayment`: (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `releaseStagedPayment(uint256,uint256,uint256,uint256,address[])`: (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `releaseStagedPaymentViaArbitration`: (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_extensionPermissionDomainId`: `BigNumberish`, `_extensionChildSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `releaseStagedPaymentViaArbitration(uint256,uint256,uint256,uint256,uint256,uint256,address[])`: (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_extensionPermissionDomainId`: `BigNumberish`, `_extensionChildSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setAuthority`: (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setAuthority(address)`: (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setExpenditureStaged`: (`_expenditureId`: `BigNumberish`, `_staged`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setExpenditureStaged(uint256,bool)`: (`_expenditureId`: `BigNumberish`, `_staged`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setOwner`: (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setOwner(address)`: (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `uninstall`: (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `uninstall()`: (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `verify`: (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)`: (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `version`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `version()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\>  } & { `authority`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `authority()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `deprecate`: (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `deprecate(bool)`: (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `executeMetaTransaction`: (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)`: (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `finishUpgrade`: (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `finishUpgrade()`: (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `getCapabilityRoles`: (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getCapabilityRoles(bytes4)`: (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getChainId`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getChainId()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getColony`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getColony()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getDeprecated`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getDeprecated()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getMetatransactionNonce`: (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `getMetatransactionNonce(address)`: (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `identifier`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `identifier()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `install`: (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `install(address)`: (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `multicall`: (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `multicall(bytes[])`: (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `owner`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `owner()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `releaseStagedPayment`: (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `releaseStagedPayment(uint256,uint256,uint256,uint256,address[])`: (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `releaseStagedPaymentViaArbitration`: (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_extensionPermissionDomainId`: `BigNumberish`, `_extensionChildSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `releaseStagedPaymentViaArbitration(uint256,uint256,uint256,uint256,uint256,uint256,address[])`: (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_extensionPermissionDomainId`: `BigNumberish`, `_extensionChildSkillIndex`: `BigNumberish`, `_expenditureId`: `BigNumberish`, `_slot`: `BigNumberish`, `_tokens`: `string`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setAuthority`: (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setAuthority(address)`: (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setExpenditureStaged`: (`_expenditureId`: `BigNumberish`, `_staged`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setExpenditureStaged(uint256,bool)`: (`_expenditureId`: `BigNumberish`, `_staged`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setOwner`: (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `setOwner(address)`: (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `uninstall`: (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `uninstall()`: (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> ; `verify`: (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)`: (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `version`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> ; `version()`: (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\>  }
 
 #### Inherited from
 
@@ -320,8 +318,6 @@ ___
 | `finishUpgrade()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `getCapabilityRoles` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `getCapabilityRoles(bytes4)` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `getChainId` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
-| `getChainId()` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
 | `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `getColony()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
@@ -371,7 +367,7 @@ ___
 
 ### off
 
-• **off**: `OnEvent`<[`StagedExpenditureClientV1`](StagedExpenditureClientV1.md)\>
+• **off**: `OnEvent`<[`StagedExpenditureClientV2`](StagedExpenditureClientV2.md)\>
 
 #### Inherited from
 
@@ -381,7 +377,7 @@ ___
 
 ### on
 
-• **on**: `OnEvent`<[`StagedExpenditureClientV1`](StagedExpenditureClientV1.md)\>
+• **on**: `OnEvent`<[`StagedExpenditureClientV2`](StagedExpenditureClientV2.md)\>
 
 #### Inherited from
 
@@ -391,7 +387,7 @@ ___
 
 ### once
 
-• **once**: `OnEvent`<[`StagedExpenditureClientV1`](StagedExpenditureClientV1.md)\>
+• **once**: `OnEvent`<[`StagedExpenditureClientV2`](StagedExpenditureClientV2.md)\>
 
 #### Inherited from
 
@@ -417,8 +413,6 @@ ___
 | `finishUpgrade()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `getCapabilityRoles` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getCapabilityRoles(bytes4)` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getChainId` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getChainId()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getColony()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
@@ -468,7 +462,7 @@ ___
 
 ### removeListener
 
-• **removeListener**: `OnEvent`<[`StagedExpenditureClientV1`](StagedExpenditureClientV1.md)\>
+• **removeListener**: `OnEvent`<[`StagedExpenditureClientV2`](StagedExpenditureClientV2.md)\>
 
 #### Inherited from
 
@@ -574,7 +568,7 @@ ___
 
 ### attach
 
-▸ **attach**(`addressOrName`): [`StagedExpenditureClientV1`](StagedExpenditureClientV1.md)
+▸ **attach**(`addressOrName`): [`StagedExpenditureClientV2`](StagedExpenditureClientV2.md)
 
 #### Parameters
 
@@ -584,7 +578,7 @@ ___
 
 #### Returns
 
-[`StagedExpenditureClientV1`](StagedExpenditureClientV1.md)
+[`StagedExpenditureClientV2`](StagedExpenditureClientV2.md)
 
 #### Inherited from
 
@@ -634,7 +628,7 @@ ___
 
 ### connect
 
-▸ **connect**(`signerOrProvider`): [`StagedExpenditureClientV1`](StagedExpenditureClientV1.md)
+▸ **connect**(`signerOrProvider`): [`StagedExpenditureClientV2`](StagedExpenditureClientV2.md)
 
 #### Parameters
 
@@ -644,7 +638,7 @@ ___
 
 #### Returns
 
-[`StagedExpenditureClientV1`](StagedExpenditureClientV1.md)
+[`StagedExpenditureClientV2`](StagedExpenditureClientV2.md)
 
 #### Inherited from
 
@@ -654,11 +648,11 @@ ___
 
 ### deployed
 
-▸ **deployed**(): `Promise`<[`StagedExpenditureClientV1`](StagedExpenditureClientV1.md)\>
+▸ **deployed**(): `Promise`<[`StagedExpenditureClientV2`](StagedExpenditureClientV2.md)\>
 
 #### Returns
 
-`Promise`<[`StagedExpenditureClientV1`](StagedExpenditureClientV1.md)\>
+`Promise`<[`StagedExpenditureClientV2`](StagedExpenditureClientV2.md)\>
 
 #### Inherited from
 
@@ -670,14 +664,12 @@ ___
 
 ▸ **deprecate**(`_deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Called when deprecating (or undeprecating) the extension
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_deprecated` | `boolean` | Indicates whether the extension should be deprecated or undeprecated |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_deprecated` | `boolean` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -693,14 +685,12 @@ ___
 
 ▸ **deprecate(bool)**(`_deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Called when deprecating (or undeprecating) the extension
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_deprecated` | `boolean` | Indicates whether the extension should be deprecated or undeprecated |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_deprecated` | `boolean` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -737,18 +727,16 @@ ___
 
 ▸ **executeMetaTransaction**(`_user`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_user` | `string` | Address of user trying to do meta transaction |
-| `_payload` | `BytesLike` | Function call to make via meta transaction |
-| `_sigR` | `BytesLike` | R part of the signature |
-| `_sigS` | `BytesLike` | S part of the signature |
-| `_sigV` | `BigNumberish` | V part of the signature |
-| `overrides?` | `PayableOverrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_user` | `string` |
+| `_payload` | `BytesLike` |
+| `_sigR` | `BytesLike` |
+| `_sigS` | `BytesLike` |
+| `_sigV` | `BigNumberish` |
+| `overrides?` | `PayableOverrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -764,18 +752,16 @@ ___
 
 ▸ **executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)**(`_user`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_user` | `string` | Address of user trying to do meta transaction |
-| `_payload` | `BytesLike` | Function call to make via meta transaction |
-| `_sigR` | `BytesLike` | R part of the signature |
-| `_sigS` | `BytesLike` | S part of the signature |
-| `_sigV` | `BigNumberish` | V part of the signature |
-| `overrides?` | `PayableOverrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_user` | `string` |
+| `_payload` | `BytesLike` |
+| `_sigR` | `BytesLike` |
+| `_sigS` | `BytesLike` |
+| `_sigV` | `BigNumberish` |
+| `overrides?` | `PayableOverrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -811,8 +797,6 @@ ___
 
 ▸ **finishUpgrade**(`overrides?`): `Promise`<`ContractTransaction`\>
 
-Called when upgrading the extension
-
 #### Parameters
 
 | Name | Type |
@@ -832,8 +816,6 @@ ___
 ### finishUpgrade()
 
 ▸ **finishUpgrade()**(`overrides?`): `Promise`<`ContractTransaction`\>
-
-Called when upgrading the extension
 
 #### Parameters
 
@@ -890,46 +872,6 @@ ___
 #### Inherited from
 
 AugmentedStagedExpenditure.getCapabilityRoles(bytes4)
-
-___
-
-### getChainId
-
-▸ **getChainId**(`overrides?`): `Promise`<`BigNumber`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
-
-#### Returns
-
-`Promise`<`BigNumber`\>
-
-#### Inherited from
-
-AugmentedStagedExpenditure.getChainId
-
-___
-
-### getChainId()
-
-▸ **getChainId()**(`overrides?`): `Promise`<`BigNumber`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
-
-#### Returns
-
-`Promise`<`BigNumber`\>
-
-#### Inherited from
-
-AugmentedStagedExpenditure.getChainId()
 
 ___
 
@@ -1059,8 +1001,6 @@ ___
 
 ▸ **identifier**(`overrides?`): `Promise`<`string`\>
 
-Returns the identifier of the extension
-
 #### Parameters
 
 | Name | Type |
@@ -1080,8 +1020,6 @@ ___
 ### identifier()
 
 ▸ **identifier()**(`overrides?`): `Promise`<`string`\>
-
-Returns the identifier of the extension
 
 #### Parameters
 
@@ -1103,14 +1041,12 @@ ___
 
 ▸ **install**(`_colony`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Configures the extension
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_colony` | `string` | The colony in which the extension holds permissions |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_colony` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1126,14 +1062,12 @@ ___
 
 ▸ **install(address)**(`_colony`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Configures the extension
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_colony` | `string` | The colony in which the extension holds permissions |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_colony` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1321,19 +1255,16 @@ ___
 
 ▸ **releaseStagedPayment**(`_permissionDomainId`, `_childSkillIndex`, `_expenditureId`, `_slot`, `_tokens`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Only owner can call this function, must be in finalized state
-Release a staged payment slot and claim tokens
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` | The domainId in which the extension has the arbitration permission |
-| `_childSkillIndex` | `BigNumberish` | The index that the `_expenditureId` is relative to `_permissionDomainId`, |
-| `_expenditureId` | `BigNumberish` | The id of the expenditure |
-| `_slot` | `BigNumberish` | The slot being released |
-| `_tokens` | `string`[] | An array of payment tokens associated with the slot |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_permissionDomainId` | `BigNumberish` |
+| `_childSkillIndex` | `BigNumberish` |
+| `_expenditureId` | `BigNumberish` |
+| `_slot` | `BigNumberish` |
+| `_tokens` | `string`[] |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1349,19 +1280,16 @@ ___
 
 ▸ **releaseStagedPayment(uint256,uint256,uint256,uint256,address[])**(`_permissionDomainId`, `_childSkillIndex`, `_expenditureId`, `_slot`, `_tokens`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Only owner can call this function, must be in finalized state
-Release a staged payment slot and claim tokens
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` | The domainId in which the extension has the arbitration permission |
-| `_childSkillIndex` | `BigNumberish` | The index that the `_expenditureId` is relative to `_permissionDomainId`, |
-| `_expenditureId` | `BigNumberish` | The id of the expenditure |
-| `_slot` | `BigNumberish` | The slot being released |
-| `_tokens` | `string`[] | An array of payment tokens associated with the slot |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_permissionDomainId` | `BigNumberish` |
+| `_childSkillIndex` | `BigNumberish` |
+| `_expenditureId` | `BigNumberish` |
+| `_slot` | `BigNumberish` |
+| `_tokens` | `string`[] |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1377,21 +1305,18 @@ ___
 
 ▸ **releaseStagedPaymentViaArbitration**(`_permissionDomainId`, `_childSkillIndex`, `_extensionPermissionDomainId`, `_extensionChildSkillIndex`, `_expenditureId`, `_slot`, `_tokens`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Anyone with arbitration permission can call this, must be in finalized state
-Release a staged payment slot and claim tokens
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` | The domainId in which the caller has the arbitration permission |
-| `_childSkillIndex` | `BigNumberish` | The index that the `_expenditureId` is relative to `_permissionDomainId`, |
-| `_extensionPermissionDomainId` | `BigNumberish` | The domainId in which the extension has the arbitration permission |
-| `_extensionChildSkillIndex` | `BigNumberish` | The index that the `_expenditureId` is relative to `_permissionDomainId`, |
-| `_expenditureId` | `BigNumberish` | The id of the expenditure |
-| `_slot` | `BigNumberish` | The slot being released |
-| `_tokens` | `string`[] | An array of payment tokens associated with the slot |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_permissionDomainId` | `BigNumberish` |
+| `_childSkillIndex` | `BigNumberish` |
+| `_extensionPermissionDomainId` | `BigNumberish` |
+| `_extensionChildSkillIndex` | `BigNumberish` |
+| `_expenditureId` | `BigNumberish` |
+| `_slot` | `BigNumberish` |
+| `_tokens` | `string`[] |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1407,21 +1332,18 @@ ___
 
 ▸ **releaseStagedPaymentViaArbitration(uint256,uint256,uint256,uint256,uint256,uint256,address[])**(`_permissionDomainId`, `_childSkillIndex`, `_extensionPermissionDomainId`, `_extensionChildSkillIndex`, `_expenditureId`, `_slot`, `_tokens`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Anyone with arbitration permission can call this, must be in finalized state
-Release a staged payment slot and claim tokens
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` | The domainId in which the caller has the arbitration permission |
-| `_childSkillIndex` | `BigNumberish` | The index that the `_expenditureId` is relative to `_permissionDomainId`, |
-| `_extensionPermissionDomainId` | `BigNumberish` | The domainId in which the extension has the arbitration permission |
-| `_extensionChildSkillIndex` | `BigNumberish` | The index that the `_expenditureId` is relative to `_permissionDomainId`, |
-| `_expenditureId` | `BigNumberish` | The id of the expenditure |
-| `_slot` | `BigNumberish` | The slot being released |
-| `_tokens` | `string`[] | An array of payment tokens associated with the slot |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_permissionDomainId` | `BigNumberish` |
+| `_childSkillIndex` | `BigNumberish` |
+| `_extensionPermissionDomainId` | `BigNumberish` |
+| `_extensionChildSkillIndex` | `BigNumberish` |
+| `_expenditureId` | `BigNumberish` |
+| `_slot` | `BigNumberish` |
+| `_tokens` | `string`[] |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1435,7 +1357,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`StagedExpenditureClientV1`](StagedExpenditureClientV1.md)
+▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`StagedExpenditureClientV2`](StagedExpenditureClientV2.md)
 
 #### Type parameters
 
@@ -1451,13 +1373,13 @@ ___
 
 #### Returns
 
-[`StagedExpenditureClientV1`](StagedExpenditureClientV1.md)
+[`StagedExpenditureClientV2`](StagedExpenditureClientV2.md)
 
 #### Inherited from
 
 AugmentedStagedExpenditure.removeAllListeners
 
-▸ **removeAllListeners**(`eventName?`): [`StagedExpenditureClientV1`](StagedExpenditureClientV1.md)
+▸ **removeAllListeners**(`eventName?`): [`StagedExpenditureClientV2`](StagedExpenditureClientV2.md)
 
 #### Parameters
 
@@ -1467,7 +1389,7 @@ AugmentedStagedExpenditure.removeAllListeners
 
 #### Returns
 
-[`StagedExpenditureClientV1`](StagedExpenditureClientV1.md)
+[`StagedExpenditureClientV2`](StagedExpenditureClientV2.md)
 
 #### Inherited from
 
@@ -1521,16 +1443,13 @@ ___
 
 ▸ **setExpenditureStaged**(`_expenditureId`, `_staged`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Only owner can call this function, must be in draft state
-Mark an expenditure as staged
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_expenditureId` | `BigNumberish` | Which expenditure we are changing |
-| `_staged` | `boolean` | Indcating whether the expenditure is staged or not |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_expenditureId` | `BigNumberish` |
+| `_staged` | `boolean` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1546,16 +1465,13 @@ ___
 
 ▸ **setExpenditureStaged(uint256,bool)**(`_expenditureId`, `_staged`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Only owner can call this function, must be in draft state
-Mark an expenditure as staged
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_expenditureId` | `BigNumberish` | Which expenditure we are changing |
-| `_staged` | `boolean` | Indcating whether the expenditure is staged or not |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_expenditureId` | `BigNumberish` |
+| `_staged` | `boolean` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1613,8 +1529,6 @@ ___
 
 ▸ **uninstall**(`overrides?`): `Promise`<`ContractTransaction`\>
 
-Called when uninstalling the extension
-
 #### Parameters
 
 | Name | Type |
@@ -1634,8 +1548,6 @@ ___
 ### uninstall()
 
 ▸ **uninstall()**(`overrides?`): `Promise`<`ContractTransaction`\>
-
-Called when uninstalling the extension
 
 #### Parameters
 
@@ -1711,8 +1623,6 @@ ___
 
 ▸ **version**(`overrides?`): `Promise`<`BigNumber`\>
 
-Returns the version of the extension
-
 #### Parameters
 
 | Name | Type |
@@ -1732,8 +1642,6 @@ ___
 ### version()
 
 ▸ **version()**(`overrides?`): `Promise`<`BigNumber`\>
-
-Returns the version of the extension
 
 #### Parameters
 

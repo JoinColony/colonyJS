@@ -48,6 +48,7 @@
 - [ArbitraryTransactionEventObject](interfaces/ArbitraryTransactionEventObject.md)
 - [AuctionCreatedEventObject](interfaces/AuctionCreatedEventObject.md)
 - [BaseContract](interfaces/BaseContract.md)
+- [BridgeSetEventObject](interfaces/BridgeSetEventObject.md)
 - [BurnEventObject](interfaces/BurnEventObject.md)
 - [CoinMachineEvents](interfaces/CoinMachineEvents.md)
 - [CoinMachineEventsInterface](interfaces/CoinMachineEventsInterface.md)
@@ -187,6 +188,10 @@
 - [ReputationMiningInitialisedEventObject](interfaces/ReputationMiningInitialisedEventObject.md)
 - [ReputationMiningRewardSetEventObject](interfaces/ReputationMiningRewardSetEventObject.md)
 - [ReputationRootHashSetEventObject](interfaces/ReputationRootHashSetEventObject.md)
+- [ReputationUpdateAddedFromBridgeEventObject](interfaces/ReputationUpdateAddedFromBridgeEventObject.md)
+- [ReputationUpdateSentToBridgeEventObject](interfaces/ReputationUpdateSentToBridgeEventObject.md)
+- [ReputationUpdateStoredEventObject](interfaces/ReputationUpdateStoredEventObject.md)
+- [ReputationUpdateStoredFromBridgeEventObject](interfaces/ReputationUpdateStoredFromBridgeEventObject.md)
 - [RewardPayoutClaimedEventObject](interfaces/RewardPayoutClaimedEventObject.md)
 - [RewardPayoutCycleEnded\_address\_uint256\_EventObject](interfaces/RewardPayoutCycleEnded_address_uint256_EventObject.md)
 - [RewardPayoutCycleEnded\_uint256\_EventObject](interfaces/RewardPayoutCycleEnded_uint256_EventObject.md)
@@ -194,6 +199,9 @@
 - [RewardPayoutCycleStarted\_uint256\_EventObject](interfaces/RewardPayoutCycleStarted_uint256_EventObject.md)
 - [SafeInfo](interfaces/SafeInfo.md)
 - [SkillAddedEventObject](interfaces/SkillAddedEventObject.md)
+- [SkillAddedFromBridgeEventObject](interfaces/SkillAddedFromBridgeEventObject.md)
+- [SkillCreationStoredEventObject](interfaces/SkillCreationStoredEventObject.md)
+- [SkillStoredFromBridgeEventObject](interfaces/SkillStoredFromBridgeEventObject.md)
 - [StagedExpenditureEvents](interfaces/StagedExpenditureEvents.md)
 - [StakeTransferredEventObject](interfaces/StakeTransferredEventObject.md)
 - [StakedExpenditureEvents](interfaces/StakedExpenditureEvents.md)
@@ -434,6 +442,18 @@ ___
 ### AuctionCreatedEventFilter
 
 Ƭ **AuctionCreatedEventFilter**: `TypedEventFilter`<[`AuctionCreatedEvent`](README.md#auctioncreatedevent)\>
+
+___
+
+### BridgeSetEvent
+
+Ƭ **BridgeSetEvent**: `TypedEvent`<[`string`], [`BridgeSetEventObject`](interfaces/BridgeSetEventObject.md)\>
+
+___
+
+### BridgeSetEventFilter
+
+Ƭ **BridgeSetEventFilter**: `TypedEventFilter`<[`BridgeSetEvent`](README.md#bridgesetevent)\>
 
 ___
 
@@ -1645,6 +1665,54 @@ ___
 
 ___
 
+### ReputationUpdateAddedFromBridgeEvent
+
+Ƭ **ReputationUpdateAddedFromBridgeEvent**: `TypedEvent`<[`BigNumber`, `string`, `BigNumber`], [`ReputationUpdateAddedFromBridgeEventObject`](interfaces/ReputationUpdateAddedFromBridgeEventObject.md)\>
+
+___
+
+### ReputationUpdateAddedFromBridgeEventFilter
+
+Ƭ **ReputationUpdateAddedFromBridgeEventFilter**: `TypedEventFilter`<[`ReputationUpdateAddedFromBridgeEvent`](README.md#reputationupdateaddedfrombridgeevent)\>
+
+___
+
+### ReputationUpdateSentToBridgeEvent
+
+Ƭ **ReputationUpdateSentToBridgeEvent**: `TypedEvent`<[`string`, `BigNumber`], [`ReputationUpdateSentToBridgeEventObject`](interfaces/ReputationUpdateSentToBridgeEventObject.md)\>
+
+___
+
+### ReputationUpdateSentToBridgeEventFilter
+
+Ƭ **ReputationUpdateSentToBridgeEventFilter**: `TypedEventFilter`<[`ReputationUpdateSentToBridgeEvent`](README.md#reputationupdatesenttobridgeevent)\>
+
+___
+
+### ReputationUpdateStoredEvent
+
+Ƭ **ReputationUpdateStoredEvent**: `TypedEvent`<[`string`, `BigNumber`], [`ReputationUpdateStoredEventObject`](interfaces/ReputationUpdateStoredEventObject.md)\>
+
+___
+
+### ReputationUpdateStoredEventFilter
+
+Ƭ **ReputationUpdateStoredEventFilter**: `TypedEventFilter`<[`ReputationUpdateStoredEvent`](README.md#reputationupdatestoredevent)\>
+
+___
+
+### ReputationUpdateStoredFromBridgeEvent
+
+Ƭ **ReputationUpdateStoredFromBridgeEvent**: `TypedEvent`<[`BigNumber`, `string`, `BigNumber`], [`ReputationUpdateStoredFromBridgeEventObject`](interfaces/ReputationUpdateStoredFromBridgeEventObject.md)\>
+
+___
+
+### ReputationUpdateStoredFromBridgeEventFilter
+
+Ƭ **ReputationUpdateStoredFromBridgeEventFilter**: `TypedEventFilter`<[`ReputationUpdateStoredFromBridgeEvent`](README.md#reputationupdatestoredfrombridgeevent)\>
+
+___
+
 ### RewardPayoutClaimedEvent
 
 Ƭ **RewardPayoutClaimedEvent**: `TypedEvent`<[`BigNumber`, `string`, `BigNumber`, `BigNumber`], [`RewardPayoutClaimedEventObject`](interfaces/RewardPayoutClaimedEventObject.md)\>
@@ -1720,6 +1788,42 @@ ___
 ### SkillAddedEventFilter
 
 Ƭ **SkillAddedEventFilter**: `TypedEventFilter`<[`SkillAddedEvent`](README.md#skilladdedevent)\>
+
+___
+
+### SkillAddedFromBridgeEvent
+
+Ƭ **SkillAddedFromBridgeEvent**: `TypedEvent`<[`BigNumber`], [`SkillAddedFromBridgeEventObject`](interfaces/SkillAddedFromBridgeEventObject.md)\>
+
+___
+
+### SkillAddedFromBridgeEventFilter
+
+Ƭ **SkillAddedFromBridgeEventFilter**: `TypedEventFilter`<[`SkillAddedFromBridgeEvent`](README.md#skilladdedfrombridgeevent)\>
+
+___
+
+### SkillCreationStoredEvent
+
+Ƭ **SkillCreationStoredEvent**: `TypedEvent`<[`BigNumber`], [`SkillCreationStoredEventObject`](interfaces/SkillCreationStoredEventObject.md)\>
+
+___
+
+### SkillCreationStoredEventFilter
+
+Ƭ **SkillCreationStoredEventFilter**: `TypedEventFilter`<[`SkillCreationStoredEvent`](README.md#skillcreationstoredevent)\>
+
+___
+
+### SkillStoredFromBridgeEvent
+
+Ƭ **SkillStoredFromBridgeEvent**: `TypedEvent`<[`BigNumber`], [`SkillStoredFromBridgeEventObject`](interfaces/SkillStoredFromBridgeEventObject.md)\>
+
+___
+
+### SkillStoredFromBridgeEventFilter
+
+Ƭ **SkillStoredFromBridgeEventFilter**: `TypedEventFilter`<[`SkillStoredFromBridgeEvent`](README.md#skillstoredfrombridgeevent)\>
 
 ___
 
@@ -2291,18 +2395,15 @@ Latest versions of all extension contracts
 
 | Name | Type |
 | :------ | :------ |
-| `CoinMachine` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` |
-| `EvaluatedExpenditure` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` |
-| `FundingQueue` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` |
-| `IVotingReputation` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` |
-| `OneTxPayment` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` |
-| `ReputationBootstrapper` | ``1`` \| ``2`` \| ``3`` |
-| `StagedExpenditure` | ``1`` |
-| `StakedExpenditure` | ``1`` \| ``2`` \| ``3`` \| ``4`` |
-| `StreamingPayments` | ``1`` \| ``2`` \| ``3`` |
-| `TokenSupplier` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` |
-| `VotingReputation` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` |
-| `Whitelist` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` |
+| `FundingQueue` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` |
+| `IVotingReputation` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` |
+| `OneTxPayment` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` |
+| `ReputationBootstrapper` | ``1`` \| ``2`` \| ``3`` \| ``4`` |
+| `StagedExpenditure` | ``1`` \| ``2`` |
+| `StakedExpenditure` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` |
+| `StreamingPayments` | ``1`` \| ``2`` \| ``3`` \| ``4`` |
+| `TokenSupplier` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` |
+| `VotingReputation` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` |
 
 ___
 
@@ -2456,7 +2557,7 @@ Returns `true` if an extension version is compatible with the given colony versi
 | :------ | :------ | :------ |
 | `extension` | [`Extension`](enums/Extension.md) | A valid `Extension` contract name |
 | `extensionVersion` | `ExtensionVersion` | The version of the extension to check against the colony |
-| `colonyVersion` | ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12`` \| ``13`` \| ``14`` | The version of the colony to check for |
+| `colonyVersion` | ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12`` \| ``13`` \| ``14`` \| ``15`` | The version of the colony to check for |
 
 #### Returns
 

@@ -84,8 +84,6 @@ ___
 | `decimals()` | (`overrides?`: `CallOverrides`) => `Promise`<`number`\> |
 | `executeMetaTransaction` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `getChainId` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getChainId()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getMetatransactionNonce` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getMetatransactionNonce(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `locked` | (`overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
@@ -159,8 +157,6 @@ ___
 | `decimals()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `executeMetaTransaction` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
 | `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `getChainId` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getChainId()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getMetatransactionNonce` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getMetatransactionNonce(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `locked` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
@@ -253,8 +249,6 @@ ___
 | `decimals()` | (`overrides?`: `CallOverrides`) => `Promise`<[`number`]\> |
 | `executeMetaTransaction` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `getChainId` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
-| `getChainId()` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
 | `getMetatransactionNonce` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
 | `getMetatransactionNonce(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
 | `locked` | (`overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
@@ -358,8 +352,6 @@ ___
 | `decimals()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `executeMetaTransaction` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `getChainId` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getChainId()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getMetatransactionNonce` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getMetatransactionNonce(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `locked` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
@@ -847,18 +839,16 @@ ___
 
 ▸ **executeMetaTransaction**(`_user`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_user` | `string` | Address of user trying to do meta transaction |
-| `_payload` | `BytesLike` | Function call to make via meta transaction |
-| `_sigR` | `BytesLike` | R part of the signature |
-| `_sigS` | `BytesLike` | S part of the signature |
-| `_sigV` | `BigNumberish` | V part of the signature |
-| `overrides?` | `PayableOverrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_user` | `string` |
+| `_payload` | `BytesLike` |
+| `_sigR` | `BytesLike` |
+| `_sigS` | `BytesLike` |
+| `_sigV` | `BigNumberish` |
+| `overrides?` | `PayableOverrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -870,18 +860,16 @@ ___
 
 ▸ **executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)**(`_user`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_user` | `string` | Address of user trying to do meta transaction |
-| `_payload` | `BytesLike` | Function call to make via meta transaction |
-| `_sigR` | `BytesLike` | R part of the signature |
-| `_sigS` | `BytesLike` | S part of the signature |
-| `_sigV` | `BigNumberish` | V part of the signature |
-| `overrides?` | `PayableOverrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_user` | `string` |
+| `_payload` | `BytesLike` |
+| `_sigR` | `BytesLike` |
+| `_sigS` | `BytesLike` |
+| `_sigV` | `BigNumberish` |
+| `overrides?` | `PayableOverrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -906,38 +894,6 @@ ___
 #### Inherited from
 
 BaseContract.fallback
-
-___
-
-### getChainId
-
-▸ **getChainId**(`overrides?`): `Promise`<`BigNumber`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
-
-#### Returns
-
-`Promise`<`BigNumber`\>
-
-___
-
-### getChainId()
-
-▸ **getChainId()**(`overrides?`): `Promise`<`BigNumber`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
-
-#### Returns
-
-`Promise`<`BigNumber`\>
 
 ___
 

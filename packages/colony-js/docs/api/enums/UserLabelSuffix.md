@@ -4,6 +4,18 @@ ENS label suffix for users
 
 ## Enumeration Members
 
+### ArbitrumOne
+
+• **ArbitrumOne** = ``".user.joincolony.arbitrum"``
+
+___
+
+### ArbitrumSepolia
+
+• **ArbitrumSepolia** = ``".user.joincolony.sepolia"``
+
+___
+
 ### Custom
 
 • **Custom** = ``".user.joincolony.test"``

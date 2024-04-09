@@ -9,21 +9,9 @@ Every contract-client in ColonyJS needs to have a clientType property which a va
 
 ## Enumeration Members
 
-### CoinMachineClient
-
-• **CoinMachineClient** = ``"CoinMachineClient"``
-
-___
-
 ### ColonyClient
 
 • **ColonyClient** = ``"ColonyClient"``
-
-___
-
-### EvaluatedExpenditureClient
-
-• **EvaluatedExpenditureClient** = ``"EvaluatedExpenditureClient"``
 
 ___
 
@@ -96,9 +84,3 @@ ___
 ### VotingReputationClient
 
 • **VotingReputationClient** = ``"VotingReputationClient"``
-
-___
-
-### WhitelistClient
-
-• **WhitelistClient** = ``"WhitelistClient"``
