@@ -66,7 +66,7 @@ importers:
   packages/colony-js:
     dependencies:
       '@colony/core':
-        specifier: ^2.0.1
+        specifier: ^2.1.0
         version: link:../core
       '@colony/events':
         specifier: ^1.0.1
@@ -76,7 +76,7 @@ importers:
         version: link:../tokens
     devDependencies:
       '@colony/contractor':
-        specifier: ^2.0.1
+        specifier: ^2.1.0
         version: link:../contractor
       '@ethersproject/abi':
         specifier: ^5.7.0
@@ -152,7 +152,7 @@ importers:
   packages/core:
     devDependencies:
       '@colony/contractor':
-        specifier: 2.0.1
+        specifier: 2.1.0
         version: link:../contractor
       '@ethersproject/abi':
         specifier: ^5.7.0

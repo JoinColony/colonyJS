@@ -1,5 +1,22 @@
 # @colony/colony-js
 
+## 7.1.0
+
+### Minor Changes
+
+- 6a1d15d: Added support for the colonyNetwork `imwss` release.
+
+  Removed the following extension clients (for now):
+
+  - CoinMachine
+  - EvaluatedExpenditure
+  - Whitelist
+
+### Patch Changes
+
+- Updated dependencies [6a1d15d]
+  - @colony/core@2.1.0
+
 ## 7.0.4
 
 ### Patch Changes
