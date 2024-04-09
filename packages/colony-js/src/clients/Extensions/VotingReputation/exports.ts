@@ -24,19 +24,24 @@ import getVotingReputationClientV9, {
 import getVotingReputationClientV10, {
   VotingReputationClientV10,
 } from './VotingReputationClientV10.js';
+import getVotingReputationClientV11, {
+  VotingReputationClientV11,
+} from './VotingReputationClientV11.js';
 
 export { VotingReputationClientV6 } from './VotingReputationClientV6.js';
 export { VotingReputationClientV7 } from './VotingReputationClientV7.js';
 export { VotingReputationClientV8 } from './VotingReputationClientV8.js';
 export { VotingReputationClientV9 } from './VotingReputationClientV9.js';
 export { VotingReputationClientV10 } from './VotingReputationClientV10.js';
+export { VotingReputationClientV11 } from './VotingReputationClientV11.js';
 
 export type AnyVotingReputationClient =
   | VotingReputationClientV6
   | VotingReputationClientV7
   | VotingReputationClientV8
   | VotingReputationClientV9
-  | VotingReputationClientV10;
+  | VotingReputationClientV10
+  | VotingReputationClientV11;
 
 /** @internal */
 export function getVotingReputationClient(
@@ -80,6 +85,8 @@ export function getVotingReputationClient(
       return getVotingReputationClientV9(colonyClient, address);
     case 10:
       return getVotingReputationClientV10(colonyClient, address);
+    case 11:
+      return getVotingReputationClientV11(colonyClient, address);
     default:
       return assertExhaustiveSwitch(
         version,

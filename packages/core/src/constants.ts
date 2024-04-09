@@ -34,8 +34,10 @@ export enum ColonyNetworkAddress {
   XdaiQa = '0x78163f593D1Fa151B4B7cacD146586aD2b686294',
   /** Placeholder for a locally deployed EtherRouter address */
   Custom = '',
-  ArbitrumOne = '',
-  ArbitrumSepolia = '',
+  /** The ColonyNetwork EtherRouter address on Arbitrum One */
+  ArbitrumOne = '0xcccccdcc0ccf6c708d860e19353c5f9a49accccc',
+  /** The ColonyNetwork EtherRouter address on Arbitrum Sepolia testnet */
+  ArbitrumSepolia = '0x7777494e3d8cce0D3570E21FEf820F9Fee077777',
 }
 
 /**
@@ -47,8 +49,8 @@ export enum ReputationOracleEndpoint {
   Xdai = 'https://xdai.colony.io/reputation/xdai',
   XdaiQa = 'https://qa-xdai.colony.io/reputation/xdai',
   Custom = 'http://localhost:3000',
-  ArbitrumOne = 'https://arbitrum.colony.io/reputation/arbitrum',
-  ArbitrumSepolia = 'https://sepolia.colony.io/reputation/sepolia',
+  ArbitrumOne = 'https://arbitrum.colony.io/reputation/arbitrum-one',
+  ArbitrumSepolia = `https://arbitrum-sepolia.colony.io/reputation/arbitrum-sepolia`,
 }
 
 /**
@@ -67,8 +69,10 @@ export enum MetaTxBroadCasterEndpoint {
   XdaiQa = 'https://xdai.colony.io/metatransaction/xdai',
   /** The metatransaction broadcaster endpoint for a custom network */
   Custom = '',
-  ArbitrumOne = 'https://arbitrum.colony.io/metatransaction/arbitrum',
-  ArbitrumSepolia = 'https://sepolia.colony.io/metatransaction/sepolia',
+  /** The metatransaction broadcaster endpoint on Arbitrum One */
+  ArbitrumOne = 'https://arbitrum.colony.io/metatransaction/arbitrum-one',
+  /** The metatransaction broadcaster endpoint on Arbitrum Sepolia testnet */
+  ArbitrumSepolia = `https://arbitrum-sepolia.colony.io/metatransaction/arbitrum-sepolia`,
 }
 
 /**
@@ -87,8 +91,10 @@ export enum ColonyRpcEndpoint {
   XdaiQa = 'https://xdai.colony.io/rpc/',
   /** Colony's own RPC2 endpoint for a custom network */
   Custom = '',
-  ArbitrumOne = 'https://arbitrum.colony.io/rpc/',
-  ArbitrumSepolia = 'https://sepolia.colony.io/rpc/',
+  /** Colony's own RPC2 endpoint for Arbitrum One */
+  ArbitrumOne = 'https://arbitrum.colony.io/publicrpc/',
+  /** Colony's own RPC2 endpoint for Arbitrum Sepolia testnet */
+  ArbitrumSepolia = 'https://arbitrum-sepolia.colony.io/publicrpc/',
 }
 
 /**
@@ -138,6 +144,14 @@ export namespace Tokens {
     XDAI = '0x0000000000000000000000000000000000000000',
     /** CLNY on Gnosis Chain */
     CLNY = '0xc9B6218AffE8Aba68a13899Cbf7cF7f14DDd304C',
+  }
+
+  /** Tokens deployed on Arbitrum One */
+  export enum Arbitrum {
+    /** ETH on Arbitrum One */
+    ETH = '0x0000000000000000000000000000000000000000',
+    /** CLNY on Arbitrum One */
+    CLNY = '0xcccccdcc0ccf6c708d860e19353c5f9a49accccc',
   }
 }
 
@@ -210,8 +224,6 @@ export enum ColonyRole {
  * Extension contract names
  */
 export enum Extension {
-  CoinMachine = 'CoinMachine',
-  EvaluatedExpenditure = 'EvaluatedExpenditure',
   FundingQueue = 'FundingQueue',
   // The VotingReputation contract was refactored in flwss3 to also be an interface (akin to IColony)
   IVotingReputation = 'IVotingReputation',
@@ -222,5 +234,4 @@ export enum Extension {
   StreamingPayments = 'StreamingPayments',
   TokenSupplier = 'TokenSupplier',
   VotingReputation = 'VotingReputation',
-  Whitelist = 'Whitelist',
 }

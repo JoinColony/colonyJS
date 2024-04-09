@@ -20,19 +20,24 @@ import getOneTxPaymentClientV5, {
 import getOneTxPaymentClientV6, {
   OneTxPaymentClientV6,
 } from './OneTxPaymentClientV6.js';
+import getOneTxPaymentClientV7, {
+  OneTxPaymentClientV7,
+} from './OneTxPaymentClientV7.js';
 
 export { OneTxPaymentClientV2 } from './OneTxPaymentClientV2.js';
 export { OneTxPaymentClientV3 } from './OneTxPaymentClientV3.js';
 export { OneTxPaymentClientV4 } from './OneTxPaymentClientV4.js';
 export { OneTxPaymentClientV5 } from './OneTxPaymentClientV5.js';
 export { OneTxPaymentClientV6 } from './OneTxPaymentClientV6.js';
+export { OneTxPaymentClientV7 } from './OneTxPaymentClientV7.js';
 
 export type AnyOneTxPaymentClient =
   | OneTxPaymentClientV2
   | OneTxPaymentClientV3
   | OneTxPaymentClientV4
   | OneTxPaymentClientV5
-  | OneTxPaymentClientV6;
+  | OneTxPaymentClientV6
+  | OneTxPaymentClientV7;
 
 /** @internal */
 export const getOneTxPaymentClient = (
@@ -53,6 +58,8 @@ export const getOneTxPaymentClient = (
       return getOneTxPaymentClientV5(colonyClient, address);
     case 6:
       return getOneTxPaymentClientV6(colonyClient, address);
+    case 7:
+      return getOneTxPaymentClientV7(colonyClient, address);
     default:
       return assertExhaustiveSwitch(
         version,

@@ -20,19 +20,24 @@ import getTokenSupplierClientV5, {
 import getTokenSupplierClientV6, {
   TokenSupplierClientV6,
 } from './TokenSupplierClientV6.js';
+import getTokenSupplierClientV7, {
+  TokenSupplierClientV7,
+} from './TokenSupplierClientV7.js';
 
 export { TokenSupplierClientV2 } from './TokenSupplierClientV2.js';
 export { TokenSupplierClientV3 } from './TokenSupplierClientV3.js';
 export { TokenSupplierClientV4 } from './TokenSupplierClientV4.js';
 export { TokenSupplierClientV5 } from './TokenSupplierClientV5.js';
 export { TokenSupplierClientV6 } from './TokenSupplierClientV6.js';
+export { TokenSupplierClientV7 } from './TokenSupplierClientV7.js';
 
 export type AnyTokenSupplierClient =
   | TokenSupplierClientV2
   | TokenSupplierClientV3
   | TokenSupplierClientV4
   | TokenSupplierClientV5
-  | TokenSupplierClientV6;
+  | TokenSupplierClientV6
+  | TokenSupplierClientV7;
 
 /** @internal */
 export const getTokenSupplierClient = (
@@ -56,6 +61,8 @@ export const getTokenSupplierClient = (
       return getTokenSupplierClientV5(colonyClient, address);
     case 6:
       return getTokenSupplierClientV6(colonyClient, address);
+    case 7:
+      return getTokenSupplierClientV7(colonyClient, address);
     default:
       return assertExhaustiveSwitch(
         version,
