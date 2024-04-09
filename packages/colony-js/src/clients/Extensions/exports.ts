@@ -1,8 +1,6 @@
 import { constants } from 'ethers';
 import {
   type ExtensionVersion,
-  type CoinMachineVersion,
-  type EvaluatedExpenditureVersion,
   type FundingQueueVersion,
   type OneTxPaymentVersion,
   type ReputationBootstrapperVersion,
@@ -11,7 +9,6 @@ import {
   type StreamingPaymentsVersion,
   type TokenSupplierVersion,
   type VotingReputationVersion,
-  type WhitelistVersion,
   Extension,
   getExtensionHash,
   isExtensionCompatible,
@@ -20,10 +17,6 @@ import { assertExhaustiveSwitch } from '@colony/core/utils';
 
 import { AugmentedIColony } from '../Core/augments/commonAugments.js';
 
-import {
-  getCoinMachineClient,
-  AnyCoinMachineClient,
-} from './CoinMachine/exports.js';
 import {
   getOneTxPaymentClient,
   AnyOneTxPaymentClient,
@@ -36,11 +29,6 @@ import {
   getVotingReputationClient,
   AnyVotingReputationClient,
 } from './VotingReputation/exports.js';
-import { getWhitelistClient, AnyWhitelistClient } from './Whitelist/exports.js';
-import {
-  getEvaluatedExpenditureClient,
-  AnyEvaluatedExpenditureClient,
-} from './EvaluatedExpenditure/exports.js';
 import {
   getStagedExpenditureClient,
   AnyStagedExpenditureClient,
@@ -66,19 +54,14 @@ import {
 
 const { AddressZero } = constants;
 
-export * from './CoinMachine/exports.js';
-export * from './EvaluatedExpenditure/exports.js';
 export * from './OneTxPayment/exports.js';
 export * from './StagedExpenditure/exports.js';
 export * from './StakedExpenditure/exports.js';
 export * from './StreamingPayments/exports.js';
 export * from './TokenSupplier/exports.js';
 export * from './VotingReputation/exports.js';
-export * from './Whitelist/exports.js';
 
 export type ExtensionClient =
-  | AnyCoinMachineClient
-  | AnyEvaluatedExpenditureClient
   | AnyFundingQueueClient
   | AnyOneTxPaymentClient
   | AnyReputationBootstrapperClient
@@ -86,13 +69,10 @@ export type ExtensionClient =
   | AnyStakedExpenditureClient
   | AnyStreamingPaymentsClient
   | AnyTokenSupplierClient
-  | AnyVotingReputationClient
-  | AnyWhitelistClient;
+  | AnyVotingReputationClient;
 
 /** @internal */
 export type GetExtensionClientReturns = {
-  [Extension.CoinMachine]: AnyCoinMachineClient;
-  [Extension.EvaluatedExpenditure]: AnyEvaluatedExpenditureClient;
   [Extension.FundingQueue]: AnyFundingQueueClient;
   [Extension.IVotingReputation]: AnyVotingReputationClient;
   [Extension.OneTxPayment]: AnyOneTxPaymentClient;
@@ -102,7 +82,6 @@ export type GetExtensionClientReturns = {
   [Extension.StreamingPayments]: AnyStreamingPaymentsClient;
   [Extension.TokenSupplier]: AnyTokenSupplierClient;
   [Extension.VotingReputation]: AnyVotingReputationClient;
-  [Extension.Whitelist]: AnyWhitelistClient;
 };
 
 // NOTE: TypeScript has a problem with narrowing down this distinction.
@@ -144,16 +123,6 @@ export async function getExtensionClient(
   }
 
   switch (extension) {
-    case Extension.CoinMachine: {
-      return getCoinMachineClient(this, address, version as CoinMachineVersion);
-    }
-    case Extension.EvaluatedExpenditure: {
-      return getEvaluatedExpenditureClient(
-        this,
-        address,
-        version as EvaluatedExpenditureVersion,
-      );
-    }
     case Extension.FundingQueue: {
       return getFundingQueueClient(
         this,
@@ -216,9 +185,6 @@ export async function getExtensionClient(
         address,
         version as VotingReputationVersion,
       );
-    }
-    case Extension.Whitelist: {
-      return getWhitelistClient(this, address, version as WhitelistVersion);
     }
     default:
       return assertExhaustiveSwitch(

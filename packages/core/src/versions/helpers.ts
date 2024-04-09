@@ -2,14 +2,6 @@ import { Extension } from '../constants.js';
 import { assertExhaustiveSwitch } from '../utils/index.js';
 import { ColonyVersion, ExtensionVersion } from './index.js';
 import {
-  coinMachineIncompatibilityMap,
-  CoinMachineVersion,
-} from './CoinMachine.js';
-import {
-  EvaluatedExpenditureVersion,
-  evaluatedExpenditureIncompatibilityMap,
-} from './EvaluatedExpenditure.js';
-import {
   FundingQueueVersion,
   fundingQueueIncompatibilityMap,
 } from './FundingQueue.js';
@@ -41,7 +33,6 @@ import {
   TokenSupplierVersion,
   tokenSupplierIncompatibilityMap,
 } from './TokenSupplier.js';
-import { WhitelistVersion, whitelistIncompatibilityMap } from './Whitelist.js';
 
 /**
  * Checks the compatibility of an extension version with a colony version it requests to be installed in
@@ -59,18 +50,6 @@ export const isExtensionCompatible = (
   colonyVersion: ColonyVersion,
 ) => {
   switch (extension) {
-    case Extension.CoinMachine: {
-      const map =
-        coinMachineIncompatibilityMap[extensionVersion as CoinMachineVersion];
-      return !!map && !map.includes(colonyVersion);
-    }
-    case Extension.EvaluatedExpenditure: {
-      const map =
-        evaluatedExpenditureIncompatibilityMap[
-          extensionVersion as EvaluatedExpenditureVersion
-        ];
-      return !!map && !map.includes(colonyVersion);
-    }
     case Extension.FundingQueue: {
       const map =
         fundingQueueIncompatibilityMap[extensionVersion as FundingQueueVersion];
@@ -128,11 +107,6 @@ export const isExtensionCompatible = (
         votingReputationIncompatibilityMap[
           extensionVersion as VotingReputationVersion
         ];
-      return !!map && !map.includes(colonyVersion);
-    }
-    case Extension.Whitelist: {
-      const map =
-        whitelistIncompatibilityMap[extensionVersion as WhitelistVersion];
       return !!map && !map.includes(colonyVersion);
     }
     default:
