@@ -251,6 +251,7 @@ export enum Extension {
   FundingQueue = 'FundingQueue',
   // The VotingReputation contract was refactored in flwss3 to also be an interface (akin to IColony)
   IVotingReputation = 'IVotingReputation',
+  MultisigPermissions = 'MultisigPermissions',
   OneTxPayment = 'OneTxPayment',
   ReputationBootstrapper = 'ReputationBootstrapper',
   StagedExpenditure = 'StagedExpenditure',
