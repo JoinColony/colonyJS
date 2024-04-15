@@ -16,6 +16,12 @@ ___
 
 ___
 
+### MultisigPermissions
+
+• **MultisigPermissions** = ``"MultisigPermissions"``
+
+___
+
 ### OneTxPayment
 
 • **OneTxPayment** = ``"OneTxPayment"``

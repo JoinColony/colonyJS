@@ -18,22 +18,22 @@ import {
 import { ClientType } from '../../../../constants.js';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
 import {
-  IColonyV10,
-  IColonyV11,
   IColonyV12,
   IColonyV13,
   IColonyV14,
+  IColonyV15,
+  IColonyV16,
 } from '../../../Core/contracts.js';
 import { AnyStreamingPayments } from '../contracts.js';
 
 const { MaxUint256 } = constants;
 
 export type ValidColony =
-  | IColonyV10
-  | IColonyV11
   | IColonyV12
   | IColonyV13
-  | IColonyV14;
+  | IColonyV14
+  | IColonyV15
+  | IColonyV16;
 
 export type AugmentedEstimate<
   T extends AnyStreamingPayments = AnyStreamingPayments,
@@ -55,8 +55,8 @@ export type AugmentedEstimate<
     _endTime: BigNumberish,
     _interval: BigNumberish,
     _recipient: string,
-    _tokens: string[],
-    _amounts: BigNumberish[],
+    _token: string,
+    _amount: BigNumberish,
     overrides?: TxOverrides,
   ): Promise<BigNumber>;
 
@@ -68,21 +68,6 @@ export type AugmentedEstimate<
    */
   claimWithProofs(
     _id: BigNumberish,
-    _tokens: string[],
-    overrides?: TxOverrides,
-  ): Promise<BigNumber>;
-
-  /**
-   * Same as {@link addToken}, but let colonyJS figure out the permission proofs for you.
-   * Always prefer this method, except when you have good reason not to.
-   * @param _id - The id of the streaming payment
-   * @param _token - The address of the token
-   * @param _amount - The amount to pay out
-   */
-  addTokenWithProofs(
-    _id: BigNumberish,
-    _token: string,
-    _amount: BigNumberish,
     overrides?: TxOverrides,
   ): Promise<BigNumber>;
 
@@ -95,8 +80,8 @@ export type AugmentedEstimate<
    */
   setTokenAmountWithProofs(
     _id: BigNumberish,
-    _token: string,
     _amount: BigNumberish,
+    _interval: BigNumberish,
     overrides?: TxOverrides,
   ): Promise<BigNumber>;
 
@@ -169,8 +154,8 @@ export type AugmentedStreamingPayments<
     _endTime: BigNumberish,
     _interval: BigNumberish,
     _recipient: string,
-    _tokens: string[],
-    _amounts: BigNumberish[],
+    _token: string,
+    _amount: BigNumberish,
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
 
@@ -182,21 +167,6 @@ export type AugmentedStreamingPayments<
    */
   claimWithProofs(
     _id: BigNumberish,
-    _tokens: string[],
-    overrides?: TxOverrides,
-  ): Promise<ContractTransaction>;
-
-  /**
-   * Same as {@link addToken}, but let colonyJS figure out the permission proofs for you.
-   * Always prefer this method, except when you have good reason not to.
-   * @param _id - The id of the streaming payment
-   * @param _token - The address of the token
-   * @param _amount - The amount to pay out
-   */
-  addTokenWithProofs(
-    _id: BigNumberish,
-    _token: string,
-    _amount: BigNumberish,
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
 
@@ -209,8 +179,8 @@ export type AugmentedStreamingPayments<
    */
   setTokenAmountWithProofs(
     _id: BigNumberish,
-    _token: string,
     _amount: BigNumberish,
+    _interval: BigNumberish,
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
 
@@ -256,8 +226,8 @@ async function createWithProofs(
   _endTime: BigNumberish,
   _interval: BigNumberish,
   _recipient: string,
-  _tokens: string[],
-  _amounts: BigNumberish[],
+  _token: string,
+  _amount: BigNumberish,
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const [fundingPermissionDomainId, fundingChildSkillIndex] =
@@ -285,8 +255,8 @@ async function createWithProofs(
     _endTime,
     _interval,
     _recipient,
-    _tokens,
-    _amounts,
+    _token,
+    _amount,
     overrides,
   );
 }
@@ -298,8 +268,8 @@ async function estimateCreateWithProofs(
   _endTime: BigNumberish,
   _interval: BigNumberish,
   _recipient: string,
-  _tokens: string[],
-  _amounts: BigNumberish[],
+  _token: string,
+  _amount: BigNumberish,
   overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [fundingPermissionDomainId, fundingChildSkillIndex] =
@@ -327,8 +297,8 @@ async function estimateCreateWithProofs(
     _endTime,
     _interval,
     _recipient,
-    _tokens,
-    _amounts,
+    _token,
+    _amount,
     overrides,
   );
 }
@@ -336,7 +306,6 @@ async function estimateCreateWithProofs(
 async function claimWithProofs(
   this: AugmentedStreamingPayments,
   _id: BigNumberish,
-  _tokens: string[],
   overrides?: TxOverrides,
 ): Promise<ContractTransaction> {
   const { domainId } = await this.getStreamingPayment(_id);
@@ -356,7 +325,6 @@ async function claimWithProofs(
     MaxUint256,
     MaxUint256,
     _id,
-    _tokens,
     overrides,
   );
 }
@@ -364,7 +332,6 @@ async function claimWithProofs(
 async function estimateClaimWithProofs(
   this: AugmentedStreamingPayments,
   _id: BigNumberish,
-  _tokens: string[],
   overrides?: TxOverrides,
 ): Promise<BigNumber> {
   const { domainId } = await this.getStreamingPayment(_id);
@@ -384,59 +351,6 @@ async function estimateClaimWithProofs(
     MaxUint256,
     MaxUint256,
     _id,
-    _tokens,
-    overrides,
-  );
-}
-
-async function addTokenWithProofs(
-  this: AugmentedStreamingPayments,
-  _id: BigNumberish,
-  _token: string,
-  _amount: BigNumberish,
-  overrides?: TxOverrides,
-): Promise<ContractTransaction> {
-  const { domainId } = await this.getStreamingPayment(_id);
-
-  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
-    this.colonyClient.networkClient,
-    this.colonyClient,
-    domainId,
-    ColonyRole.Funding,
-  );
-
-  return this.addToken(
-    permissionDomainId,
-    childSkillIndex,
-    _id,
-    _token,
-    _amount,
-    overrides,
-  );
-}
-
-async function estimateAddTokenWithProofs(
-  this: AugmentedStreamingPayments,
-  _id: BigNumberish,
-  _token: string,
-  _amount: BigNumberish,
-  overrides?: TxOverrides,
-): Promise<BigNumber> {
-  const { domainId } = await this.getStreamingPayment(_id);
-
-  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
-    this.colonyClient.networkClient,
-    this.colonyClient,
-    domainId,
-    ColonyRole.Funding,
-  );
-
-  return this.estimateGas.addToken(
-    permissionDomainId,
-    childSkillIndex,
-    _id,
-    _token,
-    _amount,
     overrides,
   );
 }
@@ -444,8 +358,8 @@ async function estimateAddTokenWithProofs(
 async function setTokenAmountWithProofs(
   this: AugmentedStreamingPayments,
   _id: BigNumberish,
-  _token: string,
   _amount: BigNumberish,
+  _interval: BigNumberish,
   overrides?: TxOverrides,
 ): Promise<ContractTransaction> {
   const { domainId } = await this.getStreamingPayment(_id);
@@ -475,8 +389,8 @@ async function setTokenAmountWithProofs(
     MaxUint256,
     MaxUint256,
     _id,
-    _token,
     _amount,
+    _interval,
     overrides,
   );
 }
@@ -484,8 +398,8 @@ async function setTokenAmountWithProofs(
 async function estimateSetTokenAmountWithProofs(
   this: AugmentedStreamingPayments,
   _id: BigNumberish,
-  _token: string,
   _amount: BigNumberish,
+  _interval: BigNumberish,
   overrides?: TxOverrides,
 ): Promise<BigNumber> {
   const { domainId } = await this.getStreamingPayment(_id);
@@ -515,8 +429,8 @@ async function estimateSetTokenAmountWithProofs(
     MaxUint256,
     MaxUint256,
     _id,
-    _token,
     _amount,
+    _interval,
     overrides,
   );
 }
@@ -674,9 +588,6 @@ export const addAugments = <T extends AugmentedStreamingPayments>(
     estimateCreateWithProofs.bind(instance);
   instance.claimWithProofs = claimWithProofs.bind(instance);
   instance.estimateGas.claimWithProofs = estimateClaimWithProofs.bind(instance);
-  instance.addTokenWithProofs = addTokenWithProofs.bind(instance);
-  instance.estimateGas.addTokenWithProofs =
-    estimateAddTokenWithProofs.bind(instance);
   instance.setTokenAmountWithProofs = setTokenAmountWithProofs.bind(instance);
   instance.estimateGas.setTokenAmountWithProofs =
     estimateSetTokenAmountWithProofs.bind(instance);

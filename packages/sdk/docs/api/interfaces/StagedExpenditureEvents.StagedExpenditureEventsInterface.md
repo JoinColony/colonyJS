@@ -83,6 +83,7 @@ ___
 | `ExpenditureFinalized(address,uint256)` | `EventFragment` |
 | `ExpenditureGlobalClaimDelaySet(address,uint256)` | `EventFragment` |
 | `ExpenditureLocked(address,uint256)` | `EventFragment` |
+| `ExpenditureMadeStaged(address,uint256,bool)` | `EventFragment` |
 | `ExpenditureMadeStaged(uint256,bool)` | `EventFragment` |
 | `ExpenditureMetadataSet(address,uint256,string)` | `EventFragment` |
 | `ExpenditurePayoutModifierSet(address,uint256,uint256,int256)` | `EventFragment` |
@@ -108,6 +109,7 @@ ___
 | `RewardPayoutClaimed(uint256,address,uint256,uint256)` | `EventFragment` |
 | `RewardPayoutCycleEnded(address,uint256)` | `EventFragment` |
 | `RewardPayoutCycleStarted(address,uint256)` | `EventFragment` |
+| `StagedPaymentReleased(address,uint256,uint256)` | `EventFragment` |
 | `StagedPaymentReleased(uint256,uint256)` | `EventFragment` |
 | `TaskAdded(address,uint256)` | `EventFragment` |
 | `TaskBriefSet(uint256,bytes32)` | `EventFragment` |
@@ -1142,7 +1144,7 @@ utils.Interface.getEvent
 
 | Name | Type |
 | :------ | :------ |
-| `nameOrSignatureOrTopic` | ``"ExpenditureMadeStaged"`` |
+| `nameOrSignatureOrTopic` | ``"ExpenditureMadeStaged(uint256,bool)"`` |
 
 #### Returns
 
@@ -1158,7 +1160,7 @@ utils.Interface.getEvent
 
 | Name | Type |
 | :------ | :------ |
-| `nameOrSignatureOrTopic` | ``"ExpenditureMadeStaged(uint256,bool)"`` |
+| `nameOrSignatureOrTopic` | ``"ExpenditureMadeStaged(address,uint256,bool)"`` |
 
 #### Returns
 
@@ -1910,7 +1912,7 @@ utils.Interface.getEvent
 
 | Name | Type |
 | :------ | :------ |
-| `nameOrSignatureOrTopic` | ``"StagedPaymentReleased"`` |
+| `nameOrSignatureOrTopic` | ``"StagedPaymentReleased(uint256,uint256)"`` |
 
 #### Returns
 
@@ -1926,7 +1928,7 @@ utils.Interface.getEvent
 
 | Name | Type |
 | :------ | :------ |
-| `nameOrSignatureOrTopic` | ``"StagedPaymentReleased(uint256,uint256)"`` |
+| `nameOrSignatureOrTopic` | ``"StagedPaymentReleased(address,uint256,uint256)"`` |
 
 #### Returns
 

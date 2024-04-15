@@ -5,10 +5,11 @@ import { ClientType } from '../../../constants.js';
 import {
   type UnkonwnFundingQueueClient,
   addAugments,
+  ValidColony,
 } from './augments/commonAugments.js';
 
 export default function getFundingQueueClient(
-  colonyClient: AugmentedIColony,
+  colonyClient: AugmentedIColony<ValidColony>,
   address: string,
 ) {
   const fundingQueueClient = FundingQueueFactory.connect(

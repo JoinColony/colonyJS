@@ -17,8 +17,6 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Set environment variables to include next versions of contracts
-      run: echo "COLONY_CONTRACTOR_INCLUDE_NEXT=true" >> $GITHUB_ENV
     - run: pnpm run bootstrap
     - run: pnpm run lint
     - run: pnpm run build

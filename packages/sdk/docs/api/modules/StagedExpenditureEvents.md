@@ -23,7 +23,8 @@
 - [ExpenditureFinalizedEventObject](../interfaces/StagedExpenditureEvents.ExpenditureFinalizedEventObject.md)
 - [ExpenditureGlobalClaimDelaySetEventObject](../interfaces/StagedExpenditureEvents.ExpenditureGlobalClaimDelaySetEventObject.md)
 - [ExpenditureLockedEventObject](../interfaces/StagedExpenditureEvents.ExpenditureLockedEventObject.md)
-- [ExpenditureMadeStagedEventObject](../interfaces/StagedExpenditureEvents.ExpenditureMadeStagedEventObject.md)
+- [ExpenditureMadeStaged\_address\_uint256\_bool\_EventObject](../interfaces/StagedExpenditureEvents.ExpenditureMadeStaged_address_uint256_bool_EventObject.md)
+- [ExpenditureMadeStaged\_uint256\_bool\_EventObject](../interfaces/StagedExpenditureEvents.ExpenditureMadeStaged_uint256_bool_EventObject.md)
 - [ExpenditureMetadataSetEventObject](../interfaces/StagedExpenditureEvents.ExpenditureMetadataSetEventObject.md)
 - [ExpenditurePayoutModifierSetEventObject](../interfaces/StagedExpenditureEvents.ExpenditurePayoutModifierSetEventObject.md)
 - [ExpenditurePayoutSetEventObject](../interfaces/StagedExpenditureEvents.ExpenditurePayoutSetEventObject.md)
@@ -50,7 +51,8 @@
 - [RewardPayoutCycleStartedEventObject](../interfaces/StagedExpenditureEvents.RewardPayoutCycleStartedEventObject.md)
 - [StagedExpenditureEvents](../interfaces/StagedExpenditureEvents.StagedExpenditureEvents.md)
 - [StagedExpenditureEventsInterface](../interfaces/StagedExpenditureEvents.StagedExpenditureEventsInterface.md)
-- [StagedPaymentReleasedEventObject](../interfaces/StagedExpenditureEvents.StagedPaymentReleasedEventObject.md)
+- [StagedPaymentReleased\_address\_uint256\_uint256\_EventObject](../interfaces/StagedExpenditureEvents.StagedPaymentReleased_address_uint256_uint256_EventObject.md)
+- [StagedPaymentReleased\_uint256\_uint256\_EventObject](../interfaces/StagedExpenditureEvents.StagedPaymentReleased_uint256_uint256_EventObject.md)
 - [TaskAddedEventObject](../interfaces/StagedExpenditureEvents.TaskAddedEventObject.md)
 - [TaskBriefSetEventObject](../interfaces/StagedExpenditureEvents.TaskBriefSetEventObject.md)
 - [TaskCanceledEventObject](../interfaces/StagedExpenditureEvents.TaskCanceledEventObject.md)
@@ -321,15 +323,27 @@ ___
 
 ___
 
-### ExpenditureMadeStagedEvent
+### ExpenditureMadeStaged\_address\_uint256\_bool\_Event
 
-Ƭ **ExpenditureMadeStagedEvent**: `TypedEvent`<[`BigNumber`, `boolean`], [`ExpenditureMadeStagedEventObject`](../interfaces/StagedExpenditureEvents.ExpenditureMadeStagedEventObject.md)\>
+Ƭ **ExpenditureMadeStaged\_address\_uint256\_bool\_Event**: `TypedEvent`<[`string`, `BigNumber`, `boolean`], [`ExpenditureMadeStaged_address_uint256_bool_EventObject`](../interfaces/StagedExpenditureEvents.ExpenditureMadeStaged_address_uint256_bool_EventObject.md)\>
 
 ___
 
-### ExpenditureMadeStagedEventFilter
+### ExpenditureMadeStaged\_address\_uint256\_bool\_EventFilter
 
-Ƭ **ExpenditureMadeStagedEventFilter**: `TypedEventFilter`<[`ExpenditureMadeStagedEvent`](StagedExpenditureEvents.md#expendituremadestagedevent)\>
+Ƭ **ExpenditureMadeStaged\_address\_uint256\_bool\_EventFilter**: `TypedEventFilter`<[`ExpenditureMadeStaged_address_uint256_bool_Event`](StagedExpenditureEvents.md#expendituremadestaged_address_uint256_bool_event)\>
+
+___
+
+### ExpenditureMadeStaged\_uint256\_bool\_Event
+
+Ƭ **ExpenditureMadeStaged\_uint256\_bool\_Event**: `TypedEvent`<[`BigNumber`, `boolean`], [`ExpenditureMadeStaged_uint256_bool_EventObject`](../interfaces/StagedExpenditureEvents.ExpenditureMadeStaged_uint256_bool_EventObject.md)\>
+
+___
+
+### ExpenditureMadeStaged\_uint256\_bool\_EventFilter
+
+Ƭ **ExpenditureMadeStaged\_uint256\_bool\_EventFilter**: `TypedEventFilter`<[`ExpenditureMadeStaged_uint256_bool_Event`](StagedExpenditureEvents.md#expendituremadestaged_uint256_bool_event)\>
 
 ___
 
@@ -621,15 +635,27 @@ ___
 
 ___
 
-### StagedPaymentReleasedEvent
+### StagedPaymentReleased\_address\_uint256\_uint256\_Event
 
-Ƭ **StagedPaymentReleasedEvent**: `TypedEvent`<[`BigNumber`, `BigNumber`], [`StagedPaymentReleasedEventObject`](../interfaces/StagedExpenditureEvents.StagedPaymentReleasedEventObject.md)\>
+Ƭ **StagedPaymentReleased\_address\_uint256\_uint256\_Event**: `TypedEvent`<[`string`, `BigNumber`, `BigNumber`], [`StagedPaymentReleased_address_uint256_uint256_EventObject`](../interfaces/StagedExpenditureEvents.StagedPaymentReleased_address_uint256_uint256_EventObject.md)\>
 
 ___
 
-### StagedPaymentReleasedEventFilter
+### StagedPaymentReleased\_address\_uint256\_uint256\_EventFilter
 
-Ƭ **StagedPaymentReleasedEventFilter**: `TypedEventFilter`<[`StagedPaymentReleasedEvent`](StagedExpenditureEvents.md#stagedpaymentreleasedevent)\>
+Ƭ **StagedPaymentReleased\_address\_uint256\_uint256\_EventFilter**: `TypedEventFilter`<[`StagedPaymentReleased_address_uint256_uint256_Event`](StagedExpenditureEvents.md#stagedpaymentreleased_address_uint256_uint256_event)\>
+
+___
+
+### StagedPaymentReleased\_uint256\_uint256\_Event
+
+Ƭ **StagedPaymentReleased\_uint256\_uint256\_Event**: `TypedEvent`<[`BigNumber`, `BigNumber`], [`StagedPaymentReleased_uint256_uint256_EventObject`](../interfaces/StagedExpenditureEvents.StagedPaymentReleased_uint256_uint256_EventObject.md)\>
+
+___
+
+### StagedPaymentReleased\_uint256\_uint256\_EventFilter
+
+Ƭ **StagedPaymentReleased\_uint256\_uint256\_EventFilter**: `TypedEventFilter`<[`StagedPaymentReleased_uint256_uint256_Event`](StagedExpenditureEvents.md#stagedpaymentreleased_uint256_uint256_event)\>
 
 ___
 

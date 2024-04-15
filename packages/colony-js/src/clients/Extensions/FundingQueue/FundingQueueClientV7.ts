@@ -6,6 +6,7 @@ import { ClientType } from '../../../constants.js';
 import {
   addAugments,
   AugmentedFundingQueue,
+  ValidColony,
 } from './augments/commonAugments.js';
 
 export interface FundingQueueClientV7
@@ -14,7 +15,7 @@ export interface FundingQueueClientV7
 }
 
 export default function getFundingQueueClient(
-  colonyClient: AugmentedIColony,
+  colonyClient: AugmentedIColony<ValidColony>,
   address: string,
 ): FundingQueueClientV7 {
   const fundingQueueClient = FundingQueueFactory.connect(

@@ -27,6 +27,12 @@ ___
 
 ___
 
+### MultisigPermissionsClient
+
+• **MultisigPermissionsClient** = ``"MultisigPermissionsClient"``
+
+___
+
 ### NetworkClient
 
 • **NetworkClient** = ``"NetworkClient"``

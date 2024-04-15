@@ -9,9 +9,7 @@ import getVotingReputationClientV2 from './VotingReputationClientV2.js';
 import getVotingReputationClientV3 from './VotingReputationClientV3.js';
 import getVotingReputationClientV4 from './VotingReputationClientV4.js';
 import getVotingReputationClientV5 from './VotingReputationClientV5.js';
-import getVotingReputationClientV6, {
-  VotingReputationClientV6,
-} from './VotingReputationClientV6.js';
+import getVotingReputationClientV6 from './VotingReputationClientV6.js';
 import getVotingReputationClientV7, {
   VotingReputationClientV7,
 } from './VotingReputationClientV7.js';
@@ -27,21 +25,24 @@ import getVotingReputationClientV10, {
 import getVotingReputationClientV11, {
   VotingReputationClientV11,
 } from './VotingReputationClientV11.js';
+import getVotingReputationClientV12, {
+  VotingReputationClientV12,
+} from './VotingReputationClientV12.js';
 
-export { VotingReputationClientV6 } from './VotingReputationClientV6.js';
 export { VotingReputationClientV7 } from './VotingReputationClientV7.js';
 export { VotingReputationClientV8 } from './VotingReputationClientV8.js';
 export { VotingReputationClientV9 } from './VotingReputationClientV9.js';
 export { VotingReputationClientV10 } from './VotingReputationClientV10.js';
 export { VotingReputationClientV11 } from './VotingReputationClientV11.js';
+export { VotingReputationClientV12 } from './VotingReputationClientV12.js';
 
 export type AnyVotingReputationClient =
-  | VotingReputationClientV6
   | VotingReputationClientV7
   | VotingReputationClientV8
   | VotingReputationClientV9
   | VotingReputationClientV10
-  | VotingReputationClientV11;
+  | VotingReputationClientV11
+  | VotingReputationClientV12;
 
 /** @internal */
 export function getVotingReputationClient(
@@ -54,29 +55,32 @@ export function getVotingReputationClient(
       return getVotingReputationClientV1(
         colonyClient,
         address,
-      ) as VotingReputationClientV6;
+      ) as VotingReputationClientV7;
     case 2:
       return getVotingReputationClientV2(
         colonyClient,
         address,
-      ) as VotingReputationClientV6;
+      ) as VotingReputationClientV7;
     case 3:
       return getVotingReputationClientV3(
         colonyClient,
         address,
-      ) as VotingReputationClientV6;
+      ) as VotingReputationClientV7;
     case 4:
       return getVotingReputationClientV4(
         colonyClient,
         address,
-      ) as VotingReputationClientV6;
+      ) as VotingReputationClientV7;
     case 5:
       return getVotingReputationClientV5(
         colonyClient,
         address,
-      ) as VotingReputationClientV6;
+      ) as VotingReputationClientV7;
     case 6:
-      return getVotingReputationClientV6(colonyClient, address);
+      return getVotingReputationClientV6(
+        colonyClient,
+        address,
+      ) as VotingReputationClientV7;
     case 7:
       return getVotingReputationClientV7(colonyClient, address);
     case 8:
@@ -87,6 +91,8 @@ export function getVotingReputationClient(
       return getVotingReputationClientV10(colonyClient, address);
     case 11:
       return getVotingReputationClientV11(colonyClient, address);
+    case 12:
+      return getVotingReputationClientV12(colonyClient, address);
     default:
       return assertExhaustiveSwitch(
         version,

@@ -7,6 +7,7 @@ import {
   addAugments,
   AugmentedEstimate,
   AugmentedOneTxPayment,
+  ValidColony,
 } from './augments/commonAugments.js';
 
 type OneTxPaymentEstimate = AugmentedEstimate<OneTxPayment>;
@@ -18,7 +19,7 @@ export interface OneTxPaymentClientV5
 }
 
 export default function getOneTxPaymentClient(
-  colonyClient: AugmentedIColony,
+  colonyClient: AugmentedIColony<ValidColony>,
   address: string,
 ): OneTxPaymentClientV5 {
   const oneTxPaymentClient = OneTxPaymentFactory.connect(

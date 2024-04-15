@@ -96,6 +96,10 @@ ___
 
 | Name | Type |
 | :------ | :------ |
+| `ClaimWaived` | (`agent?`: ``null``, `streamingPaymentId?`: ``null`` \| `BigNumberish`) => [`ClaimWaivedEventFilter`](../modules/StreamingPaymentsEvents.md#claimwaivedeventfilter) |
+| `ClaimWaived(address,uint256)` | (`agent?`: ``null``, `streamingPaymentId?`: ``null`` \| `BigNumberish`) => [`ClaimWaivedEventFilter`](../modules/StreamingPaymentsEvents.md#claimwaivedeventfilter) |
+| `EndTimeSet` | (`agent?`: ``null``, `streamingPaymentId?`: ``null`` \| `BigNumberish`, `endTime?`: ``null``) => [`EndTimeSetEventFilter`](../modules/StreamingPaymentsEvents.md#endtimeseteventfilter) |
+| `EndTimeSet(address,uint256,uint256)` | (`agent?`: ``null``, `streamingPaymentId?`: ``null`` \| `BigNumberish`, `endTime?`: ``null``) => [`EndTimeSetEventFilter`](../modules/StreamingPaymentsEvents.md#endtimeseteventfilter) |
 | `ExtensionInitialised` | () => [`ExtensionInitialisedEventFilter`](../modules/StreamingPaymentsEvents.md#extensioninitialisedeventfilter) |
 | `ExtensionInitialised()` | () => [`ExtensionInitialisedEventFilter`](../modules/StreamingPaymentsEvents.md#extensioninitialisedeventfilter) |
 | `LogSetAuthority` | (`authority?`: ``null`` \| `string`) => [`LogSetAuthorityEventFilter`](../modules/StreamingPaymentsEvents.md#logsetauthorityeventfilter) |
@@ -104,8 +108,11 @@ ___
 | `LogSetOwner(address)` | (`owner?`: ``null`` \| `string`) => [`LogSetOwnerEventFilter`](../modules/StreamingPaymentsEvents.md#logsetownereventfilter) |
 | `MetaTransactionExecuted` | (`user?`: ``null``, `relayerAddress?`: ``null``, `functionSignature?`: ``null``) => [`MetaTransactionExecutedEventFilter`](../modules/StreamingPaymentsEvents.md#metatransactionexecutedeventfilter) |
 | `MetaTransactionExecuted(address,address,bytes)` | (`user?`: ``null``, `relayerAddress?`: ``null``, `functionSignature?`: ``null``) => [`MetaTransactionExecutedEventFilter`](../modules/StreamingPaymentsEvents.md#metatransactionexecutedeventfilter) |
-| `PaymentTokenUpdated` | (`agent?`: ``null``, `streamingPaymentId?`: ``null`` \| `BigNumberish`, `token?`: ``null``, `amount?`: ``null``) => [`PaymentTokenUpdatedEventFilter`](../modules/StreamingPaymentsEvents.md#paymenttokenupdatedeventfilter) |
-| `PaymentTokenUpdated(address,uint256,address,uint256)` | (`agent?`: ``null``, `streamingPaymentId?`: ``null`` \| `BigNumberish`, `token?`: ``null``, `amount?`: ``null``) => [`PaymentTokenUpdatedEventFilter`](../modules/StreamingPaymentsEvents.md#paymenttokenupdatedeventfilter) |
+| `PaymentTokenUpdated(address,uint256,address,uint256)` | (`agent?`: ``null``, `streamingPaymentId?`: ``null`` \| `BigNumberish`, `token?`: ``null``, `amount?`: ``null``) => [`PaymentTokenUpdated_address_uint256_address_uint256_EventFilter`](../modules/StreamingPaymentsEvents.md#paymenttokenupdated_address_uint256_address_uint256_eventfilter) |
+| `PaymentTokenUpdated(address,uint256,uint256)` | (`agent?`: ``null``, `streamingPaymentId?`: ``null`` \| `BigNumberish`, `amount?`: ``null``) => [`PaymentTokenUpdated_address_uint256_uint256_EventFilter`](../modules/StreamingPaymentsEvents.md#paymenttokenupdated_address_uint256_uint256_eventfilter) |
+| `PaymentTokenUpdated(address,uint256,uint256,uint256)` | (`agent?`: ``null``, `streamingPaymentId?`: ``null`` \| `BigNumberish`, `amount?`: ``null``, `interval?`: ``null``) => [`PaymentTokenUpdated_address_uint256_uint256_uint256_EventFilter`](../modules/StreamingPaymentsEvents.md#paymenttokenupdated_address_uint256_uint256_uint256_eventfilter) |
+| `StartTimeSet` | (`agent?`: ``null``, `streamingPaymentId?`: ``null`` \| `BigNumberish`, `startTime?`: ``null``) => [`StartTimeSetEventFilter`](../modules/StreamingPaymentsEvents.md#starttimeseteventfilter) |
+| `StartTimeSet(address,uint256,uint256)` | (`agent?`: ``null``, `streamingPaymentId?`: ``null`` \| `BigNumberish`, `startTime?`: ``null``) => [`StartTimeSetEventFilter`](../modules/StreamingPaymentsEvents.md#starttimeseteventfilter) |
 | `StreamingPaymentClaimed` | (`agent?`: ``null``, `streamingPaymentId?`: ``null`` \| `BigNumberish`, `token?`: ``null``, `amount?`: ``null``) => [`StreamingPaymentClaimedEventFilter`](../modules/StreamingPaymentsEvents.md#streamingpaymentclaimedeventfilter) |
 | `StreamingPaymentClaimed(address,uint256,address,uint256)` | (`agent?`: ``null``, `streamingPaymentId?`: ``null`` \| `BigNumberish`, `token?`: ``null``, `amount?`: ``null``) => [`StreamingPaymentClaimedEventFilter`](../modules/StreamingPaymentsEvents.md#streamingpaymentclaimedeventfilter) |
 | `StreamingPaymentCreated` | (`agent?`: ``null``, `streamingPaymentId?`: ``null``) => [`StreamingPaymentCreatedEventFilter`](../modules/StreamingPaymentsEvents.md#streamingpaymentcreatedeventfilter) |

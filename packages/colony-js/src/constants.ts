@@ -9,6 +9,7 @@ export enum ClientType {
   ColonyClient = 'ColonyClient',
   FundingQueueClient = 'FundingQueueClient',
   MotionTargetClient = 'MotionTargetClient',
+  MultisigPermissionsClient = 'MultisigPermissionsClient',
   NetworkClient = 'NetworkClient',
   OneTxPaymentClient = 'OneTxPaymentClient',
   ReputationBootstrapperClient = 'ReputationBootstrapperClient',

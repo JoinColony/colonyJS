@@ -9,6 +9,7 @@
 - [EvaluatedExpenditureEvents](modules/EvaluatedExpenditureEvents.md)
 - [FundingQueueEvents](modules/FundingQueueEvents.md)
 - [MetaTxTokenEvents](modules/MetaTxTokenEvents.md)
+- [MultisigPermissionsEvents](modules/MultisigPermissionsEvents.md)
 - [OneTxPaymentEvents](modules/OneTxPaymentEvents.md)
 - [ReputationBootstrapperEvents](modules/ReputationBootstrapperEvents.md)
 - [StagedExpenditureEvents](modules/StagedExpenditureEvents.md)
@@ -54,6 +55,7 @@
 - [IpfsMetadata](classes/IpfsMetadata.md)
 - [MetaTxCreator](classes/MetaTxCreator.md)
 - [MetaTxTokenEvents\_\_factory](classes/MetaTxTokenEvents__factory.md)
+- [MultisigPermissionsEvents\_\_factory](classes/MultisigPermissionsEvents__factory.md)
 - [OneTxPayment](classes/OneTxPayment.md)
 - [OneTxPaymentEvents\_\_factory](classes/OneTxPaymentEvents__factory.md)
 - [PinataAdapter](classes/PinataAdapter.md)
@@ -202,15 +204,16 @@ Latest versions of all extension contracts
 
 | Name | Type |
 | :------ | :------ |
-| `FundingQueue` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` \| ``6`` \| ``7`` |
-| `IVotingReputation` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` |
-| `OneTxPayment` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` \| ``6`` \| ``7`` |
-| `ReputationBootstrapper` | ``1`` \| ``2`` \| ``3`` \| ``4`` |
-| `StagedExpenditure` | ``1`` \| ``2`` |
-| `StakedExpenditure` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` |
-| `StreamingPayments` | ``1`` \| ``2`` \| ``3`` \| ``4`` |
-| `TokenSupplier` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` \| ``6`` \| ``7`` |
-| `VotingReputation` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` |
+| `FundingQueue` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` \| ``6`` \| ``7`` \| ``8`` |
+| `IVotingReputation` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12`` |
+| `MultisigPermissions` | ``1`` |
+| `OneTxPayment` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` \| ``6`` \| ``7`` \| ``8`` |
+| `ReputationBootstrapper` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` |
+| `StagedExpenditure` | ``1`` \| ``2`` \| ``3`` |
+| `StakedExpenditure` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` \| ``6`` |
+| `StreamingPayments` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` |
+| `TokenSupplier` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` \| ``6`` \| ``7`` \| ``8`` |
+| `VotingReputation` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12`` |
 
 ___
 
@@ -364,7 +367,7 @@ Returns `true` if an extension version is compatible with the given colony versi
 | :------ | :------ | :------ |
 | `extension` | [`Extension`](enums/Extension.md) | A valid `Extension` contract name |
 | `extensionVersion` | `ExtensionVersion` | The version of the extension to check against the colony |
-| `colonyVersion` | ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12`` \| ``13`` \| ``14`` \| ``15`` | The version of the colony to check for |
+| `colonyVersion` | ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12`` \| ``13`` \| ``14`` \| ``15`` \| ``16`` | The version of the colony to check for |
 
 #### Returns
 

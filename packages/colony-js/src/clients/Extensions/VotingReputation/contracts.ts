@@ -10,8 +10,9 @@ import type { IVotingReputation as VotingReputation8 } from '../../../contracts/
 import type { IVotingReputation as VotingReputation9 } from '../../../contracts/IVotingReputation/9/index.js';
 import type { IVotingReputation as VotingReputation10 } from '../../../contracts/IVotingReputation/10/index.js';
 import type { IVotingReputation as VotingReputation11 } from '../../../contracts/IVotingReputation/11/index.js';
+import type { IVotingReputation as VotingReputation12 } from '../../../contracts/IVotingReputation/12/index.js';
 
-export { IVotingReputation__factory as VotingReputationFactory } from '../../../contracts/IVotingReputation/11/factories/IVotingReputation__factory.js';
+export { IVotingReputation__factory as VotingReputationFactory } from '../../../contracts/IVotingReputation/12/factories/IVotingReputation__factory.js';
 
 export type VotingReputationV1 = VotingReputation1;
 export type VotingReputationV2 = VotingReputation2;
@@ -24,11 +25,12 @@ export type VotingReputationV8 = VotingReputation8;
 export type VotingReputationV9 = VotingReputation9;
 export type VotingReputationV10 = VotingReputation10;
 export type VotingReputationV11 = VotingReputation11;
+export type VotingReputationV12 = VotingReputation12;
 
 export type AnyVotingReputation =
-  | VotingReputation6
   | VotingReputation7
   | VotingReputation8
   | VotingReputation9
   | VotingReputation10
-  | VotingReputation11;
+  | VotingReputation11
+  | VotingReputation12;

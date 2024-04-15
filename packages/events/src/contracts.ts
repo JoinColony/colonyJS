@@ -5,6 +5,7 @@ export * as ColonyNetworkEvents from './contracts/IColonyNetworkEvents.js';
 export * as EvaluatedExpenditureEvents from './contracts/EvaluatedExpenditureEvents.js';
 export * as FundingQueueEvents from './contracts/FundingQueueEvents.js';
 export * as MetaTxTokenEvents from './contracts/MetaTxTokenEvents.js';
+export * as MultisigPermissionsEvents from './contracts/MultisigPermissionsEvents.js';
 export * as OneTxPaymentEvents from './contracts/OneTxPaymentEvents.js';
 export * as ReputationBootstrapperEvents from './contracts/ReputationBootstrapperEvents.js';
 export * as StagedExpenditureEvents from './contracts/StagedExpenditureEvents.js';
