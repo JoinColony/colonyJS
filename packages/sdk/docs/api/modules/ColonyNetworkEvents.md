@@ -3,6 +3,10 @@
 ## Interfaces
 
 - [AuctionCreatedEventObject](../interfaces/ColonyNetworkEvents.AuctionCreatedEventObject.md)
+<<<<<<< HEAD
+=======
+- [BridgeSetEventObject](../interfaces/ColonyNetworkEvents.BridgeSetEventObject.md)
+>>>>>>> 9b8c3267 (chore: generate docs)
 - [ColonyAddedEventObject](../interfaces/ColonyNetworkEvents.ColonyAddedEventObject.md)
 - [ColonyLabelRegisteredEventObject](../interfaces/ColonyNetworkEvents.ColonyLabelRegisteredEventObject.md)
 - [ColonyNetworkInitialisedEventObject](../interfaces/ColonyNetworkEvents.ColonyNetworkInitialisedEventObject.md)
@@ -29,7 +33,18 @@
 - [ReputationMiningInitialisedEventObject](../interfaces/ColonyNetworkEvents.ReputationMiningInitialisedEventObject.md)
 - [ReputationMiningRewardSetEventObject](../interfaces/ColonyNetworkEvents.ReputationMiningRewardSetEventObject.md)
 - [ReputationRootHashSetEventObject](../interfaces/ColonyNetworkEvents.ReputationRootHashSetEventObject.md)
+<<<<<<< HEAD
 - [SkillAddedEventObject](../interfaces/ColonyNetworkEvents.SkillAddedEventObject.md)
+=======
+- [ReputationUpdateAddedFromBridgeEventObject](../interfaces/ColonyNetworkEvents.ReputationUpdateAddedFromBridgeEventObject.md)
+- [ReputationUpdateSentToBridgeEventObject](../interfaces/ColonyNetworkEvents.ReputationUpdateSentToBridgeEventObject.md)
+- [ReputationUpdateStoredEventObject](../interfaces/ColonyNetworkEvents.ReputationUpdateStoredEventObject.md)
+- [ReputationUpdateStoredFromBridgeEventObject](../interfaces/ColonyNetworkEvents.ReputationUpdateStoredFromBridgeEventObject.md)
+- [SkillAddedEventObject](../interfaces/ColonyNetworkEvents.SkillAddedEventObject.md)
+- [SkillAddedFromBridgeEventObject](../interfaces/ColonyNetworkEvents.SkillAddedFromBridgeEventObject.md)
+- [SkillCreationStoredEventObject](../interfaces/ColonyNetworkEvents.SkillCreationStoredEventObject.md)
+- [SkillStoredFromBridgeEventObject](../interfaces/ColonyNetworkEvents.SkillStoredFromBridgeEventObject.md)
+>>>>>>> 9b8c3267 (chore: generate docs)
 - [TokenAuthorityDeployedEventObject](../interfaces/ColonyNetworkEvents.TokenAuthorityDeployedEventObject.md)
 - [TokenDeployedEventObject](../interfaces/ColonyNetworkEvents.TokenDeployedEventObject.md)
 - [TokenLockingAddressSetEventObject](../interfaces/ColonyNetworkEvents.TokenLockingAddressSetEventObject.md)
@@ -50,6 +65,21 @@ ___
 
 ___
 
+<<<<<<< HEAD
+=======
+### BridgeSetEvent
+
+Ƭ **BridgeSetEvent**: `TypedEvent`<[`string`], [`BridgeSetEventObject`](../interfaces/ColonyNetworkEvents.BridgeSetEventObject.md)\>
+
+___
+
+### BridgeSetEventFilter
+
+Ƭ **BridgeSetEventFilter**: `TypedEventFilter`<[`BridgeSetEvent`](ColonyNetworkEvents.md#bridgesetevent)\>
+
+___
+
+>>>>>>> 9b8c3267 (chore: generate docs)
 ### ColonyAddedEvent
 
 Ƭ **ColonyAddedEvent**: `TypedEvent`<[`BigNumber`, `string`, `string`], [`ColonyAddedEventObject`](../interfaces/ColonyNetworkEvents.ColonyAddedEventObject.md)\>
@@ -338,6 +368,57 @@ ___
 
 ___
 
+<<<<<<< HEAD
+=======
+### ReputationUpdateAddedFromBridgeEvent
+
+Ƭ **ReputationUpdateAddedFromBridgeEvent**: `TypedEvent`<[`BigNumber`, `string`, `BigNumber`], [`ReputationUpdateAddedFromBridgeEventObject`](../interfaces/ColonyNetworkEvents.ReputationUpdateAddedFromBridgeEventObject.md)\>
+
+___
+
+### ReputationUpdateAddedFromBridgeEventFilter
+
+Ƭ **ReputationUpdateAddedFromBridgeEventFilter**: `TypedEventFilter`<[`ReputationUpdateAddedFromBridgeEvent`](ColonyNetworkEvents.md#reputationupdateaddedfrombridgeevent)\>
+
+___
+
+### ReputationUpdateSentToBridgeEvent
+
+Ƭ **ReputationUpdateSentToBridgeEvent**: `TypedEvent`<[`string`, `BigNumber`], [`ReputationUpdateSentToBridgeEventObject`](../interfaces/ColonyNetworkEvents.ReputationUpdateSentToBridgeEventObject.md)\>
+
+___
+
+### ReputationUpdateSentToBridgeEventFilter
+
+Ƭ **ReputationUpdateSentToBridgeEventFilter**: `TypedEventFilter`<[`ReputationUpdateSentToBridgeEvent`](ColonyNetworkEvents.md#reputationupdatesenttobridgeevent)\>
+
+___
+
+### ReputationUpdateStoredEvent
+
+Ƭ **ReputationUpdateStoredEvent**: `TypedEvent`<[`string`, `BigNumber`], [`ReputationUpdateStoredEventObject`](../interfaces/ColonyNetworkEvents.ReputationUpdateStoredEventObject.md)\>
+
+___
+
+### ReputationUpdateStoredEventFilter
+
+Ƭ **ReputationUpdateStoredEventFilter**: `TypedEventFilter`<[`ReputationUpdateStoredEvent`](ColonyNetworkEvents.md#reputationupdatestoredevent)\>
+
+___
+
+### ReputationUpdateStoredFromBridgeEvent
+
+Ƭ **ReputationUpdateStoredFromBridgeEvent**: `TypedEvent`<[`BigNumber`, `string`, `BigNumber`], [`ReputationUpdateStoredFromBridgeEventObject`](../interfaces/ColonyNetworkEvents.ReputationUpdateStoredFromBridgeEventObject.md)\>
+
+___
+
+### ReputationUpdateStoredFromBridgeEventFilter
+
+Ƭ **ReputationUpdateStoredFromBridgeEventFilter**: `TypedEventFilter`<[`ReputationUpdateStoredFromBridgeEvent`](ColonyNetworkEvents.md#reputationupdatestoredfrombridgeevent)\>
+
+___
+
+>>>>>>> 9b8c3267 (chore: generate docs)
 ### SkillAddedEvent
 
 Ƭ **SkillAddedEvent**: `TypedEvent`<[`BigNumber`, `BigNumber`], [`SkillAddedEventObject`](../interfaces/ColonyNetworkEvents.SkillAddedEventObject.md)\>
@@ -350,6 +431,45 @@ ___
 
 ___
 
+<<<<<<< HEAD
+=======
+### SkillAddedFromBridgeEvent
+
+Ƭ **SkillAddedFromBridgeEvent**: `TypedEvent`<[`BigNumber`], [`SkillAddedFromBridgeEventObject`](../interfaces/ColonyNetworkEvents.SkillAddedFromBridgeEventObject.md)\>
+
+___
+
+### SkillAddedFromBridgeEventFilter
+
+Ƭ **SkillAddedFromBridgeEventFilter**: `TypedEventFilter`<[`SkillAddedFromBridgeEvent`](ColonyNetworkEvents.md#skilladdedfrombridgeevent)\>
+
+___
+
+### SkillCreationStoredEvent
+
+Ƭ **SkillCreationStoredEvent**: `TypedEvent`<[`BigNumber`], [`SkillCreationStoredEventObject`](../interfaces/ColonyNetworkEvents.SkillCreationStoredEventObject.md)\>
+
+___
+
+### SkillCreationStoredEventFilter
+
+Ƭ **SkillCreationStoredEventFilter**: `TypedEventFilter`<[`SkillCreationStoredEvent`](ColonyNetworkEvents.md#skillcreationstoredevent)\>
+
+___
+
+### SkillStoredFromBridgeEvent
+
+Ƭ **SkillStoredFromBridgeEvent**: `TypedEvent`<[`BigNumber`], [`SkillStoredFromBridgeEventObject`](../interfaces/ColonyNetworkEvents.SkillStoredFromBridgeEventObject.md)\>
+
+___
+
+### SkillStoredFromBridgeEventFilter
+
+Ƭ **SkillStoredFromBridgeEventFilter**: `TypedEventFilter`<[`SkillStoredFromBridgeEvent`](ColonyNetworkEvents.md#skillstoredfrombridgeevent)\>
+
+___
+
+>>>>>>> 9b8c3267 (chore: generate docs)
 ### TokenAuthorityDeployedEvent
 
 Ƭ **TokenAuthorityDeployedEvent**: `TypedEvent`<[`string`], [`TokenAuthorityDeployedEventObject`](../interfaces/ColonyNetworkEvents.TokenAuthorityDeployedEventObject.md)\>

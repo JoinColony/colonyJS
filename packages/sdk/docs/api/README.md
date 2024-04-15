@@ -9,6 +9,10 @@
 - [EvaluatedExpenditureEvents](modules/EvaluatedExpenditureEvents.md)
 - [FundingQueueEvents](modules/FundingQueueEvents.md)
 - [MetaTxTokenEvents](modules/MetaTxTokenEvents.md)
+<<<<<<< HEAD
+=======
+- [MultisigPermissionsEvents](modules/MultisigPermissionsEvents.md)
+>>>>>>> 9b8c3267 (chore: generate docs)
 - [OneTxPaymentEvents](modules/OneTxPaymentEvents.md)
 - [ReputationBootstrapperEvents](modules/ReputationBootstrapperEvents.md)
 - [StagedExpenditureEvents](modules/StagedExpenditureEvents.md)
@@ -54,6 +58,10 @@
 - [IpfsMetadata](classes/IpfsMetadata.md)
 - [MetaTxCreator](classes/MetaTxCreator.md)
 - [MetaTxTokenEvents\_\_factory](classes/MetaTxTokenEvents__factory.md)
+<<<<<<< HEAD
+=======
+- [MultisigPermissionsEvents\_\_factory](classes/MultisigPermissionsEvents__factory.md)
+>>>>>>> 9b8c3267 (chore: generate docs)
 - [OneTxPayment](classes/OneTxPayment.md)
 - [OneTxPaymentEvents\_\_factory](classes/OneTxPaymentEvents__factory.md)
 - [PinataAdapter](classes/PinataAdapter.md)
@@ -204,6 +212,7 @@ Latest versions of all extension contracts
 | :------ | :------ |
 | `FundingQueue` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` |
 | `IVotingReputation` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` |
+| `MultisigPermissions` | ``1`` |
 | `OneTxPayment` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` |
 | `ReputationBootstrapper` | ``1`` \| ``2`` \| ``3`` \| ``4`` |
 | `StagedExpenditure` | ``1`` \| ``2`` |

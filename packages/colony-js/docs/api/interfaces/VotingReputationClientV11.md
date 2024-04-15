@@ -88,8 +88,8 @@ ___
 | `finalizeMotionWithoutFailure(uint256)` | (`_motionId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `finishUpgrade` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `finishUpgrade()` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `getActionSummary` | (`_action`: `BytesLike`, `_altTarget`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`ActionSummaryStructOutput`\> |
-| `getActionSummary(bytes,address)` | (`_action`: `BytesLike`, `_altTarget`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`ActionSummaryStructOutput`\> |
+| `getActionSummary` | (`_colonyNetwork`: `string`, `_colony`: `string`, `_action`: `BytesLike`, `_altTarget`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`ActionSummaryStructOutput`\> |
+| `getActionSummary(address,address,bytes,address)` | (`_colonyNetwork`: `string`, `_colony`: `string`, `_action`: `BytesLike`, `_altTarget`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`ActionSummaryStructOutput`\> |
 | `getCapabilityRoles` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getCapabilityRoles(bytes4)` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
@@ -274,8 +274,8 @@ ___
 | `finalizeMotionWithoutFailure(uint256)` | (`_motionId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `finishUpgrade` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `finishUpgrade()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `getActionSummary` | (`_action`: `BytesLike`, `_altTarget`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`ActionSummaryStructOutput`] & { `_summary`: `ActionSummaryStructOutput`  }\> |
-| `getActionSummary(bytes,address)` | (`_action`: `BytesLike`, `_altTarget`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`ActionSummaryStructOutput`] & { `_summary`: `ActionSummaryStructOutput`  }\> |
+| `getActionSummary` | (`_colonyNetwork`: `string`, `_colony`: `string`, `_action`: `BytesLike`, `_altTarget`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`ActionSummaryStructOutput`] & { `_summary`: `ActionSummaryStructOutput`  }\> |
+| `getActionSummary(address,address,bytes,address)` | (`_colonyNetwork`: `string`, `_colony`: `string`, `_action`: `BytesLike`, `_altTarget`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`ActionSummaryStructOutput`] & { `_summary`: `ActionSummaryStructOutput`  }\> |
 | `getCapabilityRoles` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `getCapabilityRoles(bytes4)` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
@@ -415,8 +415,8 @@ ___
 | `finalizeMotionWithoutFailure(uint256)` | (`_motionId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `finishUpgrade` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `finishUpgrade()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `getActionSummary` | (`_action`: `BytesLike`, `_altTarget`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getActionSummary(bytes,address)` | (`_action`: `BytesLike`, `_altTarget`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getActionSummary` | (`_colonyNetwork`: `string`, `_colony`: `string`, `_action`: `BytesLike`, `_altTarget`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `getActionSummary(address,address,bytes,address)` | (`_colonyNetwork`: `string`, `_colony`: `string`, `_action`: `BytesLike`, `_altTarget`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getCapabilityRoles` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getCapabilityRoles(bytes4)` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
@@ -1272,12 +1272,14 @@ ___
 
 ### getActionSummary
 
-▸ **getActionSummary**(`_action`, `_altTarget`, `overrides?`): `Promise`<`ActionSummaryStructOutput`\>
+▸ **getActionSummary**(`_colonyNetwork`, `_colony`, `_action`, `_altTarget`, `overrides?`): `Promise`<`ActionSummaryStructOutput`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
+| `_colonyNetwork` | `string` |
+| `_colony` | `string` |
 | `_action` | `BytesLike` |
 | `_altTarget` | `string` |
 | `overrides?` | `CallOverrides` |
@@ -1292,14 +1294,16 @@ AugmentedVotingReputation.getActionSummary
 
 ___
 
-### getActionSummary(bytes,address)
+### getActionSummary(address,address,bytes,address)
 
-▸ **getActionSummary(bytes,address)**(`_action`, `_altTarget`, `overrides?`): `Promise`<`ActionSummaryStructOutput`\>
+▸ **getActionSummary(address,address,bytes,address)**(`_colonyNetwork`, `_colony`, `_action`, `_altTarget`, `overrides?`): `Promise`<`ActionSummaryStructOutput`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
+| `_colonyNetwork` | `string` |
+| `_colony` | `string` |
 | `_action` | `BytesLike` |
 | `_altTarget` | `string` |
 | `overrides?` | `CallOverrides` |
@@ -1310,7 +1314,7 @@ ___
 
 #### Inherited from
 
-AugmentedVotingReputation.getActionSummary(bytes,address)
+AugmentedVotingReputation.getActionSummary(address,address,bytes,address)
 
 ___
 

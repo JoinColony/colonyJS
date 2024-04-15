@@ -52,6 +52,7 @@
 - [Erc20TokenClient](interfaces/Erc20TokenClient.md)
 - [Erc2612TokenClient](interfaces/Erc2612TokenClient.md)
 - [IBasicMetaTransaction](interfaces/IBasicMetaTransaction.md)
+- [MultisigPermissionsClientV1](interfaces/MultisigPermissionsClientV1.md)
 - [NetworkClientOptions](interfaces/NetworkClientOptions.md)
 - [OneTxPaymentClientV2](interfaces/OneTxPaymentClientV2.md)
 - [OneTxPaymentClientV3](interfaces/OneTxPaymentClientV3.md)
@@ -122,6 +123,12 @@ Re-exports [Token__factory](classes/factories.Token__factory.md)
 ### AnyColonyClient
 
 Ƭ **AnyColonyClient**: [`ColonyClientV10`](interfaces/ColonyClientV10.md) \| [`ColonyClientV11`](interfaces/ColonyClientV11.md) \| [`ColonyClientV12`](interfaces/ColonyClientV12.md) \| [`ColonyClientV13`](interfaces/ColonyClientV13.md) \| [`ColonyClientV14`](interfaces/ColonyClientV14.md) \| [`ColonyClientV15`](interfaces/ColonyClientV15.md)
+
+___
+
+### AnyMultisigPermissionsClient
+
+Ƭ **AnyMultisigPermissionsClient**: [`MultisigPermissionsClientV1`](interfaces/MultisigPermissionsClientV1.md)
 
 ___
 
@@ -206,19 +213,19 @@ ___
 
 ### EventsClient
 
-Ƭ **EventsClient**: `EvaluatedExpenditureEvents.EvaluatedExpenditureEvents` \| `ColonyEvents.IColonyEvents` \| `ColonyNetworkEvents.IColonyNetworkEvents` \| `VotingReputationEvents.IVotingReputationEvents` \| `MetaTxTokenEvents.MetaTxTokenEvents` \| `OneTxPaymentEvents.OneTxPaymentEvents` \| `StakedExpenditureEvents.StakedExpenditureEvents` \| `StreamingPaymentsEvents.StreamingPaymentsEvents` \| `TokenSupplierEvents.TokenSupplierEvents` \| `VotingReputationEvents.IVotingReputationEvents`
+Ƭ **EventsClient**: `EvaluatedExpenditureEvents.EvaluatedExpenditureEvents` \| `ColonyEvents.IColonyEvents` \| `ColonyNetworkEvents.IColonyNetworkEvents` \| `VotingReputationEvents.IVotingReputationEvents` \| `MetaTxTokenEvents.MetaTxTokenEvents` \| `MultisigPermissionsEvents.MultisigPermissionsEvents` \| `OneTxPaymentEvents.OneTxPaymentEvents` \| `StakedExpenditureEvents.StakedExpenditureEvents` \| `StreamingPaymentsEvents.StreamingPaymentsEvents` \| `TokenSupplierEvents.TokenSupplierEvents` \| `VotingReputationEvents.IVotingReputationEvents`
 
 ___
 
 ### ExtensionClient
 
-Ƭ **ExtensionClient**: `AnyFundingQueueClient` \| [`AnyOneTxPaymentClient`](README.md#anyonetxpaymentclient) \| `AnyReputationBootstrapperClient` \| [`AnyStagedExpenditureClient`](README.md#anystagedexpenditureclient) \| [`AnyStakedExpenditureClient`](README.md#anystakedexpenditureclient) \| [`AnyStreamingPaymentsClient`](README.md#anystreamingpaymentsclient) \| [`AnyTokenSupplierClient`](README.md#anytokensupplierclient) \| [`AnyVotingReputationClient`](README.md#anyvotingreputationclient)
+Ƭ **ExtensionClient**: `AnyFundingQueueClient` \| [`AnyMultisigPermissionsClient`](README.md#anymultisigpermissionsclient) \| [`AnyOneTxPaymentClient`](README.md#anyonetxpaymentclient) \| `AnyReputationBootstrapperClient` \| [`AnyStagedExpenditureClient`](README.md#anystagedexpenditureclient) \| [`AnyStakedExpenditureClient`](README.md#anystakedexpenditureclient) \| [`AnyStreamingPaymentsClient`](README.md#anystreamingpaymentsclient) \| [`AnyTokenSupplierClient`](README.md#anytokensupplierclient) \| [`AnyVotingReputationClient`](README.md#anyvotingreputationclient)
 
 ___
 
 ### ExtensionVersion
 
-Ƭ **ExtensionVersion**: [`FundingQueueVersion`](README.md#fundingqueueversion) \| [`OneTxPaymentVersion`](README.md#onetxpaymentversion) \| [`ReputationBootstrapperVersion`](README.md#reputationbootstrapperversion) \| [`StagedExpenditureVersion`](README.md#stagedexpenditureversion) \| [`StakedExpenditureVersion`](README.md#stakedexpenditureversion) \| `StreamingPaymentsVersion` \| [`TokenSupplierVersion`](README.md#tokensupplierversion) \| [`VotingReputationVersion`](README.md#votingreputationversion)
+Ƭ **ExtensionVersion**: [`FundingQueueVersion`](README.md#fundingqueueversion) \| [`MultisigPermissionsVersion`](README.md#multisigpermissionsversion) \| [`OneTxPaymentVersion`](README.md#onetxpaymentversion) \| [`ReputationBootstrapperVersion`](README.md#reputationbootstrapperversion) \| [`StagedExpenditureVersion`](README.md#stagedexpenditureversion) \| [`StakedExpenditureVersion`](README.md#stakedexpenditureversion) \| `StreamingPaymentsVersion` \| [`TokenSupplierVersion`](README.md#tokensupplierversion) \| [`VotingReputationVersion`](README.md#votingreputationversion)
 
 All possible extension versions
 
@@ -227,6 +234,12 @@ ___
 ### FundingQueueVersion
 
 Ƭ **FundingQueueVersion**: typeof `FUNDING_QUEUE_VERSIONS`[`number`]
+
+___
+
+### MultisigPermissionsVersion
+
+Ƭ **MultisigPermissionsVersion**: typeof `MULTISIG_PERMISSIONS_VERSIONS`[`number`]
 
 ___
 
@@ -339,6 +352,7 @@ Latest versions of all extension contracts
 | :------ | :------ |
 | `FundingQueue` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` |
 | `IVotingReputation` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` |
+| `MultisigPermissions` | ``1`` |
 | `OneTxPayment` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` |
 | `ReputationBootstrapper` | ``1`` \| ``2`` \| ``3`` \| ``4`` |
 | `StagedExpenditure` | ``1`` \| ``2`` |

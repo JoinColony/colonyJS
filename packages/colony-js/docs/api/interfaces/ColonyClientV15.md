@@ -6736,6 +6736,52 @@ AugmentedIColony.userCanSetRoles(address,uint256,uint256,uint256)
 
 ___
 
+### validateDomainInheritance
+
+▸ **validateDomainInheritance**(`_permissionDomainId`, `_childSkillIndex`, `_childDomainId`, `overrides?`): `Promise`<`boolean`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_permissionDomainId` | `BigNumberish` |
+| `_childSkillIndex` | `BigNumberish` |
+| `_childDomainId` | `BigNumberish` |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`boolean`\>
+
+#### Inherited from
+
+AugmentedIColony.validateDomainInheritance
+
+___
+
+### validateDomainInheritance(uint256,uint256,uint256)
+
+▸ **validateDomainInheritance(uint256,uint256,uint256)**(`_permissionDomainId`, `_childSkillIndex`, `_childDomainId`, `overrides?`): `Promise`<`boolean`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_permissionDomainId` | `BigNumberish` |
+| `_childSkillIndex` | `BigNumberish` |
+| `_childDomainId` | `BigNumberish` |
+| `overrides?` | `CallOverrides` |
+
+#### Returns
+
+`Promise`<`boolean`\>
+
+#### Inherited from
+
+AugmentedIColony.validateDomainInheritance(uint256,uint256,uint256)
+
+___
+
 ### verifyReputationProof
 
 ▸ **verifyReputationProof**(`key`, `value`, `branchMask`, `siblings`, `overrides?`): `Promise`<`boolean`\>

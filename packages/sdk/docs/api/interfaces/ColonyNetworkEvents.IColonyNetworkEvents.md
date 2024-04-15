@@ -98,6 +98,11 @@ ___
 | :------ | :------ |
 | `AuctionCreated` | (`auction?`: ``null``, `token?`: ``null``, `quantity?`: ``null``) => [`AuctionCreatedEventFilter`](../modules/ColonyNetworkEvents.md#auctioncreatedeventfilter) |
 | `AuctionCreated(address,address,uint256)` | (`auction?`: ``null``, `token?`: ``null``, `quantity?`: ``null``) => [`AuctionCreatedEventFilter`](../modules/ColonyNetworkEvents.md#auctioncreatedeventfilter) |
+<<<<<<< HEAD
+=======
+| `BridgeSet` | (`bridgeAddress?`: ``null``) => [`BridgeSetEventFilter`](../modules/ColonyNetworkEvents.md#bridgeseteventfilter) |
+| `BridgeSet(address)` | (`bridgeAddress?`: ``null``) => [`BridgeSetEventFilter`](../modules/ColonyNetworkEvents.md#bridgeseteventfilter) |
+>>>>>>> 9b8c3267 (chore: generate docs)
 | `ColonyAdded` | (`colonyId?`: ``null`` \| `BigNumberish`, `colonyAddress?`: ``null`` \| `string`, `token?`: ``null``) => [`ColonyAddedEventFilter`](../modules/ColonyNetworkEvents.md#colonyaddedeventfilter) |
 | `ColonyAdded(uint256,address,address)` | (`colonyId?`: ``null`` \| `BigNumberish`, `colonyAddress?`: ``null`` \| `string`, `token?`: ``null``) => [`ColonyAddedEventFilter`](../modules/ColonyNetworkEvents.md#colonyaddedeventfilter) |
 | `ColonyLabelRegistered` | (`colony?`: ``null`` \| `string`, `label?`: ``null``) => [`ColonyLabelRegisteredEventFilter`](../modules/ColonyNetworkEvents.md#colonylabelregisteredeventfilter) |
@@ -146,8 +151,27 @@ ___
 | `ReputationMiningRewardSet(uint256)` | (`amount?`: ``null``) => [`ReputationMiningRewardSetEventFilter`](../modules/ColonyNetworkEvents.md#reputationminingrewardseteventfilter) |
 | `ReputationRootHashSet` | (`newHash?`: ``null``, `newNNodes?`: ``null``, `stakers?`: ``null``, `reward?`: ``null``) => [`ReputationRootHashSetEventFilter`](../modules/ColonyNetworkEvents.md#reputationroothashseteventfilter) |
 | `ReputationRootHashSet(bytes32,uint256,address[],uint256)` | (`newHash?`: ``null``, `newNNodes?`: ``null``, `stakers?`: ``null``, `reward?`: ``null``) => [`ReputationRootHashSetEventFilter`](../modules/ColonyNetworkEvents.md#reputationroothashseteventfilter) |
+<<<<<<< HEAD
 | `SkillAdded` | (`skillId?`: ``null``, `parentSkillId?`: ``null``) => [`SkillAddedEventFilter`](../modules/ColonyNetworkEvents.md#skilladdedeventfilter) |
 | `SkillAdded(uint256,uint256)` | (`skillId?`: ``null``, `parentSkillId?`: ``null``) => [`SkillAddedEventFilter`](../modules/ColonyNetworkEvents.md#skilladdedeventfilter) |
+=======
+| `ReputationUpdateAddedFromBridge` | (`chainId?`: ``null``, `colony?`: ``null``, `updateNumber?`: ``null``) => [`ReputationUpdateAddedFromBridgeEventFilter`](../modules/ColonyNetworkEvents.md#reputationupdateaddedfrombridgeeventfilter) |
+| `ReputationUpdateAddedFromBridge(uint256,address,uint256)` | (`chainId?`: ``null``, `colony?`: ``null``, `updateNumber?`: ``null``) => [`ReputationUpdateAddedFromBridgeEventFilter`](../modules/ColonyNetworkEvents.md#reputationupdateaddedfrombridgeeventfilter) |
+| `ReputationUpdateSentToBridge` | (`colony?`: ``null``, `count?`: ``null``) => [`ReputationUpdateSentToBridgeEventFilter`](../modules/ColonyNetworkEvents.md#reputationupdatesenttobridgeeventfilter) |
+| `ReputationUpdateSentToBridge(address,uint256)` | (`colony?`: ``null``, `count?`: ``null``) => [`ReputationUpdateSentToBridgeEventFilter`](../modules/ColonyNetworkEvents.md#reputationupdatesenttobridgeeventfilter) |
+| `ReputationUpdateStored` | (`colony?`: ``null``, `count?`: ``null``) => [`ReputationUpdateStoredEventFilter`](../modules/ColonyNetworkEvents.md#reputationupdatestoredeventfilter) |
+| `ReputationUpdateStored(address,uint256)` | (`colony?`: ``null``, `count?`: ``null``) => [`ReputationUpdateStoredEventFilter`](../modules/ColonyNetworkEvents.md#reputationupdatestoredeventfilter) |
+| `ReputationUpdateStoredFromBridge` | (`chainId?`: ``null``, `colony?`: ``null``, `updateNumber?`: ``null``) => [`ReputationUpdateStoredFromBridgeEventFilter`](../modules/ColonyNetworkEvents.md#reputationupdatestoredfrombridgeeventfilter) |
+| `ReputationUpdateStoredFromBridge(uint256,address,uint256)` | (`chainId?`: ``null``, `colony?`: ``null``, `updateNumber?`: ``null``) => [`ReputationUpdateStoredFromBridgeEventFilter`](../modules/ColonyNetworkEvents.md#reputationupdatestoredfrombridgeeventfilter) |
+| `SkillAdded` | (`skillId?`: ``null``, `parentSkillId?`: ``null``) => [`SkillAddedEventFilter`](../modules/ColonyNetworkEvents.md#skilladdedeventfilter) |
+| `SkillAdded(uint256,uint256)` | (`skillId?`: ``null``, `parentSkillId?`: ``null``) => [`SkillAddedEventFilter`](../modules/ColonyNetworkEvents.md#skilladdedeventfilter) |
+| `SkillAddedFromBridge` | (`skillId?`: ``null``) => [`SkillAddedFromBridgeEventFilter`](../modules/ColonyNetworkEvents.md#skilladdedfrombridgeeventfilter) |
+| `SkillAddedFromBridge(uint256)` | (`skillId?`: ``null``) => [`SkillAddedFromBridgeEventFilter`](../modules/ColonyNetworkEvents.md#skilladdedfrombridgeeventfilter) |
+| `SkillCreationStored` | (`skillId?`: ``null``) => [`SkillCreationStoredEventFilter`](../modules/ColonyNetworkEvents.md#skillcreationstoredeventfilter) |
+| `SkillCreationStored(uint256)` | (`skillId?`: ``null``) => [`SkillCreationStoredEventFilter`](../modules/ColonyNetworkEvents.md#skillcreationstoredeventfilter) |
+| `SkillStoredFromBridge` | (`skillId?`: ``null``) => [`SkillStoredFromBridgeEventFilter`](../modules/ColonyNetworkEvents.md#skillstoredfrombridgeeventfilter) |
+| `SkillStoredFromBridge(uint256)` | (`skillId?`: ``null``) => [`SkillStoredFromBridgeEventFilter`](../modules/ColonyNetworkEvents.md#skillstoredfrombridgeeventfilter) |
+>>>>>>> 9b8c3267 (chore: generate docs)
 | `TokenAuthorityDeployed` | (`tokenAuthorityAddress?`: ``null``) => [`TokenAuthorityDeployedEventFilter`](../modules/ColonyNetworkEvents.md#tokenauthoritydeployedeventfilter) |
 | `TokenAuthorityDeployed(address)` | (`tokenAuthorityAddress?`: ``null``) => [`TokenAuthorityDeployedEventFilter`](../modules/ColonyNetworkEvents.md#tokenauthoritydeployedeventfilter) |
 | `TokenDeployed` | (`tokenAddress?`: ``null``) => [`TokenDeployedEventFilter`](../modules/ColonyNetworkEvents.md#tokendeployedeventfilter) |
