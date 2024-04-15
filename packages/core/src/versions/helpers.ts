@@ -10,6 +10,10 @@ import {
   votingReputationIncompatibilityMap,
 } from './VotingReputation.js';
 import {
+  MultisigPermissionsVersion,
+  multisigPermissionsIncompatibilityMap,
+} from './MultisigPermissions.js';
+import {
   OneTxPaymentVersion,
   oneTxPaymentIncompatibilityMap,
 } from './OneTxPayment.js';
@@ -59,6 +63,13 @@ export const isExtensionCompatible = (
       const map =
         votingReputationIncompatibilityMap[
           extensionVersion as VotingReputationVersion
+        ];
+      return !!map && !map.includes(colonyVersion);
+    }
+    case Extension.MultisigPermissions: {
+      const map =
+        multisigPermissionsIncompatibilityMap[
+          extensionVersion as MultisigPermissionsVersion
         ];
       return !!map && !map.includes(colonyVersion);
     }

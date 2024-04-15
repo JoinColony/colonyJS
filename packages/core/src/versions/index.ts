@@ -5,6 +5,10 @@ import {
   FundingQueueVersion,
 } from './FundingQueue.js';
 import {
+  MULTISIG_PERMISSIONS_VERSION_LATEST,
+  MultisigPermissionsVersion,
+} from './MultisigPermissions.js';
+import {
   ONE_TX_PAYMENT_VERSION_LATEST,
   OneTxPaymentVersion,
 } from './OneTxPayment.js';
@@ -41,6 +45,7 @@ export { isExtensionCompatible } from './helpers.js';
 export const ExtensionVersions = {
   [Extension.FundingQueue]: FUNDING_QUEUE_VERSION_LATEST,
   [Extension.IVotingReputation]: VOTING_REPUTATION_VERSION_LATEST,
+  [Extension.MultisigPermissions]: MULTISIG_PERMISSIONS_VERSION_LATEST,
   [Extension.OneTxPayment]: ONE_TX_PAYMENT_VERSION_LATEST,
   [Extension.ReputationBootstrapper]: REPUTATION_BOOTSTRAPPER_VERSION_LATEST,
   [Extension.StagedExpenditure]: STAGED_EXPENDITURE_VERSION_LATEST,
@@ -55,6 +60,7 @@ export const ExtensionVersions = {
  */
 export type ExtensionVersion =
   | FundingQueueVersion
+  | MultisigPermissionsVersion
   | OneTxPaymentVersion
   | ReputationBootstrapperVersion
   | StagedExpenditureVersion
@@ -76,6 +82,10 @@ export { ColonyVersion } from './IColony.js';
  * All possible FundingQueue versions
  */
 export { FundingQueueVersion } from './FundingQueue.js';
+/**
+ * All possible MultisigPermissions versions
+ */
+export { MultisigPermissionsVersion } from './MultisigPermissions.js';
 /**
  * All possible OneTxPayment versions
  */
