@@ -1,7 +1,4 @@
-import type {
-  ExtensionUpgradedEventObject,
-  OneTxPaymentMadeEventObject,
-} from '@colony/events';
+import type { ColonyNetworkEvents, OneTxPaymentEvents } from '@colony/events';
 
 import {
   type OneTxPaymentVersion,
@@ -290,7 +287,7 @@ export class OneTxPayment {
         ];
       },
       async (receipt) => ({
-        ...extractEvent<OneTxPaymentMadeEventObject>(
+        ...extractEvent<OneTxPaymentEvents.OneTxPaymentMadeEventObject>(
           'OneTxPaymentMade',
           receipt,
         ),
@@ -326,7 +323,7 @@ export class OneTxPayment {
       'upgradeExtension',
       [getExtensionHash(Extension.OneTxPayment), version],
       async (receipt) => ({
-        ...extractEvent<ExtensionUpgradedEventObject>(
+        ...extractEvent<ColonyNetworkEvents.ExtensionUpgradedEventObject>(
           'ExtensionUpgraded',
           receipt,
         ),

@@ -90,7 +90,7 @@ export type AugmentedStakedExpenditure<
    * Isn't that amazing?
    * It's an ethers contract with only events to filter
    */
-  stakedExpenditureEvents: StakedExpenditureEvents;
+  stakedExpenditureEvents: StakedExpenditureEvents.StakedExpenditureEvents;
 
   estimateGas: T['estimateGas'] & AugmentedEstimate;
 

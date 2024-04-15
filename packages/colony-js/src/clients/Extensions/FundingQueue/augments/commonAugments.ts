@@ -22,7 +22,7 @@ export type AugmentedFundingQueue<T extends AnyFundingQueue = AnyFundingQueue> =
      * Isn't that amazing?
      * It's an ethers contract with only events to filter
      */
-    fundingQueueEvents: FundingQueueEvents;
+    fundingQueueEvents: FundingQueueEvents.FundingQueueEvents;
   };
 
 export const addAugments = <T extends AugmentedFundingQueue>(

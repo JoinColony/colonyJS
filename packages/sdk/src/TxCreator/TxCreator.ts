@@ -4,7 +4,7 @@ import { Contract, ContractReceipt, ContractTransaction } from 'ethers';
 import { parseLogs } from '@colony/core';
 import {
   type MetadataTypeMap,
-  type MotionCreatedEventObject,
+  type VotingReputationEvents,
   IpfsMetadataEvents,
   MetadataType,
 } from '@colony/events';
@@ -64,7 +64,7 @@ export interface BaseContract {
  */
 export interface ColonyMetaTransaction<
   C extends TransactionResponse,
-  E extends EventData | MotionCreatedEventObject,
+  E extends EventData | VotingReputationEvents.MotionCreatedEventObject,
   R extends ParsedLogTransactionReceipt,
   MD extends MetadataType,
 > {
@@ -112,7 +112,7 @@ export interface ColonyMetaTransaction<
  */
 export interface ColonyTransaction<
   C extends ContractTransaction,
-  E extends EventData | MotionCreatedEventObject,
+  E extends EventData | VotingReputationEvents.MotionCreatedEventObject,
   R extends ContractReceipt,
   MD extends MetadataType,
 > {

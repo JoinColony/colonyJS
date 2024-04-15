@@ -72,7 +72,7 @@ export type AugmentedVotingReputation<
    * Isn't that amazing?
    * It's an ethers contract with only events to filter
    */
-  votingReputationEvents: VotingReputationEvents;
+  votingReputationEvents: VotingReputationEvents.IVotingReputationEvents;
 
   estimateGas: T['estimateGas'] & AugmentedEstimate;
 

@@ -38,7 +38,6 @@ export * from './contracts/index.js';
 
 export { default as getTokenClient } from './clients/TokenClient.js';
 export type {
-  LegacyColonyTokenClient,
   TokenClient,
   ColonyTokenClient,
   Erc20TokenClient,

@@ -22,7 +22,7 @@ export type AugmentedTokenSupplier<
    * Isn't that amazing?
    * It's an ethers contract with only events to filter
    */
-  tokenSupplierEvents: TokenSupplierEvents;
+  tokenSupplierEvents: TokenSupplierEvents.TokenSupplierEvents;
 };
 
 export const addAugments = <T extends AugmentedTokenSupplier>(

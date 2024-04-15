@@ -148,7 +148,7 @@ export type AugmentedStreamingPayments<
    * Isn't that amazing?
    * It's an ethers contract with only events to filter
    */
-  streamingPaymentsEvents: StreamingPaymentsEvents;
+  streamingPaymentsEvents: StreamingPaymentsEvents.StreamingPaymentsEvents;
 
   estimateGas: T['estimateGas'] & AugmentedEstimate;
 

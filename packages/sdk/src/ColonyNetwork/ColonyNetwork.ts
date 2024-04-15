@@ -17,12 +17,9 @@ import {
 import { type ERC2612Token as ERC2612TokenType } from '@colony/tokens';
 import {
   type ColonyData,
+  type ColonyEvents,
+  type ColonyNetworkEvents,
   type IpfsAdapter,
-  type ColonyAddedEventObject,
-  type ColonyMetadataEventObject,
-  type TokenAuthorityDeployedEventObject,
-  type TokenDeployedEventObject,
-  type UserLabelRegisteredEventObject,
   IpfsMetadata,
   MetadataType,
 } from '@colony/events';
@@ -356,10 +353,10 @@ export class ColonyNetwork {
     IColonyNetwork,
     'createColonyForFrontend',
     Expand<
-      TokenDeployedEventObject &
-        ColonyAddedEventObject &
-        TokenAuthorityDeployedEventObject &
-        ColonyMetadataEventObject
+      ColonyNetworkEvents.TokenDeployedEventObject &
+        ColonyNetworkEvents.ColonyAddedEventObject &
+        ColonyNetworkEvents.TokenAuthorityDeployedEventObject &
+        ColonyEvents.ColonyMetadataEventObject
     >,
     MetadataType.Colony
   >;
@@ -408,9 +405,11 @@ export class ColonyNetwork {
     IColonyNetwork,
     'createColonyForFrontend',
     Expand<
-      TokenDeployedEventObject &
-        ColonyAddedEventObject &
-        TokenAuthorityDeployedEventObject & { metadata?: undefined }
+      ColonyNetworkEvents.TokenDeployedEventObject &
+        ColonyNetworkEvents.ColonyAddedEventObject &
+        ColonyNetworkEvents.TokenAuthorityDeployedEventObject & {
+          metadata?: undefined;
+        }
     >,
     MetadataType
   >;
@@ -474,9 +473,16 @@ export class ColonyNetwork {
         'createColonyForFrontend',
         prepareArgs,
         async (receipt) => ({
-          ...extractEvent<TokenDeployedEventObject>('TokenDeployed', receipt),
-          ...extractEvent<ColonyAddedEventObject>('ColonyAdded', receipt),
-          ...extractEvent<TokenAuthorityDeployedEventObject>(
+          ...extractEvent<ColonyNetworkEvents.TokenDeployedEventObject>(
+            'TokenDeployed',
+            receipt,
+          ),
+          ...extractEvent<ColonyNetworkEvents.ColonyAddedEventObject>(
+            'ColonyAdded',
+            receipt,
+          ),
+          // eslint-disable-next-line max-len
+          ...extractEvent<ColonyNetworkEvents.TokenAuthorityDeployedEventObject>(
             'TokenAuthorityDeployed',
             receipt,
           ),
@@ -500,9 +506,15 @@ export class ColonyNetwork {
         return args;
       },
       async (receipt) => ({
-        ...extractEvent<TokenDeployedEventObject>('TokenDeployed', receipt),
-        ...extractEvent<ColonyAddedEventObject>('ColonyAdded', receipt),
-        ...extractEvent<TokenAuthorityDeployedEventObject>(
+        ...extractEvent<ColonyNetworkEvents.TokenDeployedEventObject>(
+          'TokenDeployed',
+          receipt,
+        ),
+        ...extractEvent<ColonyNetworkEvents.ColonyAddedEventObject>(
+          'ColonyAdded',
+          receipt,
+        ),
+        ...extractEvent<ColonyNetworkEvents.TokenAuthorityDeployedEventObject>(
           'TokenAuthorityDeployed',
           receipt,
         ),
@@ -631,7 +643,7 @@ export class ColonyNetwork {
       'registerUserLabel',
       checkUsername,
       async (receipt) => ({
-        ...extractEvent<UserLabelRegisteredEventObject>(
+        ...extractEvent<ColonyNetworkEvents.UserLabelRegisteredEventObject>(
           'UserLabelRegistered',
           receipt,
         ),
@@ -657,7 +669,10 @@ export class ColonyNetwork {
       'deployTokenViaNetwork',
       [name, symbol, decimals],
       async (receipt) => ({
-        ...extractEvent<TokenDeployedEventObject>('TokenDeployed', receipt),
+        ...extractEvent<ColonyNetworkEvents.TokenDeployedEventObject>(
+          'TokenDeployed',
+          receipt,
+        ),
       }),
     );
   }
