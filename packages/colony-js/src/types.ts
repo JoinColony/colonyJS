@@ -3,6 +3,7 @@ import type {
   ColonyEvents,
   ColonyNetworkEvents,
   MetaTxTokenEvents,
+  MultisigPermissionsEvents,
   OneTxPaymentEvents,
   StakedExpenditureEvents,
   StreamingPaymentsEvents,
@@ -25,6 +26,7 @@ export type EventsClient =
   | ColonyNetworkEvents.IColonyNetworkEvents
   | VotingReputationEvents.IVotingReputationEvents
   | MetaTxTokenEvents.MetaTxTokenEvents
+  | MultisigPermissionsEvents.MultisigPermissionsEvents
   | OneTxPaymentEvents.OneTxPaymentEvents
   | StakedExpenditureEvents.StakedExpenditureEvents
   | StreamingPaymentsEvents.StreamingPaymentsEvents

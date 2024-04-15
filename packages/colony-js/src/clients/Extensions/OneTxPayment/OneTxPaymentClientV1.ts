@@ -5,10 +5,11 @@ import { ClientType } from '../../../constants.js';
 import {
   type UnkonwnOneTxPaymentClient,
   addAugments,
+  ValidColony,
 } from './augments/commonAugments.js';
 
 export default function getOneTxPaymentClient(
-  colonyClient: AugmentedIColony,
+  colonyClient: AugmentedIColony<ValidColony>,
   address: string,
 ) {
   const oneTxPaymentClient = OneTxPaymentFactory.connect(

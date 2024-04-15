@@ -6,6 +6,10 @@ import {
   FundingQueueVersion,
 } from './FundingQueue.js';
 import {
+  multisigPermissionsIncompatibilityMap,
+  MultisigPermissionsVersion,
+} from './MultisigPermissions.js';
+import {
   oneTxPaymentIncompatibilityMap,
   OneTxPaymentVersion,
 } from './OneTxPayment.js';
@@ -48,6 +52,11 @@ const getExtensionIncompatibilityMap = (
     case Extension.IVotingReputation: {
       return votingReputationIncompatibilityMap[
         extensionVersion as VotingReputationVersion
+      ];
+    }
+    case Extension.MultisigPermissions: {
+      return multisigPermissionsIncompatibilityMap[
+        extensionVersion as MultisigPermissionsVersion
       ];
     }
     case Extension.OneTxPayment: {

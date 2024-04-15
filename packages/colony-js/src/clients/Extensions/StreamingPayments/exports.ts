@@ -5,29 +5,13 @@ import { assertExhaustiveSwitch } from '@colony/core/utils';
 import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
 import { ValidColony } from './augments/commonAugments.js';
 
-import getStreamingPaymentsClientV1, {
-  StreamingPaymentsClientV1,
-} from './StreamingPaymentsClientV1.js';
-import getStreamingPaymentsClientV2, {
-  StreamingPaymentsClientV2,
-} from './StreamingPaymentsClientV2.js';
-import getStreamingPaymentsClientV3, {
-  StreamingPaymentsClientV3,
-} from './StreamingPaymentsClientV3.js';
-import getStreamingPaymentsClientV4, {
-  StreamingPaymentsClientV4,
-} from './StreamingPaymentsClientV4.js';
+import getStreamingPaymentsClientV5, {
+  StreamingPaymentsClientV5,
+} from './StreamingPaymentsClientV5.js';
 
-export { StreamingPaymentsClientV1 } from './StreamingPaymentsClientV1.js';
-export { StreamingPaymentsClientV2 } from './StreamingPaymentsClientV2.js';
-export { StreamingPaymentsClientV3 } from './StreamingPaymentsClientV3.js';
-export { StreamingPaymentsClientV4 } from './StreamingPaymentsClientV4.js';
+export { StreamingPaymentsClientV5 } from './StreamingPaymentsClientV5.js';
 
-export type AnyStreamingPaymentsClient =
-  | StreamingPaymentsClientV1
-  | StreamingPaymentsClientV2
-  | StreamingPaymentsClientV3
-  | StreamingPaymentsClientV4;
+export type AnyStreamingPaymentsClient = StreamingPaymentsClientV5;
 
 /** @internal */
 export const getStreamingPaymentsClient = (
@@ -37,22 +21,15 @@ export const getStreamingPaymentsClient = (
 ): AnyStreamingPaymentsClient => {
   switch (version) {
     case 1:
-      return getStreamingPaymentsClientV1(
-        colonyClient as AugmentedIColony<ValidColony>,
-        address,
-      );
+      throw new Error('StreamingPayments version 1 is not supported');
     case 2:
-      return getStreamingPaymentsClientV2(
-        colonyClient as AugmentedIColony<ValidColony>,
-        address,
-      );
+      throw new Error('StreamingPayments version 2 is not supported');
     case 3:
-      return getStreamingPaymentsClientV3(
-        colonyClient as AugmentedIColony<ValidColony>,
-        address,
-      );
+      throw new Error('StreamingPayments version 3 is not supported');
     case 4:
-      return getStreamingPaymentsClientV4(
+      throw new Error('StreamingPayments version 4 is not supported');
+    case 5:
+      return getStreamingPaymentsClientV5(
         colonyClient as AugmentedIColony<ValidColony>,
         address,
       );

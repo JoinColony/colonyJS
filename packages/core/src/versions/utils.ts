@@ -12,6 +12,6 @@ type Range<F extends number, T extends number> = Exclude<
 
 export const createContractVersionArray = <T extends number>(last: T) => {
   return Array.from(Array(last - 1)).map(
-    (i) => (i + 1) as Range<1, typeof last>,
+    (_, i) => (i + 1) as Range<1, typeof last>,
   );
 };

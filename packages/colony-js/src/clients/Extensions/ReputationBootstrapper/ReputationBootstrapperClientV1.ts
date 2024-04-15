@@ -6,6 +6,7 @@ import { ClientType } from '../../../constants.js';
 import {
   addAugments,
   AugmentedReputationBootstrapper,
+  ValidColony,
 } from './augments/commonAugments.js';
 
 export interface ReputationBootstrapperClientV1
@@ -14,7 +15,7 @@ export interface ReputationBootstrapperClientV1
 }
 
 export default function getReputationBootstrapperClient(
-  colonyClient: AugmentedIColony,
+  colonyClient: AugmentedIColony<ValidColony>,
   address: string,
 ): ReputationBootstrapperClientV1 {
   const reputationBootstrapperClient = ReputationBootstrapperFactory.connect(
