@@ -1,16 +1,13 @@
 import type {
-  CoinMachineEvents,
   EvaluatedExpenditureEvents,
-  IColonyEvents,
-  IColonyNetworkEvents,
-  IVotingReputationEvents,
+  ColonyEvents,
+  ColonyNetworkEvents,
   MetaTxTokenEvents,
   OneTxPaymentEvents,
   StakedExpenditureEvents,
   StreamingPaymentsEvents,
   TokenSupplierEvents,
   VotingReputationEvents,
-  WhitelistEvents,
 } from '@colony/events';
 import type {
   TokenClient as TokenContractClient,
@@ -23,18 +20,16 @@ import { ExtensionClient } from './clients/Extensions/exports.js';
 import { ColonyNetworkClient } from './clients/ColonyNetworkClient.js';
 
 export type EventsClient =
-  | CoinMachineEvents
-  | EvaluatedExpenditureEvents
-  | IColonyEvents
-  | IColonyNetworkEvents
-  | IVotingReputationEvents
-  | MetaTxTokenEvents
-  | OneTxPaymentEvents
-  | StakedExpenditureEvents
-  | StreamingPaymentsEvents
-  | TokenSupplierEvents
-  | VotingReputationEvents
-  | WhitelistEvents;
+  | EvaluatedExpenditureEvents.EvaluatedExpenditureEvents
+  | ColonyEvents.IColonyEvents
+  | ColonyNetworkEvents.IColonyNetworkEvents
+  | VotingReputationEvents.IVotingReputationEvents
+  | MetaTxTokenEvents.MetaTxTokenEvents
+  | OneTxPaymentEvents.OneTxPaymentEvents
+  | StakedExpenditureEvents.StakedExpenditureEvents
+  | StreamingPaymentsEvents.StreamingPaymentsEvents
+  | TokenSupplierEvents.TokenSupplierEvents
+  | VotingReputationEvents.IVotingReputationEvents;
 
 export type ContractClient =
   | AnyColonyClient

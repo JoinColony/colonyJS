@@ -66,7 +66,7 @@ export type AugmentedOneTxPayment<T extends AnyOneTxPayment = AnyOneTxPayment> =
      * Isn't that amazing?
      * It's an ethers contract with only events to filter
      */
-    oneTxPaymentEvents: OneTxPaymentEvents;
+    oneTxPaymentEvents: OneTxPaymentEvents.OneTxPaymentEvents;
 
     estimateGas: T['estimateGas'] & AugmentedEstimate;
 

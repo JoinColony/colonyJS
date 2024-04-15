@@ -22,7 +22,8 @@ export type AugmentedReputationBootstrapper<
    * Isn't that amazing?
    * It's an ethers contract with only events to filter
    */
-  reputationBootstrapperEvents: ReputationBootstrapperEvents;
+  // eslint-disable-next-line max-len
+  reputationBootstrapperEvents: ReputationBootstrapperEvents.ReputationBootstrapperEvents;
 };
 
 export const addAugments = <T extends AugmentedReputationBootstrapper>(

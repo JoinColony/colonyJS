@@ -5,7 +5,7 @@ import {
   getCreateMotionProofs,
   Id,
 } from '@colony/core';
-import { MetadataType, type MotionCreatedEventObject } from '@colony/events';
+import { MetadataType, type VotingReputationEvents } from '@colony/events';
 
 import type { TransactionResponse } from '@ethersproject/abstract-provider';
 import { Colony } from '../ColonyNetwork/index.js';
@@ -116,7 +116,10 @@ export class ColonyTxCreator<
     const receipt = await tx.wait();
 
     const data = {
-      ...extractEvent<MotionCreatedEventObject>('MotionCreated', receipt),
+      ...extractEvent<VotingReputationEvents.MotionCreatedEventObject>(
+        'MotionCreated',
+        receipt,
+      ),
     };
 
     return [data, receipt] as [typeof data, typeof receipt];
@@ -187,7 +190,10 @@ export class ColonyTxCreator<
     const receipt = await this.waitForMetaTx(tx);
 
     const data = {
-      ...extractEvent<MotionCreatedEventObject>('MotionCreated', receipt),
+      ...extractEvent<VotingReputationEvents.MotionCreatedEventObject>(
+        'MotionCreated',
+        receipt,
+      ),
     };
 
     return [data, receipt] as [typeof data, typeof receipt];
@@ -250,7 +256,7 @@ export class ColonyTxCreator<
       },
     } as ColonyTransaction<
       ContractTransaction,
-      MotionCreatedEventObject,
+      VotingReputationEvents.MotionCreatedEventObject,
       ContractReceipt,
       MD
     >;
@@ -280,7 +286,7 @@ export class ColonyTxCreator<
       },
     } as ColonyMetaTransaction<
       TransactionResponse,
-      MotionCreatedEventObject,
+      VotingReputationEvents.MotionCreatedEventObject,
       ParsedLogTransactionReceipt,
       MD
     >;

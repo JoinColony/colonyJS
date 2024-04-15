@@ -28,7 +28,7 @@ export type AugmentedStagedExpenditure<
    * Isn't that amazing?
    * It's an ethers contract with only events to filter
    */
-  stagedExpenditureEvents: StagedExpenditureEvents;
+  stagedExpenditureEvents: StagedExpenditureEvents.StagedExpenditureEvents;
 
   estimateGas: T['estimateGas'] & AugmentedEstimate;
 };

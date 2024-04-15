@@ -1,5 +1,5 @@
 import type { BigNumber, BigNumberish } from 'ethers';
-import type { ApprovalEventObject, TransferEventObject } from '@colony/events';
+import type { TokenEvents } from '@colony/events';
 
 import {
   ERC20Token as ERC20TokenType,
@@ -122,7 +122,7 @@ export class ERC20Token {
       'transfer',
       [to, value],
       async (receipt) => ({
-        ...extractEvent<TransferEventObject>('Transfer', receipt),
+        ...extractEvent<TokenEvents.TransferEventObject>('Transfer', receipt),
       }),
     );
   }
@@ -148,7 +148,7 @@ export class ERC20Token {
       'transferFrom',
       [from, to, value],
       async (receipt) => ({
-        ...extractEvent<TransferEventObject>('Transfer', receipt),
+        ...extractEvent<TokenEvents.TransferEventObject>('Transfer', receipt),
       }),
     );
   }
@@ -194,7 +194,7 @@ export class ERC20Token {
         return [approvedSpender, amount] as [string, BigNumber];
       },
       async (receipt) => ({
-        ...extractEvent<ApprovalEventObject>('Approval', receipt),
+        ...extractEvent<TokenEvents.ApprovalEventObject>('Approval', receipt),
       }),
     );
   }

@@ -16,17 +16,11 @@ import {
   toEth,
 } from '@colony/core';
 import {
-  type MotionEventSetEventObject,
-  type MotionFinalizedEventObject,
-  type MotionStakedEventObject,
-  type MotionVoteRevealedEventObject,
-  type MotionVoteSubmittedEventObject,
-  type UserTokenApprovedEventObject,
-  type MotionCreatedEventObject,
-  type ExtensionUpgradedEventObject,
-  type AnnotationEventObject,
-  type MotionEscalatedEventObject,
-  type ExtensionInitialisedEventObject,
+  type ColonyEvents,
+  type ColonyExtensionEvents,
+  type TokenLockingEvents,
+  type ColonyNetworkEvents,
+  type VotingReputationEvents,
   DecisionData,
   MetadataType,
 } from '@colony/events';
@@ -385,7 +379,7 @@ export class VotingReputation {
         escalationPeriod,
       ],
       async (receipt) => ({
-        ...extractEvent<ExtensionInitialisedEventObject>(
+        ...extractEvent<ColonyExtensionEvents.ExtensionInitialisedEventObject>(
           'ExtensionInitialised',
           receipt,
         ),
@@ -658,7 +652,10 @@ export class VotingReputation {
         ];
       },
       async (receipt) => ({
-        ...extractEvent<MotionCreatedEventObject>('MotionCreated', receipt),
+        ...extractEvent<VotingReputationEvents.MotionCreatedEventObject>(
+          'MotionCreated',
+          receipt,
+        ),
       }),
     );
   }
@@ -727,7 +724,10 @@ export class VotingReputation {
         return [txHash, cid] as [string, string];
       },
       async (receipt) => ({
-        ...extractEvent<AnnotationEventObject>('Annotation', receipt),
+        ...extractEvent<ColonyEvents.AnnotationEventObject>(
+          'Annotation',
+          receipt,
+        ),
       }),
       { metadataType: MetadataType.Decision },
     );
@@ -762,7 +762,8 @@ export class VotingReputation {
       async (receipt) => {
         const tokenLocking = await this.colony.colonyNetwork.getTokenLocking();
         return {
-          ...extractCustomEvent<UserTokenApprovedEventObject>(
+          // eslint-disable-next-line max-len
+          ...extractCustomEvent<TokenLockingEvents.UserTokenApprovedEventObject>(
             'UserTokenApproved',
             receipt,
             tokenLocking.getInternalTokenLockingContract().interface,
@@ -920,8 +921,14 @@ export class VotingReputation {
       'stakeMotion',
       getArgs,
       async (receipt) => ({
-        ...extractEvent<MotionStakedEventObject>('MotionStaked', receipt),
-        ...extractEvent<MotionEventSetEventObject>('MotionEventSet', receipt),
+        ...extractEvent<VotingReputationEvents.MotionStakedEventObject>(
+          'MotionStaked',
+          receipt,
+        ),
+        ...extractEvent<VotingReputationEvents.MotionEventSetEventObject>(
+          'MotionEventSet',
+          receipt,
+        ),
       }),
     );
   }
@@ -987,7 +994,7 @@ export class VotingReputation {
       'submitVote',
       getArgs,
       async (receipt) => ({
-        ...extractEvent<MotionVoteSubmittedEventObject>(
+        ...extractEvent<VotingReputationEvents.MotionVoteSubmittedEventObject>(
           'MotionVoteSubmitted',
           receipt,
         ),
@@ -1067,7 +1074,7 @@ export class VotingReputation {
       'revealVote',
       getArgs,
       async (receipt) => ({
-        ...extractEvent<MotionVoteRevealedEventObject>(
+        ...extractEvent<VotingReputationEvents.MotionVoteRevealedEventObject>(
           'MotionVoteRevealed',
           receipt,
         ),
@@ -1140,7 +1147,10 @@ export class VotingReputation {
       'escalateMotion',
       getArgs,
       async (receipt) => ({
-        ...extractEvent<MotionEscalatedEventObject>('MotionEscalated', receipt),
+        ...extractEvent<VotingReputationEvents.MotionEscalatedEventObject>(
+          'MotionEscalated',
+          receipt,
+        ),
       }),
     );
   }
@@ -1188,7 +1198,10 @@ export class VotingReputation {
       'finalizeMotion',
       getArgs,
       async (receipt) => ({
-        ...extractEvent<MotionFinalizedEventObject>('MotionFinalized', receipt),
+        ...extractEvent<VotingReputationEvents.MotionFinalizedEventObject>(
+          'MotionFinalized',
+          receipt,
+        ),
       }),
     );
   }
@@ -1221,7 +1234,7 @@ export class VotingReputation {
       'upgradeExtension',
       [getExtensionHash(Extension.VotingReputation), version],
       async (receipt) => ({
-        ...extractEvent<ExtensionUpgradedEventObject>(
+        ...extractEvent<ColonyNetworkEvents.ExtensionUpgradedEventObject>(
           'ExtensionUpgraded',
           receipt,
         ),

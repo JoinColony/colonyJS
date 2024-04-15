@@ -14,27 +14,10 @@ import {
 } from '@colony/core';
 import {
   type AnnotationData,
+  type ColonyEvents,
+  type ColonyNetworkEvents,
   type ColonyData,
   type DomainData,
-  type AnnotationEventObject,
-  type ArbitraryReputationUpdateEventObject,
-  type ArbitraryTransactionEventObject,
-  type ColonyFundsClaimed_address_uint256_uint256_EventObject,
-  // eslint-disable-next-line max-len
-  type ColonyFundsMovedBetweenFundingPots_address_uint256_uint256_uint256_address_EventObject,
-  type ColonyMetadataEventObject,
-  type ColonyRoleSet_address_address_uint256_uint8_bool_EventObject,
-  type ColonyUpgraded_uint256_uint256_EventObject,
-  type DomainAdded_uint256_EventObject,
-  type DomainDeprecatedEventObject,
-  type DomainMetadataEventObject,
-  type ExtensionInstalledEventObject,
-  type FundingPotAddedEventObject,
-  type RecoveryModeEnteredEventObject,
-  type RecoveryModeExitedEventObject,
-  type RecoveryRoleSetEventObject,
-  type TokenAuthorityDeployedEventObject,
-  type TokensMintedEventObject,
   MetadataType,
 } from '@colony/events';
 
@@ -448,7 +431,10 @@ export class Colony {
         return [cid] as [string];
       },
       async (receipt) => ({
-        ...extractEvent<ColonyMetadataEventObject>('ColonyMetadata', receipt),
+        ...extractEvent<ColonyEvents.ColonyMetadataEventObject>(
+          'ColonyMetadata',
+          receipt,
+        ),
       }),
       {
         metadataType: MetadataType.Colony,
@@ -511,8 +497,8 @@ export class Colony {
     SupportedColonyContract,
     'addDomain(uint256,uint256,uint256,string)',
     Expand<
-      DomainAdded_uint256_EventObject &
-        FundingPotAddedEventObject & { metadata: string }
+      ColonyEvents.DomainAdded_uint256_EventObject &
+        ColonyEvents.FundingPotAddedEventObject & { metadata: string }
     >,
     MetadataType.Domain
   >;
@@ -541,8 +527,8 @@ export class Colony {
     SupportedColonyContract,
     'addDomain(uint256,uint256,uint256,string)',
     Expand<
-      DomainAdded_uint256_EventObject &
-        FundingPotAddedEventObject & { metadata: undefined }
+      ColonyEvents.DomainAdded_uint256_EventObject &
+        ColonyEvents.FundingPotAddedEventObject & { metadata: undefined }
     >,
     MetadataType
   >;
@@ -558,11 +544,11 @@ export class Colony {
           domain: Id.RootDomain,
         },
         async (receipt) => ({
-          ...extractEvent<DomainAdded_uint256_EventObject>(
+          ...extractEvent<ColonyEvents.DomainAdded_uint256_EventObject>(
             'DomainAdded',
             receipt,
           ),
-          ...extractEvent<FundingPotAddedEventObject>(
+          ...extractEvent<ColonyEvents.FundingPotAddedEventObject>(
             'FundingPotAdded',
             receipt,
           ),
@@ -590,12 +576,18 @@ export class Colony {
         domain: Id.RootDomain,
       },
       async (receipt) => ({
-        ...extractEvent<DomainAdded_uint256_EventObject>(
+        ...extractEvent<ColonyEvents.DomainAdded_uint256_EventObject>(
           'DomainAdded',
           receipt,
         ),
-        ...extractEvent<FundingPotAddedEventObject>('FundingPotAdded', receipt),
-        ...extractEvent<DomainMetadataEventObject>('DomainMetadata', receipt),
+        ...extractEvent<ColonyEvents.FundingPotAddedEventObject>(
+          'FundingPotAdded',
+          receipt,
+        ),
+        ...extractEvent<ColonyEvents.DomainMetadataEventObject>(
+          'DomainMetadata',
+          receipt,
+        ),
       }),
       { metadataType: MetadataType.Domain },
     );
@@ -669,7 +661,10 @@ export class Colony {
         domain: Id.RootDomain,
       },
       async (receipt) => ({
-        ...extractEvent<DomainMetadataEventObject>('DomainMetadata', receipt),
+        ...extractEvent<ColonyEvents.DomainMetadataEventObject>(
+          'DomainMetadata',
+          receipt,
+        ),
       }),
       { metadataType: MetadataType.Domain },
     );
@@ -706,7 +701,7 @@ export class Colony {
         domain: teamId,
       },
       async (receipt) => ({
-        ...extractEvent<DomainDeprecatedEventObject>(
+        ...extractEvent<ColonyEvents.DomainDeprecatedEventObject>(
           'DomainDeprecated',
           receipt,
         ),
@@ -759,7 +754,8 @@ export class Colony {
       'claimColonyFunds',
       [token],
       async (receipt) => ({
-        ...extractEvent<ColonyFundsClaimed_address_uint256_uint256_EventObject>(
+        // eslint-disable-next-line max-len
+        ...extractEvent<ColonyEvents.ColonyFundsClaimed_address_uint256_uint256_EventObject>(
           'ColonyFundsClaimed',
           receipt,
         ),
@@ -882,7 +878,7 @@ export class Colony {
       },
       async (receipt) => ({
         // eslint-disable-next-line max-len
-        ...extractEvent<ColonyFundsMovedBetweenFundingPots_address_uint256_uint256_uint256_address_EventObject>(
+        ...extractEvent<ColonyEvents.ColonyFundsMovedBetweenFundingPots_address_uint256_uint256_uint256_address_EventObject>(
           'ColonyFundsMovedBetweenFundingPots',
           receipt,
         ),
@@ -994,7 +990,7 @@ export class Colony {
       'makeArbitraryTransactions',
       [[target], [action], false],
       async (receipt) => ({
-        ...extractEvent<ArbitraryTransactionEventObject>(
+        ...extractEvent<ColonyEvents.ArbitraryTransactionEventObject>(
           'ArbitraryTransaction',
           receipt,
         ),
@@ -1063,7 +1059,10 @@ export class Colony {
         return [txHash, cid] as [string, string];
       },
       async (receipt) => ({
-        ...extractEvent<AnnotationEventObject>('Annotation', receipt),
+        ...extractEvent<ColonyEvents.AnnotationEventObject>(
+          'Annotation',
+          receipt,
+        ),
       }),
       { metadataType: MetadataType.Annotation },
     );
@@ -1121,7 +1120,8 @@ export class Colony {
       'installExtension',
       [getExtensionHash(extensionType), Extension.getLatestSupportedVersion()],
       async (receipt) => ({
-        ...extractCustomEvent<ExtensionInstalledEventObject>(
+        // eslint-disable-next-line max-len
+        ...extractCustomEvent<ColonyNetworkEvents.ExtensionInstalledEventObject>(
           'ExtensionInstalled',
           receipt,
           networkClient.interface,
@@ -1218,11 +1218,14 @@ export class Colony {
       },
       async (receipt) => ({
         // eslint-disable-next-line max-len
-        ...extractEvent<ColonyRoleSet_address_address_uint256_uint8_bool_EventObject>(
+        ...extractEvent<ColonyEvents.ColonyRoleSet_address_address_uint256_uint8_bool_EventObject>(
           'ColonyRoleSet',
           receipt,
         ),
-        ...extractEvent<RecoveryRoleSetEventObject>('RecoveryRoleSet', receipt),
+        ...extractEvent<ColonyEvents.RecoveryRoleSetEventObject>(
+          'RecoveryRoleSet',
+          receipt,
+        ),
       }),
     );
   }
@@ -1274,11 +1277,14 @@ export class Colony {
       },
       async (receipt) => ({
         // eslint-disable-next-line max-len
-        ...extractEvent<ColonyRoleSet_address_address_uint256_uint8_bool_EventObject>(
+        ...extractEvent<ColonyEvents.ColonyRoleSet_address_address_uint256_uint8_bool_EventObject>(
           'ColonyRoleSet',
           receipt,
         ),
-        ...extractEvent<RecoveryRoleSetEventObject>('RecoveryRoleSet', receipt),
+        ...extractEvent<ColonyEvents.RecoveryRoleSetEventObject>(
+          'RecoveryRoleSet',
+          receipt,
+        ),
       }),
     );
   }
@@ -1326,7 +1332,10 @@ export class Colony {
       'mintTokens',
       [amount],
       async (receipt) => ({
-        ...extractEvent<TokensMintedEventObject>('TokensMinted', receipt),
+        ...extractEvent<ColonyEvents.TokensMintedEventObject>(
+          'TokensMinted',
+          receipt,
+        ),
       }),
     );
   }
@@ -1374,7 +1383,7 @@ export class Colony {
         ];
       },
       async (receipt) => ({
-        ...extractEvent<TokenAuthorityDeployedEventObject>(
+        ...extractEvent<ColonyNetworkEvents.TokenAuthorityDeployedEventObject>(
           'TokenAuthorityDeployed',
           receipt,
         ),
@@ -1408,7 +1417,7 @@ export class Colony {
       'enterRecoveryMode',
       [],
       async (receipt) => ({
-        ...extractEvent<RecoveryModeEnteredEventObject>(
+        ...extractEvent<ColonyEvents.RecoveryModeEnteredEventObject>(
           'RecoveryModeEntered',
           receipt,
         ),
@@ -1439,7 +1448,7 @@ export class Colony {
       'exitRecoveryMode',
       [],
       async (receipt) => ({
-        ...extractEvent<RecoveryModeExitedEventObject>(
+        ...extractEvent<ColonyEvents.RecoveryModeExitedEventObject>(
           'RecoveryModeExited',
           receipt,
         ),
@@ -1478,7 +1487,8 @@ export class Colony {
       'upgrade',
       [version],
       async (receipt) => ({
-        ...extractEvent<ColonyUpgraded_uint256_uint256_EventObject>(
+        // eslint-disable-next-line max-len
+        ...extractEvent<ColonyEvents.ColonyUpgraded_uint256_uint256_EventObject>(
           'ColonyUpgraded',
           receipt,
         ),
@@ -1526,7 +1536,7 @@ export class Colony {
       'emitDomainReputationReward',
       [team, address, amount],
       async (receipt) => ({
-        ...extractEvent<ArbitraryReputationUpdateEventObject>(
+        ...extractEvent<ColonyEvents.ArbitraryReputationUpdateEventObject>(
           'ArbitraryReputationUpdate',
           receipt,
         ),
@@ -1578,7 +1588,7 @@ export class Colony {
         roles: ColonyRole.Arbitration,
       },
       async (receipt) => ({
-        ...extractEvent<ArbitraryReputationUpdateEventObject>(
+        ...extractEvent<ColonyEvents.ArbitraryReputationUpdateEventObject>(
           'ArbitraryReputationUpdate',
           receipt,
         ),

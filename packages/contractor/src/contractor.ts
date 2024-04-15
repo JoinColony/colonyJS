@@ -13,21 +13,7 @@ import {
 const CORE_CONTRACTS = ['MotionTarget', 'Versioned'];
 
 // Upgradable contract names that will be generated
-const VERSIONED_CONTRACTS = [
-  'IColony',
-  'CoinMachine',
-  'EvaluatedExpenditure',
-  'FundingQueue',
-  'IVotingReputation',
-  'OneTxPayment',
-  'ReputationBootstrapper',
-  'StagedExpenditure',
-  'StakedExpenditure',
-  'StreamingPayments',
-  'TokenSupplier',
-  'VotingReputation',
-  'Whitelist',
-];
+const VERSIONED_CONTRACTS = Object.keys(releaseMap);
 
 const UPGRADABLE_CONTRACTS = ['IColonyNetwork'];
 

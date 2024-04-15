@@ -1,7 +1,4 @@
-import type {
-  LogSetAuthorityEventObject,
-  LogSetOwnerEventObject,
-} from '@colony/events';
+import type { MetaTxTokenEvents } from '@colony/events';
 
 import {
   ColonyToken as ColonyTokenType,
@@ -88,7 +85,10 @@ export class ColonyToken extends ERC20Token {
       'setAuthority',
       [address],
       async (receipt) => ({
-        ...extractEvent<LogSetAuthorityEventObject>('LogSetAuthority', receipt),
+        ...extractEvent<MetaTxTokenEvents.LogSetAuthorityEventObject>(
+          'LogSetAuthority',
+          receipt,
+        ),
       }),
     );
   }
@@ -117,7 +117,10 @@ export class ColonyToken extends ERC20Token {
       'setOwner',
       [address],
       async (receipt) => ({
-        ...extractEvent<LogSetOwnerEventObject>('LogSetOwner', receipt),
+        ...extractEvent<MetaTxTokenEvents.LogSetOwnerEventObject>(
+          'LogSetOwner',
+          receipt,
+        ),
       }),
     );
   }

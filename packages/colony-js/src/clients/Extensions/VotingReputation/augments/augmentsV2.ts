@@ -13,6 +13,7 @@ import {
   VotingReputationV8,
   VotingReputationV9,
   VotingReputationV10,
+  VotingReputationV11,
 } from '../contracts.js';
 import { AnyVotingReputationClient } from '../exports.js';
 import {
@@ -25,7 +26,8 @@ type ValidVotingReputation =
   | VotingReputationV7
   | VotingReputationV8
   | VotingReputationV9
-  | VotingReputationV10;
+  | VotingReputationV10
+  | VotingReputationV11;
 
 export interface AugmentedEstimateV2 {
   /**

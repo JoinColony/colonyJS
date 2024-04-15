@@ -6,8 +6,6 @@ import { ClientType, TokenClientType } from '../constants.js';
 import {
   MetaTxToken__factory as MetaTxTokenFactory,
   MetaTxToken,
-  Token__factory as TokenFactory,
-  Token,
 } from '../contracts/index.js';
 import {
   TokenERC20__factory as TokenERC20Factory,
@@ -24,12 +22,6 @@ export interface ColonyTokenClient extends MetaTxToken {
   tokenClientType: TokenClientType.Colony;
 }
 
-/** The "old", legacy Colony token without Metatransactions token */
-export interface LegacyColonyTokenClient extends Token {
-  clientType: ClientType.TokenClient;
-  tokenClientType: TokenClientType.ColonyLegacy;
-}
-
 /** A standard ERC20 token */
 export interface Erc20TokenClient extends TokenERC20 {
   clientType: ClientType.TokenClient;
@@ -43,7 +35,6 @@ export interface Erc2612TokenClient extends TokenERC2612 {
 
 export type TokenClient =
   | ColonyTokenClient
-  | LegacyColonyTokenClient
   | Erc20TokenClient
   | Erc2612TokenClient;
 
@@ -64,7 +55,6 @@ const getTokenClient = async (
 ): Promise<TokenClient> => {
   let tokenClient: TokenClient;
   let isColonyToken = true;
-  let isMetaTxToken = true;
   let isEip2612Token = true;
 
   tokenClient = MetaTxTokenFactory.connect(
@@ -93,12 +83,6 @@ const getTokenClient = async (
   }
 
   try {
-    await tokenClient.getMetatransactionNonce(AddressZero);
-  } catch {
-    isMetaTxToken = false;
-  }
-
-  try {
     // NOTE: Casting will be unnecessary when MetaTxToken supports "nonces"
     await (tokenClient as unknown as Erc2612TokenClient).nonces(AddressZero);
   } catch {
@@ -107,15 +91,7 @@ const getTokenClient = async (
 
   // NOTE: The following is horrible. But that's just how things are with tokens rn.
   if (isColonyToken) {
-    if (!isMetaTxToken) {
-      tokenClient = TokenFactory.connect(
-        address,
-        signerOrProvider,
-      ) as LegacyColonyTokenClient;
-      tokenClient.tokenClientType = TokenClientType.ColonyLegacy;
-    } else {
-      tokenClient.tokenClientType = TokenClientType.Colony;
-    }
+    tokenClient.tokenClientType = TokenClientType.Colony;
   } else if (isEip2612Token) {
     tokenClient = TokenERC2612Factory.connect(
       address,

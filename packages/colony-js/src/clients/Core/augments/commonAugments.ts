@@ -5,8 +5,8 @@ import {
   BigNumberish,
 } from 'ethers';
 import {
-  type IColonyEvents,
-  IColonyEvents__factory as IColonyEventsFactory,
+  type ColonyEvents,
+  IColonyEvents__factory as ColonyEventsFactory,
 } from '@colony/events';
 import { TokenClient } from '@colony/tokens';
 
@@ -154,7 +154,7 @@ export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
    * Isn't that amazing?
    * It's an ethers contract with only events to filter
    */
-  colonyEvents: IColonyEvents;
+  colonyEvents: ColonyEvents.IColonyEvents;
 
   /**
    * Get an instance of an extension client associated with this Colony.
@@ -532,7 +532,7 @@ export const addAugments = <T extends AugmentedIColony>(
   instance.estimateGas.setAdministrationRoleWithProofs =
     estimateSetAdministrationRoleWithProofs.bind(instance);
 
-  instance.colonyEvents = IColonyEventsFactory.connect(
+  instance.colonyEvents = ColonyEventsFactory.connect(
     instance.address,
     instance.signer || instance.provider,
   );

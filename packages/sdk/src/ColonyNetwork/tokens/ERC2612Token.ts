@@ -1,4 +1,4 @@
-import type { ApprovalEventObject } from '@colony/events';
+import type { TokenEvents } from '@colony/events';
 
 import { BigNumber, BigNumberish } from 'ethers';
 import {
@@ -94,7 +94,7 @@ export class ERC2612Token extends ERC20Token {
         return [spenderArg, amount] as [string, BigNumber];
       },
       async (receipt) => ({
-        ...extractEvent<ApprovalEventObject>('Approval', receipt),
+        ...extractEvent<TokenEvents.ApprovalEventObject>('Approval', receipt),
       }),
     );
   }
