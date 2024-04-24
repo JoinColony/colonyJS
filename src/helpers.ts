@@ -71,6 +71,8 @@ export const getBlockTime = async (
  * @returns ethers Log array
  */
 export const getLogs = async (
+  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+  // @ts-ignore
   client: ContractClient | AwkwardRecoveryRoleEventClient,
   filter: Filter,
   options: LogOptions = {
