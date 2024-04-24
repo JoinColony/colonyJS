@@ -25,6 +25,7 @@ import { IColony as IColonyV10 } from '../../../contracts/colony/10/IColony';
 import { IColony as IColonyV11 } from '../../../contracts/colony/11/IColony';
 import { IColony as IColonyV12 } from '../../../contracts/colony/12/IColony';
 import { IColony as IColonyV13 } from '../../../contracts/colony/13/IColony';
+import { IColony as IColonyV14 } from '../../../contracts/colony/14/IColony';
 import { TransactionOverrides } from '../../../contracts/6';
 import { IColonyFactory } from '../../../contracts/4/IColonyFactory';
 
@@ -55,7 +56,8 @@ type AnyIColony =
   | IColonyV10
   | IColonyV11
   | IColonyV12
-  | IColonyV13;
+  | IColonyV13
+  | IColonyV14;
 
 // This is exposed to type the awkward recovery event client which is basically
 // just an IColonyV4
@@ -811,6 +813,7 @@ async function estimateAddPaymentWithProofs(
     _domainId,
     ColonyRole.Administration,
   );
+  // @ts-ignore
   return this.estimate.addPayment(
     permissionDomainId,
     childSkillIndex,
@@ -832,6 +835,7 @@ async function estimateFinalizePaymentWithProofs(
     domainId,
     ColonyRole.Administration,
   );
+  // @ts-ignore
   return this.estimate.finalizePayment(
     permissionDomainId,
     childSkillIndex,
@@ -850,6 +854,7 @@ async function estimateSetPaymentRecipientWithProofs(
     domainId,
     ColonyRole.Administration,
   );
+  // @ts-ignore
   return this.estimate.setPaymentRecipient(
     permissionDomainId,
     childSkillIndex,
@@ -869,6 +874,7 @@ async function estimateSetPaymentSkillWithProofs(
     domainId,
     ColonyRole.Administration,
   );
+  // @ts-ignore
   return this.estimate.setPaymentSkill(
     permissionDomainId,
     childSkillIndex,
@@ -889,6 +895,7 @@ async function estimateSetPaymentPayoutWithProofs(
     domainId,
     ColonyRole.Administration,
   );
+  // @ts-ignore
   return this.estimate.setPaymentPayout(
     permissionDomainId,
     childSkillIndex,
@@ -910,6 +917,7 @@ async function estimateMakeTaskWithProofs(
     _domainId,
     ColonyRole.Administration,
   );
+  // @ts-ignore
   return this.estimate.makeTask(
     permissionDomainId,
     childSkillIndex,
