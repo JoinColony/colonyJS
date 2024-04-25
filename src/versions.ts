@@ -30,6 +30,7 @@ export enum ColonyVersion {
   GreenLightweightSpaceshipThree = 12,
   GreenLightweightSpaceshipFour = 13,
   HazelMediumweightSpaceship = 14,
+  IndigoMediumweightSpaceship = 15,
 }
 
 // These are the corresponding git release tags for the deployed versions of the Colony Network
@@ -48,6 +49,7 @@ const colonyReleaseMap = {
   [ColonyVersion.GreenLightweightSpaceshipThree]: `glwss3`,
   [ColonyVersion.GreenLightweightSpaceshipFour]: `glwss4`,
   [ColonyVersion.HazelMediumweightSpaceship]: `hmwss`,
+  [ColonyVersion.IndigoMediumweightSpaceship]: `imwss`,
 };
 
 /**
@@ -72,6 +74,7 @@ export enum OneTxPaymentExtensionVersion {
   GreenLightweightSpaceshipTwo = 4,
   GreenLightweightSpaceshipFour = 5,
   HazelMediumweightSpaceship = 6,
+  IndigoMediumweightSpaceship = 7,
 }
 
 const oneTxPaymentReleaseMap = {
@@ -81,6 +84,7 @@ const oneTxPaymentReleaseMap = {
   [OneTxPaymentExtensionVersion.GreenLightweightSpaceshipTwo]: `glwss2`,
   [OneTxPaymentExtensionVersion.GreenLightweightSpaceshipFour]: `glwss4`,
   [OneTxPaymentExtensionVersion.HazelMediumweightSpaceship]: `hmwss`,
+  [OneTxPaymentExtensionVersion.IndigoMediumweightSpaceship]: `imwss`,
 };
 
 export const CurrentOneTxPaymentVersion = parseInt(
@@ -102,6 +106,7 @@ const OneTxPaymentExtensionVersionIncompatibilityMap: Record<
   [OneTxPaymentExtensionVersion.GreenLightweightSpaceshipTwo]: [],
   [OneTxPaymentExtensionVersion.GreenLightweightSpaceshipFour]: [],
   [OneTxPaymentExtensionVersion.HazelMediumweightSpaceship]: [],
+  [OneTxPaymentExtensionVersion.IndigoMediumweightSpaceship]: [],
 };
 
 const OneTxPaymentExtensionVersionCompatibilityMap: Record<
@@ -179,6 +184,7 @@ export enum VotingReputationExtensionVersion {
   GreenLightweightSpaceshipTwo = 8,
   GreenLightweightSpaceshipFour = 9,
   HazelMediumweightSpaceship = 10,
+  IndigoMediumweightSpaceship = 11,
 }
 
 const votingReputationReleaseMap = {
@@ -192,6 +198,7 @@ const votingReputationReleaseMap = {
   [VotingReputationExtensionVersion.GreenLightweightSpaceshipTwo]: 'glwss2',
   [VotingReputationExtensionVersion.GreenLightweightSpaceshipFour]: 'glwss3',
   [VotingReputationExtensionVersion.HazelMediumweightSpaceship]: 'hmwss',
+  [VotingReputationExtensionVersion.IndigoMediumweightSpaceship]: 'imwss',
 };
 
 export const CurrentVotingReputationVersion = parseInt(
@@ -273,6 +280,14 @@ const VotingReputationExtensionVersionIncompatibilityMap: Record<
     ColonyVersion.CeruleanLightweightSpaceship,
   ],
   [VotingReputationExtensionVersion.HazelMediumweightSpaceship]: [
+    ColonyVersion.GoerliGlider,
+    ColonyVersion.Glider,
+    ColonyVersion.AuburnGlider,
+    ColonyVersion.BurgundyGlider,
+    ColonyVersion.LightweightSpaceship,
+    ColonyVersion.CeruleanLightweightSpaceship,
+  ],
+  [VotingReputationExtensionVersion.IndigoMediumweightSpaceship]: [
     ColonyVersion.GoerliGlider,
     ColonyVersion.Glider,
     ColonyVersion.AuburnGlider,
