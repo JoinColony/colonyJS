@@ -1,0 +1,21 @@
+# Interface: MetaTransactionExecutedEventObject
+
+[MetaTxTokenEvents](../modules/MetaTxTokenEvents.md).MetaTransactionExecutedEventObject
+
+## Properties
+
+### functionSignature
+
+• **functionSignature**: `string`
+
+___
+
+### relayerAddress
+
+• **relayerAddress**: `string`
+
+___
+
+### user
+
+• **user**: `string`

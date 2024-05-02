@@ -518,7 +518,7 @@ ___
 
 ### votingReputationEvents
 
-• **votingReputationEvents**: `VotingReputationEvents`
+• **votingReputationEvents**: `IVotingReputationEvents`
 
 The votingReputationsEvents contract supports all events across all versions.
 Isn't that amazing?

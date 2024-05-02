@@ -52,7 +52,6 @@
 - [Erc20TokenClient](interfaces/Erc20TokenClient.md)
 - [Erc2612TokenClient](interfaces/Erc2612TokenClient.md)
 - [IBasicMetaTransaction](interfaces/IBasicMetaTransaction.md)
-- [LegacyColonyTokenClient](interfaces/LegacyColonyTokenClient.md)
 - [NetworkClientOptions](interfaces/NetworkClientOptions.md)
 - [OneTxPaymentClientV2](interfaces/OneTxPaymentClientV2.md)
 - [OneTxPaymentClientV3](interfaces/OneTxPaymentClientV3.md)
@@ -207,7 +206,7 @@ ___
 
 ### EventsClient
 
-Ƭ **EventsClient**: `CoinMachineEvents` \| `EvaluatedExpenditureEvents` \| `IColonyEvents` \| `IColonyNetworkEvents` \| `IVotingReputationEvents` \| `MetaTxTokenEvents` \| `OneTxPaymentEvents` \| `StakedExpenditureEvents` \| `StreamingPaymentsEvents` \| `TokenSupplierEvents` \| `VotingReputationEvents` \| `WhitelistEvents`
+Ƭ **EventsClient**: `EvaluatedExpenditureEvents.EvaluatedExpenditureEvents` \| `ColonyEvents.IColonyEvents` \| `ColonyNetworkEvents.IColonyNetworkEvents` \| `VotingReputationEvents.IVotingReputationEvents` \| `MetaTxTokenEvents.MetaTxTokenEvents` \| `OneTxPaymentEvents.OneTxPaymentEvents` \| `StakedExpenditureEvents.StakedExpenditureEvents` \| `StreamingPaymentsEvents.StreamingPaymentsEvents` \| `TokenSupplierEvents.TokenSupplierEvents` \| `VotingReputationEvents.IVotingReputationEvents`
 
 ___
 
@@ -263,7 +262,7 @@ ___
 
 ### TokenClient
 
-Ƭ **TokenClient**: [`ColonyTokenClient`](interfaces/ColonyTokenClient.md) \| [`LegacyColonyTokenClient`](interfaces/LegacyColonyTokenClient.md) \| [`Erc20TokenClient`](interfaces/Erc20TokenClient.md) \| [`Erc2612TokenClient`](interfaces/Erc2612TokenClient.md)
+Ƭ **TokenClient**: [`ColonyTokenClient`](interfaces/ColonyTokenClient.md) \| [`Erc20TokenClient`](interfaces/Erc20TokenClient.md) \| [`Erc2612TokenClient`](interfaces/Erc2612TokenClient.md)
 
 ___
 

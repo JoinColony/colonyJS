@@ -28,7 +28,7 @@ See also https://docs.colony.io/colonysdk/guides/transactions for more informati
 | Name | Type |
 | :------ | :------ |
 | `C` | extends [`ContractTransaction`](ContractTransaction.md) |
-| `E` | extends [`EventData`](EventData.md) \| [`MotionCreatedEventObject`](MotionCreatedEventObject.md) |
+| `E` | extends [`EventData`](EventData.md) \| [`MotionCreatedEventObject`](VotingReputationEvents.MotionCreatedEventObject.md) |
 | `R` | extends [`ContractReceipt`](ContractReceipt.md) |
 | `MD` | extends [`MetadataType`](../enums/MetadataType.md) |
 

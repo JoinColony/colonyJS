@@ -6,8 +6,6 @@
 
   ↳ **`Token`**
 
-  ↳↳ [`LegacyColonyTokenClient`](LegacyColonyTokenClient.md)
-
 ## Properties
 
 ### \_deployedPromise
