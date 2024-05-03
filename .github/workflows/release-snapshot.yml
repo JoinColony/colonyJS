@@ -3,6 +3,11 @@ name: Release a snapshot
 on:
   # Only manual workflow trigger
   workflow_dispatch:
+    inputs:
+      includeNext:
+        description: 'include "next" version of contracts'
+        default: 'true'
+        type: boolean
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -21,6 +26,11 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Set relevant environment variables
+        run: |
+          if [[ ${{ github.event.inputs.includeNext }} == 'true' ]]; then
+            echo "COLONY_CONTRACTOR_INCLUDE_NEXT=true" >> $GITHUB_ENV
+          fi
       - name: Create .npmrc (to be logged in for publishing)
         run: |
           cat << EOF > "$HOME/.npmrc"

@@ -249,6 +249,7 @@ const buildTokenContracts = async (
 
 const start = async () => {
   const { argv } = yargs(hideBin(process.argv))
+    .env('COLONY_CONTRACTOR_')
     .command('core', 'Make core contracts')
     .command('colony', 'Make Colony contracts', {
       tag: {
