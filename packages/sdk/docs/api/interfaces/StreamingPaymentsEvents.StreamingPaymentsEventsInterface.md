@@ -62,11 +62,15 @@ ___
 
 | Name | Type |
 | :------ | :------ |
+| `ClaimWaived(address,uint256)` | `EventFragment` |
+| `EndTimeSet(address,uint256,uint256)` | `EventFragment` |
 | `ExtensionInitialised()` | `EventFragment` |
 | `LogSetAuthority(address)` | `EventFragment` |
 | `LogSetOwner(address)` | `EventFragment` |
 | `MetaTransactionExecuted(address,address,bytes)` | `EventFragment` |
 | `PaymentTokenUpdated(address,uint256,address,uint256)` | `EventFragment` |
+| `PaymentTokenUpdated(address,uint256,uint256)` | `EventFragment` |
+| `StartTimeSet(address,uint256,uint256)` | `EventFragment` |
 | `StreamingPaymentClaimed(address,uint256,address,uint256)` | `EventFragment` |
 | `StreamingPaymentCreated(address,uint256)` | `EventFragment` |
 
@@ -543,7 +547,7 @@ utils.Interface.getEvent
 
 | Name | Type |
 | :------ | :------ |
-| `nameOrSignatureOrTopic` | ``"PaymentTokenUpdated"`` |
+| `nameOrSignatureOrTopic` | ``"PaymentTokenUpdated(address,uint256,address,uint256)"`` |
 
 #### Returns
 
@@ -559,7 +563,7 @@ utils.Interface.getEvent
 
 | Name | Type |
 | :------ | :------ |
-| `nameOrSignatureOrTopic` | ``"PaymentTokenUpdated(address,uint256,address,uint256)"`` |
+| `nameOrSignatureOrTopic` | ``"PaymentTokenUpdated(address,uint256,uint256)"`` |
 
 #### Returns
 
@@ -624,6 +628,102 @@ utils.Interface.getEvent
 | Name | Type |
 | :------ | :------ |
 | `nameOrSignatureOrTopic` | ``"StreamingPaymentCreated(address,uint256)"`` |
+
+#### Returns
+
+`EventFragment`
+
+#### Overrides
+
+utils.Interface.getEvent
+
+▸ **getEvent**(`nameOrSignatureOrTopic`): `EventFragment`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `nameOrSignatureOrTopic` | ``"ClaimWaived"`` |
+
+#### Returns
+
+`EventFragment`
+
+#### Overrides
+
+utils.Interface.getEvent
+
+▸ **getEvent**(`nameOrSignatureOrTopic`): `EventFragment`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `nameOrSignatureOrTopic` | ``"ClaimWaived(address,uint256)"`` |
+
+#### Returns
+
+`EventFragment`
+
+#### Overrides
+
+utils.Interface.getEvent
+
+▸ **getEvent**(`nameOrSignatureOrTopic`): `EventFragment`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `nameOrSignatureOrTopic` | ``"EndTimeSet"`` |
+
+#### Returns
+
+`EventFragment`
+
+#### Overrides
+
+utils.Interface.getEvent
+
+▸ **getEvent**(`nameOrSignatureOrTopic`): `EventFragment`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `nameOrSignatureOrTopic` | ``"EndTimeSet(address,uint256,uint256)"`` |
+
+#### Returns
+
+`EventFragment`
+
+#### Overrides
+
+utils.Interface.getEvent
+
+▸ **getEvent**(`nameOrSignatureOrTopic`): `EventFragment`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `nameOrSignatureOrTopic` | ``"StartTimeSet"`` |
+
+#### Returns
+
+`EventFragment`
+
+#### Overrides
+
+utils.Interface.getEvent
+
+▸ **getEvent**(`nameOrSignatureOrTopic`): `EventFragment`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `nameOrSignatureOrTopic` | ``"StartTimeSet(address,uint256,uint256)"`` |
 
 #### Returns
 

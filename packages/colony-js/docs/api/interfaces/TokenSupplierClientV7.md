@@ -74,8 +74,6 @@ ___
 | `finishUpgrade()` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `getCapabilityRoles` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getCapabilityRoles(bytes4)` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `getChainId` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getChainId()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getColony()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
@@ -183,8 +181,6 @@ ___
 | `finishUpgrade()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
 | `getCapabilityRoles` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getCapabilityRoles(bytes4)` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getChainId` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getChainId()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getColony()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
@@ -279,8 +275,6 @@ ___
 | `finishUpgrade()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `getCapabilityRoles` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `getCapabilityRoles(bytes4)` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `getChainId` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
-| `getChainId()` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
 | `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `getColony()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
@@ -386,8 +380,6 @@ ___
 | `finishUpgrade()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `getCapabilityRoles` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getCapabilityRoles(bytes4)` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getChainId` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getChainId()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getColony()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
@@ -857,46 +849,6 @@ ___
 #### Inherited from
 
 AugmentedTokenSupplier.getCapabilityRoles(bytes4)
-
-___
-
-### getChainId
-
-▸ **getChainId**(`overrides?`): `Promise`<`BigNumber`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
-
-#### Returns
-
-`Promise`<`BigNumber`\>
-
-#### Inherited from
-
-AugmentedTokenSupplier.getChainId
-
-___
-
-### getChainId()
-
-▸ **getChainId()**(`overrides?`): `Promise`<`BigNumber`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
-
-#### Returns
-
-`Promise`<`BigNumber`\>
-
-#### Inherited from
-
-AugmentedTokenSupplier.getChainId()
 
 ___
 
