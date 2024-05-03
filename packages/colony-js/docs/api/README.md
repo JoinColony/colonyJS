@@ -71,6 +71,7 @@
 - [StreamingPaymentsClientV2](interfaces/StreamingPaymentsClientV2.md)
 - [StreamingPaymentsClientV3](interfaces/StreamingPaymentsClientV3.md)
 - [StreamingPaymentsClientV4](interfaces/StreamingPaymentsClientV4.md)
+- [Token](interfaces/Token.md)
 - [TokenAuthority](interfaces/TokenAuthority.md)
 - [TokenLocking](interfaces/TokenLocking.md)
 - [TokenLockingClient](interfaces/TokenLockingClient.md)
@@ -110,6 +111,12 @@ ___
 ### TokenLocking\_\_factory
 
 Re-exports [TokenLocking__factory](classes/factories.TokenLocking__factory.md)
+
+___
+
+### Token\_\_factory
+
+Re-exports [Token__factory](classes/factories.Token__factory.md)
 
 ## Type Aliases
 

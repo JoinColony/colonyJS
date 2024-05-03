@@ -2,17 +2,45 @@
 
 ## Interfaces
 
+- [ClaimWaivedEventObject](../interfaces/StreamingPaymentsEvents.ClaimWaivedEventObject.md)
+- [EndTimeSetEventObject](../interfaces/StreamingPaymentsEvents.EndTimeSetEventObject.md)
 - [ExtensionInitialisedEventObject](../interfaces/StreamingPaymentsEvents.ExtensionInitialisedEventObject.md)
 - [LogSetAuthorityEventObject](../interfaces/StreamingPaymentsEvents.LogSetAuthorityEventObject.md)
 - [LogSetOwnerEventObject](../interfaces/StreamingPaymentsEvents.LogSetOwnerEventObject.md)
 - [MetaTransactionExecutedEventObject](../interfaces/StreamingPaymentsEvents.MetaTransactionExecutedEventObject.md)
-- [PaymentTokenUpdatedEventObject](../interfaces/StreamingPaymentsEvents.PaymentTokenUpdatedEventObject.md)
+- [PaymentTokenUpdated\_address\_uint256\_address\_uint256\_EventObject](../interfaces/StreamingPaymentsEvents.PaymentTokenUpdated_address_uint256_address_uint256_EventObject.md)
+- [PaymentTokenUpdated\_address\_uint256\_uint256\_EventObject](../interfaces/StreamingPaymentsEvents.PaymentTokenUpdated_address_uint256_uint256_EventObject.md)
+- [StartTimeSetEventObject](../interfaces/StreamingPaymentsEvents.StartTimeSetEventObject.md)
 - [StreamingPaymentClaimedEventObject](../interfaces/StreamingPaymentsEvents.StreamingPaymentClaimedEventObject.md)
 - [StreamingPaymentCreatedEventObject](../interfaces/StreamingPaymentsEvents.StreamingPaymentCreatedEventObject.md)
 - [StreamingPaymentsEvents](../interfaces/StreamingPaymentsEvents.StreamingPaymentsEvents.md)
 - [StreamingPaymentsEventsInterface](../interfaces/StreamingPaymentsEvents.StreamingPaymentsEventsInterface.md)
 
 ## Type Aliases
+
+### ClaimWaivedEvent
+
+Ƭ **ClaimWaivedEvent**: `TypedEvent`<[`string`, `BigNumber`], [`ClaimWaivedEventObject`](../interfaces/StreamingPaymentsEvents.ClaimWaivedEventObject.md)\>
+
+___
+
+### ClaimWaivedEventFilter
+
+Ƭ **ClaimWaivedEventFilter**: `TypedEventFilter`<[`ClaimWaivedEvent`](StreamingPaymentsEvents.md#claimwaivedevent)\>
+
+___
+
+### EndTimeSetEvent
+
+Ƭ **EndTimeSetEvent**: `TypedEvent`<[`string`, `BigNumber`, `BigNumber`], [`EndTimeSetEventObject`](../interfaces/StreamingPaymentsEvents.EndTimeSetEventObject.md)\>
+
+___
+
+### EndTimeSetEventFilter
+
+Ƭ **EndTimeSetEventFilter**: `TypedEventFilter`<[`EndTimeSetEvent`](StreamingPaymentsEvents.md#endtimesetevent)\>
+
+___
 
 ### ExtensionInitialisedEvent
 
@@ -62,15 +90,39 @@ ___
 
 ___
 
-### PaymentTokenUpdatedEvent
+### PaymentTokenUpdated\_address\_uint256\_address\_uint256\_Event
 
-Ƭ **PaymentTokenUpdatedEvent**: `TypedEvent`<[`string`, `BigNumber`, `string`, `BigNumber`], [`PaymentTokenUpdatedEventObject`](../interfaces/StreamingPaymentsEvents.PaymentTokenUpdatedEventObject.md)\>
+Ƭ **PaymentTokenUpdated\_address\_uint256\_address\_uint256\_Event**: `TypedEvent`<[`string`, `BigNumber`, `string`, `BigNumber`], [`PaymentTokenUpdated_address_uint256_address_uint256_EventObject`](../interfaces/StreamingPaymentsEvents.PaymentTokenUpdated_address_uint256_address_uint256_EventObject.md)\>
 
 ___
 
-### PaymentTokenUpdatedEventFilter
+### PaymentTokenUpdated\_address\_uint256\_address\_uint256\_EventFilter
 
-Ƭ **PaymentTokenUpdatedEventFilter**: `TypedEventFilter`<[`PaymentTokenUpdatedEvent`](StreamingPaymentsEvents.md#paymenttokenupdatedevent)\>
+Ƭ **PaymentTokenUpdated\_address\_uint256\_address\_uint256\_EventFilter**: `TypedEventFilter`<[`PaymentTokenUpdated_address_uint256_address_uint256_Event`](StreamingPaymentsEvents.md#paymenttokenupdated_address_uint256_address_uint256_event)\>
+
+___
+
+### PaymentTokenUpdated\_address\_uint256\_uint256\_Event
+
+Ƭ **PaymentTokenUpdated\_address\_uint256\_uint256\_Event**: `TypedEvent`<[`string`, `BigNumber`, `BigNumber`], [`PaymentTokenUpdated_address_uint256_uint256_EventObject`](../interfaces/StreamingPaymentsEvents.PaymentTokenUpdated_address_uint256_uint256_EventObject.md)\>
+
+___
+
+### PaymentTokenUpdated\_address\_uint256\_uint256\_EventFilter
+
+Ƭ **PaymentTokenUpdated\_address\_uint256\_uint256\_EventFilter**: `TypedEventFilter`<[`PaymentTokenUpdated_address_uint256_uint256_Event`](StreamingPaymentsEvents.md#paymenttokenupdated_address_uint256_uint256_event)\>
+
+___
+
+### StartTimeSetEvent
+
+Ƭ **StartTimeSetEvent**: `TypedEvent`<[`string`, `BigNumber`, `BigNumber`], [`StartTimeSetEventObject`](../interfaces/StreamingPaymentsEvents.StartTimeSetEventObject.md)\>
+
+___
+
+### StartTimeSetEventFilter
+
+Ƭ **StartTimeSetEventFilter**: `TypedEventFilter`<[`StartTimeSetEvent`](StreamingPaymentsEvents.md#starttimesetevent)\>
 
 ___
 

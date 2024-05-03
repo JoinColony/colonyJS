@@ -16,7 +16,7 @@
 
 ### connect
 
-▸ `Static` **connect**(`address`, `signerOrProvider`): [`MultisigPermissionsEvents`](../interfaces/MultisigPermissionsEvents.MultisigPermissionsEvents.md)
+▸ `Static` **connect**(`address`, `signerOrProvider`): `MultisigPermissionsEvents`
 
 #### Parameters
 
@@ -27,14 +27,14 @@
 
 #### Returns
 
-[`MultisigPermissionsEvents`](../interfaces/MultisigPermissionsEvents.MultisigPermissionsEvents.md)
+`MultisigPermissionsEvents`
 
 ___
 
 ### createInterface
 
-▸ `Static` **createInterface**(): [`MultisigPermissionsEventsInterface`](../interfaces/MultisigPermissionsEvents.MultisigPermissionsEventsInterface.md)
+▸ `Static` **createInterface**(): `MultisigPermissionsEventsInterface`
 
 #### Returns
 
-[`MultisigPermissionsEventsInterface`](../interfaces/MultisigPermissionsEvents.MultisigPermissionsEventsInterface.md)
+`MultisigPermissionsEventsInterface`
