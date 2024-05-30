@@ -12,8 +12,5 @@ export type StreamingPaymentsV2 = StreamingPayments2;
 export type StreamingPaymentsV3 = StreamingPayments3;
 export type StreamingPaymentsV4 = StreamingPayments4;
 
-export type AnyStreamingPayments =
-  | StreamingPayments1
-  | StreamingPayments2
-  | StreamingPayments3
-  | StreamingPayments4;
+// No one is using StreamingPaymentsV1 through V3, so we can safely ignore them for now
+export type AnyStreamingPayments = StreamingPayments4;
