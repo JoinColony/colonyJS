@@ -5,13 +5,13 @@ import { assertExhaustiveSwitch } from '@colony/core/utils';
 import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
 import { ValidColony } from './augments/commonAugments.js';
 
-import getStreamingPaymentsClientV4, {
-  StreamingPaymentsClientV4,
-} from './StreamingPaymentsClientV4.js';
+import getStreamingPaymentsClientV5, {
+  StreamingPaymentsClientV5,
+} from './StreamingPaymentsClientV5.js';
 
-export { StreamingPaymentsClientV4 } from './StreamingPaymentsClientV4.js';
+export { StreamingPaymentsClientV5 } from './StreamingPaymentsClientV5.js';
 
-export type AnyStreamingPaymentsClient = StreamingPaymentsClientV4;
+export type AnyStreamingPaymentsClient = StreamingPaymentsClientV5;
 
 /** @internal */
 export const getStreamingPaymentsClient = (
@@ -27,7 +27,9 @@ export const getStreamingPaymentsClient = (
     case 3:
       throw new Error('StreamingPayments version 3 is not supported');
     case 4:
-      return getStreamingPaymentsClientV4(
+      throw new Error('StreamingPayments version 4 is not supported');
+    case 5:
+      return getStreamingPaymentsClientV5(
         colonyClient as AugmentedIColony<ValidColony>,
         address,
       );
