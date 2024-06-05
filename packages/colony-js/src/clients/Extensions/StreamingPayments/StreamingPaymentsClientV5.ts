@@ -1,7 +1,7 @@
 import type { AugmentedIColony } from '../../Core/augments/commonAugments.js';
-import type { StreamingPayments } from '../../../contracts/StreamingPayments/4/StreamingPayments.js';
+import type { StreamingPayments } from '../../../contracts/StreamingPayments/5/StreamingPayments.js';
 
-import { StreamingPayments__factory as StreamingPaymentsFactory } from '../../../contracts/StreamingPayments/4/factories/StreamingPayments__factory.js';
+import { StreamingPayments__factory as StreamingPaymentsFactory } from '../../../contracts/StreamingPayments/5/factories/StreamingPayments__factory.js';
 import { ClientType } from '../../../constants.js';
 import {
   addAugments,
@@ -9,22 +9,22 @@ import {
   ValidColony,
 } from './augments/commonAugments.js';
 
-export interface StreamingPaymentsClientV4
+export interface StreamingPaymentsClientV5
   extends AugmentedStreamingPayments<StreamingPayments> {
-  clientVersion: 4;
+  clientVersion: 5;
 }
 
 export default function getStreamingPaymentsClient(
   colonyClient: AugmentedIColony<ValidColony>,
   address: string,
-): StreamingPaymentsClientV4 {
+): StreamingPaymentsClientV5 {
   const streamingPaymentsClient = StreamingPaymentsFactory.connect(
     address,
     colonyClient.signer || colonyClient.provider,
-  ) as StreamingPaymentsClientV4;
+  ) as StreamingPaymentsClientV5;
 
   streamingPaymentsClient.clientType = ClientType.StreamingPaymentsClient;
-  streamingPaymentsClient.clientVersion = 4;
+  streamingPaymentsClient.clientVersion = 5;
   addAugments(streamingPaymentsClient, colonyClient);
 
   return streamingPaymentsClient;
