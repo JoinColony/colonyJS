@@ -17,6 +17,9 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Set contractor to include next if branch name starts with "next" or "snapshot"
+      if: startsWith(github.ref, 'refs/heads/next') || startsWith(github.ref, 'refs/heads/snapshot')
+      run: echo "COLONY_CONTRACTOR_INCLUDE_NEXT=true" >> $GITHUB_ENV
     - run: pnpm run bootstrap
     - run: pnpm run lint
     - run: pnpm run build
