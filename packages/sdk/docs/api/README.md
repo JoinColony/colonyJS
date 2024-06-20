@@ -9,6 +9,7 @@
 - [EvaluatedExpenditureEvents](modules/EvaluatedExpenditureEvents.md)
 - [FundingQueueEvents](modules/FundingQueueEvents.md)
 - [MetaTxTokenEvents](modules/MetaTxTokenEvents.md)
+- [MultisigPermissionsEvents](modules/MultisigPermissionsEvents.md)
 - [OneTxPaymentEvents](modules/OneTxPaymentEvents.md)
 - [ReputationBootstrapperEvents](modules/ReputationBootstrapperEvents.md)
 - [StagedExpenditureEvents](modules/StagedExpenditureEvents.md)
@@ -205,6 +206,7 @@ Latest versions of all extension contracts
 | :------ | :------ |
 | `FundingQueue` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` |
 | `IVotingReputation` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` |
+| `MultisigPermissions` | ``1`` |
 | `OneTxPayment` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` |
 | `ReputationBootstrapper` | ``1`` \| ``2`` \| ``3`` \| ``4`` |
 | `StagedExpenditure` | ``1`` \| ``2`` |
