@@ -36,7 +36,6 @@
 
 ## Interfaces
 
-- [ColonyClientV10](interfaces/ColonyClientV10.md)
 - [ColonyClientV11](interfaces/ColonyClientV11.md)
 - [ColonyClientV12](interfaces/ColonyClientV12.md)
 - [ColonyClientV13](interfaces/ColonyClientV13.md)
@@ -67,10 +66,7 @@
 - [StakedExpenditureClientV3](interfaces/StakedExpenditureClientV3.md)
 - [StakedExpenditureClientV4](interfaces/StakedExpenditureClientV4.md)
 - [StakedExpenditureClientV5](interfaces/StakedExpenditureClientV5.md)
-- [StreamingPaymentsClientV1](interfaces/StreamingPaymentsClientV1.md)
-- [StreamingPaymentsClientV2](interfaces/StreamingPaymentsClientV2.md)
-- [StreamingPaymentsClientV3](interfaces/StreamingPaymentsClientV3.md)
-- [StreamingPaymentsClientV4](interfaces/StreamingPaymentsClientV4.md)
+- [StreamingPaymentsClientV5](interfaces/StreamingPaymentsClientV5.md)
 - [Token](interfaces/Token.md)
 - [TokenAuthority](interfaces/TokenAuthority.md)
 - [TokenLocking](interfaces/TokenLocking.md)
@@ -122,7 +118,7 @@ Re-exports [Token__factory](classes/factories.Token__factory.md)
 
 ### AnyColonyClient
 
-Ƭ **AnyColonyClient**: [`ColonyClientV10`](interfaces/ColonyClientV10.md) \| [`ColonyClientV11`](interfaces/ColonyClientV11.md) \| [`ColonyClientV12`](interfaces/ColonyClientV12.md) \| [`ColonyClientV13`](interfaces/ColonyClientV13.md) \| [`ColonyClientV14`](interfaces/ColonyClientV14.md) \| [`ColonyClientV15`](interfaces/ColonyClientV15.md)
+Ƭ **AnyColonyClient**: [`ColonyClientV11`](interfaces/ColonyClientV11.md) \| [`ColonyClientV12`](interfaces/ColonyClientV12.md) \| [`ColonyClientV13`](interfaces/ColonyClientV13.md) \| [`ColonyClientV14`](interfaces/ColonyClientV14.md) \| [`ColonyClientV15`](interfaces/ColonyClientV15.md)
 
 ___
 
@@ -152,7 +148,7 @@ ___
 
 ### AnyStreamingPaymentsClient
 
-Ƭ **AnyStreamingPaymentsClient**: [`StreamingPaymentsClientV1`](interfaces/StreamingPaymentsClientV1.md) \| [`StreamingPaymentsClientV2`](interfaces/StreamingPaymentsClientV2.md) \| [`StreamingPaymentsClientV3`](interfaces/StreamingPaymentsClientV3.md) \| [`StreamingPaymentsClientV4`](interfaces/StreamingPaymentsClientV4.md)
+Ƭ **AnyStreamingPaymentsClient**: [`StreamingPaymentsClientV5`](interfaces/StreamingPaymentsClientV5.md)
 
 ___
 
@@ -357,7 +353,7 @@ Latest versions of all extension contracts
 | `ReputationBootstrapper` | ``1`` \| ``2`` \| ``3`` \| ``4`` |
 | `StagedExpenditure` | ``1`` \| ``2`` |
 | `StakedExpenditure` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` |
-| `StreamingPayments` | ``1`` \| ``2`` \| ``3`` \| ``4`` |
+| `StreamingPayments` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` |
 | `TokenSupplier` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` |
 | `VotingReputation` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` |
 
