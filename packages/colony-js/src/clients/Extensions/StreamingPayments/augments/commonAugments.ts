@@ -80,7 +80,6 @@ export type AugmentedEstimate<
    */
   setTokenAmountWithProofs(
     _id: BigNumberish,
-    _token: string,
     _amount: BigNumberish,
     overrides?: TxOverrides,
   ): Promise<BigNumber>;
@@ -179,7 +178,6 @@ export type AugmentedStreamingPayments<
    */
   setTokenAmountWithProofs(
     _id: BigNumberish,
-    _token: string,
     _amount: BigNumberish,
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
@@ -358,7 +356,6 @@ async function estimateClaimWithProofs(
 async function setTokenAmountWithProofs(
   this: AugmentedStreamingPayments,
   _id: BigNumberish,
-  _token: string,
   _amount: BigNumberish,
   overrides?: TxOverrides,
 ): Promise<ContractTransaction> {
@@ -389,7 +386,6 @@ async function setTokenAmountWithProofs(
     MaxUint256,
     MaxUint256,
     _id,
-    _token,
     _amount,
     overrides,
   );
@@ -398,7 +394,6 @@ async function setTokenAmountWithProofs(
 async function estimateSetTokenAmountWithProofs(
   this: AugmentedStreamingPayments,
   _id: BigNumberish,
-  _token: string,
   _amount: BigNumberish,
   overrides?: TxOverrides,
 ): Promise<BigNumber> {
@@ -429,7 +424,6 @@ async function estimateSetTokenAmountWithProofs(
     MaxUint256,
     MaxUint256,
     _id,
-    _token,
     _amount,
     overrides,
   );

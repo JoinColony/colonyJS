@@ -7,11 +7,10 @@ import {
 
 import {
   IColonyV4,
-  IColonyV10,
-  IColonyV11,
   IColonyV12,
   IColonyV13,
   IColonyV14,
+  IColonyV15,
 } from '../contracts.js';
 import type {
   AugmentedIColony,
@@ -22,12 +21,7 @@ import type {
 type ValidColonyA = IColonyV4;
 
 // Colonies that support the later (overloaded) methods
-type ValidColonyB =
-  | IColonyV10
-  | IColonyV11
-  | IColonyV12
-  | IColonyV13
-  | IColonyV14;
+type ValidColonyB = IColonyV12 | IColonyV13 | IColonyV14 | IColonyV15;
 
 export interface AddDomainEstimateGasA {
   /**
