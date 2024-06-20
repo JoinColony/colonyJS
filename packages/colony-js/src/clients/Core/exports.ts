@@ -14,24 +14,25 @@ import getColonyClientV7 from './ColonyClientV7.js';
 import getColonyClientV8 from './ColonyClientV8.js';
 import getColonyClientV9 from './ColonyClientV9.js';
 import getColonyClientV10 from './ColonyClientV10.js';
-import getColonyClientV11, { ColonyClientV11 } from './ColonyClientV11.js';
+import getColonyClientV11 from './ColonyClientV11.js';
 import getColonyClientV12, { ColonyClientV12 } from './ColonyClientV12.js';
 import getColonyClientV13, { ColonyClientV13 } from './ColonyClientV13.js';
 import getColonyClientV14, { ColonyClientV14 } from './ColonyClientV14.js';
 import getColonyClientV15, { ColonyClientV15 } from './ColonyClientV15.js';
+import getColonyClientV16, { ColonyClientV16 } from './ColonyClientV16.js';
 
-export { ColonyClientV11 } from './ColonyClientV11.js';
 export { ColonyClientV12 } from './ColonyClientV12.js';
 export { ColonyClientV13 } from './ColonyClientV13.js';
 export { ColonyClientV14 } from './ColonyClientV14.js';
 export { ColonyClientV15 } from './ColonyClientV15.js';
+export { ColonyClientV16 } from './ColonyClientV16.js';
 
 export type AnyColonyClient =
-  | ColonyClientV11
   | ColonyClientV12
   | ColonyClientV13
   | ColonyClientV14
-  | ColonyClientV15;
+  | ColonyClientV15
+  | ColonyClientV16;
 
 /** Versioned core contract names */
 export enum Core {
@@ -73,7 +74,7 @@ export async function getColonyClient(
         this,
         colonyAddress,
         signerOrProvider,
-      ) as ColonyClientV11;
+      ) as ColonyClientV12;
       break;
     }
     case 2: {
@@ -81,7 +82,7 @@ export async function getColonyClient(
         this,
         colonyAddress,
         signerOrProvider,
-      ) as ColonyClientV11;
+      ) as ColonyClientV12;
       break;
     }
     case 3: {
@@ -89,7 +90,7 @@ export async function getColonyClient(
         this,
         colonyAddress,
         signerOrProvider,
-      ) as ColonyClientV11;
+      ) as ColonyClientV12;
       break;
     }
     case 4: {
@@ -97,7 +98,7 @@ export async function getColonyClient(
         this,
         colonyAddress,
         signerOrProvider,
-      ) as ColonyClientV11;
+      ) as ColonyClientV12;
       break;
     }
     case 5: {
@@ -105,7 +106,7 @@ export async function getColonyClient(
         this,
         colonyAddress,
         signerOrProvider,
-      ) as ColonyClientV11;
+      ) as ColonyClientV12;
       break;
     }
     case 6: {
@@ -113,7 +114,7 @@ export async function getColonyClient(
         this,
         colonyAddress,
         signerOrProvider,
-      ) as ColonyClientV11;
+      ) as ColonyClientV12;
       break;
     }
     case 7: {
@@ -121,7 +122,7 @@ export async function getColonyClient(
         this,
         colonyAddress,
         signerOrProvider,
-      ) as ColonyClientV11;
+      ) as ColonyClientV12;
       break;
     }
     case 8: {
@@ -129,7 +130,7 @@ export async function getColonyClient(
         this,
         colonyAddress,
         signerOrProvider,
-      ) as ColonyClientV11;
+      ) as ColonyClientV12;
       break;
     }
     case 9: {
@@ -137,7 +138,7 @@ export async function getColonyClient(
         this,
         colonyAddress,
         signerOrProvider,
-      ) as ColonyClientV11;
+      ) as ColonyClientV12;
       break;
     }
     case 10: {
@@ -145,7 +146,7 @@ export async function getColonyClient(
         this,
         colonyAddress,
         signerOrProvider,
-      );
+      ) as ColonyClientV12;
       break;
     }
     case 11: {
@@ -153,7 +154,7 @@ export async function getColonyClient(
         this,
         colonyAddress,
         signerOrProvider,
-      );
+      ) as ColonyClientV12;
       break;
     }
     case 12: {
@@ -182,6 +183,14 @@ export async function getColonyClient(
     }
     case 15: {
       colonyClient = getColonyClientV15.call(
+        this,
+        colonyAddress,
+        signerOrProvider,
+      );
+      break;
+    }
+    case 16: {
+      colonyClient = getColonyClientV16.call(
         this,
         colonyAddress,
         signerOrProvider,

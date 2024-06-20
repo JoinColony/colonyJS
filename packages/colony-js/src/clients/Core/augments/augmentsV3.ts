@@ -11,13 +11,19 @@ import {
   IColonyV13,
   IColonyV14,
   IColonyV15,
+  IColonyV16,
 } from '../contracts.js';
 import {
   addAugments as addCommonAugments,
   AugmentedIColony,
 } from './commonAugments.js';
 
-type ValidColony = IColonyV12 | IColonyV13 | IColonyV14 | IColonyV15;
+type ValidColony =
+  | IColonyV12
+  | IColonyV13
+  | IColonyV14
+  | IColonyV15
+  | IColonyV16;
 
 export interface AugmentedEstimateV3 {
   /**

@@ -18,22 +18,22 @@ import {
 import { ClientType } from '../../../../constants.js';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
 import {
-  IColonyV10,
-  IColonyV11,
   IColonyV12,
   IColonyV13,
   IColonyV14,
+  IColonyV15,
+  IColonyV16,
 } from '../../../Core/contracts.js';
 import { AnyStreamingPayments } from '../contracts.js';
 
 const { MaxUint256 } = constants;
 
 export type ValidColony =
-  | IColonyV10
-  | IColonyV11
   | IColonyV12
   | IColonyV13
-  | IColonyV14;
+  | IColonyV14
+  | IColonyV15
+  | IColonyV16;
 
 export type AugmentedEstimate<
   T extends AnyStreamingPayments = AnyStreamingPayments,
