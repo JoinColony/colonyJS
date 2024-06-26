@@ -128,7 +128,6 @@ export enum UserLabelSuffix {
 /**
  * Shortcut to common token addresses
  */
-// TODO: add more tokens like USDC, USDT?
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace Tokens {
   /** Tokens deployed on Mainnet */
@@ -136,7 +135,9 @@ export namespace Tokens {
     /** ETH on Mainnet */
     ETH = '0x0000000000000000000000000000000000000000',
     /** CLNY on Mainnet */
-    Mainnet = '0x3E828ac5C480069D4765654Fb4b8733b910b13b2',
+    CLNY = '0x3E828ac5C480069D4765654Fb4b8733b910b13b2',
+    /** USDC on Mainnet */
+    USDC = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
   }
   /** Tokens deployed on Gnosis Chain */
   export enum Gnosis {
@@ -144,6 +145,8 @@ export namespace Tokens {
     XDAI = '0x0000000000000000000000000000000000000000',
     /** CLNY on Gnosis Chain */
     CLNY = '0xc9B6218AffE8Aba68a13899Cbf7cF7f14DDd304C',
+    /** USDC on Gnosis Chain */
+    USDC = '0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83',
   }
 
   /** Tokens deployed on Arbitrum One */
@@ -152,6 +155,8 @@ export namespace Tokens {
     ETH = '0x0000000000000000000000000000000000000000',
     /** CLNY on Arbitrum One */
     CLNY = '0xcccccdcc0ccf6c708d860e19353c5f9a49accccc',
+    /** USDC on Arbitrum One */
+    USDC = '0xaf88d065e77c8cC2239327C5EDb3A432268e5831',
   }
 }
 
