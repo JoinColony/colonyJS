@@ -20,6 +20,25 @@ export enum Network {
   ArbitrumSepolia = 'ArbitrumSepolia',
 }
 
+export enum NetworkId {
+  /** Use this to specify an own main ColonyNetwork address in the options */
+  Custom = 0x0,
+  /** Ethereum Mainnet */
+  Mainnet = 0x1,
+  /** Goerli testnet */
+  Goerli = 0x5,
+  /** Gnosis chain */
+  Gnosis = 0x64,
+  /** Gnosis chain (alias) */
+  Xdai = 0x64,
+  /** Gnosis chain custom fork */
+  XdaiQa = 0x64,
+  /** Arbitrum Testnet */
+  ArbitrumSepolia = 0x66eee,
+  /** Arbitrum One Mainnet */
+  ArbitrumOne = 0xa4b1,
+}
+
 /**
  * Addresses of the deployed ColonyNetwork EtherRouter contracts in all networks
  */
