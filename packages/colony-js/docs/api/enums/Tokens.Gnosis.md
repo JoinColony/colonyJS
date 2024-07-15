@@ -14,6 +14,14 @@ CLNY on Gnosis Chain
 
 ___
 
+### USDC
+
+• **USDC** = ``"0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83"``
+
+USDC on Gnosis Chain
+
+___
+
 ### XDAI
 
 • **XDAI** = ``"0x0000000000000000000000000000000000000000"``

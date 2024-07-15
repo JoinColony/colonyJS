@@ -20,6 +20,7 @@
 - [MetaTxBroadCasterEndpoint](enums/MetaTxBroadCasterEndpoint.md)
 - [MotionState](enums/MotionState.md)
 - [Network](enums/Network.md)
+- [NetworkId](enums/NetworkId.md)
 - [ReputationOracleEndpoint](enums/ReputationOracleEndpoint.md)
 - [TokenClientType](enums/TokenClientType.md)
 - [UserLabelSuffix](enums/UserLabelSuffix.md)
@@ -337,15 +338,15 @@ Latest versions of all extension contracts
 
 | Name | Type |
 | :------ | :------ |
-| `FundingQueue` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` |
-| `IVotingReputation` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` |
-| `OneTxPayment` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` |
+| `FundingQueue` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` \| ``6`` \| ``7`` |
+| `IVotingReputation` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` |
+| `OneTxPayment` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` \| ``6`` \| ``7`` |
 | `ReputationBootstrapper` | ``1`` \| ``2`` \| ``3`` \| ``4`` |
 | `StagedExpenditure` | ``1`` \| ``2`` |
-| `StakedExpenditure` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` |
+| `StakedExpenditure` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` |
 | `StreamingPayments` | ``1`` \| ``2`` \| ``3`` \| ``4`` |
-| `TokenSupplier` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` |
-| `VotingReputation` | ``1`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` |
+| `TokenSupplier` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` \| ``6`` \| ``7`` |
+| `VotingReputation` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` |
 
 ___
 

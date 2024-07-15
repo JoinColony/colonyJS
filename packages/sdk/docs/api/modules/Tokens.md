@@ -4,6 +4,6 @@ Shortcut to common token addresses
 
 ## Enumerations
 
-- [Arbitrum](../enums/Tokens.Arbitrum.md)
+- [ArbitrumOne](../enums/Tokens.ArbitrumOne.md)
 - [Gnosis](../enums/Tokens.Gnosis.md)
 - [Mainnet](../enums/Tokens.Mainnet.md)

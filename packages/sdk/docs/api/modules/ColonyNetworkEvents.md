@@ -3,6 +3,7 @@
 ## Interfaces
 
 - [AuctionCreatedEventObject](../interfaces/ColonyNetworkEvents.AuctionCreatedEventObject.md)
+- [BridgeSetEventObject](../interfaces/ColonyNetworkEvents.BridgeSetEventObject.md)
 - [ColonyAddedEventObject](../interfaces/ColonyNetworkEvents.ColonyAddedEventObject.md)
 - [ColonyLabelRegisteredEventObject](../interfaces/ColonyNetworkEvents.ColonyLabelRegisteredEventObject.md)
 - [ColonyNetworkInitialisedEventObject](../interfaces/ColonyNetworkEvents.ColonyNetworkInitialisedEventObject.md)
@@ -29,7 +30,14 @@
 - [ReputationMiningInitialisedEventObject](../interfaces/ColonyNetworkEvents.ReputationMiningInitialisedEventObject.md)
 - [ReputationMiningRewardSetEventObject](../interfaces/ColonyNetworkEvents.ReputationMiningRewardSetEventObject.md)
 - [ReputationRootHashSetEventObject](../interfaces/ColonyNetworkEvents.ReputationRootHashSetEventObject.md)
+- [ReputationUpdateAddedFromBridgeEventObject](../interfaces/ColonyNetworkEvents.ReputationUpdateAddedFromBridgeEventObject.md)
+- [ReputationUpdateSentToBridgeEventObject](../interfaces/ColonyNetworkEvents.ReputationUpdateSentToBridgeEventObject.md)
+- [ReputationUpdateStoredEventObject](../interfaces/ColonyNetworkEvents.ReputationUpdateStoredEventObject.md)
+- [ReputationUpdateStoredFromBridgeEventObject](../interfaces/ColonyNetworkEvents.ReputationUpdateStoredFromBridgeEventObject.md)
 - [SkillAddedEventObject](../interfaces/ColonyNetworkEvents.SkillAddedEventObject.md)
+- [SkillAddedFromBridgeEventObject](../interfaces/ColonyNetworkEvents.SkillAddedFromBridgeEventObject.md)
+- [SkillCreationStoredEventObject](../interfaces/ColonyNetworkEvents.SkillCreationStoredEventObject.md)
+- [SkillStoredFromBridgeEventObject](../interfaces/ColonyNetworkEvents.SkillStoredFromBridgeEventObject.md)
 - [TokenAuthorityDeployedEventObject](../interfaces/ColonyNetworkEvents.TokenAuthorityDeployedEventObject.md)
 - [TokenDeployedEventObject](../interfaces/ColonyNetworkEvents.TokenDeployedEventObject.md)
 - [TokenLockingAddressSetEventObject](../interfaces/ColonyNetworkEvents.TokenLockingAddressSetEventObject.md)
@@ -47,6 +55,18 @@ ___
 ### AuctionCreatedEventFilter
 
 Ƭ **AuctionCreatedEventFilter**: `TypedEventFilter`<[`AuctionCreatedEvent`](ColonyNetworkEvents.md#auctioncreatedevent)\>
+
+___
+
+### BridgeSetEvent
+
+Ƭ **BridgeSetEvent**: `TypedEvent`<[`string`], [`BridgeSetEventObject`](../interfaces/ColonyNetworkEvents.BridgeSetEventObject.md)\>
+
+___
+
+### BridgeSetEventFilter
+
+Ƭ **BridgeSetEventFilter**: `TypedEventFilter`<[`BridgeSetEvent`](ColonyNetworkEvents.md#bridgesetevent)\>
 
 ___
 
@@ -338,6 +358,54 @@ ___
 
 ___
 
+### ReputationUpdateAddedFromBridgeEvent
+
+Ƭ **ReputationUpdateAddedFromBridgeEvent**: `TypedEvent`<[`BigNumber`, `string`, `BigNumber`], [`ReputationUpdateAddedFromBridgeEventObject`](../interfaces/ColonyNetworkEvents.ReputationUpdateAddedFromBridgeEventObject.md)\>
+
+___
+
+### ReputationUpdateAddedFromBridgeEventFilter
+
+Ƭ **ReputationUpdateAddedFromBridgeEventFilter**: `TypedEventFilter`<[`ReputationUpdateAddedFromBridgeEvent`](ColonyNetworkEvents.md#reputationupdateaddedfrombridgeevent)\>
+
+___
+
+### ReputationUpdateSentToBridgeEvent
+
+Ƭ **ReputationUpdateSentToBridgeEvent**: `TypedEvent`<[`string`, `BigNumber`], [`ReputationUpdateSentToBridgeEventObject`](../interfaces/ColonyNetworkEvents.ReputationUpdateSentToBridgeEventObject.md)\>
+
+___
+
+### ReputationUpdateSentToBridgeEventFilter
+
+Ƭ **ReputationUpdateSentToBridgeEventFilter**: `TypedEventFilter`<[`ReputationUpdateSentToBridgeEvent`](ColonyNetworkEvents.md#reputationupdatesenttobridgeevent)\>
+
+___
+
+### ReputationUpdateStoredEvent
+
+Ƭ **ReputationUpdateStoredEvent**: `TypedEvent`<[`string`, `BigNumber`], [`ReputationUpdateStoredEventObject`](../interfaces/ColonyNetworkEvents.ReputationUpdateStoredEventObject.md)\>
+
+___
+
+### ReputationUpdateStoredEventFilter
+
+Ƭ **ReputationUpdateStoredEventFilter**: `TypedEventFilter`<[`ReputationUpdateStoredEvent`](ColonyNetworkEvents.md#reputationupdatestoredevent)\>
+
+___
+
+### ReputationUpdateStoredFromBridgeEvent
+
+Ƭ **ReputationUpdateStoredFromBridgeEvent**: `TypedEvent`<[`BigNumber`, `string`, `BigNumber`], [`ReputationUpdateStoredFromBridgeEventObject`](../interfaces/ColonyNetworkEvents.ReputationUpdateStoredFromBridgeEventObject.md)\>
+
+___
+
+### ReputationUpdateStoredFromBridgeEventFilter
+
+Ƭ **ReputationUpdateStoredFromBridgeEventFilter**: `TypedEventFilter`<[`ReputationUpdateStoredFromBridgeEvent`](ColonyNetworkEvents.md#reputationupdatestoredfrombridgeevent)\>
+
+___
+
 ### SkillAddedEvent
 
 Ƭ **SkillAddedEvent**: `TypedEvent`<[`BigNumber`, `BigNumber`], [`SkillAddedEventObject`](../interfaces/ColonyNetworkEvents.SkillAddedEventObject.md)\>
@@ -347,6 +415,42 @@ ___
 ### SkillAddedEventFilter
 
 Ƭ **SkillAddedEventFilter**: `TypedEventFilter`<[`SkillAddedEvent`](ColonyNetworkEvents.md#skilladdedevent)\>
+
+___
+
+### SkillAddedFromBridgeEvent
+
+Ƭ **SkillAddedFromBridgeEvent**: `TypedEvent`<[`BigNumber`], [`SkillAddedFromBridgeEventObject`](../interfaces/ColonyNetworkEvents.SkillAddedFromBridgeEventObject.md)\>
+
+___
+
+### SkillAddedFromBridgeEventFilter
+
+Ƭ **SkillAddedFromBridgeEventFilter**: `TypedEventFilter`<[`SkillAddedFromBridgeEvent`](ColonyNetworkEvents.md#skilladdedfrombridgeevent)\>
+
+___
+
+### SkillCreationStoredEvent
+
+Ƭ **SkillCreationStoredEvent**: `TypedEvent`<[`BigNumber`], [`SkillCreationStoredEventObject`](../interfaces/ColonyNetworkEvents.SkillCreationStoredEventObject.md)\>
+
+___
+
+### SkillCreationStoredEventFilter
+
+Ƭ **SkillCreationStoredEventFilter**: `TypedEventFilter`<[`SkillCreationStoredEvent`](ColonyNetworkEvents.md#skillcreationstoredevent)\>
+
+___
+
+### SkillStoredFromBridgeEvent
+
+Ƭ **SkillStoredFromBridgeEvent**: `TypedEvent`<[`BigNumber`], [`SkillStoredFromBridgeEventObject`](../interfaces/ColonyNetworkEvents.SkillStoredFromBridgeEventObject.md)\>
+
+___
+
+### SkillStoredFromBridgeEventFilter
+
+Ƭ **SkillStoredFromBridgeEventFilter**: `TypedEventFilter`<[`SkillStoredFromBridgeEvent`](ColonyNetworkEvents.md#skillstoredfrombridgeevent)\>
 
 ___
 
