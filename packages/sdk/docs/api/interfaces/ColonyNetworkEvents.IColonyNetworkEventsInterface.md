@@ -63,6 +63,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `AuctionCreated(address,address,uint256)` | `EventFragment` |
+| `BridgeSet(address)` | `EventFragment` |
 | `ColonyAdded(uint256,address,address)` | `EventFragment` |
 | `ColonyLabelRegistered(address,bytes32)` | `EventFragment` |
 | `ColonyNetworkInitialised(address)` | `EventFragment` |
@@ -87,7 +88,14 @@ ___
 | `ReputationMiningInitialised(address)` | `EventFragment` |
 | `ReputationMiningRewardSet(uint256)` | `EventFragment` |
 | `ReputationRootHashSet(bytes32,uint256,address[],uint256)` | `EventFragment` |
+| `ReputationUpdateAddedFromBridge(uint256,address,uint256)` | `EventFragment` |
+| `ReputationUpdateSentToBridge(address,uint256)` | `EventFragment` |
+| `ReputationUpdateStored(address,uint256)` | `EventFragment` |
+| `ReputationUpdateStoredFromBridge(uint256,address,uint256)` | `EventFragment` |
 | `SkillAdded(uint256,uint256)` | `EventFragment` |
+| `SkillAddedFromBridge(uint256)` | `EventFragment` |
+| `SkillCreationStored(uint256)` | `EventFragment` |
+| `SkillStoredFromBridge(uint256)` | `EventFragment` |
 | `TokenAuthorityDeployed(address)` | `EventFragment` |
 | `TokenDeployed(address)` | `EventFragment` |
 | `TokenLockingAddressSet(address)` | `EventFragment` |
@@ -1416,6 +1424,262 @@ utils.Interface.getEvent
 | Name | Type |
 | :------ | :------ |
 | `nameOrSignatureOrTopic` | ``"TokenDeployed(address)"`` |
+
+#### Returns
+
+`EventFragment`
+
+#### Overrides
+
+utils.Interface.getEvent
+
+▸ **getEvent**(`nameOrSignatureOrTopic`): `EventFragment`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `nameOrSignatureOrTopic` | ``"BridgeSet"`` |
+
+#### Returns
+
+`EventFragment`
+
+#### Overrides
+
+utils.Interface.getEvent
+
+▸ **getEvent**(`nameOrSignatureOrTopic`): `EventFragment`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `nameOrSignatureOrTopic` | ``"BridgeSet(address)"`` |
+
+#### Returns
+
+`EventFragment`
+
+#### Overrides
+
+utils.Interface.getEvent
+
+▸ **getEvent**(`nameOrSignatureOrTopic`): `EventFragment`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `nameOrSignatureOrTopic` | ``"ReputationUpdateAddedFromBridge"`` |
+
+#### Returns
+
+`EventFragment`
+
+#### Overrides
+
+utils.Interface.getEvent
+
+▸ **getEvent**(`nameOrSignatureOrTopic`): `EventFragment`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `nameOrSignatureOrTopic` | ``"ReputationUpdateAddedFromBridge(uint256,address,uint256)"`` |
+
+#### Returns
+
+`EventFragment`
+
+#### Overrides
+
+utils.Interface.getEvent
+
+▸ **getEvent**(`nameOrSignatureOrTopic`): `EventFragment`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `nameOrSignatureOrTopic` | ``"ReputationUpdateSentToBridge"`` |
+
+#### Returns
+
+`EventFragment`
+
+#### Overrides
+
+utils.Interface.getEvent
+
+▸ **getEvent**(`nameOrSignatureOrTopic`): `EventFragment`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `nameOrSignatureOrTopic` | ``"ReputationUpdateSentToBridge(address,uint256)"`` |
+
+#### Returns
+
+`EventFragment`
+
+#### Overrides
+
+utils.Interface.getEvent
+
+▸ **getEvent**(`nameOrSignatureOrTopic`): `EventFragment`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `nameOrSignatureOrTopic` | ``"ReputationUpdateStored"`` |
+
+#### Returns
+
+`EventFragment`
+
+#### Overrides
+
+utils.Interface.getEvent
+
+▸ **getEvent**(`nameOrSignatureOrTopic`): `EventFragment`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `nameOrSignatureOrTopic` | ``"ReputationUpdateStored(address,uint256)"`` |
+
+#### Returns
+
+`EventFragment`
+
+#### Overrides
+
+utils.Interface.getEvent
+
+▸ **getEvent**(`nameOrSignatureOrTopic`): `EventFragment`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `nameOrSignatureOrTopic` | ``"ReputationUpdateStoredFromBridge"`` |
+
+#### Returns
+
+`EventFragment`
+
+#### Overrides
+
+utils.Interface.getEvent
+
+▸ **getEvent**(`nameOrSignatureOrTopic`): `EventFragment`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `nameOrSignatureOrTopic` | ``"ReputationUpdateStoredFromBridge(uint256,address,uint256)"`` |
+
+#### Returns
+
+`EventFragment`
+
+#### Overrides
+
+utils.Interface.getEvent
+
+▸ **getEvent**(`nameOrSignatureOrTopic`): `EventFragment`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `nameOrSignatureOrTopic` | ``"SkillAddedFromBridge"`` |
+
+#### Returns
+
+`EventFragment`
+
+#### Overrides
+
+utils.Interface.getEvent
+
+▸ **getEvent**(`nameOrSignatureOrTopic`): `EventFragment`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `nameOrSignatureOrTopic` | ``"SkillAddedFromBridge(uint256)"`` |
+
+#### Returns
+
+`EventFragment`
+
+#### Overrides
+
+utils.Interface.getEvent
+
+▸ **getEvent**(`nameOrSignatureOrTopic`): `EventFragment`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `nameOrSignatureOrTopic` | ``"SkillCreationStored"`` |
+
+#### Returns
+
+`EventFragment`
+
+#### Overrides
+
+utils.Interface.getEvent
+
+▸ **getEvent**(`nameOrSignatureOrTopic`): `EventFragment`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `nameOrSignatureOrTopic` | ``"SkillCreationStored(uint256)"`` |
+
+#### Returns
+
+`EventFragment`
+
+#### Overrides
+
+utils.Interface.getEvent
+
+▸ **getEvent**(`nameOrSignatureOrTopic`): `EventFragment`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `nameOrSignatureOrTopic` | ``"SkillStoredFromBridge"`` |
+
+#### Returns
+
+`EventFragment`
+
+#### Overrides
+
+utils.Interface.getEvent
+
+▸ **getEvent**(`nameOrSignatureOrTopic`): `EventFragment`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `nameOrSignatureOrTopic` | ``"SkillStoredFromBridge(uint256)"`` |
 
 #### Returns
 

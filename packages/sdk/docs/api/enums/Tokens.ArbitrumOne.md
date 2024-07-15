@@ -1,6 +1,6 @@
-# Enumeration: Arbitrum
+# Enumeration: ArbitrumOne
 
-[Tokens](../modules/Tokens.md).Arbitrum
+[Tokens](../modules/Tokens.md).ArbitrumOne
 
 Tokens deployed on Arbitrum One
 
@@ -19,3 +19,11 @@ ___
 • **ETH** = ``"0x0000000000000000000000000000000000000000"``
 
 ETH on Arbitrum One
+
+___
+
+### USDC
+
+• **USDC** = ``"0xaf88d065e77c8cC2239327C5EDb3A432268e5831"``
+
+USDC on Arbitrum One
