@@ -1,5 +1,16 @@
 # @colony/colony-js
 
+## 7.1.1
+
+### Patch Changes
+
+- 8dc948e: Namespace event package exports for improved compatibility
+- Updated dependencies [8dc948e]
+- Updated dependencies [f1093cc]
+  - @colony/events@2.0.0
+  - @colony/tokens@0.2.2
+  - @colony/core@2.2.0
+
 ## 7.1.0
 
 ### Minor Changes

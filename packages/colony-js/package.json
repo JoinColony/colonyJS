@@ -1,7 +1,7 @@
 {
   "name": "@colony/colony-js",
   "description": "📜 The Colony TypeScript reference implementation",
-  "version": "7.1.0",
+  "version": "7.1.1",
   "type": "module",
   "exports": {
     ".": {
@@ -49,12 +49,12 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@colony/core": "^2.1.0",
-    "@colony/events": "^1.0.1",
-    "@colony/tokens": "^0.2.1"
+    "@colony/core": "^2.2.0",
+    "@colony/events": "^2.0.0",
+    "@colony/tokens": "^0.2.2"
   },
   "devDependencies": {
-    "@colony/contractor": "^2.1.0",
+    "@colony/contractor": "^2.1.1",
     "@ethersproject/abi": "^5.7.0",
     "@ethersproject/abstract-provider": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",
