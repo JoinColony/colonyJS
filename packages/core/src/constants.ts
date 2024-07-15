@@ -169,7 +169,7 @@ export namespace Tokens {
   }
 
   /** Tokens deployed on Arbitrum One */
-  export enum Arbitrum {
+  export enum ArbitrumOne {
     /** ETH on Arbitrum One */
     ETH = '0x0000000000000000000000000000000000000000',
     /** CLNY on Arbitrum One */
