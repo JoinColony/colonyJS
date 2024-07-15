@@ -1,5 +1,11 @@
 # @colony/core
 
+## 2.2.0
+
+### Minor Changes
+
+- f1093cc: This adds USDC token addresses and an enum with all supported network ids.
+
 ## 2.1.0
 
 ### Minor Changes

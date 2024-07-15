@@ -1,5 +1,16 @@
 # @colony/events
 
+## 2.0.0
+
+### Major Changes
+
+- 8dc948e: Namespace event package exports for improved compatibility
+
+### Patch Changes
+
+- Updated dependencies [f1093cc]
+  - @colony/core@2.2.0
+
 ## 1.0.2
 
 ### Patch Changes

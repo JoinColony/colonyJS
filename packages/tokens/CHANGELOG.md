@@ -1,5 +1,11 @@
 # @colony/tokens
 
+## 0.2.2
+
+### Patch Changes
+
+- 8dc948e: Namespace event package exports for improved compatibility
+
 ## 0.2.1
 
 ### Patch Changes

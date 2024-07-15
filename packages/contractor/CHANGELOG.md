@@ -1,5 +1,11 @@
 # @colony/contractor
 
+## 2.1.1
+
+### Patch Changes
+
+- 8dc948e: Namespace event package exports for improved compatibility
+
 ## 2.1.0
 
 ### Minor Changes

@@ -1,7 +1,7 @@
 {
   "name": "@colony/tokens",
   "description": "🪙 Colony token contract bindings",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "type": "module",
   "exports": {
     ".": {
@@ -46,8 +46,8 @@
     "prepare": "npm run build-contracts"
   },
   "devDependencies": {
-    "@colony/core": "^2.0.1",
-    "@colony/contractor": "^2.0.1",
+    "@colony/core": "^2.2.0",
+    "@colony/contractor": "^2.1.1",
     "@ethersproject/abi": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",
     "ethers": "^5.7.2"
