@@ -16,17 +16,22 @@ import getReputationBootstrapperClientV3, {
 import getReputationBootstrapperClientV4, {
   ReputationBootstrapperClientV4,
 } from './ReputationBootstrapperClientV4.js';
+import getReputationBootstrapperClientV5, {
+  ReputationBootstrapperClientV5,
+} from './ReputationBootstrapperClientV5.js';
 
 export { ReputationBootstrapperClientV1 } from './ReputationBootstrapperClientV1.js';
 export { ReputationBootstrapperClientV2 } from './ReputationBootstrapperClientV2.js';
 export { ReputationBootstrapperClientV3 } from './ReputationBootstrapperClientV3.js';
 export { ReputationBootstrapperClientV4 } from './ReputationBootstrapperClientV4.js';
+export { ReputationBootstrapperClientV5 } from './ReputationBootstrapperClientV5.js';
 
 export type AnyReputationBootstrapperClient =
   | ReputationBootstrapperClientV1
   | ReputationBootstrapperClientV2
   | ReputationBootstrapperClientV3
-  | ReputationBootstrapperClientV4;
+  | ReputationBootstrapperClientV4
+  | ReputationBootstrapperClientV5;
 
 /** @internal */
 export const getReputationBootstrapperClient = (
@@ -43,6 +48,8 @@ export const getReputationBootstrapperClient = (
       return getReputationBootstrapperClientV3(colonyClient, address);
     case 4:
       return getReputationBootstrapperClientV4(colonyClient, address);
+    case 5:
+      return getReputationBootstrapperClientV5(colonyClient, address);
     default:
       return assertExhaustiveSwitch(
         version,

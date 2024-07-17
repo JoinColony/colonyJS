@@ -1,7 +1,7 @@
-import type { FundingQueue } from '../../../contracts/FundingQueue/5/FundingQueue.js';
 import type { AugmentedIColony } from '../../Core/augments/commonAugments.js';
+import type { FundingQueue } from '../../../contracts/FundingQueue/8/FundingQueue.js';
 
-import { FundingQueue__factory as FundingQueueFactory } from '../../../contracts/FundingQueue/5/factories/FundingQueue__factory.js';
+import { FundingQueue__factory as FundingQueueFactory } from '../../../contracts/FundingQueue/8/factories/FundingQueue__factory.js';
 import { ClientType } from '../../../constants.js';
 import {
   addAugments,
@@ -9,22 +9,22 @@ import {
   ValidColony,
 } from './augments/commonAugments.js';
 
-export interface FundingQueueClientV5
+export interface FundingQueueClientV8
   extends AugmentedFundingQueue<FundingQueue> {
-  clientVersion: 5;
+  clientVersion: 8;
 }
 
 export default function getFundingQueueClient(
   colonyClient: AugmentedIColony<ValidColony>,
   address: string,
-): FundingQueueClientV5 {
+): FundingQueueClientV8 {
   const fundingQueueClient = FundingQueueFactory.connect(
     address,
     colonyClient.signer || colonyClient.provider,
-  ) as FundingQueueClientV5;
+  ) as FundingQueueClientV8;
 
   fundingQueueClient.clientType = ClientType.FundingQueueClient;
-  fundingQueueClient.clientVersion = 5;
+  fundingQueueClient.clientVersion = 8;
   addAugments(fundingQueueClient, colonyClient);
 
   return fundingQueueClient;

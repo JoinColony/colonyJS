@@ -6,10 +6,10 @@ import {
 
 import { ClientType } from '../../../../constants.js';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
-import { IColonyV14, IColonyV15 } from '../../../Core/contracts.js';
+import { IColonyV14, IColonyV15, IColonyV16 } from '../../../Core/contracts.js';
 import { AnyMultisigPermissions } from '../contracts.js';
 
-export type ValidColony = IColonyV14 | IColonyV15;
+export type ValidColony = IColonyV14 | IColonyV15 | IColonyV16;
 
 export type AugmentedEstimate<
   T extends AnyMultisigPermissions = AnyMultisigPermissions,

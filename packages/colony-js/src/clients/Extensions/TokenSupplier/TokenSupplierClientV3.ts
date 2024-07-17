@@ -6,6 +6,7 @@ import { ClientType } from '../../../constants.js';
 import {
   addAugments,
   AugmentedTokenSupplier,
+  ValidColony,
 } from './augments/commonAugments.js';
 
 export interface TokenSupplierClientV3
@@ -14,7 +15,7 @@ export interface TokenSupplierClientV3
 }
 
 export default function getTokenSupplierClient(
-  colonyClient: AugmentedIColony,
+  colonyClient: AugmentedIColony<ValidColony>,
   address: string,
 ): TokenSupplierClientV3 {
   const tokenSupplierClient = TokenSupplierFactory.connect(

@@ -1,7 +1,7 @@
 import type { AugmentedIColony } from '../../Core/augments/commonAugments.js';
-import type { OneTxPayment } from '../../../contracts/OneTxPayment/6/OneTxPayment.js';
+import type { OneTxPayment } from '../../../contracts/OneTxPayment/8/OneTxPayment.js';
 
-import { OneTxPayment__factory as OneTxPaymentFactory } from '../../../contracts/OneTxPayment/6/factories/OneTxPayment__factory.js';
+import { OneTxPayment__factory as OneTxPaymentFactory } from '../../../contracts/OneTxPayment/8/factories/OneTxPayment__factory.js';
 import { ClientType } from '../../../constants.js';
 import {
   addAugments,
@@ -12,23 +12,23 @@ import {
 
 type OneTxPaymentEstimate = AugmentedEstimate<OneTxPayment>;
 
-export interface OneTxPaymentClientV6
+export interface OneTxPaymentClientV8
   extends AugmentedOneTxPayment<OneTxPayment> {
-  clientVersion: 6;
+  clientVersion: 8;
   estimateGas: OneTxPaymentEstimate;
 }
 
 export default function getOneTxPaymentClient(
   colonyClient: AugmentedIColony<ValidColony>,
   address: string,
-): OneTxPaymentClientV6 {
+): OneTxPaymentClientV8 {
   const oneTxPaymentClient = OneTxPaymentFactory.connect(
     address,
     colonyClient.signer || colonyClient.provider,
-  ) as OneTxPaymentClientV6;
+  ) as OneTxPaymentClientV8;
 
   oneTxPaymentClient.clientType = ClientType.OneTxPaymentClient;
-  oneTxPaymentClient.clientVersion = 6;
+  oneTxPaymentClient.clientVersion = 8;
   addAugments(oneTxPaymentClient, colonyClient);
 
   return oneTxPaymentClient;

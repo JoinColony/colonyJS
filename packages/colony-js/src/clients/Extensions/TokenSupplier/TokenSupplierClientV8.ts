@@ -1,7 +1,7 @@
 import type { AugmentedIColony } from '../../Core/augments/commonAugments.js';
-import type { TokenSupplier } from '../../../contracts/TokenSupplier/7/TokenSupplier.js';
+import type { TokenSupplier } from '../../../contracts/TokenSupplier/8/TokenSupplier.js';
 
-import { TokenSupplier__factory as TokenSupplierFactory } from '../../../contracts/TokenSupplier/7/factories/TokenSupplier__factory.js';
+import { TokenSupplier__factory as TokenSupplierFactory } from '../../../contracts/TokenSupplier/8/factories/TokenSupplier__factory.js';
 import { ClientType } from '../../../constants.js';
 import {
   addAugments,
@@ -9,22 +9,22 @@ import {
   ValidColony,
 } from './augments/commonAugments.js';
 
-export interface TokenSupplierClientV7
+export interface TokenSupplierClientV8
   extends AugmentedTokenSupplier<TokenSupplier> {
-  clientVersion: 7;
+  clientVersion: 8;
 }
 
 export default function getTokenSupplierClient(
   colonyClient: AugmentedIColony<ValidColony>,
   address: string,
-): TokenSupplierClientV7 {
+): TokenSupplierClientV8 {
   const tokenSupplierClient = TokenSupplierFactory.connect(
     address,
     colonyClient.signer || colonyClient.provider,
-  ) as TokenSupplierClientV7;
+  ) as TokenSupplierClientV8;
 
   tokenSupplierClient.clientType = ClientType.TokenSupplierClient;
-  tokenSupplierClient.clientVersion = 7;
+  tokenSupplierClient.clientVersion = 8;
   addAugments(tokenSupplierClient, colonyClient);
 
   return tokenSupplierClient;
