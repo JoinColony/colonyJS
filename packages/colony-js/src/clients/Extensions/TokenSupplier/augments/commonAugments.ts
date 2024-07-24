@@ -8,6 +8,9 @@ import {
 import { ClientType } from '../../../../constants.js';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
 import { AnyTokenSupplier } from '../contracts.js';
+import { AnyIColony } from '../../../Core/contracts.js';
+
+export type ValidColony = AnyIColony;
 
 export type AugmentedTokenSupplier<
   T extends AnyTokenSupplier = AnyTokenSupplier,

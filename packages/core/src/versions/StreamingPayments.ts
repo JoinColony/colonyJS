@@ -2,7 +2,7 @@ import type { ColonyVersion } from './IColony.js';
 
 import { createContractVersionArray } from './utils.js';
 
-const STREAMING_PAYMENTS_VERSION_NEXT = 5;
+const STREAMING_PAYMENTS_VERSION_NEXT = 6;
 
 /** @internal */
 export const STREAMING_PAYMENTS_VERSIONS = createContractVersionArray(
@@ -21,6 +21,7 @@ export const streamingPaymentsIncompatibilityMap: Record<
   2: [1, 2, 3],
   3: [1, 2, 3],
   4: [1, 2, 3],
+  5: [1, 2, 3],
 };
 
 /** @internal */

@@ -14,9 +14,10 @@ import type { IColony as IColony12 } from '../../contracts/IColony/12/index.js';
 import type { IColony as IColony13 } from '../../contracts/IColony/13/index.js';
 import type { IColony as IColony14 } from '../../contracts/IColony/14/index.js';
 import type { IColony as IColony15 } from '../../contracts/IColony/15/index.js';
+import type { IColony as IColony16 } from '../../contracts/IColony/16/index.js';
 
 // Always adjust to the latest Colony version
-export { IColony__factory as IColonyFactory } from '../../contracts/IColony/15/factories/IColony__factory.js';
+export { IColony__factory as IColonyFactory } from '../../contracts/IColony/16/factories/IColony__factory.js';
 
 export type IColonyV1 = IColony1;
 export type IColonyV2 = IColony2;
@@ -33,11 +34,11 @@ export type IColonyV12 = IColony12;
 export type IColonyV13 = IColony13;
 export type IColonyV14 = IColony14;
 export type IColonyV15 = IColony15;
+export type IColonyV16 = IColony16;
 
 export type AnyIColony =
-  | IColony10
-  | IColony11
   | IColony12
   | IColony13
   | IColony14
-  | IColony15;
+  | IColony15
+  | IColony16;

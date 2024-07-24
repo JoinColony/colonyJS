@@ -2,6 +2,7 @@ import { constants } from 'ethers';
 import {
   type ExtensionVersion,
   type FundingQueueVersion,
+  type MultisigPermissionsVersion,
   type OneTxPaymentVersion,
   type ReputationBootstrapperVersion,
   type StagedExpenditureVersion,
@@ -17,6 +18,10 @@ import { assertExhaustiveSwitch } from '@colony/core/utils';
 
 import { AugmentedIColony } from '../Core/augments/commonAugments.js';
 
+import {
+  getMultisigPermissionsClient,
+  AnyMultisigPermissionsClient,
+} from './MultisigPermissions/exports.js';
 import {
   getOneTxPaymentClient,
   AnyOneTxPaymentClient,
@@ -54,6 +59,7 @@ import {
 
 const { AddressZero } = constants;
 
+export * from './MultisigPermissions/exports.js';
 export * from './OneTxPayment/exports.js';
 export * from './StagedExpenditure/exports.js';
 export * from './StakedExpenditure/exports.js';
@@ -63,6 +69,7 @@ export * from './VotingReputation/exports.js';
 
 export type ExtensionClient =
   | AnyFundingQueueClient
+  | AnyMultisigPermissionsClient
   | AnyOneTxPaymentClient
   | AnyReputationBootstrapperClient
   | AnyStagedExpenditureClient
@@ -75,6 +82,7 @@ export type ExtensionClient =
 export type GetExtensionClientReturns = {
   [Extension.FundingQueue]: AnyFundingQueueClient;
   [Extension.IVotingReputation]: AnyVotingReputationClient;
+  [Extension.MultisigPermissions]: AnyMultisigPermissionsClient;
   [Extension.OneTxPayment]: AnyOneTxPaymentClient;
   [Extension.ReputationBootstrapper]: AnyReputationBootstrapperClient;
   [Extension.StagedExpenditure]: AnyStagedExpenditureClient;
@@ -128,6 +136,13 @@ export async function getExtensionClient(
         this,
         address,
         version as FundingQueueVersion,
+      );
+    }
+    case Extension.MultisigPermissions: {
+      return getMultisigPermissionsClient(
+        this,
+        address,
+        version as MultisigPermissionsVersion,
       );
     }
     case Extension.IVotingReputation: {

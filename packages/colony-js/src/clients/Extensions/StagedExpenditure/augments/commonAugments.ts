@@ -6,10 +6,10 @@ import {
 
 import { ClientType } from '../../../../constants.js';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
-import { IColonyV14 } from '../../../Core/contracts.js';
+import { IColonyV14, IColonyV15, IColonyV16 } from '../../../Core/contracts.js';
 import { AnyStagedExpenditure } from '../contracts.js';
 
-export type ValidColony = IColonyV14;
+export type ValidColony = IColonyV14 | IColonyV15 | IColonyV16;
 
 export type AugmentedEstimate<
   T extends AnyStagedExpenditure = AnyStagedExpenditure,

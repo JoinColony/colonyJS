@@ -8,12 +8,12 @@ import { type TxOverrides, getCreateMotionProofs } from '@colony/core';
 
 import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
 import {
-  VotingReputationV6,
   VotingReputationV7,
   VotingReputationV8,
   VotingReputationV9,
   VotingReputationV10,
   VotingReputationV11,
+  VotingReputationV12,
 } from '../contracts.js';
 import { AnyVotingReputationClient } from '../exports.js';
 import {
@@ -22,12 +22,12 @@ import {
 } from './commonAugments.js';
 
 type ValidVotingReputation =
-  | VotingReputationV6
   | VotingReputationV7
   | VotingReputationV8
   | VotingReputationV9
   | VotingReputationV10
-  | VotingReputationV11;
+  | VotingReputationV11
+  | VotingReputationV12;
 
 export interface AugmentedEstimateV2 {
   /**

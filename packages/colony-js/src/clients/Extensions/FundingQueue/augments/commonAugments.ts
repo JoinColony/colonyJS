@@ -9,6 +9,9 @@ import { ClientType } from '../../../../constants.js';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
 
 import { AnyFundingQueue } from '../contracts.js';
+import { AnyIColony } from '../../../Core/contracts.js';
+
+export type ValidColony = AnyIColony;
 
 export type AugmentedFundingQueue<T extends AnyFundingQueue = AnyFundingQueue> =
   T & {
