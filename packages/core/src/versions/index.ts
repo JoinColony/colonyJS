@@ -33,7 +33,7 @@ import {
   VotingReputationVersion,
 } from './VotingReputation.js';
 
-export { isExtensionCompatible } from './helpers.js';
+export * from './helpers.js';
 
 /**
  * Latest versions of all extension contracts
