@@ -1,5 +1,11 @@
 # @colony/tokens
 
+## 0.3.0
+
+### Minor Changes
+
+- 1645c03: Add Streaming Payments v5
+
 ## 0.2.2
 
 ### Patch Changes

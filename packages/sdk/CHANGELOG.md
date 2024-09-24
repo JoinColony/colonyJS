@@ -1,5 +1,23 @@
 # @colony/sdk
 
+## 2.1.0
+
+### Minor Changes
+
+- 1645c03: Add Streaming Payments v5
+- 1645c03: - Refactor events to namespace event object exports
+  - Add support for MultisigPermissions in `colony-js`
+
+### Patch Changes
+
+- Updated dependencies [fefdd57]
+- Updated dependencies [1645c03]
+- Updated dependencies [1645c03]
+- Updated dependencies [1645c03]
+  - @colony/core@2.3.0
+  - @colony/events@3.0.0
+  - @colony/tokens@0.3.0
+
 ## 2.0.3
 
 ### Patch Changes
