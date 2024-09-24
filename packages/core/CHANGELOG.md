@@ -1,5 +1,18 @@
 # @colony/core
 
+## 2.3.0
+
+### Minor Changes
+
+- 1645c03: Add Streaming Payments v5
+- 1645c03: - Refactor events to namespace event object exports
+  - Add support for MultisigPermissions in `colony-js`
+- 1645c03: Add support for colonyNetwork's imwss2 and abis@1.5.0
+
+### Patch Changes
+
+- fefdd57: feat: Add helper to get extension required colony version
+
 ## 2.2.0
 
 ### Minor Changes

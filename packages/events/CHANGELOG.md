@@ -1,5 +1,25 @@
 # @colony/events
 
+## 3.0.0
+
+### Major Changes
+
+- 1645c03: - Refactor events to namespace event object exports
+  - Add support for MultisigPermissions in `colony-js`
+
+### Minor Changes
+
+- 1645c03: Add Streaming Payments v5
+- 1645c03: Add support for colonyNetwork's imwss2 and abis@1.5.0
+
+### Patch Changes
+
+- Updated dependencies [fefdd57]
+- Updated dependencies [1645c03]
+- Updated dependencies [1645c03]
+- Updated dependencies [1645c03]
+  - @colony/core@2.3.0
+
 ## 2.0.0
 
 ### Major Changes
