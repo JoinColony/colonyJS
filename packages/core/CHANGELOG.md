@@ -1,5 +1,11 @@
 # @colony/core
 
+## 2.3.1
+
+### Patch Changes
+
+- a666320: Fix: Empty extension incompatibility maps should allow any colony version
+
 ## 2.3.0
 
 ### Minor Changes
