@@ -142,6 +142,10 @@ export const getExtensionLowestCompatibleColonyVersion = (
     );
   }
 
+  if (!map.length) {
+    return COLONY_VERSIONS[0];
+  }
+
   const colonyVersion = COLONY_VERSIONS.find(
     (v) => v === map[map.length - 1] + 1,
   );
