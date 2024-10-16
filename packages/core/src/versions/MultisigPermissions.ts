@@ -2,7 +2,7 @@ import type { ColonyVersion } from './IColony.js';
 
 import { createContractVersionArray } from './utils.js';
 
-const MULTISIG_PERMISSIONS_VERSION_NEXT = 2;
+const MULTISIG_PERMISSIONS_VERSION_NEXT = 3;
 
 /** @internal */
 export const MULTISIG_PERMISSIONS_VERSIONS = createContractVersionArray(
@@ -18,6 +18,7 @@ export const multisigPermissionsIncompatibilityMap: Record<
   Array<ColonyVersion>
 > = {
   1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+  2: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
 };
 
 /** @internal */

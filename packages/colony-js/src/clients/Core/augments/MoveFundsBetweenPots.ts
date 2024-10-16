@@ -10,11 +10,11 @@ import {
 
 import {
   IColonyV6,
-  IColonyV12,
   IColonyV13,
   IColonyV14,
   IColonyV15,
   IColonyV16,
+  IColonyV17,
 } from '../contracts.js';
 import { AugmentedIColony, UnknownIColonyClient } from './commonAugments.js';
 
@@ -23,11 +23,11 @@ type ValidColonyA = IColonyV6;
 
 // Colonies that support the later (overloaded) methods
 type ValidColonyB =
-  | IColonyV12
   | IColonyV13
   | IColonyV14
   | IColonyV15
-  | IColonyV16;
+  | IColonyV16
+  | IColonyV17;
 
 const getMoveFundsPermissionProofsA = async (
   contract: AugmentedIColony,

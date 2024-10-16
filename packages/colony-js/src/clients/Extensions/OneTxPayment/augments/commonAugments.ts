@@ -285,4 +285,4 @@ export const addAugments = <T extends AugmentedOneTxPayment>(
   /* eslint-enable no-param-reassign */
 };
 
-export type UnkonwnOneTxPaymentClient = AugmentedOneTxPayment<any>;
+export type UnknownOneTxPaymentClient = AugmentedOneTxPayment<any>;
