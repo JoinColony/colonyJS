@@ -3,7 +3,7 @@ import type { AugmentedIColony } from '../../Core/augments/commonAugments.js';
 import { TokenSupplier__factory as TokenSupplierFactory } from '../../../contracts/TokenSupplier/2/factories/TokenSupplier__factory.js';
 import { ClientType } from '../../../constants.js';
 import {
-  type UnkonwnTokenSupplierClient,
+  type UnknownTokenSupplierClient,
   addAugments,
 } from './augments/commonAugments.js';
 
@@ -14,7 +14,7 @@ export default function getTokenSupplierClient(
   const tokenSupplierClient = TokenSupplierFactory.connect(
     address,
     colonyClient.signer || colonyClient.provider,
-  ) as UnkonwnTokenSupplierClient;
+  ) as UnknownTokenSupplierClient;
 
   tokenSupplierClient.clientType = ClientType.TokenSupplierClient;
   tokenSupplierClient.clientVersion = 2;

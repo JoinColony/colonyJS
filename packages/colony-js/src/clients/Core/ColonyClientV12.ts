@@ -6,6 +6,7 @@ import { type ColonyNetworkClient } from '../ColonyNetworkClient.js';
 import {
   type AugmentedIColony,
   type AugmentedEstimate,
+  type UnknownIColonyClient,
 } from './augments/commonAugments.js';
 import { type ColonyAugmentsV3 } from './augments/augmentsV3.js';
 import { type ColonyAugmentsV4 } from './augments/augmentsV4.js';
@@ -58,16 +59,16 @@ export default function getColonyClient(
   this: ColonyNetworkClient,
   address: string,
   signerOrProvider: SignerOrProvider,
-): ColonyClientV12 {
+) {
   const colonyClient = IColonyFactory.connect(
     address,
     signerOrProvider,
-  ) as ColonyClientV12;
+  ) as UnknownIColonyClient;
 
   colonyClient.clientVersion = 12;
   addAugments(colonyClient, this);
   addAddDomainAugments(colonyClient);
   addMoveFundsBetweenPotsAugments(colonyClient);
 
-  return colonyClient as ColonyClientV12;
+  return colonyClient;
 }

@@ -14,15 +14,20 @@ import getStagedExpenditureClientV2, {
 import getStagedExpenditureClientV3, {
   type StagedExpenditureClientV3,
 } from './StagedExpenditureClientV3.js';
+import getStagedExpenditureClientV4, {
+  type StagedExpenditureClientV4,
+} from './StagedExpenditureClientV4.js';
 
 export type { StagedExpenditureClientV1 } from './StagedExpenditureClientV1.js';
 export type { StagedExpenditureClientV2 } from './StagedExpenditureClientV2.js';
 export type { StagedExpenditureClientV3 } from './StagedExpenditureClientV3.js';
+export type { StagedExpenditureClientV4 } from './StagedExpenditureClientV4.js';
 
 export type AnyStagedExpenditureClient =
   | StagedExpenditureClientV1
   | StagedExpenditureClientV2
-  | StagedExpenditureClientV3;
+  | StagedExpenditureClientV3
+  | StagedExpenditureClientV4;
 
 /** @internal */
 export const getStagedExpenditureClient = (
@@ -43,6 +48,11 @@ export const getStagedExpenditureClient = (
       );
     case 3:
       return getStagedExpenditureClientV3(
+        colonyClient as AugmentedIColony<ValidColony>,
+        address,
+      );
+    case 4:
+      return getStagedExpenditureClientV4(
         colonyClient as AugmentedIColony<ValidColony>,
         address,
       );

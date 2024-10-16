@@ -6,9 +6,7 @@ import { type AugmentedIColony } from '../../Core/augments/commonAugments.js';
 
 import getTokenSupplierClientV1 from './TokenSupplierClientV1.js';
 import getTokenSupplierClientV2 from './TokenSupplierClientV2.js';
-import getTokenSupplierClientV3, {
-  type TokenSupplierClientV3,
-} from './TokenSupplierClientV3.js';
+import getTokenSupplierClientV3 from './TokenSupplierClientV3.js';
 import getTokenSupplierClientV4, {
   type TokenSupplierClientV4,
 } from './TokenSupplierClientV4.js';
@@ -24,21 +22,24 @@ import getTokenSupplierClientV7, {
 import getTokenSupplierClientV8, {
   type TokenSupplierClientV8,
 } from './TokenSupplierClientV8.js';
+import getTokenSupplierClientV9, {
+  type TokenSupplierClientV9,
+} from './TokenSupplierClientV9.js';
 
-export type { TokenSupplierClientV3 } from './TokenSupplierClientV3.js';
 export type { TokenSupplierClientV4 } from './TokenSupplierClientV4.js';
 export type { TokenSupplierClientV5 } from './TokenSupplierClientV5.js';
 export type { TokenSupplierClientV6 } from './TokenSupplierClientV6.js';
 export type { TokenSupplierClientV7 } from './TokenSupplierClientV7.js';
 export type { TokenSupplierClientV8 } from './TokenSupplierClientV8.js';
+export type { TokenSupplierClientV9 } from './TokenSupplierClientV9.js';
 
 export type AnyTokenSupplierClient =
-  | TokenSupplierClientV3
   | TokenSupplierClientV4
   | TokenSupplierClientV5
   | TokenSupplierClientV6
   | TokenSupplierClientV7
-  | TokenSupplierClientV8;
+  | TokenSupplierClientV8
+  | TokenSupplierClientV9;
 
 /** @internal */
 export const getTokenSupplierClient = (
@@ -51,14 +52,17 @@ export const getTokenSupplierClient = (
       return getTokenSupplierClientV1(
         colonyClient,
         address,
-      ) as TokenSupplierClientV3;
+      ) as TokenSupplierClientV4;
     case 2:
       return getTokenSupplierClientV2(
         colonyClient,
         address,
-      ) as TokenSupplierClientV3;
+      ) as TokenSupplierClientV4;
     case 3:
-      return getTokenSupplierClientV3(colonyClient, address);
+      return getTokenSupplierClientV3(
+        colonyClient,
+        address,
+      ) as TokenSupplierClientV4;
     case 4:
       return getTokenSupplierClientV4(colonyClient, address);
     case 5:
@@ -69,6 +73,8 @@ export const getTokenSupplierClient = (
       return getTokenSupplierClientV7(colonyClient, address);
     case 8:
       return getTokenSupplierClientV8(colonyClient, address);
+    case 9:
+      return getTokenSupplierClientV9(colonyClient, address);
     default:
       return assertExhaustiveSwitch(
         version,

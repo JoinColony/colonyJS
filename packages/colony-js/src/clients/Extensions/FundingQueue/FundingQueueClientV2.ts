@@ -4,7 +4,7 @@ import { FundingQueue__factory as FundingQueueFactory } from '../../../contracts
 import { ClientType } from '../../../constants.js';
 import {
   addAugments,
-  type UnkonwnFundingQueueClient,
+  type UnknownFundingQueueClient,
   type ValidColony,
 } from './augments/commonAugments.js';
 
@@ -15,7 +15,7 @@ export default function getFundingQueueClient(
   const fundingQueueClient = FundingQueueFactory.connect(
     address,
     colonyClient.signer || colonyClient.provider,
-  ) as UnkonwnFundingQueueClient;
+  ) as UnknownFundingQueueClient;
 
   fundingQueueClient.clientType = ClientType.FundingQueueClient;
   fundingQueueClient.clientVersion = 2;

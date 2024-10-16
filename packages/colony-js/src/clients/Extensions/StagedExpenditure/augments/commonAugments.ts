@@ -10,10 +10,11 @@ import {
   type IColonyV14,
   type IColonyV15,
   type IColonyV16,
+  type IColonyV17,
 } from '../../../Core/contracts.js';
 import { type AnyStagedExpenditure } from '../contracts.js';
 
-export type ValidColony = IColonyV14 | IColonyV15 | IColonyV16;
+export type ValidColony = IColonyV14 | IColonyV15 | IColonyV16 | IColonyV17;
 
 export type AugmentedEstimate<
   T extends AnyStagedExpenditure = AnyStagedExpenditure,
@@ -54,4 +55,4 @@ export const addAugments = <T extends AugmentedStagedExpenditure>(
   /* eslint-enable no-param-reassign */
 };
 
-export type UnkonwnStagedExpenditureClient = AugmentedStagedExpenditure<any>;
+export type UnknownStagedExpenditureClient = AugmentedStagedExpenditure<any>;

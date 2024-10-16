@@ -23,6 +23,7 @@ import {
   type IColonyV14,
   type IColonyV15,
   type IColonyV16,
+  type IColonyV17,
 } from '../../../Core/contracts.js';
 import { type AnyStakedExpenditure } from '../contracts.js';
 
@@ -31,7 +32,8 @@ export type ValidColony =
   | IColonyV13
   | IColonyV14
   | IColonyV15
-  | IColonyV16;
+  | IColonyV16
+  | IColonyV17;
 
 export type AugmentedEstimate<
   T extends AnyStakedExpenditure = AnyStakedExpenditure,
@@ -338,4 +340,4 @@ export const addAugments = <T extends AugmentedStakedExpenditure>(
   /* eslint-enable no-param-reassign */
 };
 
-export type UnkonwnStakedExpenditureClient = AugmentedStakedExpenditure<any>;
+export type UnknownStakedExpenditureClient = AugmentedStakedExpenditure<any>;

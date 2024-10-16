@@ -23,6 +23,7 @@ import {
   type IColonyV14,
   type IColonyV15,
   type IColonyV16,
+  type IColonyV17,
 } from '../../../Core/contracts.js';
 import { type AnyStreamingPayments } from '../contracts.js';
 
@@ -33,7 +34,8 @@ export type ValidColony =
   | IColonyV13
   | IColonyV14
   | IColonyV15
-  | IColonyV16;
+  | IColonyV16
+  | IColonyV17;
 
 export type AugmentedEstimate<
   T extends AnyStreamingPayments = AnyStreamingPayments,
@@ -605,4 +607,4 @@ export const addAugments = <T extends AugmentedStreamingPayments>(
   /* eslint-enable no-param-reassign */
 };
 
-export type UnkonwnStreamingPaymentsClient = AugmentedStreamingPayments<any>;
+export type UnknownStreamingPaymentsClient = AugmentedStreamingPayments<any>;

@@ -11,23 +11,23 @@ import {
 
 import { type AugmentedIColony } from '../../../Core/augments/commonAugments.js';
 import {
-  type VotingReputationV7,
   type VotingReputationV8,
   type VotingReputationV9,
   type VotingReputationV10,
   type VotingReputationV11,
   type VotingReputationV12,
+  type VotingReputationV13,
 } from '../contracts.js';
 import { type AugmentedVotingReputation } from './commonAugments.js';
 import { addAugments as addAugmentsV2, type AugmentsV2 } from './augmentsV2.js';
 
 type ValidVotingReputation =
-  | VotingReputationV7
   | VotingReputationV8
   | VotingReputationV9
   | VotingReputationV10
   | VotingReputationV11
-  | VotingReputationV12;
+  | VotingReputationV12
+  | VotingReputationV13;
 
 export interface AugmentedEstimateV3 {
   /**

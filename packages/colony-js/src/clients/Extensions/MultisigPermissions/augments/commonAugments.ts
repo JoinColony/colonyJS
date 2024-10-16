@@ -10,10 +10,11 @@ import {
   type IColonyV14,
   type IColonyV15,
   type IColonyV16,
+  type IColonyV17,
 } from '../../../Core/contracts.js';
 import { type AnyMultisigPermissions } from '../contracts.js';
 
-export type ValidColony = IColonyV14 | IColonyV15 | IColonyV16;
+export type ValidColony = IColonyV14 | IColonyV15 | IColonyV16 | IColonyV17;
 
 export type AugmentedEstimate<
   T extends AnyMultisigPermissions = AnyMultisigPermissions,
@@ -55,5 +56,5 @@ export const addAugments = <T extends AugmentedMultisigPermissions>(
   /* eslint-enable no-param-reassign */
 };
 
-export type UnkonwnMultisigPermissionsClient =
+export type UnknownMultisigPermissionsClient =
   AugmentedMultisigPermissions<any>;
