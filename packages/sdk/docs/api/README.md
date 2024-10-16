@@ -204,16 +204,16 @@ Latest versions of all extension contracts
 
 | Name | Type |
 | :------ | :------ |
-| `FundingQueue` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` \| ``6`` \| ``7`` \| ``8`` |
-| `IVotingReputation` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12`` |
-| `MultisigPermissions` | ``1`` |
-| `OneTxPayment` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` \| ``6`` \| ``7`` \| ``8`` |
-| `ReputationBootstrapper` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` |
-| `StagedExpenditure` | ``1`` \| ``2`` \| ``3`` |
-| `StakedExpenditure` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` \| ``6`` |
-| `StreamingPayments` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` |
-| `TokenSupplier` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` \| ``6`` \| ``7`` \| ``8`` |
-| `VotingReputation` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12`` |
+| `FundingQueue` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` |
+| `IVotingReputation` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12`` \| ``13`` |
+| `MultisigPermissions` | ``1`` \| ``2`` |
+| `OneTxPayment` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` |
+| `ReputationBootstrapper` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` \| ``6`` |
+| `StagedExpenditure` | ``1`` \| ``2`` \| ``3`` \| ``4`` |
+| `StakedExpenditure` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` \| ``6`` \| ``7`` |
+| `StreamingPayments` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` \| ``6`` |
+| `TokenSupplier` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` |
+| `VotingReputation` | ``1`` \| ``5`` \| ``2`` \| ``3`` \| ``4`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12`` \| ``13`` |
 
 ___
 
@@ -367,7 +367,7 @@ Returns `true` if an extension version is compatible with the given colony versi
 | :------ | :------ | :------ |
 | `extension` | [`Extension`](enums/Extension.md) | A valid `Extension` contract name |
 | `extensionVersion` | `ExtensionVersion` | The version of the extension to check against the colony |
-| `colonyVersion` | ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12`` \| ``13`` \| ``14`` \| ``15`` \| ``16`` | The version of the colony to check for |
+| `colonyVersion` | ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12`` \| ``13`` \| ``14`` \| ``15`` \| ``16`` \| ``17`` | The version of the colony to check for |
 
 #### Returns
 

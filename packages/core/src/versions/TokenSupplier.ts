@@ -2,7 +2,7 @@ import type { ColonyVersion } from './IColony.js';
 
 import { createContractVersionArray } from './utils.js';
 
-const TOKEN_SUPPLIER_VERSION_NEXT = 9;
+const TOKEN_SUPPLIER_VERSION_NEXT = 10;
 
 /** @internal */
 export const TOKEN_SUPPLIER_VERSIONS = createContractVersionArray(
@@ -24,6 +24,7 @@ export const tokenSupplierIncompatibilityMap: Record<
   6: [],
   7: [],
   8: [],
+  9: [],
 };
 
 /** @internal */

@@ -6,10 +6,15 @@ import {
 
 import { ClientType } from '../../../../constants.js';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
-import { IColonyV14, IColonyV15, IColonyV16 } from '../../../Core/contracts.js';
+import {
+  IColonyV14,
+  IColonyV15,
+  IColonyV16,
+  IColonyV17,
+} from '../../../Core/contracts.js';
 import { AnyMultisigPermissions } from '../contracts.js';
 
-export type ValidColony = IColonyV14 | IColonyV15 | IColonyV16;
+export type ValidColony = IColonyV14 | IColonyV15 | IColonyV16 | IColonyV17;
 
 export type AugmentedEstimate<
   T extends AnyMultisigPermissions = AnyMultisigPermissions,
@@ -51,5 +56,5 @@ export const addAugments = <T extends AugmentedMultisigPermissions>(
   /* eslint-enable no-param-reassign */
 };
 
-export type UnkonwnMultisigPermissionsClient =
+export type UnknownMultisigPermissionsClient =
   AugmentedMultisigPermissions<any>;

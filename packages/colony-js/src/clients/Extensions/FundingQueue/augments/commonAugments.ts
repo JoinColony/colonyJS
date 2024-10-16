@@ -45,4 +45,4 @@ export const addAugments = <T extends AugmentedFundingQueue>(
   /* eslint-enable no-param-reassign */
 };
 
-export type UnkonwnFundingQueueClient = AugmentedFundingQueue<any>;
+export type UnknownFundingQueueClient = AugmentedFundingQueue<any>;

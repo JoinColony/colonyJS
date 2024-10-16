@@ -2,7 +2,7 @@ import type { ColonyVersion } from './IColony.js';
 
 import { createContractVersionArray } from './utils.js';
 
-const ONE_TX_PAYMENT_VERSION_NEXT = 9;
+const ONE_TX_PAYMENT_VERSION_NEXT = 10;
 
 /** @internal */
 export const ONE_TX_PAYMENT_VERSIONS = createContractVersionArray(
@@ -24,6 +24,7 @@ export const oneTxPaymentIncompatibilityMap: Record<
   6: [],
   7: [],
   8: [],
+  9: [],
 };
 
 /** @internal */

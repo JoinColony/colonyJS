@@ -47,5 +47,5 @@ export const addAugments = <T extends AugmentedReputationBootstrapper>(
   /* eslint-enable no-param-reassign */
 };
 
-export type UnkonwnReputationBootstrapperClient =
+export type UnknownReputationBootstrapperClient =
   AugmentedReputationBootstrapper<any>;

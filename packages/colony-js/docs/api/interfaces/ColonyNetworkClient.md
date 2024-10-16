@@ -112,7 +112,7 @@ ___
 | `deployTokenViaNetwork(string,string,uint8)` | (`_name`: `string`, `_symbol`: `string`, `_decimals`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `deprecateExtension` | (`_extensionId`: `BytesLike`, `_deprecated`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `deprecateExtension(bytes32,bool)` | (`_extensionId`: `BytesLike`, `_deprecated`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `deprecateSkill(uint256)` | (`_skillId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `deprecateSkill` | (`_skillId`: `BigNumberish`, `_deprecated`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 | `deprecateSkill(uint256,bool)` | (`_skillId`: `BigNumberish`, `_deprecated`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 | `enterRecoveryMode` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `enterRecoveryMode()` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
@@ -444,7 +444,7 @@ ___
 | `deployTokenViaNetwork(string,string,uint8)` | (`_name`: `string`, `_symbol`: `string`, `_decimals`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `deprecateExtension` | (`_extensionId`: `BytesLike`, `_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `deprecateExtension(bytes32,bool)` | (`_extensionId`: `BytesLike`, `_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `deprecateSkill(uint256)` | (`_skillId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `deprecateSkill` | (`_skillId`: `BigNumberish`, `_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `deprecateSkill(uint256,bool)` | (`_skillId`: `BigNumberish`, `_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `enterRecoveryMode` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `enterRecoveryMode()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
@@ -703,7 +703,7 @@ ___
 | `deployTokenViaNetwork(string,string,uint8)` | (`_name`: `string`, `_symbol`: `string`, `_decimals`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `deprecateExtension` | (`_extensionId`: `BytesLike`, `_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `deprecateExtension(bytes32,bool)` | (`_extensionId`: `BytesLike`, `_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `deprecateSkill(uint256)` | (`_skillId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `deprecateSkill` | (`_skillId`: `BigNumberish`, `_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `deprecateSkill(uint256,bool)` | (`_skillId`: `BigNumberish`, `_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `enterRecoveryMode` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `enterRecoveryMode()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
@@ -2110,15 +2110,16 @@ IColonyNetwork.deprecateExtension(bytes32,bool)
 
 ___
 
-### deprecateSkill(uint256)
+### deprecateSkill
 
-▸ **deprecateSkill(uint256)**(`_skillId`, `overrides?`): `Promise`<`ContractTransaction`\>
+▸ **deprecateSkill**(`_skillId`, `_deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `_skillId` | `BigNumberish` |
+| `_deprecated` | `boolean` |
 | `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
@@ -2127,7 +2128,7 @@ ___
 
 #### Inherited from
 
-IColonyNetwork.deprecateSkill(uint256)
+IColonyNetwork.deprecateSkill
 
 ___
 

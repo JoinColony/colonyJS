@@ -8,10 +8,16 @@ import { ValidColony } from './augments/commonAugments.js';
 import getStreamingPaymentsClientV5, {
   StreamingPaymentsClientV5,
 } from './StreamingPaymentsClientV5.js';
+import getStreamingPaymentsClientV6, {
+  StreamingPaymentsClientV6,
+} from './StreamingPaymentsClientV6.js';
 
 export { StreamingPaymentsClientV5 } from './StreamingPaymentsClientV5.js';
+export { StreamingPaymentsClientV6 } from './StreamingPaymentsClientV6.js';
 
-export type AnyStreamingPaymentsClient = StreamingPaymentsClientV5;
+export type AnyStreamingPaymentsClient =
+  | StreamingPaymentsClientV5
+  | StreamingPaymentsClientV6;
 
 /** @internal */
 export const getStreamingPaymentsClient = (
@@ -30,6 +36,11 @@ export const getStreamingPaymentsClient = (
       throw new Error('StreamingPayments version 4 is not supported');
     case 5:
       return getStreamingPaymentsClientV5(
+        colonyClient as AugmentedIColony<ValidColony>,
+        address,
+      );
+    case 6:
+      return getStreamingPaymentsClientV6(
         colonyClient as AugmentedIColony<ValidColony>,
         address,
       );
