@@ -11,11 +11,11 @@ import {
 
 import { type ColonyNetworkClient } from '../../ColonyNetworkClient.js';
 import {
-  type IColonyV12,
   type IColonyV13,
   type IColonyV14,
   type IColonyV15,
   type IColonyV16,
+  type IColonyV17,
 } from '../contracts.js';
 import { type AugmentedIColony } from './commonAugments.js';
 import {
@@ -25,11 +25,11 @@ import {
 } from './augmentsV3.js';
 
 type ValidColony =
-  | IColonyV12
   | IColonyV13
   | IColonyV14
   | IColonyV15
-  | IColonyV16;
+  | IColonyV16
+  | IColonyV17;
 
 export interface AugmentedEstimateV4 extends AugmentedEstimateV3 {
   /**

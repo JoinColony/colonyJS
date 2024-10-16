@@ -1,5 +1,6 @@
 import type { ColonyVersion } from '@colony/core';
 import { getTokenClient } from '@colony/tokens';
+import { assertExhaustiveSwitch } from '@colony/core/utils';
 
 import { type ColonyNetworkClient } from '../ColonyNetworkClient.js';
 import getColonyVersionClient from './ColonyVersionClient.js';
@@ -15,24 +16,24 @@ import getColonyClientV8 from './ColonyClientV8.js';
 import getColonyClientV9 from './ColonyClientV9.js';
 import getColonyClientV10 from './ColonyClientV10.js';
 import getColonyClientV11 from './ColonyClientV11.js';
-import getColonyClientV12, { type ColonyClientV12 } from './ColonyClientV12.js';
+import getColonyClientV12 from './ColonyClientV12.js';
 import getColonyClientV13, { type ColonyClientV13 } from './ColonyClientV13.js';
 import getColonyClientV14, { type ColonyClientV14 } from './ColonyClientV14.js';
 import getColonyClientV15, { type ColonyClientV15 } from './ColonyClientV15.js';
 import getColonyClientV16, { type ColonyClientV16 } from './ColonyClientV16.js';
+import getColonyClientV17, { type ColonyClientV17 } from './ColonyClientV17.js';
 
-export type { ColonyClientV12 } from './ColonyClientV12.js';
 export type { ColonyClientV13 } from './ColonyClientV13.js';
 export type { ColonyClientV14 } from './ColonyClientV14.js';
 export type { ColonyClientV15 } from './ColonyClientV15.js';
 export type { ColonyClientV16 } from './ColonyClientV16.js';
 
 export type AnyColonyClient =
-  | ColonyClientV12
   | ColonyClientV13
   | ColonyClientV14
   | ColonyClientV15
-  | ColonyClientV16;
+  | ColonyClientV16
+  | ColonyClientV17;
 
 /** Versioned core contract names */
 export enum Core {
@@ -57,7 +58,7 @@ export async function getColonyClient(
   );
   // This is *kinda* hacky, but I have no better idea ¯\_(ツ)_/¯
   // We have to get the version somehow before instantiating the right contract version
-  let version;
+  let version: ColonyVersion;
   try {
     const versionBN = await colonyVersionClient.version();
     version = versionBN.toNumber() as ColonyVersion;
@@ -74,7 +75,7 @@ export async function getColonyClient(
         this,
         colonyAddress,
         signerOrProvider,
-      ) as ColonyClientV12;
+      ) as ColonyClientV13;
       break;
     }
     case 2: {
@@ -82,7 +83,7 @@ export async function getColonyClient(
         this,
         colonyAddress,
         signerOrProvider,
-      ) as ColonyClientV12;
+      ) as ColonyClientV13;
       break;
     }
     case 3: {
@@ -90,7 +91,7 @@ export async function getColonyClient(
         this,
         colonyAddress,
         signerOrProvider,
-      ) as ColonyClientV12;
+      ) as ColonyClientV13;
       break;
     }
     case 4: {
@@ -98,7 +99,7 @@ export async function getColonyClient(
         this,
         colonyAddress,
         signerOrProvider,
-      ) as ColonyClientV12;
+      ) as ColonyClientV13;
       break;
     }
     case 5: {
@@ -106,7 +107,7 @@ export async function getColonyClient(
         this,
         colonyAddress,
         signerOrProvider,
-      ) as ColonyClientV12;
+      ) as ColonyClientV13;
       break;
     }
     case 6: {
@@ -114,7 +115,7 @@ export async function getColonyClient(
         this,
         colonyAddress,
         signerOrProvider,
-      ) as ColonyClientV12;
+      ) as ColonyClientV13;
       break;
     }
     case 7: {
@@ -122,7 +123,7 @@ export async function getColonyClient(
         this,
         colonyAddress,
         signerOrProvider,
-      ) as ColonyClientV12;
+      ) as ColonyClientV13;
       break;
     }
     case 8: {
@@ -130,7 +131,7 @@ export async function getColonyClient(
         this,
         colonyAddress,
         signerOrProvider,
-      ) as ColonyClientV12;
+      ) as ColonyClientV13;
       break;
     }
     case 9: {
@@ -138,7 +139,7 @@ export async function getColonyClient(
         this,
         colonyAddress,
         signerOrProvider,
-      ) as ColonyClientV12;
+      ) as ColonyClientV13;
       break;
     }
     case 10: {
@@ -146,7 +147,7 @@ export async function getColonyClient(
         this,
         colonyAddress,
         signerOrProvider,
-      ) as ColonyClientV12;
+      ) as ColonyClientV13;
       break;
     }
     case 11: {
@@ -154,7 +155,7 @@ export async function getColonyClient(
         this,
         colonyAddress,
         signerOrProvider,
-      ) as ColonyClientV12;
+      ) as ColonyClientV13;
       break;
     }
     case 12: {
@@ -197,9 +198,16 @@ export async function getColonyClient(
       );
       break;
     }
-    default: {
-      throw new Error('Colony version not supported');
+    case 17: {
+      colonyClient = getColonyClientV17.call(
+        this,
+        colonyAddress,
+        signerOrProvider,
+      );
+      break;
     }
+    default:
+      return assertExhaustiveSwitch(version, 'Could not find Colony version');
   }
 
   const tokenAddress = await colonyClient.getToken();

@@ -1,10 +1,10 @@
-# Interface: StakedExpenditureClientV1
+# Interface: StakedExpenditureClientV7
 
 ## Hierarchy
 
 - `AugmentedStakedExpenditure`<`StakedExpenditure`\>
 
-  ↳ **`StakedExpenditureClientV1`**
+  ↳ **`StakedExpenditureClientV7`**
 
 ## Properties
 
@@ -78,8 +78,6 @@ ___
 | `finishUpgrade()` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `getCapabilityRoles` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getCapabilityRoles(bytes4)` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `getChainId` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getChainId()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getColony()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
@@ -92,10 +90,14 @@ ___
 | `getStakeFraction()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `identifier()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+| `initialise` | (`_stakeFraction`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `initialise(uint256)` | (`_stakeFraction`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `install` | (`_colony`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `install(address)` | (`_colony`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `makeExpenditureWithStake` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_domainId`: `BigNumberish`, `_key`: `BytesLike`, `_value`: `BytesLike`, `_branchMask`: `BigNumberish`, `_siblings`: `BytesLike`[], `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `makeExpenditureWithStake(uint256,uint256,uint256,bytes,bytes,uint256,bytes32[])` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_domainId`: `BigNumberish`, `_key`: `BytesLike`, `_value`: `BytesLike`, `_branchMask`: `BigNumberish`, `_siblings`: `BytesLike`[], `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+| `multicall` | (`data`: `BytesLike`[], `overrides?`: `CallOverrides`) => `Promise`<`string`[]\> |
+| `multicall(bytes[])` | (`data`: `BytesLike`[], `overrides?`: `CallOverrides`) => `Promise`<`string`[]\> |
 | `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `owner()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
 | `reclaimStake` | (`_expenditureId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
@@ -108,8 +110,8 @@ ___
 | `setStakeFraction(uint256)` | (`_stakeFraction`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `uninstall` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `uninstall()` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `verify` | (`_owner`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
-| `verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)` | (`_owner`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
+| `verify` | (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
+| `verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 | `version` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `version()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 
@@ -131,7 +133,7 @@ ___
 
 ### clientVersion
 
-• **clientVersion**: ``1``
+• **clientVersion**: ``7``
 
 #### Overrides
 
@@ -179,10 +181,12 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `ExpenditureCancelled` | (`expenditureId?`: ``null``) => `ExpenditureCancelledEventFilter` |
-| `ExpenditureCancelled(uint256)` | (`expenditureId?`: ``null``) => `ExpenditureCancelledEventFilter` |
+| `ExpenditureCancelled` | (`agent?`: ``null``, `expenditureId?`: ``null``) => `ExpenditureCancelledEventFilter` |
+| `ExpenditureCancelled(address,uint256)` | (`agent?`: ``null``, `expenditureId?`: ``null``) => `ExpenditureCancelledEventFilter` |
 | `ExpenditureMadeViaStake` | (`creator?`: ``null`` \| `string`, `expenditureId?`: ``null``, `stake?`: ``null``) => `ExpenditureMadeViaStakeEventFilter` |
 | `ExpenditureMadeViaStake(address,uint256,uint256)` | (`creator?`: ``null`` \| `string`, `expenditureId?`: ``null``, `stake?`: ``null``) => `ExpenditureMadeViaStakeEventFilter` |
+| `ExpenditureStakerPunished` | (`agent?`: ``null``, `expenditureId?`: ``null``, `punished?`: ``null``) => `ExpenditureStakerPunishedEventFilter` |
+| `ExpenditureStakerPunished(address,uint256,bool)` | (`agent?`: ``null``, `expenditureId?`: ``null``, `punished?`: ``null``) => `ExpenditureStakerPunishedEventFilter` |
 | `ExtensionInitialised` | () => `ExtensionInitialisedEventFilter` |
 | `ExtensionInitialised()` | () => `ExtensionInitialisedEventFilter` |
 | `LogSetAuthority` | (`authority?`: ``null`` \| `string`) => `LogSetAuthorityEventFilter` |
@@ -191,8 +195,8 @@ ___
 | `LogSetOwner(address)` | (`owner?`: ``null`` \| `string`) => `LogSetOwnerEventFilter` |
 | `MetaTransactionExecuted` | (`user?`: ``null``, `relayerAddress?`: ``null``, `functionSignature?`: ``null``) => `MetaTransactionExecutedEventFilter` |
 | `MetaTransactionExecuted(address,address,bytes)` | (`user?`: ``null``, `relayerAddress?`: ``null``, `functionSignature?`: ``null``) => `MetaTransactionExecutedEventFilter` |
-| `StakeFractionSet` | (`stakeFraction?`: ``null``) => `StakeFractionSetEventFilter` |
-| `StakeFractionSet(uint256)` | (`stakeFraction?`: ``null``) => `StakeFractionSetEventFilter` |
+| `StakeFractionSet` | (`agent?`: ``null``, `stakeFraction?`: ``null``) => `StakeFractionSetEventFilter` |
+| `StakeFractionSet(address,uint256)` | (`agent?`: ``null``, `stakeFraction?`: ``null``) => `StakeFractionSetEventFilter` |
 | `StakeReclaimed` | (`expenditureId?`: ``null``) => `StakeReclaimedEventFilter` |
 | `StakeReclaimed(uint256)` | (`expenditureId?`: ``null``) => `StakeReclaimedEventFilter` |
 
@@ -224,24 +228,26 @@ ___
 | `finishUpgrade()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `getCapabilityRoles` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `getCapabilityRoles(bytes4)` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `getChainId` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
-| `getChainId()` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
 | `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `getColony()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
 | `getDeprecated()` | (`overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
-| `getMetatransactionNonce` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
-| `getMetatransactionNonce(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
+| `getMetatransactionNonce` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_nonce`: `BigNumber`  }\> |
+| `getMetatransactionNonce(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_nonce`: `BigNumber`  }\> |
 | `getStake` | (`_expenditureId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`StakeStructOutput`] & { `stake`: `StakeStructOutput`  }\> |
 | `getStake(uint256)` | (`_expenditureId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`StakeStructOutput`] & { `stake`: `StakeStructOutput`  }\> |
 | `getStakeFraction` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_stakeFraction`: `BigNumber`  }\> |
 | `getStakeFraction()` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_stakeFraction`: `BigNumber`  }\> |
 | `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_identifier`: `string`  }\> |
 | `identifier()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_identifier`: `string`  }\> |
+| `initialise` | (`_stakeFraction`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `initialise(uint256)` | (`_stakeFraction`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `install` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `install(address)` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `makeExpenditureWithStake` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_domainId`: `BigNumberish`, `_key`: `BytesLike`, `_value`: `BytesLike`, `_branchMask`: `BigNumberish`, `_siblings`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `makeExpenditureWithStake(uint256,uint256,uint256,bytes,bytes,uint256,bytes32[])` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_domainId`: `BigNumberish`, `_key`: `BytesLike`, `_value`: `BytesLike`, `_branchMask`: `BigNumberish`, `_siblings`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `multicall` | (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+| `multicall(bytes[])` | (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `owner` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `owner()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
 | `reclaimStake` | (`_expenditureId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
@@ -254,8 +260,8 @@ ___
 | `setStakeFraction(uint256)` | (`_stakeFraction`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `uninstall` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
 | `uninstall()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `verify` | (`_owner`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
-| `verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)` | (`_owner`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
+| `verify` | (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
+| `verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
 | `version` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_version`: `BigNumber`  }\> |
 | `version()` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_version`: `BigNumber`  }\> |
 
@@ -277,7 +283,7 @@ ___
 
 ### off
 
-• **off**: `OnEvent`<[`StakedExpenditureClientV1`](StakedExpenditureClientV1.md)\>
+• **off**: `OnEvent`<[`StakedExpenditureClientV7`](StakedExpenditureClientV7.md)\>
 
 #### Inherited from
 
@@ -287,7 +293,7 @@ ___
 
 ### on
 
-• **on**: `OnEvent`<[`StakedExpenditureClientV1`](StakedExpenditureClientV1.md)\>
+• **on**: `OnEvent`<[`StakedExpenditureClientV7`](StakedExpenditureClientV7.md)\>
 
 #### Inherited from
 
@@ -297,7 +303,7 @@ ___
 
 ### once
 
-• **once**: `OnEvent`<[`StakedExpenditureClientV1`](StakedExpenditureClientV1.md)\>
+• **once**: `OnEvent`<[`StakedExpenditureClientV7`](StakedExpenditureClientV7.md)\>
 
 #### Inherited from
 
@@ -327,8 +333,6 @@ ___
 | `finishUpgrade()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `getCapabilityRoles` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getCapabilityRoles(bytes4)` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getChainId` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getChainId()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getColony()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
@@ -341,10 +345,14 @@ ___
 | `getStakeFraction()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `identifier()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `initialise` | (`_stakeFraction`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `initialise(uint256)` | (`_stakeFraction`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `install` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `install(address)` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `makeExpenditureWithStake` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_domainId`: `BigNumberish`, `_key`: `BytesLike`, `_value`: `BytesLike`, `_branchMask`: `BigNumberish`, `_siblings`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `makeExpenditureWithStake(uint256,uint256,uint256,bytes,bytes,uint256,bytes32[])` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_domainId`: `BigNumberish`, `_key`: `BytesLike`, `_value`: `BytesLike`, `_branchMask`: `BigNumberish`, `_siblings`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `multicall` | (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+| `multicall(bytes[])` | (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `owner()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `reclaimStake` | (`_expenditureId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
@@ -357,8 +365,8 @@ ___
 | `setStakeFraction(uint256)` | (`_stakeFraction`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `uninstall` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
 | `uninstall()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `verify` | (`_owner`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)` | (`_owner`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `verify` | (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+| `verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `version` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `version()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 
@@ -380,7 +388,7 @@ ___
 
 ### removeListener
 
-• **removeListener**: `OnEvent`<[`StakedExpenditureClientV1`](StakedExpenditureClientV1.md)\>
+• **removeListener**: `OnEvent`<[`StakedExpenditureClientV7`](StakedExpenditureClientV7.md)\>
 
 #### Inherited from
 
@@ -486,7 +494,7 @@ ___
 
 ### attach
 
-▸ **attach**(`addressOrName`): [`StakedExpenditureClientV1`](StakedExpenditureClientV1.md)
+▸ **attach**(`addressOrName`): [`StakedExpenditureClientV7`](StakedExpenditureClientV7.md)
 
 #### Parameters
 
@@ -496,7 +504,7 @@ ___
 
 #### Returns
 
-[`StakedExpenditureClientV1`](StakedExpenditureClientV1.md)
+[`StakedExpenditureClientV7`](StakedExpenditureClientV7.md)
 
 #### Inherited from
 
@@ -548,19 +556,17 @@ ___
 
 ▸ **cancelAndPunish**(`_permissionDomainId`, `_childSkillIndex`, `_callerPermissionDomainId`, `_callerChildSkillIndex`, `_expenditureId`, `_punish`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Cancel the expenditure and punish the stakerCan only be called by an arbitration user
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` | The domainId in which the extension has the arbitration permission |
-| `_childSkillIndex` | `BigNumberish` | The index that the `_domainId` is relative to `_permissionDomainId` |
-| `_callerPermissionDomainId` | `BigNumberish` | The domainId in which the caller has the arbitration permission |
-| `_callerChildSkillIndex` | `BigNumberish` | The index that the `_domainId` is relative to `_callerPermissionDomainId` |
-| `_expenditureId` | `BigNumberish` | The id of the expenditure |
-| `_punish` | `boolean` | Whether the staker should be punished by losing an amount of reputation equal to the stake |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_permissionDomainId` | `BigNumberish` |
+| `_childSkillIndex` | `BigNumberish` |
+| `_callerPermissionDomainId` | `BigNumberish` |
+| `_callerChildSkillIndex` | `BigNumberish` |
+| `_expenditureId` | `BigNumberish` |
+| `_punish` | `boolean` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -576,19 +582,17 @@ ___
 
 ▸ **cancelAndPunish(uint256,uint256,uint256,uint256,uint256,bool)**(`_permissionDomainId`, `_childSkillIndex`, `_callerPermissionDomainId`, `_callerChildSkillIndex`, `_expenditureId`, `_punish`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Cancel the expenditure and punish the stakerCan only be called by an arbitration user
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` | The domainId in which the extension has the arbitration permission |
-| `_childSkillIndex` | `BigNumberish` | The index that the `_domainId` is relative to `_permissionDomainId` |
-| `_callerPermissionDomainId` | `BigNumberish` | The domainId in which the caller has the arbitration permission |
-| `_callerChildSkillIndex` | `BigNumberish` | The index that the `_domainId` is relative to `_callerPermissionDomainId` |
-| `_expenditureId` | `BigNumberish` | The id of the expenditure |
-| `_punish` | `boolean` | Whether the staker should be punished by losing an amount of reputation equal to the stake |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_permissionDomainId` | `BigNumberish` |
+| `_childSkillIndex` | `BigNumberish` |
+| `_callerPermissionDomainId` | `BigNumberish` |
+| `_callerChildSkillIndex` | `BigNumberish` |
+| `_expenditureId` | `BigNumberish` |
+| `_punish` | `boolean` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -604,7 +608,7 @@ ___
 
 ▸ **cancelAndPunishWithProofs**(`_expenditureId`, `_punish`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Same as [cancelAndPunish](StakedExpenditureClientV1.md#cancelandpunish), but let colonyJS figure out the permission proofs for you.
+Same as [cancelAndPunish](StakedExpenditureClientV7.md#cancelandpunish), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -629,16 +633,14 @@ ___
 
 ▸ **cancelAndReclaimStake**(`_permissionDomainId`, `_childSkillIndex`, `_expenditureId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Cancel the expenditure and reclaim the stake in one transactionCan only be called by expenditure owner while expenditure is in draft state
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` | The domainId in which the extension has the arbitration permission |
-| `_childSkillIndex` | `BigNumberish` | The index that the `_domainId` is relative to `_permissionDomainId` |
-| `_expenditureId` | `BigNumberish` | The id of the expenditure |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_permissionDomainId` | `BigNumberish` |
+| `_childSkillIndex` | `BigNumberish` |
+| `_expenditureId` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -654,16 +656,14 @@ ___
 
 ▸ **cancelAndReclaimStake(uint256,uint256,uint256)**(`_permissionDomainId`, `_childSkillIndex`, `_expenditureId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Cancel the expenditure and reclaim the stake in one transactionCan only be called by expenditure owner while expenditure is in draft state
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` | The domainId in which the extension has the arbitration permission |
-| `_childSkillIndex` | `BigNumberish` | The index that the `_domainId` is relative to `_permissionDomainId` |
-| `_expenditureId` | `BigNumberish` | The id of the expenditure |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_permissionDomainId` | `BigNumberish` |
+| `_childSkillIndex` | `BigNumberish` |
+| `_expenditureId` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -679,7 +679,7 @@ ___
 
 ▸ **cancelAndReclaimStakeWithProofs**(`_expenditureId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Same as [cancelAndReclaimStake](StakedExpenditureClientV1.md#cancelandreclaimstake), but let colonyJS figure out the permission proofs for you.
+Same as [cancelAndReclaimStake](StakedExpenditureClientV7.md#cancelandreclaimstake), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -701,7 +701,7 @@ ___
 
 ### connect
 
-▸ **connect**(`signerOrProvider`): [`StakedExpenditureClientV1`](StakedExpenditureClientV1.md)
+▸ **connect**(`signerOrProvider`): [`StakedExpenditureClientV7`](StakedExpenditureClientV7.md)
 
 #### Parameters
 
@@ -711,7 +711,7 @@ ___
 
 #### Returns
 
-[`StakedExpenditureClientV1`](StakedExpenditureClientV1.md)
+[`StakedExpenditureClientV7`](StakedExpenditureClientV7.md)
 
 #### Inherited from
 
@@ -721,11 +721,11 @@ ___
 
 ### deployed
 
-▸ **deployed**(): `Promise`<[`StakedExpenditureClientV1`](StakedExpenditureClientV1.md)\>
+▸ **deployed**(): `Promise`<[`StakedExpenditureClientV7`](StakedExpenditureClientV7.md)\>
 
 #### Returns
 
-`Promise`<[`StakedExpenditureClientV1`](StakedExpenditureClientV1.md)\>
+`Promise`<[`StakedExpenditureClientV7`](StakedExpenditureClientV7.md)\>
 
 #### Inherited from
 
@@ -737,14 +737,12 @@ ___
 
 ▸ **deprecate**(`_deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Called when deprecating (or undeprecating) the extension
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_deprecated` | `boolean` | Indicates whether the extension should be deprecated or undeprecated |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_deprecated` | `boolean` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -760,14 +758,12 @@ ___
 
 ▸ **deprecate(bool)**(`_deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Called when deprecating (or undeprecating) the extension
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_deprecated` | `boolean` | Indicates whether the extension should be deprecated or undeprecated |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_deprecated` | `boolean` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -804,18 +800,16 @@ ___
 
 ▸ **executeMetaTransaction**(`_user`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_user` | `string` | Address of user trying to do meta transaction |
-| `_payload` | `BytesLike` | Function call to make via meta transaction |
-| `_sigR` | `BytesLike` | R part of the signature |
-| `_sigS` | `BytesLike` | S part of the signature |
-| `_sigV` | `BigNumberish` | V part of the signature |
-| `overrides?` | `PayableOverrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_user` | `string` |
+| `_payload` | `BytesLike` |
+| `_sigR` | `BytesLike` |
+| `_sigS` | `BytesLike` |
+| `_sigV` | `BigNumberish` |
+| `overrides?` | `PayableOverrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -831,18 +825,16 @@ ___
 
 ▸ **executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)**(`_user`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_user` | `string` | Address of user trying to do meta transaction |
-| `_payload` | `BytesLike` | Function call to make via meta transaction |
-| `_sigR` | `BytesLike` | R part of the signature |
-| `_sigS` | `BytesLike` | S part of the signature |
-| `_sigV` | `BigNumberish` | V part of the signature |
-| `overrides?` | `PayableOverrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_user` | `string` |
+| `_payload` | `BytesLike` |
+| `_sigR` | `BytesLike` |
+| `_sigS` | `BytesLike` |
+| `_sigV` | `BigNumberish` |
+| `overrides?` | `PayableOverrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -878,8 +870,6 @@ ___
 
 ▸ **finishUpgrade**(`overrides?`): `Promise`<`ContractTransaction`\>
 
-Called when upgrading the extension
-
 #### Parameters
 
 | Name | Type |
@@ -899,8 +889,6 @@ ___
 ### finishUpgrade()
 
 ▸ **finishUpgrade()**(`overrides?`): `Promise`<`ContractTransaction`\>
-
-Called when upgrading the extension
 
 #### Parameters
 
@@ -957,46 +945,6 @@ ___
 #### Inherited from
 
 AugmentedStakedExpenditure.getCapabilityRoles(bytes4)
-
-___
-
-### getChainId
-
-▸ **getChainId**(`overrides?`): `Promise`<`BigNumber`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
-
-#### Returns
-
-`Promise`<`BigNumber`\>
-
-#### Inherited from
-
-AugmentedStakedExpenditure.getChainId
-
-___
-
-### getChainId()
-
-▸ **getChainId()**(`overrides?`): `Promise`<`BigNumber`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
-
-#### Returns
-
-`Promise`<`BigNumber`\>
-
-#### Inherited from
-
-AugmentedStakedExpenditure.getChainId()
 
 ___
 
@@ -1126,14 +1074,12 @@ ___
 
 ▸ **getStake**(`_expenditureId`, `overrides?`): `Promise`<`StakeStructOutput`\>
 
-Get the stake for an expenditure
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_expenditureId` | `BigNumberish` | The id of the expenditure to get the stake for |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_expenditureId` | `BigNumberish` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -1149,14 +1095,12 @@ ___
 
 ▸ **getStake(uint256)**(`_expenditureId`, `overrides?`): `Promise`<`StakeStructOutput`\>
 
-Get the stake for an expenditure
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_expenditureId` | `BigNumberish` | The id of the expenditure to get the stake for |
-| `overrides?` | `CallOverrides` | - |
+| Name | Type |
+| :------ | :------ |
+| `_expenditureId` | `BigNumberish` |
+| `overrides?` | `CallOverrides` |
 
 #### Returns
 
@@ -1171,8 +1115,6 @@ ___
 ### getStakeFraction
 
 ▸ **getStakeFraction**(`overrides?`): `Promise`<`BigNumber`\>
-
-Get the stake fraction
 
 #### Parameters
 
@@ -1194,8 +1136,6 @@ ___
 
 ▸ **getStakeFraction()**(`overrides?`): `Promise`<`BigNumber`\>
 
-Get the stake fraction
-
 #### Parameters
 
 | Name | Type |
@@ -1215,8 +1155,6 @@ ___
 ### identifier
 
 ▸ **identifier**(`overrides?`): `Promise`<`string`\>
-
-Returns the identifier of the extension
 
 #### Parameters
 
@@ -1238,8 +1176,6 @@ ___
 
 ▸ **identifier()**(`overrides?`): `Promise`<`string`\>
 
-Returns the identifier of the extension
-
 #### Parameters
 
 | Name | Type |
@@ -1256,18 +1192,58 @@ AugmentedStakedExpenditure.identifier()
 
 ___
 
+### initialise
+
+▸ **initialise**(`_stakeFraction`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_stakeFraction` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedStakedExpenditure.initialise
+
+___
+
+### initialise(uint256)
+
+▸ **initialise(uint256)**(`_stakeFraction`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_stakeFraction` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedStakedExpenditure.initialise(uint256)
+
+___
+
 ### install
 
 ▸ **install**(`_colony`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Configures the extension
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_colony` | `string` | The colony in which the extension holds permissions |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_colony` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1283,14 +1259,12 @@ ___
 
 ▸ **install(address)**(`_colony`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Configures the extension
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_colony` | `string` | The colony in which the extension holds permissions |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_colony` | `string` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1368,20 +1342,18 @@ ___
 
 ▸ **makeExpenditureWithStake**(`_permissionDomainId`, `_childSkillIndex`, `_domainId`, `_key`, `_value`, `_branchMask`, `_siblings`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Make an expenditure by putting up a stake
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` | The domainId in which the extension has the administration permission |
-| `_childSkillIndex` | `BigNumberish` | The index that the `_domainId` is relative to `_permissionDomainId`, |
-| `_domainId` | `BigNumberish` | The domain where the expenditure belongs |
-| `_key` | `BytesLike` | A reputation hash tree key, of the total reputation in _domainId |
-| `_value` | `BytesLike` | Reputation value indicating the total reputation in _domainId |
-| `_branchMask` | `BigNumberish` | The branchmask of the proof |
-| `_siblings` | `BytesLike`[] | The siblings of the proof |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_permissionDomainId` | `BigNumberish` |
+| `_childSkillIndex` | `BigNumberish` |
+| `_domainId` | `BigNumberish` |
+| `_key` | `BytesLike` |
+| `_value` | `BytesLike` |
+| `_branchMask` | `BigNumberish` |
+| `_siblings` | `BytesLike`[] |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1397,20 +1369,18 @@ ___
 
 ▸ **makeExpenditureWithStake(uint256,uint256,uint256,bytes,bytes,uint256,bytes32[])**(`_permissionDomainId`, `_childSkillIndex`, `_domainId`, `_key`, `_value`, `_branchMask`, `_siblings`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Make an expenditure by putting up a stake
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` | The domainId in which the extension has the administration permission |
-| `_childSkillIndex` | `BigNumberish` | The index that the `_domainId` is relative to `_permissionDomainId`, |
-| `_domainId` | `BigNumberish` | The domain where the expenditure belongs |
-| `_key` | `BytesLike` | A reputation hash tree key, of the total reputation in _domainId |
-| `_value` | `BytesLike` | Reputation value indicating the total reputation in _domainId |
-| `_branchMask` | `BigNumberish` | The branchmask of the proof |
-| `_siblings` | `BytesLike`[] | The siblings of the proof |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_permissionDomainId` | `BigNumberish` |
+| `_childSkillIndex` | `BigNumberish` |
+| `_domainId` | `BigNumberish` |
+| `_key` | `BytesLike` |
+| `_value` | `BytesLike` |
+| `_branchMask` | `BigNumberish` |
+| `_siblings` | `BytesLike`[] |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1426,7 +1396,7 @@ ___
 
 ▸ **makeExpenditureWithStakeWithProofs**(`_domainId`, `_key`, `_value`, `_branchMask`, `_siblings`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Same as [makeExpenditureWithStake](StakedExpenditureClientV1.md#makeexpenditurewithstake), but let colonyJS figure out the permission proofs for you.
+Same as [makeExpenditureWithStake](StakedExpenditureClientV7.md#makeexpenditurewithstake), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -1447,6 +1417,48 @@ Always prefer this method, except when you have good reason not to.
 #### Inherited from
 
 AugmentedStakedExpenditure.makeExpenditureWithStakeWithProofs
+
+___
+
+### multicall
+
+▸ **multicall**(`data`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `data` | `BytesLike`[] |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedStakedExpenditure.multicall
+
+___
+
+### multicall(bytes[])
+
+▸ **multicall(bytes[])**(`data`, `overrides?`): `Promise`<`ContractTransaction`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `data` | `BytesLike`[] |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
+
+#### Returns
+
+`Promise`<`ContractTransaction`\>
+
+#### Inherited from
+
+AugmentedStakedExpenditure.multicall(bytes[])
 
 ___
 
@@ -1522,14 +1534,12 @@ ___
 
 ▸ **reclaimStake**(`_expenditureId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Reclaims the stake if the expenditure is finalized or cancelled
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_expenditureId` | `BigNumberish` | The id of the expenditure |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_expenditureId` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1545,14 +1555,12 @@ ___
 
 ▸ **reclaimStake(uint256)**(`_expenditureId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Reclaims the stake if the expenditure is finalized or cancelled
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_expenditureId` | `BigNumberish` | The id of the expenditure |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_expenditureId` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1566,7 +1574,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`StakedExpenditureClientV1`](StakedExpenditureClientV1.md)
+▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`StakedExpenditureClientV7`](StakedExpenditureClientV7.md)
 
 #### Type parameters
 
@@ -1582,13 +1590,13 @@ ___
 
 #### Returns
 
-[`StakedExpenditureClientV1`](StakedExpenditureClientV1.md)
+[`StakedExpenditureClientV7`](StakedExpenditureClientV7.md)
 
 #### Inherited from
 
 AugmentedStakedExpenditure.removeAllListeners
 
-▸ **removeAllListeners**(`eventName?`): [`StakedExpenditureClientV1`](StakedExpenditureClientV1.md)
+▸ **removeAllListeners**(`eventName?`): [`StakedExpenditureClientV7`](StakedExpenditureClientV7.md)
 
 #### Parameters
 
@@ -1598,7 +1606,7 @@ AugmentedStakedExpenditure.removeAllListeners
 
 #### Returns
 
-[`StakedExpenditureClientV1`](StakedExpenditureClientV1.md)
+[`StakedExpenditureClientV7`](StakedExpenditureClientV7.md)
 
 #### Inherited from
 
@@ -1694,14 +1702,12 @@ ___
 
 ▸ **setStakeFraction**(`_stakeFraction`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Sets the stake fraction
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_stakeFraction` | `BigNumberish` | WAD-denominated fraction, used to determine stake as fraction of rep in domain |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_stakeFraction` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1717,14 +1723,12 @@ ___
 
 ▸ **setStakeFraction(uint256)**(`_stakeFraction`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-Sets the stake fraction
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_stakeFraction` | `BigNumberish` | WAD-denominated fraction, used to determine stake as fraction of rep in domain |
-| `overrides?` | `Overrides` & { `from?`: `string`  } | - |
+| Name | Type |
+| :------ | :------ |
+| `_stakeFraction` | `BigNumberish` |
+| `overrides?` | `Overrides` & { `from?`: `string`  } |
 
 #### Returns
 
@@ -1739,8 +1743,6 @@ ___
 ### uninstall
 
 ▸ **uninstall**(`overrides?`): `Promise`<`ContractTransaction`\>
-
-Called when uninstalling the extension
 
 #### Parameters
 
@@ -1762,8 +1764,6 @@ ___
 
 ▸ **uninstall()**(`overrides?`): `Promise`<`ContractTransaction`\>
 
-Called when uninstalling the extension
-
 #### Parameters
 
 | Name | Type |
@@ -1782,13 +1782,13 @@ ___
 
 ### verify
 
-▸ **verify**(`_owner`, `_nonce`, `_chainId`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`boolean`\>
+▸ **verify**(`_user`, `_nonce`, `_chainId`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`boolean`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `_owner` | `string` |
+| `_user` | `string` |
 | `_nonce` | `BigNumberish` |
 | `_chainId` | `BigNumberish` |
 | `_payload` | `BytesLike` |
@@ -1809,13 +1809,13 @@ ___
 
 ### verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)
 
-▸ **verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)**(`_owner`, `_nonce`, `_chainId`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`boolean`\>
+▸ **verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)**(`_user`, `_nonce`, `_chainId`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`boolean`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `_owner` | `string` |
+| `_user` | `string` |
 | `_nonce` | `BigNumberish` |
 | `_chainId` | `BigNumberish` |
 | `_payload` | `BytesLike` |
@@ -1838,8 +1838,6 @@ ___
 
 ▸ **version**(`overrides?`): `Promise`<`BigNumber`\>
 
-Returns the version of the extension
-
 #### Parameters
 
 | Name | Type |
@@ -1859,8 +1857,6 @@ ___
 ### version()
 
 ▸ **version()**(`overrides?`): `Promise`<`BigNumber`\>
-
-Returns the version of the extension
 
 #### Parameters
 

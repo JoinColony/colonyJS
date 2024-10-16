@@ -334,4 +334,4 @@ export const addAugments = <T extends AugmentedVotingReputation>(
   /* eslint-enable no-param-reassign */
 };
 
-export type UnkonwnVotingReputationClient = AugmentedVotingReputation<any>;
+export type UnknownVotingReputationClient = AugmentedVotingReputation<any>;

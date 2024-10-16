@@ -45,4 +45,4 @@ export const addAugments = <T extends AugmentedTokenSupplier>(
   /* eslint-enable no-param-reassign */
 };
 
-export type UnkonwnTokenSupplierClient = AugmentedTokenSupplier<any>;
+export type UnknownTokenSupplierClient = AugmentedTokenSupplier<any>;

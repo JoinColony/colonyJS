@@ -5,9 +5,7 @@ import { assertExhaustiveSwitch } from '@colony/core/utils';
 import { type AugmentedIColony } from '../../Core/augments/commonAugments.js';
 import { type ValidColony } from './augments/commonAugments.js';
 
-import getStakedExpenditureClientV1, {
-  type StakedExpenditureClientV1,
-} from './StakedExpenditureClientV1.js';
+import getStakedExpenditureClientV1 from './StakedExpenditureClientV1.js';
 import getStakedExpenditureClientV2, {
   type StakedExpenditureClientV2,
 } from './StakedExpenditureClientV2.js';
@@ -23,21 +21,24 @@ import getStakedExpenditureClientV5, {
 import getStakedExpenditureClientV6, {
   type StakedExpenditureClientV6,
 } from './StakedExpenditureClientV6.js';
+import getStakedExpenditureClientV7, {
+  type StakedExpenditureClientV7,
+} from './StakedExpenditureClientV7.js';
 
-export type { StakedExpenditureClientV1 } from './StakedExpenditureClientV1.js';
 export type { StakedExpenditureClientV2 } from './StakedExpenditureClientV2.js';
 export type { StakedExpenditureClientV3 } from './StakedExpenditureClientV3.js';
 export type { StakedExpenditureClientV4 } from './StakedExpenditureClientV4.js';
 export type { StakedExpenditureClientV5 } from './StakedExpenditureClientV5.js';
 export type { StakedExpenditureClientV6 } from './StakedExpenditureClientV6.js';
+export type { StakedExpenditureClientV7 } from './StakedExpenditureClientV7.js';
 
 export type AnyStakedExpenditureClient =
-  | StakedExpenditureClientV1
   | StakedExpenditureClientV2
   | StakedExpenditureClientV3
   | StakedExpenditureClientV4
   | StakedExpenditureClientV5
-  | StakedExpenditureClientV6;
+  | StakedExpenditureClientV6
+  | StakedExpenditureClientV7;
 
 /** @internal */
 export const getStakedExpenditureClient = (
@@ -73,6 +74,11 @@ export const getStakedExpenditureClient = (
       );
     case 6:
       return getStakedExpenditureClientV6(
+        colonyClient as AugmentedIColony<ValidColony>,
+        address,
+      );
+    case 7:
+      return getStakedExpenditureClientV7(
         colonyClient as AugmentedIColony<ValidColony>,
         address,
       );

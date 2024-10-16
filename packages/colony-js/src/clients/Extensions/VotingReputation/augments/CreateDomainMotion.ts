@@ -12,7 +12,7 @@ import {
 } from '@colony/core';
 
 import { type VotingReputationV7 } from '../contracts.js';
-import { type AugmentedVotingReputation } from './commonAugments.js';
+import { type UnknownVotingReputationClient } from './commonAugments.js';
 
 // VotingReputation versions that support this method
 type ValidVotingReputation = VotingReputationV7;
@@ -54,8 +54,7 @@ export type CreateDomainMotionAugments<T extends ValidVotingReputation> = {
 };
 
 async function createDomainMotionWithProofs(
-  this: AugmentedVotingReputation<ValidVotingReputation> &
-    CreateDomainMotionAugments<ValidVotingReputation>,
+  this: UnknownVotingReputationClient,
   _domainId: BigNumberish, // Domain in which the voting will take place in
   _action: BytesLike,
   overrides: TxOverrides = {},
@@ -95,8 +94,7 @@ async function createDomainMotionWithProofs(
 }
 
 async function estimateCreateDomainMotionWithProofs(
-  this: AugmentedVotingReputation<ValidVotingReputation> &
-    CreateDomainMotionAugments<ValidVotingReputation>,
+  this: UnknownVotingReputationClient,
   _domainId: BigNumberish, // Domain in which the voting will take place in
   _action: BytesLike,
   overrides: TxOverrides = {},
@@ -134,10 +132,7 @@ async function estimateCreateDomainMotionWithProofs(
   );
 }
 
-export const addAugments = (
-  contract: AugmentedVotingReputation<ValidVotingReputation> &
-    CreateDomainMotionAugments<ValidVotingReputation>,
-) => {
+export const addAugments = (contract: UnknownVotingReputationClient) => {
   /* eslint-disable no-param-reassign */
   contract.createDomainMotionWithProofs =
     createDomainMotionWithProofs.bind(contract);

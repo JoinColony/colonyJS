@@ -4,7 +4,7 @@ import { OneTxPayment__factory as OneTxPaymentFactory } from '../../../contracts
 import { ClientType } from '../../../constants.js';
 import {
   addAugments,
-  type UnkonwnOneTxPaymentClient,
+  type UnknownOneTxPaymentClient,
   type ValidColony,
 } from './augments/commonAugments.js';
 
@@ -15,7 +15,7 @@ export default function getOneTxPaymentClient(
   const oneTxPaymentClient = OneTxPaymentFactory.connect(
     address,
     colonyClient.signer || colonyClient.provider,
-  ) as UnkonwnOneTxPaymentClient;
+  ) as UnknownOneTxPaymentClient;
 
   oneTxPaymentClient.clientType = ClientType.OneTxPaymentClient;
   oneTxPaymentClient.clientVersion = 2;
