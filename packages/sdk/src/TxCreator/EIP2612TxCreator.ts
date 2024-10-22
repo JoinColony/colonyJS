@@ -19,11 +19,11 @@ const { splitSignature } = utils;
 interface TDSigner extends Signer, TypedDataSigner {}
 
 /**
- * An umbrella API for all kinds of transactions
+ * Create transactions for contracts supporting the EIP2612 standard
  *
- * The `MetaTxCreator` allows for a simple API to cover all the different cases of transactions within the Colony Network. The `MetaTxCreator` supports sending a standard transaction ([[MetaTxCreator.force]]) as well as metatransactions ([[TxCreator.forceMeta]]).
+ * The `EIP2612TxCreator` allows for a simple API to cover all the different cases of transactions within the Colony Network.
  *
- * ## Create a standard transaction ("force" in dApp)
+ * ## Create a standard transaction ("permissions" in dApp)
  *
  * - [[EIP2612TxCreator.tx]]: force a Colony transaction, knowing you have the permissions to do so
  * - [[EIP2612TxCreator.metaTx]]: same as `tx()`, but send as a gasless metatransaction
