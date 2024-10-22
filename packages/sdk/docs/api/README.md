@@ -45,6 +45,8 @@
 - [ColonyNetwork](classes/ColonyNetwork.md)
 - [ColonyToken](classes/ColonyToken.md)
 - [ColonyTxCreator](classes/ColonyTxCreator.md)
+- [CustomColonyNetwork](classes/CustomColonyNetwork.md)
+- [CustomContract](classes/CustomContract.md)
 - [ERC20Token](classes/ERC20Token.md)
 - [ERC2612Token](classes/ERC2612Token.md)
 - [EvaluatedExpenditureEvents\_\_factory](classes/EvaluatedExpenditureEvents__factory.md)
