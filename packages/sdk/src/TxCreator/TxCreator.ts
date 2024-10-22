@@ -14,9 +14,12 @@ import {
 } from '@colony/events';
 
 import { type ParsedLogTransactionReceipt } from '../types.js';
-import { type ColonyNetwork } from '../ColonyNetwork/index.js';
+import {
+  type ColonyNetwork,
+  type CustomColonyNetwork,
+} from '../ColonyNetwork/index.js';
 
-export interface TxConfig<M> {
+export interface TxConfig<M = MetadataType.DEFAULT> {
   metadataType?: M;
 }
 
@@ -158,7 +161,7 @@ export class TxCreator<
   E extends EventData,
   MD extends MetadataType,
 > {
-  protected colonyNetwork: ColonyNetwork;
+  protected colonyNetwork: ColonyNetwork | CustomColonyNetwork;
 
   protected contract: C;
 
@@ -178,7 +181,7 @@ export class TxCreator<
     eventData,
     txConfig,
   }: {
-    colonyNetwork: ColonyNetwork;
+    colonyNetwork: ColonyNetwork | CustomColonyNetwork;
     contract: C;
     method: M;
     args: unknown[] | (() => Promise<unknown[]>);

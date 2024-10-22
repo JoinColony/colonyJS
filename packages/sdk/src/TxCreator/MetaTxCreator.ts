@@ -48,7 +48,7 @@ export class MetaTxCreator<
   C extends MetaTxBaseContract,
   M extends keyof C['functions'],
   E extends EventData,
-  MD extends MetadataType,
+  MD extends MetadataType = MetadataType.DEFAULT,
 > extends TxCreator<C, M, E, MD> {
   protected async sendMetaTransaction(
     encodedTransaction: string,
