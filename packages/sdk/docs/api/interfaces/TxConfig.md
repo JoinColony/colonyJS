@@ -2,9 +2,9 @@
 
 ## Type parameters
 
-| Name |
-| :------ |
-| `M` |
+| Name | Type |
+| :------ | :------ |
+| `M` | [`DEFAULT`](../enums/MetadataType.md#default) |
 
 ## Properties
 
