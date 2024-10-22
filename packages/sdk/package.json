@@ -50,7 +50,8 @@
   "dependencies": {
     "@colony/core": "^2.3.0",
     "@colony/events": "^3.0.0",
-    "@colony/tokens": "^0.3.0"
+    "@colony/tokens": "^0.3.0",
+    "abitype": "^1.0.6"
   },
   "devDependencies": {
     "@colony/contractor": "^2.2.0",
