@@ -1,10 +1,10 @@
 import type { TokenLockingEvents } from '@colony/events';
 
-import { BigNumberish } from 'ethers';
+import { type BigNumberish } from 'ethers';
 import { type TokenLockingClient, getTokenLockingClient } from '@colony/tokens';
 
 import { extractEvent } from '../utils.js';
-import { ColonyNetwork } from './ColonyNetwork.js';
+import { type ColonyNetwork } from './ColonyNetwork.js';
 
 export class TokenLocking {
   address: string;

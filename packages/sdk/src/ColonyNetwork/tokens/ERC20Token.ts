@@ -2,7 +2,7 @@ import type { BigNumber, BigNumberish } from 'ethers';
 import type { TokenEvents } from '@colony/events';
 
 import {
-  ERC20Token as ERC20TokenType,
+  type ERC20Token as ERC20TokenType,
   ERC20TokenFactory,
 } from '@colony/tokens';
 

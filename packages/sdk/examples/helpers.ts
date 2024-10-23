@@ -1,8 +1,8 @@
 import {
-  Colony,
-  OneTxPayment,
+  type Colony,
+  type OneTxPayment,
   SupportedExtension,
-  VotingReputation,
+  type VotingReputation,
 } from '../src/ColonyNetwork/index.js';
 import {
   ColonyRole,

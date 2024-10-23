@@ -1,4 +1,4 @@
-import { constants, BigNumber, BigNumberish, utils } from 'ethers';
+import { constants, BigNumber, type BigNumberish, utils } from 'ethers';
 import {
   type ReputationClient,
   type VotingReputationVersion,
@@ -21,7 +21,7 @@ import {
   type TokenLockingEvents,
   type ColonyNetworkEvents,
   type VotingReputationEvents,
-  DecisionData,
+  type DecisionData,
   MetadataType,
 } from '@colony/events';
 
@@ -30,20 +30,20 @@ import type { VotingReputationDataTypes as VotingReputationDataTypes8 } from '..
 import type { VotingReputationDataTypes as VotingReputationDataTypes9 } from '../contracts/IVotingReputation/9/IVotingReputation.js';
 
 import {
-  IVotingReputation as VotingReputationContract7,
+  type IVotingReputation as VotingReputationContract7,
   IVotingReputation__factory as VotingReputationFactory7,
 } from '../contracts/IVotingReputation/7/index.js';
 import {
-  IVotingReputation as VotingReputationContract8,
+  type IVotingReputation as VotingReputationContract8,
   IVotingReputation__factory as VotingReputationFactory8,
 } from '../contracts/IVotingReputation/8/index.js';
 import {
-  IVotingReputation as VotingReputationContract9,
+  type IVotingReputation as VotingReputationContract9,
   IVotingReputation__factory as VotingReputationFactory9,
 } from '../contracts/IVotingReputation/9/index.js';
 
 import { extractEvent, extractCustomEvent } from '../utils.js';
-import { Colony } from './Colony.js';
+import { type Colony } from './Colony.js';
 
 const { AddressZero } = constants;
 

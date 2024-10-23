@@ -1,30 +1,30 @@
 import {
-  ContractTransaction,
-  BytesLike,
-  BigNumber,
-  BigNumberish,
+  type ContractTransaction,
+  type BytesLike,
+  type BigNumber,
+  type BigNumberish,
 } from 'ethers';
 import {
   type ColonyEvents,
   IColonyEvents__factory as ColonyEventsFactory,
 } from '@colony/events';
-import { TokenClient } from '@colony/tokens';
+import { type TokenClient } from '@colony/tokens';
 
 import {
   type ColonyVersion,
   type TxOverrides,
   ColonyRole,
-  Extension,
+  type Extension,
   getPermissionProofs,
   ReputationClient,
 } from '@colony/core';
 import { ClientType } from '../../../constants.js';
 import {
   getExtensionClient,
-  GetExtensionClientReturns,
+  type GetExtensionClientReturns,
 } from '../../Extensions/exports.js';
-import { ColonyNetworkClient } from '../../ColonyNetworkClient.js';
-import { AnyIColony } from '../contracts.js';
+import { type ColonyNetworkClient } from '../../ColonyNetworkClient.js';
+import { type AnyIColony } from '../contracts.js';
 
 export type AugmentedEstimate<T extends AnyIColony = AnyIColony> =
   T['estimateGas'] & {

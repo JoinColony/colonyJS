@@ -3,7 +3,7 @@ import type { SignerOrProvider } from '@colony/core';
 import { ClientType } from '../constants.js';
 
 import {
-  TokenLocking,
+  type TokenLocking,
   TokenLocking__factory as TokenLockingFactory,
 } from '../contracts/index.js';
 

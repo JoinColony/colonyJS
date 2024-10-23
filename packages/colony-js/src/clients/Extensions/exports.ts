@@ -16,44 +16,44 @@ import {
 } from '@colony/core';
 import { assertExhaustiveSwitch } from '@colony/core/utils';
 
-import { AugmentedIColony } from '../Core/augments/commonAugments.js';
+import { type AugmentedIColony } from '../Core/augments/commonAugments.js';
 
 import {
   getMultisigPermissionsClient,
-  AnyMultisigPermissionsClient,
+  type AnyMultisigPermissionsClient,
 } from './MultisigPermissions/exports.js';
 import {
   getOneTxPaymentClient,
-  AnyOneTxPaymentClient,
+  type AnyOneTxPaymentClient,
 } from './OneTxPayment/exports.js';
 import {
   getReputationBootstrapperClient,
-  AnyReputationBootstrapperClient,
+  type AnyReputationBootstrapperClient,
 } from './ReputationBootstrapper/exports.js';
 import {
   getVotingReputationClient,
-  AnyVotingReputationClient,
+  type AnyVotingReputationClient,
 } from './VotingReputation/exports.js';
 import {
   getStagedExpenditureClient,
-  AnyStagedExpenditureClient,
+  type AnyStagedExpenditureClient,
 } from './StagedExpenditure/exports.js';
 import {
   getStakedExpenditureClient,
-  AnyStakedExpenditureClient,
+  type AnyStakedExpenditureClient,
 } from './StakedExpenditure/exports.js';
 import {
   getStreamingPaymentsClient,
-  AnyStreamingPaymentsClient,
+  type AnyStreamingPaymentsClient,
 } from './StreamingPayments/exports.js';
 import {
   getTokenSupplierClient,
-  AnyTokenSupplierClient,
+  type AnyTokenSupplierClient,
 } from './TokenSupplier/exports.js';
 
 import getExtensionVersionClient from './ExtensionVersionClient.js';
 import {
-  AnyFundingQueueClient,
+  type AnyFundingQueueClient,
   getFundingQueueClient,
 } from './FundingQueue/exports.js';
 

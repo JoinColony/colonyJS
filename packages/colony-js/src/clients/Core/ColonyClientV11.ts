@@ -1,8 +1,8 @@
 import type { SignerOrProvider } from '@colony/core';
 
 import { IColony__factory as IColonyFactory } from '../../contracts/IColony/11/factories/IColony__factory.js';
-import { ColonyNetworkClient } from '../ColonyNetworkClient.js';
-import { UnknownIColonyClient } from './augments/commonAugments.js';
+import { type ColonyNetworkClient } from '../ColonyNetworkClient.js';
+import { type UnknownIColonyClient } from './augments/commonAugments.js';
 import { addAugments } from './augments/augmentsV7.js';
 import { addAugmentsB as addAddDomainAugments } from './augments/AddDomain.js';
 import { addAugmentsB as addMoveFundsBetweenPotsAugments } from './augments/MoveFundsBetweenPots.js';

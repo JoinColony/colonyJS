@@ -5,7 +5,7 @@ import { ClientType } from '../../../constants.js';
 import {
   type UnkonwnFundingQueueClient,
   addAugments,
-  ValidColony,
+  type ValidColony,
 } from './augments/commonAugments.js';
 
 export default function getFundingQueueClient(

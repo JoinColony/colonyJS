@@ -1,4 +1,4 @@
-import { providers, Signer } from 'ethers';
+import { providers, type Signer } from 'ethers';
 
 import { ColonyNetwork } from '../../../src/index.js';
 

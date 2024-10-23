@@ -5,8 +5,8 @@ import { ReputationBootstrapper__factory as ReputationBootstrapperFactory } from
 import { ClientType } from '../../../constants.js';
 import {
   addAugments,
-  AugmentedReputationBootstrapper,
-  ValidColony,
+  type AugmentedReputationBootstrapper,
+  type ValidColony,
 } from './augments/commonAugments.js';
 
 export interface ReputationBootstrapperClientV5

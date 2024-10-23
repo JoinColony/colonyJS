@@ -1,16 +1,16 @@
 export {
   ColonyNetwork,
-  ColonyNetworkOptions,
-  TokenData,
+  type ColonyNetworkOptions,
+  type TokenData,
 } from './ColonyNetwork.js';
 export {
   Colony,
-  Domain,
-  SupportedColonyContract,
+  type Domain,
+  type SupportedColonyContract,
   SupportedExtension,
-  SupportedExtensions,
+  type SupportedExtensions,
 } from './Colony.js';
 export { OneTxPayment } from './OneTxPayment.js';
 export { TokenLocking } from './TokenLocking.js';
-export { Motion, VotingReputation, Vote } from './VotingReputation.js';
+export { type Motion, VotingReputation, Vote } from './VotingReputation.js';
 export * from './tokens/index.js';

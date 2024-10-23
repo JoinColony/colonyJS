@@ -1,21 +1,25 @@
-import { ContractTransaction, BigNumber, BigNumberish } from 'ethers';
+import {
+  type ContractTransaction,
+  type BigNumber,
+  type BigNumberish,
+} from 'ethers';
 import {
   type TxOverrides,
   ColonyRole,
   getPermissionProofs,
 } from '@colony/core';
 
-import { ColonyNetworkClient } from '../../ColonyNetworkClient.js';
+import { type ColonyNetworkClient } from '../../ColonyNetworkClient.js';
 import {
-  IColonyV12,
-  IColonyV13,
-  IColonyV14,
-  IColonyV15,
-  IColonyV16,
+  type IColonyV12,
+  type IColonyV13,
+  type IColonyV14,
+  type IColonyV15,
+  type IColonyV16,
 } from '../contracts.js';
 import {
   addAugments as addCommonAugments,
-  AugmentedIColony,
+  type AugmentedIColony,
 } from './commonAugments.js';
 
 type ValidColony =

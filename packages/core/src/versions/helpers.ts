@@ -1,41 +1,41 @@
 import { COLONY_VERSIONS } from './IColony.js';
-import { ColonyVersion, ExtensionVersion } from './index.js';
+import { type ColonyVersion, type ExtensionVersion } from './index.js';
 import { assertExhaustiveSwitch } from '../utils/index.js';
 import {
   fundingQueueIncompatibilityMap,
-  FundingQueueVersion,
+  type FundingQueueVersion,
 } from './FundingQueue.js';
 import {
   multisigPermissionsIncompatibilityMap,
-  MultisigPermissionsVersion,
+  type MultisigPermissionsVersion,
 } from './MultisigPermissions.js';
 import {
   oneTxPaymentIncompatibilityMap,
-  OneTxPaymentVersion,
+  type OneTxPaymentVersion,
 } from './OneTxPayment.js';
 import {
   reputationBootstrapperIncompatibilityMap,
-  ReputationBootstrapperVersion,
+  type ReputationBootstrapperVersion,
 } from './ReputationBootstrapper.js';
 import {
   stagedExpenditureIncompatibilityMap,
-  StagedExpenditureVersion,
+  type StagedExpenditureVersion,
 } from './StagedExpenditure.js';
 import {
   stakedExpenditureIncompatibilityMap,
-  StakedExpenditureVersion,
+  type StakedExpenditureVersion,
 } from './StakedExpenditure.js';
 import {
   streamingPaymentsIncompatibilityMap,
-  StreamingPaymentsVersion,
+  type StreamingPaymentsVersion,
 } from './StreamingPayments.js';
 import {
   tokenSupplierIncompatibilityMap,
-  TokenSupplierVersion,
+  type TokenSupplierVersion,
 } from './TokenSupplier.js';
 import {
   votingReputationIncompatibilityMap,
-  VotingReputationVersion,
+  type VotingReputationVersion,
 } from './VotingReputation.js';
 import { Extension } from '../constants.js';
 

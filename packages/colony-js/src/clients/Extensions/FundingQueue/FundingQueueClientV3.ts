@@ -5,8 +5,8 @@ import { FundingQueue__factory as FundingQueueFactory } from '../../../contracts
 import { ClientType } from '../../../constants.js';
 import {
   addAugments,
-  AugmentedFundingQueue,
-  ValidColony,
+  type AugmentedFundingQueue,
+  type ValidColony,
 } from './augments/commonAugments.js';
 
 export interface FundingQueueClientV3

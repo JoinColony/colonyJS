@@ -4,13 +4,13 @@ export type { ContractReceipt, ContractTransaction } from 'ethers';
 export type { TransactionResponse } from '@ethersproject/abstract-provider';
 
 export {
-  AnnotationData,
-  ColonyData,
-  DecisionData,
-  DomainData,
-  Metadata,
+  type AnnotationData,
+  type ColonyData,
+  type DecisionData,
+  type DomainData,
+  type Metadata,
   MetadataType,
-  SafeInfo,
+  type SafeInfo,
   TeamColor,
 } from '@colony/events';
 

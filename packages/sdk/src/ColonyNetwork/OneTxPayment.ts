@@ -10,22 +10,22 @@ import {
   getPermissionProofs,
   isExtensionCompatible,
 } from '@colony/core';
-import { BigNumber, BigNumberish, constants } from 'ethers';
+import { type BigNumber, type BigNumberish, constants } from 'ethers';
 
 import { extractEvent } from '../utils.js';
 import {
-  OneTxPayment as OneTxPaymentContract3,
+  type OneTxPayment as OneTxPaymentContract3,
   OneTxPayment__factory as OneTxPaymentFactory3,
 } from '../contracts/OneTxPayment/3/index.js';
 import {
-  OneTxPayment as OneTxPaymentContract4,
+  type OneTxPayment as OneTxPaymentContract4,
   OneTxPayment__factory as OneTxPaymentFactory4,
 } from '../contracts/OneTxPayment/4/index.js';
 import {
-  OneTxPayment as OneTxPaymentContract5,
+  type OneTxPayment as OneTxPaymentContract5,
   OneTxPayment__factory as OneTxPaymentFactory5,
 } from '../contracts/OneTxPayment/5/index.js';
-import { Colony } from './Colony.js';
+import { type Colony } from './Colony.js';
 
 const { AddressZero } = constants;
 

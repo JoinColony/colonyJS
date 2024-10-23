@@ -1,18 +1,18 @@
 import type { Log, Provider } from '@ethersproject/abstract-provider';
 import type { Interface } from '@ethersproject/abi';
 
-import { BigNumber, BigNumberish, constants, utils } from 'ethers';
+import { BigNumber, type BigNumberish, constants, utils } from 'ethers';
 
 import {
   ColonyRole,
-  Extension,
+  type Extension,
   FundingPotAssociatedType,
   Id,
 } from '../constants.js';
-import { CommonColony, CommonNetwork } from './types.js';
+import { type CommonColony, type CommonNetwork } from './types.js';
 import { nonNullable } from '../utils/index.js';
-import { ContractVersion } from '../versions/index.js';
-import { SignerOrProvider } from '../types.js';
+import { type ContractVersion } from '../versions/index.js';
+import { type SignerOrProvider } from '../types.js';
 import { Versioned__factory as VersionedFactory } from '../contracts/index.js';
 
 const { keccak256, toUtf8Bytes } = utils;

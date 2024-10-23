@@ -1,11 +1,11 @@
 import type { Filter, Log } from '@ethersproject/abstract-provider';
 import type { LogDescription, Result } from '@ethersproject/abi';
 
-import { EventFilter, BigNumber } from 'ethers';
+import { type EventFilter, type BigNumber } from 'ethers';
 import { ColonyRole, Id } from '@colony/core';
 
-import { AnyColonyClient } from './clients/Core/exports.js';
-import { ContractClient, ColonyRoles } from './types.js';
+import { type AnyColonyClient } from './clients/Core/exports.js';
+import { type ContractClient, type ColonyRoles } from './types.js';
 
 interface LogOptions {
   fromBlock?: number;

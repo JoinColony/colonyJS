@@ -1,8 +1,8 @@
 import {
   BigNumber,
-  BigNumberish,
-  BytesLike,
-  ContractTransaction,
+  type BigNumberish,
+  type BytesLike,
+  type ContractTransaction,
   constants,
 } from 'ethers';
 import {
@@ -11,8 +11,8 @@ import {
   parsePermissionedAction,
 } from '@colony/core';
 
-import { VotingReputationV7 } from '../contracts.js';
-import { AugmentedVotingReputation } from './commonAugments.js';
+import { type VotingReputationV7 } from '../contracts.js';
+import { type AugmentedVotingReputation } from './commonAugments.js';
 
 // VotingReputation versions that support this method
 type ValidVotingReputation = VotingReputationV7;

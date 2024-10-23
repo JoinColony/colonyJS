@@ -1,4 +1,4 @@
-import { MetadataType, TeamColor } from './constants.js';
+import { type MetadataType, type TeamColor } from './constants.js';
 
 interface BaseMetadata {
   name: MetadataType;

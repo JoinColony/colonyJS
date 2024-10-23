@@ -1,4 +1,8 @@
-import { ContractTransaction, BigNumber, Overrides } from 'ethers';
+import {
+  type ContractTransaction,
+  type BigNumber,
+  type Overrides,
+} from 'ethers';
 import {
   type SignerOrProvider,
   ColonyNetworkAddress,
@@ -7,16 +11,16 @@ import {
 } from '@colony/core';
 import {
   getTokenLockingClient,
-  TokenLockingClient,
+  type TokenLockingClient,
   ColonyTokenFactory,
 } from '@colony/tokens';
 
 import {
-  IColonyNetwork,
+  type IColonyNetwork,
   IColonyNetwork__factory as IColonyNetworkFactory,
 } from '../contracts/index.js';
 import { ClientType } from '../constants.js';
-import { AnyColonyClient } from '../clients/Core/exports.js';
+import { type AnyColonyClient } from '../clients/Core/exports.js';
 import { getColonyClient } from './Core/exports.js';
 
 type NetworkEstimate = IColonyNetwork['estimateGas'];

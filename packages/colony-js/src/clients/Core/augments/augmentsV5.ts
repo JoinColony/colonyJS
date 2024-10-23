@@ -1,14 +1,14 @@
 import {
-  ContractTransaction,
+  type ContractTransaction,
   BigNumber,
-  BigNumberish,
-  BytesLike,
+  type BigNumberish,
+  type BytesLike,
 } from 'ethers';
 import {
   type ExtensionVersion,
   type TxOverrides,
   ColonyRole,
-  Extension,
+  type Extension,
   ExtensionVersions,
   Id,
   colonyRoles2Hex,
@@ -17,20 +17,20 @@ import {
   isExtensionCompatible,
 } from '@colony/core';
 
-import { ColonyNetworkClient } from '../../ColonyNetworkClient.js';
+import { type ColonyNetworkClient } from '../../ColonyNetworkClient.js';
 import {
-  IColonyV12,
-  IColonyV13,
-  IColonyV14,
-  IColonyV15,
-  IColonyV16,
+  type IColonyV12,
+  type IColonyV13,
+  type IColonyV14,
+  type IColonyV15,
+  type IColonyV16,
 } from '../contracts.js';
-import { AugmentedIColony } from './commonAugments.js';
-import { ColonyAugmentsV3 } from './augmentsV3.js';
+import { type AugmentedIColony } from './commonAugments.js';
+import { type ColonyAugmentsV3 } from './augmentsV3.js';
 import {
   addAugments as addAugmentsV4,
-  ColonyAugmentsV4,
-  AugmentedEstimateV4,
+  type ColonyAugmentsV4,
+  type AugmentedEstimateV4,
 } from './augmentsV4.js';
 
 type ValidColony =

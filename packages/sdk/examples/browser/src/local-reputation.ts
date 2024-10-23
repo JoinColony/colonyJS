@@ -1,6 +1,12 @@
 import { providers, utils, Wallet } from 'ethers';
 
-import { Colony, ColonyNetwork, toEth, toWei, w } from '../../../src/index.js';
+import {
+  type Colony,
+  ColonyNetwork,
+  toEth,
+  toWei,
+  w,
+} from '../../../src/index.js';
 import { setupOneTxPaymentExtension } from '../../helpers.js';
 
 const { isAddress } = utils;

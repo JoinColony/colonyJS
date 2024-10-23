@@ -1,29 +1,29 @@
-import { SignerOrProvider } from '@colony/core';
+import { type SignerOrProvider } from '@colony/core';
 
 import { IColony__factory as IColonyFactory } from '../../contracts/IColony/15/factories/IColony__factory.js';
-import { IColony } from '../../contracts/IColony/15/IColony.js';
-import { ColonyNetworkClient } from '../ColonyNetworkClient.js';
+import { type IColony } from '../../contracts/IColony/15/IColony.js';
+import { type ColonyNetworkClient } from '../ColonyNetworkClient.js';
 import {
-  AugmentedIColony,
-  AugmentedEstimate,
+  type AugmentedIColony,
+  type AugmentedEstimate,
 } from './augments/commonAugments.js';
-import { ColonyAugmentsV3 } from './augments/augmentsV3.js';
-import { ColonyAugmentsV4 } from './augments/augmentsV4.js';
-import { ColonyAugmentsV5 } from './augments/augmentsV5.js';
-import { ColonyAugmentsV6 } from './augments/augmentsV6.js';
+import { type ColonyAugmentsV3 } from './augments/augmentsV3.js';
+import { type ColonyAugmentsV4 } from './augments/augmentsV4.js';
+import { type ColonyAugmentsV5 } from './augments/augmentsV5.js';
+import { type ColonyAugmentsV6 } from './augments/augmentsV6.js';
 import {
   addAugments,
-  ColonyAugmentsV7,
-  AugmentedEstimateV7,
+  type ColonyAugmentsV7,
+  type AugmentedEstimateV7,
 } from './augments/augmentsV7.js';
 import {
-  AddDomainAugmentsB,
-  AddDomainEstimateGasB,
+  type AddDomainAugmentsB,
+  type AddDomainEstimateGasB,
   addAugmentsB as addAddDomainAugments,
 } from './augments/AddDomain.js';
 import {
-  MoveFundsBetweenPotsAugmentsB,
-  MoveFundsBetweenPotsEstimateGasB,
+  type MoveFundsBetweenPotsAugmentsB,
+  type MoveFundsBetweenPotsEstimateGasB,
   addAugmentsB as addMoveFundsBetweenPotsAugments,
 } from './augments/MoveFundsBetweenPots.js';
 

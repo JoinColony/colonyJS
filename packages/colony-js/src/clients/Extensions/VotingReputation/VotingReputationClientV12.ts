@@ -4,14 +4,17 @@ import type { IVotingReputation } from '../../../contracts/IVotingReputation/12/
 import { IVotingReputation__factory as VotingReputationFactory } from '../../../contracts/IVotingReputation/12/factories/IVotingReputation__factory.js';
 import { ClientType } from '../../../constants.js';
 import {
-  AugmentedEstimate,
-  AugmentedVotingReputation,
+  type AugmentedEstimate,
+  type AugmentedVotingReputation,
 } from './augments/commonAugments.js';
-import { AugmentedEstimateV2, AugmentsV2 } from './augments/augmentsV2.js';
+import {
+  type AugmentedEstimateV2,
+  type AugmentsV2,
+} from './augments/augmentsV2.js';
 import {
   addAugments as addAugmentsV3,
-  AugmentedEstimateV3,
-  AugmentsV3,
+  type AugmentedEstimateV3,
+  type AugmentsV3,
 } from './augments/augmentsV3.js';
 
 interface VotingReputationEstimate

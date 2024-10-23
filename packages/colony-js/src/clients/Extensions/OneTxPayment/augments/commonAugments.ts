@@ -5,16 +5,20 @@ import {
   getPermissionProofs,
 } from '@colony/core';
 
-import { ContractTransaction, BigNumberish, BigNumber } from 'ethers';
+import {
+  type ContractTransaction,
+  type BigNumberish,
+  type BigNumber,
+} from 'ethers';
 import {
   type OneTxPaymentEvents,
   OneTxPaymentEvents__factory as OneTxPaymentEventsFactory,
 } from '@colony/events';
 
 import { ClientType } from '../../../../constants.js';
-import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
-import { AnyOneTxPayment } from '../contracts.js';
-import { AnyIColony } from '../../../Core/contracts.js';
+import { type AugmentedIColony } from '../../../Core/augments/commonAugments.js';
+import { type AnyOneTxPayment } from '../contracts.js';
+import { type AnyIColony } from '../../../Core/contracts.js';
 
 export type ValidColony = AnyIColony;
 

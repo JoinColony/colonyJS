@@ -1,24 +1,24 @@
 import {
-  ContractTransaction,
-  BigNumber,
-  BigNumberish,
-  BytesLike,
+  type ContractTransaction,
+  type BigNumber,
+  type BigNumberish,
+  type BytesLike,
 } from 'ethers';
 import { type TxOverrides, getCreateMotionProofs } from '@colony/core';
 
-import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
+import { type AugmentedIColony } from '../../../Core/augments/commonAugments.js';
 import {
-  VotingReputationV7,
-  VotingReputationV8,
-  VotingReputationV9,
-  VotingReputationV10,
-  VotingReputationV11,
-  VotingReputationV12,
+  type VotingReputationV7,
+  type VotingReputationV8,
+  type VotingReputationV9,
+  type VotingReputationV10,
+  type VotingReputationV11,
+  type VotingReputationV12,
 } from '../contracts.js';
-import { AnyVotingReputationClient } from '../exports.js';
+import { type AnyVotingReputationClient } from '../exports.js';
 import {
   addAugments as addCommonAugments,
-  AugmentedVotingReputation,
+  type AugmentedVotingReputation,
 } from './commonAugments.js';
 
 type ValidVotingReputation =

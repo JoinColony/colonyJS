@@ -1,7 +1,13 @@
-import { BigNumber, BigNumberish, BytesLike, constants, utils } from 'ethers';
+import {
+  BigNumber,
+  type BigNumberish,
+  type BytesLike,
+  constants,
+  utils,
+} from 'ethers';
 
-import { ColonyRole, Id } from '../constants.js';
-import { CommonColony, CommonNetwork } from './types.js';
+import { type ColonyRole, Id } from '../constants.js';
+import { type CommonColony, type CommonNetwork } from './types.js';
 import { getChildIndex } from './network.js';
 
 const { hexDataSlice } = utils;

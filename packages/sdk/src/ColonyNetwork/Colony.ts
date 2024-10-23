@@ -1,4 +1,9 @@
-import { BigNumber, BigNumberish, BytesLike, ContractReceipt } from 'ethers';
+import {
+  BigNumber,
+  type BigNumberish,
+  type BytesLike,
+  type ContractReceipt,
+} from 'ethers';
 import {
   type ColonyVersion,
   Id,
@@ -28,26 +33,26 @@ import type { ColonyDataTypes as ColonyDataTypes12 } from '../contracts/IColony/
 import type { IBasicMetaTransaction } from '../contracts/IBasicMetaTransaction.js';
 
 import {
-  IColony as ColonyContract11,
+  type IColony as ColonyContract11,
   IColony__factory as ColonyFactory11,
 } from '../contracts/IColony/11/index.js';
 import {
-  IColony as ColonyContract12,
+  type IColony as ColonyContract12,
   IColony__factory as ColonyFactory12,
 } from '../contracts/IColony/12/index.js';
 import {
-  IColony as ColonyContract13,
+  type IColony as ColonyContract13,
   IColony__factory as ColonyFactory13,
 } from '../contracts/IColony/13/index.js';
 import {
-  PermissionConfig,
-  TxConfig,
+  type PermissionConfig,
+  type TxConfig,
   ColonyTxCreator,
 } from '../TxCreator/index.js';
 import { extractEvent, extractCustomEvent } from '../utils.js';
-import { ColonyNetwork } from './ColonyNetwork.js';
+import { type ColonyNetwork } from './ColonyNetwork.js';
 import { OneTxPayment } from './OneTxPayment.js';
-import { ERC20Token, Token, getToken } from './tokens/index.js';
+import { ERC20Token, type Token, getToken } from './tokens/index.js';
 import { VotingReputation } from './VotingReputation.js';
 
 export type SupportedColonyContract =

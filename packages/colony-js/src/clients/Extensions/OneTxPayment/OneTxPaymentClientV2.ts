@@ -4,8 +4,8 @@ import { OneTxPayment__factory as OneTxPaymentFactory } from '../../../contracts
 import { ClientType } from '../../../constants.js';
 import {
   addAugments,
-  UnkonwnOneTxPaymentClient,
-  ValidColony,
+  type UnkonwnOneTxPaymentClient,
+  type ValidColony,
 } from './augments/commonAugments.js';
 
 export default function getOneTxPaymentClient(

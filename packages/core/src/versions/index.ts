@@ -1,40 +1,40 @@
 import { Extension } from '../constants.js';
-import { ColonyVersion } from './IColony.js';
+import { type ColonyVersion } from './IColony.js';
 import {
   FUNDING_QUEUE_VERSION_LATEST,
-  FundingQueueVersion,
+  type FundingQueueVersion,
 } from './FundingQueue.js';
 import {
   MULTISIG_PERMISSIONS_VERSION_LATEST,
-  MultisigPermissionsVersion,
+  type MultisigPermissionsVersion,
 } from './MultisigPermissions.js';
 import {
   ONE_TX_PAYMENT_VERSION_LATEST,
-  OneTxPaymentVersion,
+  type OneTxPaymentVersion,
 } from './OneTxPayment.js';
 import {
   REPUTATION_BOOTSTRAPPER_VERSION_LATEST,
-  ReputationBootstrapperVersion,
+  type ReputationBootstrapperVersion,
 } from './ReputationBootstrapper.js';
 import {
   STAKED_EXPENDITURE_VERSION_LATEST,
-  StakedExpenditureVersion,
+  type StakedExpenditureVersion,
 } from './StakedExpenditure.js';
 import {
   STAGED_EXPENDITURE_VERSION_LATEST,
-  StagedExpenditureVersion,
+  type StagedExpenditureVersion,
 } from './StagedExpenditure.js';
 import {
   STREAMING_PAYMENTS_VERSION_LATEST,
-  StreamingPaymentsVersion,
+  type StreamingPaymentsVersion,
 } from './StreamingPayments.js';
 import {
   TOKEN_SUPPLIER_VERSION_LATEST,
-  TokenSupplierVersion,
+  type TokenSupplierVersion,
 } from './TokenSupplier.js';
 import {
   VOTING_REPUTATION_VERSION_LATEST,
-  VotingReputationVersion,
+  type VotingReputationVersion,
 } from './VotingReputation.js';
 
 export * from './helpers.js';
@@ -77,40 +77,40 @@ export type ContractVersion = ExtensionVersion | ColonyVersion;
 /**
  * All possible Colony versions
  */
-export { ColonyVersion } from './IColony.js';
+export type { ColonyVersion } from './IColony.js';
 /**
  * All possible FundingQueue versions
  */
-export { FundingQueueVersion } from './FundingQueue.js';
+export type { FundingQueueVersion } from './FundingQueue.js';
 /**
  * All possible MultisigPermissions versions
  */
-export { MultisigPermissionsVersion } from './MultisigPermissions.js';
+export type { MultisigPermissionsVersion } from './MultisigPermissions.js';
 /**
  * All possible OneTxPayment versions
  */
-export { OneTxPaymentVersion } from './OneTxPayment.js';
+export type { OneTxPaymentVersion } from './OneTxPayment.js';
 /**
  * All possible ReputationBootstrapper versions
  */
-export { ReputationBootstrapperVersion } from './ReputationBootstrapper.js';
+export type { ReputationBootstrapperVersion } from './ReputationBootstrapper.js';
 /**
  * All possible StagedExpenditure versions
  */
-export { StagedExpenditureVersion } from './StagedExpenditure.js';
+export type { StagedExpenditureVersion } from './StagedExpenditure.js';
 /**
  * All possible StakedExpenditure versions
  */
-export { StakedExpenditureVersion } from './StakedExpenditure.js';
+export type { StakedExpenditureVersion } from './StakedExpenditure.js';
 /**
  * All possible StreamingPayments versions
  */
-export { StreamingPaymentsVersion } from './StreamingPayments.js';
+export type { StreamingPaymentsVersion } from './StreamingPayments.js';
 /**
  * All possible TokenSupplier versions
  */
-export { TokenSupplierVersion } from './TokenSupplier.js';
+export type { TokenSupplierVersion } from './TokenSupplier.js';
 /**
  * All possible VotingReputation versions
  */
-export { VotingReputationVersion } from './VotingReputation.js';
+export type { VotingReputationVersion } from './VotingReputation.js';

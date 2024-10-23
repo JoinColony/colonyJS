@@ -2,7 +2,7 @@
 
 import type { SignerOrProvider } from '@colony/core';
 
-import { Contract, BigNumber } from 'ethers';
+import { Contract, type BigNumber } from 'ethers';
 
 interface ExtensionVersionClient extends Contract {
   version(): Promise<BigNumber>;

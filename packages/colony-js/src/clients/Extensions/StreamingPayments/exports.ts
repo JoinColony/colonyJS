@@ -2,14 +2,14 @@ import type { StreamingPaymentsVersion } from '@colony/core';
 
 import { assertExhaustiveSwitch } from '@colony/core/utils';
 
-import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
-import { ValidColony } from './augments/commonAugments.js';
+import { type AugmentedIColony } from '../../Core/augments/commonAugments.js';
+import { type ValidColony } from './augments/commonAugments.js';
 
 import getStreamingPaymentsClientV5, {
-  StreamingPaymentsClientV5,
+  type StreamingPaymentsClientV5,
 } from './StreamingPaymentsClientV5.js';
 
-export { StreamingPaymentsClientV5 } from './StreamingPaymentsClientV5.js';
+export type { StreamingPaymentsClientV5 } from './StreamingPaymentsClientV5.js';
 
 export type AnyStreamingPaymentsClient = StreamingPaymentsClientV5;
 

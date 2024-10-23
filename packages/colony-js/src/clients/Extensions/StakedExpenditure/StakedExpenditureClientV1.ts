@@ -5,8 +5,8 @@ import { StakedExpenditure__factory as StakedExpenditureFactory } from '../../..
 import { ClientType } from '../../../constants.js';
 import {
   addAugments,
-  AugmentedStakedExpenditure,
-  ValidColony,
+  type AugmentedStakedExpenditure,
+  type ValidColony,
 } from './augments/commonAugments.js';
 
 export interface StakedExpenditureClientV1

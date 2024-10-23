@@ -1,4 +1,8 @@
-import { BigNumber, BigNumberish, ContractTransaction } from 'ethers';
+import {
+  type BigNumber,
+  type BigNumberish,
+  type ContractTransaction,
+} from 'ethers';
 import {
   type TxOverrides,
   ColonyRole,
@@ -9,14 +13,17 @@ import {
 } from '@colony/core';
 
 import {
-  IColonyV6,
-  IColonyV12,
-  IColonyV13,
-  IColonyV14,
-  IColonyV15,
-  IColonyV16,
+  type IColonyV6,
+  type IColonyV12,
+  type IColonyV13,
+  type IColonyV14,
+  type IColonyV15,
+  type IColonyV16,
 } from '../contracts.js';
-import { AugmentedIColony, UnknownIColonyClient } from './commonAugments.js';
+import {
+  type AugmentedIColony,
+  type UnknownIColonyClient,
+} from './commonAugments.js';
 
 // Colonies that support the earlier (not-overloaded) method
 type ValidColonyA = IColonyV6;

@@ -1,8 +1,8 @@
 import {
-  BigNumberish,
-  BigNumber,
-  ContractTransaction,
-  BytesLike,
+  type BigNumberish,
+  type BigNumber,
+  type ContractTransaction,
+  type BytesLike,
 } from 'ethers';
 import {
   type StakedExpenditureVersion,
@@ -16,15 +16,15 @@ import {
 } from '@colony/events';
 
 import { ClientType } from '../../../../constants.js';
-import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
+import { type AugmentedIColony } from '../../../Core/augments/commonAugments.js';
 import {
-  IColonyV12,
-  IColonyV13,
-  IColonyV14,
-  IColonyV15,
-  IColonyV16,
+  type IColonyV12,
+  type IColonyV13,
+  type IColonyV14,
+  type IColonyV15,
+  type IColonyV16,
 } from '../../../Core/contracts.js';
-import { AnyStakedExpenditure } from '../contracts.js';
+import { type AnyStakedExpenditure } from '../contracts.js';
 
 export type ValidColony =
   | IColonyV12

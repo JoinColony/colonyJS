@@ -5,13 +5,13 @@ import { constants } from 'ethers';
 import { ClientType, TokenClientType } from '../constants.js';
 import {
   MetaTxToken__factory as MetaTxTokenFactory,
-  MetaTxToken,
+  type MetaTxToken,
 } from '../contracts/index.js';
 import {
   TokenERC20__factory as TokenERC20Factory,
-  TokenERC20,
+  type TokenERC20,
   TokenERC2612__factory as TokenERC2612Factory,
-  TokenERC2612,
+  type TokenERC2612,
 } from '../contracts/static/index.js';
 
 const { AddressZero } = constants;

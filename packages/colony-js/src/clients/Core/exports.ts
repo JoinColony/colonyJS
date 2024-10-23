@@ -1,7 +1,7 @@
 import type { ColonyVersion } from '@colony/core';
 import { getTokenClient } from '@colony/tokens';
 
-import { ColonyNetworkClient } from '../ColonyNetworkClient.js';
+import { type ColonyNetworkClient } from '../ColonyNetworkClient.js';
 import getColonyVersionClient from './ColonyVersionClient.js';
 
 import getColonyClientV1 from './ColonyClientV1.js';
@@ -15,17 +15,17 @@ import getColonyClientV8 from './ColonyClientV8.js';
 import getColonyClientV9 from './ColonyClientV9.js';
 import getColonyClientV10 from './ColonyClientV10.js';
 import getColonyClientV11 from './ColonyClientV11.js';
-import getColonyClientV12, { ColonyClientV12 } from './ColonyClientV12.js';
-import getColonyClientV13, { ColonyClientV13 } from './ColonyClientV13.js';
-import getColonyClientV14, { ColonyClientV14 } from './ColonyClientV14.js';
-import getColonyClientV15, { ColonyClientV15 } from './ColonyClientV15.js';
-import getColonyClientV16, { ColonyClientV16 } from './ColonyClientV16.js';
+import getColonyClientV12, { type ColonyClientV12 } from './ColonyClientV12.js';
+import getColonyClientV13, { type ColonyClientV13 } from './ColonyClientV13.js';
+import getColonyClientV14, { type ColonyClientV14 } from './ColonyClientV14.js';
+import getColonyClientV15, { type ColonyClientV15 } from './ColonyClientV15.js';
+import getColonyClientV16, { type ColonyClientV16 } from './ColonyClientV16.js';
 
-export { ColonyClientV12 } from './ColonyClientV12.js';
-export { ColonyClientV13 } from './ColonyClientV13.js';
-export { ColonyClientV14 } from './ColonyClientV14.js';
-export { ColonyClientV15 } from './ColonyClientV15.js';
-export { ColonyClientV16 } from './ColonyClientV16.js';
+export type { ColonyClientV12 } from './ColonyClientV12.js';
+export type { ColonyClientV13 } from './ColonyClientV13.js';
+export type { ColonyClientV14 } from './ColonyClientV14.js';
+export type { ColonyClientV15 } from './ColonyClientV15.js';
+export type { ColonyClientV16 } from './ColonyClientV16.js';
 
 export type AnyColonyClient =
   | ColonyClientV12

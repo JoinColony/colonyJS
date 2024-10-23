@@ -1,7 +1,7 @@
-import { BigNumber, BigNumberish, constants } from 'ethers';
+import { BigNumber, type BigNumberish, constants } from 'ethers';
 
 import { Network, ReputationOracleEndpoint } from '../constants.js';
-import { CommonColony, CommonNetwork } from './types.js';
+import { type CommonColony, type CommonNetwork } from './types.js';
 
 interface ReputationClientOptions {
   customEndpointUrl?: string;
