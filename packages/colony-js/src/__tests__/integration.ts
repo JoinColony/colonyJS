@@ -9,18 +9,18 @@ import getColonyNetworkClient from '../clients/ColonyNetworkClient.js';
 let provider: JsonRpcProvider;
 
 beforeAll(async () => {
-  provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
+  provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.ArbitrumOne);
 });
 
 describe('ColonyNetwork', () => {
   it('Can get the colony network', async () => {
     const colonyNetworkClient = getColonyNetworkClient(
-      Network.Gnosis,
+      Network.ArbitrumOne,
       provider,
     );
     const metaColonyAddress = await colonyNetworkClient.getMetaColony();
     expect(metaColonyAddress).toEqual(
-      '0xCFD3aa1EbC6119D80Ed47955a87A9d9C281A97B3',
+      '0xa405A3353Bc7d6048C64BC3663f665A01fF3f43f',
     );
   });
 });

@@ -8,13 +8,13 @@ import {
 
 const { formatEther, isAddress } = utils;
 
-const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
+const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.ArbitrumOne);
 
-// Get the Colony's CLNY funding in the root domain (on Gnosis chain)
+// Get the Colony's CLNY funding in the root domain (on Arbitrum One)
 const getColonyFunding = async (colonyAddress: string) => {
   const colonyNetwork = new ColonyNetwork(provider);
   const colony = await colonyNetwork.getColony(colonyAddress);
-  const funding = await colony.getBalance(Tokens.Gnosis.CLNY);
+  const funding = await colony.getBalance(Tokens.ArbitrumOne.CLNY);
   return formatEther(funding);
 };
 

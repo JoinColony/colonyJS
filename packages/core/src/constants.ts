@@ -68,7 +68,7 @@ export enum ReputationOracleEndpoint {
   Xdai = 'https://xdai.colony.io/reputation/xdai',
   XdaiQa = 'https://qa-xdai.colony.io/reputation/xdai',
   Custom = 'http://localhost:3000',
-  ArbitrumOne = 'https://arbitrum.colony.io/reputation/arbitrum-one',
+  ArbitrumOne = 'https://app.colony.io/reputation/arbitrum-one',
   ArbitrumSepolia = `https://arbitrum-sepolia.colony.io/reputation/arbitrum-sepolia`,
 }
 
@@ -89,7 +89,7 @@ export enum MetaTxBroadCasterEndpoint {
   /** The metatransaction broadcaster endpoint for a custom network */
   Custom = '',
   /** The metatransaction broadcaster endpoint on Arbitrum One */
-  ArbitrumOne = 'https://arbitrum.colony.io/metatransaction/arbitrum-one',
+  ArbitrumOne = 'https://app.colony.io/metatransaction/arbitrum-one',
   /** The metatransaction broadcaster endpoint on Arbitrum Sepolia testnet */
   ArbitrumSepolia = `https://arbitrum-sepolia.colony.io/metatransaction/arbitrum-sepolia`,
 }
@@ -111,9 +111,9 @@ export enum ColonyRpcEndpoint {
   /** Colony's own RPC2 endpoint for a custom network */
   Custom = '',
   /** Colony's own RPC2 endpoint for Arbitrum One */
-  ArbitrumOne = 'https://arbitrum.colony.io/publicrpc/',
+  ArbitrumOne = 'https://app.colony.io/public-rpc/',
   /** Colony's own RPC2 endpoint for Arbitrum Sepolia testnet */
-  ArbitrumSepolia = 'https://arbitrum-sepolia.colony.io/publicrpc/',
+  ArbitrumSepolia = 'https://arbitrum-sepolia.colony.io/public-rpc/',
 }
 
 /**

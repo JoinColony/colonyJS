@@ -9,7 +9,7 @@ import {
   SupportedExtension,
 } from '../../src/index.js';
 
-const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
+const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.ArbitrumOne);
 
 if (!process.env.PRIVATE_KEY) {
   throw new Error(

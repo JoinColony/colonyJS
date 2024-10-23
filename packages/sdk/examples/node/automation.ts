@@ -3,7 +3,7 @@ import 'cross-fetch/dist/node-polyfill.js';
 
 import { ColonyNetwork, ColonyRpcEndpoint, w } from '../../src/index.js';
 
-const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
+const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.ArbitrumOne);
 
 if (!process.env.PRIVATE_KEY) {
   throw new Error('Please provide PRIVATE_KEY as an environment variable');
@@ -19,7 +19,8 @@ const start = async () => {
   const colonyNetwork = new ColonyNetwork(wallet);
   // Get an instance of your favourite colony
   const colony = await colonyNetwork.getColony(
-    '0x364B3153A24bb9ECa28B8c7aCeB15E3942eb4fc5',
+    // https://app.colony.io/neverland
+    '0x9fBa8C85A1C7EEd48785A760E9399FcB6Fa5b04A',
   );
 
   // Define recipients and amounts to pay out

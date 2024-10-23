@@ -18,14 +18,14 @@ These examples assume that the user executing the transactions has funds in thei
 
 ## Step 1 - Deploying the Colony contract (and optionally its token)
 
-The most important step. Here the actualy Colony contract will be deployed. This happens by executing a contract method on the `ColonyNetwork` (as opposed to a deploy-transaction):
+The most important step. Here the actual Colony contract will be deployed. This happens by executing a contract method on the `ColonyNetwork` (as opposed to a deploy-transaction):
 
 ```typescript
 import { providers } from 'ethers';
 import { ColonyNetwork, ColonyRpcEndpoint, Wallet } from '@colony/sdk';
 
 // Prepare your provider and signer (wallet)
-const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
+const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.ArbitrumOne);
 const wallet = Wallet.createRandom().connect(provider);
 // Instantiate Colony Network
 const colonyNetwork = new ColonyNetwork(wallet);
@@ -41,9 +41,10 @@ One can specify the token name, its symbol and even its decimals (even though it
 You can also use an already existing token. For that, instead of passing in the token's details as the first argument, just use the token's address (it needs to be in the same chain your Colony is deployed in), like so:
 
 ```typescript
-// Use USDC on Gnosis chain as the native token
+import { Tokens } from '@colony/sdk';
+// Use USDC on ArbitrumOne chain as the native token
 const [{ colonyAddress }] = await colonyNetwork
-  .createColony('0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83', 'anothertestname')
+  .createColony(Tokens.ArbitrumOne.USDC, 'anothertestname')
   .tx().mined();
 ```
 

@@ -27,7 +27,7 @@ npm install ethers @colony/sdk
 
 You'll need `ethers` v5.x as a dependency in your project.
 
-## Connecting to Colony on Gnosis Chain
+## Connecting to Colony on ArbitrumOne Chain
 
 <Tabs>
 <TabItem value="browser" label="In the browser (using MetaMask)" default>
@@ -41,7 +41,7 @@ import { providers } from 'ethers';
 import { ColonyNetwork, toEth } from '@colony/sdk';
 
 // If MetaMask is installed there will be an `ethereum` object on the `window`
-// NOTE: Make sure MetaMask is connected to Gnosis chain (see https://docs.gnosischain.com/tools/wallets/metamask)
+// NOTE: Make sure MetaMask is connected to ArbitrumOne chain (use https://app.colony.io/public-rpc or see https://chainlist.org/chain/42161)
 const provider = new providers.Web3Provider(window.ethereum);
 
 // Get the Colony's XDAI funding in the ROOT pot (id 1)
@@ -68,12 +68,12 @@ Include the resulting bundle in an HTML file and open it in you favorite browser
 
 ```javascript
 const { providers, Wallet } = require('ethers');
-const { ColonyNetwork } = require('@colony/sdk');
+const { ColonyNetwork, ColonyRpcEndpoint } = require('@colony/sdk');
 
-const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc/');
+const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.ArbitrumOne);
 const wallet = Wallet.createRandom().connect(provider);
 
-// Get the Colony's XDAI funding in the ROOT pot (id 1)
+// Get the Colony's CLNY funding in the ROOT pot (id 1)
 const start = async () => {
   // Create a new connection to the Colony Network contracts using the MetaMask "wallet"
   const colonyNetwork = new ColonyNetwork(wallet);

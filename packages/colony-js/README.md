@@ -22,7 +22,7 @@ import { getColonyNetworkClient, ColonRpcEndpoint, Id, Network, Tokens } from '@
 
 const { formatEther } = utils;
 
-const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
+const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.ArbitrumOne);
 
 const start = async () => {
   // Get a wallet instance
@@ -35,16 +35,16 @@ const start = async () => {
   // Check out the logs to see the wallet address
   console.log('Wallet Address:', wallet.address);
 
-  // Get a network client instance for Gnosis Chain
+  // Get a network client instance for ArbitrumOne Chain
   const networkClient = getColonyNetworkClient(
-    Network.Gnosis,
+    Network.ArbitrumOne,
     wallet,
   );
 
   // Let's connect to the Meta Colony
   const metaColonyClient = await networkClient.getMetaColonyClient()
   // And check out it's CLNY funding
-  const funding = await metaColonyClient.getFundingPotBalance(Id.RootPot, Tokens.Gnosis.CLNY);
+  const funding = await metaColonyClient.getFundingPotBalance(Id.RootPot, Tokens.ArbitrumOne.CLNY);
   // We can also see its address
   const { address } = metaColonyClient;
   console.info(`${formatEther(funding)} CLNY in root domain of MetaColony with address: ${address}`);

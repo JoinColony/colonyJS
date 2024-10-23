@@ -55,7 +55,7 @@ export class ReputationClient {
     this.colony = colony;
     this.network = network;
 
-    const networkName = config?.network || Network.Gnosis;
+    const networkName = config?.network || Network.ArbitrumOne;
     this.endpointUrl =
       config?.customEndpointUrl || ReputationOracleEndpoint[networkName];
   }

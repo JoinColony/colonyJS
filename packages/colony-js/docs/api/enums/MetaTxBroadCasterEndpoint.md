@@ -6,7 +6,7 @@ HTTP endpoint of the official Colony MetaTransaction (gasless transaction) broad
 
 ### ArbitrumOne
 
-• **ArbitrumOne** = ``"https://arbitrum.colony.io/metatransaction/arbitrum-one"``
+• **ArbitrumOne** = ``"https://app.colony.io/metatransaction/arbitrum-one"``
 
 The metatransaction broadcaster endpoint on Arbitrum One
 
