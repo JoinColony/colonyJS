@@ -1,23 +1,27 @@
-import { BigNumberish, ContractReceipt, ContractTransaction } from 'ethers';
 import {
-  ColonyRole,
+  type BigNumberish,
+  type ContractReceipt,
+  type ContractTransaction,
+} from 'ethers';
+import {
+  type ColonyRole,
   getPermissionProofs,
   getCreateMotionProofs,
   Id,
 } from '@colony/core';
-import { MetadataType, type VotingReputationEvents } from '@colony/events';
+import { type MetadataType, type VotingReputationEvents } from '@colony/events';
 
 import type { TransactionResponse } from '@ethersproject/abstract-provider';
-import { Colony } from '../ColonyNetwork/index.js';
+import { type Colony } from '../ColonyNetwork/index.js';
 import { extractEvent } from '../utils.js';
 import {
-  TxCreatorConfig,
-  EventData,
-  ColonyTransaction,
-  ColonyMetaTransaction,
+  type TxCreatorConfig,
+  type EventData,
+  type ColonyTransaction,
+  type ColonyMetaTransaction,
 } from './TxCreator.js';
-import { MetaTxBaseContract, MetaTxCreator } from './MetaTxCreator.js';
-import { ParsedLogTransactionReceipt } from '../types.js';
+import { type MetaTxBaseContract, MetaTxCreator } from './MetaTxCreator.js';
+import { type ParsedLogTransactionReceipt } from '../types.js';
 
 export interface PermissionConfig {
   domain: BigNumberish;

@@ -5,8 +5,8 @@ import { TokenSupplier__factory as TokenSupplierFactory } from '../../../contrac
 import { ClientType } from '../../../constants.js';
 import {
   addAugments,
-  AugmentedTokenSupplier,
-  ValidColony,
+  type AugmentedTokenSupplier,
+  type ValidColony,
 } from './augments/commonAugments.js';
 
 export interface TokenSupplierClientV7

@@ -2,35 +2,35 @@ import type { FundingQueueVersion } from '@colony/core';
 
 import { assertExhaustiveSwitch } from '@colony/core/utils';
 
-import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
+import { type AugmentedIColony } from '../../Core/augments/commonAugments.js';
 
 import getFundingQueueClientV1 from './FundingQueueClientV1.js';
 import getFundingQueueClientV2 from './FundingQueueClientV2.js';
 import getFundingQueueClientV3, {
-  FundingQueueClientV3,
+  type FundingQueueClientV3,
 } from './FundingQueueClientV3.js';
 import getFundingQueueClientV4, {
-  FundingQueueClientV4,
+  type FundingQueueClientV4,
 } from './FundingQueueClientV4.js';
 import getFundingQueueClientV5, {
-  FundingQueueClientV5,
+  type FundingQueueClientV5,
 } from './FundingQueueClientV5.js';
 import getFundingQueueClientV6, {
-  FundingQueueClientV6,
+  type FundingQueueClientV6,
 } from './FundingQueueClientV6.js';
 import getFundingQueueClientV7, {
-  FundingQueueClientV7,
+  type FundingQueueClientV7,
 } from './FundingQueueClientV7.js';
 import getFundingQueueClientV8, {
-  FundingQueueClientV8,
+  type FundingQueueClientV8,
 } from './FundingQueueClientV8.js';
 
-export { FundingQueueClientV3 } from './FundingQueueClientV3.js';
-export { FundingQueueClientV4 } from './FundingQueueClientV4.js';
-export { FundingQueueClientV5 } from './FundingQueueClientV5.js';
-export { FundingQueueClientV6 } from './FundingQueueClientV6.js';
-export { FundingQueueClientV7 } from './FundingQueueClientV7.js';
-export { FundingQueueClientV8 } from './FundingQueueClientV8.js';
+export type { FundingQueueClientV3 } from './FundingQueueClientV3.js';
+export type { FundingQueueClientV4 } from './FundingQueueClientV4.js';
+export type { FundingQueueClientV5 } from './FundingQueueClientV5.js';
+export type { FundingQueueClientV6 } from './FundingQueueClientV6.js';
+export type { FundingQueueClientV7 } from './FundingQueueClientV7.js';
+export type { FundingQueueClientV8 } from './FundingQueueClientV8.js';
 
 export type AnyFundingQueueClient =
   | FundingQueueClientV3

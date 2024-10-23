@@ -5,9 +5,9 @@ import { OneTxPayment__factory as OneTxPaymentFactory } from '../../../contracts
 import { ClientType } from '../../../constants.js';
 import {
   addAugments,
-  AugmentedEstimate,
-  AugmentedOneTxPayment,
-  ValidColony,
+  type AugmentedEstimate,
+  type AugmentedOneTxPayment,
+  type ValidColony,
 } from './augments/commonAugments.js';
 
 type OneTxPaymentEstimate = AugmentedEstimate<OneTxPayment>;

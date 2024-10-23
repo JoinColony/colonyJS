@@ -1,7 +1,13 @@
-import { providers, utils, Signer, ContractReceipt, BigNumber } from 'ethers';
+import {
+  providers,
+  utils,
+  type Signer,
+  type ContractReceipt,
+  type BigNumber,
+} from 'ethers';
 
 import {
-  Colony,
+  type Colony,
   ColonyNetwork,
   PinataAdapter,
   toEth,

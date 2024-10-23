@@ -1,7 +1,7 @@
 export {
   IpfsMetadata,
   IpfsMetadataEvents,
-  MetadataEvent,
+  type MetadataEvent,
 } from './IpfsMetadata.js';
 
 export { default as PinataAdapter } from './PinataAdapter.js';

@@ -4,8 +4,8 @@ import type { StakedExpenditure } from '../../../contracts/StakedExpenditure/6/i
 import { StakedExpenditure__factory as StakedExpenditureFactory } from '../../../contracts/StakedExpenditure/6/factories/StakedExpenditure__factory.js';
 import {
   addAugments,
-  AugmentedStakedExpenditure,
-  ValidColony,
+  type AugmentedStakedExpenditure,
+  type ValidColony,
 } from './augments/commonAugments.js';
 import { ClientType } from '../../../constants.js';
 

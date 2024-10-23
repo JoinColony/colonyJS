@@ -1,10 +1,10 @@
 export {
-  ColonyEvent,
+  type ColonyEvent,
   ColonyEventManager,
-  ColonyEventManagerOptions,
-  ColonyTopic,
-  ColonyFilter,
-  ColonyMultiFilter,
+  type ColonyEventManagerOptions,
+  type ColonyTopic,
+  type ColonyFilter,
+  type ColonyMultiFilter,
   type EventSource,
 } from './ColonyEventManager.js';
 

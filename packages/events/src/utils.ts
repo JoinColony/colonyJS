@@ -1,7 +1,7 @@
 import type { Log } from '@ethersproject/abstract-provider';
 import type { JsonRpcProvider } from '@ethersproject/providers';
 
-import { Ethers6Filter, Ethers6FilterByBlockHash } from './types.js';
+import { type Ethers6Filter, type Ethers6FilterByBlockHash } from './types.js';
 
 /** Version of `getLogs` that also supports filtering for multiple addresses */
 export const getLogs = async (

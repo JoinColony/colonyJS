@@ -16,9 +16,9 @@ import type {
 } from '@colony/tokens';
 import type { ColonyRole } from '@colony/core';
 
-import { AnyColonyClient } from './clients/Core/exports.js';
-import { ExtensionClient } from './clients/Extensions/exports.js';
-import { ColonyNetworkClient } from './clients/ColonyNetworkClient.js';
+import { type AnyColonyClient } from './clients/Core/exports.js';
+import { type ExtensionClient } from './clients/Extensions/exports.js';
+import { type ColonyNetworkClient } from './clients/ColonyNetworkClient.js';
 
 export type EventsClient =
   | EvaluatedExpenditureEvents.EvaluatedExpenditureEvents

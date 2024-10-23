@@ -1,4 +1,7 @@
 {
+    "parserOptions": {
+        "project": "./tsconfig.json"
+    },
     "rules": {
         "camelcase": [
             "error",

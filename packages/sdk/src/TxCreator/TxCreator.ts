@@ -1,16 +1,20 @@
 import type { TransactionResponse } from '@ethersproject/abstract-provider';
 
-import { Contract, ContractReceipt, ContractTransaction } from 'ethers';
+import {
+  type Contract,
+  type ContractReceipt,
+  type ContractTransaction,
+} from 'ethers';
 import { parseLogs } from '@colony/core';
 import {
   type MetadataTypeMap,
   type VotingReputationEvents,
   IpfsMetadataEvents,
-  MetadataType,
+  type MetadataType,
 } from '@colony/events';
 
-import { ParsedLogTransactionReceipt } from '../types.js';
-import { ColonyNetwork } from '../ColonyNetwork/index.js';
+import { type ParsedLogTransactionReceipt } from '../types.js';
+import { type ColonyNetwork } from '../ColonyNetwork/index.js';
 
 export interface TxConfig<M> {
   metadataType?: M;

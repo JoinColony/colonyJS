@@ -1,4 +1,8 @@
-import { BigNumber, BigNumberish, ContractTransaction } from 'ethers';
+import {
+  type BigNumber,
+  type BigNumberish,
+  type ContractTransaction,
+} from 'ethers';
 import {
   type TxOverrides,
   ColonyRole,

@@ -5,8 +5,8 @@ import { StreamingPayments__factory as StreamingPaymentsFactory } from '../../..
 import { ClientType } from '../../../constants.js';
 import {
   addAugments,
-  AugmentedStreamingPayments,
-  ValidColony,
+  type AugmentedStreamingPayments,
+  type ValidColony,
 } from './augments/commonAugments.js';
 
 export interface StreamingPaymentsClientV5

@@ -1,18 +1,24 @@
-import { BigNumber, BigNumberish, BytesLike, constants, utils } from 'ethers';
+import {
+  BigNumber,
+  type BigNumberish,
+  type BytesLike,
+  constants,
+  utils,
+} from 'ethers';
 
 import { ColonyRole, Id } from '../constants.js';
 import {
   MotionTarget__factory as MotionTargetFactory,
-  MotionTarget,
+  type MotionTarget,
 } from '../contracts/index.js';
 
 import { parsePermissionedAction } from './permissions.js';
 import {
-  CommonColony,
-  CommonNetwork,
-  CommonVotingReputation,
+  type CommonColony,
+  type CommonNetwork,
+  type CommonVotingReputation,
 } from './types.js';
-import { ReputationClient } from './reputation.js';
+import { type ReputationClient } from './reputation.js';
 import { hex2ColonyRoles } from './network.js';
 
 const { MaxUint256 } = constants;

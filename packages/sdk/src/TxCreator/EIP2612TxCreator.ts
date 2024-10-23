@@ -1,13 +1,17 @@
 import type { TypedDataSigner } from '@ethersproject/abstract-signer';
 import type { TransactionResponse } from '@ethersproject/abstract-provider';
 
-import { BigNumberish, Signer, utils } from 'ethers';
+import { type BigNumberish, type Signer, utils } from 'ethers';
 import { Network } from '@colony/core';
-import { MetadataType } from '@colony/events';
-import { ERC2612Token as ERC2612TokenType } from '@colony/tokens';
+import { type MetadataType } from '@colony/events';
+import { type ERC2612Token as ERC2612TokenType } from '@colony/tokens';
 
-import { ColonyMetaTransaction, EventData, TxCreator } from './TxCreator.js';
-import { ParsedLogTransactionReceipt } from '../types.js';
+import {
+  type ColonyMetaTransaction,
+  type EventData,
+  TxCreator,
+} from './TxCreator.js';
+import { type ParsedLogTransactionReceipt } from '../types.js';
 
 const { splitSignature } = utils;
 

@@ -1,15 +1,20 @@
 import type { Result } from '@ethersproject/abi';
 import type { BlockTag } from '@ethersproject/abstract-provider';
 
-import { constants, providers, EventFilter, BaseContract } from 'ethers';
-import { addressesAreEqual, SignerOrProvider } from '@colony/core';
+import {
+  constants,
+  type providers,
+  type EventFilter,
+  type BaseContract,
+} from 'ethers';
+import { addressesAreEqual, type SignerOrProvider } from '@colony/core';
 
 import {
   type IpfsAdapter,
   type MetadataEvent,
   type MetadataTypeMap,
   IpfsMetadata,
-  MetadataType,
+  type MetadataType,
 } from './ipfs/index.js';
 import type { Ethers6Filter } from './types.js';
 import { getLogs, nonNullable } from './utils.js';

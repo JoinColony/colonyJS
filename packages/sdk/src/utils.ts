@@ -1,8 +1,8 @@
 import type { Interface } from '@ethersproject/abi';
 
-import { ContractReceipt } from 'ethers';
+import { type ContractReceipt } from 'ethers';
 
-import { ParsedLogTransactionReceipt } from './types.js';
+import { type ParsedLogTransactionReceipt } from './types.js';
 
 /** Extract event args from a contract receipt */
 // TODO: Make it possible to retrieve multiple events of the same kind

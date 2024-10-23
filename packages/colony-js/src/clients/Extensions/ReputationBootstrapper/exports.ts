@@ -2,29 +2,29 @@ import type { ReputationBootstrapperVersion } from '@colony/core';
 
 import { assertExhaustiveSwitch } from '@colony/core/utils';
 
-import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
+import { type AugmentedIColony } from '../../Core/augments/commonAugments.js';
 
 import getReputationBootstrapperClientV1, {
-  ReputationBootstrapperClientV1,
+  type ReputationBootstrapperClientV1,
 } from './ReputationBootstrapperClientV1.js';
 import getReputationBootstrapperClientV2, {
-  ReputationBootstrapperClientV2,
+  type ReputationBootstrapperClientV2,
 } from './ReputationBootstrapperClientV2.js';
 import getReputationBootstrapperClientV3, {
-  ReputationBootstrapperClientV3,
+  type ReputationBootstrapperClientV3,
 } from './ReputationBootstrapperClientV3.js';
 import getReputationBootstrapperClientV4, {
-  ReputationBootstrapperClientV4,
+  type ReputationBootstrapperClientV4,
 } from './ReputationBootstrapperClientV4.js';
 import getReputationBootstrapperClientV5, {
-  ReputationBootstrapperClientV5,
+  type ReputationBootstrapperClientV5,
 } from './ReputationBootstrapperClientV5.js';
 
-export { ReputationBootstrapperClientV1 } from './ReputationBootstrapperClientV1.js';
-export { ReputationBootstrapperClientV2 } from './ReputationBootstrapperClientV2.js';
-export { ReputationBootstrapperClientV3 } from './ReputationBootstrapperClientV3.js';
-export { ReputationBootstrapperClientV4 } from './ReputationBootstrapperClientV4.js';
-export { ReputationBootstrapperClientV5 } from './ReputationBootstrapperClientV5.js';
+export type { ReputationBootstrapperClientV1 } from './ReputationBootstrapperClientV1.js';
+export type { ReputationBootstrapperClientV2 } from './ReputationBootstrapperClientV2.js';
+export type { ReputationBootstrapperClientV3 } from './ReputationBootstrapperClientV3.js';
+export type { ReputationBootstrapperClientV4 } from './ReputationBootstrapperClientV4.js';
+export type { ReputationBootstrapperClientV5 } from './ReputationBootstrapperClientV5.js';
 
 export type AnyReputationBootstrapperClient =
   | ReputationBootstrapperClientV1

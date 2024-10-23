@@ -6,10 +6,10 @@ import {
 } from '@colony/events';
 
 import { ClientType } from '../../../../constants.js';
-import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
+import { type AugmentedIColony } from '../../../Core/augments/commonAugments.js';
 
-import { AnyFundingQueue } from '../contracts.js';
-import { AnyIColony } from '../../../Core/contracts.js';
+import { type AnyFundingQueue } from '../contracts.js';
+import { type AnyIColony } from '../../../Core/contracts.js';
 
 export type ValidColony = AnyIColony;
 

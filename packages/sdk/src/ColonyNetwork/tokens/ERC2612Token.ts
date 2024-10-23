@@ -1,8 +1,8 @@
 import type { TokenEvents } from '@colony/events';
 
-import { BigNumber, BigNumberish } from 'ethers';
+import { type BigNumber, type BigNumberish } from 'ethers';
 import {
-  ERC2612Token as ERC2612TokenType,
+  type ERC2612Token as ERC2612TokenType,
   ERC2612TokenFactory,
 } from '@colony/tokens';
 

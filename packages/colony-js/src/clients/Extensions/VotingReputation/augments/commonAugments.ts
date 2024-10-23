@@ -1,4 +1,4 @@
-import { ContractTransaction, BigNumberish, BigNumber } from 'ethers';
+import { type ContractTransaction, type BigNumberish, BigNumber } from 'ethers';
 import {
   type TxOverrides,
   type VotingReputationVersion,
@@ -12,8 +12,8 @@ import {
 } from '@colony/events';
 
 import { ClientType } from '../../../../constants.js';
-import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
-import { AnyVotingReputation } from '../contracts.js';
+import { type AugmentedIColony } from '../../../Core/augments/commonAugments.js';
+import { type AnyVotingReputation } from '../contracts.js';
 
 export type AugmentedEstimate<
   T extends AnyVotingReputation = AnyVotingReputation,

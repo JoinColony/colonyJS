@@ -1,7 +1,7 @@
-import { BigNumber, BigNumberish, providers, utils } from 'ethers';
+import { BigNumber, type BigNumberish, providers, utils } from 'ethers';
 
 import {
-  Colony,
+  type Colony,
   ColonyNetwork,
   MotionState,
   toEth,

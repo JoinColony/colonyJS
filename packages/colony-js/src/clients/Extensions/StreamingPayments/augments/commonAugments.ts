@@ -1,7 +1,7 @@
 import {
-  BigNumberish,
-  BigNumber,
-  ContractTransaction,
+  type BigNumberish,
+  type BigNumber,
+  type ContractTransaction,
   constants,
 } from 'ethers';
 import {
@@ -11,20 +11,20 @@ import {
   getPermissionProofs,
 } from '@colony/core';
 import {
-  StreamingPaymentsEvents,
+  type StreamingPaymentsEvents,
   StreamingPaymentsEvents__factory as StreamingPaymentsEventsFactory,
 } from '@colony/events';
 
 import { ClientType } from '../../../../constants.js';
-import { AugmentedIColony } from '../../../Core/augments/commonAugments.js';
+import { type AugmentedIColony } from '../../../Core/augments/commonAugments.js';
 import {
-  IColonyV12,
-  IColonyV13,
-  IColonyV14,
-  IColonyV15,
-  IColonyV16,
+  type IColonyV12,
+  type IColonyV13,
+  type IColonyV14,
+  type IColonyV15,
+  type IColonyV16,
 } from '../../../Core/contracts.js';
-import { AnyStreamingPayments } from '../contracts.js';
+import { type AnyStreamingPayments } from '../contracts.js';
 
 const { MaxUint256 } = constants;
 

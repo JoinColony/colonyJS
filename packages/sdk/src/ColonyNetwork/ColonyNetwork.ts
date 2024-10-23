@@ -1,6 +1,6 @@
 import {
-  BigNumberish,
-  ContractReceipt,
+  type BigNumberish,
+  type ContractReceipt,
   constants,
   utils,
   Signer,
@@ -25,18 +25,18 @@ import {
 } from '@colony/events';
 
 import {
-  IColonyNetwork,
+  type IColonyNetwork,
   IColonyNetwork__factory as IColonyNetworkFactory,
-  IBasicMetaTransaction,
+  type IBasicMetaTransaction,
 } from '../contracts/index.js';
 import {
-  BaseContract,
-  TxConfig,
+  type BaseContract,
+  type TxConfig,
   TxCreator,
   MetaTxCreator,
 } from '../TxCreator/index.js';
 import { Colony } from './Colony.js';
-import { Expand, Parameters } from '../types.js';
+import { type Expand, type Parameters } from '../types.js';
 import { extractEvent } from '../utils.js';
 import { EIP2612TxCreator } from '../TxCreator/EIP2612TxCreator.js';
 import { TokenLocking } from './TokenLocking.js';
@@ -59,7 +59,7 @@ export interface ColonyNetworkOptions {
 }
 
 /** @internal */
-interface ColonyNetworkConfig {
+export interface ColonyNetworkConfig {
   metaTxBroadcasterEndpoint: string;
   reputationOracleEndpoint: string;
 }

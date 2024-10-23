@@ -1,4 +1,8 @@
-import { BigNumber, BigNumberish, ContractTransaction } from 'ethers';
+import {
+  type BigNumber,
+  type BigNumberish,
+  type ContractTransaction,
+} from 'ethers';
 import {
   type TxOverrides,
   ColonyRole,
@@ -6,12 +10,12 @@ import {
 } from '@colony/core';
 
 import {
-  IColonyV4,
-  IColonyV12,
-  IColonyV13,
-  IColonyV14,
-  IColonyV15,
-  IColonyV16,
+  type IColonyV4,
+  type IColonyV12,
+  type IColonyV13,
+  type IColonyV14,
+  type IColonyV15,
+  type IColonyV16,
 } from '../contracts.js';
 import type {
   AugmentedIColony,

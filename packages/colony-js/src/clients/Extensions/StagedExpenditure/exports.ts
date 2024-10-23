@@ -2,22 +2,22 @@ import type { StagedExpenditureVersion } from '@colony/core';
 
 import { assertExhaustiveSwitch } from '@colony/core/utils';
 
-import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
-import { ValidColony } from './augments/commonAugments.js';
+import { type AugmentedIColony } from '../../Core/augments/commonAugments.js';
+import { type ValidColony } from './augments/commonAugments.js';
 
 import getStagedExpenditureClientV1, {
-  StagedExpenditureClientV1,
+  type StagedExpenditureClientV1,
 } from './StagedExpenditureClientV1.js';
 import getStagedExpenditureClientV2, {
-  StagedExpenditureClientV2,
+  type StagedExpenditureClientV2,
 } from './StagedExpenditureClientV2.js';
 import getStagedExpenditureClientV3, {
-  StagedExpenditureClientV3,
+  type StagedExpenditureClientV3,
 } from './StagedExpenditureClientV3.js';
 
-export { StagedExpenditureClientV1 } from './StagedExpenditureClientV1.js';
-export { StagedExpenditureClientV2 } from './StagedExpenditureClientV2.js';
-export { StagedExpenditureClientV3 } from './StagedExpenditureClientV3.js';
+export type { StagedExpenditureClientV1 } from './StagedExpenditureClientV1.js';
+export type { StagedExpenditureClientV2 } from './StagedExpenditureClientV2.js';
+export type { StagedExpenditureClientV3 } from './StagedExpenditureClientV3.js';
 
 export type AnyStagedExpenditureClient =
   | StagedExpenditureClientV1

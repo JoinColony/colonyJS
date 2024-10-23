@@ -3,7 +3,7 @@ import type { AugmentedIColony } from '../../Core/augments/commonAugments.js';
 import { TokenSupplier__factory as TokenSupplierFactory } from '../../../contracts/TokenSupplier/2/factories/TokenSupplier__factory.js';
 import { ClientType } from '../../../constants.js';
 import {
-  UnkonwnTokenSupplierClient,
+  type UnkonwnTokenSupplierClient,
   addAugments,
 } from './augments/commonAugments.js';
 

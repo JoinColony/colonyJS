@@ -1,6 +1,6 @@
 import type { Provider } from '@ethersproject/abstract-provider';
 
-import { BigNumber, BigNumberish, Signer } from 'ethers';
+import { type BigNumber, type BigNumberish, type Signer } from 'ethers';
 
 export interface CommonDomain {
   skillId: BigNumber;

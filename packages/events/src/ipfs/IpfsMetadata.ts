@@ -1,10 +1,14 @@
 import wrapFetch from 'fetch-retry';
 
 import { createMetadataFor, parseEventMetadata } from './metadata.js';
-import IpfsAdapter from './IpfsAdapter.js';
+import type IpfsAdapter from './IpfsAdapter.js';
 import CloudflareReadonlyAdapter from './CloudflareReadonlyAdapter.js';
 import { MetadataType } from './constants.js';
-import { DataTypeMap, Metadata, MetadataTypeMap } from './types.js';
+import {
+  type DataTypeMap,
+  type Metadata,
+  type MetadataTypeMap,
+} from './types.js';
 
 const fetchRetry = wrapFetch(fetch, {
   headers: {

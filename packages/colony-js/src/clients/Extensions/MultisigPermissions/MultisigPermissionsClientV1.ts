@@ -5,8 +5,8 @@ import { MultisigPermissions__factory as MultisigPermissionsFactory } from '../.
 import { ClientType } from '../../../constants.js';
 import {
   addAugments,
-  AugmentedMultisigPermissions,
-  ValidColony,
+  type AugmentedMultisigPermissions,
+  type ValidColony,
 } from './augments/commonAugments.js';
 
 export interface MultisigPermissionsClientV1

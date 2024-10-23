@@ -2,7 +2,7 @@ import type { VotingReputationVersion } from '@colony/core';
 
 import { assertExhaustiveSwitch } from '@colony/core/utils';
 
-import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
+import { type AugmentedIColony } from '../../Core/augments/commonAugments.js';
 
 import getVotingReputationClientV1 from './VotingReputationClientV1.js';
 import getVotingReputationClientV2 from './VotingReputationClientV2.js';
@@ -11,30 +11,30 @@ import getVotingReputationClientV4 from './VotingReputationClientV4.js';
 import getVotingReputationClientV5 from './VotingReputationClientV5.js';
 import getVotingReputationClientV6 from './VotingReputationClientV6.js';
 import getVotingReputationClientV7, {
-  VotingReputationClientV7,
+  type VotingReputationClientV7,
 } from './VotingReputationClientV7.js';
 import getVotingReputationClientV8, {
-  VotingReputationClientV8,
+  type VotingReputationClientV8,
 } from './VotingReputationClientV8.js';
 import getVotingReputationClientV9, {
-  VotingReputationClientV9,
+  type VotingReputationClientV9,
 } from './VotingReputationClientV9.js';
 import getVotingReputationClientV10, {
-  VotingReputationClientV10,
+  type VotingReputationClientV10,
 } from './VotingReputationClientV10.js';
 import getVotingReputationClientV11, {
-  VotingReputationClientV11,
+  type VotingReputationClientV11,
 } from './VotingReputationClientV11.js';
 import getVotingReputationClientV12, {
-  VotingReputationClientV12,
+  type VotingReputationClientV12,
 } from './VotingReputationClientV12.js';
 
-export { VotingReputationClientV7 } from './VotingReputationClientV7.js';
-export { VotingReputationClientV8 } from './VotingReputationClientV8.js';
-export { VotingReputationClientV9 } from './VotingReputationClientV9.js';
-export { VotingReputationClientV10 } from './VotingReputationClientV10.js';
-export { VotingReputationClientV11 } from './VotingReputationClientV11.js';
-export { VotingReputationClientV12 } from './VotingReputationClientV12.js';
+export type { VotingReputationClientV7 } from './VotingReputationClientV7.js';
+export type { VotingReputationClientV8 } from './VotingReputationClientV8.js';
+export type { VotingReputationClientV9 } from './VotingReputationClientV9.js';
+export type { VotingReputationClientV10 } from './VotingReputationClientV10.js';
+export type { VotingReputationClientV11 } from './VotingReputationClientV11.js';
+export type { VotingReputationClientV12 } from './VotingReputationClientV12.js';
 
 export type AnyVotingReputationClient =
   | VotingReputationClientV7

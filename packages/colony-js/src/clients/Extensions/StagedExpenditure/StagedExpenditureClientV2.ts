@@ -5,8 +5,8 @@ import { StagedExpenditure__factory as StagedExpenditureFactory } from '../../..
 import { ClientType } from '../../../constants.js';
 import {
   addAugments,
-  AugmentedStagedExpenditure,
-  ValidColony,
+  type AugmentedStagedExpenditure,
+  type ValidColony,
 } from './augments/commonAugments.js';
 
 export interface StagedExpenditureClientV2

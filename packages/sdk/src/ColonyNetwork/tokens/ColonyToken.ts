@@ -1,7 +1,7 @@
 import type { MetaTxTokenEvents } from '@colony/events';
 
 import {
-  ColonyToken as ColonyTokenType,
+  type ColonyToken as ColonyTokenType,
   ColonyTokenFactory,
 } from '@colony/tokens';
 

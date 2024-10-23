@@ -2,14 +2,14 @@ import type { MultisigPermissionsVersion } from '@colony/core';
 
 import { assertExhaustiveSwitch } from '@colony/core/utils';
 
-import { AugmentedIColony } from '../../Core/augments/commonAugments.js';
-import { ValidColony } from './augments/commonAugments.js';
+import { type AugmentedIColony } from '../../Core/augments/commonAugments.js';
+import { type ValidColony } from './augments/commonAugments.js';
 
 import getMultisigPermissionsClientV1, {
-  MultisigPermissionsClientV1,
+  type MultisigPermissionsClientV1,
 } from './MultisigPermissionsClientV1.js';
 
-export { MultisigPermissionsClientV1 } from './MultisigPermissionsClientV1.js';
+export type { MultisigPermissionsClientV1 } from './MultisigPermissionsClientV1.js';
 
 export type AnyMultisigPermissionsClient = MultisigPermissionsClientV1;
 
