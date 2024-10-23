@@ -66,13 +66,13 @@ importers:
   packages/colony-js:
     dependencies:
       '@colony/core':
-        specifier: ^2.3.0
+        specifier: ^3.0.0
         version: link:../core
       '@colony/events':
-        specifier: ^3.0.0
+        specifier: ^4.0.0
         version: link:../events
       '@colony/tokens':
-        specifier: ^0.3.0
+        specifier: ^1.0.0
         version: link:../tokens
     devDependencies:
       '@colony/contractor':
@@ -170,7 +170,7 @@ importers:
   packages/events:
     dependencies:
       '@colony/core':
-        specifier: ^2.3.0
+        specifier: ^3.0.0
         version: link:../core
       fetch-retry:
         specifier: ^5.0.4
@@ -207,13 +207,13 @@ importers:
   packages/sdk:
     dependencies:
       '@colony/core':
-        specifier: ^2.3.0
+        specifier: ^3.0.0
         version: link:../core
       '@colony/events':
-        specifier: ^3.0.0
+        specifier: ^4.0.0
         version: link:../events
       '@colony/tokens':
-        specifier: ^0.3.0
+        specifier: ^1.0.0
         version: link:../tokens
     devDependencies:
       '@colony/contractor':
@@ -286,7 +286,7 @@ importers:
         specifier: ^2.2.0
         version: link:../contractor
       '@colony/core':
-        specifier: ^2.3.0
+        specifier: ^3.0.0
         version: link:../core
       '@ethersproject/abi':
         specifier: ^5.7.0
@@ -2740,7 +2740,7 @@ packages:
       normalize-path: 3.0.0
       readdirp: 3.6.0
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
     dev: true
 
   /ci-info@3.8.0:
@@ -3927,14 +3927,6 @@ packages:
   /fs.realpath@1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
 
-  /fsevents@2.3.2:
-    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
-    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
-    os: [darwin]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   /fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
@@ -4666,7 +4658,7 @@ packages:
       micromatch: 4.0.5
       walker: 1.0.8
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
     dev: true
 
   /jest-leak-detector@29.5.0:
@@ -5832,7 +5824,7 @@ packages:
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
     dev: true
 
   /run-async@2.4.1:
