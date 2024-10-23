@@ -6,7 +6,7 @@ HTTP endpoint of the official Colony reputation oracle
 
 ### ArbitrumOne
 
-• **ArbitrumOne** = ``"https://arbitrum.colony.io/reputation/arbitrum-one"``
+• **ArbitrumOne** = ``"https://app.colony.io/reputation/arbitrum-one"``
 
 ___
 

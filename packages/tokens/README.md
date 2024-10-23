@@ -11,12 +11,12 @@ import { providers } from 'ethers';
 import { getTokenClient } from '@colony/tokens';
 import { Tokens } from '@colony/core';
 
-const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
+const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.ArbitrumOne);
 
 // Immediately executing async function
 (async function() {
    // Pass in a Signer instead to do transactions
-   const token = await getTokenClient(Tokens.Gnosis.CLNY, provider);
+   const token = await getTokenClient(Tokens.ArbitrumOne.CLNY, provider);
    // Only tokens deployed with Colony have the `locked()` method
    const tokenIsLocked = await token.locked();
 })();

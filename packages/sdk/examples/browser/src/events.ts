@@ -8,7 +8,7 @@ import {
 } from '../../../src/index.js';
 import type { ColonyEvent } from '../../../src/index.js';
 
-const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
+const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.ArbitrumOne);
 const { isAddress } = utils;
 
 // This event listener will only list for the `DomainAdded` event in the Colony of the user's choice. Run this and then create a Team in that Colony, to see it being picked up here

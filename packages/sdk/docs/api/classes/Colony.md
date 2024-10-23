@@ -582,7 +582,7 @@ Get the xDAI balance of the team number 2
 ```typescript
 import { constants } from 'ethers';
 import { toEth } from '@colony/sdk';
-// The `AddressZero` means ETH on mainnet and xDAI on Gnosis chain
+// The `AddressZero` means ETH on most networks
 const balance = await colony.getBalance(constants.AddressZero, 2);
 // This will format the balance as a string in eth and not wei (i.e. 1.0 vs. 1000000000000000000)
 console.info(toEth(balance));

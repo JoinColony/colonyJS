@@ -7,7 +7,7 @@ import {
   ColonyRpcEndpoint,
 } from '../../src/index.js';
 
-const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
+const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.ArbitrumOne);
 
 if (!process.env.PRIVATE_KEY) {
   throw new Error(
@@ -21,7 +21,7 @@ const signer = new Wallet(process.env.PRIVATE_KEY as string).connect(provider);
 const start = async () => {
   const colonyNetwork = new ColonyNetwork(signer);
   const colony = await colonyNetwork.getColony(
-    '0xA6fD5655c1249f1349D0917E732813Ebd9439A54',
+    '0x9fBa8C85A1C7EEd48785A760E9399FcB6Fa5b04A',
   );
   await colony
     .setRoles('0xA75b108808584A15ceEbF8f6CAc19EaD91cAbCd2', [

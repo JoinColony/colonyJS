@@ -6,7 +6,7 @@ Official Colony RPC2 endpoint (node)
 
 ### ArbitrumOne
 
-• **ArbitrumOne** = ``"https://arbitrum.colony.io/publicrpc/"``
+• **ArbitrumOne** = ``"https://app.colony.io/public-rpc/"``
 
 Colony's own RPC2 endpoint for Arbitrum One
 
@@ -14,7 +14,7 @@ ___
 
 ### ArbitrumSepolia
 
-• **ArbitrumSepolia** = ``"https://arbitrum-sepolia.colony.io/publicrpc/"``
+• **ArbitrumSepolia** = ``"https://arbitrum-sepolia.colony.io/public-rpc/"``
 
 Colony's own RPC2 endpoint for Arbitrum Sepolia testnet
 

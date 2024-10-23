@@ -20,7 +20,7 @@ import { providers } from 'ethers';
 import { ColonyNetwork, toEth } from '@colony/sdk';
 
 // If MetaMask is installed there will be an `ethereum` object on the `window`
-// NOTE: Make sure MetaMask is connected to Gnosis chain (see https://www.xdaichain.com/for-users/wallets/metamask/metamask-setup)
+// NOTE: Make sure MetaMask is connected to ArbitrumOne chain (use https://app.colony.io/public-rpc or see https://chainlist.org/chain/42161)
 const provider = new providers.Web3Provider(window.ethereum);
 
 // Get the MetaColony's CLNY funding in the root team (id 1)
@@ -81,7 +81,7 @@ pnpm run examples:browser
 
 ### Some notes
 
-These examples will run on Gnosis chain. If you'd like to make transactions, you will need some XDAI. Reach out to us in our [Discord](https://discord.gg/feVZWwysqM) if you're having trouble starting out.
+These examples will run on the Arbitrum One chain. If you'd like to make transactions, you will need some ETH on that chain. Reach out to us in our [Discord](https://discord.gg/feVZWwysqM) if you're having trouble starting out.
 
 ## Development
 

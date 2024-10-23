@@ -3,7 +3,7 @@ import 'cross-fetch/dist/node-polyfill.js';
 
 import { ColonyNetwork, ColonyRpcEndpoint } from '../../src/index.js';
 
-const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
+const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.ArbitrumOne);
 
 // Claim ETH for the MetaColony using a Metatransaction
 const start = async () => {

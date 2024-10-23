@@ -4,7 +4,7 @@
 
 # `@colony/events`
 
-This package contains pre-compiled Colony event contract bindings. These bindings contain types and ABIs for all events for all contracts across all versions in the Colony Network. You could use them in conjunction with the [EventManger from Colony SDK](https://docs.colony.io/colonysdk/api/classes/ColonyEventManager):
+This package contains pre-compiled Colony event contract bindings. These bindings contain types and ABIs for all events for all contracts across all versions in the Colony Network. You could use them in conjunction with the [EventManager from Colony SDK](https://docs.colony.io/colonysdk/api/classes/ColonyEventManager):
 
 ```ts
 import { providers } from 'ethers';
@@ -17,7 +17,7 @@ import {
   MetadataType,
 } from '@colony/sdk';
 
-const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
+const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.ArbitrumOne);
 
 const manager = new ColonyEventManager(provider);
 const colonyEventSource = manager.createEventSource(ColonyEventsFactory);

@@ -179,13 +179,13 @@ export class OneTxPayment {
    *
    * // Immediately executing async function
    * (async function() {
-   *   // Pay 10 XDAI (on Gnosis chain) from the root domain to the following address
+   *   // Pay 10 CLNY (on ArbitrumOne chain) from the root domain to the following address
    *   // (forced transaction example)
    *   await colony.ext.oneTx.pay(
    *      '0xb77D57F4959eAfA0339424b83FcFaf9c15407461',
    *      w`10`,
    *      Id.RootDomain,
-   *      Tokens.Gnosis.XDAI,
+   *      Tokens.ArbitrumOne.CLNY,
    *   ).tx().mined();
    * })();
    * ```

@@ -9,15 +9,15 @@ const addColonyRPC = () => {
     method: 'wallet_addEthereumChain',
     params: [
       {
-        chainId: '0x64',
-        chainName: 'Gnosis Chain via Colony',
+        chainId: '0xa4b1',
+        chainName: 'Arbitrum One via Colony',
         nativeCurrency: {
-          name: 'xDAI',
-          symbol: 'XDAI',
+          name: 'Ether',
+          symbol: 'ETH',
           decimals: 18,
         },
-        rpcUrls: [ColonyRpcEndpoint.Gnosis],
-        blockExplorerUrls: ['https://blockscout.com/xdai/mainnet'],
+        rpcUrls: [ColonyRpcEndpoint.ArbitrumOne],
+        blockExplorerUrls: ['https://arbiscan.io/'],
       },
     ],
   });

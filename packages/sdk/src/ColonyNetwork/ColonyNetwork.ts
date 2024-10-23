@@ -86,7 +86,7 @@ export class ColonyNetwork {
   /** The IPFS adapter for Metadata. Defaults to a read-only adapter */
   ipfs: IpfsMetadata;
 
-  /** The network the client is connected to. Defaults to Gnosis chain */
+  /** The network the client is connected to. Defaults to Arbitrum One */
   network: Network;
 
   /**
@@ -108,8 +108,8 @@ export class ColonyNetwork {
    * import { providers } from 'ethers';
    * import { ColonyNetwork, ColonyRpcEndpoint, Tokens } from '@colony/sdk';
    *
-   * // Connect directly to the deployed Colony Network on Gnosis Chain
-   * const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.Gnosis);
+   * // Connect directly to the deployed Colony Network on Arbitrum One
+   * const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.ArbitrumOne);
    * const colonyNetwork = new ColonyNetwork(provider);
    * // Now you could call functions on the colonyNetwork, like `colonyNetwork.getMetaColony()`
    * ```
@@ -122,7 +122,7 @@ export class ColonyNetwork {
     signerOrProvider: SignerOrProvider,
     options?: ColonyNetworkOptions,
   ) {
-    this.network = options?.network || Network.Gnosis;
+    this.network = options?.network || Network.ArbitrumOne;
     this.ipfs = new IpfsMetadata(options?.ipfsAdapter);
     // TODO: for validation: if network is Custom, metaTxBroadcaster and reputationOracleEndpoint have to be set
     this.config = {
@@ -313,7 +313,7 @@ export class ColonyNetwork {
    *       // IPFS hash to an image file
    *       colonyAvatarHash: 'QmS26o1Cmsrx7iw1SSFGEcy22TVDq6VmEZ4XNjpWFyaKUe',
    *       // List of token addresses that the Colony should be initialized with (can be changed later) - excluding ETH and the native token from above
-   *       colonyTokens: [Tokens.Gnosis.CLNY],
+   *       colonyTokens: [Tokens.ArbitrumOne.CLNY],
    *     }).tx().mined();
    * })();
    * ```
@@ -377,7 +377,7 @@ export class ColonyNetwork {
    *   // Create a colony
    *   // (forced transaction example)
    *   await colonyNetwork
-   *     // Use USDC on Gnosis chain as the native token
+   *     // Use USDC on Arbitrum One as the native token
    *     .createColony('0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83', 'coolony')
    *     .tx().mined();
    * })();
