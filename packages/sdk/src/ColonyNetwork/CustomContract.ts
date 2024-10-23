@@ -101,7 +101,7 @@ export class CustomContract<A extends Abi> {
     AbiParametersToPrimitiveTypes<
       ExtractAbiFunction<A, M>['outputs'],
       'outputs'
-    >
+    >[0]
   > {
     // A little typecasting to make ethers happy
     const customArgs = args as unknown[];
@@ -113,7 +113,7 @@ export class CustomContract<A extends Abi> {
       AbiParametersToPrimitiveTypes<
         ExtractAbiFunction<A, M>['outputs'],
         'outputs'
-      >
+      >[0]
     >;
     return result;
   }

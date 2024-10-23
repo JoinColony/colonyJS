@@ -1,4 +1,4 @@
-import { providers } from 'ethers';
+import { providers, utils } from 'ethers';
 import 'cross-fetch/dist/node-polyfill.js';
 import { erc20Abi } from 'abitype/abis';
 
@@ -7,7 +7,6 @@ import {
   ColonyNetwork,
   ColonyRpcEndpoint,
   CustomContract,
-  toEth,
 } from '../../src/index.js';
 
 const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.ArbitrumOne);
@@ -20,11 +19,13 @@ const start = async () => {
     '0xaf88d065e77c8cC2239327C5EDb3A432268e5831',
     erc20Abi,
   );
-  const metaColony = await colonyNetwork.getMetaColony();
-  const { address } = metaColony;
-  const [funds] = await usdc.read('balanceOf', [address as Address]);
+  const metaColonyAddress = await colonyNetwork
+    .getInternalNetworkContract()
+    .getMetaColony();
+  const funds = await usdc.read('balanceOf', [metaColonyAddress as Address]);
+  const formattedFunds = utils.formatUnits(funds, 6);
   console.info(
-    `${toEth(funds)} CLNY in root team of MetaColony with address: ${address}`,
+    `${formattedFunds} USDC in root team of MetaColony with address: ${metaColonyAddress}`,
   );
 };
 
