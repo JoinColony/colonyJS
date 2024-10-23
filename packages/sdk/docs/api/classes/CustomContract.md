@@ -71,7 +71,7 @@ ___
 
 ### read
 
-▸ **read**<`M`\>(`method`, `args`): `Promise`<{ [key in string \| number \| symbol]: { [key in string \| number \| symbol]: AbiParameterToPrimitiveType<ExtractAbiFunction<A, M\>["outputs"][key], "outputs"\> }[key] }\>
+▸ **read**<`M`\>(`method`, `args`): `Promise`<{ [key in string \| number \| symbol]: { [key in string \| number \| symbol]: AbiParameterToPrimitiveType<ExtractAbiFunction<A, M\>["outputs"][key], "outputs"\> }[key] }[``0``]\>
 
 Read a contract value
 
@@ -90,6 +90,6 @@ Read a contract value
 
 #### Returns
 
-`Promise`<{ [key in string \| number \| symbol]: { [key in string \| number \| symbol]: AbiParameterToPrimitiveType<ExtractAbiFunction<A, M\>["outputs"][key], "outputs"\> }[key] }\>
+`Promise`<{ [key in string \| number \| symbol]: { [key in string \| number \| symbol]: AbiParameterToPrimitiveType<ExtractAbiFunction<A, M\>["outputs"][key], "outputs"\> }[key] }[``0``]\>
 
 A promise resolving into the specific type for the contract return value
