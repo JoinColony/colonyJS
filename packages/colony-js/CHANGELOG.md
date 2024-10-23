@@ -1,5 +1,20 @@
 # @colony/colony-js
 
+## 8.0.0
+
+### Major Changes
+
+- e374bc2: Make Arbitrum One the default network in all cases. While this can be considered a breaking change it does not change any of the APIs.
+
+### Patch Changes
+
+- c84bb1d: Introduce `tsx` instead of `ts-node` for esm compatibility reasons. This required some changes to how we import and export types from .ts files, so a lint rule was added for this.
+- Updated dependencies [e374bc2]
+- Updated dependencies [c84bb1d]
+  - @colony/events@4.0.0
+  - @colony/tokens@1.0.0
+  - @colony/core@3.0.0
+
 ## 7.2.0
 
 ### Minor Changes
