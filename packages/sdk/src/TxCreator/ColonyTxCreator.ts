@@ -92,7 +92,7 @@ export class ColonyTxCreator<
 
     const { actionCid, key, value, branchMask, siblings } =
       await getCreateMotionProofs(
-        this.colonyNetwork.getInternalNetworkContract(),
+        this.colony.colonyNetwork.getInternalNetworkContract(),
         this.colony.getInternalColonyContract(),
         this.colony.reputation,
         this.colony.ext.motions.getInternalVotingReputationContract(),
@@ -158,7 +158,7 @@ export class ColonyTxCreator<
 
     const { actionCid, key, value, branchMask, siblings } =
       await getCreateMotionProofs(
-        this.colonyNetwork.getInternalNetworkContract(),
+        this.colony.colonyNetwork.getInternalNetworkContract(),
         this.colony.getInternalColonyContract(),
         this.colony.reputation,
         this.colony.ext.motions.getInternalVotingReputationContract(),
@@ -219,7 +219,7 @@ export class ColonyTxCreator<
         );
       }
       const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
-        this.colonyNetwork.getInternalNetworkContract(),
+        this.colony.colonyNetwork.getInternalNetworkContract(),
         this.colony.getInternalColonyContract(),
         this.permissionConfig.domain,
         this.permissionConfig.roles,

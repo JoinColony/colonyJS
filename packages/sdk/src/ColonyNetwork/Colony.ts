@@ -54,6 +54,7 @@ import { type ColonyNetwork } from './ColonyNetwork.js';
 import { OneTxPayment } from './OneTxPayment.js';
 import { ERC20Token, type Token, getToken } from './tokens/index.js';
 import { VotingReputation } from './VotingReputation.js';
+import { type ContractConfig } from '../ContractConfig.js';
 
 export type SupportedColonyContract =
   | ColonyContract11
@@ -108,7 +109,7 @@ export class Colony {
   static async connect(colonyNetwork: ColonyNetwork, address: string) {
     const version = (await getContractVersion(
       address,
-      colonyNetwork.signerOrProvider,
+      colonyNetwork.config.signerOrProvider,
     )) as ColonyVersion;
 
     const Factory = Colony.supportedVersions.find(
@@ -123,7 +124,7 @@ export class Colony {
 
     const colonyContract = Factory.connect(
       address,
-      colonyNetwork.signerOrProvider,
+      colonyNetwork.config.signerOrProvider,
     );
 
     const tokenAddress = await colonyContract.getToken();
@@ -151,6 +152,11 @@ export class Colony {
    * The colony's smart contract address
    */
   address: string;
+
+  /**
+   * The colony's contract config (taken from ColonyNetwork)
+   */
+  config: ContractConfig;
 
   /**
    * A shortcut to the {@link ColonyNetwork} instance
@@ -212,6 +218,7 @@ export class Colony {
   ) {
     this.colony = colony;
     this.colonyNetwork = colonyNetwork;
+    this.config = colonyNetwork.config;
     this.address = colony.address;
     this.ext = {};
     this.reputation = new ReputationClient(
@@ -252,7 +259,7 @@ export class Colony {
   ) {
     return new ColonyTxCreator({
       colony: this,
-      colonyNetwork: this.colonyNetwork,
+      config: this.colonyNetwork.config,
       contract,
       method,
       args,
@@ -292,7 +299,7 @@ export class Colony {
   ) {
     return new ColonyTxCreator({
       colony: this,
-      colonyNetwork: this.colonyNetwork,
+      config: this.colonyNetwork.config,
       contract,
       method,
       args,
@@ -428,7 +435,7 @@ export class Colony {
         if (typeof metadata == 'string') {
           cid = metadata;
         } else {
-          cid = await this.colonyNetwork.ipfs.uploadMetadata(
+          cid = await this.config.ipfs.uploadMetadata(
             MetadataType.Colony,
             metadata,
           );
@@ -569,7 +576,7 @@ export class Colony {
         if (typeof metadata == 'string') {
           cid = metadata;
         } else {
-          cid = await this.colonyNetwork.ipfs.uploadMetadata(
+          cid = await this.config.ipfs.uploadMetadata(
             MetadataType.Domain,
             metadata,
           );
@@ -654,7 +661,7 @@ export class Colony {
         if (typeof metadata == 'string') {
           cid = metadata;
         } else {
-          cid = await this.colonyNetwork.ipfs.uploadMetadata(
+          cid = await this.config.ipfs.uploadMetadata(
             MetadataType.Domain,
             metadata,
           );
@@ -1056,7 +1063,7 @@ export class Colony {
         if (typeof metadata == 'string') {
           cid = metadata;
         } else {
-          cid = await this.colonyNetwork.ipfs.uploadMetadata(
+          cid = await this.config.ipfs.uploadMetadata(
             MetadataType.Annotation,
             metadata,
           );

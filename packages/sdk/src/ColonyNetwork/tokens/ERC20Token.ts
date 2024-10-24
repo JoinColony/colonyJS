@@ -30,7 +30,7 @@ export class ERC20Token {
     if (typeof token == 'string') {
       this.tokenClient = ERC20TokenFactory.connect(
         token,
-        colonyNetwork.signerOrProvider,
+        colonyNetwork.config.signerOrProvider,
       );
     } else {
       this.tokenClient = token;
