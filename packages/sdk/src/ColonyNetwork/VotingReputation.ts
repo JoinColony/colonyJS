@@ -183,7 +183,7 @@ export class VotingReputation {
 
     const version = (await getContractVersion(
       address,
-      colony.colonyNetwork.signerOrProvider,
+      colony.config.signerOrProvider,
     )) as VotingReputationVersion;
 
     if (
@@ -210,7 +210,7 @@ export class VotingReputation {
 
     const oneTxPaymentContract = Factory.connect(
       address,
-      colony.colonyNetwork.signerOrProvider,
+      colony.config.signerOrProvider,
     );
 
     return new VotingReputation(colony, oneTxPaymentContract, version);
@@ -716,7 +716,7 @@ export class VotingReputation {
         if (typeof metadata == 'string') {
           cid = metadata;
         } else {
-          cid = await this.colony.colonyNetwork.ipfs.uploadMetadata(
+          cid = await this.colony.config.ipfs.uploadMetadata(
             MetadataType.Decision,
             metadata,
           );
@@ -814,9 +814,7 @@ export class VotingReputation {
    */
   stakeMotion(motionId: BigNumberish, vote: Vote, amount: BigNumberish) {
     const getArgs = async () => {
-      const userAddress = await this.colony.colonyNetwork
-        .getSigner()
-        .getAddress();
+      const userAddress = await this.colony.config.getSigner().getAddress();
 
       const motionState = await this.votingReputationContract.getMotionState(
         motionId,
@@ -965,9 +963,7 @@ export class VotingReputation {
 
       const { domainId, rootHash } = await this.getMotion(motionId);
       const { skillId } = await this.colony.getTeam(domainId);
-      const userAddress = await this.colony.colonyNetwork
-        .getSigner()
-        .getAddress();
+      const userAddress = await this.colony.config.getSigner().getAddress();
 
       const { key, value, branchMask, siblings } =
         await this.colony.reputation.getReputationWithProofs(
@@ -1036,9 +1032,7 @@ export class VotingReputation {
 
       const { domainId, rootHash } = await this.getMotion(motionId);
       const { skillId } = await this.colony.getTeam(domainId);
-      const userAddress = await this.colony.colonyNetwork
-        .getSigner()
-        .getAddress();
+      const userAddress = await this.colony.config.getSigner().getAddress();
 
       const reputation = await this.colony.reputation.getReputationWithProofs(
         skillId,
@@ -1113,9 +1107,7 @@ export class VotingReputation {
 
       const { domainId, rootHash } = await this.getMotion(motionId);
       const { skillId } = await this.colony.getTeam(newTeamId);
-      const userAddress = await this.colony.colonyNetwork
-        .getSigner()
-        .getAddress();
+      const userAddress = await this.colony.config.getSigner().getAddress();
 
       const childIndex = await getChildIndex(
         this.colony.colonyNetwork.getInternalNetworkContract(),

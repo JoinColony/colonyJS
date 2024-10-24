@@ -51,13 +51,13 @@ export class EIP2612TxCreator<
     target: string,
     [spender, amount]: [string, BigNumberish],
   ): Promise<TransactionResponse> {
-    if (!this.colonyNetwork.config.metaTxBroadcasterEndpoint) {
+    if (!this.config.metaTxBroadcasterEndpoint) {
       throw new Error(
-        `No metatransaction broadcaster endpoint found for network ${this.colonyNetwork.network}`,
+        `No metatransaction broadcaster endpoint found for network ${this.config.network}`,
       );
     }
 
-    const signer = this.colonyNetwork.getSigner() as TDSigner;
+    const signer = this.contract.signer as TDSigner;
     const { provider } = signer;
 
     if (!provider) {
@@ -66,7 +66,7 @@ export class EIP2612TxCreator<
 
     let chainId: number;
 
-    if (this.colonyNetwork.network === Network.Custom) {
+    if (this.config.network === Network.Custom) {
       chainId = 1;
     } else {
       const networkInfo = await provider.getNetwork();

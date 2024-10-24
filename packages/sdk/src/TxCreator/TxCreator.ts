@@ -14,10 +14,7 @@ import {
 } from '@colony/events';
 
 import { type ParsedLogTransactionReceipt } from '../types.js';
-import {
-  type ColonyNetwork,
-  type CustomColonyNetwork,
-} from '../ColonyNetwork/index.js';
+import { type ContractConfig } from '../ContractConfig.js';
 
 export interface TxConfig<M = MetadataType.DEFAULT> {
   metadataType?: M;
@@ -28,8 +25,8 @@ export interface EventData {
 }
 
 export interface TxCreatorConfig<C, M, E, MD> {
-  colonyNetwork: ColonyNetwork;
   contract: C;
+  config: ContractConfig;
   method: M;
   args: unknown[] | (() => Promise<unknown[]>);
   eventData?: (receipt: ContractReceipt) => Promise<E>;
@@ -161,9 +158,9 @@ export class TxCreator<
   E extends EventData,
   MD extends MetadataType,
 > {
-  protected colonyNetwork: ColonyNetwork | CustomColonyNetwork;
-
   protected contract: C;
+
+  protected config: ContractConfig;
 
   protected method: string;
 
@@ -174,22 +171,22 @@ export class TxCreator<
   protected txConfig?: TxConfig<MD>;
 
   constructor({
-    colonyNetwork,
     contract,
+    config,
     method,
     args,
     eventData,
     txConfig,
   }: {
-    colonyNetwork: ColonyNetwork | CustomColonyNetwork;
     contract: C;
+    config: ContractConfig;
     method: M;
     args: unknown[] | (() => Promise<unknown[]>);
     eventData?: (receipt: ContractReceipt) => Promise<E>;
     metadataType?: MD;
     txConfig?: TxConfig<MD>;
   }) {
-    this.colonyNetwork = colonyNetwork;
+    this.config = config;
     this.contract = contract;
     this.method = method as string;
     this.args = args;
@@ -230,8 +227,8 @@ export class TxCreator<
       const data = await this.eventData(receipt);
 
       if (this.txConfig?.metadataType && data.metadata) {
-        const getMetadata = this.colonyNetwork.ipfs.getMetadataForEvent.bind(
-          this.colonyNetwork.ipfs,
+        const getMetadata = this.config.ipfs.getMetadataForEvent.bind(
+          this.config.ipfs,
           IpfsMetadataEvents[this.txConfig.metadataType],
           data.metadata,
         ) as () => Promise<MetadataTypeMap[MD]>;
@@ -246,15 +243,14 @@ export class TxCreator<
   }
 
   protected async broadcastMetaTx(broadcastData: Record<string, unknown>) {
-    const signer = this.colonyNetwork.getSigner();
-    const { provider } = signer;
+    const { provider } = this.config.getSigner();
 
     if (!provider) {
       throw new Error('No provider found');
     }
 
     const res = await fetch(
-      `${this.colonyNetwork.config.metaTxBroadcasterEndpoint}/broadcast`,
+      `${this.config.metaTxBroadcasterEndpoint}/broadcast`,
       {
         method: 'POST',
         headers: {

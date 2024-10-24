@@ -51,12 +51,12 @@
     "@colony/core": "^2.3.0",
     "@colony/events": "^3.0.0",
     "@colony/tokens": "^0.3.0",
+    "@ethersproject/abstract-provider": "^5.7.0",
     "abitype": "^1.0.6"
   },
   "devDependencies": {
     "@colony/contractor": "^2.2.0",
     "@ethersproject/abi": "^5.7.0",
-    "@ethersproject/abstract-provider": "^5.7.0",
     "@ethersproject/abstract-signer": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",
     "@picocss/pico": "^1.5.7",

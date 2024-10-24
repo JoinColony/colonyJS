@@ -8,12 +8,8 @@ import {
 import { type ContractReceipt } from 'ethers';
 
 import { type EventData, type TxConfig } from './TxCreator.js';
-import type CustomColonyNetwork from '../ColonyNetwork/CustomColonyNetwork.js';
-import {
-  type ColonyNetwork,
-  type MetaTxBaseContract,
-  MetaTxCreator,
-} from '../index.js';
+import { type MetaTxBaseContract, MetaTxCreator } from '../index.js';
+import { type ContractConfig } from '../ContractConfig.js';
 
 /**
  * Create transactions for custom contracts
@@ -32,15 +28,15 @@ class CustomTxCreator<
   E extends EventData,
 > extends MetaTxCreator<MetaTxBaseContract, M, E> {
   constructor({
-    colonyNetwork,
     contract,
+    config,
     method,
     args,
     eventData,
     txConfig,
   }: {
-    colonyNetwork: ColonyNetwork | CustomColonyNetwork;
     contract: MetaTxBaseContract;
+    config: ContractConfig;
     method: M;
     args: AbiParametersToPrimitiveTypes<
       ExtractAbiFunction<A, M>['inputs'],
@@ -51,8 +47,8 @@ class CustomTxCreator<
   }) {
     const customArgs = args as unknown[];
     super({
-      colonyNetwork,
       contract,
+      config,
       method,
       args: customArgs,
       eventData,

@@ -7,23 +7,22 @@ import {
 } from 'abitype';
 import { Contract, type ContractInterface } from 'ethers';
 import {
-  type ColonyNetwork,
   type ContractReceipt,
   type EventData,
   type MetaTxBaseContract,
   type TxConfig,
 } from '../index.js';
-import type CustomColonyNetwork from './CustomColonyNetwork.js';
 import CustomTxCreator from '../TxCreator/CustomTxCreator.js';
+import { type ContractConfig } from '../ContractConfig.js';
 
 export class CustomContract<A extends Abi> {
   private abi: A;
 
-  private colonyNetwork: ColonyNetwork | CustomColonyNetwork;
-
   private contract: MetaTxBaseContract;
 
   address: Address;
+
+  config: ContractConfig;
 
   /**
    * Creates a new instance of a custom contract
@@ -31,26 +30,22 @@ export class CustomContract<A extends Abi> {
    * This is your main entry point to talk to the Colony Network Smart Contracts.
    * From here you should be able to instantiate all the required instances for Colonies and their extensions.
    *
-   * @param colonyNetwork - {@link ColonyNetwork} instance
    * @param address - Address of the deployed contract
    * @param abi - JSON ABI of the contract
+   * @param config - An instance of a ContractConfig (mind: _not_ ContractOptions!)
    * @returns A CustomContract instance
    */
-  constructor(
-    colonyNetwork: ColonyNetwork | CustomColonyNetwork,
-    address: Address,
-    abi: A,
-  ) {
-    this.address = address;
+  constructor(address: Address, abi: A, config: ContractConfig) {
     this.abi = abi;
+    this.address = address;
+    this.config = config;
 
     // We do a little bit of casting to make ethers happy with the abitype types
     this.contract = new Contract(
       address,
       this.abi as unknown as ContractInterface,
-      colonyNetwork.signerOrProvider,
+      this.config.signerOrProvider,
     ) as unknown as MetaTxBaseContract;
-    this.colonyNetwork = colonyNetwork;
   }
 
   /**
@@ -75,7 +70,7 @@ export class CustomContract<A extends Abi> {
     txConfig?: TxConfig,
   ) {
     return new CustomTxCreator<A, M, E>({
-      colonyNetwork: this.colonyNetwork,
+      config: this.config,
       contract: this.contract,
       method,
       args,

@@ -1,7 +1,6 @@
 export type { ContractReceipt, ContractTransaction } from 'ethers';
-// This is a type and only used for TypeScript compilation
-// eslint-disable-next-line import/no-extraneous-dependencies
 export type { TransactionResponse } from '@ethersproject/abstract-provider';
+export type { Abi } from 'abitype';
 
 export {
   type AnnotationData,
@@ -42,6 +41,6 @@ export {
 } from '@colony/tokens';
 
 export * from './ColonyNetwork/index.js';
+export type { ContractOptions } from './ContractConfig.js';
 export * from './TxCreator/index.js';
-
 export type { ParsedLogTransactionReceipt } from './types.js';
