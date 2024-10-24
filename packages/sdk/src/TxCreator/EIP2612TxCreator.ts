@@ -19,11 +19,11 @@ const { splitSignature } = utils;
 interface TDSigner extends Signer, TypedDataSigner {}
 
 /**
- * An umbrella API for all kinds of transactions
+ * Create transactions for contracts supporting the EIP2612 standard
  *
- * The `MetaTxCreator` allows for a simple API to cover all the different cases of transactions within the Colony Network. The `MetaTxCreator` supports sending a standard transaction ([[MetaTxCreator.force]]) as well as metatransactions ([[TxCreator.forceMeta]]).
+ * The `EIP2612TxCreator` allows for a simple API to cover all the different cases of transactions within the Colony Network.
  *
- * ## Create a standard transaction ("force" in dApp)
+ * ## Create a standard transaction ("permissions" in dApp)
  *
  * - [[EIP2612TxCreator.tx]]: force a Colony transaction, knowing you have the permissions to do so
  * - [[EIP2612TxCreator.metaTx]]: same as `tx()`, but send as a gasless metatransaction
@@ -51,13 +51,13 @@ export class EIP2612TxCreator<
     target: string,
     [spender, amount]: [string, BigNumberish],
   ): Promise<TransactionResponse> {
-    if (!this.colonyNetwork.config.metaTxBroadcasterEndpoint) {
+    if (!this.config.metaTxBroadcasterEndpoint) {
       throw new Error(
-        `No metatransaction broadcaster endpoint found for network ${this.colonyNetwork.network}`,
+        `No metatransaction broadcaster endpoint found for network ${this.config.network}`,
       );
     }
 
-    const signer = this.colonyNetwork.getSigner() as TDSigner;
+    const signer = this.contract.signer as TDSigner;
     const { provider } = signer;
 
     if (!provider) {
@@ -66,7 +66,7 @@ export class EIP2612TxCreator<
 
     let chainId: number;
 
-    if (this.colonyNetwork.network === Network.Custom) {
+    if (this.config.network === Network.Custom) {
       chainId = 1;
     } else {
       const networkInfo = await provider.getNetwork();

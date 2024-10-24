@@ -28,7 +28,7 @@ export const getToken = async (
 ) => {
   const tokenClient = await getTokenClient(
     address,
-    colonyNetwork.signerOrProvider,
+    colonyNetwork.config.signerOrProvider,
   );
   switch (tokenClient.tokenClientType) {
     case TokenClientType.Colony: {

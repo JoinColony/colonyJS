@@ -18,7 +18,7 @@ Learn more about these functions in their individual documentation
 | `C` | extends [`MetaTxBaseContract`](../interfaces/MetaTxBaseContract.md) |
 | `M` | extends keyof `C`[``"functions"``] |
 | `E` | extends [`EventData`](../interfaces/EventData.md) |
-| `MD` | extends [`MetadataType`](../enums/MetadataType.md) |
+| `MD` | extends [`MetadataType`](../enums/MetadataType.md) = [`DEFAULT`](../enums/MetadataType.md#default) |
 
 ## Hierarchy
 
@@ -41,7 +41,7 @@ Learn more about these functions in their individual documentation
 | `C` | extends [`MetaTxBaseContract`](../interfaces/MetaTxBaseContract.md) |
 | `M` | extends `string` \| `number` \| `symbol` |
 | `E` | extends [`EventData`](../interfaces/EventData.md) |
-| `MD` | extends [`MetadataType`](../enums/MetadataType.md) |
+| `MD` | extends [`MetadataType`](../enums/MetadataType.md) = [`DEFAULT`](../enums/MetadataType.md#default) |
 
 #### Parameters
 
@@ -49,7 +49,7 @@ Learn more about these functions in their individual documentation
 | :------ | :------ |
 | `«destructured»` | `Object` |
 | › `args` | `unknown`[] \| () => `Promise`<`unknown`[]\> |
-| › `colonyNetwork` | [`ColonyNetwork`](ColonyNetwork.md) |
+| › `colonyNetwork` | [`ColonyNetwork`](ColonyNetwork.md) \| [`CustomColonyNetwork`](CustomColonyNetwork.md) |
 | › `contract` | `C` |
 | › `eventData?` | (`receipt`: [`ContractReceipt`](../interfaces/ContractReceipt.md)) => `Promise`<`E`\> |
 | › `metadataType?` | `MD` |

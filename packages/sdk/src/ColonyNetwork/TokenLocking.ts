@@ -18,7 +18,7 @@ export class TokenLocking {
     this.colonyNetwork = colonyNetwork;
     this.tokenLockingContract = getTokenLockingClient(
       this.address,
-      colonyNetwork.signerOrProvider,
+      colonyNetwork.config.signerOrProvider,
     );
   }
 

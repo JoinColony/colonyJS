@@ -1,5 +1,5 @@
-import type { TransactionReceipt } from '@ethersproject/abstract-provider';
 import type { LogDescription } from '@ethersproject/abi';
+import type { TransactionReceipt } from '@ethersproject/abstract-provider';
 
 /**
  * Custom Transaction receipt for when we manually have to parse logs (metatransactions)
