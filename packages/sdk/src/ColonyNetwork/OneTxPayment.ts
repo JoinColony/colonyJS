@@ -83,7 +83,7 @@ export class OneTxPayment {
 
     const version = (await getContractVersion(
       address,
-      colony.colonyNetwork.signerOrProvider,
+      colony.config.signerOrProvider,
     )) as OneTxPaymentVersion;
 
     if (
@@ -110,7 +110,7 @@ export class OneTxPayment {
 
     const oneTxPaymentContract = Factory.connect(
       address,
-      colony.colonyNetwork.signerOrProvider,
+      colony.config.signerOrProvider,
     );
 
     return new OneTxPayment(colony, oneTxPaymentContract, version);

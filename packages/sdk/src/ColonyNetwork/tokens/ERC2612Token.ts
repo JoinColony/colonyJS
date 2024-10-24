@@ -28,7 +28,7 @@ export class ERC2612Token extends ERC20Token {
     if (typeof token == 'string') {
       this.tokenClient = ERC2612TokenFactory.connect(
         token,
-        colonyNetwork.signerOrProvider,
+        colonyNetwork.config.signerOrProvider,
       );
     } else {
       this.tokenClient = token;

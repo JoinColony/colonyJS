@@ -27,7 +27,7 @@ export class ColonyToken extends ERC20Token {
     if (typeof token == 'string') {
       this.tokenClient = ColonyTokenFactory.connect(
         token,
-        colonyNetwork.signerOrProvider,
+        colonyNetwork.config.signerOrProvider,
       );
     } else {
       this.tokenClient = token;

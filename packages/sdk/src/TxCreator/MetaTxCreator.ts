@@ -54,13 +54,13 @@ export class MetaTxCreator<
     encodedTransaction: string,
     target: string,
   ): Promise<TransactionResponse> {
-    if (!this.colonyNetwork.config.metaTxBroadcasterEndpoint) {
+    if (!this.config.metaTxBroadcasterEndpoint) {
       throw new Error(
-        `No metatransaction broadcaster endpoint found for network ${this.colonyNetwork.network}`,
+        `No metatransaction broadcaster endpoint found for network ${this.config.network}`,
       );
     }
 
-    const signer = this.colonyNetwork.getSigner();
+    const signer = this.config.getSigner();
     const { provider } = signer;
 
     if (!provider) {
@@ -69,7 +69,7 @@ export class MetaTxCreator<
 
     let chainId: number;
 
-    if (this.colonyNetwork.network === Network.Custom) {
+    if (this.config.network === Network.Custom) {
       chainId = 1;
     } else {
       const networkInfo = await provider.getNetwork();

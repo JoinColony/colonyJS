@@ -3,15 +3,11 @@ import {
   type ContractReceipt,
   constants,
   utils,
-  Signer,
 } from 'ethers';
 import {
   type SignerOrProvider,
   ColonyLabelSuffix,
-  MetaTxBroadCasterEndpoint,
-  Network,
   UserLabelSuffix,
-  ReputationOracleEndpoint,
   ColonyNetworkAddress,
 } from '@colony/core';
 import { type ERC2612Token as ERC2612TokenType } from '@colony/tokens';
@@ -19,8 +15,6 @@ import {
   type ColonyData,
   type ColonyEvents,
   type ColonyNetworkEvents,
-  type IpfsAdapter,
-  IpfsMetadata,
   MetadataType,
 } from '@colony/events';
 
@@ -40,29 +34,10 @@ import { type Expand, type Parameters } from '../types.js';
 import { extractEvent } from '../utils.js';
 import { EIP2612TxCreator } from '../TxCreator/EIP2612TxCreator.js';
 import { TokenLocking } from './TokenLocking.js';
+import { ContractConfig, type ContractOptions } from '../ContractConfig.js';
 
 const { namehash } = utils;
 const { AddressZero } = constants;
-
-/** Additional options for the {@link ColonyNetwork} */
-export interface ColonyNetworkOptions {
-  /** A custom address for ColonyNetwork's EtherRouter contract. Useful only in manual deployments */
-  customNetworkAddress?: string;
-  /** Provide a custom {@link IpfsAdapter} */
-  ipfsAdapter?: IpfsAdapter;
-  /** The Network to connect to. See {@link Network} for supported networks */
-  network?: Network;
-  /** Provide a custom metatransaction broadcaster endpoint */
-  metaTxBroadcasterEndpoint?: string;
-  /** A custom endpoiunt for ColonyNetwork's Reputation Oracle. Useful only in manual deployments */
-  reputationOracleEndpoint?: string;
-}
-
-/** @internal */
-export interface ColonyNetworkConfig {
-  metaTxBroadcasterEndpoint: string;
-  reputationOracleEndpoint: string;
-}
 
 /** ERC20 Token information */
 export interface TokenData {
@@ -75,26 +50,13 @@ export interface TokenData {
 }
 
 export class ColonyNetwork {
-  private networkContract: IColonyNetwork;
+  private contract: IColonyNetwork;
 
   private locking?: TokenLocking;
 
   /** Configuration of the ColonyNetwork for later use */
   /** @internal */
-  config: ColonyNetworkConfig;
-
-  /** The IPFS adapter for Metadata. Defaults to a read-only adapter */
-  ipfs: IpfsMetadata;
-
-  /** The network the client is connected to. Defaults to Arbitrum One */
-  network: Network;
-
-  /**
-   * An ethers.js [Signer](https://docs.ethers.org/v5/api/signer/#Signer) or [Provider](https://docs.ethers.org/v5/api/providers/).
-   *
-   * E.g. a [Wallet](https://docs.ethers.org/v5/api/signer/#Wallet) or a [Web3Provider](https://docs.ethers.org/v5/api/providers/other/#Web3Provider) (MetaMask)
-   */
-  signerOrProvider: SignerOrProvider;
+  config: ContractConfig;
 
   /**
    * Creates a new instance of the ColonyNetwork
@@ -118,39 +80,13 @@ export class ColonyNetwork {
    * @param options - Optional custom {@link ColonyNetworkOptions}
    * @returns A ColonyNetwork abstraction instance
    */
-  constructor(
-    signerOrProvider: SignerOrProvider,
-    options?: ColonyNetworkOptions,
-  ) {
-    this.network = options?.network || Network.ArbitrumOne;
-    this.ipfs = new IpfsMetadata(options?.ipfsAdapter);
-    // TODO: for validation: if network is Custom, metaTxBroadcaster and reputationOracleEndpoint have to be set
-    this.config = {
-      metaTxBroadcasterEndpoint:
-        options?.metaTxBroadcasterEndpoint ||
-        MetaTxBroadCasterEndpoint[this.network],
-      reputationOracleEndpoint:
-        options?.reputationOracleEndpoint ||
-        ReputationOracleEndpoint[this.network],
-    };
-    this.networkContract = IColonyNetworkFactory.connect(
-      options?.customNetworkAddress || ColonyNetworkAddress[this.network],
+  constructor(signerOrProvider: SignerOrProvider, options?: ContractOptions) {
+    this.config = new ContractConfig(signerOrProvider, options);
+    this.contract = IColonyNetworkFactory.connect(
+      options?.customNetworkAddress ||
+        ColonyNetworkAddress[this.config.network],
       signerOrProvider,
     );
-    this.signerOrProvider = signerOrProvider;
-  }
-
-  /**
-   * Get the signer that was provided when the ColonyNetwork was instantiated.
-   * Throws if the Signer is only a (read-only) Provider
-   *
-   * @returns An Ethers.js compatible Signer instance
-   */
-  getSigner(): Signer {
-    if (!(this.signerOrProvider instanceof Signer)) {
-      throw new Error('Need a signer to create a transaction');
-    }
-    return this.signerOrProvider;
   }
 
   /**
@@ -160,7 +96,7 @@ export class ColonyNetwork {
    */
   async getTokenLocking(): Promise<TokenLocking> {
     if (!this.locking) {
-      const address = await this.networkContract.getTokenLocking();
+      const address = await this.contract.getTokenLocking();
       this.locking = new TokenLocking(this, address);
     }
     return this.locking;
@@ -173,7 +109,7 @@ export class ColonyNetwork {
    * @returns The internally used ethers Contract
    */
   getInternalNetworkContract(): IColonyNetwork {
-    return this.networkContract;
+    return this.contract;
   }
 
   /**
@@ -205,7 +141,7 @@ export class ColonyNetwork {
     txConfig?: TxConfig<M>,
   ) {
     return new TxCreator({
-      colonyNetwork: this,
+      config: this.config,
       contract,
       method,
       args,
@@ -243,7 +179,7 @@ export class ColonyNetwork {
     txConfig?: TxConfig<M>,
   ) {
     return new MetaTxCreator({
-      colonyNetwork: this,
+      config: this.config,
       contract,
       method,
       args,
@@ -277,7 +213,7 @@ export class ColonyNetwork {
     txConfig?: TxConfig<M>,
   ) {
     return new EIP2612TxCreator({
-      colonyNetwork: this,
+      config: this.config,
       contract,
       method,
       args,
@@ -469,7 +405,7 @@ export class ColonyNetwork {
 
     if (!metadata) {
       return this.createMetaTxCreator(
-        this.networkContract,
+        this.contract,
         'createColonyForFrontend',
         prepareArgs,
         async (receipt) => ({
@@ -491,14 +427,14 @@ export class ColonyNetwork {
     }
 
     return this.createMetaTxCreator(
-      this.networkContract,
+      this.contract,
       'createColonyForFrontend',
       async () => {
         const args = await prepareArgs();
         if (typeof metadata == 'string') {
           args[6] = metadata;
         } else {
-          args[6] = await this.ipfs.uploadMetadata(
+          args[6] = await this.config.ipfs.uploadMetadata(
             MetadataType.Colony,
             metadata,
           );
@@ -548,7 +484,7 @@ export class ColonyNetwork {
    * @returns A Colony abstaction instance of the MetaColony
    */
   async getMetaColony(): Promise<Colony> {
-    const colonyAddress = await this.networkContract.getMetaColony();
+    const colonyAddress = await this.contract.getMetaColony();
     return this.getColony(colonyAddress);
   }
 
@@ -561,11 +497,9 @@ export class ColonyNetwork {
    * @returns The colony's ENS label
    */
   async getColonyLabel(address: string) {
-    const ensName = await this.networkContract.lookupRegisteredENSDomain(
-      address,
-    );
+    const ensName = await this.contract.lookupRegisteredENSDomain(address);
     if (ensName) {
-      return ensName.replace(ColonyLabelSuffix[this.network], '');
+      return ensName.replace(ColonyLabelSuffix[this.config.network], '');
     }
     return null;
   }
@@ -579,8 +513,8 @@ export class ColonyNetwork {
    * @returns The colony's address
    */
   async getColonyAddress(label: string) {
-    const hash = namehash(`${label}${ColonyLabelSuffix[this.network]}`);
-    const address = await this.networkContract.addr(hash);
+    const hash = namehash(`${label}${ColonyLabelSuffix[this.config.network]}`);
+    const address = await this.contract.addr(hash);
     if (address !== AddressZero) {
       return address;
     }
@@ -596,11 +530,9 @@ export class ColonyNetwork {
    * @returns The user's username
    */
   async getUsername(address: string) {
-    const ensName = await this.networkContract.lookupRegisteredENSDomain(
-      address,
-    );
+    const ensName = await this.contract.lookupRegisteredENSDomain(address);
     if (ensName) {
-      return ensName.replace(UserLabelSuffix[this.network], '');
+      return ensName.replace(UserLabelSuffix[this.config.network], '');
     }
     return null;
   }
@@ -614,8 +546,8 @@ export class ColonyNetwork {
    * @returns The user's address
    */
   async getUserAddress(username: string) {
-    const hash = namehash(`${username}${UserLabelSuffix[this.network]}`);
-    const address = await this.networkContract.addr(hash);
+    const hash = namehash(`${username}${UserLabelSuffix[this.config.network]}`);
+    const address = await this.contract.addr(hash);
     if (address !== AddressZero) {
       return address;
     }
@@ -639,7 +571,7 @@ export class ColonyNetwork {
       return [username, ''] as [string, string];
     };
     return this.createMetaTxCreator(
-      this.networkContract,
+      this.contract,
       'registerUserLabel',
       checkUsername,
       async (receipt) => ({
@@ -665,7 +597,7 @@ export class ColonyNetwork {
    */
   deployToken(name: string, symbol: string, decimals = 18) {
     return this.createMetaTxCreator(
-      this.networkContract,
+      this.contract,
       'deployTokenViaNetwork',
       [name, symbol, decimals],
       async (receipt) => ({
