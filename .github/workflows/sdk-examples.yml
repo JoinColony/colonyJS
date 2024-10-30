@@ -10,16 +10,23 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20.10.0]
+        node-version: [20.15.1]
     steps:
     - uses: actions/checkout@v4
     - uses: pnpm/action-setup@v4
       with:
-        version: 8.14.1
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
+        version: 8.15.9
+    - name: Setup node
+      uses: actions/setup-node@v3
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version-file: '.nvmrc'
+        cache: 'pnpm'
+    - name: Cache NPM dependencies
+      uses: actions/cache@v4
+      id: cache
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('pnpm-lock.yaml') }}
     - run: pnpm run bootstrap
     - run: pnpm --filter "!colony-js" run build
     - run: pnpm --filter "sdk" run build-examples
