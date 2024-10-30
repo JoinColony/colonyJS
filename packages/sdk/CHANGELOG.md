@@ -1,5 +1,11 @@
 # @colony/sdk
 
+## 3.0.0-next.1
+
+### Patch Changes
+
+- 232993e: Actually export ContractConfig class, as well as the Address type from AbiType
+
 ## 3.0.0-next.0
 
 ### Major Changes
