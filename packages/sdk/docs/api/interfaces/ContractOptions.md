@@ -1,6 +1,6 @@
-# Interface: ColonyNetworkOptions
+# Interface: ContractOptions
 
-Additional options for the [ColonyNetwork](../classes/ColonyNetwork.md)
+Additional options for instatiating Contracts within the Colony Network
 
 ## Properties
 

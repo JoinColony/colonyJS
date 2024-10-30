@@ -7,7 +7,7 @@ The `VotingReputation` extension allows any member of a Colony to propose a Moti
 ### Extension parameters
 
 Before the `VotingReputation` extension can be used you need to initialize it using a few parameters that heavily influence the Motion lifecycle.
-For that please see the [initialize](VotingReputation.md#initialize) function and also [this document](https://docs.colony.io/use/governance/motions-and-disputes/parameters) for an in-depth explanation of the various parameters.
+For that please see the [initialize](VotingReputation.md#initialize) function and also [this document](https://docs.colony.io/learn/governance/parameters) for an in-depth explanation of the various parameters.
 
 ### What is a Motion?
 
@@ -18,7 +18,7 @@ Motions that pass (the outcome is _Yay_) will execute the `action` once they are
 
 :::info
 
-The exact lifecycle is determined by the parameters that were set when the `VotingReputation` extension was installed for the Colony. You can find a detailed explanation of all the parameters [here](https://colony.gitbook.io/colony/extensions/governance/parameters).
+The exact lifecycle is determined by the parameters that were set when the `VotingReputation` extension was installed for the Colony. You can find a detailed explanation of all the parameters [here](https://docs.colony.io/learn/governance/parameters).
 
 :::
 
@@ -356,7 +356,7 @@ ___
 Get the initialized configuration options
 
 Get the configuration options that were set when the extension was initialized.
-For more information on the individual values see https://docs.colony.io/use/governance/motions-and-disputes/parameters
+For more information on the individual values see https://docs.colony.io/learn/governance/parameters
 
 #### Returns
 
@@ -518,7 +518,7 @@ Before you can use the extension you need to initialize it by calling this funct
 - Fractions are in wei to allow for precise adjustments (you can use the `w` helper method to specify fractions - see example)
 - All periods values are given in seconds
 
-See also [this page](https://docs.colony.io/use/governance/motions-and-disputes/parameters) for a detailed explanation of the parameters.
+See also [this page](https://docs.colony.io/learn/governance/parameters) for a detailed explanation of the parameters.
 
 **`Example`**
 

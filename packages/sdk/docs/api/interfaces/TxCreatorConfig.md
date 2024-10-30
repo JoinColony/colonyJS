@@ -17,9 +17,9 @@
 
 ___
 
-### colonyNetwork
+### config
 
-• **colonyNetwork**: [`ColonyNetwork`](../classes/ColonyNetwork.md)
+• **config**: `ContractConfig`
 
 ___
 

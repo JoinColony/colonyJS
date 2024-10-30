@@ -285,6 +285,12 @@ IColonyNetwork.deployTransaction
 
 ___
 
+### disableVersionCheck
+
+• **disableVersionCheck**: `boolean`
+
+___
+
 ### estimateGas
 
 • **estimateGas**: `ExtendedEstimate`

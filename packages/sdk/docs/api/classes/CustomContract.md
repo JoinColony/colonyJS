@@ -4,13 +4,13 @@
 
 | Name | Type |
 | :------ | :------ |
-| `A` | extends `Abi` |
+| `A` | extends [`Abi`](../README.md#abi) |
 
 ## Constructors
 
 ### constructor
 
-• **new CustomContract**<`A`\>(`colonyNetwork`, `address`, `abi`)
+• **new CustomContract**<`A`\>(`address`, `abi`, `config`)
 
 Creates a new instance of a custom contract
 
@@ -21,21 +21,27 @@ From here you should be able to instantiate all the required instances for Colon
 
 | Name | Type |
 | :------ | :------ |
-| `A` | extends `Abi` |
+| `A` | extends [`Abi`](../README.md#abi) |
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `colonyNetwork` | [`ColonyNetwork`](ColonyNetwork.md) \| [`CustomColonyNetwork`](CustomColonyNetwork.md) | [ColonyNetwork](ColonyNetwork.md) instance |
 | `address` | \`0x${string}\` | Address of the deployed contract |
 | `abi` | `A` | JSON ABI of the contract |
+| `config` | `ContractConfig` | An instance of a ContractConfig (mind: _not_ ContractOptions!) |
 
 ## Properties
 
 ### address
 
 • **address**: \`0x${string}\`
+
+___
+
+### config
+
+• **config**: `ContractConfig`
 
 ## Methods
 

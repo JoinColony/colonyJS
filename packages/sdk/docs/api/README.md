@@ -45,7 +45,6 @@
 - [ColonyNetwork](classes/ColonyNetwork.md)
 - [ColonyToken](classes/ColonyToken.md)
 - [ColonyTxCreator](classes/ColonyTxCreator.md)
-- [CustomColonyNetwork](classes/CustomColonyNetwork.md)
 - [CustomContract](classes/CustomContract.md)
 - [ERC20Token](classes/ERC20Token.md)
 - [ERC2612Token](classes/ERC2612Token.md)
@@ -87,9 +86,9 @@
 - [ColonyMetaTransaction](interfaces/ColonyMetaTransaction.md)
 - [ColonyMetadata](interfaces/ColonyMetadata.md)
 - [ColonyMultiFilter](interfaces/ColonyMultiFilter.md)
-- [ColonyNetworkOptions](interfaces/ColonyNetworkOptions.md)
 - [ColonyTopic](interfaces/ColonyTopic.md)
 - [ColonyTransaction](interfaces/ColonyTransaction.md)
+- [ContractOptions](interfaces/ContractOptions.md)
 - [ContractReceipt](interfaces/ContractReceipt.md)
 - [ContractTransaction](interfaces/ContractTransaction.md)
 - [DataTypeMap](interfaces/DataTypeMap.md)
@@ -115,6 +114,14 @@
 - [TxCreatorConfig](interfaces/TxCreatorConfig.md)
 
 ## Type Aliases
+
+### Abi
+
+Ƭ **Abi**: readonly (`AbiConstructor` \| `AbiError` \| `AbiEvent` \| `AbiFallback` \| `AbiFunction` \| `AbiReceive`)[]
+
+Contract [ABI Specification](https://docs.soliditylang.org/en/latest/abi-spec.html#json)
+
+___
 
 ### Data
 

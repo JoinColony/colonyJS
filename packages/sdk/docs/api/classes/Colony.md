@@ -18,6 +18,14 @@ A shortcut to the [ColonyNetwork](ColonyNetwork.md) instance
 
 ___
 
+### config
+
+• **config**: `ContractConfig`
+
+The colony's contract config (taken from ColonyNetwork)
+
+___
+
 ### ext
 
 • **ext**: [`SupportedExtensions`](../interfaces/SupportedExtensions.md)
