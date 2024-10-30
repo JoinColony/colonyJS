@@ -1,0 +1,19 @@
+{
+  "mode": "pre",
+  "tag": "next",
+  "initialVersions": {
+    "colony-typescript-for-build-only-{{MODULE_TYPE}}": "0.0.0",
+    "@colony/colony-js": "7.2.0",
+    "@colony/contractor": "2.2.0",
+    "@colony/core": "2.3.1",
+    "@colony/events": "3.0.0",
+    "@colony/sdk": "2.1.0",
+    "@colony/tokens": "0.3.0"
+  },
+  "changesets": [
+    "blue-insects-rescue",
+    "brave-impalas-flow",
+    "little-singers-try",
+    "weak-boats-cough"
+  ]
+}

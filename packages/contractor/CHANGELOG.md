@@ -1,5 +1,11 @@
 # @colony/contractor
 
+## 2.3.0-next.0
+
+### Minor Changes
+
+- 6239827: Add support for the `imwss3` colonyNetwork release.
+
 ## 2.2.0
 
 ### Minor Changes

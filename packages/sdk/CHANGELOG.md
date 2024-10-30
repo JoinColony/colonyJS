@@ -1,5 +1,26 @@
 # @colony/sdk
 
+## 3.0.0-next.0
+
+### Major Changes
+
+- e374bc2: Make Arbitrum One the default network in all cases. While this can be considered a breaking change it does not change any of the APIs.
+
+### Minor Changes
+
+- 6239827: Add support for the `imwss3` colonyNetwork release.
+- 2bdfe0c: Add support for custom contracts
+
+### Patch Changes
+
+- c84bb1d: Introduce `tsx` instead of `ts-node` for esm compatibility reasons. This required some changes to how we import and export types from .ts files, so a lint rule was added for this.
+- Updated dependencies [6239827]
+- Updated dependencies [e374bc2]
+- Updated dependencies [c84bb1d]
+  - @colony/core@3.0.0-next.0
+  - @colony/events@4.0.0-next.0
+  - @colony/tokens@1.0.0-next.0
+
 ## 2.1.0
 
 ### Minor Changes
