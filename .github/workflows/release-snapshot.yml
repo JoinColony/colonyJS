@@ -9,32 +9,30 @@ on:
         default: 'true'
         type: boolean
 
-concurrency: ${{ github.workflow }}-${{ github.ref }}
-
 jobs:
   release-snapshot:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [20.11.0]
     steps:
       - uses: actions/checkout@v4
-
       - uses: pnpm/action-setup@v4
         with:
-          version: 8.15.5
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+          version: 8.15.9
+      - name: Setup node
+        uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
-
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+      - name: Cache NPM dependencies
+        uses: actions/cache@v4
+        id: cache
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Set relevant environment variables
         run: |
           if [[ ${{ github.event.inputs.includeNext }} == 'true' ]]; then
             echo "COLONY_CONTRACTOR_INCLUDE_NEXT=true" >> $GITHUB_ENV
           fi
-
       - name: Create .npmrc (to be logged in for publishing)
         run: |
           cat << EOF > "$HOME/.npmrc"
@@ -42,25 +40,18 @@ jobs:
           EOF
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
       - run: pnpm run bootstrap
-
       - run: pnpm run lint
-
       - run: pnpm run build
         env:
           NODE_OPTIONS: --max-old-space-size=4096
-
       - run: pnpm run test
         env:
           CI: true
           NODE_OPTIONS: --max-old-space-size=4096
-
       - name: Generate git hash of current HEAD
         run: echo "VERSION_HASH=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-
       - name: Version snapshot
         run: npx changeset version --snapshot snapshot-${{ env.VERSION_HASH }} && pnpm install --lockfile-only
-
       - name: Publish snapshot to npm
         run: npx changeset publish --snapshot --tag snapshot --no-git-tag

@@ -215,6 +215,9 @@ importers:
       '@colony/tokens':
         specifier: ^0.3.0
         version: link:../tokens
+      '@ethersproject/abstract-provider':
+        specifier: ^5.7.0
+        version: 5.7.0
       abitype:
         specifier: ^1.0.6
         version: 1.0.6(typescript@5.1.6)
@@ -223,9 +226,6 @@ importers:
         specifier: ^2.2.0
         version: link:../contractor
       '@ethersproject/abi':
-        specifier: ^5.7.0
-        version: 5.7.0
-      '@ethersproject/abstract-provider':
         specifier: ^5.7.0
         version: 5.7.0
       '@ethersproject/abstract-signer':
