@@ -76,7 +76,7 @@ const REP_DIVISOR = BigNumber.from(10).pow(18);
  * ### Extension parameters
  *
  * Before the `VotingReputation` extension can be used you need to initialize it using a few parameters that heavily influence the Motion lifecycle.
- * For that please see the {@link VotingReputation.initialize} function and also [this document](https://docs.colony.io/use/governance/motions-and-disputes/parameters) for an in-depth explanation of the various parameters.
+ * For that please see the {@link VotingReputation.initialize} function and also [this document](https://docs.colony.io/learn/governance/parameters) for an in-depth explanation of the various parameters.
  *
  * ### What is a Motion?
  *
@@ -87,7 +87,7 @@ const REP_DIVISOR = BigNumber.from(10).pow(18);
  *
  * :::info
  *
- * The exact lifecycle is determined by the parameters that were set when the `VotingReputation` extension was installed for the Colony. You can find a detailed explanation of all the parameters [here](https://colony.gitbook.io/colony/extensions/governance/parameters).
+ * The exact lifecycle is determined by the parameters that were set when the `VotingReputation` extension was installed for the Colony. You can find a detailed explanation of all the parameters [here](https://docs.colony.io/learn/governance/parameters).
  *
  * :::
  *
@@ -318,7 +318,7 @@ export class VotingReputation {
    * - Fractions are in wei to allow for precise adjustments (you can use the `w` helper method to specify fractions - see example)
    * - All periods values are given in seconds
    *
-   * See also [this page](https://docs.colony.io/use/governance/motions-and-disputes/parameters) for a detailed explanation of the parameters.
+   * See also [this page](https://docs.colony.io/learn/governance/parameters) for a detailed explanation of the parameters.
    *
    * @example
    * ```typescript
@@ -1238,7 +1238,7 @@ export class VotingReputation {
    * Get the initialized configuration options
    *
    * Get the configuration options that were set when the extension was initialized.
-   * For more information on the individual values see https://docs.colony.io/use/governance/motions-and-disputes/parameters
+   * For more information on the individual values see https://docs.colony.io/learn/governance/parameters
    *
    * @returns The extensions configuration options
    */
