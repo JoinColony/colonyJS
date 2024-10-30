@@ -207,6 +207,15 @@ export async function getColonyClient(
       break;
     }
     default:
+      if (this.disableVersionCheck) {
+        // Always return the latest Colony version for newer versions
+        colonyClient = getColonyClientV17.call(
+          this,
+          colonyAddress,
+          signerOrProvider,
+        );
+        break;
+      }
       return assertExhaustiveSwitch(version, 'Could not find Colony version');
   }
 

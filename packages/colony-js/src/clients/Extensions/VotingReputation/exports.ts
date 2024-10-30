@@ -100,9 +100,12 @@ export function getVotingReputationClient(
     case 13:
       return getVotingReputationClientV13(colonyClient, address);
     default:
+      if (colonyClient.networkClient.disableVersionCheck) {
+        return getVotingReputationClientV13(colonyClient, address);
+      }
       return assertExhaustiveSwitch(
         version,
-        'Could not find VotingReputation version',
+        `Could not find VotingReputation version ${version}`,
       );
   }
 }

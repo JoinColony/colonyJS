@@ -58,9 +58,12 @@ export const getReputationBootstrapperClient = (
     case 6:
       return getReputationBootstrapperClientV6(colonyClient, address);
     default:
+      if (colonyClient.networkClient.disableVersionCheck) {
+        return getReputationBootstrapperClientV6(colonyClient, address);
+      }
       return assertExhaustiveSwitch(
         version,
-        'Could not find ReputationBootstrapper version',
+        `Could not find ReputationBootstrapper version ${version}`,
       );
   }
 };

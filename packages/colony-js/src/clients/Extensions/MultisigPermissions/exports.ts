@@ -38,9 +38,15 @@ export const getMultisigPermissionsClient = (
         address,
       );
     default:
+      if (colonyClient.networkClient.disableVersionCheck) {
+        return getMultisigPermissionsClientV2(
+          colonyClient as AugmentedIColony<ValidColony>,
+          address,
+        );
+      }
       return assertExhaustiveSwitch(
         version,
-        'Could not find MultisigPermissions version',
+        `Could not find MultisigPermissions version ${version}`,
       );
   }
 };

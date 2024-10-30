@@ -83,9 +83,15 @@ export const getStakedExpenditureClient = (
         address,
       );
     default:
+      if (colonyClient.networkClient.disableVersionCheck) {
+        return getStakedExpenditureClientV7(
+          colonyClient as AugmentedIColony<ValidColony>,
+          address,
+        );
+      }
       return assertExhaustiveSwitch(
         version,
-        'Could not find StakedExpenditure version',
+        `Could not find StakedExpenditure version ${version}`,
       );
   }
 };

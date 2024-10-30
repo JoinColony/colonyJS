@@ -204,7 +204,7 @@ export async function getExtensionClient(
     default:
       return assertExhaustiveSwitch(
         extension,
-        'Could not find extension with name',
+        `Could not find extension with name ${extension}`,
       );
   }
 }
