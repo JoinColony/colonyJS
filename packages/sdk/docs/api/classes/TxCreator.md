@@ -46,7 +46,7 @@ Learn more about these functions in their individual documentation
 | :------ | :------ |
 | `«destructured»` | `Object` |
 | › `args` | `unknown`[] \| () => `Promise`<`unknown`[]\> |
-| › `colonyNetwork` | [`ColonyNetwork`](ColonyNetwork.md) \| [`CustomColonyNetwork`](CustomColonyNetwork.md) |
+| › `config` | `ContractConfig` |
 | › `contract` | `C` |
 | › `eventData?` | (`receipt`: [`ContractReceipt`](../interfaces/ContractReceipt.md)) => `Promise`<`E`\> |
 | › `metadataType?` | `MD` |

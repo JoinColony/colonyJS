@@ -2,6 +2,12 @@
 
 ## Properties
 
+### disableVersionCheck
+
+• `Optional` **disableVersionCheck**: `boolean`
+
+___
+
 ### networkAddress
 
 • `Optional` **networkAddress**: `string`

@@ -28,33 +28,7 @@ const colonyNetwork = new ColonyNetwork(provider);
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `signerOrProvider` | [`SignerOrProvider`](../README.md#signerorprovider) | An _ethers_ compatible Signer or Provider instance |
-| `options?` | [`ColonyNetworkOptions`](../interfaces/ColonyNetworkOptions.md) | Optional custom [ColonyNetworkOptions](../interfaces/ColonyNetworkOptions.md) |
-
-## Properties
-
-### ipfs
-
-• **ipfs**: [`IpfsMetadata`](IpfsMetadata.md)
-
-The IPFS adapter for Metadata. Defaults to a read-only adapter
-
-___
-
-### network
-
-• **network**: [`Network`](../enums/Network.md)
-
-The network the client is connected to. Defaults to Arbitrum One
-
-___
-
-### signerOrProvider
-
-• **signerOrProvider**: [`SignerOrProvider`](../README.md#signerorprovider)
-
-An ethers.js [Signer](https://docs.ethers.org/v5/api/signer/#Signer) or [Provider](https://docs.ethers.org/v5/api/providers/).
-
-E.g. a [Wallet](https://docs.ethers.org/v5/api/signer/#Wallet) or a [Web3Provider](https://docs.ethers.org/v5/api/providers/other/#Web3Provider) (MetaMask)
+| `options?` | [`ContractOptions`](../interfaces/ContractOptions.md) | Optional custom ColonyNetworkOptions |
 
 ## Methods
 
@@ -295,21 +269,6 @@ Use this function to instantiate a new `Colony` for the deployed MetaColony
 `Promise`<[`Colony`](Colony.md)\>
 
 A Colony abstaction instance of the MetaColony
-
-___
-
-### getSigner
-
-▸ **getSigner**(): `Signer`
-
-Get the signer that was provided when the ColonyNetwork was instantiated.
-Throws if the Signer is only a (read-only) Provider
-
-#### Returns
-
-`Signer`
-
-An Ethers.js compatible Signer instance
 
 ___
 
