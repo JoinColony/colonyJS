@@ -1,6 +1,6 @@
 export type { ContractReceipt, ContractTransaction } from 'ethers';
 export type { TransactionResponse } from '@ethersproject/abstract-provider';
-export type { Abi } from 'abitype';
+export type { Abi, Address } from 'abitype';
 
 export {
   type AnnotationData,
@@ -41,6 +41,6 @@ export {
 } from '@colony/tokens';
 
 export * from './ColonyNetwork/index.js';
-export type { ContractOptions } from './ContractConfig.js';
+export { type ContractOptions, ContractConfig } from './ContractConfig.js';
 export * from './TxCreator/index.js';
 export type { ParsedLogTransactionReceipt } from './types.js';
