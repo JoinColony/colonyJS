@@ -76,9 +76,12 @@ export const getFundingQueueClient = (
     case 9:
       return getFundingQueueClientV9(colonyClient, address);
     default:
+      if (colonyClient.networkClient.disableVersionCheck) {
+        return getFundingQueueClientV9(colonyClient, address);
+      }
       return assertExhaustiveSwitch(
         version,
-        'Could not find FundingQueue version',
+        `Could not find FundingQueue version ${version}`,
       );
   }
 };

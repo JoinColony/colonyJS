@@ -76,9 +76,12 @@ export const getTokenSupplierClient = (
     case 9:
       return getTokenSupplierClientV9(colonyClient, address);
     default:
+      if (colonyClient.networkClient.disableVersionCheck) {
+        return getTokenSupplierClientV9(colonyClient, address);
+      }
       return assertExhaustiveSwitch(
         version,
-        'Could not find TokenSupplier version',
+        `Could not find TokenSupplier version ${version}`,
       );
   }
 };

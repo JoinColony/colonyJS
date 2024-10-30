@@ -45,9 +45,15 @@ export const getStreamingPaymentsClient = (
         address,
       );
     default:
+      if (colonyClient.networkClient.disableVersionCheck) {
+        return getStreamingPaymentsClientV6(
+          colonyClient as AugmentedIColony<ValidColony>,
+          address,
+        );
+      }
       return assertExhaustiveSwitch(
         version,
-        'Could not find StreamingPayments version',
+        `Could not find StreamingPayments version ${version}`,
       );
   }
 };

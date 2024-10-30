@@ -37,8 +37,8 @@ export interface ColonyNetworkClient extends IColonyNetwork {
   clientType: ClientType.NetworkClient;
   network: Network;
   reputationOracleEndpoint: string;
-
   estimateGas: ExtendedEstimate;
+  disableVersionCheck: boolean;
 
   /**
    * Get a ColonyClient instance for the currently deployed version of that Colony by providing the address or the integer colony number
@@ -96,6 +96,7 @@ export interface ColonyNetworkClient extends IColonyNetwork {
 export interface NetworkClientOptions {
   networkAddress?: string;
   reputationOracleEndpoint?: string;
+  disableVersionCheck?: boolean;
 }
 
 /**
@@ -148,6 +149,8 @@ const getColonyNetworkClient = (
   networkClient.reputationOracleEndpoint =
     (options && options.reputationOracleEndpoint) ||
     ReputationOracleEndpoint[network];
+
+  networkClient.disableVersionCheck = options?.disableVersionCheck || false;
 
   networkClient.getTokenLockingClient =
     async (): Promise<TokenLockingClient> => {

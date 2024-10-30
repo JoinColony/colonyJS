@@ -57,9 +57,15 @@ export const getStagedExpenditureClient = (
         address,
       );
     default:
+      if (colonyClient.networkClient.disableVersionCheck) {
+        return getStagedExpenditureClientV4(
+          colonyClient as AugmentedIColony<ValidColony>,
+          address,
+        );
+      }
       return assertExhaustiveSwitch(
         version,
-        'Could not find StagedExpenditure version',
+        `Could not find StagedExpenditure version ${version}`,
       );
   }
 };
