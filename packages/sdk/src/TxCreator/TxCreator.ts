@@ -5,7 +5,7 @@ import {
   type ContractReceipt,
   type ContractTransaction,
 } from 'ethers';
-import { parseLogs } from '@colony/core';
+import { type TxOverrides, parseLogs } from '@colony/core';
 import {
   type MetadataTypeMap,
   type VotingReputationEvents,
@@ -194,7 +194,7 @@ export class TxCreator<
     this.txConfig = txConfig;
   }
 
-  protected async getArgs() {
+  protected async getArgs(overrides?: TxOverrides) {
     let args: unknown[] = [];
 
     if (typeof this.args == 'function') {
@@ -203,11 +203,15 @@ export class TxCreator<
       args = this.args;
     }
 
+    if (overrides) {
+      args.push(overrides);
+    }
+
     return args;
   }
 
-  private async getTx() {
-    const args = await this.getArgs();
+  private async getTx(overrides?: TxOverrides) {
+    const args = await this.getArgs(overrides);
     const tx = (await this.contract.functions[this.method].apply(
       this.contract,
       args,
@@ -294,12 +298,12 @@ export class TxCreator<
    */
   tx() {
     return {
-      send: async () => {
-        const tx = await this.getTx();
+      send: async (overrides?: TxOverrides) => {
+        const tx = await this.getTx(overrides);
         return [tx, this.getMined.bind(this, tx)];
       },
-      mined: async () => {
-        const tx = await this.getTx();
+      mined: async (overrides?: TxOverrides) => {
+        const tx = await this.getTx(overrides);
         return this.getMined(tx);
       },
       encode: async () => {
