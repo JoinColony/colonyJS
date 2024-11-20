@@ -1,5 +1,11 @@
 # @colony/sdk
 
+## 3.0.0-next.3
+
+### Minor Changes
+
+- 5d4a2c1: Add tx override options to non meta transaction creators. You can now specify things like `gasLimit` in the send() and mined() methods
+
 ## 3.0.0-next.1
 
 ### Patch Changes
