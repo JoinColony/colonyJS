@@ -1,13 +1,13 @@
 {
-  description = "Flake to develop the colonyJS using nix(OS)";
+  description = "Flake to develop ColonyJS using nix(OS)";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
   outputs = {
     self,
-    nixpkgs
+    nixpkgs,
   }: {
     devShell.x86_64-linux = with nixpkgs.legacyPackages.x86_64-linux;
       mkShell {
