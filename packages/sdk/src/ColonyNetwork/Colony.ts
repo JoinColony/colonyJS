@@ -1002,8 +1002,9 @@ export class Colony {
       'makeArbitraryTransactions',
       [[target], [action], false],
       async (receipt) => ({
-        ...extractEvent<ColonyEvents.ArbitraryTransactionEventObject>(
-          'ArbitraryTransaction',
+        // eslint-disable-next-line max-len
+        ...extractEvent<ColonyEvents.ArbitraryTransaction_address_address_bytes_bool_EventObject>(
+          'ArbitraryTransaction(address,address,bytes,bool)',
           receipt,
         ),
       }),
