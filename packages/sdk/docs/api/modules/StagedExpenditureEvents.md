@@ -4,7 +4,8 @@
 
 - [AnnotationEventObject](../interfaces/StagedExpenditureEvents.AnnotationEventObject.md)
 - [ArbitraryReputationUpdateEventObject](../interfaces/StagedExpenditureEvents.ArbitraryReputationUpdateEventObject.md)
-- [ArbitraryTransactionEventObject](../interfaces/StagedExpenditureEvents.ArbitraryTransactionEventObject.md)
+- [ArbitraryTransaction\_address\_address\_bytes\_bool\_EventObject](../interfaces/StagedExpenditureEvents.ArbitraryTransaction_address_address_bytes_bool_EventObject.md)
+- [ArbitraryTransaction\_address\_bytes\_bool\_EventObject](../interfaces/StagedExpenditureEvents.ArbitraryTransaction_address_bytes_bool_EventObject.md)
 - [ColonyBootstrappedEventObject](../interfaces/StagedExpenditureEvents.ColonyBootstrappedEventObject.md)
 - [ColonyFundsClaimedEventObject](../interfaces/StagedExpenditureEvents.ColonyFundsClaimedEventObject.md)
 - [ColonyFundsMovedBetweenFundingPotsEventObject](../interfaces/StagedExpenditureEvents.ColonyFundsMovedBetweenFundingPotsEventObject.md)
@@ -95,15 +96,27 @@ ___
 
 ___
 
-### ArbitraryTransactionEvent
+### ArbitraryTransaction\_address\_address\_bytes\_bool\_Event
 
-Ƭ **ArbitraryTransactionEvent**: `TypedEvent`<[`string`, `string`, `boolean`], [`ArbitraryTransactionEventObject`](../interfaces/StagedExpenditureEvents.ArbitraryTransactionEventObject.md)\>
+Ƭ **ArbitraryTransaction\_address\_address\_bytes\_bool\_Event**: `TypedEvent`<[`string`, `string`, `string`, `boolean`], [`ArbitraryTransaction_address_address_bytes_bool_EventObject`](../interfaces/StagedExpenditureEvents.ArbitraryTransaction_address_address_bytes_bool_EventObject.md)\>
 
 ___
 
-### ArbitraryTransactionEventFilter
+### ArbitraryTransaction\_address\_address\_bytes\_bool\_EventFilter
 
-Ƭ **ArbitraryTransactionEventFilter**: `TypedEventFilter`<[`ArbitraryTransactionEvent`](StagedExpenditureEvents.md#arbitrarytransactionevent)\>
+Ƭ **ArbitraryTransaction\_address\_address\_bytes\_bool\_EventFilter**: `TypedEventFilter`<[`ArbitraryTransaction_address_address_bytes_bool_Event`](StagedExpenditureEvents.md#arbitrarytransaction_address_address_bytes_bool_event)\>
+
+___
+
+### ArbitraryTransaction\_address\_bytes\_bool\_Event
+
+Ƭ **ArbitraryTransaction\_address\_bytes\_bool\_Event**: `TypedEvent`<[`string`, `string`, `boolean`], [`ArbitraryTransaction_address_bytes_bool_EventObject`](../interfaces/StagedExpenditureEvents.ArbitraryTransaction_address_bytes_bool_EventObject.md)\>
+
+___
+
+### ArbitraryTransaction\_address\_bytes\_bool\_EventFilter
+
+Ƭ **ArbitraryTransaction\_address\_bytes\_bool\_EventFilter**: `TypedEventFilter`<[`ArbitraryTransaction_address_bytes_bool_Event`](StagedExpenditureEvents.md#arbitrarytransaction_address_bytes_bool_event)\>
 
 ___
 

@@ -804,7 +804,7 @@ ___
 
 ### makeArbitraryTransaction
 
-▸ **makeArbitraryTransaction**(`target`, `action`): [`ColonyTxCreator`](ColonyTxCreator.md)<[`SupportedColonyContract`](../README.md#supportedcolonycontract), ``"makeArbitraryTransactions"``, { `data?`: `string` ; `success?`: `boolean` ; `target?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **makeArbitraryTransaction**(`target`, `action`): [`ColonyTxCreator`](ColonyTxCreator.md)<[`SupportedColonyContract`](../README.md#supportedcolonycontract), ``"makeArbitraryTransactions"``, { `agent?`: `string` ; `data?`: `string` ; `success?`: `boolean` ; `target?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Execute an arbitrary transaction in the name of the Colony
 
@@ -847,7 +847,7 @@ const encodedAction = ERC721Interface.encodeFunctionData(
 
 #### Returns
 
-[`ColonyTxCreator`](ColonyTxCreator.md)<[`SupportedColonyContract`](../README.md#supportedcolonycontract), ``"makeArbitraryTransactions"``, { `data?`: `string` ; `success?`: `boolean` ; `target?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<[`SupportedColonyContract`](../README.md#supportedcolonycontract), ``"makeArbitraryTransactions"``, { `agent?`: `string` ; `data?`: `string` ; `success?`: `boolean` ; `target?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 

@@ -5,7 +5,8 @@
 - [AnnotationEventObject](../interfaces/MultisigPermissionsEvents.AnnotationEventObject.md)
 - [ApprovalChangedEventObject](../interfaces/MultisigPermissionsEvents.ApprovalChangedEventObject.md)
 - [ArbitraryReputationUpdateEventObject](../interfaces/MultisigPermissionsEvents.ArbitraryReputationUpdateEventObject.md)
-- [ArbitraryTransactionEventObject](../interfaces/MultisigPermissionsEvents.ArbitraryTransactionEventObject.md)
+- [ArbitraryTransaction\_address\_address\_bytes\_bool\_EventObject](../interfaces/MultisigPermissionsEvents.ArbitraryTransaction_address_address_bytes_bool_EventObject.md)
+- [ArbitraryTransaction\_address\_bytes\_bool\_EventObject](../interfaces/MultisigPermissionsEvents.ArbitraryTransaction_address_bytes_bool_EventObject.md)
 - [ColonyBootstrappedEventObject](../interfaces/MultisigPermissionsEvents.ColonyBootstrappedEventObject.md)
 - [ColonyFundsClaimedEventObject](../interfaces/MultisigPermissionsEvents.ColonyFundsClaimedEventObject.md)
 - [ColonyFundsMovedBetweenFundingPotsEventObject](../interfaces/MultisigPermissionsEvents.ColonyFundsMovedBetweenFundingPotsEventObject.md)
@@ -111,15 +112,27 @@ ___
 
 ___
 
-### ArbitraryTransactionEvent
+### ArbitraryTransaction\_address\_address\_bytes\_bool\_Event
 
-Ƭ **ArbitraryTransactionEvent**: `TypedEvent`<[`string`, `string`, `boolean`], [`ArbitraryTransactionEventObject`](../interfaces/MultisigPermissionsEvents.ArbitraryTransactionEventObject.md)\>
+Ƭ **ArbitraryTransaction\_address\_address\_bytes\_bool\_Event**: `TypedEvent`<[`string`, `string`, `string`, `boolean`], [`ArbitraryTransaction_address_address_bytes_bool_EventObject`](../interfaces/MultisigPermissionsEvents.ArbitraryTransaction_address_address_bytes_bool_EventObject.md)\>
 
 ___
 
-### ArbitraryTransactionEventFilter
+### ArbitraryTransaction\_address\_address\_bytes\_bool\_EventFilter
 
-Ƭ **ArbitraryTransactionEventFilter**: `TypedEventFilter`<[`ArbitraryTransactionEvent`](MultisigPermissionsEvents.md#arbitrarytransactionevent)\>
+Ƭ **ArbitraryTransaction\_address\_address\_bytes\_bool\_EventFilter**: `TypedEventFilter`<[`ArbitraryTransaction_address_address_bytes_bool_Event`](MultisigPermissionsEvents.md#arbitrarytransaction_address_address_bytes_bool_event)\>
+
+___
+
+### ArbitraryTransaction\_address\_bytes\_bool\_Event
+
+Ƭ **ArbitraryTransaction\_address\_bytes\_bool\_Event**: `TypedEvent`<[`string`, `string`, `boolean`], [`ArbitraryTransaction_address_bytes_bool_EventObject`](../interfaces/MultisigPermissionsEvents.ArbitraryTransaction_address_bytes_bool_EventObject.md)\>
+
+___
+
+### ArbitraryTransaction\_address\_bytes\_bool\_EventFilter
+
+Ƭ **ArbitraryTransaction\_address\_bytes\_bool\_EventFilter**: `TypedEventFilter`<[`ArbitraryTransaction_address_bytes_bool_Event`](MultisigPermissionsEvents.md#arbitrarytransaction_address_bytes_bool_event)\>
 
 ___
 

@@ -7,6 +7,7 @@
 - [ExtensionInitialisedEventObject](../interfaces/ColonyExtensionEvents.ExtensionInitialisedEventObject.md)
 - [LogSetAuthorityEventObject](../interfaces/ColonyExtensionEvents.LogSetAuthorityEventObject.md)
 - [LogSetOwnerEventObject](../interfaces/ColonyExtensionEvents.LogSetOwnerEventObject.md)
+- [MetaTransactionExecutedEventObject](../interfaces/ColonyExtensionEvents.MetaTransactionExecutedEventObject.md)
 
 ## Type Aliases
 
@@ -43,3 +44,15 @@ ___
 ### LogSetOwnerEventFilter
 
 Ƭ **LogSetOwnerEventFilter**: `TypedEventFilter`<[`LogSetOwnerEvent`](ColonyExtensionEvents.md#logsetownerevent)\>
+
+___
+
+### MetaTransactionExecutedEvent
+
+Ƭ **MetaTransactionExecutedEvent**: `TypedEvent`<[`string`, `string`, `string`], [`MetaTransactionExecutedEventObject`](../interfaces/ColonyExtensionEvents.MetaTransactionExecutedEventObject.md)\>
+
+___
+
+### MetaTransactionExecutedEventFilter
+
+Ƭ **MetaTransactionExecutedEventFilter**: `TypedEventFilter`<[`MetaTransactionExecutedEvent`](ColonyExtensionEvents.md#metatransactionexecutedevent)\>
