@@ -1,5 +1,11 @@
 # @colony/tokens
 
+## 1.0.0-next.1
+
+### Minor Changes
+
+- d03e0e1: Incorporate updates to the `imwss3` colonyNetwork release
+
 ## 1.0.0-next.0
 
 ### Major Changes
