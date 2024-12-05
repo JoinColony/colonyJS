@@ -4,7 +4,8 @@
 
 - [AnnotationEventObject](../interfaces/ColonyEvents.AnnotationEventObject.md)
 - [ArbitraryReputationUpdateEventObject](../interfaces/ColonyEvents.ArbitraryReputationUpdateEventObject.md)
-- [ArbitraryTransactionEventObject](../interfaces/ColonyEvents.ArbitraryTransactionEventObject.md)
+- [ArbitraryTransaction\_address\_address\_bytes\_bool\_EventObject](../interfaces/ColonyEvents.ArbitraryTransaction_address_address_bytes_bool_EventObject.md)
+- [ArbitraryTransaction\_address\_bytes\_bool\_EventObject](../interfaces/ColonyEvents.ArbitraryTransaction_address_bytes_bool_EventObject.md)
 - [ColonyAdministrationRoleSetEventObject](../interfaces/ColonyEvents.ColonyAdministrationRoleSetEventObject.md)
 - [ColonyArchitectureRoleSetEventObject](../interfaces/ColonyEvents.ColonyArchitectureRoleSetEventObject.md)
 - [ColonyBootstrapped\_address\_address\_array\_int256\_array\_EventObject](../interfaces/ColonyEvents.ColonyBootstrapped_address_address_array_int256_array_EventObject.md)
@@ -123,15 +124,27 @@ ___
 
 ___
 
-### ArbitraryTransactionEvent
+### ArbitraryTransaction\_address\_address\_bytes\_bool\_Event
 
-Ƭ **ArbitraryTransactionEvent**: `TypedEvent`<[`string`, `string`, `boolean`], [`ArbitraryTransactionEventObject`](../interfaces/ColonyEvents.ArbitraryTransactionEventObject.md)\>
+Ƭ **ArbitraryTransaction\_address\_address\_bytes\_bool\_Event**: `TypedEvent`<[`string`, `string`, `string`, `boolean`], [`ArbitraryTransaction_address_address_bytes_bool_EventObject`](../interfaces/ColonyEvents.ArbitraryTransaction_address_address_bytes_bool_EventObject.md)\>
 
 ___
 
-### ArbitraryTransactionEventFilter
+### ArbitraryTransaction\_address\_address\_bytes\_bool\_EventFilter
 
-Ƭ **ArbitraryTransactionEventFilter**: `TypedEventFilter`<[`ArbitraryTransactionEvent`](ColonyEvents.md#arbitrarytransactionevent)\>
+Ƭ **ArbitraryTransaction\_address\_address\_bytes\_bool\_EventFilter**: `TypedEventFilter`<[`ArbitraryTransaction_address_address_bytes_bool_Event`](ColonyEvents.md#arbitrarytransaction_address_address_bytes_bool_event)\>
+
+___
+
+### ArbitraryTransaction\_address\_bytes\_bool\_Event
+
+Ƭ **ArbitraryTransaction\_address\_bytes\_bool\_Event**: `TypedEvent`<[`string`, `string`, `boolean`], [`ArbitraryTransaction_address_bytes_bool_EventObject`](../interfaces/ColonyEvents.ArbitraryTransaction_address_bytes_bool_EventObject.md)\>
+
+___
+
+### ArbitraryTransaction\_address\_bytes\_bool\_EventFilter
+
+Ƭ **ArbitraryTransaction\_address\_bytes\_bool\_EventFilter**: `TypedEventFilter`<[`ArbitraryTransaction_address_bytes_bool_Event`](ColonyEvents.md#arbitrarytransaction_address_bytes_bool_event)\>
 
 ___
 

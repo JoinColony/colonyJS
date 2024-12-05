@@ -102,6 +102,8 @@ ___
 | `LogSetAuthority(address)` | (`authority?`: ``null`` \| `string`) => [`LogSetAuthorityEventFilter`](../modules/ColonyExtensionEvents.md#logsetauthorityeventfilter) |
 | `LogSetOwner` | (`owner?`: ``null`` \| `string`) => [`LogSetOwnerEventFilter`](../modules/ColonyExtensionEvents.md#logsetownereventfilter) |
 | `LogSetOwner(address)` | (`owner?`: ``null`` \| `string`) => [`LogSetOwnerEventFilter`](../modules/ColonyExtensionEvents.md#logsetownereventfilter) |
+| `MetaTransactionExecuted` | (`userAddress?`: ``null``, `relayerAddress?`: ``null``, `payload?`: ``null``) => [`MetaTransactionExecutedEventFilter`](../modules/ColonyExtensionEvents.md#metatransactionexecutedeventfilter) |
+| `MetaTransactionExecuted(address,address,bytes)` | (`userAddress?`: ``null``, `relayerAddress?`: ``null``, `payload?`: ``null``) => [`MetaTransactionExecutedEventFilter`](../modules/ColonyExtensionEvents.md#metatransactionexecutedeventfilter) |
 
 #### Overrides
 
