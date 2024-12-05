@@ -65,6 +65,7 @@ ___
 | `Annotation(address,bytes32,string)` | `EventFragment` |
 | `ApprovalChanged(address,uint256,uint8,bool)` | `EventFragment` |
 | `ArbitraryReputationUpdate(address,address,uint256,int256)` | `EventFragment` |
+| `ArbitraryTransaction(address,address,bytes,bool)` | `EventFragment` |
 | `ArbitraryTransaction(address,bytes,bool)` | `EventFragment` |
 | `ColonyBootstrapped(address,address[],int256[])` | `EventFragment` |
 | `ColonyFundsClaimed(address,address,uint256,uint256)` | `EventFragment` |
@@ -572,7 +573,7 @@ utils.Interface.getEvent
 
 | Name | Type |
 | :------ | :------ |
-| `nameOrSignatureOrTopic` | ``"ArbitraryTransaction"`` |
+| `nameOrSignatureOrTopic` | ``"ArbitraryTransaction(address,bytes,bool)"`` |
 
 #### Returns
 
@@ -588,7 +589,7 @@ utils.Interface.getEvent
 
 | Name | Type |
 | :------ | :------ |
-| `nameOrSignatureOrTopic` | ``"ArbitraryTransaction(address,bytes,bool)"`` |
+| `nameOrSignatureOrTopic` | ``"ArbitraryTransaction(address,address,bytes,bool)"`` |
 
 #### Returns
 

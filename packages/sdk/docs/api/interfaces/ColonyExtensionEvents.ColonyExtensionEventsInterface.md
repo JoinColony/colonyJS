@@ -65,6 +65,7 @@ ___
 | `ExtensionInitialised()` | `EventFragment` |
 | `LogSetAuthority(address)` | `EventFragment` |
 | `LogSetOwner(address)` | `EventFragment` |
+| `MetaTransactionExecuted(address,address,bytes)` | `EventFragment` |
 
 #### Overrides
 
@@ -492,6 +493,38 @@ utils.Interface.getEvent
 | Name | Type |
 | :------ | :------ |
 | `nameOrSignatureOrTopic` | ``"LogSetOwner(address)"`` |
+
+#### Returns
+
+`EventFragment`
+
+#### Overrides
+
+utils.Interface.getEvent
+
+▸ **getEvent**(`nameOrSignatureOrTopic`): `EventFragment`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `nameOrSignatureOrTopic` | ``"MetaTransactionExecuted"`` |
+
+#### Returns
+
+`EventFragment`
+
+#### Overrides
+
+utils.Interface.getEvent
+
+▸ **getEvent**(`nameOrSignatureOrTopic`): `EventFragment`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `nameOrSignatureOrTopic` | ``"MetaTransactionExecuted(address,address,bytes)"`` |
 
 #### Returns
 
