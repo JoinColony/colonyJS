@@ -14,8 +14,3 @@ export const getLogs = async (
   const usedFilter = await filter;
   return provider.send('eth_getLogs', [usedFilter]);
 };
-
-/** Use this to filter empty undefinied values from arrays in a type-safe way */
-export const nonNullable = <T>(value: T): value is NonNullable<T> => {
-  return value !== null && value !== undefined;
-};

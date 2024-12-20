@@ -1,0 +1,57 @@
+{
+  "name": "@colony/wagmi-plugin",
+  "version": "0.1",
+  "description": "A plugin to generate wagmi/abitype compatible ABIs",
+  "scripts": {
+    "clean": "rimraf ./dist",
+    "build": "npm run clean && tsc --declaration --outDir dist",
+    "lint": "eslint --ext .ts src",
+    "typecheck": "tsc --noEmit"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "files": [
+    "./dist",
+    "README.md"
+  ],
+  "type": "module",
+  "engines": {
+    "node": "^18 || ^20 || ^22",
+    "pnpm": "^8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoinColony/colonyJS.git"
+  },
+  "author": "Christian Maniewski <code@chmanie.com>",
+  "license": "GPL-3.0-only",
+  "bugs": {
+    "url": "https://github.com/JoinColony/colonyJS/issues"
+  },
+  "homepage": "https://docs.colony.io/develop",
+  "dependencies": {
+    "@colony/abis": "^1.8.1",
+    "@colony/core": "^2.3.0",
+    "@typechain/ethers-v5": "^11.1.0",
+    "@typechain/ethers-v6": "^0.4.2",
+    "@types/mkdirp": "^1.0.2",
+    "@types/yargs": "^17.0.24",
+    "abitype": "^1.0.6",
+    "cross-fetch": "^4.0.0",
+    "mkdirp": "^1.0.4",
+    "rimraf": "^5.0.0",
+    "typechain": "8.3.0",
+    "yargs": "^17.7.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "ts-node": "^10.9.1"
+  }
+}
