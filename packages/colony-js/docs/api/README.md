@@ -394,6 +394,25 @@ Whether a and b are the same address
 
 ___
 
+### assertExhaustiveSwitch
+
+▸ **assertExhaustiveSwitch**(`x`, `msg`): `never`
+
+Make sure to use all possible options in a switch statement
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `never` |
+| `msg` | `string` |
+
+#### Returns
+
+`never`
+
+___
+
 ### colonyRoles2Hex
 
 ▸ **colonyRoles2Hex**(`roles`): `string`
@@ -906,6 +925,30 @@ Returns `true` if an extension version is compatible with the given colony versi
 `boolean`
 
 indication whether extension in given version is compatible with colony at the given version
+
+___
+
+### nonNullable
+
+▸ **nonNullable**<`T`\>(`value`): value is NonNullable<T\>
+
+Use this to filter empty undefinied values from arrays in a type-safe way
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `T` |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `value` | `T` |
+
+#### Returns
+
+value is NonNullable<T\>
 
 ___
 
