@@ -7,7 +7,12 @@ import {
   type EventFilter,
   type BaseContract,
 } from 'ethers';
-import { addressesAreEqual, type SignerOrProvider } from '@colony/core';
+
+import {
+  addressesAreEqual,
+  nonNullable,
+  type SignerOrProvider,
+} from '@colony/core';
 
 import {
   type IpfsAdapter,
@@ -16,8 +21,9 @@ import {
   IpfsMetadata,
   type MetadataType,
 } from './ipfs/index.js';
+
 import type { Ethers6Filter } from './types.js';
-import { getLogs, nonNullable } from './utils.js';
+import { getLogs } from './utils.js';
 
 /**
  * A valid eventsource (currently just an ethers.js {@link BaseContract})

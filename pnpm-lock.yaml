@@ -301,6 +301,52 @@ importers:
         specifier: ^5.7.2
         version: 5.7.2
 
+  packages/wagmi-plugin:
+    dependencies:
+      '@colony/abis':
+        specifier: ^1.8.1
+        version: 1.8.1(typescript@5.1.6)
+      '@colony/core':
+        specifier: ^2.3.0
+        version: link:../core
+      '@typechain/ethers-v5':
+        specifier: ^11.1.0
+        version: 11.1.0(@ethersproject/abi@5.7.0)(@ethersproject/providers@5.7.2)(typechain@8.3.0)(typescript@5.1.6)
+      '@typechain/ethers-v6':
+        specifier: ^0.4.2
+        version: 0.4.2(typechain@8.3.0)(typescript@5.1.6)
+      '@types/mkdirp':
+        specifier: ^1.0.2
+        version: 1.0.2
+      '@types/yargs':
+        specifier: ^17.0.24
+        version: 17.0.24
+      abitype:
+        specifier: ^1.0.6
+        version: 1.0.6(typescript@5.1.6)
+      cross-fetch:
+        specifier: ^4.0.0
+        version: 4.0.0
+      mkdirp:
+        specifier: ^1.0.4
+        version: 1.0.4
+      rimraf:
+        specifier: ^5.0.0
+        version: 5.0.0
+      typechain:
+        specifier: 8.3.0
+        version: 8.3.0(typescript@5.1.6)
+      yargs:
+        specifier: ^17.7.1
+        version: 17.7.1
+    devDependencies:
+      '@types/node':
+        specifier: ^18.15.11
+        version: 18.15.11
+      ts-node:
+        specifier: ^10.9.1
+        version: 10.9.1(@types/node@18.15.11)(typescript@5.1.6)
+
 packages:
 
   /@ampproject/remapping@2.2.1:
@@ -834,6 +880,17 @@ packages:
   /@colony/abis@1.7.0:
     resolution: {integrity: sha512-InbqP1SSHVJIpXiYvnS2LMGdTE+/dkj2upVWxF/sZnuLCt27L8MaMgqGZdRQ9WJrLBY2r7M7/xSk1cOZkxT+9w==}
     engines: {node: ^16 || ^18 || ^20, npm: ^8 || ^9 || ^10}
+    dev: false
+
+  /@colony/abis@1.8.1(typescript@5.1.6):
+    resolution: {integrity: sha512-DNL5HnhVyptXusgahK4QJK4Djq8p0tWVdMZ23Gv310uPFDFsdn/Da/Ziq4+GGG7oV/+bguta/JykOg91Wme83A==}
+    engines: {node: ^18 || ^20 || ^22, npm: ^10}
+    dependencies:
+      abitype: 1.0.7(typescript@5.1.6)
+      lodash: 4.17.21
+    transitivePeerDependencies:
+      - typescript
+      - zod
     dev: false
 
   /@colony/eslint-config-colony@9.2.0(eslint-config-airbnb-base@15.0.0)(eslint-config-prettier@8.8.0)(eslint-plugin-eslint-comments@3.2.0)(eslint-plugin-import@2.27.5)(eslint-plugin-prettier@4.2.1)(eslint@8.39.0)(prettier@2.8.8):
@@ -2324,6 +2381,20 @@ packages:
       typescript: 5.1.6
     dev: false
 
+  /abitype@1.0.7(typescript@5.1.6):
+    resolution: {integrity: sha512-ZfYYSktDQUwc2eduYu8C4wOs+RDPmnRYMh7zNfzeMtGGgb0U+6tLGjixUic6mXf5xKKCcgT5Qp6cv39tOARVFw==}
+    peerDependencies:
+      typescript: '>=5.0.4'
+      zod: ^3 >=3.22.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+      zod:
+        optional: true
+    dependencies:
+      typescript: 5.1.6
+    dev: false
+
   /acorn-jsx@5.3.2(acorn@8.8.2):
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
     peerDependencies:
@@ -2929,7 +3000,6 @@ packages:
       node-fetch: 2.7.0
     transitivePeerDependencies:
       - encoding
-    dev: true
 
   /cross-spawn@5.1.0:
     resolution: {integrity: sha512-pTgQJ5KC0d2hcY8eyL1IzlBPYjTkyH72XRZPnLyKus2mBfNjQs3klqbJU2VILqZryAZUt9JOb3h/mWMy23/f5A==}
@@ -5328,7 +5398,6 @@ packages:
         optional: true
     dependencies:
       whatwg-url: 5.0.0
-    dev: true
 
   /node-int64@0.4.0:
     resolution: {integrity: sha512-O5lz91xSOeoXP6DulyHfllpq+Eg00MWitZIbtPfoSEvqIHdl5gfcY6hYzDWnj0qD5tz52PI08u9qUvSVeUBeHw==}
@@ -5824,6 +5893,7 @@ packages:
 
   /rimraf@3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
+    deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
     dependencies:
       glob: 7.2.3
@@ -6270,7 +6340,6 @@ packages:
 
   /tr46@0.0.3:
     resolution: {integrity: sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==}
-    dev: true
 
   /tr46@1.0.1:
     resolution: {integrity: sha512-dTpowEjclQ7Kgx5SdBkqRzVhERQXov8/l9Ft9dVM9fmg0W0KQSVaXX9T4i6twCPNtYiZM53lpSSUAwJbFPOHxA==}
@@ -6696,7 +6765,6 @@ packages:
 
   /webidl-conversions@3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
-    dev: true
 
   /webidl-conversions@4.0.2:
     resolution: {integrity: sha512-YQ+BmxuTgd6UXZW3+ICGfyqRyHXVlD5GtQr5+qjiNW7bF0cqrzX500HVXPBOvgXb5YnzDd+h0zqyv61KUD7+Sg==}
@@ -6707,7 +6775,6 @@ packages:
     dependencies:
       tr46: 0.0.3
       webidl-conversions: 3.0.1
-    dev: true
 
   /whatwg-url@7.1.0:
     resolution: {integrity: sha512-WUu7Rg1DroM7oQvGWfOiAK21n74Gg+T4elXEQYkOhtyLeWiJFoOGLXPKI/9gzIie9CtwVLm8wtw6YJdKyxSjeg==}
