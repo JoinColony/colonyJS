@@ -27,23 +27,23 @@ import {
 } from '@colony/events';
 
 import type { Expand, Parameters, ParametersFrom2 } from '../types.js';
-import type { ColonyDataTypes as ColonyDataTypes10 } from '../contracts/IColony/10/IColony.js';
-import type { ColonyDataTypes as ColonyDataTypes11 } from '../contracts/IColony/11/IColony.js';
-import type { ColonyDataTypes as ColonyDataTypes12 } from '../contracts/IColony/12/IColony.js';
+import type { ColonyDataTypes as ColonyDataTypes15 } from '../contracts/IColony/15/IColony.js';
+import type { ColonyDataTypes as ColonyDataTypes16 } from '../contracts/IColony/16/IColony.js';
+import type { ColonyDataTypes as ColonyDataTypes17 } from '../contracts/IColony/17/IColony.js';
 import type { IBasicMetaTransaction } from '../contracts/IBasicMetaTransaction.js';
 
 import {
-  type IColony as ColonyContract11,
-  IColony__factory as ColonyFactory11,
-} from '../contracts/IColony/11/index.js';
+  type IColony as ColonyContract15,
+  IColony__factory as ColonyFactory15,
+} from '../contracts/IColony/15/index.js';
 import {
-  type IColony as ColonyContract12,
-  IColony__factory as ColonyFactory12,
-} from '../contracts/IColony/12/index.js';
+  type IColony as ColonyContract16,
+  IColony__factory as ColonyFactory16,
+} from '../contracts/IColony/16/index.js';
 import {
-  type IColony as ColonyContract13,
-  IColony__factory as ColonyFactory13,
-} from '../contracts/IColony/13/index.js';
+  type IColony as ColonyContract17,
+  IColony__factory as ColonyFactory17,
+} from '../contracts/IColony/17/index.js';
 import {
   type PermissionConfig,
   type TxConfig,
@@ -57,15 +57,15 @@ import { VotingReputation } from './VotingReputation.js';
 import { type ContractConfig } from '../ContractConfig.js';
 
 export type SupportedColonyContract =
-  | ColonyContract11
-  | ColonyContract12
-  | ColonyContract13;
+  | ColonyContract15
+  | ColonyContract16
+  | ColonyContract17;
 export type SupportedColonyMethods = SupportedColonyContract['functions'];
 
 export type Domain =
-  | ColonyDataTypes10.DomainStructOutput
-  | ColonyDataTypes11.DomainStructOutput
-  | ColonyDataTypes12.DomainStructOutput;
+  | ColonyDataTypes15.DomainStructOutput
+  | ColonyDataTypes16.DomainStructOutput
+  | ColonyDataTypes17.DomainStructOutput;
 
 /** Extensions that are supported by Colony SDK */
 export enum SupportedExtension {
@@ -91,9 +91,9 @@ export class Colony {
    * If this is not an option, Colony SDK might throw errors at certain points. Usage of ColonyJS is advised in these cases
    */
   static supportedVersions = [
-    { version: 11, factory: ColonyFactory11 },
-    { version: 12, factory: ColonyFactory12 },
-    { version: 13, factory: ColonyFactory13 },
+    { version: 15, factory: ColonyFactory15 },
+    { version: 16, factory: ColonyFactory16 },
+    { version: 17, factory: ColonyFactory17 },
   ];
 
   /**
@@ -1003,8 +1003,8 @@ export class Colony {
       [[target], [action], false],
       async (receipt) => ({
         // eslint-disable-next-line max-len
-        ...extractEvent<ColonyEvents.ArbitraryTransaction_address_address_bytes_bool_EventObject>(
-          'ArbitraryTransaction(address,address,bytes,bool)',
+        ...extractEvent<ColonyEvents.ArbitraryTransaction_address_bytes_bool_EventObject>(
+          'ArbitraryTransaction(address,bytes,bool)',
           receipt,
         ),
       }),

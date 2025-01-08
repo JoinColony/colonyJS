@@ -14,25 +14,25 @@ import { type BigNumber, type BigNumberish, constants } from 'ethers';
 
 import { extractEvent } from '../utils.js';
 import {
-  type OneTxPayment as OneTxPaymentContract3,
-  OneTxPayment__factory as OneTxPaymentFactory3,
-} from '../contracts/OneTxPayment/3/index.js';
+  type OneTxPayment as OneTxPaymentContract7,
+  OneTxPayment__factory as OneTxPaymentFactory7,
+} from '../contracts/OneTxPayment/7/index.js';
 import {
-  type OneTxPayment as OneTxPaymentContract4,
-  OneTxPayment__factory as OneTxPaymentFactory4,
-} from '../contracts/OneTxPayment/4/index.js';
+  type OneTxPayment as OneTxPaymentContract8,
+  OneTxPayment__factory as OneTxPaymentFactory8,
+} from '../contracts/OneTxPayment/8/index.js';
 import {
-  type OneTxPayment as OneTxPaymentContract5,
-  OneTxPayment__factory as OneTxPaymentFactory5,
-} from '../contracts/OneTxPayment/5/index.js';
+  type OneTxPayment as OneTxPaymentContract9,
+  OneTxPayment__factory as OneTxPaymentFactory9,
+} from '../contracts/OneTxPayment/9/index.js';
 import { type Colony } from './Colony.js';
 
 const { AddressZero } = constants;
 
 export type SupportedOneTxPaymentContract =
-  | OneTxPaymentContract3
-  | OneTxPaymentContract4
-  | OneTxPaymentContract5;
+  | OneTxPaymentContract7
+  | OneTxPaymentContract8
+  | OneTxPaymentContract9;
 
 /**
  * ## `OneTxPayment` (One Transaction Payment)
@@ -52,9 +52,9 @@ export class OneTxPayment {
    * The currently supported OneTXPayment contract version. If the extension contract is not on this version it has to be upgraded.
    */
   static supportedVersions = [
-    { version: 3, factory: OneTxPaymentFactory3 },
-    { version: 4, factory: OneTxPaymentFactory4 },
-    { version: 5, factory: OneTxPaymentFactory5 },
+    { version: 7, factory: OneTxPaymentFactory7 },
+    { version: 8, factory: OneTxPaymentFactory8 },
+    { version: 9, factory: OneTxPaymentFactory9 },
   ];
 
   static extensionType: Extension.OneTxPayment = Extension.OneTxPayment;
