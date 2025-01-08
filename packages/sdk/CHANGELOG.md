@@ -1,5 +1,30 @@
 # @colony/sdk
 
+## 3.0.0
+
+### Major Changes
+
+- e374bc2: Make Arbitrum One the default network in all cases. While this can be considered a breaking change it does not change any of the APIs.
+
+### Minor Changes
+
+- 6239827: Add support for the `imwss3` colonyNetwork release.
+- d03e0e1: Incorporate updates to the `imwss3` colonyNetwork release
+- 5d4a2c1: Add tx override options to non meta transaction creators. You can now specify things like `gasLimit` in the send() and mined() methods
+- 2bdfe0c: Add support for custom contracts
+
+### Patch Changes
+
+- 232993e: Actually export ContractConfig class, as well as the Address type from AbiType
+- c84bb1d: Introduce `tsx` instead of `ts-node` for esm compatibility reasons. This required some changes to how we import and export types from .ts files, so a lint rule was added for this.
+- Updated dependencies [6239827]
+- Updated dependencies [e374bc2]
+- Updated dependencies [b2deaf3]
+- Updated dependencies [c84bb1d]
+  - @colony/core@3.0.0
+  - @colony/events@4.0.0
+  - @colony/tokens@1.0.0
+
 ## 2.1.0
 
 ### Minor Changes

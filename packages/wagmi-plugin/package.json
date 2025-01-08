@@ -1,6 +1,6 @@
 {
   "name": "@colony/wagmi-plugin",
-  "version": "0.1",
+  "version": "0.1.0",
   "description": "A plugin to generate wagmi/abitype compatible ABIs",
   "scripts": {
     "clean": "rimraf ./dist",
@@ -38,7 +38,7 @@
   "homepage": "https://docs.colony.io/develop",
   "dependencies": {
     "@colony/abis": "^1.8.1",
-    "@colony/core": "^2.3.0",
+    "@colony/core": "^3.0.0",
     "@typechain/ethers-v5": "^11.1.0",
     "@typechain/ethers-v6": "^0.4.2",
     "@types/mkdirp": "^1.0.2",

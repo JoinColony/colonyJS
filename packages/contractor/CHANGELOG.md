@@ -1,5 +1,13 @@
 # @colony/contractor
 
+## 2.3.0
+
+### Minor Changes
+
+- 6239827: Add support for the `imwss3` colonyNetwork release.
+- b2deaf3: This adds a new package : `@colony/wagmi-plugin`, the colony wagmi plugin that creates wagmi/abitype compatible abis from the existing JSON abis.
+- d03e0e1: Incorporate updates to the `imwss3` colonyNetwork release
+
 ## 2.2.0
 
 ### Minor Changes
