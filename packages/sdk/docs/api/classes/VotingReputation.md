@@ -124,7 +124,7 @@ ___
 
 ### supportedVersions
 
-▪ `Static` **supportedVersions**: ({ `factory`: typeof `IVotingReputation__factory` = VotingReputationFactory7; `version`: `number` = 7 } \| { `factory`: typeof `IVotingReputation__factory` = VotingReputationFactory8; `version`: `number` = 8 })[]
+▪ `Static` **supportedVersions**: ({ `factory`: typeof `IVotingReputation__factory` = VotingReputationFactory11; `version`: `number` = 11 } \| { `factory`: typeof `IVotingReputation__factory` = VotingReputationFactory12; `version`: `number` = 12 } \| { `factory`: typeof `IVotingReputation__factory` = VotingReputationFactory13; `version`: `number` = 13 })[]
 
 ## Methods
 

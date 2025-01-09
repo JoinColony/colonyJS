@@ -137,7 +137,7 @@ ___
 
 ### Domain
 
-Ƭ **Domain**: `ColonyDataTypes10.DomainStructOutput` \| `ColonyDataTypes11.DomainStructOutput` \| `ColonyDataTypes12.DomainStructOutput`
+Ƭ **Domain**: `ColonyDataTypes15.DomainStructOutput` \| `ColonyDataTypes16.DomainStructOutput` \| `ColonyDataTypes17.DomainStructOutput`
 
 ___
 
@@ -169,7 +169,7 @@ ___
 
 ### Motion
 
-Ƭ **Motion**: `VotingReputationDataTypes7.MotionStructOutput` \| `VotingReputationDataTypes8.MotionStructOutput` \| `VotingReputationDataTypes9.MotionStructOutput`
+Ƭ **Motion**: `VotingReputationDataTypes11.MotionStructOutput` \| `VotingReputationDataTypes12.MotionStructOutput` \| `VotingReputationDataTypes13.MotionStructOutput`
 
 ___
 
@@ -181,7 +181,7 @@ ___
 
 ### SupportedColonyContract
 
-Ƭ **SupportedColonyContract**: `ColonyContract11` \| `ColonyContract12` \| `ColonyContract13`
+Ƭ **SupportedColonyContract**: `ColonyContract15` \| `ColonyContract16` \| `ColonyContract17`
 
 ___
 
