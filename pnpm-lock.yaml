@@ -152,7 +152,7 @@ importers:
   packages/core:
     devDependencies:
       '@colony/contractor':
-        specifier: 2.3.0
+        specifier: 2.4.0
         version: link:../contractor
       '@ethersproject/abi':
         specifier: ^5.7.0
@@ -223,7 +223,7 @@ importers:
         version: 1.0.6(typescript@5.1.6)
     devDependencies:
       '@colony/contractor':
-        specifier: ^2.3.0
+        specifier: ^2.4.0
         version: link:../contractor
       '@ethersproject/abi':
         specifier: ^5.7.0
