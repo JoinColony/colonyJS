@@ -51,7 +51,7 @@
   },
   "homepage": "https://docs.colony.io/develop",
   "devDependencies": {
-    "@colony/contractor": "2.3.0",
+    "@colony/contractor": "2.4.0",
     "@ethersproject/abi": "^5.7.0",
     "@ethersproject/abstract-provider": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",

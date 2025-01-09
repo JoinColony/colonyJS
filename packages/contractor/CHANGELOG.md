@@ -1,5 +1,11 @@
 # @colony/contractor
 
+## 2.4.0
+
+### Minor Changes
+
+- b8c399f: Add support for `imwss`, `imwss2` and `imwss3` on Arbitrum
+
 ## 2.3.0
 
 ### Minor Changes
