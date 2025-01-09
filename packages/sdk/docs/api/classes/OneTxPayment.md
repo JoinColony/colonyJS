@@ -38,7 +38,7 @@ ___
 
 ### supportedVersions
 
-▪ `Static` **supportedVersions**: ({ `factory`: typeof `OneTxPayment__factory` = OneTxPaymentFactory3; `version`: `number` = 3 } \| { `factory`: typeof `OneTxPayment__factory` = OneTxPaymentFactory4; `version`: `number` = 4 })[]
+▪ `Static` **supportedVersions**: ({ `factory`: typeof `OneTxPayment__factory` = OneTxPaymentFactory7; `version`: `number` = 7 } \| { `factory`: typeof `OneTxPayment__factory` = OneTxPaymentFactory8; `version`: `number` = 8 } \| { `factory`: typeof `OneTxPayment__factory` = OneTxPaymentFactory9; `version`: `number` = 9 })[]
 
 The currently supported OneTXPayment contract version. If the extension contract is not on this version it has to be upgraded.
 

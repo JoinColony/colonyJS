@@ -80,7 +80,7 @@ ___
 
 ### supportedVersions
 
-▪ `Static` **supportedVersions**: { `factory`: typeof `IColony__factory` = ColonyFactory11; `version`: `number` = 11 }[]
+▪ `Static` **supportedVersions**: ({ `factory`: typeof `IColony__factory` = ColonyFactory15; `version`: `number` = 15 } \| { `factory`: typeof `IColony__factory` = ColonyFactory16; `version`: `number` = 16 } \| { `factory`: typeof `IColony__factory` = ColonyFactory17; `version`: `number` = 17 })[]
 
 The currently supported Colony versions. If a Colony version is not included here it has to be upgraded.
 If this is not an option, Colony SDK might throw errors at certain points. Usage of ColonyJS is advised in these cases
@@ -804,7 +804,7 @@ ___
 
 ### makeArbitraryTransaction
 
-▸ **makeArbitraryTransaction**(`target`, `action`): [`ColonyTxCreator`](ColonyTxCreator.md)<[`SupportedColonyContract`](../README.md#supportedcolonycontract), ``"makeArbitraryTransactions"``, { `agent?`: `string` ; `data?`: `string` ; `success?`: `boolean` ; `target?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+▸ **makeArbitraryTransaction**(`target`, `action`): [`ColonyTxCreator`](ColonyTxCreator.md)<[`SupportedColonyContract`](../README.md#supportedcolonycontract), ``"makeArbitraryTransactions"``, { `data?`: `string` ; `success?`: `boolean` ; `target?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 Execute an arbitrary transaction in the name of the Colony
 
@@ -847,7 +847,7 @@ const encodedAction = ERC721Interface.encodeFunctionData(
 
 #### Returns
 
-[`ColonyTxCreator`](ColonyTxCreator.md)<[`SupportedColonyContract`](../README.md#supportedcolonycontract), ``"makeArbitraryTransactions"``, { `agent?`: `string` ; `data?`: `string` ; `success?`: `boolean` ; `target?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)<[`SupportedColonyContract`](../README.md#supportedcolonycontract), ``"makeArbitraryTransactions"``, { `data?`: `string` ; `success?`: `boolean` ; `target?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
 
 A transaction creator
 
