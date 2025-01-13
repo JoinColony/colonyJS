@@ -1,5 +1,11 @@
 # @colony/wagmi-plugin
 
+## 0.1.1
+
+### Patch Changes
+
+- 8378680: Change NodeType name, add `s`
+
 ## 0.1.0
 
 ### Patch Changes

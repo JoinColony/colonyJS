@@ -1,6 +1,6 @@
 {
   "name": "@colony/wagmi-plugin",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A plugin to generate wagmi/abitype compatible ABIs",
   "scripts": {
     "clean": "rimraf ./dist",
