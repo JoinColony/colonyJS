@@ -304,8 +304,8 @@ importers:
   packages/wagmi-plugin:
     dependencies:
       '@colony/abis':
-        specifier: ^1.8.1
-        version: 1.8.1(typescript@5.1.6)
+        specifier: ^1.8.3
+        version: 1.8.3(typescript@5.1.6)
       '@colony/core':
         specifier: ^3.0.0
         version: link:../core
@@ -877,8 +877,8 @@ packages:
       prettier: 2.8.8
     dev: false
 
-  /@colony/abis@1.8.1(typescript@5.1.6):
-    resolution: {integrity: sha512-DNL5HnhVyptXusgahK4QJK4Djq8p0tWVdMZ23Gv310uPFDFsdn/Da/Ziq4+GGG7oV/+bguta/JykOg91Wme83A==}
+  /@colony/abis@1.8.2(typescript@5.1.6):
+    resolution: {integrity: sha512-tQIjbDwdQ1aTcF9iYidiep14tesdEY/t1qc55KE4mXyztOEXZ6KLf+XmtCmiVUGPQ3sNVOIJxujxXqrw/6SYYA==}
     engines: {node: ^18 || ^20 || ^22, npm: ^10}
     dependencies:
       abitype: 1.0.7(typescript@5.1.6)
@@ -888,8 +888,8 @@ packages:
       - zod
     dev: false
 
-  /@colony/abis@1.8.2(typescript@5.1.6):
-    resolution: {integrity: sha512-tQIjbDwdQ1aTcF9iYidiep14tesdEY/t1qc55KE4mXyztOEXZ6KLf+XmtCmiVUGPQ3sNVOIJxujxXqrw/6SYYA==}
+  /@colony/abis@1.8.3(typescript@5.1.6):
+    resolution: {integrity: sha512-jszQfcHxTVEG4cGjyoXGtGfk9A2SnNvM9KHBunSaYdDTgN23SNmOd/LVRWd+QkRRPSEb8H78YRY4Y+vKtEeLKA==}
     engines: {node: ^18 || ^20 || ^22, npm: ^10}
     dependencies:
       abitype: 1.0.7(typescript@5.1.6)
