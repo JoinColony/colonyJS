@@ -3,14 +3,14 @@ import { join as joinPath } from 'node:path';
 import { readFile } from 'node:fs/promises';
 import { fetch } from 'cross-fetch';
 import { type Address } from 'abitype';
-import { joinAbis, type NodeType } from '@colony/abis/utils';
+import { joinAbis, type MergeType } from '@colony/abis/utils';
 import { nonNullable } from '@colony/core';
 
 interface ContractConfig {
   name: string;
   path: string;
   address?: Address;
-  merge?: NodeType;
+  merge?: MergeType;
 }
 
 interface ColonyConfig {
