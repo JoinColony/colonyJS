@@ -10,7 +10,7 @@ import TabItem from '@theme/TabItem';
 
 ## Prerequisites
 
-* NodeJS v 16.15.0 is installed on your system (use [`nvm`](https://github.com/nvm-sh/nvm) for changing NodeJS versions on the fly)
+* NodeJS is installed on your system (all versions ranging from 18.x to 22.x should work fine)
 * A JavaScript/TypeScript project with a `package.json` and the `@colony/sdk` and `ethers` packages installed.
 
 :::tip
