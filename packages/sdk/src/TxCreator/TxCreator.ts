@@ -125,7 +125,9 @@ export interface ColonyTransaction<
    *
    * @returns A tupel of a contract transaction and a function to wait for the mined event data as well as the receipt
    */
-  send(): Promise<
+  send(
+    overrides?: TxOverrides,
+  ): Promise<
     [C, () => Promise<[E, R, () => Promise<MetadataTypeMap[MD]>] | [E, R]>]
   >;
   /**
@@ -133,7 +135,9 @@ export interface ColonyTransaction<
    *
    * @returns A tupel of event data and contract receipt (and a function to retrieve metadata if applicable)
    */
-  mined(): Promise<[E, R, () => Promise<MetadataTypeMap[MD]>] | [E, R]>;
+  mined(
+    overrides?: TxOverrides,
+  ): Promise<[E, R, () => Promise<MetadataTypeMap[MD]>] | [E, R]>;
   /** Encode the transaction into a raw string
    *
    * @returns A raw, encoded transaction string
