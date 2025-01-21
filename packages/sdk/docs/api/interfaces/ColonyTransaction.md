@@ -50,9 +50,15 @@ ___
 
 ### mined
 
-▸ **mined**(): `Promise`<[`E`, `R`] \| [`E`, `R`, () => `Promise`<[`MetadataTypeMap`](MetadataTypeMap.md)[`MD`]\>]\>
+▸ **mined**(`overrides?`): `Promise`<[`E`, `R`] \| [`E`, `R`, () => `Promise`<[`MetadataTypeMap`](MetadataTypeMap.md)[`MD`]\>]\>
 
 Wait until the tx is mined, returning the event data and the receipt
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `TxOverrides` |
 
 #### Returns
 
@@ -64,9 +70,15 @@ ___
 
 ### send
 
-▸ **send**(): `Promise`<[`C`, () => `Promise`<[`E`, `R`, () => `Promise`<[`MetadataTypeMap`](MetadataTypeMap.md)[`MD`]\>] \| [`E`, `R`]\>]\>
+▸ **send**(`overrides?`): `Promise`<[`C`, () => `Promise`<[`E`, `R`, () => `Promise`<[`MetadataTypeMap`](MetadataTypeMap.md)[`MD`]\>] \| [`E`, `R`]\>]\>
 
 Send off the tx, returning the transaction including its hash, not waiting for it to be mined
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | `TxOverrides` |
 
 #### Returns
 
