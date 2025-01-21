@@ -1,5 +1,11 @@
 # @colony/sdk
 
+## 3.1.1
+
+### Patch Changes
+
+- 00372b1: Add overrides to ColonyTransaction interface
+
 ## 3.1.0
 
 ### Minor Changes
