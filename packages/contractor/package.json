@@ -16,8 +16,8 @@
     "README.md"
   ],
   "engines": {
-    "node": "^16 || ^18 || ^20",
-    "pnpm": "^8"
+    "node": "^18 || ^20 || ^22",
+    "pnpm": "^10"
   },
   "repository": {
     "type": "git",

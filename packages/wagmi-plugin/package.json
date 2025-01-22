@@ -24,7 +24,7 @@
   "type": "module",
   "engines": {
     "node": "^18 || ^20 || ^22",
-    "pnpm": "^8"
+    "pnpm": "^10"
   },
   "repository": {
     "type": "git",
@@ -38,7 +38,7 @@
   "homepage": "https://docs.colony.io/develop",
   "dependencies": {
     "@colony/abis": "^1.8.3",
-    "@colony/core": "^3.0.0",
+    "@colony/core": "workspace:*",
     "@typechain/ethers-v5": "^11.1.0",
     "@typechain/ethers-v6": "^0.4.2",
     "@types/mkdirp": "^1.0.2",
