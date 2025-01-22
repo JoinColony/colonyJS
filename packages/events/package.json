@@ -37,8 +37,8 @@
     "build": "npm run clean && npm run compile-cjs && npm run compile-esm && npm run compile-types && npm run create-pkg-json",
     "build-contracts": "contractor events -o ./src/contracts",
     "clean": "rimraf ./dist",
-    "compile-cjs": "tsc -p tsconfig.build.json --module commonjs --target es2015 --outDir dist/cjs",
-    "compile-esm": "tsc -p tsconfig.build.json --module esnext --target es2022 --outDir dist/esm",
+    "compile-cjs": "tsc -p tsconfig.build.json --module commonjs --moduleResolution node --target es2015 --outDir dist/cjs",
+    "compile-esm": "tsc -p tsconfig.build.json --target es2022 --outDir dist/esm",
     "compile-types": "tsc -p tsconfig.build.json --target esnext --declaration --emitDeclarationOnly --outDir dist/types",
     "create-pkg-json": "../../scripts/create-pkg-json.sh",
     "lint": "eslint --ext .ts src",
@@ -51,9 +51,7 @@
     "@ethersproject/abstract-provider": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",
     "ethers": "^5.7.2",
-    "ts-node": "^10.9.1",
-    "ts-patch": "^3.0.2",
-    "typescript": "5.1.6"
+    "ts-patch": "^3.0.2"
   },
   "peerDependencies": {
     "ethers": "^5.1.3"

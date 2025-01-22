@@ -1,6 +1,6 @@
 import type { MultisigPermissionsVersion } from '@colony/core';
 
-import { assertExhaustiveSwitch } from '@colony/core/utils';
+import { assertExhaustiveSwitch } from '@colony/core';
 
 import { type AugmentedIColony } from '../../Core/augments/commonAugments.js';
 import { type ValidColony } from './augments/commonAugments.js';
