@@ -9,12 +9,6 @@
       "require": "./dist/cjs/index.js",
       "types": "./dist/types/index.d.ts",
       "default": "./dist/cjs/index.js"
-    },
-    "./utils": {
-      "import": "./dist/esm/utils/index.js",
-      "require": "./dist/cjs/utils/index.js",
-      "types": "./dist/types/utils/index.d.ts",
-      "default": "./dist/cjs/utils/index.js"
     }
   },
   "main": "./dist/cjs/index.js",
@@ -32,8 +26,8 @@
     "build": "npm run clean && npm run compile-cjs && npm run compile-esm && npm run compile-types && npm run create-pkg-json",
     "build-contracts": "contractor core -o ./src/contracts",
     "clean": "rimraf ./dist",
-    "compile-cjs": "tsc -p tsconfig.build.json --module commonjs --target es2015 --outDir dist/cjs",
-    "compile-esm": "tsc -p tsconfig.build.json --module esnext --target es2022 --outDir dist/esm",
+    "compile-cjs": "tsc -p tsconfig.build.json --module commonjs --moduleResolution node --target es2015 --outDir dist/cjs",
+    "compile-esm": "tsc -p tsconfig.build.json --target es2022 --outDir dist/esm",
     "compile-types": "tsc -p tsconfig.build.json --target esnext --declaration --emitDeclarationOnly --outDir dist/types",
     "create-pkg-json": "../../scripts/create-pkg-json.sh",
     "lint": "eslint --ext .ts src",

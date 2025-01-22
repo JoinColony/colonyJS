@@ -43,7 +43,6 @@ async function checkTokenAuthorityCompatibility(
 ): Promise<void> {
   try {
     await tokenClient.authority();
-    return;
   } catch (e) {
     throw new Error('Token can not be assigned a TokenAuthority');
   }

@@ -62,6 +62,7 @@ cd colonyJS/packages/sdk
 Then install all the required dependencies (this will install [ethers.js](https://docs.ethers.io/v5/) and [colonyJS](https://github.com/JoinColony/colonyJS) as well as some required development dependencies):
 
 ```bash
+pnpm bootstrap
 pnpm install
 ```
 
@@ -87,8 +88,8 @@ These examples will run on the Arbitrum One chain. If you'd like to make transac
 
 ### Prerequisites
 
-- Node `>= 16`
-- pnpm `>= 8`
+- Node `>= 18`
+- pnpm `>= 10`
 
 _You may find it helpful to use [Node Version Manager (`nvm`)](https://github.com/nvm-sh/nvm) to manage Node versions._
 

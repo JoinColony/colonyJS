@@ -1,6 +1,6 @@
 import type { ColonyVersion } from '@colony/core';
 import { getTokenClient } from '@colony/tokens';
-import { assertExhaustiveSwitch } from '@colony/core/utils';
+import { assertExhaustiveSwitch } from '@colony/core';
 
 import { type ColonyNetworkClient } from '../ColonyNetworkClient.js';
 import getColonyVersionClient from './ColonyVersionClient.js';
