@@ -26,8 +26,8 @@
     "README.md"
   ],
   "engines": {
-    "node": "^16 || ^18 || ^20",
-    "pnpm": "^8"
+    "node": "^18 || ^20 || ^22",
+    "pnpm": "^10"
   },
   "license": "GPL-3.0-only",
   "scripts": {
@@ -48,14 +48,14 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@colony/core": "^3.0.0",
-    "@colony/events": "^4.0.0",
-    "@colony/tokens": "^1.0.0",
+    "@colony/core": "workspace:*",
+    "@colony/events": "workspace:*",
+    "@colony/tokens": "workspace:*",
     "@ethersproject/abstract-provider": "^5.7.0",
     "abitype": "^1.0.6"
   },
   "devDependencies": {
-    "@colony/contractor": "^2.4.0",
+    "@colony/contractor": "workspace:*",
     "@ethersproject/abi": "^5.7.0",
     "@ethersproject/abstract-signer": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",

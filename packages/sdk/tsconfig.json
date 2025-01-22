@@ -26,8 +26,5 @@
   "include": [
     "src",
     "examples"
-  ],
-  "ts-node": {
-    "esm": true
-  }
+  ]
 }

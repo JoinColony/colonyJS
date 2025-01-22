@@ -11,7 +11,7 @@
   }: {
     devShell.x86_64-linux = with nixpkgs.legacyPackages.x86_64-linux;
       mkShell {
-        buildInputs = [nodejs_20 pnpm_8 zsh];
+        buildInputs = [nodejs_20 pnpm zsh];
         shellHook = "exec zsh";
       };
   };

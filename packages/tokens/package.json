@@ -20,8 +20,8 @@
     "README.md"
   ],
   "engines": {
-    "node": "^16 || ^18 || ^20",
-    "pnpm": "^8"
+    "node": "^18 || ^20 || ^22",
+    "pnpm": "^10"
   },
   "repository": {
     "type": "git",
@@ -46,8 +46,8 @@
     "prepare": "npm run build-contracts"
   },
   "devDependencies": {
-    "@colony/core": "^3.0.0",
-    "@colony/contractor": "^2.3.0",
+    "@colony/core": "workspace:*",
+    "@colony/contractor": "workspace:*",
     "@ethersproject/abi": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",
     "ethers": "^5.7.2"

@@ -21,8 +21,8 @@
     "README.md"
   ],
   "engines": {
-    "node": "^16 || ^18 || ^20",
-    "pnpm": "^8"
+    "node": "^18 || ^20 || ^22",
+    "pnpm": "^10"
   },
   "repository": {
     "type": "git",
@@ -49,9 +49,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@colony/core": "^3.0.0",
-    "@colony/events": "^4.0.0",
-    "@colony/tokens": "^1.0.0"
+    "@colony/core": "workspace:*",
+    "@colony/events": "workspace:*",
+    "@colony/tokens": "workspace:*"
   },
   "devDependencies": {
     "@colony/contractor": "^2.3.0",
