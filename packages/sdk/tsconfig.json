@@ -1,8 +1,5 @@
 {
   "extends": "../../tsconfig.base.json",
-  "exclude": [
-    "**/__tests__"
-  ],
   "include": [
     "src/index.ts"
   ],
