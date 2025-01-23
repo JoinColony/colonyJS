@@ -1,185 +1,187 @@
+[**API**](../README.md)
+
+***
+
 # Interface: ParsedLogTransactionReceipt
 
 Custom Transaction receipt for when we manually have to parse logs (metatransactions)
 
-## Hierarchy
+## Extends
 
 - `TransactionReceipt`
-
-  ↳ **`ParsedLogTransactionReceipt`**
 
 ## Properties
 
 ### blockHash
 
-• **blockHash**: `string`
+> **blockHash**: `string`
 
 #### Inherited from
 
-TransactionReceipt.blockHash
+`TransactionReceipt.blockHash`
 
-___
+***
 
 ### blockNumber
 
-• **blockNumber**: `number`
+> **blockNumber**: `number`
 
 #### Inherited from
 
-TransactionReceipt.blockNumber
+`TransactionReceipt.blockNumber`
 
-___
+***
 
 ### byzantium
 
-• **byzantium**: `boolean`
+> **byzantium**: `boolean`
 
 #### Inherited from
 
-TransactionReceipt.byzantium
+`TransactionReceipt.byzantium`
 
-___
+***
 
 ### confirmations
 
-• **confirmations**: `number`
+> **confirmations**: `number`
 
 #### Inherited from
 
-TransactionReceipt.confirmations
+`TransactionReceipt.confirmations`
 
-___
+***
 
 ### contractAddress
 
-• **contractAddress**: `string`
+> **contractAddress**: `string`
 
 #### Inherited from
 
-TransactionReceipt.contractAddress
+`TransactionReceipt.contractAddress`
 
-___
+***
 
 ### cumulativeGasUsed
 
-• **cumulativeGasUsed**: `BigNumber`
+> **cumulativeGasUsed**: `BigNumber`
 
 #### Inherited from
 
-TransactionReceipt.cumulativeGasUsed
+`TransactionReceipt.cumulativeGasUsed`
 
-___
+***
 
 ### effectiveGasPrice
 
-• **effectiveGasPrice**: `BigNumber`
+> **effectiveGasPrice**: `BigNumber`
 
 #### Inherited from
 
-TransactionReceipt.effectiveGasPrice
+`TransactionReceipt.effectiveGasPrice`
 
-___
+***
 
 ### from
 
-• **from**: `string`
+> **from**: `string`
 
 #### Inherited from
 
-TransactionReceipt.from
+`TransactionReceipt.from`
 
-___
+***
 
 ### gasUsed
 
-• **gasUsed**: `BigNumber`
+> **gasUsed**: `BigNumber`
 
 #### Inherited from
 
-TransactionReceipt.gasUsed
+`TransactionReceipt.gasUsed`
 
-___
+***
 
 ### logs
 
-• **logs**: `Log`[]
+> **logs**: `Log`[]
 
 #### Inherited from
 
-TransactionReceipt.logs
+`TransactionReceipt.logs`
 
-___
+***
 
 ### logsBloom
 
-• **logsBloom**: `string`
+> **logsBloom**: `string`
 
 #### Inherited from
 
-TransactionReceipt.logsBloom
+`TransactionReceipt.logsBloom`
 
-___
+***
 
 ### parsedLogs
 
-• **parsedLogs**: `LogDescription`[]
+> **parsedLogs**: `LogDescription`[]
 
-___
+***
 
-### root
+### root?
 
-• `Optional` **root**: `string`
-
-#### Inherited from
-
-TransactionReceipt.root
-
-___
-
-### status
-
-• `Optional` **status**: `number`
+> `optional` **root**: `string`
 
 #### Inherited from
 
-TransactionReceipt.status
+`TransactionReceipt.root`
 
-___
+***
+
+### status?
+
+> `optional` **status**: `number`
+
+#### Inherited from
+
+`TransactionReceipt.status`
+
+***
 
 ### to
 
-• **to**: `string`
+> **to**: `string`
 
 #### Inherited from
 
-TransactionReceipt.to
+`TransactionReceipt.to`
 
-___
+***
 
 ### transactionHash
 
-• **transactionHash**: `string`
+> **transactionHash**: `string`
 
 #### Inherited from
 
-TransactionReceipt.transactionHash
+`TransactionReceipt.transactionHash`
 
-___
+***
 
 ### transactionIndex
 
-• **transactionIndex**: `number`
+> **transactionIndex**: `number`
 
 #### Inherited from
 
-TransactionReceipt.transactionIndex
+`TransactionReceipt.transactionIndex`
 
-___
+***
 
 ### type
 
-• **type**: `number`
+> **type**: `number`
 
 #### Inherited from
 
-TransactionReceipt.type
+`TransactionReceipt.type`

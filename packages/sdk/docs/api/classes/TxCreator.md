@@ -1,4 +1,8 @@
-# Class: TxCreator<C, M, E, MD\>
+[**API**](../README.md)
+
+***
+
+# Class: TxCreator\<C, M, E, MD\>
 
 An umbrella API for all kinds of transactions
 
@@ -6,69 +10,82 @@ The `TxCreator` allows for a simple API to cover all the different cases of tran
 
 ## Create a standard transaction ("force" in dApp)
 
-- [tx](TxCreator.md#tx): force a Colony transaction, knowing you have the permissions to do so
+- [TxCreator.tx](TxCreator.md#tx): force a Colony transaction, knowing you have the permissions to do so
 
 Learn more about these functions in their individual documentation
 
-## Type parameters
+## Extended by
 
-| Name | Type |
-| :------ | :------ |
-| `C` | extends [`BaseContract`](../interfaces/BaseContract.md) |
-| `M` | extends keyof `C`[``"functions"``] |
-| `E` | extends [`EventData`](../interfaces/EventData.md) |
-| `MD` | extends [`MetadataType`](../enums/MetadataType.md) |
+- [`MetaTxCreator`](MetaTxCreator.md)
 
-## Hierarchy
+## Type Parameters
 
-- **`TxCreator`**
+• **C** *extends* [`BaseContract`](../interfaces/BaseContract.md)
 
-  ↳ [`MetaTxCreator`](MetaTxCreator.md)
+• **M** *extends* keyof `C`\[`"functions"`\]
+
+• **E** *extends* [`EventData`](../interfaces/EventData.md)
+
+• **MD** *extends* [`MetadataType`](../enumerations/MetadataType.md)
 
 ## Constructors
 
-### constructor
+### new TxCreator()
 
-• **new TxCreator**<`C`, `M`, `E`, `MD`\>(`«destructured»`)
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `C` | extends [`BaseContract`](../interfaces/BaseContract.md) |
-| `M` | extends `string` \| `number` \| `symbol` |
-| `E` | extends [`EventData`](../interfaces/EventData.md) |
-| `MD` | extends [`MetadataType`](../enums/MetadataType.md) |
+> **new TxCreator**\<`C`, `M`, `E`, `MD`\>(`__namedParameters`): [`TxCreator`](TxCreator.md)\<`C`, `M`, `E`, `MD`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `«destructured»` | `Object` |
-| › `args` | `unknown`[] \| () => `Promise`<`unknown`[]\> |
-| › `config` | `ContractConfig` |
-| › `contract` | `C` |
-| › `eventData?` | (`receipt`: [`ContractReceipt`](../interfaces/ContractReceipt.md)) => `Promise`<`E`\> |
-| › `metadataType?` | `MD` |
-| › `method` | `M` |
-| › `txConfig?` | [`TxConfig`](../interfaces/TxConfig.md)<`MD`\> |
+##### \_\_namedParameters
+
+###### args
+
+`unknown`[] \| () => `Promise`\<`unknown`[]\>
+
+###### config
+
+`ContractConfig`
+
+###### contract
+
+`C`
+
+###### eventData
+
+(`receipt`) => `Promise`\<`E`\>
+
+###### metadataType
+
+`MD`
+
+###### method
+
+`M`
+
+###### txConfig
+
+[`TxConfig`](../interfaces/TxConfig.md)\<`MD`\>
+
+#### Returns
+
+[`TxCreator`](TxCreator.md)\<`C`, `M`, `E`, `MD`\>
 
 ## Methods
 
-### tx
+### tx()
 
-▸ **tx**(): [`ColonyTransaction`](../interfaces/ColonyTransaction.md)<[`ContractTransaction`](../interfaces/ContractTransaction.md), `E`, [`ContractReceipt`](../interfaces/ContractReceipt.md), `MD`\>
+> **tx**(): [`ColonyTransaction`](../interfaces/ColonyTransaction.md)\<[`ContractTransaction`](../interfaces/ContractTransaction.md), `E`, [`ContractReceipt`](../interfaces/ContractReceipt.md), `MD`\>
 
 Create a standard transaction ("force" in dApp)
 
 See also [ColonyTransaction](../interfaces/ColonyTransaction.md) or https://docs.colony.io/colonysdk/guides/transactions for more information
 
-**`Remarks`**
-
-The user sending this transaction has to have the appropriate permissions to do so. Learn more about permissions in Colony [here](/develop/dev-learning/permissions).
-
 #### Returns
 
-[`ColonyTransaction`](../interfaces/ColonyTransaction.md)<[`ContractTransaction`](../interfaces/ContractTransaction.md), `E`, [`ContractReceipt`](../interfaces/ContractReceipt.md), `MD`\>
+[`ColonyTransaction`](../interfaces/ColonyTransaction.md)\<[`ContractTransaction`](../interfaces/ContractTransaction.md), `E`, [`ContractReceipt`](../interfaces/ContractReceipt.md), `MD`\>
 
 A transaction that can be `send`, `mined` or `encode`d.
+
+#### Remarks
+
+The user sending this transaction has to have the appropriate permissions to do so. Learn more about permissions in Colony [here](/develop/dev-learning/permissions).

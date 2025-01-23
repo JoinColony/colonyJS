@@ -1,7 +1,11 @@
+[**API**](../README.md)
+
+***
+
 # Interface: EventData
 
 ## Properties
 
-### metadata
+### metadata?
 
-• `Optional` **metadata**: `string`
+> `optional` **metadata**: `string`

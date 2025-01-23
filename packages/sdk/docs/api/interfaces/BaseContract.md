@@ -1,29 +1,31 @@
+[**API**](../README.md)
+
+***
+
 # Interface: BaseContract
 
-## Hierarchy
+## Extended by
 
-- **`BaseContract`**
-
-  ↳ [`MetaTxBaseContract`](MetaTxBaseContract.md)
+- [`MetaTxBaseContract`](MetaTxBaseContract.md)
 
 ## Properties
 
 ### address
 
-• **address**: `string`
+> **address**: `string`
 
-___
+***
 
 ### functions
 
-• **functions**: `Object`
+> **functions**: `object`
 
-#### Index signature
+#### Index Signature
 
-▪ [key: `string`]: (...`args`: `any`[]) => `Promise`<`any`\>
+\[`key`: `string`\]: (...`args`) => `Promise`\<`any`\>
 
-___
+***
 
 ### interface
 
-• **interface**: `Interface`
+> **interface**: `Interface`

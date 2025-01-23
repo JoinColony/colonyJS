@@ -1,19 +1,23 @@
+[**API**](../README.md)
+
+***
+
 # Interface: DomainData
 
 ## Properties
 
-### domainColor
+### domainColor?
 
-• `Optional` **domainColor**: [`TeamColor`](../enums/TeamColor.md)
+> `optional` **domainColor**: [`TeamColor`](../enumerations/TeamColor.md)
 
-___
+***
 
-### domainName
+### domainName?
 
-• `Optional` **domainName**: `string`
+> `optional` **domainName**: `string`
 
-___
+***
 
-### domainPurpose
+### domainPurpose?
 
-• `Optional` **domainPurpose**: `string`
+> `optional` **domainPurpose**: `string`

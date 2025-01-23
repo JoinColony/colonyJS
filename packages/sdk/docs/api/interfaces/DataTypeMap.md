@@ -1,37 +1,41 @@
+[**API**](../README.md)
+
+***
+
 # Interface: DataTypeMap
 
 ## Properties
 
 ### annotation
 
-• **annotation**: [`AnnotationData`](AnnotationData.md)
+> **annotation**: [`AnnotationData`](AnnotationData.md)
 
-___
+***
 
 ### colony
 
-• **colony**: [`ColonyData`](ColonyData.md)
+> **colony**: [`ColonyData`](ColonyData.md)
 
-___
+***
 
 ### decision
 
-• **decision**: [`DecisionData`](DecisionData.md)
+> **decision**: [`DecisionData`](DecisionData.md)
 
-___
+***
 
 ### default
 
-• **default**: `never`
+> **default**: `never`
 
-___
+***
 
 ### domain
 
-• **domain**: [`DomainData`](DomainData.md)
+> **domain**: [`DomainData`](DomainData.md)
 
-___
+***
 
 ### misc
 
-• **misc**: [`MiscData`](MiscData.md)
+> **misc**: [`MiscData`](MiscData.md)

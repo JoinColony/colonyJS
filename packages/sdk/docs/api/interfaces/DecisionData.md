@@ -1,19 +1,23 @@
+[**API**](../README.md)
+
+***
+
 # Interface: DecisionData
 
 ## Properties
 
-### description
+### description?
 
-• `Optional` **description**: `string`
+> `optional` **description**: `string`
 
-___
+***
 
 ### motionDomainId
 
-• **motionDomainId**: `number`
+> **motionDomainId**: `number`
 
-___
+***
 
 ### title
 
-• **title**: `string`
+> **title**: `string`

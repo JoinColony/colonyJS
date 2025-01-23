@@ -1,19 +1,23 @@
+[**API**](../README.md)
+
+***
+
 # Interface: NetworkClientOptions
 
 ## Properties
 
-### disableVersionCheck
+### disableVersionCheck?
 
-• `Optional` **disableVersionCheck**: `boolean`
+> `optional` **disableVersionCheck**: `boolean`
 
-___
+***
 
-### networkAddress
+### networkAddress?
 
-• `Optional` **networkAddress**: `string`
+> `optional` **networkAddress**: `string`
 
-___
+***
 
-### reputationOracleEndpoint
+### reputationOracleEndpoint?
 
-• `Optional` **reputationOracleEndpoint**: `string`
+> `optional` **reputationOracleEndpoint**: `string`

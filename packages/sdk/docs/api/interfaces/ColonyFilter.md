@@ -1,67 +1,71 @@
+[**API**](../README.md)
+
+***
+
 # Interface: ColonyFilter
 
 A Colony extended ethers Filter to keep track of where events are coming from
 
-## Hierarchy
+## Extends
 
 - [`Ethers6Filter`](Ethers6Filter.md)
 
-  ↳ **`ColonyFilter`**
+## Extended by
 
-  ↳↳ [`ColonyEvent`](ColonyEvent.md)
+- [`ColonyEvent`](ColonyEvent.md)
 
 ## Properties
 
-### address
+### address?
 
-• `Optional` **address**: `string` \| `string`[]
+> `optional` **address**: `string` \| `string`[]
 
 #### Inherited from
 
-[Ethers6Filter](Ethers6Filter.md).[address](Ethers6Filter.md#address)
+[`Ethers6Filter`](Ethers6Filter.md).[`address`](Ethers6Filter.md#address)
 
-___
+***
 
 ### eventName
 
-• **eventName**: `string`
+> **eventName**: `string`
 
 The full event signature of this event (e.g. `TokenMinted(uint256))`
 
-___
+***
 
 ### eventSource
 
-• **eventSource**: `BaseContract`
+> **eventSource**: `BaseContract`
 
 The generated id of the contract the event originated from
 
-___
+***
 
-### fromBlock
+### fromBlock?
 
-• `Optional` **fromBlock**: `BlockTag`
-
-#### Inherited from
-
-[Ethers6Filter](Ethers6Filter.md).[fromBlock](Ethers6Filter.md#fromblock)
-
-___
-
-### toBlock
-
-• `Optional` **toBlock**: `BlockTag`
+> `optional` **fromBlock**: `BlockTag`
 
 #### Inherited from
 
-[Ethers6Filter](Ethers6Filter.md).[toBlock](Ethers6Filter.md#toblock)
+[`Ethers6Filter`](Ethers6Filter.md).[`fromBlock`](Ethers6Filter.md#fromblock)
 
-___
+***
 
-### topics
+### toBlock?
 
-• `Optional` **topics**: (``null`` \| `string` \| `string`[])[]
+> `optional` **toBlock**: `BlockTag`
 
 #### Inherited from
 
-[Ethers6Filter](Ethers6Filter.md).[topics](Ethers6Filter.md#topics)
+[`Ethers6Filter`](Ethers6Filter.md).[`toBlock`](Ethers6Filter.md#toblock)
+
+***
+
+### topics?
+
+> `optional` **topics**: (`null` \| `string` \| `string`[])[]
+
+#### Inherited from
+
+[`Ethers6Filter`](Ethers6Filter.md).[`topics`](Ethers6Filter.md#topics)

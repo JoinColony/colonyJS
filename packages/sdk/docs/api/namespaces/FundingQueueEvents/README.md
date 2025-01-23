@@ -1,0 +1,46 @@
+[**API**](../../README.md)
+
+***
+
+# FundingQueueEvents
+
+## Interfaces
+
+- [ExtensionInitialisedEventObject](interfaces/ExtensionInitialisedEventObject.md)
+- [FundingQueueEvents](interfaces/FundingQueueEvents.md)
+- [FundingQueueEventsInterface](interfaces/FundingQueueEventsInterface.md)
+- [LogSetAuthorityEventObject](interfaces/LogSetAuthorityEventObject.md)
+- [LogSetOwnerEventObject](interfaces/LogSetOwnerEventObject.md)
+- [MetaTransactionExecutedEventObject](interfaces/MetaTransactionExecutedEventObject.md)
+- [ProposalBackedEventObject](interfaces/ProposalBackedEventObject.md)
+- [ProposalCancelledEventObject](interfaces/ProposalCancelledEventObject.md)
+- [ProposalCompletedEventObject](interfaces/ProposalCompletedEventObject.md)
+- [ProposalCreatedEventObject](interfaces/ProposalCreatedEventObject.md)
+- [ProposalPingedEventObject](interfaces/ProposalPingedEventObject.md)
+- [ProposalStakedEventObject](interfaces/ProposalStakedEventObject.md)
+- [ProposalStakeReclaimedEventObject](interfaces/ProposalStakeReclaimedEventObject.md)
+
+## Type Aliases
+
+- [ExtensionInitialisedEvent](type-aliases/ExtensionInitialisedEvent.md)
+- [ExtensionInitialisedEventFilter](type-aliases/ExtensionInitialisedEventFilter.md)
+- [LogSetAuthorityEvent](type-aliases/LogSetAuthorityEvent.md)
+- [LogSetAuthorityEventFilter](type-aliases/LogSetAuthorityEventFilter.md)
+- [LogSetOwnerEvent](type-aliases/LogSetOwnerEvent.md)
+- [LogSetOwnerEventFilter](type-aliases/LogSetOwnerEventFilter.md)
+- [MetaTransactionExecutedEvent](type-aliases/MetaTransactionExecutedEvent.md)
+- [MetaTransactionExecutedEventFilter](type-aliases/MetaTransactionExecutedEventFilter.md)
+- [ProposalBackedEvent](type-aliases/ProposalBackedEvent.md)
+- [ProposalBackedEventFilter](type-aliases/ProposalBackedEventFilter.md)
+- [ProposalCancelledEvent](type-aliases/ProposalCancelledEvent.md)
+- [ProposalCancelledEventFilter](type-aliases/ProposalCancelledEventFilter.md)
+- [ProposalCompletedEvent](type-aliases/ProposalCompletedEvent.md)
+- [ProposalCompletedEventFilter](type-aliases/ProposalCompletedEventFilter.md)
+- [ProposalCreatedEvent](type-aliases/ProposalCreatedEvent.md)
+- [ProposalCreatedEventFilter](type-aliases/ProposalCreatedEventFilter.md)
+- [ProposalPingedEvent](type-aliases/ProposalPingedEvent.md)
+- [ProposalPingedEventFilter](type-aliases/ProposalPingedEventFilter.md)
+- [ProposalStakedEvent](type-aliases/ProposalStakedEvent.md)
+- [ProposalStakedEventFilter](type-aliases/ProposalStakedEventFilter.md)
+- [ProposalStakeReclaimedEvent](type-aliases/ProposalStakeReclaimedEvent.md)
+- [ProposalStakeReclaimedEventFilter](type-aliases/ProposalStakeReclaimedEventFilter.md)

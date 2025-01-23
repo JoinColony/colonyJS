@@ -1,3 +1,7 @@
+[**API**](../README.md)
+
+***
+
 # Class: CloudflareReadonlyAdapter
 
 CloudflareReadonlyAdapter
@@ -12,35 +16,41 @@ This is the default IpfsAdapter used in Colony SDK. So in order to use this, you
 
 ## Constructors
 
-### constructor
+### new CloudflareReadonlyAdapter()
 
-• **new CloudflareReadonlyAdapter**()
+> **new CloudflareReadonlyAdapter**(): [`CloudflareReadonlyAdapter`](CloudflareReadonlyAdapter.md)
+
+#### Returns
+
+[`CloudflareReadonlyAdapter`](CloudflareReadonlyAdapter.md)
 
 ## Properties
 
 ### name
 
-• **name**: `string`
+> **name**: `string`
 
 Name for the IpfsAdapter. All uppercase please
 
 #### Implementation of
 
-[IpfsAdapter](../interfaces/IpfsAdapter.md).[name](../interfaces/IpfsAdapter.md#name)
+[`IpfsAdapter`](../interfaces/IpfsAdapter.md).[`name`](../interfaces/IpfsAdapter.md#name)
 
 ## Methods
 
-### getIpfsUrl
+### getIpfsUrl()
 
-▸ **getIpfsUrl**(`cid`): `string`
+> **getIpfsUrl**(`cid`): `string`
 
 Should return the whole URL to an IPFS resource on the corresponding gateway (e.g. https://my-ipfs-gateway/ipfs/QmXxxxXXxxXxXxXxxxXXxxxXxXXx).
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `cid` | `string` | An IPFS hash (CID) |
+##### cid
+
+`string`
+
+An IPFS hash (CID)
 
 #### Returns
 
@@ -50,26 +60,26 @@ The URL to an ipfs resource
 
 #### Implementation of
 
-[IpfsAdapter](../interfaces/IpfsAdapter.md).[getIpfsUrl](../interfaces/IpfsAdapter.md#getipfsurl)
+[`IpfsAdapter`](../interfaces/IpfsAdapter.md).[`getIpfsUrl`](../interfaces/IpfsAdapter.md#getipfsurl)
 
-___
+***
 
-### uploadJson
+### uploadJson()
 
-▸ **uploadJson**(): `Promise`<`string`\>
+> **uploadJson**(): `Promise`\<`string`\>
 
 Function to upload a JSON string to IPFS. Takes the string as an argument (use `JSON.stringify()` if needbe). Returns a promise that resolves to the IPFS hash (CID)
 
-**`Remarks`**
-
-This function should ideally **pin** your data on the relevant service.
-
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
 Promise to IPFS hash (CID)
 
+#### Remarks
+
+This function should ideally **pin** your data on the relevant service.
+
 #### Implementation of
 
-[IpfsAdapter](../interfaces/IpfsAdapter.md).[uploadJson](../interfaces/IpfsAdapter.md#uploadjson)
+[`IpfsAdapter`](../interfaces/IpfsAdapter.md).[`uploadJson`](../interfaces/IpfsAdapter.md#uploadjson)

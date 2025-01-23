@@ -1,47 +1,51 @@
+[**API**](../README.md)
+
+***
+
 # Interface: Ethers6Filter
 
 Ethers 6 supports mulitple addresses in a filter. Until then we have this
 
-## Hierarchy
+## Extends
 
-- `Omit`<`Filter`, ``"address"``\>
+- `Omit`\<`Filter`, `"address"`\>
 
-  ↳ **`Ethers6Filter`**
+## Extended by
 
-  ↳↳ [`ColonyFilter`](ColonyFilter.md)
+- [`ColonyFilter`](ColonyFilter.md)
 
 ## Properties
 
-### address
+### address?
 
-• `Optional` **address**: `string` \| `string`[]
+> `optional` **address**: `string` \| `string`[]
 
-___
+***
 
-### fromBlock
+### fromBlock?
 
-• `Optional` **fromBlock**: `BlockTag`
-
-#### Inherited from
-
-Omit.fromBlock
-
-___
-
-### toBlock
-
-• `Optional` **toBlock**: `BlockTag`
+> `optional` **fromBlock**: `BlockTag`
 
 #### Inherited from
 
-Omit.toBlock
+`Omit.fromBlock`
 
-___
+***
 
-### topics
+### toBlock?
 
-• `Optional` **topics**: (``null`` \| `string` \| `string`[])[]
+> `optional` **toBlock**: `BlockTag`
 
 #### Inherited from
 
-Omit.topics
+`Omit.toBlock`
+
+***
+
+### topics?
+
+> `optional` **topics**: (`null` \| `string` \| `string`[])[]
+
+#### Inherited from
+
+`Omit.topics`

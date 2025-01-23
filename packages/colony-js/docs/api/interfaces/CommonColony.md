@@ -1,145 +1,153 @@
+[**API**](../README.md)
+
+***
+
 # Interface: CommonColony
 
-## Hierarchy
+## Extends
 
 - `BaseContract`
-
-  ↳ **`CommonColony`**
 
 ## Properties
 
 ### address
 
-• **address**: `string`
+> **address**: `string`
 
 #### Inherited from
 
-BaseContract.address
+`BaseContract.address`
 
-___
+***
 
 ### provider
 
-• **provider**: `Provider`
+> **provider**: `Provider`
 
 #### Inherited from
 
-BaseContract.provider
+`BaseContract.provider`
 
-___
+***
 
-### signer
+### signer?
 
-• `Optional` **signer**: `Signer`
+> `optional` **signer**: `Signer`
 
 #### Inherited from
 
-BaseContract.signer
+`BaseContract.signer`
 
 ## Methods
 
-### getDomain
+### getDomain()
 
-▸ **getDomain**(`id`): `Promise`<`CommonDomain`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `id` | `BigNumberish` |
-
-#### Returns
-
-`Promise`<`CommonDomain`\>
-
-___
-
-### getDomainCount
-
-▸ **getDomainCount**(): `Promise`<`BigNumber`\>
-
-#### Returns
-
-`Promise`<`BigNumber`\>
-
-___
-
-### getDomainFromFundingPot
-
-▸ `Optional` **getDomainFromFundingPot**(`fundingPotId`): `Promise`<`BigNumber`\>
+> **getDomain**(`id`): `Promise`\<`CommonDomain`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `fundingPotId` | `BigNumberish` |
+##### id
+
+`BigNumberish`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`CommonDomain`\>
 
-___
+***
 
-### getFundingPot
+### getDomainCount()
 
-▸ **getFundingPot**(`id`): `Promise`<`CommonFundingPot`\>
+> **getDomainCount**(): `Promise`\<`BigNumber`\>
+
+#### Returns
+
+`Promise`\<`BigNumber`\>
+
+***
+
+### getDomainFromFundingPot()?
+
+> `optional` **getDomainFromFundingPot**(`fundingPotId`): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `id` | `BigNumberish` |
+##### fundingPotId
+
+`BigNumberish`
 
 #### Returns
 
-`Promise`<`CommonFundingPot`\>
+`Promise`\<`BigNumber`\>
 
-___
+***
 
-### getPayment
+### getFundingPot()
 
-▸ **getPayment**(`id`): `Promise`<`CommonPayment`\>
+> **getFundingPot**(`id`): `Promise`\<`CommonFundingPot`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `id` | `BigNumberish` |
+##### id
+
+`BigNumberish`
 
 #### Returns
 
-`Promise`<`CommonPayment`\>
+`Promise`\<`CommonFundingPot`\>
 
-___
+***
 
-### getTask
+### getPayment()
 
-▸ **getTask**(`id`): `Promise`<`CommonTask`\>
+> **getPayment**(`id`): `Promise`\<`CommonPayment`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `id` | `BigNumberish` |
+##### id
+
+`BigNumberish`
 
 #### Returns
 
-`Promise`<`CommonTask`\>
+`Promise`\<`CommonPayment`\>
 
-___
+***
 
-### hasUserRole
+### getTask()
 
-▸ **hasUserRole**(`user`, `domainId`, `role`): `Promise`<`boolean`\>
+> **getTask**(`id`): `Promise`\<`CommonTask`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `user` | `string` |
-| `domainId` | `BigNumberish` |
-| `role` | `BigNumberish` |
+##### id
+
+`BigNumberish`
 
 #### Returns
 
-`Promise`<`boolean`\>
+`Promise`\<`CommonTask`\>
+
+***
+
+### hasUserRole()
+
+> **hasUserRole**(`user`, `domainId`, `role`): `Promise`\<`boolean`\>
+
+#### Parameters
+
+##### user
+
+`string`
+
+##### domainId
+
+`BigNumberish`
+
+##### role
+
+`BigNumberish`
+
+#### Returns
+
+`Promise`\<`boolean`\>

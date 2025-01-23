@@ -1,477 +1,5194 @@
+[**API**](../README.md)
+
+***
+
 # Interface: TokenLockingClient
 
-## Hierarchy
+## Extends
 
 - [`TokenLocking`](TokenLocking.md)
-
-  ↳ **`TokenLockingClient`**
 
 ## Properties
 
 ### \_deployedPromise
 
-• **\_deployedPromise**: `Promise`<`Contract`\>
+> **\_deployedPromise**: `Promise`\<`Contract`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[_deployedPromise](TokenLocking.md#_deployedpromise)
+[`TokenLocking`](TokenLocking.md).[`_deployedPromise`](TokenLocking.md#_deployedpromise)
 
-___
+***
 
 ### \_runningEvents
 
-• **\_runningEvents**: `Object`
+> **\_runningEvents**: `object`
 
-#### Index signature
+#### Index Signature
 
-▪ [eventTag: `string`]: `RunningEvent`
+\[`eventTag`: `string`\]: `RunningEvent`
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[_runningEvents](TokenLocking.md#_runningevents)
+[`TokenLocking`](TokenLocking.md).[`_runningEvents`](TokenLocking.md#_runningevents)
 
-___
+***
 
 ### \_wrappedEmits
 
-• **\_wrappedEmits**: `Object`
+> **\_wrappedEmits**: `object`
 
-#### Index signature
+#### Index Signature
 
-▪ [eventTag: `string`]: (...`args`: `any`[]) => `void`
+\[`eventTag`: `string`\]: (...`args`) => `void`
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[_wrappedEmits](TokenLocking.md#_wrappedemits)
+[`TokenLocking`](TokenLocking.md).[`_wrappedEmits`](TokenLocking.md#_wrappedemits)
 
-___
+***
 
 ### address
 
-• `Readonly` **address**: `string`
+> `readonly` **address**: `string`
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[address](TokenLocking.md#address)
+[`TokenLocking`](TokenLocking.md).[`address`](TokenLocking.md#address)
 
-___
+***
 
 ### callStatic
 
-• **callStatic**: `Object`
+> **callStatic**: `object`
 
-#### Type declaration
+#### approveStake()
 
-| Name | Type |
-| :------ | :------ |
-| `approveStake` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `approveStake(address,uint256,address)` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `authority` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `authority()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `deobligateStake` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `deobligateStake(address,uint256,address)` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `deposit(address,uint256)` | (`_token`: `string`, `_amount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `deposit(address,uint256,bool)` | (`_token`: `string`, `_amount`: `BigNumberish`, `_force`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `depositFor` | (`_token`: `string`, `_amount`: `BigNumberish`, `_recipient`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `depositFor(address,uint256,address)` | (`_token`: `string`, `_amount`: `BigNumberish`, `_recipient`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `executeMetaTransaction` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `getApproval` | (`_user`: `string`, `_token`: `string`, `_obligator`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getApproval(address,address,address)` | (`_user`: `string`, `_token`: `string`, `_obligator`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getColonyNetwork` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `getColonyNetwork()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `getMetatransactionNonce` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getMetatransactionNonce(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getObligation` | (`_user`: `string`, `_token`: `string`, `_obligator`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getObligation(address,address,address)` | (`_user`: `string`, `_token`: `string`, `_obligator`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getTotalLockCount` | (`_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getTotalLockCount(address)` | (`_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getTotalObligation` | (`_user`: `string`, `_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getTotalObligation(address,address)` | (`_user`: `string`, `_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getUserLock` | (`_token`: `string`, `_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`LockStructOutput`\> |
-| `getUserLock(address,address)` | (`_token`: `string`, `_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`LockStructOutput`\> |
-| `incrementLockCounterTo` | (`_token`: `string`, `_lockId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `incrementLockCounterTo(address,uint256)` | (`_token`: `string`, `_lockId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `lockToken` | (`_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `lockToken(address)` | (`_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `obligateStake` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `obligateStake(address,uint256,address)` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `owner()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `reward` | (`_recipient`: `string`, `_amount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `reward(address,uint256)` | (`_recipient`: `string`, `_amount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setAuthority` | (`authority_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setAuthority(address)` | (`authority_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setColonyNetwork` | (`_colonyNetwork`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setColonyNetwork(address)` | (`_colonyNetwork`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setOwner` | (`owner_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setOwner(address)` | (`owner_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `transfer` | (`_token`: `string`, `_amount`: `BigNumberish`, `_recipient`: `string`, `_force`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `transfer(address,uint256,address,bool)` | (`_token`: `string`, `_amount`: `BigNumberish`, `_recipient`: `string`, `_force`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `transferStake` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `_recipient`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `transferStake(address,uint256,address,address)` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `_recipient`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `unlockTokenForUser` | (`_token`: `string`, `_user`: `string`, `_lockId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `unlockTokenForUser(address,address,uint256)` | (`_token`: `string`, `_user`: `string`, `_lockId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `verify` | (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
-| `verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
-| `withdraw(address,uint256)` | (`_token`: `string`, `_amount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `withdraw(address,uint256,bool)` | (`_token`: `string`, `_amount`: `BigNumberish`, `_force`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### approveStake(address,uint256,address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### authority()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### authority()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### deobligateStake()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### deobligateStake(address,uint256,address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### deposit(address,uint256,bool)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_force
+
+`boolean`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### deposit(address,uint256)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### depositFor()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_recipient
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### depositFor(address,uint256,address)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_recipient
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### executeMetaTransaction()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### getApproval()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_token
+
+`string`
+
+###### \_obligator
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getApproval(address,address,address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_token
+
+`string`
+
+###### \_obligator
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getColonyNetwork()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### getColonyNetwork()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### getMetatransactionNonce()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getMetatransactionNonce(address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getObligation()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_token
+
+`string`
+
+###### \_obligator
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getObligation(address,address,address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_token
+
+`string`
+
+###### \_obligator
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getTotalLockCount()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getTotalLockCount(address)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getTotalObligation()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getTotalObligation(address,address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getUserLock()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`LockStructOutput`\>
+
+#### getUserLock(address,address)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`LockStructOutput`\>
+
+#### incrementLockCounterTo()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_lockId
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### incrementLockCounterTo(address,uint256)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_lockId
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### lockToken()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### lockToken(address)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### obligateStake()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### obligateStake(address,uint256,address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### owner()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### owner()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### reward()
+
+##### Parameters
+
+###### \_recipient
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### reward(address,uint256)()
+
+##### Parameters
+
+###### \_recipient
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### setAuthority()
+
+##### Parameters
+
+###### authority\_
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### setAuthority(address)()
+
+##### Parameters
+
+###### authority\_
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### setColonyNetwork()
+
+##### Parameters
+
+###### \_colonyNetwork
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### setColonyNetwork(address)()
+
+##### Parameters
+
+###### \_colonyNetwork
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### setOwner()
+
+##### Parameters
+
+###### owner\_
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### setOwner(address)()
+
+##### Parameters
+
+###### owner\_
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### transfer()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_recipient
+
+`string`
+
+###### \_force
+
+`boolean`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### transfer(address,uint256,address,bool)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_recipient
+
+`string`
+
+###### \_force
+
+`boolean`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### transferStake()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### \_recipient
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### transferStake(address,uint256,address,address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### \_recipient
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### unlockTokenForUser()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_user
+
+`string`
+
+###### \_lockId
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### unlockTokenForUser(address,address,uint256)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_user
+
+`string`
+
+###### \_lockId
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### verify()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_nonce
+
+`BigNumberish`
+
+###### \_chainId
+
+`BigNumberish`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`boolean`\>
+
+#### verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_nonce
+
+`BigNumberish`
+
+###### \_chainId
+
+`BigNumberish`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`boolean`\>
+
+#### withdraw(address,uint256,bool)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_force
+
+`boolean`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### withdraw(address,uint256)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[callStatic](TokenLocking.md#callstatic)
+[`TokenLocking`](TokenLocking.md).[`callStatic`](TokenLocking.md#callstatic)
 
-___
+***
 
 ### clientType
 
-• **clientType**: [`TokenLockingClient`](../enums/ClientTypeTokens.md#tokenlockingclient)
+> **clientType**: [`TokenLockingClient`](../enumerations/ClientTypeTokens.md#tokenlockingclient)
 
-___
+***
 
 ### deployTransaction
 
-• `Readonly` **deployTransaction**: `TransactionResponse`
+> `readonly` **deployTransaction**: `TransactionResponse`
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[deployTransaction](TokenLocking.md#deploytransaction)
+[`TokenLocking`](TokenLocking.md).[`deployTransaction`](TokenLocking.md#deploytransaction)
 
-___
+***
 
 ### estimateGas
 
-• **estimateGas**: `Object`
+> **estimateGas**: `object`
 
-#### Type declaration
+#### approveStake()
 
-| Name | Type |
-| :------ | :------ |
-| `approveStake` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `approveStake(address,uint256,address)` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `authority` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `authority()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `deobligateStake` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `deobligateStake(address,uint256,address)` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `deposit(address,uint256)` | (`_token`: `string`, `_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `deposit(address,uint256,bool)` | (`_token`: `string`, `_amount`: `BigNumberish`, `_force`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `depositFor` | (`_token`: `string`, `_amount`: `BigNumberish`, `_recipient`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `depositFor(address,uint256,address)` | (`_token`: `string`, `_amount`: `BigNumberish`, `_recipient`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `executeMetaTransaction` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `getApproval` | (`_user`: `string`, `_token`: `string`, `_obligator`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getApproval(address,address,address)` | (`_user`: `string`, `_token`: `string`, `_obligator`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getColonyNetwork` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getColonyNetwork()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getMetatransactionNonce` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getMetatransactionNonce(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getObligation` | (`_user`: `string`, `_token`: `string`, `_obligator`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getObligation(address,address,address)` | (`_user`: `string`, `_token`: `string`, `_obligator`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getTotalLockCount` | (`_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getTotalLockCount(address)` | (`_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getTotalObligation` | (`_user`: `string`, `_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getTotalObligation(address,address)` | (`_user`: `string`, `_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getUserLock` | (`_token`: `string`, `_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getUserLock(address,address)` | (`_token`: `string`, `_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `incrementLockCounterTo` | (`_token`: `string`, `_lockId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `incrementLockCounterTo(address,uint256)` | (`_token`: `string`, `_lockId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `lockToken` | (`_token`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `lockToken(address)` | (`_token`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `obligateStake` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `obligateStake(address,uint256,address)` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `owner()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `reward` | (`_recipient`: `string`, `_amount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `reward(address,uint256)` | (`_recipient`: `string`, `_amount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `setAuthority` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `setAuthority(address)` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `setColonyNetwork` | (`_colonyNetwork`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `setColonyNetwork(address)` | (`_colonyNetwork`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `setOwner` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `setOwner(address)` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `transfer` | (`_token`: `string`, `_amount`: `BigNumberish`, `_recipient`: `string`, `_force`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `transfer(address,uint256,address,bool)` | (`_token`: `string`, `_amount`: `BigNumberish`, `_recipient`: `string`, `_force`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `transferStake` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `_recipient`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `transferStake(address,uint256,address,address)` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `_recipient`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `unlockTokenForUser` | (`_token`: `string`, `_user`: `string`, `_lockId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `unlockTokenForUser(address,address,uint256)` | (`_token`: `string`, `_user`: `string`, `_lockId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `verify` | (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `withdraw(address,uint256)` | (`_token`: `string`, `_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `withdraw(address,uint256,bool)` | (`_token`: `string`, `_amount`: `BigNumberish`, `_force`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### approveStake(address,uint256,address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### authority()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### authority()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### deobligateStake()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### deobligateStake(address,uint256,address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### deposit(address,uint256,bool)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_force
+
+`boolean`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### deposit(address,uint256)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### depositFor()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_recipient
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### depositFor(address,uint256,address)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_recipient
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### executeMetaTransaction()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`PayableOverrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`PayableOverrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getApproval()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_token
+
+`string`
+
+###### \_obligator
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getApproval(address,address,address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_token
+
+`string`
+
+###### \_obligator
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getColonyNetwork()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getColonyNetwork()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getMetatransactionNonce()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getMetatransactionNonce(address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getObligation()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_token
+
+`string`
+
+###### \_obligator
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getObligation(address,address,address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_token
+
+`string`
+
+###### \_obligator
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getTotalLockCount()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getTotalLockCount(address)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getTotalObligation()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getTotalObligation(address,address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getUserLock()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getUserLock(address,address)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### incrementLockCounterTo()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_lockId
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### incrementLockCounterTo(address,uint256)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_lockId
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### lockToken()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### lockToken(address)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### obligateStake()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### obligateStake(address,uint256,address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### owner()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### owner()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### reward()
+
+##### Parameters
+
+###### \_recipient
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### reward(address,uint256)()
+
+##### Parameters
+
+###### \_recipient
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### setAuthority()
+
+##### Parameters
+
+###### authority\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### setAuthority(address)()
+
+##### Parameters
+
+###### authority\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### setColonyNetwork()
+
+##### Parameters
+
+###### \_colonyNetwork
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### setColonyNetwork(address)()
+
+##### Parameters
+
+###### \_colonyNetwork
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### setOwner()
+
+##### Parameters
+
+###### owner\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### setOwner(address)()
+
+##### Parameters
+
+###### owner\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### transfer()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_recipient
+
+`string`
+
+###### \_force
+
+`boolean`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### transfer(address,uint256,address,bool)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_recipient
+
+`string`
+
+###### \_force
+
+`boolean`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### transferStake()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### \_recipient
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### transferStake(address,uint256,address,address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### \_recipient
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### unlockTokenForUser()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_user
+
+`string`
+
+###### \_lockId
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### unlockTokenForUser(address,address,uint256)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_user
+
+`string`
+
+###### \_lockId
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### verify()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_nonce
+
+`BigNumberish`
+
+###### \_chainId
+
+`BigNumberish`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_nonce
+
+`BigNumberish`
+
+###### \_chainId
+
+`BigNumberish`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### withdraw(address,uint256,bool)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_force
+
+`boolean`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### withdraw(address,uint256)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[estimateGas](TokenLocking.md#estimategas)
+[`TokenLocking`](TokenLocking.md).[`estimateGas`](TokenLocking.md#estimategas)
 
-___
+***
 
 ### filters
 
-• **filters**: `Object`
+> **filters**: `object`
 
-#### Type declaration
+#### ColonyNetworkSet()
 
-| Name | Type |
-| :------ | :------ |
-| `ColonyNetworkSet` | (`colonyNetwork?`: ``null``) => `ColonyNetworkSetEventFilter` |
-| `ColonyNetworkSet(address)` | (`colonyNetwork?`: ``null``) => `ColonyNetworkSetEventFilter` |
-| `LogSetAuthority` | (`authority?`: ``null`` \| `string`) => `LogSetAuthorityEventFilter` |
-| `LogSetAuthority(address)` | (`authority?`: ``null`` \| `string`) => `LogSetAuthorityEventFilter` |
-| `LogSetOwner` | (`owner?`: ``null`` \| `string`) => `LogSetOwnerEventFilter` |
-| `LogSetOwner(address)` | (`owner?`: ``null`` \| `string`) => `LogSetOwnerEventFilter` |
-| `MetaTransactionExecuted` | (`userAddress?`: ``null``, `relayerAddress?`: ``null``, `payload?`: ``null``) => `MetaTransactionExecutedEventFilter` |
-| `MetaTransactionExecuted(address,address,bytes)` | (`userAddress?`: ``null``, `relayerAddress?`: ``null``, `payload?`: ``null``) => `MetaTransactionExecutedEventFilter` |
-| `StakeTransferred` | (`token?`: ``null``, `by?`: ``null``, `from?`: ``null``, `to?`: ``null``, `amount?`: ``null``) => `StakeTransferredEventFilter` |
-| `StakeTransferred(address,address,address,address,uint256)` | (`token?`: ``null``, `by?`: ``null``, `from?`: ``null``, `to?`: ``null``, `amount?`: ``null``) => `StakeTransferredEventFilter` |
-| `TokenLocked` | (`token?`: ``null`` \| `string`, `lockedBy?`: ``null`` \| `string`, `lockCount?`: ``null``) => `TokenLockedEventFilter` |
-| `TokenLocked(address,address,uint256)` | (`token?`: ``null`` \| `string`, `lockedBy?`: ``null`` \| `string`, `lockCount?`: ``null``) => `TokenLockedEventFilter` |
-| `UserTokenApproved` | (`token?`: ``null``, `user?`: ``null``, `approvedBy?`: ``null``, `amount?`: ``null``) => `UserTokenApprovedEventFilter` |
-| `UserTokenApproved(address,address,address,uint256)` | (`token?`: ``null``, `user?`: ``null``, `approvedBy?`: ``null``, `amount?`: ``null``) => `UserTokenApprovedEventFilter` |
-| `UserTokenClaimed` | (`token?`: ``null``, `user?`: ``null``, `amount?`: ``null``) => `UserTokenClaimedEventFilter` |
-| `UserTokenClaimed(address,address,uint256)` | (`token?`: ``null``, `user?`: ``null``, `amount?`: ``null``) => `UserTokenClaimedEventFilter` |
-| `UserTokenDeobligated` | (`token?`: ``null``, `user?`: ``null``, `obligatedBy?`: ``null``, `amount?`: ``null``) => `UserTokenDeobligatedEventFilter` |
-| `UserTokenDeobligated(address,address,address,uint256)` | (`token?`: ``null``, `user?`: ``null``, `obligatedBy?`: ``null``, `amount?`: ``null``) => `UserTokenDeobligatedEventFilter` |
-| `UserTokenDeposited` | (`token?`: ``null``, `user?`: ``null``, `amount?`: ``null``) => `UserTokenDepositedEventFilter` |
-| `UserTokenDeposited(address,address,uint256)` | (`token?`: ``null``, `user?`: ``null``, `amount?`: ``null``) => `UserTokenDepositedEventFilter` |
-| `UserTokenObligated` | (`token?`: ``null``, `user?`: ``null``, `obligatedBy?`: ``null``, `amount?`: ``null``) => `UserTokenObligatedEventFilter` |
-| `UserTokenObligated(address,address,address,uint256)` | (`token?`: ``null``, `user?`: ``null``, `obligatedBy?`: ``null``, `amount?`: ``null``) => `UserTokenObligatedEventFilter` |
-| `UserTokenTransferred` | (`token?`: ``null``, `user?`: ``null``, `recipient?`: ``null``, `amount?`: ``null``) => `UserTokenTransferredEventFilter` |
-| `UserTokenTransferred(address,address,address,uint256)` | (`token?`: ``null``, `user?`: ``null``, `recipient?`: ``null``, `amount?`: ``null``) => `UserTokenTransferredEventFilter` |
-| `UserTokenUnlocked` | (`token?`: ``null``, `user?`: ``null``, `lockId?`: ``null``) => `UserTokenUnlockedEventFilter` |
-| `UserTokenUnlocked(address,address,uint256)` | (`token?`: ``null``, `user?`: ``null``, `lockId?`: ``null``) => `UserTokenUnlockedEventFilter` |
-| `UserTokenWithdrawn` | (`token?`: ``null``, `user?`: ``null``, `amount?`: ``null``) => `UserTokenWithdrawnEventFilter` |
-| `UserTokenWithdrawn(address,address,uint256)` | (`token?`: ``null``, `user?`: ``null``, `amount?`: ``null``) => `UserTokenWithdrawnEventFilter` |
+##### Parameters
+
+###### colonyNetwork?
+
+`null`
+
+##### Returns
+
+`ColonyNetworkSetEventFilter`
+
+#### ColonyNetworkSet(address)()
+
+##### Parameters
+
+###### colonyNetwork?
+
+`null`
+
+##### Returns
+
+`ColonyNetworkSetEventFilter`
+
+#### LogSetAuthority()
+
+##### Parameters
+
+###### authority?
+
+`null` | `string`
+
+##### Returns
+
+`LogSetAuthorityEventFilter`
+
+#### LogSetAuthority(address)()
+
+##### Parameters
+
+###### authority?
+
+`null` | `string`
+
+##### Returns
+
+`LogSetAuthorityEventFilter`
+
+#### LogSetOwner()
+
+##### Parameters
+
+###### owner?
+
+`null` | `string`
+
+##### Returns
+
+`LogSetOwnerEventFilter`
+
+#### LogSetOwner(address)()
+
+##### Parameters
+
+###### owner?
+
+`null` | `string`
+
+##### Returns
+
+`LogSetOwnerEventFilter`
+
+#### MetaTransactionExecuted()
+
+##### Parameters
+
+###### userAddress?
+
+`null`
+
+###### relayerAddress?
+
+`null`
+
+###### payload?
+
+`null`
+
+##### Returns
+
+`MetaTransactionExecutedEventFilter`
+
+#### MetaTransactionExecuted(address,address,bytes)()
+
+##### Parameters
+
+###### userAddress?
+
+`null`
+
+###### relayerAddress?
+
+`null`
+
+###### payload?
+
+`null`
+
+##### Returns
+
+`MetaTransactionExecutedEventFilter`
+
+#### StakeTransferred()
+
+##### Parameters
+
+###### token?
+
+`null`
+
+###### by?
+
+`null`
+
+###### from?
+
+`null`
+
+###### to?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`StakeTransferredEventFilter`
+
+#### StakeTransferred(address,address,address,address,uint256)()
+
+##### Parameters
+
+###### token?
+
+`null`
+
+###### by?
+
+`null`
+
+###### from?
+
+`null`
+
+###### to?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`StakeTransferredEventFilter`
+
+#### TokenLocked()
+
+##### Parameters
+
+###### token?
+
+`null` | `string`
+
+###### lockedBy?
+
+`null` | `string`
+
+###### lockCount?
+
+`null`
+
+##### Returns
+
+`TokenLockedEventFilter`
+
+#### TokenLocked(address,address,uint256)()
+
+##### Parameters
+
+###### token?
+
+`null` | `string`
+
+###### lockedBy?
+
+`null` | `string`
+
+###### lockCount?
+
+`null`
+
+##### Returns
+
+`TokenLockedEventFilter`
+
+#### UserTokenApproved()
+
+##### Parameters
+
+###### token?
+
+`null`
+
+###### user?
+
+`null`
+
+###### approvedBy?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`UserTokenApprovedEventFilter`
+
+#### UserTokenApproved(address,address,address,uint256)()
+
+##### Parameters
+
+###### token?
+
+`null`
+
+###### user?
+
+`null`
+
+###### approvedBy?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`UserTokenApprovedEventFilter`
+
+#### UserTokenClaimed()
+
+##### Parameters
+
+###### token?
+
+`null`
+
+###### user?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`UserTokenClaimedEventFilter`
+
+#### UserTokenClaimed(address,address,uint256)()
+
+##### Parameters
+
+###### token?
+
+`null`
+
+###### user?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`UserTokenClaimedEventFilter`
+
+#### UserTokenDeobligated()
+
+##### Parameters
+
+###### token?
+
+`null`
+
+###### user?
+
+`null`
+
+###### obligatedBy?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`UserTokenDeobligatedEventFilter`
+
+#### UserTokenDeobligated(address,address,address,uint256)()
+
+##### Parameters
+
+###### token?
+
+`null`
+
+###### user?
+
+`null`
+
+###### obligatedBy?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`UserTokenDeobligatedEventFilter`
+
+#### UserTokenDeposited()
+
+##### Parameters
+
+###### token?
+
+`null`
+
+###### user?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`UserTokenDepositedEventFilter`
+
+#### UserTokenDeposited(address,address,uint256)()
+
+##### Parameters
+
+###### token?
+
+`null`
+
+###### user?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`UserTokenDepositedEventFilter`
+
+#### UserTokenObligated()
+
+##### Parameters
+
+###### token?
+
+`null`
+
+###### user?
+
+`null`
+
+###### obligatedBy?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`UserTokenObligatedEventFilter`
+
+#### UserTokenObligated(address,address,address,uint256)()
+
+##### Parameters
+
+###### token?
+
+`null`
+
+###### user?
+
+`null`
+
+###### obligatedBy?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`UserTokenObligatedEventFilter`
+
+#### UserTokenTransferred()
+
+##### Parameters
+
+###### token?
+
+`null`
+
+###### user?
+
+`null`
+
+###### recipient?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`UserTokenTransferredEventFilter`
+
+#### UserTokenTransferred(address,address,address,uint256)()
+
+##### Parameters
+
+###### token?
+
+`null`
+
+###### user?
+
+`null`
+
+###### recipient?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`UserTokenTransferredEventFilter`
+
+#### UserTokenUnlocked()
+
+##### Parameters
+
+###### token?
+
+`null`
+
+###### user?
+
+`null`
+
+###### lockId?
+
+`null`
+
+##### Returns
+
+`UserTokenUnlockedEventFilter`
+
+#### UserTokenUnlocked(address,address,uint256)()
+
+##### Parameters
+
+###### token?
+
+`null`
+
+###### user?
+
+`null`
+
+###### lockId?
+
+`null`
+
+##### Returns
+
+`UserTokenUnlockedEventFilter`
+
+#### UserTokenWithdrawn()
+
+##### Parameters
+
+###### token?
+
+`null`
+
+###### user?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`UserTokenWithdrawnEventFilter`
+
+#### UserTokenWithdrawn(address,address,uint256)()
+
+##### Parameters
+
+###### token?
+
+`null`
+
+###### user?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`UserTokenWithdrawnEventFilter`
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[filters](TokenLocking.md#filters)
+[`TokenLocking`](TokenLocking.md).[`filters`](TokenLocking.md#filters)
 
-___
+***
 
 ### functions
 
-• **functions**: `Object`
+> **functions**: `object`
 
-#### Type declaration
+#### approveStake()
 
-| Name | Type |
-| :------ | :------ |
-| `approveStake` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `approveStake(address,uint256,address)` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `authority` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `authority()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `deobligateStake` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `deobligateStake(address,uint256,address)` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `deposit(address,uint256)` | (`_token`: `string`, `_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `deposit(address,uint256,bool)` | (`_token`: `string`, `_amount`: `BigNumberish`, `_force`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `depositFor` | (`_token`: `string`, `_amount`: `BigNumberish`, `_recipient`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `depositFor(address,uint256,address)` | (`_token`: `string`, `_amount`: `BigNumberish`, `_recipient`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `executeMetaTransaction` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `getApproval` | (`_user`: `string`, `_token`: `string`, `_obligator`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
-| `getApproval(address,address,address)` | (`_user`: `string`, `_token`: `string`, `_obligator`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
-| `getColonyNetwork` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `getColonyNetwork()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `getMetatransactionNonce` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
-| `getMetatransactionNonce(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
-| `getObligation` | (`_user`: `string`, `_token`: `string`, `_obligator`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
-| `getObligation(address,address,address)` | (`_user`: `string`, `_token`: `string`, `_obligator`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
-| `getTotalLockCount` | (`_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
-| `getTotalLockCount(address)` | (`_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
-| `getTotalObligation` | (`_user`: `string`, `_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
-| `getTotalObligation(address,address)` | (`_user`: `string`, `_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
-| `getUserLock` | (`_token`: `string`, `_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`LockStructOutput`] & { `lock`: `LockStructOutput`  }\> |
-| `getUserLock(address,address)` | (`_token`: `string`, `_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`LockStructOutput`] & { `lock`: `LockStructOutput`  }\> |
-| `incrementLockCounterTo` | (`_token`: `string`, `_lockId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `incrementLockCounterTo(address,uint256)` | (`_token`: `string`, `_lockId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `lockToken` | (`_token`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `lockToken(address)` | (`_token`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `obligateStake` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `obligateStake(address,uint256,address)` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `owner` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `owner()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `reward` | (`_recipient`: `string`, `_amount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`void`]\> |
-| `reward(address,uint256)` | (`_recipient`: `string`, `_amount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`void`]\> |
-| `setAuthority` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `setAuthority(address)` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `setColonyNetwork` | (`_colonyNetwork`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `setColonyNetwork(address)` | (`_colonyNetwork`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `setOwner` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `setOwner(address)` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `transfer` | (`_token`: `string`, `_amount`: `BigNumberish`, `_recipient`: `string`, `_force`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `transfer(address,uint256,address,bool)` | (`_token`: `string`, `_amount`: `BigNumberish`, `_recipient`: `string`, `_force`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `transferStake` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `_recipient`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `transferStake(address,uint256,address,address)` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `_recipient`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `unlockTokenForUser` | (`_token`: `string`, `_user`: `string`, `_lockId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `unlockTokenForUser(address,address,uint256)` | (`_token`: `string`, `_user`: `string`, `_lockId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `verify` | (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
-| `verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
-| `withdraw(address,uint256)` | (`_token`: `string`, `_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `withdraw(address,uint256,bool)` | (`_token`: `string`, `_amount`: `BigNumberish`, `_force`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### approveStake(address,uint256,address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### authority()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`string`\]\>
+
+#### authority()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`string`\]\>
+
+#### deobligateStake()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### deobligateStake(address,uint256,address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### deposit(address,uint256,bool)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_force
+
+`boolean`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### deposit(address,uint256)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### depositFor()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_recipient
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### depositFor(address,uint256,address)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_recipient
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### executeMetaTransaction()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`PayableOverrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`PayableOverrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### getApproval()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_token
+
+`string`
+
+###### \_obligator
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\]\>
+
+#### getApproval(address,address,address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_token
+
+`string`
+
+###### \_obligator
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\]\>
+
+#### getColonyNetwork()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`string`\]\>
+
+#### getColonyNetwork()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`string`\]\>
+
+#### getMetatransactionNonce()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\] & `object`\>
+
+#### getMetatransactionNonce(address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\] & `object`\>
+
+#### getObligation()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_token
+
+`string`
+
+###### \_obligator
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\]\>
+
+#### getObligation(address,address,address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_token
+
+`string`
+
+###### \_obligator
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\]\>
+
+#### getTotalLockCount()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\]\>
+
+#### getTotalLockCount(address)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\]\>
+
+#### getTotalObligation()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\]\>
+
+#### getTotalObligation(address,address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\]\>
+
+#### getUserLock()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`LockStructOutput`\] & `object`\>
+
+#### getUserLock(address,address)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`LockStructOutput`\] & `object`\>
+
+#### incrementLockCounterTo()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_lockId
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### incrementLockCounterTo(address,uint256)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_lockId
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### lockToken()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### lockToken(address)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### obligateStake()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### obligateStake(address,uint256,address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### owner()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`string`\]\>
+
+#### owner()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`string`\]\>
+
+#### reward()
+
+##### Parameters
+
+###### \_recipient
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`void`\]\>
+
+#### reward(address,uint256)()
+
+##### Parameters
+
+###### \_recipient
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`void`\]\>
+
+#### setAuthority()
+
+##### Parameters
+
+###### authority\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### setAuthority(address)()
+
+##### Parameters
+
+###### authority\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### setColonyNetwork()
+
+##### Parameters
+
+###### \_colonyNetwork
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### setColonyNetwork(address)()
+
+##### Parameters
+
+###### \_colonyNetwork
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### setOwner()
+
+##### Parameters
+
+###### owner\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### setOwner(address)()
+
+##### Parameters
+
+###### owner\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### transfer()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_recipient
+
+`string`
+
+###### \_force
+
+`boolean`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### transfer(address,uint256,address,bool)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_recipient
+
+`string`
+
+###### \_force
+
+`boolean`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### transferStake()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### \_recipient
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### transferStake(address,uint256,address,address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### \_recipient
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### unlockTokenForUser()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_user
+
+`string`
+
+###### \_lockId
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### unlockTokenForUser(address,address,uint256)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_user
+
+`string`
+
+###### \_lockId
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### verify()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_nonce
+
+`BigNumberish`
+
+###### \_chainId
+
+`BigNumberish`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`boolean`\]\>
+
+#### verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_nonce
+
+`BigNumberish`
+
+###### \_chainId
+
+`BigNumberish`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`boolean`\]\>
+
+#### withdraw(address,uint256,bool)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_force
+
+`boolean`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### withdraw(address,uint256)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[functions](TokenLocking.md#functions)
+[`TokenLocking`](TokenLocking.md).[`functions`](TokenLocking.md#functions)
 
-___
+***
 
 ### interface
 
-• **interface**: `TokenLockingInterface`
+> **interface**: `TokenLockingInterface`
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[interface](TokenLocking.md#interface)
+[`TokenLocking`](TokenLocking.md).[`interface`](TokenLocking.md#interface)
 
-___
+***
 
 ### off
 
-• **off**: `OnEvent`<[`TokenLockingClient`](TokenLockingClient.md)\>
+> **off**: `OnEvent`\<[`TokenLockingClient`](TokenLockingClient.md)\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[off](TokenLocking.md#off)
+[`TokenLocking`](TokenLocking.md).[`off`](TokenLocking.md#off)
 
-___
+***
 
 ### on
 
-• **on**: `OnEvent`<[`TokenLockingClient`](TokenLockingClient.md)\>
+> **on**: `OnEvent`\<[`TokenLockingClient`](TokenLockingClient.md)\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[on](TokenLocking.md#on)
+[`TokenLocking`](TokenLocking.md).[`on`](TokenLocking.md#on)
 
-___
+***
 
 ### once
 
-• **once**: `OnEvent`<[`TokenLockingClient`](TokenLockingClient.md)\>
+> **once**: `OnEvent`\<[`TokenLockingClient`](TokenLockingClient.md)\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[once](TokenLocking.md#once)
+[`TokenLocking`](TokenLocking.md).[`once`](TokenLocking.md#once)
 
-___
+***
 
 ### populateTransaction
 
-• **populateTransaction**: `Object`
+> **populateTransaction**: `object`
 
-#### Type declaration
+#### approveStake()
 
-| Name | Type |
-| :------ | :------ |
-| `approveStake` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `approveStake(address,uint256,address)` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `authority` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `authority()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `deobligateStake` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `deobligateStake(address,uint256,address)` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `deposit(address,uint256)` | (`_token`: `string`, `_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `deposit(address,uint256,bool)` | (`_token`: `string`, `_amount`: `BigNumberish`, `_force`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `depositFor` | (`_token`: `string`, `_amount`: `BigNumberish`, `_recipient`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `depositFor(address,uint256,address)` | (`_token`: `string`, `_amount`: `BigNumberish`, `_recipient`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `executeMetaTransaction` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `getApproval` | (`_user`: `string`, `_token`: `string`, `_obligator`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getApproval(address,address,address)` | (`_user`: `string`, `_token`: `string`, `_obligator`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getColonyNetwork` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getColonyNetwork()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getMetatransactionNonce` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getMetatransactionNonce(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getObligation` | (`_user`: `string`, `_token`: `string`, `_obligator`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getObligation(address,address,address)` | (`_user`: `string`, `_token`: `string`, `_obligator`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getTotalLockCount` | (`_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getTotalLockCount(address)` | (`_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getTotalObligation` | (`_user`: `string`, `_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getTotalObligation(address,address)` | (`_user`: `string`, `_token`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getUserLock` | (`_token`: `string`, `_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getUserLock(address,address)` | (`_token`: `string`, `_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `incrementLockCounterTo` | (`_token`: `string`, `_lockId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `incrementLockCounterTo(address,uint256)` | (`_token`: `string`, `_lockId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `lockToken` | (`_token`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `lockToken(address)` | (`_token`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `obligateStake` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `obligateStake(address,uint256,address)` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `owner()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `reward` | (`_recipient`: `string`, `_amount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `reward(address,uint256)` | (`_recipient`: `string`, `_amount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `setAuthority` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `setAuthority(address)` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `setColonyNetwork` | (`_colonyNetwork`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `setColonyNetwork(address)` | (`_colonyNetwork`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `setOwner` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `setOwner(address)` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `transfer` | (`_token`: `string`, `_amount`: `BigNumberish`, `_recipient`: `string`, `_force`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `transfer(address,uint256,address,bool)` | (`_token`: `string`, `_amount`: `BigNumberish`, `_recipient`: `string`, `_force`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `transferStake` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `_recipient`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `transferStake(address,uint256,address,address)` | (`_user`: `string`, `_amount`: `BigNumberish`, `_token`: `string`, `_recipient`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `unlockTokenForUser` | (`_token`: `string`, `_user`: `string`, `_lockId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `unlockTokenForUser(address,address,uint256)` | (`_token`: `string`, `_user`: `string`, `_lockId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `verify` | (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `withdraw(address,uint256)` | (`_token`: `string`, `_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `withdraw(address,uint256,bool)` | (`_token`: `string`, `_amount`: `BigNumberish`, `_force`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### approveStake(address,uint256,address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### authority()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### authority()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### deobligateStake()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### deobligateStake(address,uint256,address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### deposit(address,uint256,bool)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_force
+
+`boolean`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### deposit(address,uint256)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### depositFor()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_recipient
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### depositFor(address,uint256,address)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_recipient
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### executeMetaTransaction()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`PayableOverrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`PayableOverrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getApproval()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_token
+
+`string`
+
+###### \_obligator
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getApproval(address,address,address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_token
+
+`string`
+
+###### \_obligator
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getColonyNetwork()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getColonyNetwork()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getMetatransactionNonce()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getMetatransactionNonce(address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getObligation()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_token
+
+`string`
+
+###### \_obligator
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getObligation(address,address,address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_token
+
+`string`
+
+###### \_obligator
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getTotalLockCount()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getTotalLockCount(address)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getTotalObligation()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getTotalObligation(address,address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getUserLock()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getUserLock(address,address)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### incrementLockCounterTo()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_lockId
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### incrementLockCounterTo(address,uint256)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_lockId
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### lockToken()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### lockToken(address)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### obligateStake()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### obligateStake(address,uint256,address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### owner()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### owner()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### reward()
+
+##### Parameters
+
+###### \_recipient
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### reward(address,uint256)()
+
+##### Parameters
+
+###### \_recipient
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### setAuthority()
+
+##### Parameters
+
+###### authority\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### setAuthority(address)()
+
+##### Parameters
+
+###### authority\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### setColonyNetwork()
+
+##### Parameters
+
+###### \_colonyNetwork
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### setColonyNetwork(address)()
+
+##### Parameters
+
+###### \_colonyNetwork
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### setOwner()
+
+##### Parameters
+
+###### owner\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### setOwner(address)()
+
+##### Parameters
+
+###### owner\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### transfer()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_recipient
+
+`string`
+
+###### \_force
+
+`boolean`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### transfer(address,uint256,address,bool)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_recipient
+
+`string`
+
+###### \_force
+
+`boolean`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### transferStake()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### \_recipient
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### transferStake(address,uint256,address,address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_token
+
+`string`
+
+###### \_recipient
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### unlockTokenForUser()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_user
+
+`string`
+
+###### \_lockId
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### unlockTokenForUser(address,address,uint256)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_user
+
+`string`
+
+###### \_lockId
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### verify()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_nonce
+
+`BigNumberish`
+
+###### \_chainId
+
+`BigNumberish`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_nonce
+
+`BigNumberish`
+
+###### \_chainId
+
+`BigNumberish`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### withdraw(address,uint256,bool)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_force
+
+`boolean`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### withdraw(address,uint256)()
+
+##### Parameters
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[populateTransaction](TokenLocking.md#populatetransaction)
+[`TokenLocking`](TokenLocking.md).[`populateTransaction`](TokenLocking.md#populatetransaction)
 
-___
+***
 
 ### provider
 
-• `Readonly` **provider**: `Provider`
+> `readonly` **provider**: `Provider`
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[provider](TokenLocking.md#provider)
+[`TokenLocking`](TokenLocking.md).[`provider`](TokenLocking.md#provider)
 
-___
+***
 
 ### removeListener
 
-• **removeListener**: `OnEvent`<[`TokenLockingClient`](TokenLockingClient.md)\>
+> **removeListener**: `OnEvent`\<[`TokenLockingClient`](TokenLockingClient.md)\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[removeListener](TokenLocking.md#removelistener)
+[`TokenLocking`](TokenLocking.md).[`removeListener`](TokenLocking.md#removelistener)
 
-___
+***
 
 ### resolvedAddress
 
-• `Readonly` **resolvedAddress**: `Promise`<`string`\>
+> `readonly` **resolvedAddress**: `Promise`\<`string`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[resolvedAddress](TokenLocking.md#resolvedaddress)
+[`TokenLocking`](TokenLocking.md).[`resolvedAddress`](TokenLocking.md#resolvedaddress)
 
-___
+***
 
 ### signer
 
-• `Readonly` **signer**: `Signer`
+> `readonly` **signer**: `Signer`
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[signer](TokenLocking.md#signer)
+[`TokenLocking`](TokenLocking.md).[`signer`](TokenLocking.md#signer)
 
 ## Methods
 
-### \_checkRunningEvents
+### \_checkRunningEvents()
 
-▸ **_checkRunningEvents**(`runningEvent`): `void`
+> **\_checkRunningEvents**(`runningEvent`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `runningEvent` | `RunningEvent` |
+##### runningEvent
+
+`RunningEvent`
 
 #### Returns
 
@@ -479,41 +5196,47 @@ ___
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[_checkRunningEvents](TokenLocking.md#_checkrunningevents)
+[`TokenLocking`](TokenLocking.md).[`_checkRunningEvents`](TokenLocking.md#_checkrunningevents)
 
-___
+***
 
-### \_deployed
+### \_deployed()
 
-▸ **_deployed**(`blockTag?`): `Promise`<`Contract`\>
+> **\_deployed**(`blockTag`?): `Promise`\<`Contract`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `blockTag?` | `BlockTag` |
+##### blockTag?
+
+`BlockTag`
 
 #### Returns
 
-`Promise`<`Contract`\>
+`Promise`\<`Contract`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[_deployed](TokenLocking.md#_deployed)
+[`TokenLocking`](TokenLocking.md).[`_deployed`](TokenLocking.md#_deployed)
 
-___
+***
 
-### \_wrapEvent
+### \_wrapEvent()
 
-▸ **_wrapEvent**(`runningEvent`, `log`, `listener`): `Event`
+> **\_wrapEvent**(`runningEvent`, `log`, `listener`): `Event`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `runningEvent` | `RunningEvent` |
-| `log` | `Log` |
-| `listener` | `Listener` |
+##### runningEvent
+
+`RunningEvent`
+
+##### log
+
+`Log`
+
+##### listener
+
+`Listener`
 
 #### Returns
 
@@ -521,297 +5244,369 @@ ___
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[_wrapEvent](TokenLocking.md#_wrapevent)
+[`TokenLocking`](TokenLocking.md).[`_wrapEvent`](TokenLocking.md#_wrapevent)
 
-___
+***
 
-### approveStake
+### approveStake()
 
-▸ **approveStake**(`_user`, `_amount`, `_token`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_amount` | `BigNumberish` |
-| `_token` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-[TokenLocking](TokenLocking.md).[approveStake](TokenLocking.md#approvestake)
-
-___
-
-### approveStake(address,uint256,address)
-
-▸ **approveStake(address,uint256,address)**(`_user`, `_amount`, `_token`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **approveStake**(`_user`, `_amount`, `_token`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_amount` | `BigNumberish` |
-| `_token` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_user
+
+`string`
+
+##### \_amount
+
+`BigNumberish`
+
+##### \_token
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[approveStake(address,uint256,address)](TokenLocking.md#approvestake(address,uint256,address))
+[`TokenLocking`](TokenLocking.md).[`approveStake`](TokenLocking.md#approvestake-24)
 
-___
+***
 
-### attach
+### approveStake(address,uint256,address)()
 
-▸ **attach**(`addressOrName`): [`TokenLockingClient`](TokenLockingClient.md)
+> **approveStake(address,uint256,address)**(`_user`, `_amount`, `_token`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `addressOrName` | `string` |
+##### \_user
+
+`string`
+
+##### \_amount
+
+`BigNumberish`
+
+##### \_token
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-[`TokenLockingClient`](TokenLockingClient.md)
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[attach](TokenLocking.md#attach)
+[`TokenLocking`](TokenLocking.md).[`approveStake(address,uint256,address)`](TokenLocking.md#approvestake(address,uint256,address)-24)
 
-___
+***
 
-### authority
+### attach()
 
-▸ **authority**(`overrides?`): `Promise`<`string`\>
+> **attach**(`addressOrName`): `this`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### addressOrName
+
+`string`
 
 #### Returns
 
-`Promise`<`string`\>
+`this`
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[authority](TokenLocking.md#authority)
+[`TokenLocking`](TokenLocking.md).[`attach`](TokenLocking.md#attach)
 
-___
+***
 
 ### authority()
 
-▸ **authority()**(`overrides?`): `Promise`<`string`\>
+> **authority**(`overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[authority()](TokenLocking.md#authority())
+[`TokenLocking`](TokenLocking.md).[`authority`](TokenLocking.md#authority-30)
 
-___
+***
 
-### connect
+### authority()()
 
-▸ **connect**(`signerOrProvider`): [`TokenLockingClient`](TokenLockingClient.md)
+> **authority()**(`overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `signerOrProvider` | `string` \| `Signer` \| `Provider` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-[`TokenLockingClient`](TokenLockingClient.md)
+`Promise`\<`string`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[connect](TokenLocking.md#connect)
+[`TokenLocking`](TokenLocking.md).[`authority()`](TokenLocking.md#authority()-24)
 
-___
+***
 
-### deobligateStake
+### connect()
 
-▸ **deobligateStake**(`_user`, `_amount`, `_token`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **connect**(`signerOrProvider`): `this`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_amount` | `BigNumberish` |
-| `_token` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### signerOrProvider
+
+`string` | `Signer` | `Provider`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`this`
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[deobligateStake](TokenLocking.md#deobligatestake)
+[`TokenLocking`](TokenLocking.md).[`connect`](TokenLocking.md#connect)
 
-___
+***
 
-### deobligateStake(address,uint256,address)
+### deobligateStake()
 
-▸ **deobligateStake(address,uint256,address)**(`_user`, `_amount`, `_token`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **deobligateStake**(`_user`, `_amount`, `_token`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_amount` | `BigNumberish` |
-| `_token` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_user
+
+`string`
+
+##### \_amount
+
+`BigNumberish`
+
+##### \_token
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[deobligateStake(address,uint256,address)](TokenLocking.md#deobligatestake(address,uint256,address))
+[`TokenLocking`](TokenLocking.md).[`deobligateStake`](TokenLocking.md#deobligatestake-24)
 
-___
+***
 
-### deployed
+### deobligateStake(address,uint256,address)()
 
-▸ **deployed**(): `Promise`<[`TokenLockingClient`](TokenLockingClient.md)\>
-
-#### Returns
-
-`Promise`<[`TokenLockingClient`](TokenLockingClient.md)\>
-
-#### Inherited from
-
-[TokenLocking](TokenLocking.md).[deployed](TokenLocking.md#deployed)
-
-___
-
-### deposit(address,uint256)
-
-▸ **deposit(address,uint256)**(`_token`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **deobligateStake(address,uint256,address)**(`_user`, `_amount`, `_token`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_token` | `string` |
-| `_amount` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_user
+
+`string`
+
+##### \_amount
+
+`BigNumberish`
+
+##### \_token
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[deposit(address,uint256)](TokenLocking.md#deposit(address,uint256))
+[`TokenLocking`](TokenLocking.md).[`deobligateStake(address,uint256,address)`](TokenLocking.md#deobligatestake(address,uint256,address)-24)
 
-___
+***
 
-### deposit(address,uint256,bool)
+### deployed()
 
-▸ **deposit(address,uint256,bool)**(`_token`, `_amount`, `_force`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `_token` | `string` |
-| `_amount` | `BigNumberish` |
-| `_force` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+> **deployed**(): `Promise`\<[`TokenLockingClient`](TokenLockingClient.md)\>
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<[`TokenLockingClient`](TokenLockingClient.md)\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[deposit(address,uint256,bool)](TokenLocking.md#deposit(address,uint256,bool))
+[`TokenLocking`](TokenLocking.md).[`deployed`](TokenLocking.md#deployed)
 
-___
+***
 
-### depositFor
+### deposit(address,uint256,bool)()
 
-▸ **depositFor**(`_token`, `_amount`, `_recipient`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **deposit(address,uint256,bool)**(`_token`, `_amount`, `_force`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_token` | `string` |
-| `_amount` | `BigNumberish` |
-| `_recipient` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_token
+
+`string`
+
+##### \_amount
+
+`BigNumberish`
+
+##### \_force
+
+`boolean`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[depositFor](TokenLocking.md#depositfor)
+[`TokenLocking`](TokenLocking.md).[`deposit(address,uint256,bool)`](TokenLocking.md#deposit(address,uint256,bool)-24)
 
-___
+***
 
-### depositFor(address,uint256,address)
+### deposit(address,uint256)()
 
-▸ **depositFor(address,uint256,address)**(`_token`, `_amount`, `_recipient`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **deposit(address,uint256)**(`_token`, `_amount`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_token` | `string` |
-| `_amount` | `BigNumberish` |
-| `_recipient` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_token
+
+`string`
+
+##### \_amount
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[depositFor(address,uint256,address)](TokenLocking.md#depositfor(address,uint256,address))
+[`TokenLocking`](TokenLocking.md).[`deposit(address,uint256)`](TokenLocking.md#deposit(address,uint256)-24)
 
-___
+***
 
-### emit
+### depositFor()
 
-▸ **emit**(`eventName`, `...args`): `boolean`
+> **depositFor**(`_token`, `_amount`, `_recipient`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `eventName` | `string` \| `EventFilter` |
-| `...args` | `any`[] |
+##### \_token
+
+`string`
+
+##### \_amount
+
+`BigNumberish`
+
+##### \_recipient
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
+
+#### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### Inherited from
+
+[`TokenLocking`](TokenLocking.md).[`depositFor`](TokenLocking.md#depositfor-24)
+
+***
+
+### depositFor(address,uint256,address)()
+
+> **depositFor(address,uint256,address)**(`_token`, `_amount`, `_recipient`, `overrides`?): `Promise`\<`ContractTransaction`\>
+
+#### Parameters
+
+##### \_token
+
+`string`
+
+##### \_amount
+
+`BigNumberish`
+
+##### \_recipient
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
+
+#### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### Inherited from
+
+[`TokenLocking`](TokenLocking.md).[`depositFor(address,uint256,address)`](TokenLocking.md#depositfor(address,uint256,address)-24)
+
+***
+
+### emit()
+
+> **emit**(`eventName`, ...`args`): `boolean`
+
+#### Parameters
+
+##### eventName
+
+`string` | `EventFilter`
+
+##### args
+
+...`any`[]
 
 #### Returns
 
@@ -819,437 +5614,551 @@ ___
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[emit](TokenLocking.md#emit)
+[`TokenLocking`](TokenLocking.md).[`emit`](TokenLocking.md#emit)
 
-___
+***
 
-### executeMetaTransaction
+### executeMetaTransaction()
 
-▸ **executeMetaTransaction**(`_user`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_payload` | `BytesLike` |
-| `_sigR` | `BytesLike` |
-| `_sigS` | `BytesLike` |
-| `_sigV` | `BigNumberish` |
-| `overrides?` | `PayableOverrides` & { `from?`: `string`  } |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-[TokenLocking](TokenLocking.md).[executeMetaTransaction](TokenLocking.md#executemetatransaction)
-
-___
-
-### executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)
-
-▸ **executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)**(`_user`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **executeMetaTransaction**(`_user`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_payload` | `BytesLike` |
-| `_sigR` | `BytesLike` |
-| `_sigS` | `BytesLike` |
-| `_sigV` | `BigNumberish` |
-| `overrides?` | `PayableOverrides` & { `from?`: `string`  } |
+##### \_user
+
+`string`
+
+##### \_payload
+
+`BytesLike`
+
+##### \_sigR
+
+`BytesLike`
+
+##### \_sigS
+
+`BytesLike`
+
+##### \_sigV
+
+`BigNumberish`
+
+##### overrides?
+
+`PayableOverrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)](TokenLocking.md#executemetatransaction(address,bytes,bytes32,bytes32,uint8))
+[`TokenLocking`](TokenLocking.md).[`executeMetaTransaction`](TokenLocking.md#executemetatransaction-24)
 
-___
+***
 
-### fallback
+### executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)()
 
-▸ **fallback**(`overrides?`): `Promise`<`TransactionResponse`\>
+> **executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)**(`_user`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `TransactionRequest` |
+##### \_user
+
+`string`
+
+##### \_payload
+
+`BytesLike`
+
+##### \_sigR
+
+`BytesLike`
+
+##### \_sigS
+
+`BytesLike`
+
+##### \_sigV
+
+`BigNumberish`
+
+##### overrides?
+
+`PayableOverrides` & `object`
 
 #### Returns
 
-`Promise`<`TransactionResponse`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[fallback](TokenLocking.md#fallback)
+[`TokenLocking`](TokenLocking.md).[`executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)`](TokenLocking.md#executemetatransaction(address,bytes,bytes32,bytes32,uint8)-24)
 
-___
+***
 
-### getApproval
+### fallback()
 
-▸ **getApproval**(`_user`, `_token`, `_obligator`, `overrides?`): `Promise`<`BigNumber`\>
+> **fallback**(`overrides`?): `Promise`\<`TransactionResponse`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_token` | `string` |
-| `_obligator` | `string` |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`TransactionRequest`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`TransactionResponse`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[getApproval](TokenLocking.md#getapproval)
+[`TokenLocking`](TokenLocking.md).[`fallback`](TokenLocking.md#fallback)
 
-___
+***
 
-### getApproval(address,address,address)
+### getApproval()
 
-▸ **getApproval(address,address,address)**(`_user`, `_token`, `_obligator`, `overrides?`): `Promise`<`BigNumber`\>
+> **getApproval**(`_user`, `_token`, `_obligator`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_token` | `string` |
-| `_obligator` | `string` |
-| `overrides?` | `CallOverrides` |
+##### \_user
+
+`string`
+
+##### \_token
+
+`string`
+
+##### \_obligator
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[getApproval(address,address,address)](TokenLocking.md#getapproval(address,address,address))
+[`TokenLocking`](TokenLocking.md).[`getApproval`](TokenLocking.md#getapproval-24)
 
-___
+***
 
-### getColonyNetwork
+### getApproval(address,address,address)()
 
-▸ **getColonyNetwork**(`overrides?`): `Promise`<`string`\>
+> **getApproval(address,address,address)**(`_user`, `_token`, `_obligator`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### \_user
+
+`string`
+
+##### \_token
+
+`string`
+
+##### \_obligator
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[getColonyNetwork](TokenLocking.md#getcolonynetwork)
+[`TokenLocking`](TokenLocking.md).[`getApproval(address,address,address)`](TokenLocking.md#getapproval(address,address,address)-24)
 
-___
+***
 
 ### getColonyNetwork()
 
-▸ **getColonyNetwork()**(`overrides?`): `Promise`<`string`\>
+> **getColonyNetwork**(`overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[getColonyNetwork()](TokenLocking.md#getcolonynetwork())
+[`TokenLocking`](TokenLocking.md).[`getColonyNetwork`](TokenLocking.md#getcolonynetwork-24)
 
-___
+***
 
-### getMetatransactionNonce
+### getColonyNetwork()()
 
-▸ **getMetatransactionNonce**(`_user`, `overrides?`): `Promise`<`BigNumber`\>
+> **getColonyNetwork()**(`overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[getMetatransactionNonce](TokenLocking.md#getmetatransactionnonce)
+[`TokenLocking`](TokenLocking.md).[`getColonyNetwork()`](TokenLocking.md#getcolonynetwork()-24)
 
-___
+***
 
-### getMetatransactionNonce(address)
+### getMetatransactionNonce()
 
-▸ **getMetatransactionNonce(address)**(`_user`, `overrides?`): `Promise`<`BigNumber`\>
+> **getMetatransactionNonce**(`_user`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `overrides?` | `CallOverrides` |
+##### \_user
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[getMetatransactionNonce(address)](TokenLocking.md#getmetatransactionnonce(address))
+[`TokenLocking`](TokenLocking.md).[`getMetatransactionNonce`](TokenLocking.md#getmetatransactionnonce-24)
 
-___
+***
 
-### getObligation
+### getMetatransactionNonce(address)()
 
-▸ **getObligation**(`_user`, `_token`, `_obligator`, `overrides?`): `Promise`<`BigNumber`\>
+> **getMetatransactionNonce(address)**(`_user`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_token` | `string` |
-| `_obligator` | `string` |
-| `overrides?` | `CallOverrides` |
+##### \_user
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[getObligation](TokenLocking.md#getobligation)
+[`TokenLocking`](TokenLocking.md).[`getMetatransactionNonce(address)`](TokenLocking.md#getmetatransactionnonce(address)-24)
 
-___
+***
 
-### getObligation(address,address,address)
+### getObligation()
 
-▸ **getObligation(address,address,address)**(`_user`, `_token`, `_obligator`, `overrides?`): `Promise`<`BigNumber`\>
+> **getObligation**(`_user`, `_token`, `_obligator`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_token` | `string` |
-| `_obligator` | `string` |
-| `overrides?` | `CallOverrides` |
+##### \_user
+
+`string`
+
+##### \_token
+
+`string`
+
+##### \_obligator
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[getObligation(address,address,address)](TokenLocking.md#getobligation(address,address,address))
+[`TokenLocking`](TokenLocking.md).[`getObligation`](TokenLocking.md#getobligation-24)
 
-___
+***
 
-### getTotalLockCount
+### getObligation(address,address,address)()
 
-▸ **getTotalLockCount**(`_token`, `overrides?`): `Promise`<`BigNumber`\>
+> **getObligation(address,address,address)**(`_user`, `_token`, `_obligator`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_token` | `string` |
-| `overrides?` | `CallOverrides` |
+##### \_user
+
+`string`
+
+##### \_token
+
+`string`
+
+##### \_obligator
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[getTotalLockCount](TokenLocking.md#gettotallockcount)
+[`TokenLocking`](TokenLocking.md).[`getObligation(address,address,address)`](TokenLocking.md#getobligation(address,address,address)-24)
 
-___
+***
 
-### getTotalLockCount(address)
+### getTotalLockCount()
 
-▸ **getTotalLockCount(address)**(`_token`, `overrides?`): `Promise`<`BigNumber`\>
+> **getTotalLockCount**(`_token`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_token` | `string` |
-| `overrides?` | `CallOverrides` |
+##### \_token
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[getTotalLockCount(address)](TokenLocking.md#gettotallockcount(address))
+[`TokenLocking`](TokenLocking.md).[`getTotalLockCount`](TokenLocking.md#gettotallockcount-24)
 
-___
+***
 
-### getTotalObligation
+### getTotalLockCount(address)()
 
-▸ **getTotalObligation**(`_user`, `_token`, `overrides?`): `Promise`<`BigNumber`\>
+> **getTotalLockCount(address)**(`_token`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_token` | `string` |
-| `overrides?` | `CallOverrides` |
+##### \_token
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[getTotalObligation](TokenLocking.md#gettotalobligation)
+[`TokenLocking`](TokenLocking.md).[`getTotalLockCount(address)`](TokenLocking.md#gettotallockcount(address)-24)
 
-___
+***
 
-### getTotalObligation(address,address)
+### getTotalObligation()
 
-▸ **getTotalObligation(address,address)**(`_user`, `_token`, `overrides?`): `Promise`<`BigNumber`\>
+> **getTotalObligation**(`_user`, `_token`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_token` | `string` |
-| `overrides?` | `CallOverrides` |
+##### \_user
+
+`string`
+
+##### \_token
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[getTotalObligation(address,address)](TokenLocking.md#gettotalobligation(address,address))
+[`TokenLocking`](TokenLocking.md).[`getTotalObligation`](TokenLocking.md#gettotalobligation-24)
 
-___
+***
 
-### getUserLock
+### getTotalObligation(address,address)()
 
-▸ **getUserLock**(`_token`, `_user`, `overrides?`): `Promise`<`LockStructOutput`\>
+> **getTotalObligation(address,address)**(`_user`, `_token`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_token` | `string` |
-| `_user` | `string` |
-| `overrides?` | `CallOverrides` |
+##### \_user
+
+`string`
+
+##### \_token
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`LockStructOutput`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[getUserLock](TokenLocking.md#getuserlock)
+[`TokenLocking`](TokenLocking.md).[`getTotalObligation(address,address)`](TokenLocking.md#gettotalobligation(address,address)-24)
 
-___
+***
 
-### getUserLock(address,address)
+### getUserLock()
 
-▸ **getUserLock(address,address)**(`_token`, `_user`, `overrides?`): `Promise`<`LockStructOutput`\>
+> **getUserLock**(`_token`, `_user`, `overrides`?): `Promise`\<`LockStructOutput`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_token` | `string` |
-| `_user` | `string` |
-| `overrides?` | `CallOverrides` |
+##### \_token
+
+`string`
+
+##### \_user
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`LockStructOutput`\>
+`Promise`\<`LockStructOutput`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[getUserLock(address,address)](TokenLocking.md#getuserlock(address,address))
+[`TokenLocking`](TokenLocking.md).[`getUserLock`](TokenLocking.md#getuserlock-24)
 
-___
+***
 
-### incrementLockCounterTo
+### getUserLock(address,address)()
 
-▸ **incrementLockCounterTo**(`_token`, `_lockId`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **getUserLock(address,address)**(`_token`, `_user`, `overrides`?): `Promise`\<`LockStructOutput`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_token` | `string` |
-| `_lockId` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_token
+
+`string`
+
+##### \_user
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`LockStructOutput`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[incrementLockCounterTo](TokenLocking.md#incrementlockcounterto)
+[`TokenLocking`](TokenLocking.md).[`getUserLock(address,address)`](TokenLocking.md#getuserlock(address,address)-24)
 
-___
+***
 
-### incrementLockCounterTo(address,uint256)
+### incrementLockCounterTo()
 
-▸ **incrementLockCounterTo(address,uint256)**(`_token`, `_lockId`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **incrementLockCounterTo**(`_token`, `_lockId`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_token` | `string` |
-| `_lockId` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_token
+
+`string`
+
+##### \_lockId
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[incrementLockCounterTo(address,uint256)](TokenLocking.md#incrementlockcounterto(address,uint256))
+[`TokenLocking`](TokenLocking.md).[`incrementLockCounterTo`](TokenLocking.md#incrementlockcounterto-24)
 
-___
+***
 
-### listenerCount
+### incrementLockCounterTo(address,uint256)()
 
-▸ **listenerCount**(`eventName?`): `number`
+> **incrementLockCounterTo(address,uint256)**(`_token`, `_lockId`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `eventName?` | `string` \| `EventFilter` |
+##### \_token
+
+`string`
+
+##### \_lockId
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
+
+#### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### Inherited from
+
+[`TokenLocking`](TokenLocking.md).[`incrementLockCounterTo(address,uint256)`](TokenLocking.md#incrementlockcounterto(address,uint256)-24)
+
+***
+
+### listenerCount()
+
+> **listenerCount**(`eventName`?): `number`
+
+#### Parameters
+
+##### eventName?
+
+`string` | `EventFilter`
 
 #### Returns
 
@@ -1257,655 +6166,840 @@ ___
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[listenerCount](TokenLocking.md#listenercount)
+[`TokenLocking`](TokenLocking.md).[`listenerCount`](TokenLocking.md#listenercount)
 
-___
+***
 
-### listeners
+### listeners()
 
-▸ **listeners**<`TEvent`\>(`eventFilter?`): `TypedListener`<`TEvent`\>[]
+#### Call Signature
 
-#### Type parameters
+> **listeners**\<`TEvent`\>(`eventFilter`?): `TypedListener`\<`TEvent`\>[]
 
-| Name | Type |
-| :------ | :------ |
-| `TEvent` | extends `TypedEvent`<`any`, `any`\> |
+##### Type Parameters
 
-#### Parameters
+• **TEvent** *extends* `TypedEvent`
 
-| Name | Type |
-| :------ | :------ |
-| `eventFilter?` | `TypedEventFilter`<`TEvent`\> |
+##### Parameters
 
-#### Returns
+###### eventFilter?
 
-`TypedListener`<`TEvent`\>[]
+`TypedEventFilter`\<`TEvent`\>
 
-#### Inherited from
+##### Returns
 
-[TokenLocking](TokenLocking.md).[listeners](TokenLocking.md#listeners)
+`TypedListener`\<`TEvent`\>[]
 
-▸ **listeners**(`eventName?`): `Listener`[]
+##### Inherited from
 
-#### Parameters
+[`TokenLocking`](TokenLocking.md).[`listeners`](TokenLocking.md#listeners)
 
-| Name | Type |
-| :------ | :------ |
-| `eventName?` | `string` |
+#### Call Signature
 
-#### Returns
+> **listeners**(`eventName`?): `Listener`[]
+
+##### Parameters
+
+###### eventName?
+
+`string`
+
+##### Returns
 
 `Listener`[]
 
-#### Inherited from
+##### Inherited from
 
-[TokenLocking](TokenLocking.md).[listeners](TokenLocking.md#listeners)
+[`TokenLocking`](TokenLocking.md).[`listeners`](TokenLocking.md#listeners)
 
-___
+***
 
-### lockToken
+### lockToken()
 
-▸ **lockToken**(`_token`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `_token` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-[TokenLocking](TokenLocking.md).[lockToken](TokenLocking.md#locktoken)
-
-___
-
-### lockToken(address)
-
-▸ **lockToken(address)**(`_token`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **lockToken**(`_token`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_token` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_token
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[lockToken(address)](TokenLocking.md#locktoken(address))
+[`TokenLocking`](TokenLocking.md).[`lockToken`](TokenLocking.md#locktoken-24)
 
-___
+***
 
-### obligateStake
+### lockToken(address)()
 
-▸ **obligateStake**(`_user`, `_amount`, `_token`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **lockToken(address)**(`_token`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_amount` | `BigNumberish` |
-| `_token` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_token
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[obligateStake](TokenLocking.md#obligatestake)
+[`TokenLocking`](TokenLocking.md).[`lockToken(address)`](TokenLocking.md#locktoken(address)-24)
 
-___
+***
 
-### obligateStake(address,uint256,address)
+### obligateStake()
 
-▸ **obligateStake(address,uint256,address)**(`_user`, `_amount`, `_token`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **obligateStake**(`_user`, `_amount`, `_token`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_amount` | `BigNumberish` |
-| `_token` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_user
+
+`string`
+
+##### \_amount
+
+`BigNumberish`
+
+##### \_token
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[obligateStake(address,uint256,address)](TokenLocking.md#obligatestake(address,uint256,address))
+[`TokenLocking`](TokenLocking.md).[`obligateStake`](TokenLocking.md#obligatestake-24)
 
-___
+***
 
-### owner
+### obligateStake(address,uint256,address)()
 
-▸ **owner**(`overrides?`): `Promise`<`string`\>
+> **obligateStake(address,uint256,address)**(`_user`, `_amount`, `_token`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### \_user
+
+`string`
+
+##### \_amount
+
+`BigNumberish`
+
+##### \_token
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[owner](TokenLocking.md#owner)
+[`TokenLocking`](TokenLocking.md).[`obligateStake(address,uint256,address)`](TokenLocking.md#obligatestake(address,uint256,address)-24)
 
-___
+***
 
 ### owner()
 
-▸ **owner()**(`overrides?`): `Promise`<`string`\>
+> **owner**(`overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[owner()](TokenLocking.md#owner())
+[`TokenLocking`](TokenLocking.md).[`owner`](TokenLocking.md#owner-30)
 
-___
+***
 
-### queryFilter
+### owner()()
 
-▸ **queryFilter**<`TEvent`\>(`event`, `fromBlockOrBlockhash?`, `toBlock?`): `Promise`<`TEvent`[]\>
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `TEvent` | extends `TypedEvent`<`any`, `any`\> |
+> **owner()**(`overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `event` | `TypedEventFilter`<`TEvent`\> |
-| `fromBlockOrBlockhash?` | `string` \| `number` |
-| `toBlock?` | `string` \| `number` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`TEvent`[]\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[queryFilter](TokenLocking.md#queryfilter)
+[`TokenLocking`](TokenLocking.md).[`owner()`](TokenLocking.md#owner()-24)
 
-___
+***
 
-### removeAllListeners
+### queryFilter()
 
-▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`TokenLockingClient`](TokenLockingClient.md)
+> **queryFilter**\<`TEvent`\>(`event`, `fromBlockOrBlockhash`?, `toBlock`?): `Promise`\<`TEvent`[]\>
 
-#### Type parameters
+#### Type Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `TEvent` | extends `TypedEvent`<`any`, `any`\> |
+• **TEvent** *extends* `TypedEvent`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `eventFilter` | `TypedEventFilter`<`TEvent`\> |
+##### event
+
+`TypedEventFilter`\<`TEvent`\>
+
+##### fromBlockOrBlockhash?
+
+`string` | `number`
+
+##### toBlock?
+
+`string` | `number`
 
 #### Returns
 
-[`TokenLockingClient`](TokenLockingClient.md)
+`Promise`\<`TEvent`[]\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[removeAllListeners](TokenLocking.md#removealllisteners)
+[`TokenLocking`](TokenLocking.md).[`queryFilter`](TokenLocking.md#queryfilter)
 
-▸ **removeAllListeners**(`eventName?`): [`TokenLockingClient`](TokenLockingClient.md)
+***
+
+### removeAllListeners()
+
+#### Call Signature
+
+> **removeAllListeners**\<`TEvent`\>(`eventFilter`): `this`
+
+##### Type Parameters
+
+• **TEvent** *extends* `TypedEvent`
+
+##### Parameters
+
+###### eventFilter
+
+`TypedEventFilter`\<`TEvent`\>
+
+##### Returns
+
+`this`
+
+##### Inherited from
+
+[`TokenLocking`](TokenLocking.md).[`removeAllListeners`](TokenLocking.md#removealllisteners)
+
+#### Call Signature
+
+> **removeAllListeners**(`eventName`?): `this`
+
+##### Parameters
+
+###### eventName?
+
+`string`
+
+##### Returns
+
+`this`
+
+##### Inherited from
+
+[`TokenLocking`](TokenLocking.md).[`removeAllListeners`](TokenLocking.md#removealllisteners)
+
+***
+
+### reward()
+
+> **reward**(`_recipient`, `_amount`, `overrides`?): `Promise`\<`void`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `eventName?` | `string` |
+##### \_recipient
+
+`string`
+
+##### \_amount
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-[`TokenLockingClient`](TokenLockingClient.md)
+`Promise`\<`void`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[removeAllListeners](TokenLocking.md#removealllisteners)
+[`TokenLocking`](TokenLocking.md).[`reward`](TokenLocking.md#reward-24)
 
-___
+***
 
-### reward
+### reward(address,uint256)()
 
-▸ **reward**(`_recipient`, `_amount`, `overrides?`): `Promise`<`void`\>
+> **reward(address,uint256)**(`_recipient`, `_amount`, `overrides`?): `Promise`\<`void`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_recipient` | `string` |
-| `_amount` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_recipient
+
+`string`
+
+##### \_amount
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[reward](TokenLocking.md#reward)
+[`TokenLocking`](TokenLocking.md).[`reward(address,uint256)`](TokenLocking.md#reward(address,uint256)-24)
 
-___
+***
 
-### reward(address,uint256)
+### setAuthority()
 
-▸ **reward(address,uint256)**(`_recipient`, `_amount`, `overrides?`): `Promise`<`void`\>
+> **setAuthority**(`authority_`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_recipient` | `string` |
-| `_amount` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### authority\_
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[reward(address,uint256)](TokenLocking.md#reward(address,uint256))
+[`TokenLocking`](TokenLocking.md).[`setAuthority`](TokenLocking.md#setauthority-24)
 
-___
+***
 
-### setAuthority
+### setAuthority(address)()
 
-▸ **setAuthority**(`authority_`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setAuthority(address)**(`authority_`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `authority_` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### authority\_
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[setAuthority](TokenLocking.md#setauthority)
+[`TokenLocking`](TokenLocking.md).[`setAuthority(address)`](TokenLocking.md#setauthority(address)-24)
 
-___
+***
 
-### setAuthority(address)
+### setColonyNetwork()
 
-▸ **setAuthority(address)**(`authority_`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setColonyNetwork**(`_colonyNetwork`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `authority_` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_colonyNetwork
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[setAuthority(address)](TokenLocking.md#setauthority(address))
+[`TokenLocking`](TokenLocking.md).[`setColonyNetwork`](TokenLocking.md#setcolonynetwork-24)
 
-___
+***
 
-### setColonyNetwork
+### setColonyNetwork(address)()
 
-▸ **setColonyNetwork**(`_colonyNetwork`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setColonyNetwork(address)**(`_colonyNetwork`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_colonyNetwork` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_colonyNetwork
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[setColonyNetwork](TokenLocking.md#setcolonynetwork)
+[`TokenLocking`](TokenLocking.md).[`setColonyNetwork(address)`](TokenLocking.md#setcolonynetwork(address)-24)
 
-___
+***
 
-### setColonyNetwork(address)
+### setOwner()
 
-▸ **setColonyNetwork(address)**(`_colonyNetwork`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setOwner**(`owner_`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_colonyNetwork` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### owner\_
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[setColonyNetwork(address)](TokenLocking.md#setcolonynetwork(address))
+[`TokenLocking`](TokenLocking.md).[`setOwner`](TokenLocking.md#setowner-24)
 
-___
+***
 
-### setOwner
+### setOwner(address)()
 
-▸ **setOwner**(`owner_`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setOwner(address)**(`owner_`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `owner_` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### owner\_
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[setOwner](TokenLocking.md#setowner)
+[`TokenLocking`](TokenLocking.md).[`setOwner(address)`](TokenLocking.md#setowner(address)-24)
 
-___
+***
 
-### setOwner(address)
+### transfer()
 
-▸ **setOwner(address)**(`owner_`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **transfer**(`_token`, `_amount`, `_recipient`, `_force`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `owner_` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_token
+
+`string`
+
+##### \_amount
+
+`BigNumberish`
+
+##### \_recipient
+
+`string`
+
+##### \_force
+
+`boolean`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[setOwner(address)](TokenLocking.md#setowner(address))
+[`TokenLocking`](TokenLocking.md).[`transfer`](TokenLocking.md#transfer-24)
 
-___
+***
 
-### transfer
+### transfer(address,uint256,address,bool)()
 
-▸ **transfer**(`_token`, `_amount`, `_recipient`, `_force`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **transfer(address,uint256,address,bool)**(`_token`, `_amount`, `_recipient`, `_force`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_token` | `string` |
-| `_amount` | `BigNumberish` |
-| `_recipient` | `string` |
-| `_force` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_token
+
+`string`
+
+##### \_amount
+
+`BigNumberish`
+
+##### \_recipient
+
+`string`
+
+##### \_force
+
+`boolean`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[transfer](TokenLocking.md#transfer)
+[`TokenLocking`](TokenLocking.md).[`transfer(address,uint256,address,bool)`](TokenLocking.md#transfer(address,uint256,address,bool)-24)
 
-___
+***
 
-### transfer(address,uint256,address,bool)
+### transferStake()
 
-▸ **transfer(address,uint256,address,bool)**(`_token`, `_amount`, `_recipient`, `_force`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **transferStake**(`_user`, `_amount`, `_token`, `_recipient`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_token` | `string` |
-| `_amount` | `BigNumberish` |
-| `_recipient` | `string` |
-| `_force` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_user
+
+`string`
+
+##### \_amount
+
+`BigNumberish`
+
+##### \_token
+
+`string`
+
+##### \_recipient
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[transfer(address,uint256,address,bool)](TokenLocking.md#transfer(address,uint256,address,bool))
+[`TokenLocking`](TokenLocking.md).[`transferStake`](TokenLocking.md#transferstake-24)
 
-___
+***
 
-### transferStake
+### transferStake(address,uint256,address,address)()
 
-▸ **transferStake**(`_user`, `_amount`, `_token`, `_recipient`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **transferStake(address,uint256,address,address)**(`_user`, `_amount`, `_token`, `_recipient`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_amount` | `BigNumberish` |
-| `_token` | `string` |
-| `_recipient` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_user
+
+`string`
+
+##### \_amount
+
+`BigNumberish`
+
+##### \_token
+
+`string`
+
+##### \_recipient
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[transferStake](TokenLocking.md#transferstake)
+[`TokenLocking`](TokenLocking.md).[`transferStake(address,uint256,address,address)`](TokenLocking.md#transferstake(address,uint256,address,address)-24)
 
-___
+***
 
-### transferStake(address,uint256,address,address)
+### unlockTokenForUser()
 
-▸ **transferStake(address,uint256,address,address)**(`_user`, `_amount`, `_token`, `_recipient`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **unlockTokenForUser**(`_token`, `_user`, `_lockId`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_amount` | `BigNumberish` |
-| `_token` | `string` |
-| `_recipient` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_token
+
+`string`
+
+##### \_user
+
+`string`
+
+##### \_lockId
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[transferStake(address,uint256,address,address)](TokenLocking.md#transferstake(address,uint256,address,address))
+[`TokenLocking`](TokenLocking.md).[`unlockTokenForUser`](TokenLocking.md#unlocktokenforuser-24)
 
-___
+***
 
-### unlockTokenForUser
+### unlockTokenForUser(address,address,uint256)()
 
-▸ **unlockTokenForUser**(`_token`, `_user`, `_lockId`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **unlockTokenForUser(address,address,uint256)**(`_token`, `_user`, `_lockId`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_token` | `string` |
-| `_user` | `string` |
-| `_lockId` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_token
+
+`string`
+
+##### \_user
+
+`string`
+
+##### \_lockId
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[unlockTokenForUser](TokenLocking.md#unlocktokenforuser)
+[`TokenLocking`](TokenLocking.md).[`unlockTokenForUser(address,address,uint256)`](TokenLocking.md#unlocktokenforuser(address,address,uint256)-24)
 
-___
+***
 
-### unlockTokenForUser(address,address,uint256)
+### verify()
 
-▸ **unlockTokenForUser(address,address,uint256)**(`_token`, `_user`, `_lockId`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **verify**(`_user`, `_nonce`, `_chainId`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides`?): `Promise`\<`boolean`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_token` | `string` |
-| `_user` | `string` |
-| `_lockId` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_user
+
+`string`
+
+##### \_nonce
+
+`BigNumberish`
+
+##### \_chainId
+
+`BigNumberish`
+
+##### \_payload
+
+`BytesLike`
+
+##### \_sigR
+
+`BytesLike`
+
+##### \_sigS
+
+`BytesLike`
+
+##### \_sigV
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`boolean`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[unlockTokenForUser(address,address,uint256)](TokenLocking.md#unlocktokenforuser(address,address,uint256))
+[`TokenLocking`](TokenLocking.md).[`verify`](TokenLocking.md#verify-24)
 
-___
+***
 
-### verify
+### verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)()
 
-▸ **verify**(`_user`, `_nonce`, `_chainId`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`boolean`\>
+> **verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)**(`_user`, `_nonce`, `_chainId`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides`?): `Promise`\<`boolean`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_nonce` | `BigNumberish` |
-| `_chainId` | `BigNumberish` |
-| `_payload` | `BytesLike` |
-| `_sigR` | `BytesLike` |
-| `_sigS` | `BytesLike` |
-| `_sigV` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_user
+
+`string`
+
+##### \_nonce
+
+`BigNumberish`
+
+##### \_chainId
+
+`BigNumberish`
+
+##### \_payload
+
+`BytesLike`
+
+##### \_sigR
+
+`BytesLike`
+
+##### \_sigS
+
+`BytesLike`
+
+##### \_sigV
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`boolean`\>
+`Promise`\<`boolean`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[verify](TokenLocking.md#verify)
+[`TokenLocking`](TokenLocking.md).[`verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)`](TokenLocking.md#verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)-24)
 
-___
+***
 
-### verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)
+### withdraw(address,uint256,bool)()
 
-▸ **verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)**(`_user`, `_nonce`, `_chainId`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`boolean`\>
+> **withdraw(address,uint256,bool)**(`_token`, `_amount`, `_force`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_nonce` | `BigNumberish` |
-| `_chainId` | `BigNumberish` |
-| `_payload` | `BytesLike` |
-| `_sigR` | `BytesLike` |
-| `_sigS` | `BytesLike` |
-| `_sigV` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_token
+
+`string`
+
+##### \_amount
+
+`BigNumberish`
+
+##### \_force
+
+`boolean`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`boolean`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)](TokenLocking.md#verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8))
+[`TokenLocking`](TokenLocking.md).[`withdraw(address,uint256,bool)`](TokenLocking.md#withdraw(address,uint256,bool)-24)
 
-___
+***
 
-### withdraw(address,uint256)
+### withdraw(address,uint256)()
 
-▸ **withdraw(address,uint256)**(`_token`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **withdraw(address,uint256)**(`_token`, `_amount`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_token` | `string` |
-| `_amount` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_token
+
+`string`
+
+##### \_amount
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-[TokenLocking](TokenLocking.md).[withdraw(address,uint256)](TokenLocking.md#withdraw(address,uint256))
-
-___
-
-### withdraw(address,uint256,bool)
-
-▸ **withdraw(address,uint256,bool)**(`_token`, `_amount`, `_force`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `_token` | `string` |
-| `_amount` | `BigNumberish` |
-| `_force` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-[TokenLocking](TokenLocking.md).[withdraw(address,uint256,bool)](TokenLocking.md#withdraw(address,uint256,bool))
+[`TokenLocking`](TokenLocking.md).[`withdraw(address,uint256)`](TokenLocking.md#withdraw(address,uint256)-24)

@@ -1,33 +1,35 @@
+[**API**](../README.md)
+
+***
+
 # Interface: DomainMetadata
 
-## Hierarchy
+## Extends
 
 - `BaseMetadata`
-
-  ↳ **`DomainMetadata`**
 
 ## Properties
 
 ### data
 
-• **data**: [`DomainData`](DomainData.md)
+> **data**: [`DomainData`](DomainData.md)
 
-___
+***
 
 ### name
 
-• **name**: [`Domain`](../enums/MetadataType.md#domain)
+> **name**: [`Domain`](../enumerations/MetadataType.md#domain)
 
 #### Overrides
 
-BaseMetadata.name
+`BaseMetadata.name`
 
-___
+***
 
 ### version
 
-• **version**: `number`
+> **version**: `number`
 
 #### Inherited from
 
-BaseMetadata.version
+`BaseMetadata.version`

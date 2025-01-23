@@ -1,19 +1,23 @@
+[**API**](../README.md)
+
+***
+
 # Interface: PermissionConfig
 
 ## Properties
 
-### address
+### address?
 
-• `Optional` **address**: `string`
+> `optional` **address**: `string`
 
-___
+***
 
 ### domain
 
-• **domain**: `BigNumberish`
+> **domain**: `BigNumberish`
 
-___
+***
 
 ### roles
 
-• **roles**: [`ColonyRole`](../enums/ColonyRole.md) \| [`ColonyRole`](../enums/ColonyRole.md)[]
+> **roles**: [`ColonyRole`](../enumerations/ColonyRole.md) \| [`ColonyRole`](../enumerations/ColonyRole.md)[]

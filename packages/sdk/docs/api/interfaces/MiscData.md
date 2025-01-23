@@ -1,13 +1,17 @@
+[**API**](../README.md)
+
+***
+
 # Interface: MiscData
 
 ## Properties
 
 ### name
 
-• **name**: `string`
+> **name**: `string`
 
-___
+***
 
 ### value
 
-• **value**: `string`
+> **value**: `string`

@@ -1,3 +1,7 @@
+[**API**](../README.md)
+
+***
+
 # Class: PinataAdapter
 
 A Colony SDK IPFS adapter for Pinata (https://pinata.cloud)
@@ -8,7 +12,7 @@ In order to use this, sign up for Pinata (if you haven't already) and generate a
 Do not check in your Pinata token into version control and **DO NOT EMBED IT INTO YOUR FRONTEND BUNDLE**.
 :::
 
-**`Example`**
+## Example
 
 ```typescript
 import { ColonyNetwork, PinataAdapter } from '@colony/sdk';
@@ -25,41 +29,47 @@ const pinataAdapter = new PinataAdapter('[YOUR_PINANTA_JWT_TOKEN]');
 
 ## Constructors
 
-### constructor
+### new PinataAdapter()
 
-• **new PinataAdapter**(`pinataToken?`)
+> **new PinataAdapter**(`pinataToken`?): [`PinataAdapter`](PinataAdapter.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `pinataToken?` | `string` |
+##### pinataToken?
+
+`string`
+
+#### Returns
+
+[`PinataAdapter`](PinataAdapter.md)
 
 ## Properties
 
 ### name
 
-• **name**: `string`
+> **name**: `string`
 
 Name for the IpfsAdapter. All uppercase please
 
 #### Implementation of
 
-[IpfsAdapter](../interfaces/IpfsAdapter.md).[name](../interfaces/IpfsAdapter.md#name)
+[`IpfsAdapter`](../interfaces/IpfsAdapter.md).[`name`](../interfaces/IpfsAdapter.md#name)
 
 ## Methods
 
-### getIpfsUrl
+### getIpfsUrl()
 
-▸ **getIpfsUrl**(`cid`): `string`
+> **getIpfsUrl**(`cid`): `string`
 
 Should return the whole URL to an IPFS resource on the corresponding gateway (e.g. https://my-ipfs-gateway/ipfs/QmXxxxXXxxXxXxXxxxXXxxxXxXXx).
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `cid` | `string` | An IPFS hash (CID) |
+##### cid
+
+`string`
+
+An IPFS hash (CID)
 
 #### Returns
 
@@ -69,32 +79,34 @@ The URL to an ipfs resource
 
 #### Implementation of
 
-[IpfsAdapter](../interfaces/IpfsAdapter.md).[getIpfsUrl](../interfaces/IpfsAdapter.md#getipfsurl)
+[`IpfsAdapter`](../interfaces/IpfsAdapter.md).[`getIpfsUrl`](../interfaces/IpfsAdapter.md#getipfsurl)
 
-___
+***
 
-### uploadJson
+### uploadJson()
 
-▸ **uploadJson**(`jsonString`): `Promise`<`string`\>
+> **uploadJson**(`jsonString`): `Promise`\<`string`\>
 
 Function to upload a JSON string to IPFS. Takes the string as an argument (use `JSON.stringify()` if needbe). Returns a promise that resolves to the IPFS hash (CID)
 
-**`Remarks`**
-
-This function should ideally **pin** your data on the relevant service.
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `jsonString` | `string` | JSON string to upload (and pin) to IPFS |
+##### jsonString
+
+`string`
+
+JSON string to upload (and pin) to IPFS
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
 Promise to IPFS hash (CID)
 
+#### Remarks
+
+This function should ideally **pin** your data on the relevant service.
+
 #### Implementation of
 
-[IpfsAdapter](../interfaces/IpfsAdapter.md).[uploadJson](../interfaces/IpfsAdapter.md#uploadjson)
+[`IpfsAdapter`](../interfaces/IpfsAdapter.md).[`uploadJson`](../interfaces/IpfsAdapter.md#uploadjson)

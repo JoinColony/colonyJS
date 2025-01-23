@@ -1,445 +1,6608 @@
+[**API**](../README.md)
+
+***
+
 # Interface: MultisigPermissionsClientV2
 
-## Hierarchy
+## Extends
 
-- `AugmentedMultisigPermissions`<`MultisigPermissions`\>
-
-  ↳ **`MultisigPermissionsClientV2`**
+- `AugmentedMultisigPermissions`\<`MultisigPermissions`\>
 
 ## Properties
 
 ### \_deployedPromise
 
-• **\_deployedPromise**: `Promise`<`Contract`\>
+> **\_deployedPromise**: `Promise`\<`Contract`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.\_deployedPromise
+`AugmentedMultisigPermissions._deployedPromise`
 
-___
+***
 
 ### \_runningEvents
 
-• **\_runningEvents**: `Object`
+> **\_runningEvents**: `object`
 
-#### Index signature
+#### Index Signature
 
-▪ [eventTag: `string`]: `RunningEvent`
+\[`eventTag`: `string`\]: `RunningEvent`
 
 #### Inherited from
 
-AugmentedMultisigPermissions.\_runningEvents
+`AugmentedMultisigPermissions._runningEvents`
 
-___
+***
 
 ### \_wrappedEmits
 
-• **\_wrappedEmits**: `Object`
+> **\_wrappedEmits**: `object`
 
-#### Index signature
+#### Index Signature
 
-▪ [eventTag: `string`]: (...`args`: `any`[]) => `void`
+\[`eventTag`: `string`\]: (...`args`) => `void`
 
 #### Inherited from
 
-AugmentedMultisigPermissions.\_wrappedEmits
+`AugmentedMultisigPermissions._wrappedEmits`
 
-___
+***
 
 ### address
 
-• `Readonly` **address**: `string`
+> `readonly` **address**: `string`
 
 #### Inherited from
 
-AugmentedMultisigPermissions.address
+`AugmentedMultisigPermissions.address`
 
-___
+***
 
 ### callStatic
 
-• **callStatic**: `Object`
+> **callStatic**: `object`
 
-#### Type declaration
+#### authority()
 
-| Name | Type |
-| :------ | :------ |
-| `authority` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `authority()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `cancel` | (`_motionId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `cancel(uint256)` | (`_motionId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `changeVote` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_motionId`: `BigNumberish`, `_vote`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `changeVote(uint256,uint256,uint256,uint8)` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_motionId`: `BigNumberish`, `_vote`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `createMotion` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_targets`: `string`[], `_data`: `BytesLike`[], `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `createMotion(uint256,uint256,address[],bytes[])` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_targets`: `string`[], `_data`: `BytesLike`[], `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `deprecate` | (`_deprecated`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `deprecate(bool)` | (`_deprecated`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `execute` | (`_motionId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `execute(uint256)` | (`_motionId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `executeMetaTransaction` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `executeWithoutFailure` | (`_motionId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `executeWithoutFailure(uint256)` | (`_motionId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `finishUpgrade` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `finishUpgrade()` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `getCapabilityRoles` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `getCapabilityRoles(bytes4)` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `getColony()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
-| `getDeprecated()` | (`overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
-| `getDomainSkillRoleCounts` | (`_domainSkillId`: `BigNumberish`, `_role`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getDomainSkillRoleCounts(uint256,uint8)` | (`_domainSkillId`: `BigNumberish`, `_role`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getDomainSkillThreshold` | (`_domainSkillId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getDomainSkillThreshold(uint256)` | (`_domainSkillId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getGlobalThreshold` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getGlobalThreshold()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getMetatransactionNonce` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getMetatransactionNonce(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getMotion` | (`motionId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`MotionStructOutput`\> |
-| `getMotion(uint256)` | (`motionId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`MotionStructOutput`\> |
-| `getMotionCount` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getMotionCount()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getMotionRoleVoteCount` | (`_motionId`: `BigNumberish`, `_role`: `BigNumberish`, `_vote`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getMotionRoleVoteCount(uint256,uint8,uint8)` | (`_motionId`: `BigNumberish`, `_role`: `BigNumberish`, `_vote`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getMotionVoteThreshold` | (`_motionId`: `BigNumberish`, `_role`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getMotionVoteThreshold(uint256,uint8)` | (`_motionId`: `BigNumberish`, `_role`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getSingleActionSummary` | (`colonyNetworkAddress`: `string`, `colonyAddress`: `string`, `_action`: `BytesLike`, `_altTarget`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`ActionSummaryStructOutput`\> |
-| `getSingleActionSummary(address,address,bytes,address)` | (`colonyNetworkAddress`: `string`, `colonyAddress`: `string`, `_action`: `BytesLike`, `_altTarget`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`ActionSummaryStructOutput`\> |
-| `getUserRoles` | (`who`: `string`, `where`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `getUserRoles(address,uint256)` | (`who`: `string`, `where`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `getUserVote` | (`_motionId`: `BigNumberish`, `_user`: `string`, `_role`: `BigNumberish`, `_vote`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
-| `getUserVote(uint256,address,uint8,uint8)` | (`_motionId`: `BigNumberish`, `_user`: `string`, `_role`: `BigNumberish`, `_vote`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
-| `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `identifier()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `install` | (`_colony`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `install(address)` | (`_colony`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `multicall` | (`data`: `BytesLike`[], `overrides?`: `CallOverrides`) => `Promise`<`string`[]\> |
-| `multicall(bytes[])` | (`data`: `BytesLike`[], `overrides?`: `CallOverrides`) => `Promise`<`string`[]\> |
-| `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `owner()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `setAuthority` | (`authority_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setAuthority(address)` | (`authority_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setDomainSkillThreshold` | (`_domainSkillId`: `BigNumberish`, `_threshold`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setDomainSkillThreshold(uint256,uint256)` | (`_domainSkillId`: `BigNumberish`, `_threshold`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setGlobalThreshold` | (`_globalThreshold`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setGlobalThreshold(uint256)` | (`_globalThreshold`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setOwner` | (`owner_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setOwner(address)` | (`owner_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setUserRoles` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_user`: `string`, `_domainId`: `BigNumberish`, `_roles`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setUserRoles(uint256,uint256,address,uint256,bytes32)` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_user`: `string`, `_domainId`: `BigNumberish`, `_roles`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `uninstall` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `uninstall()` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `verify` | (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
-| `verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
-| `version` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `version()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### authority()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### cancel()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### cancel(uint256)()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### changeVote()
+
+##### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_vote
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### changeVote(uint256,uint256,uint256,uint8)()
+
+##### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_vote
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### createMotion()
+
+##### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_targets
+
+`string`[]
+
+###### \_data
+
+`BytesLike`[]
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### createMotion(uint256,uint256,address\[\],bytes\[\])()
+
+##### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_targets
+
+`string`[]
+
+###### \_data
+
+`BytesLike`[]
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### deprecate()
+
+##### Parameters
+
+###### \_deprecated
+
+`boolean`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### deprecate(bool)()
+
+##### Parameters
+
+###### \_deprecated
+
+`boolean`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### execute()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### execute(uint256)()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### executeMetaTransaction()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### executeWithoutFailure()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### executeWithoutFailure(uint256)()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### finishUpgrade()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### finishUpgrade()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### getCapabilityRoles()
+
+##### Parameters
+
+###### \_sig
+
+`BytesLike`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### getCapabilityRoles(bytes4)()
+
+##### Parameters
+
+###### \_sig
+
+`BytesLike`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### getColony()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### getColony()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### getDeprecated()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`boolean`\>
+
+#### getDeprecated()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`boolean`\>
+
+#### getDomainSkillRoleCounts()
+
+##### Parameters
+
+###### \_domainSkillId
+
+`BigNumberish`
+
+###### \_role
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getDomainSkillRoleCounts(uint256,uint8)()
+
+##### Parameters
+
+###### \_domainSkillId
+
+`BigNumberish`
+
+###### \_role
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getDomainSkillThreshold()
+
+##### Parameters
+
+###### \_domainSkillId
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getDomainSkillThreshold(uint256)()
+
+##### Parameters
+
+###### \_domainSkillId
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getGlobalThreshold()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getGlobalThreshold()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getMetatransactionNonce()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getMetatransactionNonce(address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getMotion()
+
+##### Parameters
+
+###### motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`MotionStructOutput`\>
+
+#### getMotion(uint256)()
+
+##### Parameters
+
+###### motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`MotionStructOutput`\>
+
+#### getMotionCount()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getMotionCount()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getMotionRoleVoteCount()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_role
+
+`BigNumberish`
+
+###### \_vote
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getMotionRoleVoteCount(uint256,uint8,uint8)()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_role
+
+`BigNumberish`
+
+###### \_vote
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getMotionVoteThreshold()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_role
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getMotionVoteThreshold(uint256,uint8)()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_role
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getSingleActionSummary()
+
+##### Parameters
+
+###### colonyNetworkAddress
+
+`string`
+
+###### colonyAddress
+
+`string`
+
+###### \_action
+
+`BytesLike`
+
+###### \_altTarget
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`ActionSummaryStructOutput`\>
+
+#### getSingleActionSummary(address,address,bytes,address)()
+
+##### Parameters
+
+###### colonyNetworkAddress
+
+`string`
+
+###### colonyAddress
+
+`string`
+
+###### \_action
+
+`BytesLike`
+
+###### \_altTarget
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`ActionSummaryStructOutput`\>
+
+#### getUserRoles()
+
+##### Parameters
+
+###### who
+
+`string`
+
+###### where
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### getUserRoles(address,uint256)()
+
+##### Parameters
+
+###### who
+
+`string`
+
+###### where
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### getUserVote()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_user
+
+`string`
+
+###### \_role
+
+`BigNumberish`
+
+###### \_vote
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`boolean`\>
+
+#### getUserVote(uint256,address,uint8,uint8)()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_user
+
+`string`
+
+###### \_role
+
+`BigNumberish`
+
+###### \_vote
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`boolean`\>
+
+#### identifier()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### identifier()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### install()
+
+##### Parameters
+
+###### \_colony
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### install(address)()
+
+##### Parameters
+
+###### \_colony
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### multicall()
+
+##### Parameters
+
+###### data
+
+`BytesLike`[]
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`[]\>
+
+#### multicall(bytes\[\])()
+
+##### Parameters
+
+###### data
+
+`BytesLike`[]
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`[]\>
+
+#### owner()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### owner()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### setAuthority()
+
+##### Parameters
+
+###### authority\_
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### setAuthority(address)()
+
+##### Parameters
+
+###### authority\_
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### setDomainSkillThreshold()
+
+##### Parameters
+
+###### \_domainSkillId
+
+`BigNumberish`
+
+###### \_threshold
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### setDomainSkillThreshold(uint256,uint256)()
+
+##### Parameters
+
+###### \_domainSkillId
+
+`BigNumberish`
+
+###### \_threshold
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### setGlobalThreshold()
+
+##### Parameters
+
+###### \_globalThreshold
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### setGlobalThreshold(uint256)()
+
+##### Parameters
+
+###### \_globalThreshold
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### setOwner()
+
+##### Parameters
+
+###### owner\_
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### setOwner(address)()
+
+##### Parameters
+
+###### owner\_
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### setUserRoles()
+
+##### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_user
+
+`string`
+
+###### \_domainId
+
+`BigNumberish`
+
+###### \_roles
+
+`BytesLike`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### setUserRoles(uint256,uint256,address,uint256,bytes32)()
+
+##### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_user
+
+`string`
+
+###### \_domainId
+
+`BigNumberish`
+
+###### \_roles
+
+`BytesLike`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### uninstall()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### uninstall()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### verify()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_nonce
+
+`BigNumberish`
+
+###### \_chainId
+
+`BigNumberish`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`boolean`\>
+
+#### verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_nonce
+
+`BigNumberish`
+
+###### \_chainId
+
+`BigNumberish`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`boolean`\>
+
+#### version()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### version()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.callStatic
+`AugmentedMultisigPermissions.callStatic`
 
-___
+***
 
 ### clientType
 
-• **clientType**: [`MultisigPermissionsClient`](../enums/ClientType.md#multisigpermissionsclient)
+> **clientType**: [`MultisigPermissionsClient`](../enumerations/ClientType.md#multisigpermissionsclient)
 
 #### Inherited from
 
-AugmentedMultisigPermissions.clientType
+`AugmentedMultisigPermissions.clientType`
 
-___
+***
 
 ### clientVersion
 
-• **clientVersion**: ``2``
+> **clientVersion**: `2`
 
 #### Overrides
 
-AugmentedMultisigPermissions.clientVersion
+`AugmentedMultisigPermissions.clientVersion`
 
-___
+***
 
 ### colonyClient
 
-• **colonyClient**: `AugmentedIColony`<`ValidColony`\>
+> **colonyClient**: `AugmentedIColony`\<`ValidColony`\>
 
 An instance of the corresponding ColonyClient
 
 #### Inherited from
 
-AugmentedMultisigPermissions.colonyClient
+`AugmentedMultisigPermissions.colonyClient`
 
-___
+***
 
 ### deployTransaction
 
-• `Readonly` **deployTransaction**: `TransactionResponse`
+> `readonly` **deployTransaction**: `TransactionResponse`
 
 #### Inherited from
 
-AugmentedMultisigPermissions.deployTransaction
+`AugmentedMultisigPermissions.deployTransaction`
 
-___
+***
 
 ### estimateGas
 
-• **estimateGas**: `Object`
+> **estimateGas**: `object` & \{ `authority`: `Promise`\<`BigNumber`\>; `authority()`: `Promise`\<`BigNumber`\>; `cancel`: `Promise`\<`BigNumber`\>; `cancel(uint256)`: `Promise`\<`BigNumber`\>; `changeVote`: `Promise`\<`BigNumber`\>; `changeVote(uint256,uint256,uint256,uint8)`: `Promise`\<`BigNumber`\>; `createMotion`: `Promise`\<`BigNumber`\>; `createMotion(uint256,uint256,address[],bytes[])`: `Promise`\<`BigNumber`\>; `deprecate`: `Promise`\<`BigNumber`\>; `deprecate(bool)`: `Promise`\<`BigNumber`\>; `execute`: `Promise`\<`BigNumber`\>; `execute(uint256)`: `Promise`\<`BigNumber`\>; `executeMetaTransaction`: `Promise`\<`BigNumber`\>; `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)`: `Promise`\<`BigNumber`\>; `executeWithoutFailure`: `Promise`\<`BigNumber`\>; `executeWithoutFailure(uint256)`: `Promise`\<`BigNumber`\>; `finishUpgrade`: `Promise`\<`BigNumber`\>; `finishUpgrade()`: `Promise`\<`BigNumber`\>; `getCapabilityRoles`: `Promise`\<`BigNumber`\>; `getCapabilityRoles(bytes4)`: `Promise`\<`BigNumber`\>; `getColony`: `Promise`\<`BigNumber`\>; `getColony()`: `Promise`\<`BigNumber`\>; `getDeprecated`: `Promise`\<`BigNumber`\>; `getDeprecated()`: `Promise`\<`BigNumber`\>; `getDomainSkillRoleCounts`: `Promise`\<`BigNumber`\>; `getDomainSkillRoleCounts(uint256,uint8)`: `Promise`\<`BigNumber`\>; `getDomainSkillThreshold`: `Promise`\<`BigNumber`\>; `getDomainSkillThreshold(uint256)`: `Promise`\<`BigNumber`\>; `getGlobalThreshold`: `Promise`\<`BigNumber`\>; `getGlobalThreshold()`: `Promise`\<`BigNumber`\>; `getMetatransactionNonce`: `Promise`\<`BigNumber`\>; `getMetatransactionNonce(address)`: `Promise`\<`BigNumber`\>; `getMotion`: `Promise`\<`BigNumber`\>; `getMotion(uint256)`: `Promise`\<`BigNumber`\>; `getMotionCount`: `Promise`\<`BigNumber`\>; `getMotionCount()`: `Promise`\<`BigNumber`\>; `getMotionRoleVoteCount`: `Promise`\<`BigNumber`\>; `getMotionRoleVoteCount(uint256,uint8,uint8)`: `Promise`\<`BigNumber`\>; `getMotionVoteThreshold`: `Promise`\<`BigNumber`\>; `getMotionVoteThreshold(uint256,uint8)`: `Promise`\<`BigNumber`\>; `getSingleActionSummary`: `Promise`\<`BigNumber`\>; `getSingleActionSummary(address,address,bytes,address)`: `Promise`\<`BigNumber`\>; `getUserRoles`: `Promise`\<`BigNumber`\>; `getUserRoles(address,uint256)`: `Promise`\<`BigNumber`\>; `getUserVote`: `Promise`\<`BigNumber`\>; `getUserVote(uint256,address,uint8,uint8)`: `Promise`\<`BigNumber`\>; `identifier`: `Promise`\<`BigNumber`\>; `identifier()`: `Promise`\<`BigNumber`\>; `install`: `Promise`\<`BigNumber`\>; `install(address)`: `Promise`\<`BigNumber`\>; `multicall`: `Promise`\<`BigNumber`\>; `multicall(bytes[])`: `Promise`\<`BigNumber`\>; `owner`: `Promise`\<`BigNumber`\>; `owner()`: `Promise`\<`BigNumber`\>; `setAuthority`: `Promise`\<`BigNumber`\>; `setAuthority(address)`: `Promise`\<`BigNumber`\>; `setDomainSkillThreshold`: `Promise`\<`BigNumber`\>; `setDomainSkillThreshold(uint256,uint256)`: `Promise`\<`BigNumber`\>; `setGlobalThreshold`: `Promise`\<`BigNumber`\>; `setGlobalThreshold(uint256)`: `Promise`\<`BigNumber`\>; `setOwner`: `Promise`\<`BigNumber`\>; `setOwner(address)`: `Promise`\<`BigNumber`\>; `setUserRoles`: `Promise`\<`BigNumber`\>; `setUserRoles(uint256,uint256,address,uint256,bytes32)`: `Promise`\<`BigNumber`\>; `uninstall`: `Promise`\<`BigNumber`\>; `uninstall()`: `Promise`\<`BigNumber`\>; `verify`: `Promise`\<`BigNumber`\>; `verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)`: `Promise`\<`BigNumber`\>; `version`: `Promise`\<`BigNumber`\>; `version()`: `Promise`\<`BigNumber`\>; \} \| `object` & `object`
+
+#### Type declaration
+
+##### authority()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### authority()()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### cancel()
+
+###### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### cancel(uint256)()
+
+###### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### changeVote()
+
+###### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_vote
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### changeVote(uint256,uint256,uint256,uint8)()
+
+###### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_vote
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### createMotion()
+
+###### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_targets
+
+`string`[]
+
+###### \_data
+
+`BytesLike`[]
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### createMotion(uint256,uint256,address\[\],bytes\[\])()
+
+###### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_targets
+
+`string`[]
+
+###### \_data
+
+`BytesLike`[]
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### deprecate()
+
+###### Parameters
+
+###### \_deprecated
+
+`boolean`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### deprecate(bool)()
+
+###### Parameters
+
+###### \_deprecated
+
+`boolean`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### execute()
+
+###### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### execute(uint256)()
+
+###### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### executeMetaTransaction()
+
+###### Parameters
+
+###### \_user
+
+`string`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`PayableOverrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)()
+
+###### Parameters
+
+###### \_user
+
+`string`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`PayableOverrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### executeWithoutFailure()
+
+###### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### executeWithoutFailure(uint256)()
+
+###### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### finishUpgrade()
+
+###### Parameters
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### finishUpgrade()()
+
+###### Parameters
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getCapabilityRoles()
+
+###### Parameters
+
+###### \_sig
+
+`BytesLike`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getCapabilityRoles(bytes4)()
+
+###### Parameters
+
+###### \_sig
+
+`BytesLike`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getColony()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getColony()()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getDeprecated()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getDeprecated()()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getDomainSkillRoleCounts()
+
+###### Parameters
+
+###### \_domainSkillId
+
+`BigNumberish`
+
+###### \_role
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getDomainSkillRoleCounts(uint256,uint8)()
+
+###### Parameters
+
+###### \_domainSkillId
+
+`BigNumberish`
+
+###### \_role
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getDomainSkillThreshold()
+
+###### Parameters
+
+###### \_domainSkillId
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getDomainSkillThreshold(uint256)()
+
+###### Parameters
+
+###### \_domainSkillId
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getGlobalThreshold()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getGlobalThreshold()()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getMetatransactionNonce()
+
+###### Parameters
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getMetatransactionNonce(address)()
+
+###### Parameters
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getMotion()
+
+###### Parameters
+
+###### motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getMotion(uint256)()
+
+###### Parameters
+
+###### motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getMotionCount()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getMotionCount()()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getMotionRoleVoteCount()
+
+###### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_role
+
+`BigNumberish`
+
+###### \_vote
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getMotionRoleVoteCount(uint256,uint8,uint8)()
+
+###### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_role
+
+`BigNumberish`
+
+###### \_vote
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getMotionVoteThreshold()
+
+###### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_role
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getMotionVoteThreshold(uint256,uint8)()
+
+###### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_role
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getSingleActionSummary()
+
+###### Parameters
+
+###### colonyNetworkAddress
+
+`string`
+
+###### colonyAddress
+
+`string`
+
+###### \_action
+
+`BytesLike`
+
+###### \_altTarget
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getSingleActionSummary(address,address,bytes,address)()
+
+###### Parameters
+
+###### colonyNetworkAddress
+
+`string`
+
+###### colonyAddress
+
+`string`
+
+###### \_action
+
+`BytesLike`
+
+###### \_altTarget
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getUserRoles()
+
+###### Parameters
+
+###### who
+
+`string`
+
+###### where
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getUserRoles(address,uint256)()
+
+###### Parameters
+
+###### who
+
+`string`
+
+###### where
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getUserVote()
+
+###### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_user
+
+`string`
+
+###### \_role
+
+`BigNumberish`
+
+###### \_vote
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getUserVote(uint256,address,uint8,uint8)()
+
+###### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_user
+
+`string`
+
+###### \_role
+
+`BigNumberish`
+
+###### \_vote
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### identifier()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### identifier()()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### install()
+
+###### Parameters
+
+###### \_colony
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### install(address)()
+
+###### Parameters
+
+###### \_colony
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### multicall()
+
+###### Parameters
+
+###### data
+
+`BytesLike`[]
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### multicall(bytes\[\])()
+
+###### Parameters
+
+###### data
+
+`BytesLike`[]
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### owner()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### owner()()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### setAuthority()
+
+###### Parameters
+
+###### authority\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### setAuthority(address)()
+
+###### Parameters
+
+###### authority\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### setDomainSkillThreshold()
+
+###### Parameters
+
+###### \_domainSkillId
+
+`BigNumberish`
+
+###### \_threshold
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### setDomainSkillThreshold(uint256,uint256)()
+
+###### Parameters
+
+###### \_domainSkillId
+
+`BigNumberish`
+
+###### \_threshold
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### setGlobalThreshold()
+
+###### Parameters
+
+###### \_globalThreshold
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### setGlobalThreshold(uint256)()
+
+###### Parameters
+
+###### \_globalThreshold
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### setOwner()
+
+###### Parameters
+
+###### owner\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### setOwner(address)()
+
+###### Parameters
+
+###### owner\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### setUserRoles()
+
+###### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_user
+
+`string`
+
+###### \_domainId
+
+`BigNumberish`
+
+###### \_roles
+
+`BytesLike`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### setUserRoles(uint256,uint256,address,uint256,bytes32)()
+
+###### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_user
+
+`string`
+
+###### \_domainId
+
+`BigNumberish`
+
+###### \_roles
+
+`BytesLike`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### uninstall()
+
+###### Parameters
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### uninstall()()
+
+###### Parameters
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### verify()
+
+###### Parameters
+
+###### \_user
+
+`string`
+
+###### \_nonce
+
+`BigNumberish`
+
+###### \_chainId
+
+`BigNumberish`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)()
+
+###### Parameters
+
+###### \_user
+
+`string`
+
+###### \_nonce
+
+`BigNumberish`
+
+###### \_chainId
+
+`BigNumberish`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### version()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### version()()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.estimateGas
+`AugmentedMultisigPermissions.estimateGas`
 
-___
+***
 
 ### filters
 
-• **filters**: `Object`
+> **filters**: `object`
 
-#### Type declaration
+#### Annotation()
 
-| Name | Type |
-| :------ | :------ |
-| `Annotation` | (`agent?`: ``null`` \| `string`, `txHash?`: ``null`` \| `BytesLike`, `metadata?`: ``null``) => `AnnotationEventFilter` |
-| `Annotation(address,bytes32,string)` | (`agent?`: ``null`` \| `string`, `txHash?`: ``null`` \| `BytesLike`, `metadata?`: ``null``) => `AnnotationEventFilter` |
-| `ApprovalChanged` | (`agent?`: ``null``, `motionId?`: ``null``, `role?`: ``null``, `approval?`: ``null``) => `ApprovalChangedEventFilter` |
-| `ApprovalChanged(address,uint256,uint8,bool)` | (`agent?`: ``null``, `motionId?`: ``null``, `role?`: ``null``, `approval?`: ``null``) => `ApprovalChangedEventFilter` |
-| `ArbitraryReputationUpdate` | (`agent?`: ``null``, `user?`: ``null``, `skillId?`: ``null``, `amount?`: ``null``) => `ArbitraryReputationUpdateEventFilter` |
-| `ArbitraryReputationUpdate(address,address,uint256,int256)` | (`agent?`: ``null``, `user?`: ``null``, `skillId?`: ``null``, `amount?`: ``null``) => `ArbitraryReputationUpdateEventFilter` |
-| `ArbitraryTransaction` | (`agent?`: ``null``, `target?`: ``null``, `data?`: ``null``, `success?`: ``null``) => `ArbitraryTransactionEventFilter` |
-| `ArbitraryTransaction(address,address,bytes,bool)` | (`agent?`: ``null``, `target?`: ``null``, `data?`: ``null``, `success?`: ``null``) => `ArbitraryTransactionEventFilter` |
-| `ColonyBootstrapped` | (`agent?`: ``null``, `users?`: ``null``, `amounts?`: ``null``) => `ColonyBootstrappedEventFilter` |
-| `ColonyBootstrapped(address,address[],int256[])` | (`agent?`: ``null``, `users?`: ``null``, `amounts?`: ``null``) => `ColonyBootstrappedEventFilter` |
-| `ColonyFundsClaimed` | (`agent?`: ``null``, `token?`: ``null``, `fee?`: ``null``, `payoutRemainder?`: ``null``) => `ColonyFundsClaimedEventFilter` |
-| `ColonyFundsClaimed(address,address,uint256,uint256)` | (`agent?`: ``null``, `token?`: ``null``, `fee?`: ``null``, `payoutRemainder?`: ``null``) => `ColonyFundsClaimedEventFilter` |
-| `ColonyFundsMovedBetweenFundingPots` | (`agent?`: ``null``, `fromPot?`: ``null`` \| `BigNumberish`, `toPot?`: ``null`` \| `BigNumberish`, `amount?`: ``null``, `token?`: ``null``) => `ColonyFundsMovedBetweenFundingPotsEventFilter` |
-| `ColonyFundsMovedBetweenFundingPots(address,uint256,uint256,uint256,address)` | (`agent?`: ``null``, `fromPot?`: ``null`` \| `BigNumberish`, `toPot?`: ``null`` \| `BigNumberish`, `amount?`: ``null``, `token?`: ``null``) => `ColonyFundsMovedBetweenFundingPotsEventFilter` |
-| `ColonyInitialised` | (`agent?`: ``null``, `colonyNetwork?`: ``null``, `token?`: ``null``) => `ColonyInitialisedEventFilter` |
-| `ColonyInitialised(address,address,address)` | (`agent?`: ``null``, `colonyNetwork?`: ``null``, `token?`: ``null``) => `ColonyInitialisedEventFilter` |
-| `ColonyMetadata` | (`agent?`: ``null``, `metadata?`: ``null``) => `ColonyMetadataEventFilter` |
-| `ColonyMetadata(address,string)` | (`agent?`: ``null``, `metadata?`: ``null``) => `ColonyMetadataEventFilter` |
-| `ColonyMetadataDelta` | (`agent?`: ``null``, `metadata?`: ``null``) => `ColonyMetadataDeltaEventFilter` |
-| `ColonyMetadataDelta(address,string)` | (`agent?`: ``null``, `metadata?`: ``null``) => `ColonyMetadataDeltaEventFilter` |
-| `ColonyRewardInverseSet` | (`agent?`: ``null``, `rewardInverse?`: ``null``) => `ColonyRewardInverseSetEventFilter` |
-| `ColonyRewardInverseSet(address,uint256)` | (`agent?`: ``null``, `rewardInverse?`: ``null``) => `ColonyRewardInverseSetEventFilter` |
-| `ColonyRoleSet` | (`agent?`: ``null``, `user?`: ``null`` \| `string`, `domainId?`: ``null`` \| `BigNumberish`, `role?`: ``null`` \| `BigNumberish`, `setTo?`: ``null``) => `ColonyRoleSetEventFilter` |
-| `ColonyRoleSet(address,address,uint256,uint8,bool)` | (`agent?`: ``null``, `user?`: ``null`` \| `string`, `domainId?`: ``null`` \| `BigNumberish`, `role?`: ``null`` \| `BigNumberish`, `setTo?`: ``null``) => `ColonyRoleSetEventFilter` |
-| `ColonyUpgraded` | (`agent?`: ``null``, `oldVersion?`: ``null``, `newVersion?`: ``null``) => `ColonyUpgradedEventFilter` |
-| `ColonyUpgraded(address,uint256,uint256)` | (`agent?`: ``null``, `oldVersion?`: ``null``, `newVersion?`: ``null``) => `ColonyUpgradedEventFilter` |
-| `DomainAdded` | (`agent?`: ``null``, `domainId?`: ``null``) => `DomainAddedEventFilter` |
-| `DomainAdded(address,uint256)` | (`agent?`: ``null``, `domainId?`: ``null``) => `DomainAddedEventFilter` |
-| `DomainDeprecated` | (`agent?`: ``null``, `domainId?`: ``null`` \| `BigNumberish`, `deprecated?`: ``null``) => `DomainDeprecatedEventFilter` |
-| `DomainDeprecated(address,uint256,bool)` | (`agent?`: ``null``, `domainId?`: ``null`` \| `BigNumberish`, `deprecated?`: ``null``) => `DomainDeprecatedEventFilter` |
-| `DomainMetadata` | (`agent?`: ``null``, `domainId?`: ``null`` \| `BigNumberish`, `metadata?`: ``null``) => `DomainMetadataEventFilter` |
-| `DomainMetadata(address,uint256,string)` | (`agent?`: ``null``, `domainId?`: ``null`` \| `BigNumberish`, `metadata?`: ``null``) => `DomainMetadataEventFilter` |
-| `DomainSkillThresholdSet` | (`domainSkillId?`: ``null``, `threshold?`: ``null``) => `DomainSkillThresholdSetEventFilter` |
-| `DomainSkillThresholdSet(uint256,uint256)` | (`domainSkillId?`: ``null``, `threshold?`: ``null``) => `DomainSkillThresholdSetEventFilter` |
-| `ExpenditureAdded` | (`agent?`: ``null``, `expenditureId?`: ``null``) => `ExpenditureAddedEventFilter` |
-| `ExpenditureAdded(address,uint256)` | (`agent?`: ``null``, `expenditureId?`: ``null``) => `ExpenditureAddedEventFilter` |
-| `ExpenditureCancelled` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`) => `ExpenditureCancelledEventFilter` |
-| `ExpenditureCancelled(address,uint256)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`) => `ExpenditureCancelledEventFilter` |
-| `ExpenditureClaimDelaySet` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `claimDelay?`: ``null``) => `ExpenditureClaimDelaySetEventFilter` |
-| `ExpenditureClaimDelaySet(address,uint256,uint256,uint256)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `claimDelay?`: ``null``) => `ExpenditureClaimDelaySetEventFilter` |
-| `ExpenditureFinalized` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`) => `ExpenditureFinalizedEventFilter` |
-| `ExpenditureFinalized(address,uint256)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`) => `ExpenditureFinalizedEventFilter` |
-| `ExpenditureGlobalClaimDelaySet` | (`agent?`: ``null``, `globalClaimDelay?`: ``null``) => `ExpenditureGlobalClaimDelaySetEventFilter` |
-| `ExpenditureGlobalClaimDelaySet(address,uint256)` | (`agent?`: ``null``, `globalClaimDelay?`: ``null``) => `ExpenditureGlobalClaimDelaySetEventFilter` |
-| `ExpenditureLocked` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`) => `ExpenditureLockedEventFilter` |
-| `ExpenditureLocked(address,uint256)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`) => `ExpenditureLockedEventFilter` |
-| `ExpenditureMetadataSet` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `metadata?`: ``null``) => `ExpenditureMetadataSetEventFilter` |
-| `ExpenditureMetadataSet(address,uint256,string)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `metadata?`: ``null``) => `ExpenditureMetadataSetEventFilter` |
-| `ExpenditurePayoutModifierSet` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `payoutModifier?`: ``null``) => `ExpenditurePayoutModifierSetEventFilter` |
-| `ExpenditurePayoutModifierSet(address,uint256,uint256,int256)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `payoutModifier?`: ``null``) => `ExpenditurePayoutModifierSetEventFilter` |
-| `ExpenditurePayoutSet` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `token?`: ``null`` \| `string`, `amount?`: ``null``) => `ExpenditurePayoutSetEventFilter` |
-| `ExpenditurePayoutSet(address,uint256,uint256,address,uint256)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `token?`: ``null`` \| `string`, `amount?`: ``null``) => `ExpenditurePayoutSetEventFilter` |
-| `ExpenditureRecipientSet` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `recipient?`: ``null`` \| `string`) => `ExpenditureRecipientSetEventFilter` |
-| `ExpenditureRecipientSet(address,uint256,uint256,address)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `recipient?`: ``null`` \| `string`) => `ExpenditureRecipientSetEventFilter` |
-| `ExpenditureSkillSet` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `skillId?`: ``null`` \| `BigNumberish`) => `ExpenditureSkillSetEventFilter` |
-| `ExpenditureSkillSet(address,uint256,uint256,uint256)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `skillId?`: ``null`` \| `BigNumberish`) => `ExpenditureSkillSetEventFilter` |
-| `ExpenditureStateChanged` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `storageSlot?`: ``null`` \| `BigNumberish`, `mask?`: ``null``, `keys?`: ``null``, `value?`: ``null``) => `ExpenditureStateChangedEventFilter` |
-| `ExpenditureStateChanged(address,uint256,uint256,bool[],bytes32[],bytes32)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `storageSlot?`: ``null`` \| `BigNumberish`, `mask?`: ``null``, `keys?`: ``null``, `value?`: ``null``) => `ExpenditureStateChangedEventFilter` |
-| `ExpenditureTransferred` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `owner?`: ``null`` \| `string`) => `ExpenditureTransferredEventFilter` |
-| `ExpenditureTransferred(address,uint256,address)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `owner?`: ``null`` \| `string`) => `ExpenditureTransferredEventFilter` |
-| `ExtensionInitialised` | () => `ExtensionInitialisedEventFilter` |
-| `ExtensionInitialised()` | () => `ExtensionInitialisedEventFilter` |
-| `FundingPotAdded` | (`fundingPotId?`: ``null``) => `FundingPotAddedEventFilter` |
-| `FundingPotAdded(uint256)` | (`fundingPotId?`: ``null``) => `FundingPotAddedEventFilter` |
-| `GlobalThresholdSet` | (`globalThreshold?`: ``null``) => `GlobalThresholdSetEventFilter` |
-| `GlobalThresholdSet(uint256)` | (`globalThreshold?`: ``null``) => `GlobalThresholdSetEventFilter` |
-| `LocalSkillAdded` | (`agent?`: ``null``, `localSkillId?`: ``null``) => `LocalSkillAddedEventFilter` |
-| `LocalSkillAdded(address,uint256)` | (`agent?`: ``null``, `localSkillId?`: ``null``) => `LocalSkillAddedEventFilter` |
-| `LocalSkillDeprecated` | (`agent?`: ``null``, `localSkillId?`: ``null``, `deprecated?`: ``null``) => `LocalSkillDeprecatedEventFilter` |
-| `LocalSkillDeprecated(address,uint256,bool)` | (`agent?`: ``null``, `localSkillId?`: ``null``, `deprecated?`: ``null``) => `LocalSkillDeprecatedEventFilter` |
-| `LogSetAuthority` | (`authority?`: ``null`` \| `string`) => `LogSetAuthorityEventFilter` |
-| `LogSetAuthority(address)` | (`authority?`: ``null`` \| `string`) => `LogSetAuthorityEventFilter` |
-| `LogSetOwner` | (`owner?`: ``null`` \| `string`) => `LogSetOwnerEventFilter` |
-| `LogSetOwner(address)` | (`owner?`: ``null`` \| `string`) => `LogSetOwnerEventFilter` |
-| `MetaTransactionExecuted` | (`userAddress?`: ``null``, `relayerAddress?`: ``null``, `payload?`: ``null``) => `MetaTransactionExecutedEventFilter` |
-| `MetaTransactionExecuted(address,address,bytes)` | (`userAddress?`: ``null``, `relayerAddress?`: ``null``, `payload?`: ``null``) => `MetaTransactionExecutedEventFilter` |
-| `MotionCancelled` | (`agent?`: ``null``, `motionId?`: ``null``) => `MotionCancelledEventFilter` |
-| `MotionCancelled(address,uint256)` | (`agent?`: ``null``, `motionId?`: ``null``) => `MotionCancelledEventFilter` |
-| `MotionCreated` | (`agent?`: ``null``, `motionId?`: ``null``) => `MotionCreatedEventFilter` |
-| `MotionCreated(address,uint256)` | (`agent?`: ``null``, `motionId?`: ``null``) => `MotionCreatedEventFilter` |
-| `MotionExecuted` | (`agent?`: ``null``, `motionId?`: ``null``, `success?`: ``null``) => `MotionExecutedEventFilter` |
-| `MotionExecuted(address,uint256,bool)` | (`agent?`: ``null``, `motionId?`: ``null``, `success?`: ``null``) => `MotionExecutedEventFilter` |
-| `MultisigRoleSet` | (`agent?`: ``null``, `user?`: ``null``, `domainId?`: ``null``, `roleId?`: ``null``, `setTo?`: ``null``) => `MultisigRoleSetEventFilter` |
-| `MultisigRoleSet(address,address,uint256,uint256,bool)` | (`agent?`: ``null``, `user?`: ``null``, `domainId?`: ``null``, `roleId?`: ``null``, `setTo?`: ``null``) => `MultisigRoleSetEventFilter` |
-| `PaymentAdded` | (`agent?`: ``null``, `paymentId?`: ``null``) => `PaymentAddedEventFilter` |
-| `PaymentAdded(address,uint256)` | (`agent?`: ``null``, `paymentId?`: ``null``) => `PaymentAddedEventFilter` |
-| `PaymentFinalized` | (`agent?`: ``null``, `paymentId?`: ``null`` \| `BigNumberish`) => `PaymentFinalizedEventFilter` |
-| `PaymentFinalized(address,uint256)` | (`agent?`: ``null``, `paymentId?`: ``null`` \| `BigNumberish`) => `PaymentFinalizedEventFilter` |
-| `PaymentPayoutSet` | (`agent?`: ``null``, `paymentId?`: ``null`` \| `BigNumberish`, `token?`: ``null``, `amount?`: ``null``) => `PaymentPayoutSetEventFilter` |
-| `PaymentPayoutSet(address,uint256,address,uint256)` | (`agent?`: ``null``, `paymentId?`: ``null`` \| `BigNumberish`, `token?`: ``null``, `amount?`: ``null``) => `PaymentPayoutSetEventFilter` |
-| `PaymentRecipientSet` | (`agent?`: ``null``, `paymentId?`: ``null`` \| `BigNumberish`, `recipient?`: ``null``) => `PaymentRecipientSetEventFilter` |
-| `PaymentRecipientSet(address,uint256,address)` | (`agent?`: ``null``, `paymentId?`: ``null`` \| `BigNumberish`, `recipient?`: ``null``) => `PaymentRecipientSetEventFilter` |
-| `PaymentSkillSet` | (`agent?`: ``null``, `paymentId?`: ``null`` \| `BigNumberish`, `skillId?`: ``null``) => `PaymentSkillSetEventFilter` |
-| `PaymentSkillSet(address,uint256,uint256)` | (`agent?`: ``null``, `paymentId?`: ``null`` \| `BigNumberish`, `skillId?`: ``null``) => `PaymentSkillSetEventFilter` |
-| `PayoutClaimed(address,uint256,address,uint256)` | (`agent?`: ``null``, `fundingPotId?`: ``null`` \| `BigNumberish`, `token?`: ``null``, `amount?`: ``null``) => `PayoutClaimed_address_uint256_address_uint256_EventFilter` |
-| `PayoutClaimed(address,uint256,uint256,address,uint256)` | (`agent?`: ``null``, `id?`: ``null``, `slot?`: ``null``, `token?`: ``null``, `tokenPayout?`: ``null``) => `PayoutClaimed_address_uint256_uint256_address_uint256_EventFilter` |
-| `RejectionChanged` | (`agent?`: ``null``, `motionId?`: ``null``, `role?`: ``null``, `approval?`: ``null``) => `RejectionChangedEventFilter` |
-| `RejectionChanged(address,uint256,uint8,bool)` | (`agent?`: ``null``, `motionId?`: ``null``, `role?`: ``null``, `approval?`: ``null``) => `RejectionChangedEventFilter` |
-| `RewardPayoutClaimed` | (`rewardPayoutId?`: ``null``, `user?`: ``null``, `fee?`: ``null``, `rewardRemainder?`: ``null``) => `RewardPayoutClaimedEventFilter` |
-| `RewardPayoutClaimed(uint256,address,uint256,uint256)` | (`rewardPayoutId?`: ``null``, `user?`: ``null``, `fee?`: ``null``, `rewardRemainder?`: ``null``) => `RewardPayoutClaimedEventFilter` |
-| `RewardPayoutCycleEnded` | (`agent?`: ``null``, `rewardPayoutId?`: ``null``) => `RewardPayoutCycleEndedEventFilter` |
-| `RewardPayoutCycleEnded(address,uint256)` | (`agent?`: ``null``, `rewardPayoutId?`: ``null``) => `RewardPayoutCycleEndedEventFilter` |
-| `RewardPayoutCycleStarted` | (`agent?`: ``null``, `rewardPayoutId?`: ``null``) => `RewardPayoutCycleStartedEventFilter` |
-| `RewardPayoutCycleStarted(address,uint256)` | (`agent?`: ``null``, `rewardPayoutId?`: ``null``) => `RewardPayoutCycleStartedEventFilter` |
-| `TaskAdded` | (`agent?`: ``null``, `taskId?`: ``null``) => `TaskAddedEventFilter` |
-| `TaskAdded(address,uint256)` | (`agent?`: ``null``, `taskId?`: ``null``) => `TaskAddedEventFilter` |
-| `TaskBriefSet` | (`taskId?`: ``null`` \| `BigNumberish`, `specificationHash?`: ``null``) => `TaskBriefSetEventFilter` |
-| `TaskBriefSet(uint256,bytes32)` | (`taskId?`: ``null`` \| `BigNumberish`, `specificationHash?`: ``null``) => `TaskBriefSetEventFilter` |
-| `TaskCanceled` | (`taskId?`: ``null`` \| `BigNumberish`) => `TaskCanceledEventFilter` |
-| `TaskCanceled(uint256)` | (`taskId?`: ``null`` \| `BigNumberish`) => `TaskCanceledEventFilter` |
-| `TaskChangedViaSignatures` | (`reviewerAddresses?`: ``null``) => `TaskChangedViaSignaturesEventFilter` |
-| `TaskChangedViaSignatures(address[])` | (`reviewerAddresses?`: ``null``) => `TaskChangedViaSignaturesEventFilter` |
-| `TaskCompleted` | (`agent?`: ``null``, `taskId?`: ``null`` \| `BigNumberish`) => `TaskCompletedEventFilter` |
-| `TaskCompleted(address,uint256)` | (`agent?`: ``null``, `taskId?`: ``null`` \| `BigNumberish`) => `TaskCompletedEventFilter` |
-| `TaskDeliverableSubmitted` | (`agent?`: ``null``, `taskId?`: ``null`` \| `BigNumberish`, `deliverableHash?`: ``null``) => `TaskDeliverableSubmittedEventFilter` |
-| `TaskDeliverableSubmitted(address,uint256,bytes32)` | (`agent?`: ``null``, `taskId?`: ``null`` \| `BigNumberish`, `deliverableHash?`: ``null``) => `TaskDeliverableSubmittedEventFilter` |
-| `TaskDueDateSet` | (`taskId?`: ``null`` \| `BigNumberish`, `dueDate?`: ``null``) => `TaskDueDateSetEventFilter` |
-| `TaskDueDateSet(uint256,uint256)` | (`taskId?`: ``null`` \| `BigNumberish`, `dueDate?`: ``null``) => `TaskDueDateSetEventFilter` |
-| `TaskFinalized` | (`agent?`: ``null``, `taskId?`: ``null`` \| `BigNumberish`) => `TaskFinalizedEventFilter` |
-| `TaskFinalized(address,uint256)` | (`agent?`: ``null``, `taskId?`: ``null`` \| `BigNumberish`) => `TaskFinalizedEventFilter` |
-| `TaskPayoutSet` | (`taskId?`: ``null`` \| `BigNumberish`, `role?`: ``null``, `token?`: ``null``, `amount?`: ``null``) => `TaskPayoutSetEventFilter` |
-| `TaskPayoutSet(uint256,uint8,address,uint256)` | (`taskId?`: ``null`` \| `BigNumberish`, `role?`: ``null``, `token?`: ``null``, `amount?`: ``null``) => `TaskPayoutSetEventFilter` |
-| `TaskRoleUserSet` | (`taskId?`: ``null`` \| `BigNumberish`, `role?`: ``null``, `user?`: ``null`` \| `string`) => `TaskRoleUserSetEventFilter` |
-| `TaskRoleUserSet(uint256,uint8,address)` | (`taskId?`: ``null`` \| `BigNumberish`, `role?`: ``null``, `user?`: ``null`` \| `string`) => `TaskRoleUserSetEventFilter` |
-| `TaskSkillSet` | (`taskId?`: ``null`` \| `BigNumberish`, `skillId?`: ``null`` \| `BigNumberish`) => `TaskSkillSetEventFilter` |
-| `TaskSkillSet(uint256,uint256)` | (`taskId?`: ``null`` \| `BigNumberish`, `skillId?`: ``null`` \| `BigNumberish`) => `TaskSkillSetEventFilter` |
-| `TaskWorkRatingRevealed` | (`agent?`: ``null``, `taskId?`: ``null`` \| `BigNumberish`, `role?`: ``null``, `rating?`: ``null``) => `TaskWorkRatingRevealedEventFilter` |
-| `TaskWorkRatingRevealed(address,uint256,uint8,uint8)` | (`agent?`: ``null``, `taskId?`: ``null`` \| `BigNumberish`, `role?`: ``null``, `rating?`: ``null``) => `TaskWorkRatingRevealedEventFilter` |
-| `TokenUnlocked` | (`agent?`: ``null``) => `TokenUnlockedEventFilter` |
-| `TokenUnlocked(address)` | (`agent?`: ``null``) => `TokenUnlockedEventFilter` |
-| `TokensBurned` | (`agent?`: ``null``, `token?`: ``null``, `amount?`: ``null``) => `TokensBurnedEventFilter` |
-| `TokensBurned(address,address,uint256)` | (`agent?`: ``null``, `token?`: ``null``, `amount?`: ``null``) => `TokensBurnedEventFilter` |
-| `TokensMinted` | (`agent?`: ``null``, `who?`: ``null``, `amount?`: ``null``) => `TokensMintedEventFilter` |
-| `TokensMinted(address,address,uint256)` | (`agent?`: ``null``, `who?`: ``null``, `amount?`: ``null``) => `TokensMintedEventFilter` |
+##### Parameters
+
+###### agent?
+
+`null` | `string`
+
+###### txHash?
+
+`null` | `BytesLike`
+
+###### metadata?
+
+`null`
+
+##### Returns
+
+`AnnotationEventFilter`
+
+#### Annotation(address,bytes32,string)()
+
+##### Parameters
+
+###### agent?
+
+`null` | `string`
+
+###### txHash?
+
+`null` | `BytesLike`
+
+###### metadata?
+
+`null`
+
+##### Returns
+
+`AnnotationEventFilter`
+
+#### ApprovalChanged()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### motionId?
+
+`null`
+
+###### role?
+
+`null`
+
+###### approval?
+
+`null`
+
+##### Returns
+
+`ApprovalChangedEventFilter`
+
+#### ApprovalChanged(address,uint256,uint8,bool)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### motionId?
+
+`null`
+
+###### role?
+
+`null`
+
+###### approval?
+
+`null`
+
+##### Returns
+
+`ApprovalChangedEventFilter`
+
+#### ArbitraryReputationUpdate()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### user?
+
+`null`
+
+###### skillId?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`ArbitraryReputationUpdateEventFilter`
+
+#### ArbitraryReputationUpdate(address,address,uint256,int256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### user?
+
+`null`
+
+###### skillId?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`ArbitraryReputationUpdateEventFilter`
+
+#### ArbitraryTransaction()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### target?
+
+`null`
+
+###### data?
+
+`null`
+
+###### success?
+
+`null`
+
+##### Returns
+
+`ArbitraryTransactionEventFilter`
+
+#### ArbitraryTransaction(address,address,bytes,bool)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### target?
+
+`null`
+
+###### data?
+
+`null`
+
+###### success?
+
+`null`
+
+##### Returns
+
+`ArbitraryTransactionEventFilter`
+
+#### ColonyBootstrapped()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### users?
+
+`null`
+
+###### amounts?
+
+`null`
+
+##### Returns
+
+`ColonyBootstrappedEventFilter`
+
+#### ColonyBootstrapped(address,address\[\],int256\[\])()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### users?
+
+`null`
+
+###### amounts?
+
+`null`
+
+##### Returns
+
+`ColonyBootstrappedEventFilter`
+
+#### ColonyFundsClaimed()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### token?
+
+`null`
+
+###### fee?
+
+`null`
+
+###### payoutRemainder?
+
+`null`
+
+##### Returns
+
+`ColonyFundsClaimedEventFilter`
+
+#### ColonyFundsClaimed(address,address,uint256,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### token?
+
+`null`
+
+###### fee?
+
+`null`
+
+###### payoutRemainder?
+
+`null`
+
+##### Returns
+
+`ColonyFundsClaimedEventFilter`
+
+#### ColonyFundsMovedBetweenFundingPots()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### fromPot?
+
+`null` | `BigNumberish`
+
+###### toPot?
+
+`null` | `BigNumberish`
+
+###### amount?
+
+`null`
+
+###### token?
+
+`null`
+
+##### Returns
+
+`ColonyFundsMovedBetweenFundingPotsEventFilter`
+
+#### ColonyFundsMovedBetweenFundingPots(address,uint256,uint256,uint256,address)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### fromPot?
+
+`null` | `BigNumberish`
+
+###### toPot?
+
+`null` | `BigNumberish`
+
+###### amount?
+
+`null`
+
+###### token?
+
+`null`
+
+##### Returns
+
+`ColonyFundsMovedBetweenFundingPotsEventFilter`
+
+#### ColonyInitialised()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### colonyNetwork?
+
+`null`
+
+###### token?
+
+`null`
+
+##### Returns
+
+`ColonyInitialisedEventFilter`
+
+#### ColonyInitialised(address,address,address)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### colonyNetwork?
+
+`null`
+
+###### token?
+
+`null`
+
+##### Returns
+
+`ColonyInitialisedEventFilter`
+
+#### ColonyMetadata()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### metadata?
+
+`null`
+
+##### Returns
+
+`ColonyMetadataEventFilter`
+
+#### ColonyMetadata(address,string)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### metadata?
+
+`null`
+
+##### Returns
+
+`ColonyMetadataEventFilter`
+
+#### ColonyMetadataDelta()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### metadata?
+
+`null`
+
+##### Returns
+
+`ColonyMetadataDeltaEventFilter`
+
+#### ColonyMetadataDelta(address,string)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### metadata?
+
+`null`
+
+##### Returns
+
+`ColonyMetadataDeltaEventFilter`
+
+#### ColonyRewardInverseSet()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### rewardInverse?
+
+`null`
+
+##### Returns
+
+`ColonyRewardInverseSetEventFilter`
+
+#### ColonyRewardInverseSet(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### rewardInverse?
+
+`null`
+
+##### Returns
+
+`ColonyRewardInverseSetEventFilter`
+
+#### ColonyRoleSet()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### user?
+
+`null` | `string`
+
+###### domainId?
+
+`null` | `BigNumberish`
+
+###### role?
+
+`null` | `BigNumberish`
+
+###### setTo?
+
+`null`
+
+##### Returns
+
+`ColonyRoleSetEventFilter`
+
+#### ColonyRoleSet(address,address,uint256,uint8,bool)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### user?
+
+`null` | `string`
+
+###### domainId?
+
+`null` | `BigNumberish`
+
+###### role?
+
+`null` | `BigNumberish`
+
+###### setTo?
+
+`null`
+
+##### Returns
+
+`ColonyRoleSetEventFilter`
+
+#### ColonyUpgraded()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### oldVersion?
+
+`null`
+
+###### newVersion?
+
+`null`
+
+##### Returns
+
+`ColonyUpgradedEventFilter`
+
+#### ColonyUpgraded(address,uint256,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### oldVersion?
+
+`null`
+
+###### newVersion?
+
+`null`
+
+##### Returns
+
+`ColonyUpgradedEventFilter`
+
+#### DomainAdded()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### domainId?
+
+`null`
+
+##### Returns
+
+`DomainAddedEventFilter`
+
+#### DomainAdded(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### domainId?
+
+`null`
+
+##### Returns
+
+`DomainAddedEventFilter`
+
+#### DomainDeprecated()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### domainId?
+
+`null` | `BigNumberish`
+
+###### deprecated?
+
+`null`
+
+##### Returns
+
+`DomainDeprecatedEventFilter`
+
+#### DomainDeprecated(address,uint256,bool)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### domainId?
+
+`null` | `BigNumberish`
+
+###### deprecated?
+
+`null`
+
+##### Returns
+
+`DomainDeprecatedEventFilter`
+
+#### DomainMetadata()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### domainId?
+
+`null` | `BigNumberish`
+
+###### metadata?
+
+`null`
+
+##### Returns
+
+`DomainMetadataEventFilter`
+
+#### DomainMetadata(address,uint256,string)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### domainId?
+
+`null` | `BigNumberish`
+
+###### metadata?
+
+`null`
+
+##### Returns
+
+`DomainMetadataEventFilter`
+
+#### DomainSkillThresholdSet()
+
+##### Parameters
+
+###### domainSkillId?
+
+`null`
+
+###### threshold?
+
+`null`
+
+##### Returns
+
+`DomainSkillThresholdSetEventFilter`
+
+#### DomainSkillThresholdSet(uint256,uint256)()
+
+##### Parameters
+
+###### domainSkillId?
+
+`null`
+
+###### threshold?
+
+`null`
+
+##### Returns
+
+`DomainSkillThresholdSetEventFilter`
+
+#### ExpenditureAdded()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null`
+
+##### Returns
+
+`ExpenditureAddedEventFilter`
+
+#### ExpenditureAdded(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null`
+
+##### Returns
+
+`ExpenditureAddedEventFilter`
+
+#### ExpenditureCancelled()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`ExpenditureCancelledEventFilter`
+
+#### ExpenditureCancelled(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`ExpenditureCancelledEventFilter`
+
+#### ExpenditureClaimDelaySet()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### slot?
+
+`null` | `BigNumberish`
+
+###### claimDelay?
+
+`null`
+
+##### Returns
+
+`ExpenditureClaimDelaySetEventFilter`
+
+#### ExpenditureClaimDelaySet(address,uint256,uint256,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### slot?
+
+`null` | `BigNumberish`
+
+###### claimDelay?
+
+`null`
+
+##### Returns
+
+`ExpenditureClaimDelaySetEventFilter`
+
+#### ExpenditureFinalized()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`ExpenditureFinalizedEventFilter`
+
+#### ExpenditureFinalized(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`ExpenditureFinalizedEventFilter`
+
+#### ExpenditureGlobalClaimDelaySet()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### globalClaimDelay?
+
+`null`
+
+##### Returns
+
+`ExpenditureGlobalClaimDelaySetEventFilter`
+
+#### ExpenditureGlobalClaimDelaySet(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### globalClaimDelay?
+
+`null`
+
+##### Returns
+
+`ExpenditureGlobalClaimDelaySetEventFilter`
+
+#### ExpenditureLocked()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`ExpenditureLockedEventFilter`
+
+#### ExpenditureLocked(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`ExpenditureLockedEventFilter`
+
+#### ExpenditureMetadataSet()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### metadata?
+
+`null`
+
+##### Returns
+
+`ExpenditureMetadataSetEventFilter`
+
+#### ExpenditureMetadataSet(address,uint256,string)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### metadata?
+
+`null`
+
+##### Returns
+
+`ExpenditureMetadataSetEventFilter`
+
+#### ExpenditurePayoutModifierSet()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### slot?
+
+`null` | `BigNumberish`
+
+###### payoutModifier?
+
+`null`
+
+##### Returns
+
+`ExpenditurePayoutModifierSetEventFilter`
+
+#### ExpenditurePayoutModifierSet(address,uint256,uint256,int256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### slot?
+
+`null` | `BigNumberish`
+
+###### payoutModifier?
+
+`null`
+
+##### Returns
+
+`ExpenditurePayoutModifierSetEventFilter`
+
+#### ExpenditurePayoutSet()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### slot?
+
+`null` | `BigNumberish`
+
+###### token?
+
+`null` | `string`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`ExpenditurePayoutSetEventFilter`
+
+#### ExpenditurePayoutSet(address,uint256,uint256,address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### slot?
+
+`null` | `BigNumberish`
+
+###### token?
+
+`null` | `string`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`ExpenditurePayoutSetEventFilter`
+
+#### ExpenditureRecipientSet()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### slot?
+
+`null` | `BigNumberish`
+
+###### recipient?
+
+`null` | `string`
+
+##### Returns
+
+`ExpenditureRecipientSetEventFilter`
+
+#### ExpenditureRecipientSet(address,uint256,uint256,address)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### slot?
+
+`null` | `BigNumberish`
+
+###### recipient?
+
+`null` | `string`
+
+##### Returns
+
+`ExpenditureRecipientSetEventFilter`
+
+#### ExpenditureSkillSet()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### slot?
+
+`null` | `BigNumberish`
+
+###### skillId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`ExpenditureSkillSetEventFilter`
+
+#### ExpenditureSkillSet(address,uint256,uint256,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### slot?
+
+`null` | `BigNumberish`
+
+###### skillId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`ExpenditureSkillSetEventFilter`
+
+#### ExpenditureStateChanged()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### storageSlot?
+
+`null` | `BigNumberish`
+
+###### mask?
+
+`null`
+
+###### keys?
+
+`null`
+
+###### value?
+
+`null`
+
+##### Returns
+
+`ExpenditureStateChangedEventFilter`
+
+#### ExpenditureStateChanged(address,uint256,uint256,bool\[\],bytes32\[\],bytes32)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### storageSlot?
+
+`null` | `BigNumberish`
+
+###### mask?
+
+`null`
+
+###### keys?
+
+`null`
+
+###### value?
+
+`null`
+
+##### Returns
+
+`ExpenditureStateChangedEventFilter`
+
+#### ExpenditureTransferred()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### owner?
+
+`null` | `string`
+
+##### Returns
+
+`ExpenditureTransferredEventFilter`
+
+#### ExpenditureTransferred(address,uint256,address)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### owner?
+
+`null` | `string`
+
+##### Returns
+
+`ExpenditureTransferredEventFilter`
+
+#### ExtensionInitialised()
+
+##### Returns
+
+`ExtensionInitialisedEventFilter`
+
+#### ExtensionInitialised()()
+
+##### Returns
+
+`ExtensionInitialisedEventFilter`
+
+#### FundingPotAdded()
+
+##### Parameters
+
+###### fundingPotId?
+
+`null`
+
+##### Returns
+
+`FundingPotAddedEventFilter`
+
+#### FundingPotAdded(uint256)()
+
+##### Parameters
+
+###### fundingPotId?
+
+`null`
+
+##### Returns
+
+`FundingPotAddedEventFilter`
+
+#### GlobalThresholdSet()
+
+##### Parameters
+
+###### globalThreshold?
+
+`null`
+
+##### Returns
+
+`GlobalThresholdSetEventFilter`
+
+#### GlobalThresholdSet(uint256)()
+
+##### Parameters
+
+###### globalThreshold?
+
+`null`
+
+##### Returns
+
+`GlobalThresholdSetEventFilter`
+
+#### LocalSkillAdded()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### localSkillId?
+
+`null`
+
+##### Returns
+
+`LocalSkillAddedEventFilter`
+
+#### LocalSkillAdded(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### localSkillId?
+
+`null`
+
+##### Returns
+
+`LocalSkillAddedEventFilter`
+
+#### LocalSkillDeprecated()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### localSkillId?
+
+`null`
+
+###### deprecated?
+
+`null`
+
+##### Returns
+
+`LocalSkillDeprecatedEventFilter`
+
+#### LocalSkillDeprecated(address,uint256,bool)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### localSkillId?
+
+`null`
+
+###### deprecated?
+
+`null`
+
+##### Returns
+
+`LocalSkillDeprecatedEventFilter`
+
+#### LogSetAuthority()
+
+##### Parameters
+
+###### authority?
+
+`null` | `string`
+
+##### Returns
+
+`LogSetAuthorityEventFilter`
+
+#### LogSetAuthority(address)()
+
+##### Parameters
+
+###### authority?
+
+`null` | `string`
+
+##### Returns
+
+`LogSetAuthorityEventFilter`
+
+#### LogSetOwner()
+
+##### Parameters
+
+###### owner?
+
+`null` | `string`
+
+##### Returns
+
+`LogSetOwnerEventFilter`
+
+#### LogSetOwner(address)()
+
+##### Parameters
+
+###### owner?
+
+`null` | `string`
+
+##### Returns
+
+`LogSetOwnerEventFilter`
+
+#### MetaTransactionExecuted()
+
+##### Parameters
+
+###### userAddress?
+
+`null`
+
+###### relayerAddress?
+
+`null`
+
+###### payload?
+
+`null`
+
+##### Returns
+
+`MetaTransactionExecutedEventFilter`
+
+#### MetaTransactionExecuted(address,address,bytes)()
+
+##### Parameters
+
+###### userAddress?
+
+`null`
+
+###### relayerAddress?
+
+`null`
+
+###### payload?
+
+`null`
+
+##### Returns
+
+`MetaTransactionExecutedEventFilter`
+
+#### MotionCancelled()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### motionId?
+
+`null`
+
+##### Returns
+
+`MotionCancelledEventFilter`
+
+#### MotionCancelled(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### motionId?
+
+`null`
+
+##### Returns
+
+`MotionCancelledEventFilter`
+
+#### MotionCreated()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### motionId?
+
+`null`
+
+##### Returns
+
+`MotionCreatedEventFilter`
+
+#### MotionCreated(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### motionId?
+
+`null`
+
+##### Returns
+
+`MotionCreatedEventFilter`
+
+#### MotionExecuted()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### motionId?
+
+`null`
+
+###### success?
+
+`null`
+
+##### Returns
+
+`MotionExecutedEventFilter`
+
+#### MotionExecuted(address,uint256,bool)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### motionId?
+
+`null`
+
+###### success?
+
+`null`
+
+##### Returns
+
+`MotionExecutedEventFilter`
+
+#### MultisigRoleSet()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### user?
+
+`null`
+
+###### domainId?
+
+`null`
+
+###### roleId?
+
+`null`
+
+###### setTo?
+
+`null`
+
+##### Returns
+
+`MultisigRoleSetEventFilter`
+
+#### MultisigRoleSet(address,address,uint256,uint256,bool)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### user?
+
+`null`
+
+###### domainId?
+
+`null`
+
+###### roleId?
+
+`null`
+
+###### setTo?
+
+`null`
+
+##### Returns
+
+`MultisigRoleSetEventFilter`
+
+#### PaymentAdded()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### paymentId?
+
+`null`
+
+##### Returns
+
+`PaymentAddedEventFilter`
+
+#### PaymentAdded(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### paymentId?
+
+`null`
+
+##### Returns
+
+`PaymentAddedEventFilter`
+
+#### PaymentFinalized()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### paymentId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`PaymentFinalizedEventFilter`
+
+#### PaymentFinalized(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### paymentId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`PaymentFinalizedEventFilter`
+
+#### PaymentPayoutSet()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### paymentId?
+
+`null` | `BigNumberish`
+
+###### token?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`PaymentPayoutSetEventFilter`
+
+#### PaymentPayoutSet(address,uint256,address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### paymentId?
+
+`null` | `BigNumberish`
+
+###### token?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`PaymentPayoutSetEventFilter`
+
+#### PaymentRecipientSet()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### paymentId?
+
+`null` | `BigNumberish`
+
+###### recipient?
+
+`null`
+
+##### Returns
+
+`PaymentRecipientSetEventFilter`
+
+#### PaymentRecipientSet(address,uint256,address)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### paymentId?
+
+`null` | `BigNumberish`
+
+###### recipient?
+
+`null`
+
+##### Returns
+
+`PaymentRecipientSetEventFilter`
+
+#### PaymentSkillSet()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### paymentId?
+
+`null` | `BigNumberish`
+
+###### skillId?
+
+`null`
+
+##### Returns
+
+`PaymentSkillSetEventFilter`
+
+#### PaymentSkillSet(address,uint256,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### paymentId?
+
+`null` | `BigNumberish`
+
+###### skillId?
+
+`null`
+
+##### Returns
+
+`PaymentSkillSetEventFilter`
+
+#### PayoutClaimed(address,uint256,address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### fundingPotId?
+
+`null` | `BigNumberish`
+
+###### token?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`PayoutClaimed_address_uint256_address_uint256_EventFilter`
+
+#### PayoutClaimed(address,uint256,uint256,address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### id?
+
+`null`
+
+###### slot?
+
+`null`
+
+###### token?
+
+`null`
+
+###### tokenPayout?
+
+`null`
+
+##### Returns
+
+`PayoutClaimed_address_uint256_uint256_address_uint256_EventFilter`
+
+#### RejectionChanged()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### motionId?
+
+`null`
+
+###### role?
+
+`null`
+
+###### approval?
+
+`null`
+
+##### Returns
+
+`RejectionChangedEventFilter`
+
+#### RejectionChanged(address,uint256,uint8,bool)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### motionId?
+
+`null`
+
+###### role?
+
+`null`
+
+###### approval?
+
+`null`
+
+##### Returns
+
+`RejectionChangedEventFilter`
+
+#### RewardPayoutClaimed()
+
+##### Parameters
+
+###### rewardPayoutId?
+
+`null`
+
+###### user?
+
+`null`
+
+###### fee?
+
+`null`
+
+###### rewardRemainder?
+
+`null`
+
+##### Returns
+
+`RewardPayoutClaimedEventFilter`
+
+#### RewardPayoutClaimed(uint256,address,uint256,uint256)()
+
+##### Parameters
+
+###### rewardPayoutId?
+
+`null`
+
+###### user?
+
+`null`
+
+###### fee?
+
+`null`
+
+###### rewardRemainder?
+
+`null`
+
+##### Returns
+
+`RewardPayoutClaimedEventFilter`
+
+#### RewardPayoutCycleEnded()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### rewardPayoutId?
+
+`null`
+
+##### Returns
+
+`RewardPayoutCycleEndedEventFilter`
+
+#### RewardPayoutCycleEnded(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### rewardPayoutId?
+
+`null`
+
+##### Returns
+
+`RewardPayoutCycleEndedEventFilter`
+
+#### RewardPayoutCycleStarted()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### rewardPayoutId?
+
+`null`
+
+##### Returns
+
+`RewardPayoutCycleStartedEventFilter`
+
+#### RewardPayoutCycleStarted(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### rewardPayoutId?
+
+`null`
+
+##### Returns
+
+`RewardPayoutCycleStartedEventFilter`
+
+#### TaskAdded()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### taskId?
+
+`null`
+
+##### Returns
+
+`TaskAddedEventFilter`
+
+#### TaskAdded(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### taskId?
+
+`null`
+
+##### Returns
+
+`TaskAddedEventFilter`
+
+#### TaskBriefSet()
+
+##### Parameters
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+###### specificationHash?
+
+`null`
+
+##### Returns
+
+`TaskBriefSetEventFilter`
+
+#### TaskBriefSet(uint256,bytes32)()
+
+##### Parameters
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+###### specificationHash?
+
+`null`
+
+##### Returns
+
+`TaskBriefSetEventFilter`
+
+#### TaskCanceled()
+
+##### Parameters
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`TaskCanceledEventFilter`
+
+#### TaskCanceled(uint256)()
+
+##### Parameters
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`TaskCanceledEventFilter`
+
+#### TaskChangedViaSignatures()
+
+##### Parameters
+
+###### reviewerAddresses?
+
+`null`
+
+##### Returns
+
+`TaskChangedViaSignaturesEventFilter`
+
+#### TaskChangedViaSignatures(address\[\])()
+
+##### Parameters
+
+###### reviewerAddresses?
+
+`null`
+
+##### Returns
+
+`TaskChangedViaSignaturesEventFilter`
+
+#### TaskCompleted()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`TaskCompletedEventFilter`
+
+#### TaskCompleted(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`TaskCompletedEventFilter`
+
+#### TaskDeliverableSubmitted()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+###### deliverableHash?
+
+`null`
+
+##### Returns
+
+`TaskDeliverableSubmittedEventFilter`
+
+#### TaskDeliverableSubmitted(address,uint256,bytes32)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+###### deliverableHash?
+
+`null`
+
+##### Returns
+
+`TaskDeliverableSubmittedEventFilter`
+
+#### TaskDueDateSet()
+
+##### Parameters
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+###### dueDate?
+
+`null`
+
+##### Returns
+
+`TaskDueDateSetEventFilter`
+
+#### TaskDueDateSet(uint256,uint256)()
+
+##### Parameters
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+###### dueDate?
+
+`null`
+
+##### Returns
+
+`TaskDueDateSetEventFilter`
+
+#### TaskFinalized()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`TaskFinalizedEventFilter`
+
+#### TaskFinalized(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`TaskFinalizedEventFilter`
+
+#### TaskPayoutSet()
+
+##### Parameters
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+###### role?
+
+`null`
+
+###### token?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`TaskPayoutSetEventFilter`
+
+#### TaskPayoutSet(uint256,uint8,address,uint256)()
+
+##### Parameters
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+###### role?
+
+`null`
+
+###### token?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`TaskPayoutSetEventFilter`
+
+#### TaskRoleUserSet()
+
+##### Parameters
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+###### role?
+
+`null`
+
+###### user?
+
+`null` | `string`
+
+##### Returns
+
+`TaskRoleUserSetEventFilter`
+
+#### TaskRoleUserSet(uint256,uint8,address)()
+
+##### Parameters
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+###### role?
+
+`null`
+
+###### user?
+
+`null` | `string`
+
+##### Returns
+
+`TaskRoleUserSetEventFilter`
+
+#### TaskSkillSet()
+
+##### Parameters
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+###### skillId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`TaskSkillSetEventFilter`
+
+#### TaskSkillSet(uint256,uint256)()
+
+##### Parameters
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+###### skillId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`TaskSkillSetEventFilter`
+
+#### TaskWorkRatingRevealed()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+###### role?
+
+`null`
+
+###### rating?
+
+`null`
+
+##### Returns
+
+`TaskWorkRatingRevealedEventFilter`
+
+#### TaskWorkRatingRevealed(address,uint256,uint8,uint8)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+###### role?
+
+`null`
+
+###### rating?
+
+`null`
+
+##### Returns
+
+`TaskWorkRatingRevealedEventFilter`
+
+#### TokensBurned()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### token?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`TokensBurnedEventFilter`
+
+#### TokensBurned(address,address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### token?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`TokensBurnedEventFilter`
+
+#### TokensMinted()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### who?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`TokensMintedEventFilter`
+
+#### TokensMinted(address,address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### who?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`TokensMintedEventFilter`
+
+#### TokenUnlocked()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+##### Returns
+
+`TokenUnlockedEventFilter`
+
+#### TokenUnlocked(address)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+##### Returns
+
+`TokenUnlockedEventFilter`
 
 #### Inherited from
 
-AugmentedMultisigPermissions.filters
+`AugmentedMultisigPermissions.filters`
 
-___
+***
 
 ### functions
 
-• **functions**: `Object`
+> **functions**: `object`
 
-#### Type declaration
+#### authority()
 
-| Name | Type |
-| :------ | :------ |
-| `authority` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `authority()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `cancel` | (`_motionId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `cancel(uint256)` | (`_motionId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `changeVote` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_motionId`: `BigNumberish`, `_vote`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `changeVote(uint256,uint256,uint256,uint8)` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_motionId`: `BigNumberish`, `_vote`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `createMotion` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_targets`: `string`[], `_data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `createMotion(uint256,uint256,address[],bytes[])` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_targets`: `string`[], `_data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `deprecate` | (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `deprecate(bool)` | (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `execute` | (`_motionId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `execute(uint256)` | (`_motionId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `executeMetaTransaction` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `executeWithoutFailure` | (`_motionId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `executeWithoutFailure(uint256)` | (`_motionId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `finishUpgrade` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `finishUpgrade()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `getCapabilityRoles` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `getCapabilityRoles(bytes4)` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `getColony()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
-| `getDeprecated()` | (`overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
-| `getDomainSkillRoleCounts` | (`_domainSkillId`: `BigNumberish`, `_role`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
-| `getDomainSkillRoleCounts(uint256,uint8)` | (`_domainSkillId`: `BigNumberish`, `_role`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
-| `getDomainSkillThreshold` | (`_domainSkillId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
-| `getDomainSkillThreshold(uint256)` | (`_domainSkillId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
-| `getGlobalThreshold` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
-| `getGlobalThreshold()` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
-| `getMetatransactionNonce` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
-| `getMetatransactionNonce(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
-| `getMotion` | (`motionId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`MotionStructOutput`]\> |
-| `getMotion(uint256)` | (`motionId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`MotionStructOutput`]\> |
-| `getMotionCount` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
-| `getMotionCount()` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
-| `getMotionRoleVoteCount` | (`_motionId`: `BigNumberish`, `_role`: `BigNumberish`, `_vote`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
-| `getMotionRoleVoteCount(uint256,uint8,uint8)` | (`_motionId`: `BigNumberish`, `_role`: `BigNumberish`, `_vote`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
-| `getMotionVoteThreshold` | (`_motionId`: `BigNumberish`, `_role`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
-| `getMotionVoteThreshold(uint256,uint8)` | (`_motionId`: `BigNumberish`, `_role`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
-| `getSingleActionSummary` | (`colonyNetworkAddress`: `string`, `colonyAddress`: `string`, `_action`: `BytesLike`, `_altTarget`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`ActionSummaryStructOutput`]\> |
-| `getSingleActionSummary(address,address,bytes,address)` | (`colonyNetworkAddress`: `string`, `colonyAddress`: `string`, `_action`: `BytesLike`, `_altTarget`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`ActionSummaryStructOutput`]\> |
-| `getUserRoles` | (`who`: `string`, `where`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `getUserRoles(address,uint256)` | (`who`: `string`, `where`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `getUserVote` | (`_motionId`: `BigNumberish`, `_user`: `string`, `_role`: `BigNumberish`, `_vote`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
-| `getUserVote(uint256,address,uint8,uint8)` | (`_motionId`: `BigNumberish`, `_user`: `string`, `_role`: `BigNumberish`, `_vote`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
-| `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_identifier`: `string`  }\> |
-| `identifier()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_identifier`: `string`  }\> |
-| `install` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `install(address)` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `multicall` | (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `multicall(bytes[])` | (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `owner` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `owner()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `setAuthority` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `setAuthority(address)` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `setDomainSkillThreshold` | (`_domainSkillId`: `BigNumberish`, `_threshold`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `setDomainSkillThreshold(uint256,uint256)` | (`_domainSkillId`: `BigNumberish`, `_threshold`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `setGlobalThreshold` | (`_globalThreshold`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `setGlobalThreshold(uint256)` | (`_globalThreshold`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `setOwner` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `setOwner(address)` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `setUserRoles` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_user`: `string`, `_domainId`: `BigNumberish`, `_roles`: `BytesLike`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `setUserRoles(uint256,uint256,address,uint256,bytes32)` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_user`: `string`, `_domainId`: `BigNumberish`, `_roles`: `BytesLike`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `uninstall` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `uninstall()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `verify` | (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
-| `verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
-| `version` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_version`: `BigNumber`  }\> |
-| `version()` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_version`: `BigNumber`  }\> |
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`string`\]\>
+
+#### authority()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`string`\]\>
+
+#### cancel()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### cancel(uint256)()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### changeVote()
+
+##### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_vote
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### changeVote(uint256,uint256,uint256,uint8)()
+
+##### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_vote
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### createMotion()
+
+##### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_targets
+
+`string`[]
+
+###### \_data
+
+`BytesLike`[]
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### createMotion(uint256,uint256,address\[\],bytes\[\])()
+
+##### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_targets
+
+`string`[]
+
+###### \_data
+
+`BytesLike`[]
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### deprecate()
+
+##### Parameters
+
+###### \_deprecated
+
+`boolean`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### deprecate(bool)()
+
+##### Parameters
+
+###### \_deprecated
+
+`boolean`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### execute()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### execute(uint256)()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### executeMetaTransaction()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`PayableOverrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`PayableOverrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### executeWithoutFailure()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### executeWithoutFailure(uint256)()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### finishUpgrade()
+
+##### Parameters
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### finishUpgrade()()
+
+##### Parameters
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### getCapabilityRoles()
+
+##### Parameters
+
+###### \_sig
+
+`BytesLike`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`string`\]\>
+
+#### getCapabilityRoles(bytes4)()
+
+##### Parameters
+
+###### \_sig
+
+`BytesLike`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`string`\]\>
+
+#### getColony()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`string`\]\>
+
+#### getColony()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`string`\]\>
+
+#### getDeprecated()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`boolean`\]\>
+
+#### getDeprecated()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`boolean`\]\>
+
+#### getDomainSkillRoleCounts()
+
+##### Parameters
+
+###### \_domainSkillId
+
+`BigNumberish`
+
+###### \_role
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\]\>
+
+#### getDomainSkillRoleCounts(uint256,uint8)()
+
+##### Parameters
+
+###### \_domainSkillId
+
+`BigNumberish`
+
+###### \_role
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\]\>
+
+#### getDomainSkillThreshold()
+
+##### Parameters
+
+###### \_domainSkillId
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\]\>
+
+#### getDomainSkillThreshold(uint256)()
+
+##### Parameters
+
+###### \_domainSkillId
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\]\>
+
+#### getGlobalThreshold()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\]\>
+
+#### getGlobalThreshold()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\]\>
+
+#### getMetatransactionNonce()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\] & `object`\>
+
+#### getMetatransactionNonce(address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\] & `object`\>
+
+#### getMotion()
+
+##### Parameters
+
+###### motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`MotionStructOutput`\]\>
+
+#### getMotion(uint256)()
+
+##### Parameters
+
+###### motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`MotionStructOutput`\]\>
+
+#### getMotionCount()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\]\>
+
+#### getMotionCount()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\]\>
+
+#### getMotionRoleVoteCount()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_role
+
+`BigNumberish`
+
+###### \_vote
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\]\>
+
+#### getMotionRoleVoteCount(uint256,uint8,uint8)()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_role
+
+`BigNumberish`
+
+###### \_vote
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\]\>
+
+#### getMotionVoteThreshold()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_role
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\]\>
+
+#### getMotionVoteThreshold(uint256,uint8)()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_role
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\]\>
+
+#### getSingleActionSummary()
+
+##### Parameters
+
+###### colonyNetworkAddress
+
+`string`
+
+###### colonyAddress
+
+`string`
+
+###### \_action
+
+`BytesLike`
+
+###### \_altTarget
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`ActionSummaryStructOutput`\]\>
+
+#### getSingleActionSummary(address,address,bytes,address)()
+
+##### Parameters
+
+###### colonyNetworkAddress
+
+`string`
+
+###### colonyAddress
+
+`string`
+
+###### \_action
+
+`BytesLike`
+
+###### \_altTarget
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`ActionSummaryStructOutput`\]\>
+
+#### getUserRoles()
+
+##### Parameters
+
+###### who
+
+`string`
+
+###### where
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`string`\]\>
+
+#### getUserRoles(address,uint256)()
+
+##### Parameters
+
+###### who
+
+`string`
+
+###### where
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`string`\]\>
+
+#### getUserVote()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_user
+
+`string`
+
+###### \_role
+
+`BigNumberish`
+
+###### \_vote
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`boolean`\]\>
+
+#### getUserVote(uint256,address,uint8,uint8)()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_user
+
+`string`
+
+###### \_role
+
+`BigNumberish`
+
+###### \_vote
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`boolean`\]\>
+
+#### identifier()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`string`\] & `object`\>
+
+#### identifier()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`string`\] & `object`\>
+
+#### install()
+
+##### Parameters
+
+###### \_colony
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### install(address)()
+
+##### Parameters
+
+###### \_colony
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### multicall()
+
+##### Parameters
+
+###### data
+
+`BytesLike`[]
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### multicall(bytes\[\])()
+
+##### Parameters
+
+###### data
+
+`BytesLike`[]
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### owner()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`string`\]\>
+
+#### owner()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`string`\]\>
+
+#### setAuthority()
+
+##### Parameters
+
+###### authority\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### setAuthority(address)()
+
+##### Parameters
+
+###### authority\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### setDomainSkillThreshold()
+
+##### Parameters
+
+###### \_domainSkillId
+
+`BigNumberish`
+
+###### \_threshold
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### setDomainSkillThreshold(uint256,uint256)()
+
+##### Parameters
+
+###### \_domainSkillId
+
+`BigNumberish`
+
+###### \_threshold
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### setGlobalThreshold()
+
+##### Parameters
+
+###### \_globalThreshold
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### setGlobalThreshold(uint256)()
+
+##### Parameters
+
+###### \_globalThreshold
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### setOwner()
+
+##### Parameters
+
+###### owner\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### setOwner(address)()
+
+##### Parameters
+
+###### owner\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### setUserRoles()
+
+##### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_user
+
+`string`
+
+###### \_domainId
+
+`BigNumberish`
+
+###### \_roles
+
+`BytesLike`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### setUserRoles(uint256,uint256,address,uint256,bytes32)()
+
+##### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_user
+
+`string`
+
+###### \_domainId
+
+`BigNumberish`
+
+###### \_roles
+
+`BytesLike`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### uninstall()
+
+##### Parameters
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### uninstall()()
+
+##### Parameters
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### verify()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_nonce
+
+`BigNumberish`
+
+###### \_chainId
+
+`BigNumberish`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`boolean`\]\>
+
+#### verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_nonce
+
+`BigNumberish`
+
+###### \_chainId
+
+`BigNumberish`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`boolean`\]\>
+
+#### version()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\] & `object`\>
+
+#### version()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\] & `object`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.functions
+`AugmentedMultisigPermissions.functions`
 
-___
+***
 
 ### interface
 
-• **interface**: `MultisigPermissionsInterface`
+> **interface**: `MultisigPermissionsInterface`
 
 #### Inherited from
 
-AugmentedMultisigPermissions.interface
+`AugmentedMultisigPermissions.interface`
 
-___
+***
 
 ### multisigPermissionsEvents
 
-• **multisigPermissionsEvents**: `MultisigPermissionsEvents`
+> **multisigPermissionsEvents**: `MultisigPermissionsEvents`
 
 The multisigPermissionsEvents contract supports all events across all versions.
 Isn't that amazing?
@@ -447,174 +6610,1395 @@ It's an ethers contract with only events to filter
 
 #### Inherited from
 
-AugmentedMultisigPermissions.multisigPermissionsEvents
+`AugmentedMultisigPermissions.multisigPermissionsEvents`
 
-___
+***
 
 ### off
 
-• **off**: `OnEvent`<[`MultisigPermissionsClientV2`](MultisigPermissionsClientV2.md)\>
+> **off**: `OnEvent`\<[`MultisigPermissionsClientV2`](MultisigPermissionsClientV2.md)\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.off
+`AugmentedMultisigPermissions.off`
 
-___
+***
 
 ### on
 
-• **on**: `OnEvent`<[`MultisigPermissionsClientV2`](MultisigPermissionsClientV2.md)\>
+> **on**: `OnEvent`\<[`MultisigPermissionsClientV2`](MultisigPermissionsClientV2.md)\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.on
+`AugmentedMultisigPermissions.on`
 
-___
+***
 
 ### once
 
-• **once**: `OnEvent`<[`MultisigPermissionsClientV2`](MultisigPermissionsClientV2.md)\>
+> **once**: `OnEvent`\<[`MultisigPermissionsClientV2`](MultisigPermissionsClientV2.md)\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.once
+`AugmentedMultisigPermissions.once`
 
-___
+***
 
 ### populateTransaction
 
-• **populateTransaction**: `Object`
+> **populateTransaction**: `object`
 
-#### Type declaration
+#### authority()
 
-| Name | Type |
-| :------ | :------ |
-| `authority` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `authority()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `cancel` | (`_motionId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `cancel(uint256)` | (`_motionId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `changeVote` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_motionId`: `BigNumberish`, `_vote`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `changeVote(uint256,uint256,uint256,uint8)` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_motionId`: `BigNumberish`, `_vote`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `createMotion` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_targets`: `string`[], `_data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `createMotion(uint256,uint256,address[],bytes[])` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_targets`: `string`[], `_data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `deprecate` | (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `deprecate(bool)` | (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `execute` | (`_motionId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `execute(uint256)` | (`_motionId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `executeMetaTransaction` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `executeWithoutFailure` | (`_motionId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `executeWithoutFailure(uint256)` | (`_motionId`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `finishUpgrade` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `finishUpgrade()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `getCapabilityRoles` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getCapabilityRoles(bytes4)` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getColony()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getDeprecated()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getDomainSkillRoleCounts` | (`_domainSkillId`: `BigNumberish`, `_role`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getDomainSkillRoleCounts(uint256,uint8)` | (`_domainSkillId`: `BigNumberish`, `_role`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getDomainSkillThreshold` | (`_domainSkillId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getDomainSkillThreshold(uint256)` | (`_domainSkillId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getGlobalThreshold` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getGlobalThreshold()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getMetatransactionNonce` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getMetatransactionNonce(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getMotion` | (`motionId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getMotion(uint256)` | (`motionId`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getMotionCount` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getMotionCount()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getMotionRoleVoteCount` | (`_motionId`: `BigNumberish`, `_role`: `BigNumberish`, `_vote`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getMotionRoleVoteCount(uint256,uint8,uint8)` | (`_motionId`: `BigNumberish`, `_role`: `BigNumberish`, `_vote`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getMotionVoteThreshold` | (`_motionId`: `BigNumberish`, `_role`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getMotionVoteThreshold(uint256,uint8)` | (`_motionId`: `BigNumberish`, `_role`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getSingleActionSummary` | (`colonyNetworkAddress`: `string`, `colonyAddress`: `string`, `_action`: `BytesLike`, `_altTarget`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getSingleActionSummary(address,address,bytes,address)` | (`colonyNetworkAddress`: `string`, `colonyAddress`: `string`, `_action`: `BytesLike`, `_altTarget`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getUserRoles` | (`who`: `string`, `where`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getUserRoles(address,uint256)` | (`who`: `string`, `where`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getUserVote` | (`_motionId`: `BigNumberish`, `_user`: `string`, `_role`: `BigNumberish`, `_vote`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getUserVote(uint256,address,uint8,uint8)` | (`_motionId`: `BigNumberish`, `_user`: `string`, `_role`: `BigNumberish`, `_vote`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `identifier()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `install` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `install(address)` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `multicall` | (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `multicall(bytes[])` | (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `owner()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `setAuthority` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `setAuthority(address)` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `setDomainSkillThreshold` | (`_domainSkillId`: `BigNumberish`, `_threshold`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `setDomainSkillThreshold(uint256,uint256)` | (`_domainSkillId`: `BigNumberish`, `_threshold`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `setGlobalThreshold` | (`_globalThreshold`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `setGlobalThreshold(uint256)` | (`_globalThreshold`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `setOwner` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `setOwner(address)` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `setUserRoles` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_user`: `string`, `_domainId`: `BigNumberish`, `_roles`: `BytesLike`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `setUserRoles(uint256,uint256,address,uint256,bytes32)` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_user`: `string`, `_domainId`: `BigNumberish`, `_roles`: `BytesLike`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `uninstall` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `uninstall()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `verify` | (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `version` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `version()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### authority()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### cancel()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### cancel(uint256)()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### changeVote()
+
+##### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_vote
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### changeVote(uint256,uint256,uint256,uint8)()
+
+##### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_vote
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### createMotion()
+
+##### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_targets
+
+`string`[]
+
+###### \_data
+
+`BytesLike`[]
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### createMotion(uint256,uint256,address\[\],bytes\[\])()
+
+##### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_targets
+
+`string`[]
+
+###### \_data
+
+`BytesLike`[]
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### deprecate()
+
+##### Parameters
+
+###### \_deprecated
+
+`boolean`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### deprecate(bool)()
+
+##### Parameters
+
+###### \_deprecated
+
+`boolean`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### execute()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### execute(uint256)()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### executeMetaTransaction()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`PayableOverrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`PayableOverrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### executeWithoutFailure()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### executeWithoutFailure(uint256)()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### finishUpgrade()
+
+##### Parameters
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### finishUpgrade()()
+
+##### Parameters
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getCapabilityRoles()
+
+##### Parameters
+
+###### \_sig
+
+`BytesLike`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getCapabilityRoles(bytes4)()
+
+##### Parameters
+
+###### \_sig
+
+`BytesLike`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getColony()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getColony()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getDeprecated()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getDeprecated()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getDomainSkillRoleCounts()
+
+##### Parameters
+
+###### \_domainSkillId
+
+`BigNumberish`
+
+###### \_role
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getDomainSkillRoleCounts(uint256,uint8)()
+
+##### Parameters
+
+###### \_domainSkillId
+
+`BigNumberish`
+
+###### \_role
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getDomainSkillThreshold()
+
+##### Parameters
+
+###### \_domainSkillId
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getDomainSkillThreshold(uint256)()
+
+##### Parameters
+
+###### \_domainSkillId
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getGlobalThreshold()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getGlobalThreshold()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getMetatransactionNonce()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getMetatransactionNonce(address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getMotion()
+
+##### Parameters
+
+###### motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getMotion(uint256)()
+
+##### Parameters
+
+###### motionId
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getMotionCount()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getMotionCount()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getMotionRoleVoteCount()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_role
+
+`BigNumberish`
+
+###### \_vote
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getMotionRoleVoteCount(uint256,uint8,uint8)()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_role
+
+`BigNumberish`
+
+###### \_vote
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getMotionVoteThreshold()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_role
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getMotionVoteThreshold(uint256,uint8)()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_role
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getSingleActionSummary()
+
+##### Parameters
+
+###### colonyNetworkAddress
+
+`string`
+
+###### colonyAddress
+
+`string`
+
+###### \_action
+
+`BytesLike`
+
+###### \_altTarget
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getSingleActionSummary(address,address,bytes,address)()
+
+##### Parameters
+
+###### colonyNetworkAddress
+
+`string`
+
+###### colonyAddress
+
+`string`
+
+###### \_action
+
+`BytesLike`
+
+###### \_altTarget
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getUserRoles()
+
+##### Parameters
+
+###### who
+
+`string`
+
+###### where
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getUserRoles(address,uint256)()
+
+##### Parameters
+
+###### who
+
+`string`
+
+###### where
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getUserVote()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_user
+
+`string`
+
+###### \_role
+
+`BigNumberish`
+
+###### \_vote
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getUserVote(uint256,address,uint8,uint8)()
+
+##### Parameters
+
+###### \_motionId
+
+`BigNumberish`
+
+###### \_user
+
+`string`
+
+###### \_role
+
+`BigNumberish`
+
+###### \_vote
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### identifier()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### identifier()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### install()
+
+##### Parameters
+
+###### \_colony
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### install(address)()
+
+##### Parameters
+
+###### \_colony
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### multicall()
+
+##### Parameters
+
+###### data
+
+`BytesLike`[]
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### multicall(bytes\[\])()
+
+##### Parameters
+
+###### data
+
+`BytesLike`[]
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### owner()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### owner()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### setAuthority()
+
+##### Parameters
+
+###### authority\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### setAuthority(address)()
+
+##### Parameters
+
+###### authority\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### setDomainSkillThreshold()
+
+##### Parameters
+
+###### \_domainSkillId
+
+`BigNumberish`
+
+###### \_threshold
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### setDomainSkillThreshold(uint256,uint256)()
+
+##### Parameters
+
+###### \_domainSkillId
+
+`BigNumberish`
+
+###### \_threshold
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### setGlobalThreshold()
+
+##### Parameters
+
+###### \_globalThreshold
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### setGlobalThreshold(uint256)()
+
+##### Parameters
+
+###### \_globalThreshold
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### setOwner()
+
+##### Parameters
+
+###### owner\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### setOwner(address)()
+
+##### Parameters
+
+###### owner\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### setUserRoles()
+
+##### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_user
+
+`string`
+
+###### \_domainId
+
+`BigNumberish`
+
+###### \_roles
+
+`BytesLike`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### setUserRoles(uint256,uint256,address,uint256,bytes32)()
+
+##### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_user
+
+`string`
+
+###### \_domainId
+
+`BigNumberish`
+
+###### \_roles
+
+`BytesLike`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### uninstall()
+
+##### Parameters
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### uninstall()()
+
+##### Parameters
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### verify()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_nonce
+
+`BigNumberish`
+
+###### \_chainId
+
+`BigNumberish`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_nonce
+
+`BigNumberish`
+
+###### \_chainId
+
+`BigNumberish`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### version()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### version()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.populateTransaction
+`AugmentedMultisigPermissions.populateTransaction`
 
-___
+***
 
 ### provider
 
-• `Readonly` **provider**: `Provider`
+> `readonly` **provider**: `Provider`
 
 #### Inherited from
 
-AugmentedMultisigPermissions.provider
+`AugmentedMultisigPermissions.provider`
 
-___
+***
 
 ### removeListener
 
-• **removeListener**: `OnEvent`<[`MultisigPermissionsClientV2`](MultisigPermissionsClientV2.md)\>
+> **removeListener**: `OnEvent`\<[`MultisigPermissionsClientV2`](MultisigPermissionsClientV2.md)\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.removeListener
+`AugmentedMultisigPermissions.removeListener`
 
-___
+***
 
 ### resolvedAddress
 
-• `Readonly` **resolvedAddress**: `Promise`<`string`\>
+> `readonly` **resolvedAddress**: `Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.resolvedAddress
+`AugmentedMultisigPermissions.resolvedAddress`
 
-___
+***
 
 ### signer
 
-• `Readonly` **signer**: `Signer`
+> `readonly` **signer**: `Signer`
 
 #### Inherited from
 
-AugmentedMultisigPermissions.signer
+`AugmentedMultisigPermissions.signer`
 
 ## Methods
 
-### \_checkRunningEvents
+### \_checkRunningEvents()
 
-▸ **_checkRunningEvents**(`runningEvent`): `void`
+> **\_checkRunningEvents**(`runningEvent`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `runningEvent` | `RunningEvent` |
+##### runningEvent
+
+`RunningEvent`
 
 #### Returns
 
@@ -622,41 +8006,47 @@ AugmentedMultisigPermissions.signer
 
 #### Inherited from
 
-AugmentedMultisigPermissions.\_checkRunningEvents
+`AugmentedMultisigPermissions._checkRunningEvents`
 
-___
+***
 
-### \_deployed
+### \_deployed()
 
-▸ **_deployed**(`blockTag?`): `Promise`<`Contract`\>
+> **\_deployed**(`blockTag`?): `Promise`\<`Contract`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `blockTag?` | `BlockTag` |
+##### blockTag?
+
+`BlockTag`
 
 #### Returns
 
-`Promise`<`Contract`\>
+`Promise`\<`Contract`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.\_deployed
+`AugmentedMultisigPermissions._deployed`
 
-___
+***
 
-### \_wrapEvent
+### \_wrapEvent()
 
-▸ **_wrapEvent**(`runningEvent`, `log`, `listener`): `Event`
+> **\_wrapEvent**(`runningEvent`, `log`, `listener`): `Event`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `runningEvent` | `RunningEvent` |
-| `log` | `Log` |
-| `listener` | `Listener` |
+##### runningEvent
+
+`RunningEvent`
+
+##### log
+
+`Log`
+
+##### listener
+
+`Listener`
 
 #### Returns
 
@@ -664,294 +8054,357 @@ ___
 
 #### Inherited from
 
-AugmentedMultisigPermissions.\_wrapEvent
+`AugmentedMultisigPermissions._wrapEvent`
 
-___
+***
 
-### attach
+### attach()
 
-▸ **attach**(`addressOrName`): [`MultisigPermissionsClientV2`](MultisigPermissionsClientV2.md)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `addressOrName` | `string` |
-
-#### Returns
-
-[`MultisigPermissionsClientV2`](MultisigPermissionsClientV2.md)
-
-#### Inherited from
-
-AugmentedMultisigPermissions.attach
-
-___
-
-### authority
-
-▸ **authority**(`overrides?`): `Promise`<`string`\>
+> **attach**(`addressOrName`): `this`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### addressOrName
+
+`string`
 
 #### Returns
 
-`Promise`<`string`\>
+`this`
 
 #### Inherited from
 
-AugmentedMultisigPermissions.authority
+`AugmentedMultisigPermissions.attach`
 
-___
+***
 
 ### authority()
 
-▸ **authority()**(`overrides?`): `Promise`<`string`\>
+> **authority**(`overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.authority()
+`AugmentedMultisigPermissions.authority`
 
-___
+***
 
-### cancel
+### authority()()
 
-▸ **cancel**(`_motionId`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **authority()**(`overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_motionId` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.cancel
+`AugmentedMultisigPermissions.authority()`
 
-___
+***
 
-### cancel(uint256)
+### cancel()
 
-▸ **cancel(uint256)**(`_motionId`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **cancel**(`_motionId`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_motionId` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_motionId
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.cancel(uint256)
+`AugmentedMultisigPermissions.cancel`
 
-___
+***
 
-### changeVote
+### cancel(uint256)()
 
-▸ **changeVote**(`_permissionDomainId`, `_childSkillIndex`, `_motionId`, `_vote`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **cancel(uint256)**(`_motionId`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_motionId` | `BigNumberish` |
-| `_vote` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_motionId
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.changeVote
+`AugmentedMultisigPermissions.cancel(uint256)`
 
-___
+***
 
-### changeVote(uint256,uint256,uint256,uint8)
+### changeVote()
 
-▸ **changeVote(uint256,uint256,uint256,uint8)**(`_permissionDomainId`, `_childSkillIndex`, `_motionId`, `_vote`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **changeVote**(`_permissionDomainId`, `_childSkillIndex`, `_motionId`, `_vote`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_motionId` | `BigNumberish` |
-| `_vote` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_motionId
+
+`BigNumberish`
+
+##### \_vote
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.changeVote(uint256,uint256,uint256,uint8)
+`AugmentedMultisigPermissions.changeVote`
 
-___
+***
 
-### connect
+### changeVote(uint256,uint256,uint256,uint8)()
 
-▸ **connect**(`signerOrProvider`): [`MultisigPermissionsClientV2`](MultisigPermissionsClientV2.md)
+> **changeVote(uint256,uint256,uint256,uint8)**(`_permissionDomainId`, `_childSkillIndex`, `_motionId`, `_vote`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `signerOrProvider` | `string` \| `Signer` \| `Provider` |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_motionId
+
+`BigNumberish`
+
+##### \_vote
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-[`MultisigPermissionsClientV2`](MultisigPermissionsClientV2.md)
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.connect
+`AugmentedMultisigPermissions.changeVote(uint256,uint256,uint256,uint8)`
 
-___
+***
 
-### createMotion
+### connect()
 
-▸ **createMotion**(`_permissionDomainId`, `_childSkillIndex`, `_targets`, `_data`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **connect**(`signerOrProvider`): `this`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_targets` | `string`[] |
-| `_data` | `BytesLike`[] |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### signerOrProvider
+
+`string` | `Signer` | `Provider`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`this`
 
 #### Inherited from
 
-AugmentedMultisigPermissions.createMotion
+`AugmentedMultisigPermissions.connect`
 
-___
+***
 
-### createMotion(uint256,uint256,address[],bytes[])
+### createMotion()
 
-▸ **createMotion(uint256,uint256,address[],bytes[])**(`_permissionDomainId`, `_childSkillIndex`, `_targets`, `_data`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **createMotion**(`_permissionDomainId`, `_childSkillIndex`, `_targets`, `_data`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_targets` | `string`[] |
-| `_data` | `BytesLike`[] |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_targets
+
+`string`[]
+
+##### \_data
+
+`BytesLike`[]
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.createMotion(uint256,uint256,address[],bytes[])
+`AugmentedMultisigPermissions.createMotion`
 
-___
+***
 
-### deployed
+### createMotion(uint256,uint256,address\[\],bytes\[\])()
 
-▸ **deployed**(): `Promise`<[`MultisigPermissionsClientV2`](MultisigPermissionsClientV2.md)\>
-
-#### Returns
-
-`Promise`<[`MultisigPermissionsClientV2`](MultisigPermissionsClientV2.md)\>
-
-#### Inherited from
-
-AugmentedMultisigPermissions.deployed
-
-___
-
-### deprecate
-
-▸ **deprecate**(`_deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **createMotion(uint256,uint256,address\[\],bytes\[\])**(`_permissionDomainId`, `_childSkillIndex`, `_targets`, `_data`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_deprecated` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_targets
+
+`string`[]
+
+##### \_data
+
+`BytesLike`[]
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.deprecate
+`AugmentedMultisigPermissions.createMotion(uint256,uint256,address[],bytes[])`
 
-___
+***
 
-### deprecate(bool)
+### deployed()
 
-▸ **deprecate(bool)**(`_deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `_deprecated` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+> **deployed**(): `Promise`\<[`MultisigPermissionsClientV2`](MultisigPermissionsClientV2.md)\>
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<[`MultisigPermissionsClientV2`](MultisigPermissionsClientV2.md)\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.deprecate(bool)
+`AugmentedMultisigPermissions.deployed`
 
-___
+***
 
-### emit
+### deprecate()
 
-▸ **emit**(`eventName`, `...args`): `boolean`
+> **deprecate**(`_deprecated`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `eventName` | `string` \| `EventFilter` |
-| `...args` | `any`[] |
+##### \_deprecated
+
+`boolean`
+
+##### overrides?
+
+`Overrides` & `object`
+
+#### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### Inherited from
+
+`AugmentedMultisigPermissions.deprecate`
+
+***
+
+### deprecate(bool)()
+
+> **deprecate(bool)**(`_deprecated`, `overrides`?): `Promise`\<`ContractTransaction`\>
+
+#### Parameters
+
+##### \_deprecated
+
+`boolean`
+
+##### overrides?
+
+`Overrides` & `object`
+
+#### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### Inherited from
+
+`AugmentedMultisigPermissions.deprecate(bool)`
+
+***
+
+### emit()
+
+> **emit**(`eventName`, ...`args`): `boolean`
+
+#### Parameters
+
+##### eventName
+
+`string` | `EventFilter`
+
+##### args
+
+...`any`[]
 
 #### Returns
 
@@ -959,897 +8412,1071 @@ ___
 
 #### Inherited from
 
-AugmentedMultisigPermissions.emit
+`AugmentedMultisigPermissions.emit`
 
-___
+***
 
-### execute
+### execute()
 
-▸ **execute**(`_motionId`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `_motionId` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedMultisigPermissions.execute
-
-___
-
-### execute(uint256)
-
-▸ **execute(uint256)**(`_motionId`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **execute**(`_motionId`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_motionId` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_motionId
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.execute(uint256)
+`AugmentedMultisigPermissions.execute`
 
-___
+***
 
-### executeMetaTransaction
+### execute(uint256)()
 
-▸ **executeMetaTransaction**(`_user`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **execute(uint256)**(`_motionId`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_payload` | `BytesLike` |
-| `_sigR` | `BytesLike` |
-| `_sigS` | `BytesLike` |
-| `_sigV` | `BigNumberish` |
-| `overrides?` | `PayableOverrides` & { `from?`: `string`  } |
+##### \_motionId
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.executeMetaTransaction
+`AugmentedMultisigPermissions.execute(uint256)`
 
-___
+***
 
-### executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)
+### executeMetaTransaction()
 
-▸ **executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)**(`_user`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **executeMetaTransaction**(`_user`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_payload` | `BytesLike` |
-| `_sigR` | `BytesLike` |
-| `_sigS` | `BytesLike` |
-| `_sigV` | `BigNumberish` |
-| `overrides?` | `PayableOverrides` & { `from?`: `string`  } |
+##### \_user
+
+`string`
+
+##### \_payload
+
+`BytesLike`
+
+##### \_sigR
+
+`BytesLike`
+
+##### \_sigS
+
+`BytesLike`
+
+##### \_sigV
+
+`BigNumberish`
+
+##### overrides?
+
+`PayableOverrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)
+`AugmentedMultisigPermissions.executeMetaTransaction`
 
-___
+***
 
-### executeWithoutFailure
+### executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)()
 
-▸ **executeWithoutFailure**(`_motionId`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)**(`_user`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_motionId` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_user
+
+`string`
+
+##### \_payload
+
+`BytesLike`
+
+##### \_sigR
+
+`BytesLike`
+
+##### \_sigS
+
+`BytesLike`
+
+##### \_sigV
+
+`BigNumberish`
+
+##### overrides?
+
+`PayableOverrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.executeWithoutFailure
+`AugmentedMultisigPermissions.executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)`
 
-___
+***
 
-### executeWithoutFailure(uint256)
+### executeWithoutFailure()
 
-▸ **executeWithoutFailure(uint256)**(`_motionId`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **executeWithoutFailure**(`_motionId`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_motionId` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_motionId
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.executeWithoutFailure(uint256)
+`AugmentedMultisigPermissions.executeWithoutFailure`
 
-___
+***
 
-### fallback
+### executeWithoutFailure(uint256)()
 
-▸ **fallback**(`overrides?`): `Promise`<`TransactionResponse`\>
+> **executeWithoutFailure(uint256)**(`_motionId`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `TransactionRequest` |
+##### \_motionId
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`TransactionResponse`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.fallback
+`AugmentedMultisigPermissions.executeWithoutFailure(uint256)`
 
-___
+***
 
-### finishUpgrade
+### fallback()
 
-▸ **finishUpgrade**(`overrides?`): `Promise`<`ContractTransaction`\>
+> **fallback**(`overrides`?): `Promise`\<`TransactionResponse`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### overrides?
+
+`TransactionRequest`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`TransactionResponse`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.finishUpgrade
+`AugmentedMultisigPermissions.fallback`
 
-___
+***
 
 ### finishUpgrade()
 
-▸ **finishUpgrade()**(`overrides?`): `Promise`<`ContractTransaction`\>
+> **finishUpgrade**(`overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.finishUpgrade()
+`AugmentedMultisigPermissions.finishUpgrade`
 
-___
+***
 
-### getCapabilityRoles
+### finishUpgrade()()
 
-▸ **getCapabilityRoles**(`_sig`, `overrides?`): `Promise`<`string`\>
+> **finishUpgrade()**(`overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_sig` | `BytesLike` |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.getCapabilityRoles
+`AugmentedMultisigPermissions.finishUpgrade()`
 
-___
+***
 
-### getCapabilityRoles(bytes4)
+### getCapabilityRoles()
 
-▸ **getCapabilityRoles(bytes4)**(`_sig`, `overrides?`): `Promise`<`string`\>
+> **getCapabilityRoles**(`_sig`, `overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_sig` | `BytesLike` |
-| `overrides?` | `CallOverrides` |
+##### \_sig
+
+`BytesLike`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.getCapabilityRoles(bytes4)
+`AugmentedMultisigPermissions.getCapabilityRoles`
 
-___
+***
 
-### getColony
+### getCapabilityRoles(bytes4)()
 
-▸ **getColony**(`overrides?`): `Promise`<`string`\>
+> **getCapabilityRoles(bytes4)**(`_sig`, `overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### \_sig
+
+`BytesLike`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.getColony
+`AugmentedMultisigPermissions.getCapabilityRoles(bytes4)`
 
-___
+***
 
 ### getColony()
 
-▸ **getColony()**(`overrides?`): `Promise`<`string`\>
+> **getColony**(`overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.getColony()
+`AugmentedMultisigPermissions.getColony`
 
-___
+***
 
-### getDeprecated
+### getColony()()
 
-▸ **getDeprecated**(`overrides?`): `Promise`<`boolean`\>
+> **getColony()**(`overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`boolean`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.getDeprecated
+`AugmentedMultisigPermissions.getColony()`
 
-___
+***
 
 ### getDeprecated()
 
-▸ **getDeprecated()**(`overrides?`): `Promise`<`boolean`\>
+> **getDeprecated**(`overrides`?): `Promise`\<`boolean`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`boolean`\>
+`Promise`\<`boolean`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.getDeprecated()
+`AugmentedMultisigPermissions.getDeprecated`
 
-___
+***
 
-### getDomainSkillRoleCounts
+### getDeprecated()()
 
-▸ **getDomainSkillRoleCounts**(`_domainSkillId`, `_role`, `overrides?`): `Promise`<`BigNumber`\>
+> **getDeprecated()**(`overrides`?): `Promise`\<`boolean`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_domainSkillId` | `BigNumberish` |
-| `_role` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`boolean`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.getDomainSkillRoleCounts
+`AugmentedMultisigPermissions.getDeprecated()`
 
-___
+***
 
-### getDomainSkillRoleCounts(uint256,uint8)
+### getDomainSkillRoleCounts()
 
-▸ **getDomainSkillRoleCounts(uint256,uint8)**(`_domainSkillId`, `_role`, `overrides?`): `Promise`<`BigNumber`\>
+> **getDomainSkillRoleCounts**(`_domainSkillId`, `_role`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_domainSkillId` | `BigNumberish` |
-| `_role` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_domainSkillId
+
+`BigNumberish`
+
+##### \_role
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.getDomainSkillRoleCounts(uint256,uint8)
+`AugmentedMultisigPermissions.getDomainSkillRoleCounts`
 
-___
+***
 
-### getDomainSkillThreshold
+### getDomainSkillRoleCounts(uint256,uint8)()
 
-▸ **getDomainSkillThreshold**(`_domainSkillId`, `overrides?`): `Promise`<`BigNumber`\>
+> **getDomainSkillRoleCounts(uint256,uint8)**(`_domainSkillId`, `_role`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_domainSkillId` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_domainSkillId
+
+`BigNumberish`
+
+##### \_role
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.getDomainSkillThreshold
+`AugmentedMultisigPermissions.getDomainSkillRoleCounts(uint256,uint8)`
 
-___
+***
 
-### getDomainSkillThreshold(uint256)
+### getDomainSkillThreshold()
 
-▸ **getDomainSkillThreshold(uint256)**(`_domainSkillId`, `overrides?`): `Promise`<`BigNumber`\>
+> **getDomainSkillThreshold**(`_domainSkillId`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_domainSkillId` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_domainSkillId
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.getDomainSkillThreshold(uint256)
+`AugmentedMultisigPermissions.getDomainSkillThreshold`
 
-___
+***
 
-### getGlobalThreshold
+### getDomainSkillThreshold(uint256)()
 
-▸ **getGlobalThreshold**(`overrides?`): `Promise`<`BigNumber`\>
+> **getDomainSkillThreshold(uint256)**(`_domainSkillId`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### \_domainSkillId
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.getGlobalThreshold
+`AugmentedMultisigPermissions.getDomainSkillThreshold(uint256)`
 
-___
+***
 
 ### getGlobalThreshold()
 
-▸ **getGlobalThreshold()**(`overrides?`): `Promise`<`BigNumber`\>
+> **getGlobalThreshold**(`overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.getGlobalThreshold()
+`AugmentedMultisigPermissions.getGlobalThreshold`
 
-___
+***
 
-### getMetatransactionNonce
+### getGlobalThreshold()()
 
-▸ **getMetatransactionNonce**(`_user`, `overrides?`): `Promise`<`BigNumber`\>
+> **getGlobalThreshold()**(`overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.getMetatransactionNonce
+`AugmentedMultisigPermissions.getGlobalThreshold()`
 
-___
+***
 
-### getMetatransactionNonce(address)
+### getMetatransactionNonce()
 
-▸ **getMetatransactionNonce(address)**(`_user`, `overrides?`): `Promise`<`BigNumber`\>
+> **getMetatransactionNonce**(`_user`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `overrides?` | `CallOverrides` |
+##### \_user
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.getMetatransactionNonce(address)
+`AugmentedMultisigPermissions.getMetatransactionNonce`
 
-___
+***
 
-### getMotion
+### getMetatransactionNonce(address)()
 
-▸ **getMotion**(`motionId`, `overrides?`): `Promise`<`MotionStructOutput`\>
+> **getMetatransactionNonce(address)**(`_user`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `motionId` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_user
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`MotionStructOutput`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.getMotion
+`AugmentedMultisigPermissions.getMetatransactionNonce(address)`
 
-___
+***
 
-### getMotion(uint256)
+### getMotion()
 
-▸ **getMotion(uint256)**(`motionId`, `overrides?`): `Promise`<`MotionStructOutput`\>
+> **getMotion**(`motionId`, `overrides`?): `Promise`\<`MotionStructOutput`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `motionId` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### motionId
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`MotionStructOutput`\>
+`Promise`\<`MotionStructOutput`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.getMotion(uint256)
+`AugmentedMultisigPermissions.getMotion`
 
-___
+***
 
-### getMotionCount
+### getMotion(uint256)()
 
-▸ **getMotionCount**(`overrides?`): `Promise`<`BigNumber`\>
+> **getMotion(uint256)**(`motionId`, `overrides`?): `Promise`\<`MotionStructOutput`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### motionId
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`MotionStructOutput`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.getMotionCount
+`AugmentedMultisigPermissions.getMotion(uint256)`
 
-___
+***
 
 ### getMotionCount()
 
-▸ **getMotionCount()**(`overrides?`): `Promise`<`BigNumber`\>
+> **getMotionCount**(`overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.getMotionCount()
+`AugmentedMultisigPermissions.getMotionCount`
 
-___
+***
 
-### getMotionRoleVoteCount
+### getMotionCount()()
 
-▸ **getMotionRoleVoteCount**(`_motionId`, `_role`, `_vote`, `overrides?`): `Promise`<`BigNumber`\>
+> **getMotionCount()**(`overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_motionId` | `BigNumberish` |
-| `_role` | `BigNumberish` |
-| `_vote` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.getMotionRoleVoteCount
+`AugmentedMultisigPermissions.getMotionCount()`
 
-___
+***
 
-### getMotionRoleVoteCount(uint256,uint8,uint8)
+### getMotionRoleVoteCount()
 
-▸ **getMotionRoleVoteCount(uint256,uint8,uint8)**(`_motionId`, `_role`, `_vote`, `overrides?`): `Promise`<`BigNumber`\>
+> **getMotionRoleVoteCount**(`_motionId`, `_role`, `_vote`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_motionId` | `BigNumberish` |
-| `_role` | `BigNumberish` |
-| `_vote` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_motionId
+
+`BigNumberish`
+
+##### \_role
+
+`BigNumberish`
+
+##### \_vote
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.getMotionRoleVoteCount(uint256,uint8,uint8)
+`AugmentedMultisigPermissions.getMotionRoleVoteCount`
 
-___
+***
 
-### getMotionVoteThreshold
+### getMotionRoleVoteCount(uint256,uint8,uint8)()
 
-▸ **getMotionVoteThreshold**(`_motionId`, `_role`, `overrides?`): `Promise`<`BigNumber`\>
+> **getMotionRoleVoteCount(uint256,uint8,uint8)**(`_motionId`, `_role`, `_vote`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_motionId` | `BigNumberish` |
-| `_role` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_motionId
+
+`BigNumberish`
+
+##### \_role
+
+`BigNumberish`
+
+##### \_vote
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.getMotionVoteThreshold
+`AugmentedMultisigPermissions.getMotionRoleVoteCount(uint256,uint8,uint8)`
 
-___
+***
 
-### getMotionVoteThreshold(uint256,uint8)
+### getMotionVoteThreshold()
 
-▸ **getMotionVoteThreshold(uint256,uint8)**(`_motionId`, `_role`, `overrides?`): `Promise`<`BigNumber`\>
+> **getMotionVoteThreshold**(`_motionId`, `_role`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_motionId` | `BigNumberish` |
-| `_role` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_motionId
+
+`BigNumberish`
+
+##### \_role
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.getMotionVoteThreshold(uint256,uint8)
+`AugmentedMultisigPermissions.getMotionVoteThreshold`
 
-___
+***
 
-### getSingleActionSummary
+### getMotionVoteThreshold(uint256,uint8)()
 
-▸ **getSingleActionSummary**(`colonyNetworkAddress`, `colonyAddress`, `_action`, `_altTarget`, `overrides?`): `Promise`<`ActionSummaryStructOutput`\>
+> **getMotionVoteThreshold(uint256,uint8)**(`_motionId`, `_role`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `colonyNetworkAddress` | `string` |
-| `colonyAddress` | `string` |
-| `_action` | `BytesLike` |
-| `_altTarget` | `string` |
-| `overrides?` | `CallOverrides` |
+##### \_motionId
+
+`BigNumberish`
+
+##### \_role
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`ActionSummaryStructOutput`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.getSingleActionSummary
+`AugmentedMultisigPermissions.getMotionVoteThreshold(uint256,uint8)`
 
-___
+***
 
-### getSingleActionSummary(address,address,bytes,address)
+### getSingleActionSummary()
 
-▸ **getSingleActionSummary(address,address,bytes,address)**(`colonyNetworkAddress`, `colonyAddress`, `_action`, `_altTarget`, `overrides?`): `Promise`<`ActionSummaryStructOutput`\>
+> **getSingleActionSummary**(`colonyNetworkAddress`, `colonyAddress`, `_action`, `_altTarget`, `overrides`?): `Promise`\<`ActionSummaryStructOutput`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `colonyNetworkAddress` | `string` |
-| `colonyAddress` | `string` |
-| `_action` | `BytesLike` |
-| `_altTarget` | `string` |
-| `overrides?` | `CallOverrides` |
+##### colonyNetworkAddress
+
+`string`
+
+##### colonyAddress
+
+`string`
+
+##### \_action
+
+`BytesLike`
+
+##### \_altTarget
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`ActionSummaryStructOutput`\>
+`Promise`\<`ActionSummaryStructOutput`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.getSingleActionSummary(address,address,bytes,address)
+`AugmentedMultisigPermissions.getSingleActionSummary`
 
-___
+***
 
-### getUserRoles
+### getSingleActionSummary(address,address,bytes,address)()
 
-▸ **getUserRoles**(`who`, `where`, `overrides?`): `Promise`<`string`\>
+> **getSingleActionSummary(address,address,bytes,address)**(`colonyNetworkAddress`, `colonyAddress`, `_action`, `_altTarget`, `overrides`?): `Promise`\<`ActionSummaryStructOutput`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `who` | `string` |
-| `where` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### colonyNetworkAddress
+
+`string`
+
+##### colonyAddress
+
+`string`
+
+##### \_action
+
+`BytesLike`
+
+##### \_altTarget
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`ActionSummaryStructOutput`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.getUserRoles
+`AugmentedMultisigPermissions.getSingleActionSummary(address,address,bytes,address)`
 
-___
+***
 
-### getUserRoles(address,uint256)
+### getUserRoles()
 
-▸ **getUserRoles(address,uint256)**(`who`, `where`, `overrides?`): `Promise`<`string`\>
+> **getUserRoles**(`who`, `where`, `overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `who` | `string` |
-| `where` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### who
+
+`string`
+
+##### where
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.getUserRoles(address,uint256)
+`AugmentedMultisigPermissions.getUserRoles`
 
-___
+***
 
-### getUserVote
+### getUserRoles(address,uint256)()
 
-▸ **getUserVote**(`_motionId`, `_user`, `_role`, `_vote`, `overrides?`): `Promise`<`boolean`\>
+> **getUserRoles(address,uint256)**(`who`, `where`, `overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_motionId` | `BigNumberish` |
-| `_user` | `string` |
-| `_role` | `BigNumberish` |
-| `_vote` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### who
+
+`string`
+
+##### where
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`boolean`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.getUserVote
+`AugmentedMultisigPermissions.getUserRoles(address,uint256)`
 
-___
+***
 
-### getUserVote(uint256,address,uint8,uint8)
+### getUserVote()
 
-▸ **getUserVote(uint256,address,uint8,uint8)**(`_motionId`, `_user`, `_role`, `_vote`, `overrides?`): `Promise`<`boolean`\>
+> **getUserVote**(`_motionId`, `_user`, `_role`, `_vote`, `overrides`?): `Promise`\<`boolean`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_motionId` | `BigNumberish` |
-| `_user` | `string` |
-| `_role` | `BigNumberish` |
-| `_vote` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_motionId
+
+`BigNumberish`
+
+##### \_user
+
+`string`
+
+##### \_role
+
+`BigNumberish`
+
+##### \_vote
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`boolean`\>
+`Promise`\<`boolean`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.getUserVote(uint256,address,uint8,uint8)
+`AugmentedMultisigPermissions.getUserVote`
 
-___
+***
 
-### identifier
+### getUserVote(uint256,address,uint8,uint8)()
 
-▸ **identifier**(`overrides?`): `Promise`<`string`\>
+> **getUserVote(uint256,address,uint8,uint8)**(`_motionId`, `_user`, `_role`, `_vote`, `overrides`?): `Promise`\<`boolean`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### \_motionId
+
+`BigNumberish`
+
+##### \_user
+
+`string`
+
+##### \_role
+
+`BigNumberish`
+
+##### \_vote
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`boolean`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.identifier
+`AugmentedMultisigPermissions.getUserVote(uint256,address,uint8,uint8)`
 
-___
+***
 
 ### identifier()
 
-▸ **identifier()**(`overrides?`): `Promise`<`string`\>
+> **identifier**(`overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.identifier()
+`AugmentedMultisigPermissions.identifier`
 
-___
+***
 
-### install
+### identifier()()
 
-▸ **install**(`_colony`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **identifier()**(`overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_colony` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.install
+`AugmentedMultisigPermissions.identifier()`
 
-___
+***
 
-### install(address)
+### install()
 
-▸ **install(address)**(`_colony`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **install**(`_colony`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_colony` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_colony
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.install(address)
+`AugmentedMultisigPermissions.install`
 
-___
+***
 
-### listenerCount
+### install(address)()
 
-▸ **listenerCount**(`eventName?`): `number`
+> **install(address)**(`_colony`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `eventName?` | `string` \| `EventFilter` |
+##### \_colony
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
+
+#### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### Inherited from
+
+`AugmentedMultisigPermissions.install(address)`
+
+***
+
+### listenerCount()
+
+> **listenerCount**(`eventName`?): `number`
+
+#### Parameters
+
+##### eventName?
+
+`string` | `EventFilter`
 
 #### Returns
 
@@ -1857,552 +9484,668 @@ ___
 
 #### Inherited from
 
-AugmentedMultisigPermissions.listenerCount
+`AugmentedMultisigPermissions.listenerCount`
 
-___
+***
 
-### listeners
+### listeners()
 
-▸ **listeners**<`TEvent`\>(`eventFilter?`): `TypedListener`<`TEvent`\>[]
+#### Call Signature
 
-#### Type parameters
+> **listeners**\<`TEvent`\>(`eventFilter`?): `TypedListener`\<`TEvent`\>[]
 
-| Name | Type |
-| :------ | :------ |
-| `TEvent` | extends `TypedEvent`<`any`, `any`\> |
+##### Type Parameters
 
-#### Parameters
+• **TEvent** *extends* `TypedEvent`
 
-| Name | Type |
-| :------ | :------ |
-| `eventFilter?` | `TypedEventFilter`<`TEvent`\> |
+##### Parameters
 
-#### Returns
+###### eventFilter?
 
-`TypedListener`<`TEvent`\>[]
+`TypedEventFilter`\<`TEvent`\>
 
-#### Inherited from
+##### Returns
 
-AugmentedMultisigPermissions.listeners
+`TypedListener`\<`TEvent`\>[]
 
-▸ **listeners**(`eventName?`): `Listener`[]
+##### Inherited from
 
-#### Parameters
+`AugmentedMultisigPermissions.listeners`
 
-| Name | Type |
-| :------ | :------ |
-| `eventName?` | `string` |
+#### Call Signature
 
-#### Returns
+> **listeners**(`eventName`?): `Listener`[]
+
+##### Parameters
+
+###### eventName?
+
+`string`
+
+##### Returns
 
 `Listener`[]
 
-#### Inherited from
+##### Inherited from
 
-AugmentedMultisigPermissions.listeners
+`AugmentedMultisigPermissions.listeners`
 
-___
+***
 
-### multicall
+### multicall()
 
-▸ **multicall**(`data`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `data` | `BytesLike`[] |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedMultisigPermissions.multicall
-
-___
-
-### multicall(bytes[])
-
-▸ **multicall(bytes[])**(`data`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **multicall**(`data`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `data` | `BytesLike`[] |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### data
+
+`BytesLike`[]
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.multicall(bytes[])
+`AugmentedMultisigPermissions.multicall`
 
-___
+***
 
-### owner
+### multicall(bytes\[\])()
 
-▸ **owner**(`overrides?`): `Promise`<`string`\>
+> **multicall(bytes\[\])**(`data`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### data
+
+`BytesLike`[]
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.owner
+`AugmentedMultisigPermissions.multicall(bytes[])`
 
-___
+***
 
 ### owner()
 
-▸ **owner()**(`overrides?`): `Promise`<`string`\>
+> **owner**(`overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.owner()
+`AugmentedMultisigPermissions.owner`
 
-___
+***
 
-### queryFilter
+### owner()()
 
-▸ **queryFilter**<`TEvent`\>(`event`, `fromBlockOrBlockhash?`, `toBlock?`): `Promise`<`TEvent`[]\>
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `TEvent` | extends `TypedEvent`<`any`, `any`\> |
+> **owner()**(`overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `event` | `TypedEventFilter`<`TEvent`\> |
-| `fromBlockOrBlockhash?` | `string` \| `number` |
-| `toBlock?` | `string` \| `number` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`TEvent`[]\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.queryFilter
+`AugmentedMultisigPermissions.owner()`
 
-___
+***
 
-### removeAllListeners
+### queryFilter()
 
-▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`MultisigPermissionsClientV2`](MultisigPermissionsClientV2.md)
+> **queryFilter**\<`TEvent`\>(`event`, `fromBlockOrBlockhash`?, `toBlock`?): `Promise`\<`TEvent`[]\>
 
-#### Type parameters
+#### Type Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `TEvent` | extends `TypedEvent`<`any`, `any`\> |
+• **TEvent** *extends* `TypedEvent`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `eventFilter` | `TypedEventFilter`<`TEvent`\> |
+##### event
+
+`TypedEventFilter`\<`TEvent`\>
+
+##### fromBlockOrBlockhash?
+
+`string` | `number`
+
+##### toBlock?
+
+`string` | `number`
 
 #### Returns
 
-[`MultisigPermissionsClientV2`](MultisigPermissionsClientV2.md)
+`Promise`\<`TEvent`[]\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.removeAllListeners
+`AugmentedMultisigPermissions.queryFilter`
 
-▸ **removeAllListeners**(`eventName?`): [`MultisigPermissionsClientV2`](MultisigPermissionsClientV2.md)
+***
+
+### removeAllListeners()
+
+#### Call Signature
+
+> **removeAllListeners**\<`TEvent`\>(`eventFilter`): `this`
+
+##### Type Parameters
+
+• **TEvent** *extends* `TypedEvent`
+
+##### Parameters
+
+###### eventFilter
+
+`TypedEventFilter`\<`TEvent`\>
+
+##### Returns
+
+`this`
+
+##### Inherited from
+
+`AugmentedMultisigPermissions.removeAllListeners`
+
+#### Call Signature
+
+> **removeAllListeners**(`eventName`?): `this`
+
+##### Parameters
+
+###### eventName?
+
+`string`
+
+##### Returns
+
+`this`
+
+##### Inherited from
+
+`AugmentedMultisigPermissions.removeAllListeners`
+
+***
+
+### setAuthority()
+
+> **setAuthority**(`authority_`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `eventName?` | `string` |
+##### authority\_
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-[`MultisigPermissionsClientV2`](MultisigPermissionsClientV2.md)
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.removeAllListeners
+`AugmentedMultisigPermissions.setAuthority`
 
-___
+***
 
-### setAuthority
+### setAuthority(address)()
 
-▸ **setAuthority**(`authority_`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setAuthority(address)**(`authority_`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `authority_` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### authority\_
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.setAuthority
+`AugmentedMultisigPermissions.setAuthority(address)`
 
-___
+***
 
-### setAuthority(address)
+### setDomainSkillThreshold()
 
-▸ **setAuthority(address)**(`authority_`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setDomainSkillThreshold**(`_domainSkillId`, `_threshold`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `authority_` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_domainSkillId
+
+`BigNumberish`
+
+##### \_threshold
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.setAuthority(address)
+`AugmentedMultisigPermissions.setDomainSkillThreshold`
 
-___
+***
 
-### setDomainSkillThreshold
+### setDomainSkillThreshold(uint256,uint256)()
 
-▸ **setDomainSkillThreshold**(`_domainSkillId`, `_threshold`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setDomainSkillThreshold(uint256,uint256)**(`_domainSkillId`, `_threshold`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_domainSkillId` | `BigNumberish` |
-| `_threshold` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_domainSkillId
+
+`BigNumberish`
+
+##### \_threshold
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.setDomainSkillThreshold
+`AugmentedMultisigPermissions.setDomainSkillThreshold(uint256,uint256)`
 
-___
+***
 
-### setDomainSkillThreshold(uint256,uint256)
+### setGlobalThreshold()
 
-▸ **setDomainSkillThreshold(uint256,uint256)**(`_domainSkillId`, `_threshold`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setGlobalThreshold**(`_globalThreshold`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_domainSkillId` | `BigNumberish` |
-| `_threshold` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_globalThreshold
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.setDomainSkillThreshold(uint256,uint256)
+`AugmentedMultisigPermissions.setGlobalThreshold`
 
-___
+***
 
-### setGlobalThreshold
+### setGlobalThreshold(uint256)()
 
-▸ **setGlobalThreshold**(`_globalThreshold`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setGlobalThreshold(uint256)**(`_globalThreshold`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_globalThreshold` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_globalThreshold
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.setGlobalThreshold
+`AugmentedMultisigPermissions.setGlobalThreshold(uint256)`
 
-___
+***
 
-### setGlobalThreshold(uint256)
+### setOwner()
 
-▸ **setGlobalThreshold(uint256)**(`_globalThreshold`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setOwner**(`owner_`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_globalThreshold` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### owner\_
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.setGlobalThreshold(uint256)
+`AugmentedMultisigPermissions.setOwner`
 
-___
+***
 
-### setOwner
+### setOwner(address)()
 
-▸ **setOwner**(`owner_`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setOwner(address)**(`owner_`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `owner_` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### owner\_
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.setOwner
+`AugmentedMultisigPermissions.setOwner(address)`
 
-___
+***
 
-### setOwner(address)
+### setUserRoles()
 
-▸ **setOwner(address)**(`owner_`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setUserRoles**(`_permissionDomainId`, `_childSkillIndex`, `_user`, `_domainId`, `_roles`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `owner_` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_user
+
+`string`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_roles
+
+`BytesLike`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.setOwner(address)
+`AugmentedMultisigPermissions.setUserRoles`
 
-___
+***
 
-### setUserRoles
+### setUserRoles(uint256,uint256,address,uint256,bytes32)()
 
-▸ **setUserRoles**(`_permissionDomainId`, `_childSkillIndex`, `_user`, `_domainId`, `_roles`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setUserRoles(uint256,uint256,address,uint256,bytes32)**(`_permissionDomainId`, `_childSkillIndex`, `_user`, `_domainId`, `_roles`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_user` | `string` |
-| `_domainId` | `BigNumberish` |
-| `_roles` | `BytesLike` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_user
+
+`string`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_roles
+
+`BytesLike`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.setUserRoles
+`AugmentedMultisigPermissions.setUserRoles(uint256,uint256,address,uint256,bytes32)`
 
-___
-
-### setUserRoles(uint256,uint256,address,uint256,bytes32)
-
-▸ **setUserRoles(uint256,uint256,address,uint256,bytes32)**(`_permissionDomainId`, `_childSkillIndex`, `_user`, `_domainId`, `_roles`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_user` | `string` |
-| `_domainId` | `BigNumberish` |
-| `_roles` | `BytesLike` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedMultisigPermissions.setUserRoles(uint256,uint256,address,uint256,bytes32)
-
-___
-
-### uninstall
-
-▸ **uninstall**(`overrides?`): `Promise`<`ContractTransaction`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedMultisigPermissions.uninstall
-
-___
+***
 
 ### uninstall()
 
-▸ **uninstall()**(`overrides?`): `Promise`<`ContractTransaction`\>
+> **uninstall**(`overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.uninstall()
+`AugmentedMultisigPermissions.uninstall`
 
-___
+***
 
-### verify
+### uninstall()()
 
-▸ **verify**(`_user`, `_nonce`, `_chainId`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`boolean`\>
+> **uninstall()**(`overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_nonce` | `BigNumberish` |
-| `_chainId` | `BigNumberish` |
-| `_payload` | `BytesLike` |
-| `_sigR` | `BytesLike` |
-| `_sigS` | `BytesLike` |
-| `_sigV` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`boolean`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.verify
+`AugmentedMultisigPermissions.uninstall()`
 
-___
+***
 
-### verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)
+### verify()
 
-▸ **verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)**(`_user`, `_nonce`, `_chainId`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`boolean`\>
+> **verify**(`_user`, `_nonce`, `_chainId`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides`?): `Promise`\<`boolean`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_nonce` | `BigNumberish` |
-| `_chainId` | `BigNumberish` |
-| `_payload` | `BytesLike` |
-| `_sigR` | `BytesLike` |
-| `_sigS` | `BytesLike` |
-| `_sigV` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_user
+
+`string`
+
+##### \_nonce
+
+`BigNumberish`
+
+##### \_chainId
+
+`BigNumberish`
+
+##### \_payload
+
+`BytesLike`
+
+##### \_sigR
+
+`BytesLike`
+
+##### \_sigS
+
+`BytesLike`
+
+##### \_sigV
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`boolean`\>
+`Promise`\<`boolean`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)
+`AugmentedMultisigPermissions.verify`
 
-___
+***
 
-### version
+### verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)()
 
-▸ **version**(`overrides?`): `Promise`<`BigNumber`\>
+> **verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)**(`_user`, `_nonce`, `_chainId`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides`?): `Promise`\<`boolean`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### \_user
+
+`string`
+
+##### \_nonce
+
+`BigNumberish`
+
+##### \_chainId
+
+`BigNumberish`
+
+##### \_payload
+
+`BytesLike`
+
+##### \_sigR
+
+`BytesLike`
+
+##### \_sigS
+
+`BytesLike`
+
+##### \_sigV
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`boolean`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.version
+`AugmentedMultisigPermissions.verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)`
 
-___
+***
 
 ### version()
 
-▸ **version()**(`overrides?`): `Promise`<`BigNumber`\>
+> **version**(`overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedMultisigPermissions.version()
+`AugmentedMultisigPermissions.version`
+
+***
+
+### version()()
+
+> **version()**(`overrides`?): `Promise`\<`BigNumber`\>
+
+#### Parameters
+
+##### overrides?
+
+`CallOverrides`
+
+#### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### Inherited from
+
+`AugmentedMultisigPermissions.version()`

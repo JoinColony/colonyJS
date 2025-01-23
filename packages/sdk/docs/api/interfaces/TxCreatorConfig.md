@@ -1,66 +1,67 @@
-# Interface: TxCreatorConfig<C, M, E, MD\>
+[**API**](../README.md)
 
-## Type parameters
+***
 
-| Name |
-| :------ |
-| `C` |
-| `M` |
-| `E` |
-| `MD` |
+# Interface: TxCreatorConfig\<C, M, E, MD\>
+
+## Type Parameters
+
+• **C**
+
+• **M**
+
+• **E**
+
+• **MD**
 
 ## Properties
 
 ### args
 
-• **args**: `unknown`[] \| () => `Promise`<`unknown`[]\>
+> **args**: `unknown`[] \| () => `Promise`\<`unknown`[]\>
 
-___
+***
 
 ### config
 
-• **config**: `ContractConfig`
+> **config**: `ContractConfig`
 
-___
+***
 
 ### contract
 
-• **contract**: `C`
+> **contract**: `C`
 
-___
+***
 
-### eventData
+### eventData()?
 
-• `Optional` **eventData**: (`receipt`: [`ContractReceipt`](ContractReceipt.md)) => `Promise`<`E`\>
+> `optional` **eventData**: (`receipt`) => `Promise`\<`E`\>
 
-#### Type declaration
+#### Parameters
 
-▸ (`receipt`): `Promise`<`E`\>
+##### receipt
 
-##### Parameters
+[`ContractReceipt`](ContractReceipt.md)
 
-| Name | Type |
-| :------ | :------ |
-| `receipt` | [`ContractReceipt`](ContractReceipt.md) |
+#### Returns
 
-##### Returns
+`Promise`\<`E`\>
 
-`Promise`<`E`\>
+***
 
-___
+### metadataType?
 
-### metadataType
+> `optional` **metadataType**: `MD`
 
-• `Optional` **metadataType**: `MD`
-
-___
+***
 
 ### method
 
-• **method**: `M`
+> **method**: `M`
 
-___
+***
 
-### txConfig
+### txConfig?
 
-• `Optional` **txConfig**: [`TxConfig`](TxConfig.md)<`MD`\>
+> `optional` **txConfig**: [`TxConfig`](TxConfig.md)\<`MD`\>

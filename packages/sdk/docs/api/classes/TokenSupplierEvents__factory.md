@@ -1,40 +1,51 @@
+[**API**](../README.md)
+
+***
+
 # Class: TokenSupplierEvents\_\_factory
 
 ## Constructors
 
-### constructor
+### new TokenSupplierEvents\_\_factory()
 
-• **new TokenSupplierEvents__factory**()
+> **new TokenSupplierEvents\_\_factory**(): [`TokenSupplierEvents__factory`](TokenSupplierEvents__factory.md)
+
+#### Returns
+
+[`TokenSupplierEvents__factory`](TokenSupplierEvents__factory.md)
 
 ## Properties
 
 ### abi
 
-▪ `Static` `Readonly` **abi**: readonly [{ `anonymous`: ``false`` ; `inputs`: readonly [] ; `name`: ``"ExtensionInitialised"`` ; `type`: ``"event"``  }, { `anonymous`: ``false`` ; `inputs`: readonly [{ `indexed`: ``true`` ; `internalType`: ``"address"`` ; `name`: ``"authority"`` ; `type`: ``"address"``  }] ; `name`: ``"LogSetAuthority"`` ; `type`: ``"event"``  }, { `anonymous`: ``false`` ; `inputs`: readonly [{ `indexed`: ``true`` ; `internalType`: ``"address"`` ; `name`: ``"owner"`` ; `type`: ``"address"``  }] ; `name`: ``"LogSetOwner"`` ; `type`: ``"event"``  }, { `anonymous`: ``false`` ; `inputs`: readonly [{ `indexed`: ``false`` ; `internalType`: ``"uint256"`` ; `name`: ``"tokenIssuanceRate"`` ; `type`: ``"uint256"``  }] ; `name`: ``"TokenIssuanceRateSet"`` ; `type`: ``"event"``  }, { `anonymous`: ``false`` ; `inputs`: readonly [{ `indexed`: ``false`` ; `internalType`: ``"uint256"`` ; `name`: ``"tokenSupplyCeiling"`` ; `type`: ``"uint256"``  }] ; `name`: ``"TokenSupplyCeilingSet"`` ; `type`: ``"event"``  }, { `anonymous`: ``false`` ; `inputs`: readonly [{ `indexed`: ``false`` ; `internalType`: ``"uint256"`` ; `name`: ``"numTokens"`` ; `type`: ``"uint256"``  }] ; `name`: ``"TokensIssued"`` ; `type`: ``"event"``  }, { `anonymous`: ``false`` ; `inputs`: readonly [{ `indexed`: ``false`` ; `internalType`: ``"address"`` ; `name`: ``"user"`` ; `type`: ``"address"``  }, { `indexed`: ``false`` ; `internalType`: ``"address payable"`` ; `name`: ``"relayerAddress"`` ; `type`: ``"address"``  }, { `indexed`: ``false`` ; `internalType`: ``"bytes"`` ; `name`: ``"functionSignature"`` ; `type`: ``"bytes"``  }] ; `name`: ``"MetaTransactionExecuted"`` ; `type`: ``"event"``  }]
+> `readonly` `static` **abi**: readonly \[\{ `anonymous`: `false`; `inputs`: readonly \[\]; `name`: `"ExtensionInitialised"`; `type`: `"event"`; \}, \{ `anonymous`: `false`; `inputs`: readonly \[\{ `indexed`: `true`; `internalType`: `"address"`; `name`: `"authority"`; `type`: `"address"`; \}\]; `name`: `"LogSetAuthority"`; `type`: `"event"`; \}, \{ `anonymous`: `false`; `inputs`: readonly \[\{ `indexed`: `true`; `internalType`: `"address"`; `name`: `"owner"`; `type`: `"address"`; \}\]; `name`: `"LogSetOwner"`; `type`: `"event"`; \}, \{ `anonymous`: `false`; `inputs`: readonly \[\{ `indexed`: `false`; `internalType`: `"uint256"`; `name`: `"tokenIssuanceRate"`; `type`: `"uint256"`; \}\]; `name`: `"TokenIssuanceRateSet"`; `type`: `"event"`; \}, \{ `anonymous`: `false`; `inputs`: readonly \[\{ `indexed`: `false`; `internalType`: `"uint256"`; `name`: `"tokenSupplyCeiling"`; `type`: `"uint256"`; \}\]; `name`: `"TokenSupplyCeilingSet"`; `type`: `"event"`; \}, \{ `anonymous`: `false`; `inputs`: readonly \[\{ `indexed`: `false`; `internalType`: `"uint256"`; `name`: `"numTokens"`; `type`: `"uint256"`; \}\]; `name`: `"TokensIssued"`; `type`: `"event"`; \}, \{ `anonymous`: `false`; `inputs`: readonly \[\{ `indexed`: `false`; `internalType`: `"address"`; `name`: `"user"`; `type`: `"address"`; \}, \{ `indexed`: `false`; `internalType`: `"address payable"`; `name`: `"relayerAddress"`; `type`: `"address"`; \}, \{ `indexed`: `false`; `internalType`: `"bytes"`; `name`: `"functionSignature"`; `type`: `"bytes"`; \}\]; `name`: `"MetaTransactionExecuted"`; `type`: `"event"`; \}\]
 
 ## Methods
 
-### connect
+### connect()
 
-▸ `Static` **connect**(`address`, `signerOrProvider`): [`TokenSupplierEvents`](../interfaces/TokenSupplierEvents.TokenSupplierEvents.md)
+> `static` **connect**(`address`, `signerOrProvider`): [`TokenSupplierEvents`](../namespaces/TokenSupplierEvents/interfaces/TokenSupplierEvents.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `address` | `string` |
-| `signerOrProvider` | `Signer` \| `Provider` |
+##### address
+
+`string`
+
+##### signerOrProvider
+
+`Signer` | `Provider`
 
 #### Returns
 
-[`TokenSupplierEvents`](../interfaces/TokenSupplierEvents.TokenSupplierEvents.md)
+[`TokenSupplierEvents`](../namespaces/TokenSupplierEvents/interfaces/TokenSupplierEvents.md)
 
-___
+***
 
-### createInterface
+### createInterface()
 
-▸ `Static` **createInterface**(): [`TokenSupplierEventsInterface`](../interfaces/TokenSupplierEvents.TokenSupplierEventsInterface.md)
+> `static` **createInterface**(): [`TokenSupplierEventsInterface`](../namespaces/TokenSupplierEvents/interfaces/TokenSupplierEventsInterface.md)
 
 #### Returns
 
-[`TokenSupplierEventsInterface`](../interfaces/TokenSupplierEvents.TokenSupplierEventsInterface.md)
+[`TokenSupplierEventsInterface`](../namespaces/TokenSupplierEvents/interfaces/TokenSupplierEventsInterface.md)

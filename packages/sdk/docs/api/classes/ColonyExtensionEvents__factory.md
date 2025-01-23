@@ -1,40 +1,51 @@
+[**API**](../README.md)
+
+***
+
 # Class: ColonyExtensionEvents\_\_factory
 
 ## Constructors
 
-### constructor
+### new ColonyExtensionEvents\_\_factory()
 
-• **new ColonyExtensionEvents__factory**()
+> **new ColonyExtensionEvents\_\_factory**(): [`ColonyExtensionEvents__factory`](ColonyExtensionEvents__factory.md)
+
+#### Returns
+
+[`ColonyExtensionEvents__factory`](ColonyExtensionEvents__factory.md)
 
 ## Properties
 
 ### abi
 
-▪ `Static` `Readonly` **abi**: readonly [{ `anonymous`: ``false`` ; `inputs`: readonly [] ; `name`: ``"ExtensionInitialised"`` ; `type`: ``"event"``  }, { `anonymous`: ``false`` ; `inputs`: readonly [{ `indexed`: ``true`` ; `internalType`: ``"address"`` ; `name`: ``"authority"`` ; `type`: ``"address"``  }] ; `name`: ``"LogSetAuthority"`` ; `type`: ``"event"``  }, { `anonymous`: ``false`` ; `inputs`: readonly [{ `indexed`: ``true`` ; `internalType`: ``"address"`` ; `name`: ``"owner"`` ; `type`: ``"address"``  }] ; `name`: ``"LogSetOwner"`` ; `type`: ``"event"``  }, { `anonymous`: ``false`` ; `inputs`: readonly [{ `indexed`: ``false`` ; `internalType`: ``"address"`` ; `name`: ``"userAddress"`` ; `type`: ``"address"``  }, { `indexed`: ``false`` ; `internalType`: ``"address payable"`` ; `name`: ``"relayerAddress"`` ; `type`: ``"address"``  }, { `indexed`: ``false`` ; `internalType`: ``"bytes"`` ; `name`: ``"payload"`` ; `type`: ``"bytes"``  }] ; `name`: ``"MetaTransactionExecuted"`` ; `type`: ``"event"``  }]
+> `readonly` `static` **abi**: readonly \[\{ `anonymous`: `false`; `inputs`: readonly \[\]; `name`: `"ExtensionInitialised"`; `type`: `"event"`; \}, \{ `anonymous`: `false`; `inputs`: readonly \[\{ `indexed`: `true`; `internalType`: `"address"`; `name`: `"authority"`; `type`: `"address"`; \}\]; `name`: `"LogSetAuthority"`; `type`: `"event"`; \}, \{ `anonymous`: `false`; `inputs`: readonly \[\{ `indexed`: `true`; `internalType`: `"address"`; `name`: `"owner"`; `type`: `"address"`; \}\]; `name`: `"LogSetOwner"`; `type`: `"event"`; \}, \{ `anonymous`: `false`; `inputs`: readonly \[\{ `indexed`: `false`; `internalType`: `"address"`; `name`: `"userAddress"`; `type`: `"address"`; \}, \{ `indexed`: `false`; `internalType`: `"address payable"`; `name`: `"relayerAddress"`; `type`: `"address"`; \}, \{ `indexed`: `false`; `internalType`: `"bytes"`; `name`: `"payload"`; `type`: `"bytes"`; \}\]; `name`: `"MetaTransactionExecuted"`; `type`: `"event"`; \}\]
 
 ## Methods
 
-### connect
+### connect()
 
-▸ `Static` **connect**(`address`, `signerOrProvider`): [`ColonyExtensionEvents`](../interfaces/ColonyExtensionEvents.ColonyExtensionEvents.md)
+> `static` **connect**(`address`, `signerOrProvider`): [`ColonyExtensionEvents`](../namespaces/ColonyExtensionEvents/interfaces/ColonyExtensionEvents.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `address` | `string` |
-| `signerOrProvider` | `Signer` \| `Provider` |
+##### address
+
+`string`
+
+##### signerOrProvider
+
+`Signer` | `Provider`
 
 #### Returns
 
-[`ColonyExtensionEvents`](../interfaces/ColonyExtensionEvents.ColonyExtensionEvents.md)
+[`ColonyExtensionEvents`](../namespaces/ColonyExtensionEvents/interfaces/ColonyExtensionEvents.md)
 
-___
+***
 
-### createInterface
+### createInterface()
 
-▸ `Static` **createInterface**(): [`ColonyExtensionEventsInterface`](../interfaces/ColonyExtensionEvents.ColonyExtensionEventsInterface.md)
+> `static` **createInterface**(): [`ColonyExtensionEventsInterface`](../namespaces/ColonyExtensionEvents/interfaces/ColonyExtensionEventsInterface.md)
 
 #### Returns
 
-[`ColonyExtensionEventsInterface`](../interfaces/ColonyExtensionEvents.ColonyExtensionEventsInterface.md)
+[`ColonyExtensionEventsInterface`](../namespaces/ColonyExtensionEvents/interfaces/ColonyExtensionEventsInterface.md)
