@@ -2,9 +2,10 @@
   "name": "@colony/contractor",
   "version": "2.4.0",
   "description": "✒️ A nifty tool that creates Colony Network TypeScript bindings",
+  "type": "module",
   "scripts": {
     "clean": "rimraf ./bin",
-    "build": "npm run clean && tsc --module commonjs --outDir bin",
+    "build": "npm run clean && tsc --declaration --outDir bin",
     "lint": "eslint --ext .ts src",
     "typecheck": "tsc --noEmit"
   },
@@ -39,8 +40,5 @@
     "rimraf": "^5.0.0",
     "typechain": "8.3.0",
     "yargs": "^17.7.1"
-  },
-  "devDependencies": {
-    "@types/node": "^18.15.11"
   }
 }

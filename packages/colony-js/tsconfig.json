@@ -1,28 +1,15 @@
 {
+  "extends": "../../tsconfig.base.json",
+  "include": [
+    "src/index.ts"
+  ],
+  "exclude": [
+    "**/__tests__"
+  ],
   "compilerOptions": {
-    "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "inlineSourceMap": false,
-    "lib": [
-      "esnext"
-    ],
-    "listEmittedFiles": false,
-    "listFiles": false,
     "module": "esnext",
     "moduleResolution": "bundler",
-    "noEmit": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": true,
-    "pretty": true,
-    "resolveJsonModule": true,
-    "rootDir": "./src",
-    "skipLibCheck": true,
-    "strictNullChecks": true,
-    "strict": true,
-    "traceResolution": false
-  },
-  "include": [
-    "src"
-  ]
+    "noEmit": false
+  }
 }
