@@ -10,6 +10,5 @@
   "disableSources": true,
   "readme": "none",
   "plugin": "typedoc-plugin-markdown",
-  "hideBreadcrumbs": true,
-  "hideInPageTOC": true
+  "hideBreadcrumbs": true
 }
