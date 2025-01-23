@@ -11,7 +11,7 @@ import { extractEvent } from '../../utils.js';
 import { ERC20Token } from './ERC20Token.js';
 
 export class ColonyToken extends ERC20Token {
-  protected tokenClient: ColonyTokenType;
+  protected declare tokenClient: ColonyTokenType;
 
   /**
    * Creates a new instance of a Colony deployed Token

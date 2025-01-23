@@ -1,22 +1,9 @@
 {
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "lib": [
-      "es2018"
-    ],
-    "module": "commonjs",
-    "moduleResolution": "nodenext",
-    "noImplicitAny": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "strict": true,
-    "target": "es2018",
-    "types": [
-      "node"
-    ],
-    "rootDir": "./src",
-    "skipLibCheck": true
+    "noEmit": false
   },
   "include": [
-    "src/contractor.ts"
+    "./src"
   ]
 }

@@ -12,7 +12,7 @@ import { extractEvent } from '../../utils.js';
 import { ERC20Token } from './ERC20Token.js';
 
 export class ERC2612Token extends ERC20Token {
-  protected tokenClient: ERC2612TokenType;
+  protected declare tokenClient: ERC2612TokenType;
 
   /**
    * Creates a new instance of an ERC2612 token (ERC20 with Permit extension)

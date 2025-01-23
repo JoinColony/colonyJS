@@ -13,5 +13,5 @@ export default defineConfig({
     };
   },
   target: 'es2022',
-  tsconfig: 'tsconfig.build.json',
+  tsconfig: 'tsconfig.json',
 });
