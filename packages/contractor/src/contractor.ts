@@ -1,13 +1,14 @@
-import { resolve as resolvePath, dirname } from 'path';
+import { resolve as resolvePath, dirname } from 'node:path';
 import { rimraf } from 'rimraf';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 import { runTypeChain, glob } from 'typechain';
-import {
-  latest as latestTag,
-  releases,
-  releaseMap,
-} from '@colony/abis/versions';
+import { versions } from '@colony/abis';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+
+const { latest: latestTag, releases, releaseMap } = versions;
 
 // Contracts needed in the core package
 const CORE_CONTRACTS = ['MotionTarget', 'Versioned'];
@@ -43,7 +44,7 @@ const TOKEN_STATIC_CONTRACTS = [
   'TokenSAI',
 ];
 
-const ABI_DIR = dirname(require.resolve('@colony/abis/versions'));
+const ABI_DIR = dirname(require.resolve('@colony/abis'));
 const VERSIONED_DIR = resolvePath(ABI_DIR, 'versions');
 const CORE_DIR = resolvePath(ABI_DIR, 'core');
 const EVENTS_DIR = resolvePath(ABI_DIR, 'events');

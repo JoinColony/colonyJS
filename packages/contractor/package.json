@@ -31,7 +31,7 @@
   },
   "homepage": "https://docs.colony.io/develop",
   "dependencies": {
-    "@colony/abis": "^1.8.2",
+    "@colony/abis": "^2.0.0",
     "@typechain/ethers-v5": "^11.1.0",
     "@typechain/ethers-v6": "^0.4.2",
     "@types/mkdirp": "^1.0.2",
