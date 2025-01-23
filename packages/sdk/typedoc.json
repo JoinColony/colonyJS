@@ -12,7 +12,5 @@
   "readme": "none",
   "plugin": "typedoc-plugin-markdown",
   "hideBreadcrumbs": true,
-  "hideInPageTOC": true,
-  "hideParameterTypesInTitle": true,
   "requiredToBeDocumented": ["Enum", "Class"]
 }
