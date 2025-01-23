@@ -367,6 +367,7 @@ export class Colony {
    * @param teamId - The teamId (domainId) of the team to get the balance for. If not given, it will return the total balance of that token across the whole Colony (including non-claimed funds)
    * @returns A token balance in [wei](https://gwei.io/)
    */
+  // TODO: (next): Create function getTotalBalance(tokenAddress?) to get the unclaimed balance as well. Then default teamId to ROOT
   async getBalance(tokenAddress?: string, teamId?: BigNumberish) {
     if (teamId) {
       const { fundingPotId } = await this.colony.getDomain(teamId);
