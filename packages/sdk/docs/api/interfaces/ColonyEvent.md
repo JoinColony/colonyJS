@@ -1,105 +1,101 @@
-# Interface: ColonyEvent<M\>
+[**API**](../README.md)
+
+***
+
+# Interface: ColonyEvent\<M\>
 
 An Event that came from a contract within the Colony Network
 
-## Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `M` | extends [`MetadataType`](../enums/MetadataType.md) |
-
-## Hierarchy
+## Extends
 
 - [`ColonyFilter`](ColonyFilter.md)
 
-  ↳ **`ColonyEvent`**
+## Type Parameters
+
+• **M** *extends* [`MetadataType`](../enumerations/MetadataType.md)
 
 ## Properties
 
-### address
+### address?
 
-• `Optional` **address**: `string` \| `string`[]
+> `optional` **address**: `string` \| `string`[]
 
 #### Inherited from
 
-[ColonyFilter](ColonyFilter.md).[address](ColonyFilter.md#address)
+[`ColonyFilter`](ColonyFilter.md).[`address`](ColonyFilter.md#address)
 
-___
+***
 
 ### data
 
-• **data**: `Result`
+> **data**: `Result`
 
-___
+***
 
 ### eventName
 
-• **eventName**: `string`
+> **eventName**: `string`
 
 The full event signature of this event (e.g. `TokenMinted(uint256))`
 
 #### Inherited from
 
-[ColonyFilter](ColonyFilter.md).[eventName](ColonyFilter.md#eventname)
+[`ColonyFilter`](ColonyFilter.md).[`eventName`](ColonyFilter.md#eventname)
 
-___
+***
 
 ### eventSource
 
-• **eventSource**: `BaseContract`
+> **eventSource**: `BaseContract`
 
 The generated id of the contract the event originated from
 
 #### Inherited from
 
-[ColonyFilter](ColonyFilter.md).[eventSource](ColonyFilter.md#eventsource)
+[`ColonyFilter`](ColonyFilter.md).[`eventSource`](ColonyFilter.md#eventsource)
 
-___
+***
 
-### fromBlock
+### fromBlock?
 
-• `Optional` **fromBlock**: `BlockTag`
-
-#### Inherited from
-
-[ColonyFilter](ColonyFilter.md).[fromBlock](ColonyFilter.md#fromblock)
-
-___
-
-### getMetadata
-
-• `Optional` **getMetadata**: () => `Promise`<[`MetadataTypeMap`](MetadataTypeMap.md)[`M`]\>
-
-#### Type declaration
-
-▸ (): `Promise`<[`MetadataTypeMap`](MetadataTypeMap.md)[`M`]\>
-
-##### Returns
-
-`Promise`<[`MetadataTypeMap`](MetadataTypeMap.md)[`M`]\>
-
-___
-
-### toBlock
-
-• `Optional` **toBlock**: `BlockTag`
+> `optional` **fromBlock**: `BlockTag`
 
 #### Inherited from
 
-[ColonyFilter](ColonyFilter.md).[toBlock](ColonyFilter.md#toblock)
+[`ColonyFilter`](ColonyFilter.md).[`fromBlock`](ColonyFilter.md#fromblock)
 
-___
+***
 
-### topics
+### getMetadata()?
 
-• `Optional` **topics**: (``null`` \| `string` \| `string`[])[]
+> `optional` **getMetadata**: () => `Promise`\<[`MetadataTypeMap`](MetadataTypeMap.md)\[`M`\]\>
+
+#### Returns
+
+`Promise`\<[`MetadataTypeMap`](MetadataTypeMap.md)\[`M`\]\>
+
+***
+
+### toBlock?
+
+> `optional` **toBlock**: `BlockTag`
 
 #### Inherited from
 
-[ColonyFilter](ColonyFilter.md).[topics](ColonyFilter.md#topics)
+[`ColonyFilter`](ColonyFilter.md).[`toBlock`](ColonyFilter.md#toblock)
 
-___
+***
+
+### topics?
+
+> `optional` **topics**: (`null` \| `string` \| `string`[])[]
+
+#### Inherited from
+
+[`ColonyFilter`](ColonyFilter.md).[`topics`](ColonyFilter.md#topics)
+
+***
 
 ### transactionHash
 
-• **transactionHash**: `string`
+> **transactionHash**: `string`

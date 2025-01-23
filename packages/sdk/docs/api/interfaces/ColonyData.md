@@ -1,43 +1,47 @@
+[**API**](../README.md)
+
+***
+
 # Interface: ColonyData
 
 ## Properties
 
-### colonyAvatarHash
+### colonyAvatarHash?
 
-• `Optional` **colonyAvatarHash**: `string`
+> `optional` **colonyAvatarHash**: `string`
 
-___
+***
 
-### colonyDisplayName
+### colonyDisplayName?
 
-• `Optional` **colonyDisplayName**: `string`
+> `optional` **colonyDisplayName**: `string`
 
-___
+***
 
 ### colonyName
 
-• **colonyName**: `string`
+> **colonyName**: `string`
 
-___
+***
 
-### colonySafes
+### colonySafes?
 
-• `Optional` **colonySafes**: [`SafeInfo`](SafeInfo.md)[]
+> `optional` **colonySafes**: [`SafeInfo`](SafeInfo.md)[]
 
-___
+***
 
-### colonyTokens
+### colonyTokens?
 
-• `Optional` **colonyTokens**: `string`[]
+> `optional` **colonyTokens**: `string`[]
 
-___
+***
 
-### isWhitelistActivated
+### isWhitelistActivated?
 
-• `Optional` **isWhitelistActivated**: `boolean`
+> `optional` **isWhitelistActivated**: `boolean`
 
-___
+***
 
-### verifiedAddresses
+### verifiedAddresses?
 
-• `Optional` **verifiedAddresses**: `string`[]
+> `optional` **verifiedAddresses**: `string`[]

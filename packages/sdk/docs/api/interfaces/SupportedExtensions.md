@@ -1,13 +1,17 @@
+[**API**](../README.md)
+
+***
+
 # Interface: SupportedExtensions
 
 ## Properties
 
-### motions
+### motions?
 
-• `Optional` **motions**: [`VotingReputation`](../classes/VotingReputation.md)
+> `optional` **motions**: [`VotingReputation`](../classes/VotingReputation.md)
 
-___
+***
 
-### oneTx
+### oneTx?
 
-• `Optional` **oneTx**: [`OneTxPayment`](../classes/OneTxPayment.md)
+> `optional` **oneTx**: [`OneTxPayment`](../classes/OneTxPayment.md)

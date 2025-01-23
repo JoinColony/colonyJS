@@ -1,3 +1,7 @@
+[**API**](../README.md)
+
+***
+
 # Class: IpfsMetadata
 
 IpfsMetadata
@@ -7,113 +11,121 @@ You can find an instance of this under `colonyNetwork.ipfs` or `eventManager.ipf
 
 ## Constructors
 
-### constructor
+### new IpfsMetadata()
 
-• **new IpfsMetadata**(`adapter?`)
+> **new IpfsMetadata**(`adapter`?): [`IpfsMetadata`](IpfsMetadata.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `adapter?` | [`IpfsAdapter`](../interfaces/IpfsAdapter.md) |
+##### adapter?
+
+[`IpfsAdapter`](../interfaces/IpfsAdapter.md)
+
+#### Returns
+
+[`IpfsMetadata`](IpfsMetadata.md)
 
 ## Methods
 
-### getMetadata
+### getMetadata()
 
-▸ **getMetadata**<`K`\>(`cid`, `type?`): `Promise`<[`MetadataTypeMap`](../interfaces/MetadataTypeMap.md)[`K`]\>
+> **getMetadata**\<`K`\>(`cid`, `type`?): `Promise`\<[`MetadataTypeMap`](../interfaces/MetadataTypeMap.md)\[`K`\]\>
 
-#### Type parameters
+#### Type Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `K` | extends [`MetadataType`](../enums/MetadataType.md) |
+• **K** *extends* [`MetadataType`](../enumerations/MetadataType.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `cid` | `string` |
-| `type?` | `K` |
+##### cid
+
+`string`
+
+##### type?
+
+`K`
 
 #### Returns
 
-`Promise`<[`MetadataTypeMap`](../interfaces/MetadataTypeMap.md)[`K`]\>
+`Promise`\<[`MetadataTypeMap`](../interfaces/MetadataTypeMap.md)\[`K`\]\>
 
-___
+***
 
-### getMetadataForEvent
+### getMetadataForEvent()
 
-▸ **getMetadataForEvent**<`T`, `E`\>(`eventName`, `cid`): `Promise`<[`MetadataTypeMap`](../interfaces/MetadataTypeMap.md)[`T`]\>
+> **getMetadataForEvent**\<`T`, `E`\>(`eventName`, `cid`): `Promise`\<[`MetadataTypeMap`](../interfaces/MetadataTypeMap.md)\[`T`\]\>
 
-#### Type parameters
+#### Type Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `T` | extends [`MetadataType`](../enums/MetadataType.md) |
-| `E` | extends ``""`` \| ``"Annotation(address,bytes32,string)"`` \| ``"ColonyMetadata(address,string)"`` \| ``"DomainMetadata(address,uint256,string)"`` |
+• **T** *extends* [`MetadataType`](../enumerations/MetadataType.md)
+
+• **E** *extends* `""` \| `"Annotation(address,bytes32,string)"` \| `"ColonyMetadata(address,string)"` \| `"DomainMetadata(address,uint256,string)"`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `eventName` | `E` |
-| `cid` | `string` |
+##### eventName
+
+`E`
+
+##### cid
+
+`string`
 
 #### Returns
 
-`Promise`<[`MetadataTypeMap`](../interfaces/MetadataTypeMap.md)[`T`]\>
+`Promise`\<[`MetadataTypeMap`](../interfaces/MetadataTypeMap.md)\[`T`\]\>
 
-___
+***
 
-### getRawMetadata
+### getRawMetadata()
 
-▸ **getRawMetadata**(`cid`): `Promise`<[`Metadata`](../README.md#metadata)\>
+> **getRawMetadata**(`cid`): `Promise`\<[`Metadata`](../type-aliases/Metadata.md)\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `cid` | `string` |
+##### cid
+
+`string`
 
 #### Returns
 
-`Promise`<[`Metadata`](../README.md#metadata)\>
+`Promise`\<[`Metadata`](../type-aliases/Metadata.md)\>
 
-___
+***
 
-### uploadMetadata
+### uploadMetadata()
 
-▸ **uploadMetadata**<`T`\>(`type`, `input`): `Promise`<`string`\>
+> **uploadMetadata**\<`T`\>(`type`, `input`): `Promise`\<`string`\>
 
-#### Type parameters
+#### Type Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `T` | extends [`MetadataType`](../enums/MetadataType.md) |
+• **T** *extends* [`MetadataType`](../enumerations/MetadataType.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `type` | `T` |
-| `input` | [`DataTypeMap`](../interfaces/DataTypeMap.md)[`T`] |
+##### type
+
+`T`
+
+##### input
+
+[`DataTypeMap`](../interfaces/DataTypeMap.md)\[`T`\]
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
-___
+***
 
-### eventSupportsMetadata
+### eventSupportsMetadata()
 
-▸ `Static` **eventSupportsMetadata**(`eventName`): `boolean`
+> `static` **eventSupportsMetadata**(`eventName`): `boolean`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `eventName` | `string` |
+##### eventName
+
+`string`
 
 #### Returns
 

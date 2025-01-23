@@ -1,11 +1,15 @@
-# Interface: ColonyTransaction<C, E, R, MD\>
+[**API**](../README.md)
+
+***
+
+# Interface: ColonyTransaction\<C, E, R, MD\>
 
 A standard transaction ("force" in dApp)
 
 You can then `send` the transaction, wait for it to be `mined` or `encode` it.
 See also https://docs.colony.io/colonysdk/guides/transactions for more information
 
-**`Example`**
+## Example
 
 ```typescript
 (async function() {
@@ -23,65 +27,66 @@ See also https://docs.colony.io/colonysdk/guides/transactions for more informati
 })();
 ```
 
-## Type parameters
+## Type Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `C` | extends [`ContractTransaction`](ContractTransaction.md) |
-| `E` | extends [`EventData`](EventData.md) \| [`MotionCreatedEventObject`](VotingReputationEvents.MotionCreatedEventObject.md) |
-| `R` | extends [`ContractReceipt`](ContractReceipt.md) |
-| `MD` | extends [`MetadataType`](../enums/MetadataType.md) |
+• **C** *extends* [`ContractTransaction`](ContractTransaction.md)
+
+• **E** *extends* [`EventData`](EventData.md) \| [`MotionCreatedEventObject`](../namespaces/VotingReputationEvents/interfaces/MotionCreatedEventObject.md)
+
+• **R** *extends* [`ContractReceipt`](ContractReceipt.md)
+
+• **MD** *extends* [`MetadataType`](../enumerations/MetadataType.md)
 
 ## Methods
 
-### encode
+### encode()
 
-▸ **encode**(): `Promise`<`string`\>
+> **encode**(): `Promise`\<`string`\>
 
 Encode the transaction into a raw string
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
 A raw, encoded transaction string
 
-___
+***
 
-### mined
+### mined()
 
-▸ **mined**(`overrides?`): `Promise`<[`E`, `R`] \| [`E`, `R`, () => `Promise`<[`MetadataTypeMap`](MetadataTypeMap.md)[`MD`]\>]\>
+> **mined**(`overrides`?): `Promise`\<\[`E`, `R`\] \| \[`E`, `R`, () => `Promise`\<[`MetadataTypeMap`](MetadataTypeMap.md)\[`MD`\]\>\]\>
 
 Wait until the tx is mined, returning the event data and the receipt
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `TxOverrides` |
+##### overrides?
+
+`TxOverrides`
 
 #### Returns
 
-`Promise`<[`E`, `R`] \| [`E`, `R`, () => `Promise`<[`MetadataTypeMap`](MetadataTypeMap.md)[`MD`]\>]\>
+`Promise`\<\[`E`, `R`\] \| \[`E`, `R`, () => `Promise`\<[`MetadataTypeMap`](MetadataTypeMap.md)\[`MD`\]\>\]\>
 
 A tupel of event data and contract receipt (and a function to retrieve metadata if applicable)
 
-___
+***
 
-### send
+### send()
 
-▸ **send**(`overrides?`): `Promise`<[`C`, () => `Promise`<[`E`, `R`, () => `Promise`<[`MetadataTypeMap`](MetadataTypeMap.md)[`MD`]\>] \| [`E`, `R`]\>]\>
+> **send**(`overrides`?): `Promise`\<\[`C`, () => `Promise`\<\[`E`, `R`, () => `Promise`\<[`MetadataTypeMap`](MetadataTypeMap.md)\[`MD`\]\>\] \| \[`E`, `R`\]\>\]\>
 
 Send off the tx, returning the transaction including its hash, not waiting for it to be mined
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `TxOverrides` |
+##### overrides?
+
+`TxOverrides`
 
 #### Returns
 
-`Promise`<[`C`, () => `Promise`<[`E`, `R`, () => `Promise`<[`MetadataTypeMap`](MetadataTypeMap.md)[`MD`]\>] \| [`E`, `R`]\>]\>
+`Promise`\<\[`C`, () => `Promise`\<\[`E`, `R`, () => `Promise`\<[`MetadataTypeMap`](MetadataTypeMap.md)\[`MD`\]\>\] \| \[`E`, `R`\]\>\]\>
 
 A tupel of a contract transaction and a function to wait for the mined event data as well as the receipt

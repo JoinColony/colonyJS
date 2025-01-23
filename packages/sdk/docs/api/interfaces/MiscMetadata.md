@@ -1,33 +1,35 @@
+[**API**](../README.md)
+
+***
+
 # Interface: MiscMetadata
 
-## Hierarchy
+## Extends
 
 - `BaseMetadata`
-
-  ↳ **`MiscMetadata`**
 
 ## Properties
 
 ### data
 
-• **data**: [`MiscData`](MiscData.md)
+> **data**: [`MiscData`](MiscData.md)
 
-___
+***
 
 ### name
 
-• **name**: [`Misc`](../enums/MetadataType.md#misc)
+> **name**: [`Misc`](../enumerations/MetadataType.md#misc)
 
 #### Overrides
 
-BaseMetadata.name
+`BaseMetadata.name`
 
-___
+***
 
 ### version
 
-• **version**: `number`
+> **version**: `number`
 
 #### Inherited from
 
-BaseMetadata.version
+`BaseMetadata.version`

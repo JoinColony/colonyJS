@@ -1,33 +1,35 @@
+[**API**](../README.md)
+
+***
+
 # Interface: AnnotationMetadata
 
-## Hierarchy
+## Extends
 
 - `BaseMetadata`
-
-  ↳ **`AnnotationMetadata`**
 
 ## Properties
 
 ### data
 
-• **data**: [`AnnotationData`](AnnotationData.md)
+> **data**: [`AnnotationData`](AnnotationData.md)
 
-___
+***
 
 ### name
 
-• **name**: [`Annotation`](../enums/MetadataType.md#annotation)
+> **name**: [`Annotation`](../enumerations/MetadataType.md#annotation)
 
 #### Overrides
 
-BaseMetadata.name
+`BaseMetadata.name`
 
-___
+***
 
 ### version
 
-• **version**: `number`
+> **version**: `number`
 
 #### Inherited from
 
-BaseMetadata.version
+`BaseMetadata.version`

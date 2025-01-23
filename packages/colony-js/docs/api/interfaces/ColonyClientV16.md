@@ -1,98 +1,88 @@
+[**API**](../README.md)
+
+***
+
 # Interface: ColonyClientV16
 
-## Hierarchy
+## Extends
 
-- `AugmentedIColony`<`IColony`\>
-
-- `ColonyAugmentsV3`<`IColony`\>
-
-- `ColonyAugmentsV4`<`IColony`\>
-
-- `ColonyAugmentsV5`<`IColony`\>
-
-- `ColonyAugmentsV6`<`IColony`\>
-
-- `ColonyAugmentsV7`<`IColony`\>
-
-- `AddDomainAugmentsB`<`IColony`\>
-
-- `MoveFundsBetweenPotsAugmentsB`<`IColony`\>
-
-  ↳ **`ColonyClientV16`**
+- `AugmentedIColony`\<`IColony`\>.`ColonyAugmentsV3`\<`IColony`\>.`ColonyAugmentsV4`\<`IColony`\>.`ColonyAugmentsV5`\<`IColony`\>.`ColonyAugmentsV6`\<`IColony`\>.`ColonyAugmentsV7`\<`IColony`\>.`AddDomainAugmentsB`\<`IColony`\>.`MoveFundsBetweenPotsAugmentsB`\<`IColony`\>
 
 ## Properties
 
 ### \_deployedPromise
 
-• **\_deployedPromise**: `Promise`<`Contract`\>
+> **\_deployedPromise**: `Promise`\<`Contract`\>
 
 #### Inherited from
 
-AugmentedIColony.\_deployedPromise
+`AugmentedIColony._deployedPromise`
 
-___
+***
 
 ### \_runningEvents
 
-• **\_runningEvents**: `Object`
+> **\_runningEvents**: `object`
 
-#### Index signature
+#### Index Signature
 
-▪ [eventTag: `string`]: `RunningEvent`
+\[`eventTag`: `string`\]: `RunningEvent`
 
 #### Inherited from
 
-AugmentedIColony.\_runningEvents
+`AugmentedIColony._runningEvents`
 
-___
+***
 
 ### \_wrappedEmits
 
-• **\_wrappedEmits**: `Object`
+> **\_wrappedEmits**: `object`
 
-#### Index signature
+#### Index Signature
 
-▪ [eventTag: `string`]: (...`args`: `any`[]) => `void`
+\[`eventTag`: `string`\]: (...`args`) => `void`
 
 #### Inherited from
 
-AugmentedIColony.\_wrappedEmits
+`AugmentedIColony._wrappedEmits`
 
-___
+***
 
 ### address
 
-• `Readonly` **address**: `string`
+> `readonly` **address**: `string`
 
 #### Inherited from
 
-AugmentedIColony.address
+`AugmentedIColony.address`
 
-___
+***
 
 ### clientType
 
-• **clientType**: [`ColonyClient`](../enums/ClientType.md#colonyclient)
+> **clientType**: [`ColonyClient`](../enumerations/ClientType.md#colonyclient)
 
 #### Inherited from
 
-AugmentedIColony.clientType
+`AugmentedIColony.clientType`
 
-___
+***
 
 ### clientVersion
 
-• **clientVersion**: ``16``
+> **clientVersion**: `16`
+
+The version of the Colony the client is attached to
 
 #### Overrides
 
-AugmentedIColony.clientVersion
+`AugmentedIColony.clientVersion`
 
-___
+***
 
 ### colonyEvents
 
-• **colonyEvents**: `IColonyEvents`
+> **colonyEvents**: `IColonyEvents`
 
 The colonyEvents contract supports all events across all versions.
 Isn't that amazing?
@@ -100,292 +90,2497 @@ It's an ethers contract with only events to filter
 
 #### Inherited from
 
-AugmentedIColony.colonyEvents
+`AugmentedIColony.colonyEvents`
 
-___
+***
 
 ### deployTransaction
 
-• `Readonly` **deployTransaction**: `TransactionResponse`
+> `readonly` **deployTransaction**: `TransactionResponse`
 
 #### Inherited from
 
-AugmentedIColony.deployTransaction
+`AugmentedIColony.deployTransaction`
 
-___
+***
 
 ### estimateGas
 
-• **estimateGas**: `ColonyClientV16Estimate`
+> **estimateGas**: `ColonyClientV16Estimate`
 
 #### Overrides
 
-AugmentedIColony.estimateGas
+`AugmentedIColony.estimateGas`
 
-___
+***
 
 ### filters
 
-• **filters**: `Object`
+> **filters**: `object`
 
-#### Type declaration
+#### Annotation()
 
-| Name | Type |
-| :------ | :------ |
-| `Annotation` | (`agent?`: ``null`` \| `string`, `txHash?`: ``null`` \| `BytesLike`, `metadata?`: ``null``) => `AnnotationEventFilter` |
-| `Annotation(address,bytes32,string)` | (`agent?`: ``null`` \| `string`, `txHash?`: ``null`` \| `BytesLike`, `metadata?`: ``null``) => `AnnotationEventFilter` |
-| `ArbitraryReputationUpdate` | (`agent?`: ``null``, `user?`: ``null``, `skillId?`: ``null``, `amount?`: ``null``) => `ArbitraryReputationUpdateEventFilter` |
-| `ArbitraryReputationUpdate(address,address,uint256,int256)` | (`agent?`: ``null``, `user?`: ``null``, `skillId?`: ``null``, `amount?`: ``null``) => `ArbitraryReputationUpdateEventFilter` |
-| `ArbitraryTransaction` | (`target?`: ``null``, `data?`: ``null``, `success?`: ``null``) => `ArbitraryTransactionEventFilter` |
-| `ArbitraryTransaction(address,bytes,bool)` | (`target?`: ``null``, `data?`: ``null``, `success?`: ``null``) => `ArbitraryTransactionEventFilter` |
-| `ColonyBootstrapped` | (`agent?`: ``null``, `users?`: ``null``, `amounts?`: ``null``) => `ColonyBootstrappedEventFilter` |
-| `ColonyBootstrapped(address,address[],int256[])` | (`agent?`: ``null``, `users?`: ``null``, `amounts?`: ``null``) => `ColonyBootstrappedEventFilter` |
-| `ColonyFundsClaimed` | (`agent?`: ``null``, `token?`: ``null``, `fee?`: ``null``, `payoutRemainder?`: ``null``) => `ColonyFundsClaimedEventFilter` |
-| `ColonyFundsClaimed(address,address,uint256,uint256)` | (`agent?`: ``null``, `token?`: ``null``, `fee?`: ``null``, `payoutRemainder?`: ``null``) => `ColonyFundsClaimedEventFilter` |
-| `ColonyFundsMovedBetweenFundingPots` | (`agent?`: ``null``, `fromPot?`: ``null`` \| `BigNumberish`, `toPot?`: ``null`` \| `BigNumberish`, `amount?`: ``null``, `token?`: ``null``) => `ColonyFundsMovedBetweenFundingPotsEventFilter` |
-| `ColonyFundsMovedBetweenFundingPots(address,uint256,uint256,uint256,address)` | (`agent?`: ``null``, `fromPot?`: ``null`` \| `BigNumberish`, `toPot?`: ``null`` \| `BigNumberish`, `amount?`: ``null``, `token?`: ``null``) => `ColonyFundsMovedBetweenFundingPotsEventFilter` |
-| `ColonyInitialised` | (`agent?`: ``null``, `colonyNetwork?`: ``null``, `token?`: ``null``) => `ColonyInitialisedEventFilter` |
-| `ColonyInitialised(address,address,address)` | (`agent?`: ``null``, `colonyNetwork?`: ``null``, `token?`: ``null``) => `ColonyInitialisedEventFilter` |
-| `ColonyMetadata` | (`agent?`: ``null``, `metadata?`: ``null``) => `ColonyMetadataEventFilter` |
-| `ColonyMetadata(address,string)` | (`agent?`: ``null``, `metadata?`: ``null``) => `ColonyMetadataEventFilter` |
-| `ColonyMetadataDelta` | (`agent?`: ``null``, `metadata?`: ``null``) => `ColonyMetadataDeltaEventFilter` |
-| `ColonyMetadataDelta(address,string)` | (`agent?`: ``null``, `metadata?`: ``null``) => `ColonyMetadataDeltaEventFilter` |
-| `ColonyRewardInverseSet` | (`agent?`: ``null``, `rewardInverse?`: ``null``) => `ColonyRewardInverseSetEventFilter` |
-| `ColonyRewardInverseSet(address,uint256)` | (`agent?`: ``null``, `rewardInverse?`: ``null``) => `ColonyRewardInverseSetEventFilter` |
-| `ColonyRoleSet` | (`agent?`: ``null``, `user?`: ``null`` \| `string`, `domainId?`: ``null`` \| `BigNumberish`, `role?`: ``null`` \| `BigNumberish`, `setTo?`: ``null``) => `ColonyRoleSetEventFilter` |
-| `ColonyRoleSet(address,address,uint256,uint8,bool)` | (`agent?`: ``null``, `user?`: ``null`` \| `string`, `domainId?`: ``null`` \| `BigNumberish`, `role?`: ``null`` \| `BigNumberish`, `setTo?`: ``null``) => `ColonyRoleSetEventFilter` |
-| `ColonyUpgraded` | (`agent?`: ``null``, `oldVersion?`: ``null``, `newVersion?`: ``null``) => `ColonyUpgradedEventFilter` |
-| `ColonyUpgraded(address,uint256,uint256)` | (`agent?`: ``null``, `oldVersion?`: ``null``, `newVersion?`: ``null``) => `ColonyUpgradedEventFilter` |
-| `DomainAdded` | (`agent?`: ``null``, `domainId?`: ``null``) => `DomainAddedEventFilter` |
-| `DomainAdded(address,uint256)` | (`agent?`: ``null``, `domainId?`: ``null``) => `DomainAddedEventFilter` |
-| `DomainDeprecated` | (`agent?`: ``null``, `domainId?`: ``null`` \| `BigNumberish`, `deprecated?`: ``null``) => `DomainDeprecatedEventFilter` |
-| `DomainDeprecated(address,uint256,bool)` | (`agent?`: ``null``, `domainId?`: ``null`` \| `BigNumberish`, `deprecated?`: ``null``) => `DomainDeprecatedEventFilter` |
-| `DomainMetadata` | (`agent?`: ``null``, `domainId?`: ``null`` \| `BigNumberish`, `metadata?`: ``null``) => `DomainMetadataEventFilter` |
-| `DomainMetadata(address,uint256,string)` | (`agent?`: ``null``, `domainId?`: ``null`` \| `BigNumberish`, `metadata?`: ``null``) => `DomainMetadataEventFilter` |
-| `ExpenditureAdded` | (`agent?`: ``null``, `expenditureId?`: ``null``) => `ExpenditureAddedEventFilter` |
-| `ExpenditureAdded(address,uint256)` | (`agent?`: ``null``, `expenditureId?`: ``null``) => `ExpenditureAddedEventFilter` |
-| `ExpenditureCancelled` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`) => `ExpenditureCancelledEventFilter` |
-| `ExpenditureCancelled(address,uint256)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`) => `ExpenditureCancelledEventFilter` |
-| `ExpenditureClaimDelaySet` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `claimDelay?`: ``null``) => `ExpenditureClaimDelaySetEventFilter` |
-| `ExpenditureClaimDelaySet(address,uint256,uint256,uint256)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `claimDelay?`: ``null``) => `ExpenditureClaimDelaySetEventFilter` |
-| `ExpenditureFinalized` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`) => `ExpenditureFinalizedEventFilter` |
-| `ExpenditureFinalized(address,uint256)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`) => `ExpenditureFinalizedEventFilter` |
-| `ExpenditureGlobalClaimDelaySet` | (`agent?`: ``null``, `globalClaimDelay?`: ``null``) => `ExpenditureGlobalClaimDelaySetEventFilter` |
-| `ExpenditureGlobalClaimDelaySet(address,uint256)` | (`agent?`: ``null``, `globalClaimDelay?`: ``null``) => `ExpenditureGlobalClaimDelaySetEventFilter` |
-| `ExpenditureLocked` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`) => `ExpenditureLockedEventFilter` |
-| `ExpenditureLocked(address,uint256)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`) => `ExpenditureLockedEventFilter` |
-| `ExpenditureMetadataSet` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `metadata?`: ``null``) => `ExpenditureMetadataSetEventFilter` |
-| `ExpenditureMetadataSet(address,uint256,string)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `metadata?`: ``null``) => `ExpenditureMetadataSetEventFilter` |
-| `ExpenditurePayoutModifierSet` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `payoutModifier?`: ``null``) => `ExpenditurePayoutModifierSetEventFilter` |
-| `ExpenditurePayoutModifierSet(address,uint256,uint256,int256)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `payoutModifier?`: ``null``) => `ExpenditurePayoutModifierSetEventFilter` |
-| `ExpenditurePayoutSet` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `token?`: ``null`` \| `string`, `amount?`: ``null``) => `ExpenditurePayoutSetEventFilter` |
-| `ExpenditurePayoutSet(address,uint256,uint256,address,uint256)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `token?`: ``null`` \| `string`, `amount?`: ``null``) => `ExpenditurePayoutSetEventFilter` |
-| `ExpenditureRecipientSet` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `recipient?`: ``null`` \| `string`) => `ExpenditureRecipientSetEventFilter` |
-| `ExpenditureRecipientSet(address,uint256,uint256,address)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `recipient?`: ``null`` \| `string`) => `ExpenditureRecipientSetEventFilter` |
-| `ExpenditureSkillSet` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `skillId?`: ``null`` \| `BigNumberish`) => `ExpenditureSkillSetEventFilter` |
-| `ExpenditureSkillSet(address,uint256,uint256,uint256)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `slot?`: ``null`` \| `BigNumberish`, `skillId?`: ``null`` \| `BigNumberish`) => `ExpenditureSkillSetEventFilter` |
-| `ExpenditureStateChanged` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `storageSlot?`: ``null`` \| `BigNumberish`, `mask?`: ``null``, `keys?`: ``null``, `value?`: ``null``) => `ExpenditureStateChangedEventFilter` |
-| `ExpenditureStateChanged(address,uint256,uint256,bool[],bytes32[],bytes32)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `storageSlot?`: ``null`` \| `BigNumberish`, `mask?`: ``null``, `keys?`: ``null``, `value?`: ``null``) => `ExpenditureStateChangedEventFilter` |
-| `ExpenditureTransferred` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `owner?`: ``null`` \| `string`) => `ExpenditureTransferredEventFilter` |
-| `ExpenditureTransferred(address,uint256,address)` | (`agent?`: ``null``, `expenditureId?`: ``null`` \| `BigNumberish`, `owner?`: ``null`` \| `string`) => `ExpenditureTransferredEventFilter` |
-| `FundingPotAdded` | (`fundingPotId?`: ``null``) => `FundingPotAddedEventFilter` |
-| `FundingPotAdded(uint256)` | (`fundingPotId?`: ``null``) => `FundingPotAddedEventFilter` |
-| `LocalSkillAdded` | (`agent?`: ``null``, `localSkillId?`: ``null``) => `LocalSkillAddedEventFilter` |
-| `LocalSkillAdded(address,uint256)` | (`agent?`: ``null``, `localSkillId?`: ``null``) => `LocalSkillAddedEventFilter` |
-| `LocalSkillDeprecated` | (`agent?`: ``null``, `localSkillId?`: ``null``, `deprecated?`: ``null``) => `LocalSkillDeprecatedEventFilter` |
-| `LocalSkillDeprecated(address,uint256,bool)` | (`agent?`: ``null``, `localSkillId?`: ``null``, `deprecated?`: ``null``) => `LocalSkillDeprecatedEventFilter` |
-| `MetaTransactionExecuted` | (`userAddress?`: ``null``, `relayerAddress?`: ``null``, `payload?`: ``null``) => `MetaTransactionExecutedEventFilter` |
-| `MetaTransactionExecuted(address,address,bytes)` | (`userAddress?`: ``null``, `relayerAddress?`: ``null``, `payload?`: ``null``) => `MetaTransactionExecutedEventFilter` |
-| `PaymentAdded` | (`agent?`: ``null``, `paymentId?`: ``null``) => `PaymentAddedEventFilter` |
-| `PaymentAdded(address,uint256)` | (`agent?`: ``null``, `paymentId?`: ``null``) => `PaymentAddedEventFilter` |
-| `PaymentFinalized` | (`agent?`: ``null``, `paymentId?`: ``null`` \| `BigNumberish`) => `PaymentFinalizedEventFilter` |
-| `PaymentFinalized(address,uint256)` | (`agent?`: ``null``, `paymentId?`: ``null`` \| `BigNumberish`) => `PaymentFinalizedEventFilter` |
-| `PaymentPayoutSet` | (`agent?`: ``null``, `paymentId?`: ``null`` \| `BigNumberish`, `token?`: ``null``, `amount?`: ``null``) => `PaymentPayoutSetEventFilter` |
-| `PaymentPayoutSet(address,uint256,address,uint256)` | (`agent?`: ``null``, `paymentId?`: ``null`` \| `BigNumberish`, `token?`: ``null``, `amount?`: ``null``) => `PaymentPayoutSetEventFilter` |
-| `PaymentRecipientSet` | (`agent?`: ``null``, `paymentId?`: ``null`` \| `BigNumberish`, `recipient?`: ``null``) => `PaymentRecipientSetEventFilter` |
-| `PaymentRecipientSet(address,uint256,address)` | (`agent?`: ``null``, `paymentId?`: ``null`` \| `BigNumberish`, `recipient?`: ``null``) => `PaymentRecipientSetEventFilter` |
-| `PaymentSkillSet` | (`agent?`: ``null``, `paymentId?`: ``null`` \| `BigNumberish`, `skillId?`: ``null``) => `PaymentSkillSetEventFilter` |
-| `PaymentSkillSet(address,uint256,uint256)` | (`agent?`: ``null``, `paymentId?`: ``null`` \| `BigNumberish`, `skillId?`: ``null``) => `PaymentSkillSetEventFilter` |
-| `PayoutClaimed(address,uint256,address,uint256)` | (`agent?`: ``null``, `fundingPotId?`: ``null`` \| `BigNumberish`, `token?`: ``null``, `amount?`: ``null``) => `PayoutClaimed_address_uint256_address_uint256_EventFilter` |
-| `PayoutClaimed(address,uint256,uint256,address,uint256)` | (`agent?`: ``null``, `id?`: ``null``, `slot?`: ``null``, `token?`: ``null``, `tokenPayout?`: ``null``) => `PayoutClaimed_address_uint256_uint256_address_uint256_EventFilter` |
-| `RecoveryModeEntered` | (`user?`: ``null``) => `RecoveryModeEnteredEventFilter` |
-| `RecoveryModeEntered(address)` | (`user?`: ``null``) => `RecoveryModeEnteredEventFilter` |
-| `RecoveryModeExitApproved` | (`user?`: ``null``) => `RecoveryModeExitApprovedEventFilter` |
-| `RecoveryModeExitApproved(address)` | (`user?`: ``null``) => `RecoveryModeExitApprovedEventFilter` |
-| `RecoveryModeExited` | (`user?`: ``null``) => `RecoveryModeExitedEventFilter` |
-| `RecoveryModeExited(address)` | (`user?`: ``null``) => `RecoveryModeExitedEventFilter` |
-| `RecoveryRoleSet` | (`user?`: ``null`` \| `string`, `setTo?`: ``null``) => `RecoveryRoleSetEventFilter` |
-| `RecoveryRoleSet(address,bool)` | (`user?`: ``null`` \| `string`, `setTo?`: ``null``) => `RecoveryRoleSetEventFilter` |
-| `RecoveryStorageSlotSet` | (`user?`: ``null``, `slot?`: ``null``, `fromValue?`: ``null``, `toValue?`: ``null``) => `RecoveryStorageSlotSetEventFilter` |
-| `RecoveryStorageSlotSet(address,uint256,bytes32,bytes32)` | (`user?`: ``null``, `slot?`: ``null``, `fromValue?`: ``null``, `toValue?`: ``null``) => `RecoveryStorageSlotSetEventFilter` |
-| `RewardPayoutClaimed` | (`rewardPayoutId?`: ``null``, `user?`: ``null``, `fee?`: ``null``, `rewardRemainder?`: ``null``) => `RewardPayoutClaimedEventFilter` |
-| `RewardPayoutClaimed(uint256,address,uint256,uint256)` | (`rewardPayoutId?`: ``null``, `user?`: ``null``, `fee?`: ``null``, `rewardRemainder?`: ``null``) => `RewardPayoutClaimedEventFilter` |
-| `RewardPayoutCycleEnded` | (`agent?`: ``null``, `rewardPayoutId?`: ``null``) => `RewardPayoutCycleEndedEventFilter` |
-| `RewardPayoutCycleEnded(address,uint256)` | (`agent?`: ``null``, `rewardPayoutId?`: ``null``) => `RewardPayoutCycleEndedEventFilter` |
-| `RewardPayoutCycleStarted` | (`agent?`: ``null``, `rewardPayoutId?`: ``null``) => `RewardPayoutCycleStartedEventFilter` |
-| `RewardPayoutCycleStarted(address,uint256)` | (`agent?`: ``null``, `rewardPayoutId?`: ``null``) => `RewardPayoutCycleStartedEventFilter` |
-| `TaskAdded` | (`agent?`: ``null``, `taskId?`: ``null``) => `TaskAddedEventFilter` |
-| `TaskAdded(address,uint256)` | (`agent?`: ``null``, `taskId?`: ``null``) => `TaskAddedEventFilter` |
-| `TaskBriefSet` | (`taskId?`: ``null`` \| `BigNumberish`, `specificationHash?`: ``null``) => `TaskBriefSetEventFilter` |
-| `TaskBriefSet(uint256,bytes32)` | (`taskId?`: ``null`` \| `BigNumberish`, `specificationHash?`: ``null``) => `TaskBriefSetEventFilter` |
-| `TaskCanceled` | (`taskId?`: ``null`` \| `BigNumberish`) => `TaskCanceledEventFilter` |
-| `TaskCanceled(uint256)` | (`taskId?`: ``null`` \| `BigNumberish`) => `TaskCanceledEventFilter` |
-| `TaskChangedViaSignatures` | (`reviewerAddresses?`: ``null``) => `TaskChangedViaSignaturesEventFilter` |
-| `TaskChangedViaSignatures(address[])` | (`reviewerAddresses?`: ``null``) => `TaskChangedViaSignaturesEventFilter` |
-| `TaskCompleted` | (`agent?`: ``null``, `taskId?`: ``null`` \| `BigNumberish`) => `TaskCompletedEventFilter` |
-| `TaskCompleted(address,uint256)` | (`agent?`: ``null``, `taskId?`: ``null`` \| `BigNumberish`) => `TaskCompletedEventFilter` |
-| `TaskDeliverableSubmitted` | (`agent?`: ``null``, `taskId?`: ``null`` \| `BigNumberish`, `deliverableHash?`: ``null``) => `TaskDeliverableSubmittedEventFilter` |
-| `TaskDeliverableSubmitted(address,uint256,bytes32)` | (`agent?`: ``null``, `taskId?`: ``null`` \| `BigNumberish`, `deliverableHash?`: ``null``) => `TaskDeliverableSubmittedEventFilter` |
-| `TaskDueDateSet` | (`taskId?`: ``null`` \| `BigNumberish`, `dueDate?`: ``null``) => `TaskDueDateSetEventFilter` |
-| `TaskDueDateSet(uint256,uint256)` | (`taskId?`: ``null`` \| `BigNumberish`, `dueDate?`: ``null``) => `TaskDueDateSetEventFilter` |
-| `TaskFinalized` | (`agent?`: ``null``, `taskId?`: ``null`` \| `BigNumberish`) => `TaskFinalizedEventFilter` |
-| `TaskFinalized(address,uint256)` | (`agent?`: ``null``, `taskId?`: ``null`` \| `BigNumberish`) => `TaskFinalizedEventFilter` |
-| `TaskPayoutSet` | (`taskId?`: ``null`` \| `BigNumberish`, `role?`: ``null``, `token?`: ``null``, `amount?`: ``null``) => `TaskPayoutSetEventFilter` |
-| `TaskPayoutSet(uint256,uint8,address,uint256)` | (`taskId?`: ``null`` \| `BigNumberish`, `role?`: ``null``, `token?`: ``null``, `amount?`: ``null``) => `TaskPayoutSetEventFilter` |
-| `TaskRoleUserSet` | (`taskId?`: ``null`` \| `BigNumberish`, `role?`: ``null``, `user?`: ``null`` \| `string`) => `TaskRoleUserSetEventFilter` |
-| `TaskRoleUserSet(uint256,uint8,address)` | (`taskId?`: ``null`` \| `BigNumberish`, `role?`: ``null``, `user?`: ``null`` \| `string`) => `TaskRoleUserSetEventFilter` |
-| `TaskSkillSet` | (`taskId?`: ``null`` \| `BigNumberish`, `skillId?`: ``null`` \| `BigNumberish`) => `TaskSkillSetEventFilter` |
-| `TaskSkillSet(uint256,uint256)` | (`taskId?`: ``null`` \| `BigNumberish`, `skillId?`: ``null`` \| `BigNumberish`) => `TaskSkillSetEventFilter` |
-| `TaskWorkRatingRevealed` | (`agent?`: ``null``, `taskId?`: ``null`` \| `BigNumberish`, `role?`: ``null``, `rating?`: ``null``) => `TaskWorkRatingRevealedEventFilter` |
-| `TaskWorkRatingRevealed(address,uint256,uint8,uint8)` | (`agent?`: ``null``, `taskId?`: ``null`` \| `BigNumberish`, `role?`: ``null``, `rating?`: ``null``) => `TaskWorkRatingRevealedEventFilter` |
-| `TokenUnlocked` | (`agent?`: ``null``) => `TokenUnlockedEventFilter` |
-| `TokenUnlocked(address)` | (`agent?`: ``null``) => `TokenUnlockedEventFilter` |
-| `TokensBurned` | (`agent?`: ``null``, `token?`: ``null``, `amount?`: ``null``) => `TokensBurnedEventFilter` |
-| `TokensBurned(address,address,uint256)` | (`agent?`: ``null``, `token?`: ``null``, `amount?`: ``null``) => `TokensBurnedEventFilter` |
-| `TokensMinted` | (`agent?`: ``null``, `who?`: ``null``, `amount?`: ``null``) => `TokensMintedEventFilter` |
-| `TokensMinted(address,address,uint256)` | (`agent?`: ``null``, `who?`: ``null``, `amount?`: ``null``) => `TokensMintedEventFilter` |
+##### Parameters
+
+###### agent?
+
+`null` | `string`
+
+###### txHash?
+
+`null` | `BytesLike`
+
+###### metadata?
+
+`null`
+
+##### Returns
+
+`AnnotationEventFilter`
+
+#### Annotation(address,bytes32,string)()
+
+##### Parameters
+
+###### agent?
+
+`null` | `string`
+
+###### txHash?
+
+`null` | `BytesLike`
+
+###### metadata?
+
+`null`
+
+##### Returns
+
+`AnnotationEventFilter`
+
+#### ArbitraryReputationUpdate()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### user?
+
+`null`
+
+###### skillId?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`ArbitraryReputationUpdateEventFilter`
+
+#### ArbitraryReputationUpdate(address,address,uint256,int256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### user?
+
+`null`
+
+###### skillId?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`ArbitraryReputationUpdateEventFilter`
+
+#### ArbitraryTransaction()
+
+##### Parameters
+
+###### target?
+
+`null`
+
+###### data?
+
+`null`
+
+###### success?
+
+`null`
+
+##### Returns
+
+`ArbitraryTransactionEventFilter`
+
+#### ArbitraryTransaction(address,bytes,bool)()
+
+##### Parameters
+
+###### target?
+
+`null`
+
+###### data?
+
+`null`
+
+###### success?
+
+`null`
+
+##### Returns
+
+`ArbitraryTransactionEventFilter`
+
+#### ColonyBootstrapped()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### users?
+
+`null`
+
+###### amounts?
+
+`null`
+
+##### Returns
+
+`ColonyBootstrappedEventFilter`
+
+#### ColonyBootstrapped(address,address\[\],int256\[\])()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### users?
+
+`null`
+
+###### amounts?
+
+`null`
+
+##### Returns
+
+`ColonyBootstrappedEventFilter`
+
+#### ColonyFundsClaimed()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### token?
+
+`null`
+
+###### fee?
+
+`null`
+
+###### payoutRemainder?
+
+`null`
+
+##### Returns
+
+`ColonyFundsClaimedEventFilter`
+
+#### ColonyFundsClaimed(address,address,uint256,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### token?
+
+`null`
+
+###### fee?
+
+`null`
+
+###### payoutRemainder?
+
+`null`
+
+##### Returns
+
+`ColonyFundsClaimedEventFilter`
+
+#### ColonyFundsMovedBetweenFundingPots()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### fromPot?
+
+`null` | `BigNumberish`
+
+###### toPot?
+
+`null` | `BigNumberish`
+
+###### amount?
+
+`null`
+
+###### token?
+
+`null`
+
+##### Returns
+
+`ColonyFundsMovedBetweenFundingPotsEventFilter`
+
+#### ColonyFundsMovedBetweenFundingPots(address,uint256,uint256,uint256,address)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### fromPot?
+
+`null` | `BigNumberish`
+
+###### toPot?
+
+`null` | `BigNumberish`
+
+###### amount?
+
+`null`
+
+###### token?
+
+`null`
+
+##### Returns
+
+`ColonyFundsMovedBetweenFundingPotsEventFilter`
+
+#### ColonyInitialised()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### colonyNetwork?
+
+`null`
+
+###### token?
+
+`null`
+
+##### Returns
+
+`ColonyInitialisedEventFilter`
+
+#### ColonyInitialised(address,address,address)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### colonyNetwork?
+
+`null`
+
+###### token?
+
+`null`
+
+##### Returns
+
+`ColonyInitialisedEventFilter`
+
+#### ColonyMetadata()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### metadata?
+
+`null`
+
+##### Returns
+
+`ColonyMetadataEventFilter`
+
+#### ColonyMetadata(address,string)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### metadata?
+
+`null`
+
+##### Returns
+
+`ColonyMetadataEventFilter`
+
+#### ColonyMetadataDelta()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### metadata?
+
+`null`
+
+##### Returns
+
+`ColonyMetadataDeltaEventFilter`
+
+#### ColonyMetadataDelta(address,string)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### metadata?
+
+`null`
+
+##### Returns
+
+`ColonyMetadataDeltaEventFilter`
+
+#### ColonyRewardInverseSet()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### rewardInverse?
+
+`null`
+
+##### Returns
+
+`ColonyRewardInverseSetEventFilter`
+
+#### ColonyRewardInverseSet(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### rewardInverse?
+
+`null`
+
+##### Returns
+
+`ColonyRewardInverseSetEventFilter`
+
+#### ColonyRoleSet()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### user?
+
+`null` | `string`
+
+###### domainId?
+
+`null` | `BigNumberish`
+
+###### role?
+
+`null` | `BigNumberish`
+
+###### setTo?
+
+`null`
+
+##### Returns
+
+`ColonyRoleSetEventFilter`
+
+#### ColonyRoleSet(address,address,uint256,uint8,bool)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### user?
+
+`null` | `string`
+
+###### domainId?
+
+`null` | `BigNumberish`
+
+###### role?
+
+`null` | `BigNumberish`
+
+###### setTo?
+
+`null`
+
+##### Returns
+
+`ColonyRoleSetEventFilter`
+
+#### ColonyUpgraded()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### oldVersion?
+
+`null`
+
+###### newVersion?
+
+`null`
+
+##### Returns
+
+`ColonyUpgradedEventFilter`
+
+#### ColonyUpgraded(address,uint256,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### oldVersion?
+
+`null`
+
+###### newVersion?
+
+`null`
+
+##### Returns
+
+`ColonyUpgradedEventFilter`
+
+#### DomainAdded()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### domainId?
+
+`null`
+
+##### Returns
+
+`DomainAddedEventFilter`
+
+#### DomainAdded(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### domainId?
+
+`null`
+
+##### Returns
+
+`DomainAddedEventFilter`
+
+#### DomainDeprecated()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### domainId?
+
+`null` | `BigNumberish`
+
+###### deprecated?
+
+`null`
+
+##### Returns
+
+`DomainDeprecatedEventFilter`
+
+#### DomainDeprecated(address,uint256,bool)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### domainId?
+
+`null` | `BigNumberish`
+
+###### deprecated?
+
+`null`
+
+##### Returns
+
+`DomainDeprecatedEventFilter`
+
+#### DomainMetadata()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### domainId?
+
+`null` | `BigNumberish`
+
+###### metadata?
+
+`null`
+
+##### Returns
+
+`DomainMetadataEventFilter`
+
+#### DomainMetadata(address,uint256,string)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### domainId?
+
+`null` | `BigNumberish`
+
+###### metadata?
+
+`null`
+
+##### Returns
+
+`DomainMetadataEventFilter`
+
+#### ExpenditureAdded()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null`
+
+##### Returns
+
+`ExpenditureAddedEventFilter`
+
+#### ExpenditureAdded(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null`
+
+##### Returns
+
+`ExpenditureAddedEventFilter`
+
+#### ExpenditureCancelled()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`ExpenditureCancelledEventFilter`
+
+#### ExpenditureCancelled(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`ExpenditureCancelledEventFilter`
+
+#### ExpenditureClaimDelaySet()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### slot?
+
+`null` | `BigNumberish`
+
+###### claimDelay?
+
+`null`
+
+##### Returns
+
+`ExpenditureClaimDelaySetEventFilter`
+
+#### ExpenditureClaimDelaySet(address,uint256,uint256,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### slot?
+
+`null` | `BigNumberish`
+
+###### claimDelay?
+
+`null`
+
+##### Returns
+
+`ExpenditureClaimDelaySetEventFilter`
+
+#### ExpenditureFinalized()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`ExpenditureFinalizedEventFilter`
+
+#### ExpenditureFinalized(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`ExpenditureFinalizedEventFilter`
+
+#### ExpenditureGlobalClaimDelaySet()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### globalClaimDelay?
+
+`null`
+
+##### Returns
+
+`ExpenditureGlobalClaimDelaySetEventFilter`
+
+#### ExpenditureGlobalClaimDelaySet(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### globalClaimDelay?
+
+`null`
+
+##### Returns
+
+`ExpenditureGlobalClaimDelaySetEventFilter`
+
+#### ExpenditureLocked()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`ExpenditureLockedEventFilter`
+
+#### ExpenditureLocked(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`ExpenditureLockedEventFilter`
+
+#### ExpenditureMetadataSet()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### metadata?
+
+`null`
+
+##### Returns
+
+`ExpenditureMetadataSetEventFilter`
+
+#### ExpenditureMetadataSet(address,uint256,string)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### metadata?
+
+`null`
+
+##### Returns
+
+`ExpenditureMetadataSetEventFilter`
+
+#### ExpenditurePayoutModifierSet()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### slot?
+
+`null` | `BigNumberish`
+
+###### payoutModifier?
+
+`null`
+
+##### Returns
+
+`ExpenditurePayoutModifierSetEventFilter`
+
+#### ExpenditurePayoutModifierSet(address,uint256,uint256,int256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### slot?
+
+`null` | `BigNumberish`
+
+###### payoutModifier?
+
+`null`
+
+##### Returns
+
+`ExpenditurePayoutModifierSetEventFilter`
+
+#### ExpenditurePayoutSet()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### slot?
+
+`null` | `BigNumberish`
+
+###### token?
+
+`null` | `string`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`ExpenditurePayoutSetEventFilter`
+
+#### ExpenditurePayoutSet(address,uint256,uint256,address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### slot?
+
+`null` | `BigNumberish`
+
+###### token?
+
+`null` | `string`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`ExpenditurePayoutSetEventFilter`
+
+#### ExpenditureRecipientSet()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### slot?
+
+`null` | `BigNumberish`
+
+###### recipient?
+
+`null` | `string`
+
+##### Returns
+
+`ExpenditureRecipientSetEventFilter`
+
+#### ExpenditureRecipientSet(address,uint256,uint256,address)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### slot?
+
+`null` | `BigNumberish`
+
+###### recipient?
+
+`null` | `string`
+
+##### Returns
+
+`ExpenditureRecipientSetEventFilter`
+
+#### ExpenditureSkillSet()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### slot?
+
+`null` | `BigNumberish`
+
+###### skillId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`ExpenditureSkillSetEventFilter`
+
+#### ExpenditureSkillSet(address,uint256,uint256,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### slot?
+
+`null` | `BigNumberish`
+
+###### skillId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`ExpenditureSkillSetEventFilter`
+
+#### ExpenditureStateChanged()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### storageSlot?
+
+`null` | `BigNumberish`
+
+###### mask?
+
+`null`
+
+###### keys?
+
+`null`
+
+###### value?
+
+`null`
+
+##### Returns
+
+`ExpenditureStateChangedEventFilter`
+
+#### ExpenditureStateChanged(address,uint256,uint256,bool\[\],bytes32\[\],bytes32)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### storageSlot?
+
+`null` | `BigNumberish`
+
+###### mask?
+
+`null`
+
+###### keys?
+
+`null`
+
+###### value?
+
+`null`
+
+##### Returns
+
+`ExpenditureStateChangedEventFilter`
+
+#### ExpenditureTransferred()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### owner?
+
+`null` | `string`
+
+##### Returns
+
+`ExpenditureTransferredEventFilter`
+
+#### ExpenditureTransferred(address,uint256,address)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### expenditureId?
+
+`null` | `BigNumberish`
+
+###### owner?
+
+`null` | `string`
+
+##### Returns
+
+`ExpenditureTransferredEventFilter`
+
+#### FundingPotAdded()
+
+##### Parameters
+
+###### fundingPotId?
+
+`null`
+
+##### Returns
+
+`FundingPotAddedEventFilter`
+
+#### FundingPotAdded(uint256)()
+
+##### Parameters
+
+###### fundingPotId?
+
+`null`
+
+##### Returns
+
+`FundingPotAddedEventFilter`
+
+#### LocalSkillAdded()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### localSkillId?
+
+`null`
+
+##### Returns
+
+`LocalSkillAddedEventFilter`
+
+#### LocalSkillAdded(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### localSkillId?
+
+`null`
+
+##### Returns
+
+`LocalSkillAddedEventFilter`
+
+#### LocalSkillDeprecated()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### localSkillId?
+
+`null`
+
+###### deprecated?
+
+`null`
+
+##### Returns
+
+`LocalSkillDeprecatedEventFilter`
+
+#### LocalSkillDeprecated(address,uint256,bool)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### localSkillId?
+
+`null`
+
+###### deprecated?
+
+`null`
+
+##### Returns
+
+`LocalSkillDeprecatedEventFilter`
+
+#### MetaTransactionExecuted()
+
+##### Parameters
+
+###### userAddress?
+
+`null`
+
+###### relayerAddress?
+
+`null`
+
+###### payload?
+
+`null`
+
+##### Returns
+
+`MetaTransactionExecutedEventFilter`
+
+#### MetaTransactionExecuted(address,address,bytes)()
+
+##### Parameters
+
+###### userAddress?
+
+`null`
+
+###### relayerAddress?
+
+`null`
+
+###### payload?
+
+`null`
+
+##### Returns
+
+`MetaTransactionExecutedEventFilter`
+
+#### PaymentAdded()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### paymentId?
+
+`null`
+
+##### Returns
+
+`PaymentAddedEventFilter`
+
+#### PaymentAdded(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### paymentId?
+
+`null`
+
+##### Returns
+
+`PaymentAddedEventFilter`
+
+#### PaymentFinalized()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### paymentId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`PaymentFinalizedEventFilter`
+
+#### PaymentFinalized(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### paymentId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`PaymentFinalizedEventFilter`
+
+#### PaymentPayoutSet()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### paymentId?
+
+`null` | `BigNumberish`
+
+###### token?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`PaymentPayoutSetEventFilter`
+
+#### PaymentPayoutSet(address,uint256,address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### paymentId?
+
+`null` | `BigNumberish`
+
+###### token?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`PaymentPayoutSetEventFilter`
+
+#### PaymentRecipientSet()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### paymentId?
+
+`null` | `BigNumberish`
+
+###### recipient?
+
+`null`
+
+##### Returns
+
+`PaymentRecipientSetEventFilter`
+
+#### PaymentRecipientSet(address,uint256,address)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### paymentId?
+
+`null` | `BigNumberish`
+
+###### recipient?
+
+`null`
+
+##### Returns
+
+`PaymentRecipientSetEventFilter`
+
+#### PaymentSkillSet()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### paymentId?
+
+`null` | `BigNumberish`
+
+###### skillId?
+
+`null`
+
+##### Returns
+
+`PaymentSkillSetEventFilter`
+
+#### PaymentSkillSet(address,uint256,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### paymentId?
+
+`null` | `BigNumberish`
+
+###### skillId?
+
+`null`
+
+##### Returns
+
+`PaymentSkillSetEventFilter`
+
+#### PayoutClaimed(address,uint256,address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### fundingPotId?
+
+`null` | `BigNumberish`
+
+###### token?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`PayoutClaimed_address_uint256_address_uint256_EventFilter`
+
+#### PayoutClaimed(address,uint256,uint256,address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### id?
+
+`null`
+
+###### slot?
+
+`null`
+
+###### token?
+
+`null`
+
+###### tokenPayout?
+
+`null`
+
+##### Returns
+
+`PayoutClaimed_address_uint256_uint256_address_uint256_EventFilter`
+
+#### RecoveryModeEntered()
+
+##### Parameters
+
+###### user?
+
+`null`
+
+##### Returns
+
+`RecoveryModeEnteredEventFilter`
+
+#### RecoveryModeEntered(address)()
+
+##### Parameters
+
+###### user?
+
+`null`
+
+##### Returns
+
+`RecoveryModeEnteredEventFilter`
+
+#### RecoveryModeExitApproved()
+
+##### Parameters
+
+###### user?
+
+`null`
+
+##### Returns
+
+`RecoveryModeExitApprovedEventFilter`
+
+#### RecoveryModeExitApproved(address)()
+
+##### Parameters
+
+###### user?
+
+`null`
+
+##### Returns
+
+`RecoveryModeExitApprovedEventFilter`
+
+#### RecoveryModeExited()
+
+##### Parameters
+
+###### user?
+
+`null`
+
+##### Returns
+
+`RecoveryModeExitedEventFilter`
+
+#### RecoveryModeExited(address)()
+
+##### Parameters
+
+###### user?
+
+`null`
+
+##### Returns
+
+`RecoveryModeExitedEventFilter`
+
+#### RecoveryRoleSet()
+
+##### Parameters
+
+###### user?
+
+`null` | `string`
+
+###### setTo?
+
+`null`
+
+##### Returns
+
+`RecoveryRoleSetEventFilter`
+
+#### RecoveryRoleSet(address,bool)()
+
+##### Parameters
+
+###### user?
+
+`null` | `string`
+
+###### setTo?
+
+`null`
+
+##### Returns
+
+`RecoveryRoleSetEventFilter`
+
+#### RecoveryStorageSlotSet()
+
+##### Parameters
+
+###### user?
+
+`null`
+
+###### slot?
+
+`null`
+
+###### fromValue?
+
+`null`
+
+###### toValue?
+
+`null`
+
+##### Returns
+
+`RecoveryStorageSlotSetEventFilter`
+
+#### RecoveryStorageSlotSet(address,uint256,bytes32,bytes32)()
+
+##### Parameters
+
+###### user?
+
+`null`
+
+###### slot?
+
+`null`
+
+###### fromValue?
+
+`null`
+
+###### toValue?
+
+`null`
+
+##### Returns
+
+`RecoveryStorageSlotSetEventFilter`
+
+#### RewardPayoutClaimed()
+
+##### Parameters
+
+###### rewardPayoutId?
+
+`null`
+
+###### user?
+
+`null`
+
+###### fee?
+
+`null`
+
+###### rewardRemainder?
+
+`null`
+
+##### Returns
+
+`RewardPayoutClaimedEventFilter`
+
+#### RewardPayoutClaimed(uint256,address,uint256,uint256)()
+
+##### Parameters
+
+###### rewardPayoutId?
+
+`null`
+
+###### user?
+
+`null`
+
+###### fee?
+
+`null`
+
+###### rewardRemainder?
+
+`null`
+
+##### Returns
+
+`RewardPayoutClaimedEventFilter`
+
+#### RewardPayoutCycleEnded()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### rewardPayoutId?
+
+`null`
+
+##### Returns
+
+`RewardPayoutCycleEndedEventFilter`
+
+#### RewardPayoutCycleEnded(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### rewardPayoutId?
+
+`null`
+
+##### Returns
+
+`RewardPayoutCycleEndedEventFilter`
+
+#### RewardPayoutCycleStarted()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### rewardPayoutId?
+
+`null`
+
+##### Returns
+
+`RewardPayoutCycleStartedEventFilter`
+
+#### RewardPayoutCycleStarted(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### rewardPayoutId?
+
+`null`
+
+##### Returns
+
+`RewardPayoutCycleStartedEventFilter`
+
+#### TaskAdded()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### taskId?
+
+`null`
+
+##### Returns
+
+`TaskAddedEventFilter`
+
+#### TaskAdded(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### taskId?
+
+`null`
+
+##### Returns
+
+`TaskAddedEventFilter`
+
+#### TaskBriefSet()
+
+##### Parameters
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+###### specificationHash?
+
+`null`
+
+##### Returns
+
+`TaskBriefSetEventFilter`
+
+#### TaskBriefSet(uint256,bytes32)()
+
+##### Parameters
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+###### specificationHash?
+
+`null`
+
+##### Returns
+
+`TaskBriefSetEventFilter`
+
+#### TaskCanceled()
+
+##### Parameters
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`TaskCanceledEventFilter`
+
+#### TaskCanceled(uint256)()
+
+##### Parameters
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`TaskCanceledEventFilter`
+
+#### TaskChangedViaSignatures()
+
+##### Parameters
+
+###### reviewerAddresses?
+
+`null`
+
+##### Returns
+
+`TaskChangedViaSignaturesEventFilter`
+
+#### TaskChangedViaSignatures(address\[\])()
+
+##### Parameters
+
+###### reviewerAddresses?
+
+`null`
+
+##### Returns
+
+`TaskChangedViaSignaturesEventFilter`
+
+#### TaskCompleted()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`TaskCompletedEventFilter`
+
+#### TaskCompleted(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`TaskCompletedEventFilter`
+
+#### TaskDeliverableSubmitted()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+###### deliverableHash?
+
+`null`
+
+##### Returns
+
+`TaskDeliverableSubmittedEventFilter`
+
+#### TaskDeliverableSubmitted(address,uint256,bytes32)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+###### deliverableHash?
+
+`null`
+
+##### Returns
+
+`TaskDeliverableSubmittedEventFilter`
+
+#### TaskDueDateSet()
+
+##### Parameters
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+###### dueDate?
+
+`null`
+
+##### Returns
+
+`TaskDueDateSetEventFilter`
+
+#### TaskDueDateSet(uint256,uint256)()
+
+##### Parameters
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+###### dueDate?
+
+`null`
+
+##### Returns
+
+`TaskDueDateSetEventFilter`
+
+#### TaskFinalized()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`TaskFinalizedEventFilter`
+
+#### TaskFinalized(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`TaskFinalizedEventFilter`
+
+#### TaskPayoutSet()
+
+##### Parameters
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+###### role?
+
+`null`
+
+###### token?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`TaskPayoutSetEventFilter`
+
+#### TaskPayoutSet(uint256,uint8,address,uint256)()
+
+##### Parameters
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+###### role?
+
+`null`
+
+###### token?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`TaskPayoutSetEventFilter`
+
+#### TaskRoleUserSet()
+
+##### Parameters
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+###### role?
+
+`null`
+
+###### user?
+
+`null` | `string`
+
+##### Returns
+
+`TaskRoleUserSetEventFilter`
+
+#### TaskRoleUserSet(uint256,uint8,address)()
+
+##### Parameters
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+###### role?
+
+`null`
+
+###### user?
+
+`null` | `string`
+
+##### Returns
+
+`TaskRoleUserSetEventFilter`
+
+#### TaskSkillSet()
+
+##### Parameters
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+###### skillId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`TaskSkillSetEventFilter`
+
+#### TaskSkillSet(uint256,uint256)()
+
+##### Parameters
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+###### skillId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`TaskSkillSetEventFilter`
+
+#### TaskWorkRatingRevealed()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+###### role?
+
+`null`
+
+###### rating?
+
+`null`
+
+##### Returns
+
+`TaskWorkRatingRevealedEventFilter`
+
+#### TaskWorkRatingRevealed(address,uint256,uint8,uint8)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### taskId?
+
+`null` | `BigNumberish`
+
+###### role?
+
+`null`
+
+###### rating?
+
+`null`
+
+##### Returns
+
+`TaskWorkRatingRevealedEventFilter`
+
+#### TokensBurned()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### token?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`TokensBurnedEventFilter`
+
+#### TokensBurned(address,address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### token?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`TokensBurnedEventFilter`
+
+#### TokensMinted()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### who?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`TokensMintedEventFilter`
+
+#### TokensMinted(address,address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### who?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`TokensMintedEventFilter`
+
+#### TokenUnlocked()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+##### Returns
+
+`TokenUnlockedEventFilter`
+
+#### TokenUnlocked(address)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+##### Returns
+
+`TokenUnlockedEventFilter`
 
 #### Inherited from
 
-AugmentedIColony.filters
+`AugmentedIColony.filters`
 
-___
+***
 
 ### interface
 
-• **interface**: `IColonyInterface`
+> **interface**: `IColonyInterface`
 
 #### Inherited from
 
-AugmentedIColony.interface
+`AugmentedIColony.interface`
 
-___
+***
 
 ### networkClient
 
-• **networkClient**: [`ColonyNetworkClient`](ColonyNetworkClient.md)
+> **networkClient**: [`ColonyNetworkClient`](ColonyNetworkClient.md)
 
 An instance of the ColonyNetworkClient
 
 #### Inherited from
 
-AugmentedIColony.networkClient
+`AugmentedIColony.networkClient`
 
-___
+***
 
 ### off
 
-• **off**: `OnEvent`<[`ColonyClientV16`](ColonyClientV16.md)\>
+> **off**: `OnEvent`\<[`ColonyClientV16`](ColonyClientV16.md)\>
 
 #### Inherited from
 
-AugmentedIColony.off
+`AugmentedIColony.off`
 
-___
+***
 
 ### on
 
-• **on**: `OnEvent`<[`ColonyClientV16`](ColonyClientV16.md)\>
+> **on**: `OnEvent`\<[`ColonyClientV16`](ColonyClientV16.md)\>
 
 #### Inherited from
 
-AugmentedIColony.on
+`AugmentedIColony.on`
 
-___
+***
 
 ### once
 
-• **once**: `OnEvent`<[`ColonyClientV16`](ColonyClientV16.md)\>
+> **once**: `OnEvent`\<[`ColonyClientV16`](ColonyClientV16.md)\>
 
 #### Inherited from
 
-AugmentedIColony.once
+`AugmentedIColony.once`
 
-___
+***
 
 ### provider
 
-• `Readonly` **provider**: `Provider`
+> `readonly` **provider**: `Provider`
 
 #### Inherited from
 
-AugmentedIColony.provider
+`AugmentedIColony.provider`
 
-___
+***
 
 ### removeListener
 
-• **removeListener**: `OnEvent`<[`ColonyClientV16`](ColonyClientV16.md)\>
+> **removeListener**: `OnEvent`\<[`ColonyClientV16`](ColonyClientV16.md)\>
 
 #### Inherited from
 
-AugmentedIColony.removeListener
+`AugmentedIColony.removeListener`
 
-___
+***
 
 ### reputationClient
 
-• **reputationClient**: [`ReputationClient`](../classes/ReputationClient.md)
+> **reputationClient**: [`ReputationClient`](../classes/ReputationClient.md)
 
 A helper client to retrieve reputation
 
 #### Inherited from
 
-AugmentedIColony.reputationClient
+`AugmentedIColony.reputationClient`
 
-___
+***
 
 ### resolvedAddress
 
-• `Readonly` **resolvedAddress**: `Promise`<`string`\>
+> `readonly` **resolvedAddress**: `Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedIColony.resolvedAddress
+`AugmentedIColony.resolvedAddress`
 
-___
+***
 
 ### signer
 
-• `Readonly` **signer**: `Signer`
+> `readonly` **signer**: `Signer`
 
 #### Inherited from
 
-AugmentedIColony.signer
+`AugmentedIColony.signer`
 
-___
+***
 
 ### tokenClient
 
-• **tokenClient**: [`TokenClient`](../README.md#tokenclient)
+> **tokenClient**: [`TokenClient`](../type-aliases/TokenClient.md)
 
 An instance of the TokenClient for the Colony's native token
 
 #### Inherited from
 
-AugmentedIColony.tokenClient
+`AugmentedIColony.tokenClient`
 
 ## Methods
 
-### \_checkRunningEvents
+### \_checkRunningEvents()
 
-▸ **_checkRunningEvents**(`runningEvent`): `void`
+> **\_checkRunningEvents**(`runningEvent`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `runningEvent` | `RunningEvent` |
+##### runningEvent
+
+`RunningEvent`
 
 #### Returns
 
@@ -393,41 +2588,47 @@ AugmentedIColony.tokenClient
 
 #### Inherited from
 
-AugmentedIColony.\_checkRunningEvents
+`AugmentedIColony._checkRunningEvents`
 
-___
+***
 
-### \_deployed
+### \_deployed()
 
-▸ **_deployed**(`blockTag?`): `Promise`<`Contract`\>
+> **\_deployed**(`blockTag`?): `Promise`\<`Contract`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `blockTag?` | `BlockTag` |
+##### blockTag?
+
+`BlockTag`
 
 #### Returns
 
-`Promise`<`Contract`\>
+`Promise`\<`Contract`\>
 
 #### Inherited from
 
-AugmentedIColony.\_deployed
+`AugmentedIColony._deployed`
 
-___
+***
 
-### \_wrapEvent
+### \_wrapEvent()
 
-▸ **_wrapEvent**(`runningEvent`, `log`, `listener`): `Event`
+> **\_wrapEvent**(`runningEvent`, `log`, `listener`): `Event`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `runningEvent` | `RunningEvent` |
-| `log` | `Log` |
-| `listener` | `Listener` |
+##### runningEvent
+
+`RunningEvent`
+
+##### log
+
+`Log`
+
+##### listener
+
+`Listener`
 
 #### Returns
 
@@ -435,1102 +2636,1407 @@ ___
 
 #### Inherited from
 
-AugmentedIColony.\_wrapEvent
+`AugmentedIColony._wrapEvent`
 
-___
+***
 
-### addDomain(uint256,uint256,uint256)
+### addDomain(uint256,uint256,uint256,string)()
 
-▸ **addDomain(uint256,uint256,uint256)**(`_permissionDomainId`, `_childSkillIndex`, `_parentDomainId`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_parentDomainId` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedIColony.addDomain(uint256,uint256,uint256)
-
-___
-
-### addDomain(uint256,uint256,uint256,string)
-
-▸ **addDomain(uint256,uint256,uint256,string)**(`_permissionDomainId`, `_childSkillIndex`, `_parentDomainId`, `_metadata`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **addDomain(uint256,uint256,uint256,string)**(`_permissionDomainId`, `_childSkillIndex`, `_parentDomainId`, `_metadata`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_parentDomainId` | `BigNumberish` |
-| `_metadata` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_parentDomainId
+
+`BigNumberish`
+
+##### \_metadata
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.addDomain(uint256,uint256,uint256,string)
+`AugmentedIColony.addDomain(uint256,uint256,uint256,string)`
 
-___
+***
 
-### addDomainWithProofs(uint256)
+### addDomain(uint256,uint256,uint256)()
 
-▸ **addDomainWithProofs(uint256)**(`_parentDomainId`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **addDomain(uint256,uint256,uint256)**(`_permissionDomainId`, `_childSkillIndex`, `_parentDomainId`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
-Same as [addDomain(uint256,uint256,uint256)](ColonyClientV16.md#adddomain(uint256,uint256,uint256)), but let colonyJS figure out the permission proofs for you.
+#### Parameters
+
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_parentDomainId
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
+
+#### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### Inherited from
+
+`AugmentedIColony.addDomain(uint256,uint256,uint256)`
+
+***
+
+### addDomainWithProofs(uint256,string)()
+
+> **addDomainWithProofs(uint256,string)**(`_parentDomainId`, `_metadata`, `overrides`?): `Promise`\<`ContractTransaction`\>
+
+Same as ["addDomain(uint256,uint256,uint256,string)"](ColonyClientV16.md#adddomain(uint256,uint256,uint256,string)), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_parentDomainId` | `BigNumberish` | Id of the domain under which the new one will be added |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+##### \_parentDomainId
+
+`BigNumberish`
+
+Id of the domain under which the new one will be added
+
+##### \_metadata
+
+`string`
+
+Metadata relating to the domain. Expected to be the IPFS hash of a JSON blob, but not enforced by the contracts.
+
+##### overrides?
+
+[`TxOverrides`](../type-aliases/TxOverrides.md)
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AddDomainAugmentsB.addDomainWithProofs(uint256)
+`AddDomainAugmentsB.addDomainWithProofs(uint256,string)`
 
-___
+***
 
-### addDomainWithProofs(uint256,string)
+### addDomainWithProofs(uint256)()
 
-▸ **addDomainWithProofs(uint256,string)**(`_parentDomainId`, `_metadata`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **addDomainWithProofs(uint256)**(`_parentDomainId`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
-Same as [addDomain(uint256,uint256,uint256,string)](ColonyClientV16.md#adddomain(uint256,uint256,uint256,string)), but let colonyJS figure out the permission proofs for you.
+Same as ["addDomain(uint256,uint256,uint256)"](ColonyClientV16.md#adddomain(uint256,uint256,uint256)), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_parentDomainId` | `BigNumberish` | Id of the domain under which the new one will be added |
-| `_metadata` | `string` | Metadata relating to the domain. Expected to be the IPFS hash of a JSON blob, but not enforced by the contracts. |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+##### \_parentDomainId
+
+`BigNumberish`
+
+Id of the domain under which the new one will be added
+
+##### overrides?
+
+[`TxOverrides`](../type-aliases/TxOverrides.md)
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AddDomainAugmentsB.addDomainWithProofs(uint256,string)
+`AddDomainAugmentsB.addDomainWithProofs(uint256)`
 
-___
-
-### addLocalSkill
-
-▸ **addLocalSkill**(`overrides?`): `Promise`<`ContractTransaction`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedIColony.addLocalSkill
-
-___
+***
 
 ### addLocalSkill()
 
-▸ **addLocalSkill()**(`overrides?`): `Promise`<`ContractTransaction`\>
+> **addLocalSkill**(`overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.addLocalSkill()
+`AugmentedIColony.addLocalSkill`
 
-___
+***
 
-### annotateTransaction
+### addLocalSkill()()
 
-▸ **annotateTransaction**(`_txHash`, `_metadata`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **addLocalSkill()**(`overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_txHash` | `BytesLike` |
-| `_metadata` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.annotateTransaction
+`AugmentedIColony.addLocalSkill()`
 
-___
+***
 
-### annotateTransaction(bytes32,string)
+### annotateTransaction()
 
-▸ **annotateTransaction(bytes32,string)**(`_txHash`, `_metadata`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **annotateTransaction**(`_txHash`, `_metadata`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_txHash` | `BytesLike` |
-| `_metadata` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_txHash
+
+`BytesLike`
+
+##### \_metadata
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.annotateTransaction(bytes32,string)
+`AugmentedIColony.annotateTransaction`
 
-___
+***
 
-### approveExitRecovery
+### annotateTransaction(bytes32,string)()
 
-▸ **approveExitRecovery**(`overrides?`): `Promise`<`ContractTransaction`\>
+> **annotateTransaction(bytes32,string)**(`_txHash`, `_metadata`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_txHash
+
+`BytesLike`
+
+##### \_metadata
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.approveExitRecovery
+`AugmentedIColony.annotateTransaction(bytes32,string)`
 
-___
+***
 
 ### approveExitRecovery()
 
-▸ **approveExitRecovery()**(`overrides?`): `Promise`<`ContractTransaction`\>
+> **approveExitRecovery**(`overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.approveExitRecovery()
+`AugmentedIColony.approveExitRecovery`
 
-___
+***
 
-### approveStake
+### approveExitRecovery()()
 
-▸ **approveStake**(`_approvee`, `_domainId`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **approveExitRecovery()**(`overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_approvee` | `string` |
-| `_domainId` | `BigNumberish` |
-| `_amount` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.approveStake
+`AugmentedIColony.approveExitRecovery()`
 
-___
+***
 
-### approveStake(address,uint256,uint256)
+### approveStake()
 
-▸ **approveStake(address,uint256,uint256)**(`_approvee`, `_domainId`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **approveStake**(`_approvee`, `_domainId`, `_amount`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_approvee` | `string` |
-| `_domainId` | `BigNumberish` |
-| `_amount` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_approvee
+
+`string`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_amount
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.approveStake(address,uint256,uint256)
+`AugmentedIColony.approveStake`
 
-___
+***
 
-### attach
+### approveStake(address,uint256,uint256)()
 
-▸ **attach**(`addressOrName`): [`ColonyClientV16`](ColonyClientV16.md)
+> **approveStake(address,uint256,uint256)**(`_approvee`, `_domainId`, `_amount`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `addressOrName` | `string` |
+##### \_approvee
+
+`string`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_amount
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-[`ColonyClientV16`](ColonyClientV16.md)
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.attach
+`AugmentedIColony.approveStake(address,uint256,uint256)`
 
-___
+***
 
-### authority
+### attach()
 
-▸ **authority**(`overrides?`): `Promise`<`string`\>
+> **attach**(`addressOrName`): `this`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### addressOrName
+
+`string`
 
 #### Returns
 
-`Promise`<`string`\>
+`this`
 
 #### Inherited from
 
-AugmentedIColony.authority
+`AugmentedIColony.attach`
 
-___
+***
 
 ### authority()
 
-▸ **authority()**(`overrides?`): `Promise`<`string`\>
+> **authority**(`overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedIColony.authority()
+`AugmentedIColony.authority`
 
-___
+***
 
-### bootstrapColony
+### authority()()
 
-▸ **bootstrapColony**(`_users`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **authority()**(`overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_users` | `string`[] |
-| `_amount` | `BigNumberish`[] |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedIColony.bootstrapColony
+`AugmentedIColony.authority()`
 
-___
+***
 
-### bootstrapColony(address[],int256[])
+### bootstrapColony()
 
-▸ **bootstrapColony(address[],int256[])**(`_users`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **bootstrapColony**(`_users`, `_amount`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_users` | `string`[] |
-| `_amount` | `BigNumberish`[] |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_users
+
+`string`[]
+
+##### \_amount
+
+`BigNumberish`[]
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.bootstrapColony(address[],int256[])
+`AugmentedIColony.bootstrapColony`
 
-___
+***
 
-### burnTokens
+### bootstrapColony(address\[\],int256\[\])()
 
-▸ **burnTokens**(`token`, `amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **bootstrapColony(address\[\],int256\[\])**(`_users`, `_amount`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `token` | `string` |
-| `amount` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_users
+
+`string`[]
+
+##### \_amount
+
+`BigNumberish`[]
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.burnTokens
+`AugmentedIColony.bootstrapColony(address[],int256[])`
 
-___
+***
 
-### burnTokens(address,uint256)
+### burnTokens()
 
-▸ **burnTokens(address,uint256)**(`token`, `amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **burnTokens**(`token`, `amount`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `token` | `string` |
-| `amount` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### token
+
+`string`
+
+##### amount
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.burnTokens(address,uint256)
+`AugmentedIColony.burnTokens`
 
-___
+***
 
-### cancelExpenditure
+### burnTokens(address,uint256)()
 
-▸ **cancelExpenditure**(`_id`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **burnTokens(address,uint256)**(`token`, `amount`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### token
+
+`string`
+
+##### amount
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.cancelExpenditure
+`AugmentedIColony.burnTokens(address,uint256)`
 
-___
+***
 
-### cancelExpenditure(uint256)
+### cancelExpenditure()
 
-▸ **cancelExpenditure(uint256)**(`_id`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **cancelExpenditure**(`_id`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.cancelExpenditure(uint256)
+`AugmentedIColony.cancelExpenditure`
 
-___
+***
 
-### cancelExpenditureViaArbitration
+### cancelExpenditure(uint256)()
 
-▸ **cancelExpenditureViaArbitration**(`_permissionDomainId`, `_childSkillIndex`, `_id`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **cancelExpenditure(uint256)**(`_id`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_id` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.cancelExpenditureViaArbitration
+`AugmentedIColony.cancelExpenditure(uint256)`
 
-___
+***
 
-### cancelExpenditureViaArbitration(uint256,uint256,uint256)
+### cancelExpenditureViaArbitration()
 
-▸ **cancelExpenditureViaArbitration(uint256,uint256,uint256)**(`_permissionDomainId`, `_childSkillIndex`, `_id`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **cancelExpenditureViaArbitration**(`_permissionDomainId`, `_childSkillIndex`, `_id`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_id` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.cancelExpenditureViaArbitration(uint256,uint256,uint256)
+`AugmentedIColony.cancelExpenditureViaArbitration`
 
-___
+***
 
-### checkNotAdditionalProtectedVariable
+### cancelExpenditureViaArbitration(uint256,uint256,uint256)()
 
-▸ **checkNotAdditionalProtectedVariable**(`_slot`, `overrides?`): `Promise`<`void`\>
+> **cancelExpenditureViaArbitration(uint256,uint256,uint256)**(`_permissionDomainId`, `_childSkillIndex`, `_id`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_slot` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.checkNotAdditionalProtectedVariable
+`AugmentedIColony.cancelExpenditureViaArbitration(uint256,uint256,uint256)`
 
-___
+***
 
-### checkNotAdditionalProtectedVariable(uint256)
+### checkNotAdditionalProtectedVariable()
 
-▸ **checkNotAdditionalProtectedVariable(uint256)**(`_slot`, `overrides?`): `Promise`<`void`\>
+> **checkNotAdditionalProtectedVariable**(`_slot`, `overrides`?): `Promise`\<`void`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_slot` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_slot
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Inherited from
 
-AugmentedIColony.checkNotAdditionalProtectedVariable(uint256)
+`AugmentedIColony.checkNotAdditionalProtectedVariable`
 
-___
+***
 
-### claimColonyFunds
+### checkNotAdditionalProtectedVariable(uint256)()
 
-▸ **claimColonyFunds**(`_token`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **checkNotAdditionalProtectedVariable(uint256)**(`_slot`, `overrides`?): `Promise`\<`void`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_token` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_slot
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`void`\>
 
 #### Inherited from
 
-AugmentedIColony.claimColonyFunds
+`AugmentedIColony.checkNotAdditionalProtectedVariable(uint256)`
 
-___
+***
 
-### claimColonyFunds(address)
+### claimColonyFunds()
 
-▸ **claimColonyFunds(address)**(`_token`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **claimColonyFunds**(`_token`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_token` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_token
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.claimColonyFunds(address)
+`AugmentedIColony.claimColonyFunds`
 
-___
+***
 
-### claimExpenditurePayout
+### claimColonyFunds(address)()
 
-▸ **claimExpenditurePayout**(`_id`, `_slot`, `_token`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **claimColonyFunds(address)**(`_token`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `_slot` | `BigNumberish` |
-| `_token` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_token
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.claimExpenditurePayout
+`AugmentedIColony.claimColonyFunds(address)`
 
-___
+***
 
-### claimExpenditurePayout(uint256,uint256,address)
+### claimExpenditurePayout()
 
-▸ **claimExpenditurePayout(uint256,uint256,address)**(`_id`, `_slot`, `_token`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **claimExpenditurePayout**(`_id`, `_slot`, `_token`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `_slot` | `BigNumberish` |
-| `_token` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_id
+
+`BigNumberish`
+
+##### \_slot
+
+`BigNumberish`
+
+##### \_token
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.claimExpenditurePayout(uint256,uint256,address)
+`AugmentedIColony.claimExpenditurePayout`
 
-___
+***
 
-### claimRewardPayout
+### claimExpenditurePayout(uint256,uint256,address)()
 
-▸ **claimRewardPayout**(`_payoutId`, `_squareRoots`, `key`, `value`, `branchMask`, `siblings`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **claimExpenditurePayout(uint256,uint256,address)**(`_id`, `_slot`, `_token`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_payoutId` | `BigNumberish` |
-| `_squareRoots` | `BigNumberish`[] |
-| `key` | `BytesLike` |
-| `value` | `BytesLike` |
-| `branchMask` | `BigNumberish` |
-| `siblings` | `BytesLike`[] |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_id
+
+`BigNumberish`
+
+##### \_slot
+
+`BigNumberish`
+
+##### \_token
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.claimRewardPayout
+`AugmentedIColony.claimExpenditurePayout(uint256,uint256,address)`
 
-___
+***
 
-### claimRewardPayout(uint256,uint256[7],bytes,bytes,uint256,bytes32[])
+### claimRewardPayout()
 
-▸ **claimRewardPayout(uint256,uint256[7],bytes,bytes,uint256,bytes32[])**(`_payoutId`, `_squareRoots`, `key`, `value`, `branchMask`, `siblings`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **claimRewardPayout**(`_payoutId`, `_squareRoots`, `key`, `value`, `branchMask`, `siblings`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_payoutId` | `BigNumberish` |
-| `_squareRoots` | `BigNumberish`[] |
-| `key` | `BytesLike` |
-| `value` | `BytesLike` |
-| `branchMask` | `BigNumberish` |
-| `siblings` | `BytesLike`[] |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_payoutId
+
+`BigNumberish`
+
+##### \_squareRoots
+
+`BigNumberish`[]
+
+##### key
+
+`BytesLike`
+
+##### value
+
+`BytesLike`
+
+##### branchMask
+
+`BigNumberish`
+
+##### siblings
+
+`BytesLike`[]
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.claimRewardPayout(uint256,uint256[7],bytes,bytes,uint256,bytes32[])
+`AugmentedIColony.claimRewardPayout`
 
-___
+***
 
-### connect
+### claimRewardPayout(uint256,uint256\[7\],bytes,bytes,uint256,bytes32\[\])()
 
-▸ **connect**(`signerOrProvider`): [`ColonyClientV16`](ColonyClientV16.md)
+> **claimRewardPayout(uint256,uint256\[7\],bytes,bytes,uint256,bytes32\[\])**(`_payoutId`, `_squareRoots`, `key`, `value`, `branchMask`, `siblings`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `signerOrProvider` | `string` \| `Signer` \| `Provider` |
+##### \_payoutId
+
+`BigNumberish`
+
+##### \_squareRoots
+
+`BigNumberish`[]
+
+##### key
+
+`BytesLike`
+
+##### value
+
+`BytesLike`
+
+##### branchMask
+
+`BigNumberish`
+
+##### siblings
+
+`BytesLike`[]
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-[`ColonyClientV16`](ColonyClientV16.md)
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.connect
+`AugmentedIColony.claimRewardPayout(uint256,uint256[7],bytes,bytes,uint256,bytes32[])`
 
-___
+***
 
-### deobligateStake
+### connect()
 
-▸ **deobligateStake**(`_user`, `_domainId`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **connect**(`signerOrProvider`): `this`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_domainId` | `BigNumberish` |
-| `_amount` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### signerOrProvider
+
+`string` | `Signer` | `Provider`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`this`
 
 #### Inherited from
 
-AugmentedIColony.deobligateStake
+`AugmentedIColony.connect`
 
-___
+***
 
-### deobligateStake(address,uint256,uint256)
+### deobligateStake()
 
-▸ **deobligateStake(address,uint256,uint256)**(`_user`, `_domainId`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **deobligateStake**(`_user`, `_domainId`, `_amount`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_domainId` | `BigNumberish` |
-| `_amount` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_user
+
+`string`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_amount
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.deobligateStake(address,uint256,uint256)
+`AugmentedIColony.deobligateStake`
 
-___
+***
 
-### deployed
+### deobligateStake(address,uint256,uint256)()
 
-▸ **deployed**(): `Promise`<[`ColonyClientV16`](ColonyClientV16.md)\>
-
-#### Returns
-
-`Promise`<[`ColonyClientV16`](ColonyClientV16.md)\>
-
-#### Inherited from
-
-AugmentedIColony.deployed
-
-___
-
-### deprecateDomain
-
-▸ **deprecateDomain**(`_permissionDomainId`, `_childSkillIndex`, `_domainId`, `_deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **deobligateStake(address,uint256,uint256)**(`_user`, `_domainId`, `_amount`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_domainId` | `BigNumberish` |
-| `_deprecated` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_user
+
+`string`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_amount
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.deprecateDomain
+`AugmentedIColony.deobligateStake(address,uint256,uint256)`
 
-___
+***
 
-### deprecateDomain(uint256,uint256,uint256,bool)
+### deployed()
 
-▸ **deprecateDomain(uint256,uint256,uint256,bool)**(`_permissionDomainId`, `_childSkillIndex`, `_domainId`, `_deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **deployed**(): `Promise`\<[`ColonyClientV16`](ColonyClientV16.md)\>
+
+#### Returns
+
+`Promise`\<[`ColonyClientV16`](ColonyClientV16.md)\>
+
+#### Inherited from
+
+`AugmentedIColony.deployed`
+
+***
+
+### deprecateDomain()
+
+> **deprecateDomain**(`_permissionDomainId`, `_childSkillIndex`, `_domainId`, `_deprecated`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_domainId` | `BigNumberish` |
-| `_deprecated` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_deprecated
+
+`boolean`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.deprecateDomain(uint256,uint256,uint256,bool)
+`AugmentedIColony.deprecateDomain`
 
-___
+***
 
-### deprecateDomainWithProofs
+### deprecateDomain(uint256,uint256,uint256,bool)()
 
-▸ **deprecateDomainWithProofs**(`_domainId`, `_deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **deprecateDomain(uint256,uint256,uint256,bool)**(`_permissionDomainId`, `_childSkillIndex`, `_domainId`, `_deprecated`, `overrides`?): `Promise`\<`ContractTransaction`\>
+
+#### Parameters
+
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_deprecated
+
+`boolean`
+
+##### overrides?
+
+`Overrides` & `object`
+
+#### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### Inherited from
+
+`AugmentedIColony.deprecateDomain(uint256,uint256,uint256,bool)`
+
+***
+
+### deprecateDomainWithProofs()
+
+> **deprecateDomainWithProofs**(`_domainId`, `_deprecated`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 Same as [deprecateDomain](ColonyClientV16.md#deprecatedomain), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_domainId` | `BigNumberish` | Id of the domain being deprecated |
-| `_deprecated` | `boolean` | Whether the domain should be deprecated (true) or undeprecated (false) |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+##### \_domainId
+
+`BigNumberish`
+
+Id of the domain being deprecated
+
+##### \_deprecated
+
+`boolean`
+
+Whether the domain should be deprecated (true) or undeprecated (false)
+
+##### overrides?
+
+[`TxOverrides`](../type-aliases/TxOverrides.md)
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-ColonyAugmentsV6.deprecateDomainWithProofs
+`ColonyAugmentsV6.deprecateDomainWithProofs`
 
-___
+***
 
-### deprecateExtension
+### deprecateExtension()
 
-▸ **deprecateExtension**(`extensionId`, `deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **deprecateExtension**(`extensionId`, `deprecated`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `extensionId` | `BytesLike` |
-| `deprecated` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### extensionId
+
+`BytesLike`
+
+##### deprecated
+
+`boolean`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.deprecateExtension
+`AugmentedIColony.deprecateExtension`
 
-___
+***
 
-### deprecateExtension(bytes32,bool)
+### deprecateExtension(bytes32,bool)()
 
-▸ **deprecateExtension(bytes32,bool)**(`extensionId`, `deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **deprecateExtension(bytes32,bool)**(`extensionId`, `deprecated`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `extensionId` | `BytesLike` |
-| `deprecated` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### extensionId
+
+`BytesLike`
+
+##### deprecated
+
+`boolean`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.deprecateExtension(bytes32,bool)
+`AugmentedIColony.deprecateExtension(bytes32,bool)`
 
-___
+***
 
-### deprecateLocalSkill
+### deprecateLocalSkill()
 
-▸ **deprecateLocalSkill**(`localSkillId`, `deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **deprecateLocalSkill**(`localSkillId`, `deprecated`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `localSkillId` | `BigNumberish` |
-| `deprecated` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### localSkillId
+
+`BigNumberish`
+
+##### deprecated
+
+`boolean`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.deprecateLocalSkill
+`AugmentedIColony.deprecateLocalSkill`
 
-___
+***
 
-### deprecateLocalSkill(uint256,bool)
+### deprecateLocalSkill(uint256,bool)()
 
-▸ **deprecateLocalSkill(uint256,bool)**(`localSkillId`, `deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **deprecateLocalSkill(uint256,bool)**(`localSkillId`, `deprecated`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `localSkillId` | `BigNumberish` |
-| `deprecated` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### localSkillId
+
+`BigNumberish`
+
+##### deprecated
+
+`boolean`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.deprecateLocalSkill(uint256,bool)
+`AugmentedIColony.deprecateLocalSkill(uint256,bool)`
 
-___
+***
 
-### editColony
+### editColony()
 
-▸ **editColony**(`_metadata`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **editColony**(`_metadata`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_metadata` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_metadata
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.editColony
+`AugmentedIColony.editColony`
 
-___
+***
 
-### editColony(string)
+### editColony(string)()
 
-▸ **editColony(string)**(`_metadata`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **editColony(string)**(`_metadata`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_metadata` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_metadata
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.editColony(string)
+`AugmentedIColony.editColony(string)`
 
-___
+***
 
-### editColonyByDelta
+### editColonyByDelta()
 
-▸ **editColonyByDelta**(`_metadataDelta`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **editColonyByDelta**(`_metadataDelta`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_metadataDelta` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_metadataDelta
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.editColonyByDelta
+`AugmentedIColony.editColonyByDelta`
 
-___
+***
 
-### editColonyByDelta(string)
+### editColonyByDelta(string)()
 
-▸ **editColonyByDelta(string)**(`_metadataDelta`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **editColonyByDelta(string)**(`_metadataDelta`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_metadataDelta` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_metadataDelta
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.editColonyByDelta(string)
+`AugmentedIColony.editColonyByDelta(string)`
 
-___
+***
 
-### editDomain
+### editDomain()
 
-▸ **editDomain**(`_permissionDomainId`, `_childSkillIndex`, `_domainId`, `_metadata`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **editDomain**(`_permissionDomainId`, `_childSkillIndex`, `_domainId`, `_metadata`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_domainId` | `BigNumberish` |
-| `_metadata` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_metadata
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.editDomain
+`AugmentedIColony.editDomain`
 
-___
+***
 
-### editDomain(uint256,uint256,uint256,string)
+### editDomain(uint256,uint256,uint256,string)()
 
-▸ **editDomain(uint256,uint256,uint256,string)**(`_permissionDomainId`, `_childSkillIndex`, `_domainId`, `_metadata`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **editDomain(uint256,uint256,uint256,string)**(`_permissionDomainId`, `_childSkillIndex`, `_domainId`, `_metadata`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_domainId` | `BigNumberish` |
-| `_metadata` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_metadata
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.editDomain(uint256,uint256,uint256,string)
+`AugmentedIColony.editDomain(uint256,uint256,uint256,string)`
 
-___
+***
 
-### editDomainWithProofs
+### editDomainWithProofs()
 
-▸ **editDomainWithProofs**(`_domainId`, `_metadata`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **editDomainWithProofs**(`_domainId`, `_metadata`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 Same as [editDomain](ColonyClientV16.md#editdomain), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_domainId` | `BigNumberish` | Id of the domain being edited |
-| `_metadata` | `string` | Metadata relating to the domain. Expected to be the IPFS hash of a JSON blob, but not enforced by the contracts. |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+##### \_domainId
+
+`BigNumberish`
+
+Id of the domain being edited
+
+##### \_metadata
+
+`string`
+
+Metadata relating to the domain. Expected to be the IPFS hash of a JSON blob, but not enforced by the contracts.
+
+##### overrides?
+
+[`TxOverrides`](../type-aliases/TxOverrides.md)
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-ColonyAugmentsV5.editDomainWithProofs
+`ColonyAugmentsV5.editDomainWithProofs`
 
-___
+***
 
-### emit
+### emit()
 
-▸ **emit**(`eventName`, `...args`): `boolean`
+> **emit**(`eventName`, ...`args`): `boolean`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `eventName` | `string` \| `EventFilter` |
-| `...args` | `any`[] |
+##### eventName
+
+`string` | `EventFilter`
+
+##### args
+
+...`any`[]
 
 #### Returns
 
@@ -1538,2384 +4044,2894 @@ ___
 
 #### Inherited from
 
-AugmentedIColony.emit
+`AugmentedIColony.emit`
 
-___
+***
 
-### emitDomainReputationPenalty
+### emitDomainReputationPenalty()
 
-▸ **emitDomainReputationPenalty**(`_permissionDomainId`, `_childSkillIndex`, `_domainId`, `_user`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_domainId` | `BigNumberish` |
-| `_user` | `string` |
-| `_amount` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedIColony.emitDomainReputationPenalty
-
-___
-
-### emitDomainReputationPenalty(uint256,uint256,uint256,address,int256)
-
-▸ **emitDomainReputationPenalty(uint256,uint256,uint256,address,int256)**(`_permissionDomainId`, `_childSkillIndex`, `_domainId`, `_user`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **emitDomainReputationPenalty**(`_permissionDomainId`, `_childSkillIndex`, `_domainId`, `_user`, `_amount`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_domainId` | `BigNumberish` |
-| `_user` | `string` |
-| `_amount` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_user
+
+`string`
+
+##### \_amount
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.emitDomainReputationPenalty(uint256,uint256,uint256,address,int256)
+`AugmentedIColony.emitDomainReputationPenalty`
 
-___
+***
 
-### emitDomainReputationPenaltyWithProofs
+### emitDomainReputationPenalty(uint256,uint256,uint256,address,int256)()
 
-▸ **emitDomainReputationPenaltyWithProofs**(`_domainId`, `_user`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **emitDomainReputationPenalty(uint256,uint256,uint256,address,int256)**(`_permissionDomainId`, `_childSkillIndex`, `_domainId`, `_user`, `_amount`, `overrides`?): `Promise`\<`ContractTransaction`\>
+
+#### Parameters
+
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_user
+
+`string`
+
+##### \_amount
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
+
+#### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### Inherited from
+
+`AugmentedIColony.emitDomainReputationPenalty(uint256,uint256,uint256,address,int256)`
+
+***
+
+### emitDomainReputationPenaltyWithProofs()
+
+> **emitDomainReputationPenaltyWithProofs**(`_domainId`, `_user`, `_amount`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 Same as [emitDomainReputationPenalty](ColonyClientV16.md#emitdomainreputationpenalty), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_domainId` | `BigNumberish` | The domain where the user will lose reputation |
-| `_user` | `string` | The user who will lose reputation |
-| `_amount` | `BigNumberish` | The (negative) amount of reputation to lose |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+##### \_domainId
+
+`BigNumberish`
+
+The domain where the user will lose reputation
+
+##### \_user
+
+`string`
+
+The user who will lose reputation
+
+##### \_amount
+
+`BigNumberish`
+
+The (negative) amount of reputation to lose
+
+##### overrides?
+
+[`TxOverrides`](../type-aliases/TxOverrides.md)
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-ColonyAugmentsV5.emitDomainReputationPenaltyWithProofs
+`ColonyAugmentsV5.emitDomainReputationPenaltyWithProofs`
 
-___
+***
 
-### emitDomainReputationReward
+### emitDomainReputationReward()
 
-▸ **emitDomainReputationReward**(`_domainId`, `_user`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **emitDomainReputationReward**(`_domainId`, `_user`, `_amount`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_domainId` | `BigNumberish` |
-| `_user` | `string` |
-| `_amount` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_domainId
+
+`BigNumberish`
+
+##### \_user
+
+`string`
+
+##### \_amount
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.emitDomainReputationReward
+`AugmentedIColony.emitDomainReputationReward`
 
-___
+***
 
-### emitDomainReputationReward(uint256,address,int256)
+### emitDomainReputationReward(uint256,address,int256)()
 
-▸ **emitDomainReputationReward(uint256,address,int256)**(`_domainId`, `_user`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **emitDomainReputationReward(uint256,address,int256)**(`_domainId`, `_user`, `_amount`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_domainId` | `BigNumberish` |
-| `_user` | `string` |
-| `_amount` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_domainId
+
+`BigNumberish`
+
+##### \_user
+
+`string`
+
+##### \_amount
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.emitDomainReputationReward(uint256,address,int256)
+`AugmentedIColony.emitDomainReputationReward(uint256,address,int256)`
 
-___
+***
 
-### emitSkillReputationPenalty
+### emitSkillReputationPenalty()
 
-▸ **emitSkillReputationPenalty**(`_skillId`, `_user`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **emitSkillReputationPenalty**(`_skillId`, `_user`, `_amount`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_skillId` | `BigNumberish` |
-| `_user` | `string` |
-| `_amount` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_skillId
+
+`BigNumberish`
+
+##### \_user
+
+`string`
+
+##### \_amount
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.emitSkillReputationPenalty
+`AugmentedIColony.emitSkillReputationPenalty`
 
-___
+***
 
-### emitSkillReputationPenalty(uint256,address,int256)
+### emitSkillReputationPenalty(uint256,address,int256)()
 
-▸ **emitSkillReputationPenalty(uint256,address,int256)**(`_skillId`, `_user`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **emitSkillReputationPenalty(uint256,address,int256)**(`_skillId`, `_user`, `_amount`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_skillId` | `BigNumberish` |
-| `_user` | `string` |
-| `_amount` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_skillId
+
+`BigNumberish`
+
+##### \_user
+
+`string`
+
+##### \_amount
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.emitSkillReputationPenalty(uint256,address,int256)
+`AugmentedIColony.emitSkillReputationPenalty(uint256,address,int256)`
 
-___
+***
 
-### emitSkillReputationReward
+### emitSkillReputationReward()
 
-▸ **emitSkillReputationReward**(`_skillId`, `_user`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **emitSkillReputationReward**(`_skillId`, `_user`, `_amount`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_skillId` | `BigNumberish` |
-| `_user` | `string` |
-| `_amount` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_skillId
+
+`BigNumberish`
+
+##### \_user
+
+`string`
+
+##### \_amount
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.emitSkillReputationReward
+`AugmentedIColony.emitSkillReputationReward`
 
-___
+***
 
-### emitSkillReputationReward(uint256,address,int256)
+### emitSkillReputationReward(uint256,address,int256)()
 
-▸ **emitSkillReputationReward(uint256,address,int256)**(`_skillId`, `_user`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **emitSkillReputationReward(uint256,address,int256)**(`_skillId`, `_user`, `_amount`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_skillId` | `BigNumberish` |
-| `_user` | `string` |
-| `_amount` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_skillId
+
+`BigNumberish`
+
+##### \_user
+
+`string`
+
+##### \_amount
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.emitSkillReputationReward(uint256,address,int256)
+`AugmentedIColony.emitSkillReputationReward(uint256,address,int256)`
 
-___
-
-### enterRecoveryMode
-
-▸ **enterRecoveryMode**(`overrides?`): `Promise`<`ContractTransaction`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedIColony.enterRecoveryMode
-
-___
+***
 
 ### enterRecoveryMode()
 
-▸ **enterRecoveryMode()**(`overrides?`): `Promise`<`ContractTransaction`\>
+> **enterRecoveryMode**(`overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.enterRecoveryMode()
+`AugmentedIColony.enterRecoveryMode`
 
-___
+***
 
-### executeMetaTransaction
+### enterRecoveryMode()()
 
-▸ **executeMetaTransaction**(`userAddress`, `payload`, `sigR`, `sigS`, `sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **enterRecoveryMode()**(`overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `userAddress` | `string` |
-| `payload` | `BytesLike` |
-| `sigR` | `BytesLike` |
-| `sigS` | `BytesLike` |
-| `sigV` | `BigNumberish` |
-| `overrides?` | `PayableOverrides` & { `from?`: `string`  } |
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.executeMetaTransaction
+`AugmentedIColony.enterRecoveryMode()`
 
-___
+***
 
-### executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)
+### executeMetaTransaction()
 
-▸ **executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)**(`userAddress`, `payload`, `sigR`, `sigS`, `sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **executeMetaTransaction**(`userAddress`, `payload`, `sigR`, `sigS`, `sigV`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `userAddress` | `string` |
-| `payload` | `BytesLike` |
-| `sigR` | `BytesLike` |
-| `sigS` | `BytesLike` |
-| `sigV` | `BigNumberish` |
-| `overrides?` | `PayableOverrides` & { `from?`: `string`  } |
+##### userAddress
+
+`string`
+
+##### payload
+
+`BytesLike`
+
+##### sigR
+
+`BytesLike`
+
+##### sigS
+
+`BytesLike`
+
+##### sigV
+
+`BigNumberish`
+
+##### overrides?
+
+`PayableOverrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)
+`AugmentedIColony.executeMetaTransaction`
 
-___
+***
 
-### exitRecoveryMode
+### executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)()
 
-▸ **exitRecoveryMode**(`overrides?`): `Promise`<`ContractTransaction`\>
+> **executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)**(`userAddress`, `payload`, `sigR`, `sigS`, `sigV`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### userAddress
+
+`string`
+
+##### payload
+
+`BytesLike`
+
+##### sigR
+
+`BytesLike`
+
+##### sigS
+
+`BytesLike`
+
+##### sigV
+
+`BigNumberish`
+
+##### overrides?
+
+`PayableOverrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.exitRecoveryMode
+`AugmentedIColony.executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)`
 
-___
+***
 
 ### exitRecoveryMode()
 
-▸ **exitRecoveryMode()**(`overrides?`): `Promise`<`ContractTransaction`\>
+> **exitRecoveryMode**(`overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.exitRecoveryMode()
+`AugmentedIColony.exitRecoveryMode`
 
-___
+***
 
-### fallback
+### exitRecoveryMode()()
 
-▸ **fallback**(`overrides?`): `Promise`<`TransactionResponse`\>
+> **exitRecoveryMode()**(`overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `TransactionRequest` |
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`TransactionResponse`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.fallback
+`AugmentedIColony.exitRecoveryMode()`
 
-___
+***
 
-### finalizeExpenditure
+### fallback()
 
-▸ **finalizeExpenditure**(`_id`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **fallback**(`overrides`?): `Promise`\<`TransactionResponse`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### overrides?
+
+`TransactionRequest`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`TransactionResponse`\>
 
 #### Inherited from
 
-AugmentedIColony.finalizeExpenditure
+`AugmentedIColony.fallback`
 
-___
+***
 
-### finalizeExpenditure(uint256)
+### finalizeExpenditure()
 
-▸ **finalizeExpenditure(uint256)**(`_id`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **finalizeExpenditure**(`_id`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.finalizeExpenditure(uint256)
+`AugmentedIColony.finalizeExpenditure`
 
-___
+***
 
-### finalizeExpenditureViaArbitration
+### finalizeExpenditure(uint256)()
 
-▸ **finalizeExpenditureViaArbitration**(`_permissionDomainId`, `_childSkillIndex`, `_id`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **finalizeExpenditure(uint256)**(`_id`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_id` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.finalizeExpenditureViaArbitration
+`AugmentedIColony.finalizeExpenditure(uint256)`
 
-___
+***
 
-### finalizeExpenditureViaArbitration(uint256,uint256,uint256)
+### finalizeExpenditureViaArbitration()
 
-▸ **finalizeExpenditureViaArbitration(uint256,uint256,uint256)**(`_permissionDomainId`, `_childSkillIndex`, `_id`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **finalizeExpenditureViaArbitration**(`_permissionDomainId`, `_childSkillIndex`, `_id`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_id` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.finalizeExpenditureViaArbitration(uint256,uint256,uint256)
+`AugmentedIColony.finalizeExpenditureViaArbitration`
 
-___
+***
 
-### finalizePaymentWithProofs
+### finalizeExpenditureViaArbitration(uint256,uint256,uint256)()
 
-▸ **finalizePaymentWithProofs**(`_id`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **finalizeExpenditureViaArbitration(uint256,uint256,uint256)**(`_permissionDomainId`, `_childSkillIndex`, `_id`, `overrides`?): `Promise`\<`ContractTransaction`\>
+
+#### Parameters
+
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
+
+#### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### Inherited from
+
+`AugmentedIColony.finalizeExpenditureViaArbitration(uint256,uint256,uint256)`
+
+***
+
+### finalizePaymentWithProofs()
+
+> **finalizePaymentWithProofs**(`_id`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 Same as finalizePayment, but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Payment identifier |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+##### \_id
+
+`BigNumberish`
+
+Payment identifier
+
+##### overrides?
+
+[`TxOverrides`](../type-aliases/TxOverrides.md)
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.finalizePaymentWithProofs
+`AugmentedIColony.finalizePaymentWithProofs`
 
-___
+***
 
-### finalizeRewardPayout
+### finalizeRewardPayout()
 
-▸ **finalizeRewardPayout**(`_payoutId`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **finalizeRewardPayout**(`_payoutId`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_payoutId` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_payoutId
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.finalizeRewardPayout
+`AugmentedIColony.finalizeRewardPayout`
 
-___
+***
 
-### finalizeRewardPayout(uint256)
+### finalizeRewardPayout(uint256)()
 
-▸ **finalizeRewardPayout(uint256)**(`_payoutId`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **finalizeRewardPayout(uint256)**(`_payoutId`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_payoutId` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_payoutId
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.finalizeRewardPayout(uint256)
+`AugmentedIColony.finalizeRewardPayout(uint256)`
 
-___
-
-### finishUpgrade
-
-▸ **finishUpgrade**(`overrides?`): `Promise`<`ContractTransaction`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedIColony.finishUpgrade
-
-___
+***
 
 ### finishUpgrade()
 
-▸ **finishUpgrade()**(`overrides?`): `Promise`<`ContractTransaction`\>
+> **finishUpgrade**(`overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.finishUpgrade()
+`AugmentedIColony.finishUpgrade`
 
-___
+***
 
-### getApproval
+### finishUpgrade()()
 
-▸ **getApproval**(`_user`, `_obligator`, `_domainId`, `overrides?`): `Promise`<`BigNumber`\>
+> **finishUpgrade()**(`overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_obligator` | `string` |
-| `_domainId` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.getApproval
+`AugmentedIColony.finishUpgrade()`
 
-___
+***
 
-### getApproval(address,address,uint256)
+### getApproval()
 
-▸ **getApproval(address,address,uint256)**(`_user`, `_obligator`, `_domainId`, `overrides?`): `Promise`<`BigNumber`\>
+> **getApproval**(`_user`, `_obligator`, `_domainId`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_obligator` | `string` |
-| `_domainId` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_user
+
+`string`
+
+##### \_obligator
+
+`string`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getApproval(address,address,uint256)
+`AugmentedIColony.getApproval`
 
-___
+***
 
-### getCapabilityRoles
+### getApproval(address,address,uint256)()
 
-▸ **getCapabilityRoles**(`_sig`, `overrides?`): `Promise`<`string`\>
+> **getApproval(address,address,uint256)**(`_user`, `_obligator`, `_domainId`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_sig` | `BytesLike` |
-| `overrides?` | `CallOverrides` |
+##### \_user
+
+`string`
+
+##### \_obligator
+
+`string`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getCapabilityRoles
+`AugmentedIColony.getApproval(address,address,uint256)`
 
-___
+***
 
-### getCapabilityRoles(bytes4)
+### getCapabilityRoles()
 
-▸ **getCapabilityRoles(bytes4)**(`_sig`, `overrides?`): `Promise`<`string`\>
+> **getCapabilityRoles**(`_sig`, `overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_sig` | `BytesLike` |
-| `overrides?` | `CallOverrides` |
+##### \_sig
+
+`BytesLike`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedIColony.getCapabilityRoles(bytes4)
+`AugmentedIColony.getCapabilityRoles`
 
-___
+***
 
-### getColonyNetwork
+### getCapabilityRoles(bytes4)()
 
-▸ **getColonyNetwork**(`overrides?`): `Promise`<`string`\>
+> **getCapabilityRoles(bytes4)**(`_sig`, `overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### \_sig
+
+`BytesLike`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedIColony.getColonyNetwork
+`AugmentedIColony.getCapabilityRoles(bytes4)`
 
-___
+***
 
 ### getColonyNetwork()
 
-▸ **getColonyNetwork()**(`overrides?`): `Promise`<`string`\>
+> **getColonyNetwork**(`overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedIColony.getColonyNetwork()
+`AugmentedIColony.getColonyNetwork`
 
-___
+***
 
-### getDomain
+### getColonyNetwork()()
 
-▸ **getDomain**(`_id`, `overrides?`): `Promise`<`DomainStructOutput`\>
+> **getColonyNetwork()**(`overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`DomainStructOutput`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedIColony.getDomain
+`AugmentedIColony.getColonyNetwork()`
 
-___
+***
 
-### getDomain(uint256)
+### getDomain()
 
-▸ **getDomain(uint256)**(`_id`, `overrides?`): `Promise`<`DomainStructOutput`\>
+> **getDomain**(`_id`, `overrides`?): `Promise`\<`DomainStructOutput`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`DomainStructOutput`\>
+`Promise`\<`DomainStructOutput`\>
 
 #### Inherited from
 
-AugmentedIColony.getDomain(uint256)
+`AugmentedIColony.getDomain`
 
-___
+***
 
-### getDomainCount
+### getDomain(uint256)()
 
-▸ **getDomainCount**(`overrides?`): `Promise`<`BigNumber`\>
+> **getDomain(uint256)**(`_id`, `overrides`?): `Promise`\<`DomainStructOutput`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`DomainStructOutput`\>
 
 #### Inherited from
 
-AugmentedIColony.getDomainCount
+`AugmentedIColony.getDomain(uint256)`
 
-___
+***
 
 ### getDomainCount()
 
-▸ **getDomainCount()**(`overrides?`): `Promise`<`BigNumber`\>
+> **getDomainCount**(`overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getDomainCount()
+`AugmentedIColony.getDomainCount`
 
-___
+***
 
-### getDomainFromFundingPot
+### getDomainCount()()
 
-▸ **getDomainFromFundingPot**(`_fundingPotId`, `overrides?`): `Promise`<`BigNumber`\>
+> **getDomainCount()**(`overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_fundingPotId` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getDomainFromFundingPot
+`AugmentedIColony.getDomainCount()`
 
-___
+***
 
-### getDomainFromFundingPot(uint256)
+### getDomainFromFundingPot()
 
-▸ **getDomainFromFundingPot(uint256)**(`_fundingPotId`, `overrides?`): `Promise`<`BigNumber`\>
+> **getDomainFromFundingPot**(`_fundingPotId`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_fundingPotId` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_fundingPotId
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getDomainFromFundingPot(uint256)
+`AugmentedIColony.getDomainFromFundingPot`
 
-___
+***
 
-### getExpenditure
+### getDomainFromFundingPot(uint256)()
 
-▸ **getExpenditure**(`_id`, `overrides?`): `Promise`<`ExpenditureStructOutput`\>
+> **getDomainFromFundingPot(uint256)**(`_fundingPotId`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_fundingPotId
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`ExpenditureStructOutput`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getExpenditure
+`AugmentedIColony.getDomainFromFundingPot(uint256)`
 
-___
+***
 
-### getExpenditure(uint256)
+### getExpenditure()
 
-▸ **getExpenditure(uint256)**(`_id`, `overrides?`): `Promise`<`ExpenditureStructOutput`\>
+> **getExpenditure**(`_id`, `overrides`?): `Promise`\<`ExpenditureStructOutput`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`ExpenditureStructOutput`\>
+`Promise`\<`ExpenditureStructOutput`\>
 
 #### Inherited from
 
-AugmentedIColony.getExpenditure(uint256)
+`AugmentedIColony.getExpenditure`
 
-___
+***
 
-### getExpenditureCount
+### getExpenditure(uint256)()
 
-▸ **getExpenditureCount**(`overrides?`): `Promise`<`BigNumber`\>
+> **getExpenditure(uint256)**(`_id`, `overrides`?): `Promise`\<`ExpenditureStructOutput`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`ExpenditureStructOutput`\>
 
 #### Inherited from
 
-AugmentedIColony.getExpenditureCount
+`AugmentedIColony.getExpenditure(uint256)`
 
-___
+***
 
 ### getExpenditureCount()
 
-▸ **getExpenditureCount()**(`overrides?`): `Promise`<`BigNumber`\>
+> **getExpenditureCount**(`overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getExpenditureCount()
+`AugmentedIColony.getExpenditureCount`
 
-___
+***
 
-### getExpenditureSlot
+### getExpenditureCount()()
 
-▸ **getExpenditureSlot**(`_id`, `_slot`, `overrides?`): `Promise`<`ExpenditureSlotStructOutput`\>
+> **getExpenditureCount()**(`overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `_slot` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`ExpenditureSlotStructOutput`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getExpenditureSlot
+`AugmentedIColony.getExpenditureCount()`
 
-___
+***
 
-### getExpenditureSlot(uint256,uint256)
+### getExpenditureSlot()
 
-▸ **getExpenditureSlot(uint256,uint256)**(`_id`, `_slot`, `overrides?`): `Promise`<`ExpenditureSlotStructOutput`\>
+> **getExpenditureSlot**(`_id`, `_slot`, `overrides`?): `Promise`\<`ExpenditureSlotStructOutput`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `_slot` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_id
+
+`BigNumberish`
+
+##### \_slot
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`ExpenditureSlotStructOutput`\>
+`Promise`\<`ExpenditureSlotStructOutput`\>
 
 #### Inherited from
 
-AugmentedIColony.getExpenditureSlot(uint256,uint256)
+`AugmentedIColony.getExpenditureSlot`
 
-___
+***
 
-### getExpenditureSlotPayout
+### getExpenditureSlot(uint256,uint256)()
 
-▸ **getExpenditureSlotPayout**(`_id`, `_slot`, `_token`, `overrides?`): `Promise`<`BigNumber`\>
+> **getExpenditureSlot(uint256,uint256)**(`_id`, `_slot`, `overrides`?): `Promise`\<`ExpenditureSlotStructOutput`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `_slot` | `BigNumberish` |
-| `_token` | `string` |
-| `overrides?` | `CallOverrides` |
+##### \_id
+
+`BigNumberish`
+
+##### \_slot
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`ExpenditureSlotStructOutput`\>
 
 #### Inherited from
 
-AugmentedIColony.getExpenditureSlotPayout
+`AugmentedIColony.getExpenditureSlot(uint256,uint256)`
 
-___
+***
 
-### getExpenditureSlotPayout(uint256,uint256,address)
+### getExpenditureSlotPayout()
 
-▸ **getExpenditureSlotPayout(uint256,uint256,address)**(`_id`, `_slot`, `_token`, `overrides?`): `Promise`<`BigNumber`\>
+> **getExpenditureSlotPayout**(`_id`, `_slot`, `_token`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `_slot` | `BigNumberish` |
-| `_token` | `string` |
-| `overrides?` | `CallOverrides` |
+##### \_id
+
+`BigNumberish`
+
+##### \_slot
+
+`BigNumberish`
+
+##### \_token
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getExpenditureSlotPayout(uint256,uint256,address)
+`AugmentedIColony.getExpenditureSlotPayout`
 
-___
+***
 
-### getExtensionClient
+### getExpenditureSlotPayout(uint256,uint256,address)()
 
-▸ **getExtensionClient**<`E`\>(`extension`): `Promise`<`GetExtensionClientReturns`[`E`]\>
+> **getExpenditureSlotPayout(uint256,uint256,address)**(`_id`, `_slot`, `_token`, `overrides`?): `Promise`\<`BigNumber`\>
+
+#### Parameters
+
+##### \_id
+
+`BigNumberish`
+
+##### \_slot
+
+`BigNumberish`
+
+##### \_token
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
+
+#### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### Inherited from
+
+`AugmentedIColony.getExpenditureSlotPayout(uint256,uint256,address)`
+
+***
+
+### getExtensionClient()
+
+> **getExtensionClient**\<`E`\>(`extension`): `Promise`\<`GetExtensionClientReturns`\[`E`\]\>
 
 Get an instance of an extension client associated with this Colony.
 
-#### Type parameters
+#### Type Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `E` | extends [`Extension`](../enums/Extension.md) |
+• **E** *extends* [`Extension`](../enumerations/Extension.md)
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `extension` | `E` | An [Extension](../enums/Extension.md) |
+##### extension
+
+`E`
+
+An [Extension](../enumerations/Extension.md)
 
 #### Returns
 
-`Promise`<`GetExtensionClientReturns`[`E`]\>
+`Promise`\<`GetExtensionClientReturns`\[`E`\]\>
 
 An instance of an intialized extension client for the desired extension
 
 #### Inherited from
 
-AugmentedIColony.getExtensionClient
+`AugmentedIColony.getExtensionClient`
 
-___
+***
 
-### getFundingPot
+### getFundingPot()
 
-▸ **getFundingPot**(`_id`, `overrides?`): `Promise`<[`number`, `BigNumber`, `BigNumber`] & { `associatedType`: `number` ; `associatedTypeId`: `BigNumber` ; `payoutsWeCannotMake`: `BigNumber`  }\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
-
-#### Returns
-
-`Promise`<[`number`, `BigNumber`, `BigNumber`] & { `associatedType`: `number` ; `associatedTypeId`: `BigNumber` ; `payoutsWeCannotMake`: `BigNumber`  }\>
-
-#### Inherited from
-
-AugmentedIColony.getFundingPot
-
-___
-
-### getFundingPot(uint256)
-
-▸ **getFundingPot(uint256)**(`_id`, `overrides?`): `Promise`<[`number`, `BigNumber`, `BigNumber`] & { `associatedType`: `number` ; `associatedTypeId`: `BigNumber` ; `payoutsWeCannotMake`: `BigNumber`  }\>
+> **getFundingPot**(`_id`, `overrides`?): `Promise`\<\[`number`, `BigNumber`, `BigNumber`\] & `object`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<[`number`, `BigNumber`, `BigNumber`] & { `associatedType`: `number` ; `associatedTypeId`: `BigNumber` ; `payoutsWeCannotMake`: `BigNumber`  }\>
+`Promise`\<\[`number`, `BigNumber`, `BigNumber`\] & `object`\>
 
 #### Inherited from
 
-AugmentedIColony.getFundingPot(uint256)
+`AugmentedIColony.getFundingPot`
 
-___
+***
 
-### getFundingPotBalance
+### getFundingPot(uint256)()
 
-▸ **getFundingPotBalance**(`_potId`, `_token`, `overrides?`): `Promise`<`BigNumber`\>
+> **getFundingPot(uint256)**(`_id`, `overrides`?): `Promise`\<\[`number`, `BigNumber`, `BigNumber`\] & `object`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_potId` | `BigNumberish` |
-| `_token` | `string` |
-| `overrides?` | `CallOverrides` |
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<\[`number`, `BigNumber`, `BigNumber`\] & `object`\>
 
 #### Inherited from
 
-AugmentedIColony.getFundingPotBalance
+`AugmentedIColony.getFundingPot(uint256)`
 
-___
+***
 
-### getFundingPotBalance(uint256,address)
+### getFundingPotBalance()
 
-▸ **getFundingPotBalance(uint256,address)**(`_potId`, `_token`, `overrides?`): `Promise`<`BigNumber`\>
+> **getFundingPotBalance**(`_potId`, `_token`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_potId` | `BigNumberish` |
-| `_token` | `string` |
-| `overrides?` | `CallOverrides` |
+##### \_potId
+
+`BigNumberish`
+
+##### \_token
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getFundingPotBalance(uint256,address)
+`AugmentedIColony.getFundingPotBalance`
 
-___
+***
 
-### getFundingPotCount
+### getFundingPotBalance(uint256,address)()
 
-▸ **getFundingPotCount**(`overrides?`): `Promise`<`BigNumber`\>
+> **getFundingPotBalance(uint256,address)**(`_potId`, `_token`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### \_potId
+
+`BigNumberish`
+
+##### \_token
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getFundingPotCount
+`AugmentedIColony.getFundingPotBalance(uint256,address)`
 
-___
+***
 
 ### getFundingPotCount()
 
-▸ **getFundingPotCount()**(`overrides?`): `Promise`<`BigNumber`\>
+> **getFundingPotCount**(`overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getFundingPotCount()
+`AugmentedIColony.getFundingPotCount`
 
-___
+***
 
-### getFundingPotPayout
+### getFundingPotCount()()
 
-▸ **getFundingPotPayout**(`_potId`, `_token`, `overrides?`): `Promise`<`BigNumber`\>
+> **getFundingPotCount()**(`overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_potId` | `BigNumberish` |
-| `_token` | `string` |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getFundingPotPayout
+`AugmentedIColony.getFundingPotCount()`
 
-___
+***
 
-### getFundingPotPayout(uint256,address)
+### getFundingPotPayout()
 
-▸ **getFundingPotPayout(uint256,address)**(`_potId`, `_token`, `overrides?`): `Promise`<`BigNumber`\>
+> **getFundingPotPayout**(`_potId`, `_token`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_potId` | `BigNumberish` |
-| `_token` | `string` |
-| `overrides?` | `CallOverrides` |
+##### \_potId
+
+`BigNumberish`
+
+##### \_token
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getFundingPotPayout(uint256,address)
+`AugmentedIColony.getFundingPotPayout`
 
-___
+***
 
-### getMembersReputation
+### getFundingPotPayout(uint256,address)()
 
-▸ **getMembersReputation**(`skillId`): `Promise`<{ `addresses`: `string`[]  }\>
+> **getFundingPotPayout(uint256,address)**(`_potId`, `_token`, `overrides`?): `Promise`\<`BigNumber`\>
+
+#### Parameters
+
+##### \_potId
+
+`BigNumberish`
+
+##### \_token
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
+
+#### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### Inherited from
+
+`AugmentedIColony.getFundingPotPayout(uint256,address)`
+
+***
+
+### getMembersReputation()
+
+> **getMembersReputation**(`skillId`): `Promise`\<\{ `addresses`: `string`[]; \}\>
 
 Get all addresses that have reputation for a given skill.
 If you need the skillId for a certain domain you can use the [getDomain](ColonyClientV16.md#getdomain) function.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `skillId` | `BigNumberish` | The skill id to get the reputation in |
+##### skillId
+
+`BigNumberish`
+
+The skill id to get the reputation in
 
 #### Returns
 
-`Promise`<{ `addresses`: `string`[]  }\>
+`Promise`\<\{ `addresses`: `string`[]; \}\>
 
 All addresses that have a non-zero reputation for the given skill
 
 #### Inherited from
 
-AugmentedIColony.getMembersReputation
+`AugmentedIColony.getMembersReputation`
 
-___
+***
 
-### getMetatransactionNonce
+### getMetatransactionNonce()
 
-▸ **getMetatransactionNonce**(`userAddress`, `overrides?`): `Promise`<`BigNumber`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `userAddress` | `string` |
-| `overrides?` | `CallOverrides` |
-
-#### Returns
-
-`Promise`<`BigNumber`\>
-
-#### Inherited from
-
-AugmentedIColony.getMetatransactionNonce
-
-___
-
-### getMetatransactionNonce(address)
-
-▸ **getMetatransactionNonce(address)**(`userAddress`, `overrides?`): `Promise`<`BigNumber`\>
+> **getMetatransactionNonce**(`userAddress`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `userAddress` | `string` |
-| `overrides?` | `CallOverrides` |
+##### userAddress
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getMetatransactionNonce(address)
+`AugmentedIColony.getMetatransactionNonce`
 
-___
+***
 
-### getNonRewardPotsTotal
+### getMetatransactionNonce(address)()
 
-▸ **getNonRewardPotsTotal**(`_token`, `overrides?`): `Promise`<`BigNumber`\>
+> **getMetatransactionNonce(address)**(`userAddress`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_token` | `string` |
-| `overrides?` | `CallOverrides` |
+##### userAddress
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getNonRewardPotsTotal
+`AugmentedIColony.getMetatransactionNonce(address)`
 
-___
+***
 
-### getNonRewardPotsTotal(address)
+### getNonRewardPotsTotal()
 
-▸ **getNonRewardPotsTotal(address)**(`_token`, `overrides?`): `Promise`<`BigNumber`\>
+> **getNonRewardPotsTotal**(`_token`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_token` | `string` |
-| `overrides?` | `CallOverrides` |
+##### \_token
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getNonRewardPotsTotal(address)
+`AugmentedIColony.getNonRewardPotsTotal`
 
-___
+***
 
-### getObligation
+### getNonRewardPotsTotal(address)()
 
-▸ **getObligation**(`_user`, `_obligator`, `_domainId`, `overrides?`): `Promise`<`BigNumber`\>
+> **getNonRewardPotsTotal(address)**(`_token`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_obligator` | `string` |
-| `_domainId` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_token
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getObligation
+`AugmentedIColony.getNonRewardPotsTotal(address)`
 
-___
+***
 
-### getObligation(address,address,uint256)
+### getObligation()
 
-▸ **getObligation(address,address,uint256)**(`_user`, `_obligator`, `_domainId`, `overrides?`): `Promise`<`BigNumber`\>
+> **getObligation**(`_user`, `_obligator`, `_domainId`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_obligator` | `string` |
-| `_domainId` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_user
+
+`string`
+
+##### \_obligator
+
+`string`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getObligation(address,address,uint256)
+`AugmentedIColony.getObligation`
 
-___
+***
 
-### getPayment
+### getObligation(address,address,uint256)()
 
-▸ **getPayment**(`_id`, `overrides?`): `Promise`<`PaymentStructOutput`\>
+> **getObligation(address,address,uint256)**(`_user`, `_obligator`, `_domainId`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_user
+
+`string`
+
+##### \_obligator
+
+`string`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`PaymentStructOutput`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getPayment
+`AugmentedIColony.getObligation(address,address,uint256)`
 
-___
+***
 
-### getPayment(uint256)
+### getPayment()
 
-▸ **getPayment(uint256)**(`_id`, `overrides?`): `Promise`<`PaymentStructOutput`\>
+> **getPayment**(`_id`, `overrides`?): `Promise`\<`PaymentStructOutput`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`PaymentStructOutput`\>
+`Promise`\<`PaymentStructOutput`\>
 
 #### Inherited from
 
-AugmentedIColony.getPayment(uint256)
+`AugmentedIColony.getPayment`
 
-___
+***
 
-### getPaymentCount
+### getPayment(uint256)()
 
-▸ **getPaymentCount**(`overrides?`): `Promise`<`BigNumber`\>
+> **getPayment(uint256)**(`_id`, `overrides`?): `Promise`\<`PaymentStructOutput`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`PaymentStructOutput`\>
 
 #### Inherited from
 
-AugmentedIColony.getPaymentCount
+`AugmentedIColony.getPayment(uint256)`
 
-___
+***
 
 ### getPaymentCount()
 
-▸ **getPaymentCount()**(`overrides?`): `Promise`<`BigNumber`\>
+> **getPaymentCount**(`overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getPaymentCount()
+`AugmentedIColony.getPaymentCount`
 
-___
+***
 
-### getReputation
+### getPaymentCount()()
 
-▸ **getReputation**(`skillId`, `address`, `customRootHash?`): `Promise`<{ `branchMask`: `string` ; `key`: `string` ; `reputationAmount`: `BigNumber` ; `siblings`: `string`[] ; `value`: `string`  }\>
+> **getPaymentCount()**(`overrides`?): `Promise`\<`BigNumber`\>
+
+#### Parameters
+
+##### overrides?
+
+`CallOverrides`
+
+#### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### Inherited from
+
+`AugmentedIColony.getPaymentCount()`
+
+***
+
+### getReputation()
+
+> **getReputation**(`skillId`, `address`, `customRootHash`?): `Promise`\<\{ `branchMask`: `string`; `key`: `string`; `reputationAmount`: `BigNumber`; `siblings`: `string`[]; `value`: `string`; \}\>
 
 Get the reputation for an address and a certain skill.
 If you need the skillId for a certain domain you can use the [getDomain](ColonyClientV16.md#getdomain) function.
 
-**`Remarks`**
+#### Parameters
+
+##### skillId
+
+`BigNumberish`
+
+The skill id to get the addresses reputation in
+
+##### address
+
+`string`
+
+Wallet address to retrieve the reputation of
+
+##### customRootHash?
+
+`string`
+
+The `customRootHash` can be set to retrieve the reputation at a certain block time in the past
+
+#### Returns
+
+`Promise`\<\{ `branchMask`: `string`; `key`: `string`; `reputationAmount`: `BigNumber`; `siblings`: `string`[]; `value`: `string`; \}\>
+
+The reputation amount as well as the two proofs that are needed to verify the reputation on chain
+
+#### Remarks
 
 This function also retrieves the proofs (`branchMask`, `siblings`) that are needed to verify the reputation on chain.
 If you don't need to do that (e.g. in order to proof the reputation when calling a contract method), you should probably just use
 the [getReputationWithoutProofs](ColonyClientV16.md#getreputationwithoutproofs) method as it requires fewer computations
 
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `skillId` | `BigNumberish` | The skill id to get the addresses reputation in |
-| `address` | `string` | Wallet address to retrieve the reputation of |
-| `customRootHash?` | `string` | The `customRootHash` can be set to retrieve the reputation at a certain block time in the past |
-
-#### Returns
-
-`Promise`<{ `branchMask`: `string` ; `key`: `string` ; `reputationAmount`: `BigNumber` ; `siblings`: `string`[] ; `value`: `string`  }\>
-
-The reputation amount as well as the two proofs that are needed to verify the reputation on chain
-
 #### Inherited from
 
-AugmentedIColony.getReputation
+`AugmentedIColony.getReputation`
 
-___
+***
 
-### getReputationAcrossDomains
+### getReputationAcrossDomains()
 
-▸ **getReputationAcrossDomains**(`address`, `customRootHash?`): `Promise`<{ `domainId`: `number` ; `reputationAmount?`: `BigNumberish` ; `skillId`: `number`  }[]\>
+> **getReputationAcrossDomains**(`address`, `customRootHash`?): `Promise`\<`object`[]\>
 
 Get the reputation for an address across all domains in a Colony.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `address` | `string` | Wallet address to retrieve the reputation of |
-| `customRootHash?` | `string` | The `customRootHash` can be set to retrieve the reputation at a certain block time in the past |
+##### address
+
+`string`
+
+Wallet address to retrieve the reputation of
+
+##### customRootHash?
+
+`string`
+
+The `customRootHash` can be set to retrieve the reputation at a certain block time in the past
 
 #### Returns
 
-`Promise`<{ `domainId`: `number` ; `reputationAmount?`: `BigNumberish` ; `skillId`: `number`  }[]\>
+`Promise`\<`object`[]\>
 
 The reputation amount
 
 #### Inherited from
 
-AugmentedIColony.getReputationAcrossDomains
+`AugmentedIColony.getReputationAcrossDomains`
 
-___
+***
 
-### getReputationWithoutProofs
+### getReputationWithoutProofs()
 
-▸ **getReputationWithoutProofs**(`skillId`, `address`, `customRootHash?`): `Promise`<{ `key`: `string` ; `reputationAmount`: `BigNumber` ; `value`: `string`  }\>
+> **getReputationWithoutProofs**(`skillId`, `address`, `customRootHash`?): `Promise`\<\{ `key`: `string`; `reputationAmount`: `BigNumber`; `value`: `string`; \}\>
 
 Get the reputation for an address and a certain skill.
 If you need the skillId for a certain domain you can use the [getDomain](ColonyClientV16.md#getdomain) function.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `skillId` | `BigNumberish` | The skill id to get the addresses reputation in |
-| `address` | `string` | Wallet address to retrieve the reputation of |
-| `customRootHash?` | `string` | The `customRootHash` can be set to retrieve the reputation at a certain block time in the past |
+##### skillId
+
+`BigNumberish`
+
+The skill id to get the addresses reputation in
+
+##### address
+
+`string`
+
+Wallet address to retrieve the reputation of
+
+##### customRootHash?
+
+`string`
+
+The `customRootHash` can be set to retrieve the reputation at a certain block time in the past
 
 #### Returns
 
-`Promise`<{ `key`: `string` ; `reputationAmount`: `BigNumber` ; `value`: `string`  }\>
+`Promise`\<\{ `key`: `string`; `reputationAmount`: `BigNumber`; `value`: `string`; \}\>
 
 The reputation amount
 
 #### Inherited from
 
-AugmentedIColony.getReputationWithoutProofs
+`AugmentedIColony.getReputationWithoutProofs`
 
-___
-
-### getRewardInverse
-
-▸ **getRewardInverse**(`overrides?`): `Promise`<`BigNumber`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
-
-#### Returns
-
-`Promise`<`BigNumber`\>
-
-#### Inherited from
-
-AugmentedIColony.getRewardInverse
-
-___
+***
 
 ### getRewardInverse()
 
-▸ **getRewardInverse()**(`overrides?`): `Promise`<`BigNumber`\>
+> **getRewardInverse**(`overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getRewardInverse()
+`AugmentedIColony.getRewardInverse`
 
-___
+***
 
-### getRewardPayoutInfo
+### getRewardInverse()()
 
-▸ **getRewardPayoutInfo**(`_payoutId`, `overrides?`): `Promise`<`RewardPayoutCycleStructOutput`\>
+> **getRewardInverse()**(`overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_payoutId` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`RewardPayoutCycleStructOutput`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getRewardPayoutInfo
+`AugmentedIColony.getRewardInverse()`
 
-___
+***
 
-### getRewardPayoutInfo(uint256)
+### getRewardPayoutInfo()
 
-▸ **getRewardPayoutInfo(uint256)**(`_payoutId`, `overrides?`): `Promise`<`RewardPayoutCycleStructOutput`\>
+> **getRewardPayoutInfo**(`_payoutId`, `overrides`?): `Promise`\<`RewardPayoutCycleStructOutput`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_payoutId` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_payoutId
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`RewardPayoutCycleStructOutput`\>
+`Promise`\<`RewardPayoutCycleStructOutput`\>
 
 #### Inherited from
 
-AugmentedIColony.getRewardPayoutInfo(uint256)
+`AugmentedIColony.getRewardPayoutInfo`
 
-___
+***
 
-### getRootLocalSkill
+### getRewardPayoutInfo(uint256)()
 
-▸ **getRootLocalSkill**(`overrides?`): `Promise`<`BigNumber`\>
+> **getRewardPayoutInfo(uint256)**(`_payoutId`, `overrides`?): `Promise`\<`RewardPayoutCycleStructOutput`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### \_payoutId
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`RewardPayoutCycleStructOutput`\>
 
 #### Inherited from
 
-AugmentedIColony.getRootLocalSkill
+`AugmentedIColony.getRewardPayoutInfo(uint256)`
 
-___
+***
 
 ### getRootLocalSkill()
 
-▸ **getRootLocalSkill()**(`overrides?`): `Promise`<`BigNumber`\>
+> **getRootLocalSkill**(`overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getRootLocalSkill()
+`AugmentedIColony.getRootLocalSkill`
 
-___
+***
 
-### getTask
+### getRootLocalSkill()()
 
-▸ **getTask**(`_id`, `overrides?`): `Promise`<[`string`, `string`, `number`, `BigNumber`, `BigNumber`, `BigNumber`, `BigNumber`, `BigNumber`[]] & { `completionTimestamp`: `BigNumber` ; `deliverableHash`: `string` ; `domainId`: `BigNumber` ; `dueDate`: `BigNumber` ; `fundingPotId`: `BigNumber` ; `skillIds`: `BigNumber`[] ; `specificationHash`: `string` ; `status`: `number`  }\>
+> **getRootLocalSkill()**(`overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<[`string`, `string`, `number`, `BigNumber`, `BigNumber`, `BigNumber`, `BigNumber`, `BigNumber`[]] & { `completionTimestamp`: `BigNumber` ; `deliverableHash`: `string` ; `domainId`: `BigNumber` ; `dueDate`: `BigNumber` ; `fundingPotId`: `BigNumber` ; `skillIds`: `BigNumber`[] ; `specificationHash`: `string` ; `status`: `number`  }\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getTask
+`AugmentedIColony.getRootLocalSkill()`
 
-___
+***
 
-### getTask(uint256)
+### getTask()
 
-▸ **getTask(uint256)**(`_id`, `overrides?`): `Promise`<[`string`, `string`, `number`, `BigNumber`, `BigNumber`, `BigNumber`, `BigNumber`, `BigNumber`[]] & { `completionTimestamp`: `BigNumber` ; `deliverableHash`: `string` ; `domainId`: `BigNumber` ; `dueDate`: `BigNumber` ; `fundingPotId`: `BigNumber` ; `skillIds`: `BigNumber`[] ; `specificationHash`: `string` ; `status`: `number`  }\>
+> **getTask**(`_id`, `overrides`?): `Promise`\<\[`string`, `string`, `number`, `BigNumber`, `BigNumber`, `BigNumber`, `BigNumber`, `BigNumber`[]\] & `object`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<[`string`, `string`, `number`, `BigNumber`, `BigNumber`, `BigNumber`, `BigNumber`, `BigNumber`[]] & { `completionTimestamp`: `BigNumber` ; `deliverableHash`: `string` ; `domainId`: `BigNumber` ; `dueDate`: `BigNumber` ; `fundingPotId`: `BigNumber` ; `skillIds`: `BigNumber`[] ; `specificationHash`: `string` ; `status`: `number`  }\>
+`Promise`\<\[`string`, `string`, `number`, `BigNumber`, `BigNumber`, `BigNumber`, `BigNumber`, `BigNumber`[]\] & `object`\>
 
 #### Inherited from
 
-AugmentedIColony.getTask(uint256)
+`AugmentedIColony.getTask`
 
-___
+***
 
-### getTaskChangeNonce
+### getTask(uint256)()
 
-▸ **getTaskChangeNonce**(`_id`, `overrides?`): `Promise`<`BigNumber`\>
+> **getTask(uint256)**(`_id`, `overrides`?): `Promise`\<\[`string`, `string`, `number`, `BigNumber`, `BigNumber`, `BigNumber`, `BigNumber`, `BigNumber`[]\] & `object`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<\[`string`, `string`, `number`, `BigNumber`, `BigNumber`, `BigNumber`, `BigNumber`, `BigNumber`[]\] & `object`\>
 
 #### Inherited from
 
-AugmentedIColony.getTaskChangeNonce
+`AugmentedIColony.getTask(uint256)`
 
-___
+***
 
-### getTaskChangeNonce(uint256)
+### getTaskChangeNonce()
 
-▸ **getTaskChangeNonce(uint256)**(`_id`, `overrides?`): `Promise`<`BigNumber`\>
+> **getTaskChangeNonce**(`_id`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getTaskChangeNonce(uint256)
+`AugmentedIColony.getTaskChangeNonce`
 
-___
+***
 
-### getTaskCount
+### getTaskChangeNonce(uint256)()
 
-▸ **getTaskCount**(`overrides?`): `Promise`<`BigNumber`\>
+> **getTaskChangeNonce(uint256)**(`_id`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getTaskCount
+`AugmentedIColony.getTaskChangeNonce(uint256)`
 
-___
+***
 
 ### getTaskCount()
 
-▸ **getTaskCount()**(`overrides?`): `Promise`<`BigNumber`\>
+> **getTaskCount**(`overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getTaskCount()
+`AugmentedIColony.getTaskCount`
 
-___
+***
 
-### getTaskRole
+### getTaskCount()()
 
-▸ **getTaskRole**(`_id`, `_role`, `overrides?`): `Promise`<`RoleStructOutput`\>
+> **getTaskCount()**(`overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `_role` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`RoleStructOutput`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getTaskRole
+`AugmentedIColony.getTaskCount()`
 
-___
+***
 
-### getTaskRole(uint256,uint8)
+### getTaskRole()
 
-▸ **getTaskRole(uint256,uint8)**(`_id`, `_role`, `overrides?`): `Promise`<`RoleStructOutput`\>
+> **getTaskRole**(`_id`, `_role`, `overrides`?): `Promise`\<`RoleStructOutput`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `_role` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_id
+
+`BigNumberish`
+
+##### \_role
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`RoleStructOutput`\>
+`Promise`\<`RoleStructOutput`\>
 
 #### Inherited from
 
-AugmentedIColony.getTaskRole(uint256,uint8)
+`AugmentedIColony.getTaskRole`
 
-___
+***
 
-### getTaskWorkRatingSecret
+### getTaskRole(uint256,uint8)()
 
-▸ **getTaskWorkRatingSecret**(`_id`, `_role`, `overrides?`): `Promise`<`string`\>
+> **getTaskRole(uint256,uint8)**(`_id`, `_role`, `overrides`?): `Promise`\<`RoleStructOutput`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `_role` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_id
+
+`BigNumberish`
+
+##### \_role
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`RoleStructOutput`\>
 
 #### Inherited from
 
-AugmentedIColony.getTaskWorkRatingSecret
+`AugmentedIColony.getTaskRole(uint256,uint8)`
 
-___
+***
 
-### getTaskWorkRatingSecret(uint256,uint8)
+### getTaskWorkRatingSecret()
 
-▸ **getTaskWorkRatingSecret(uint256,uint8)**(`_id`, `_role`, `overrides?`): `Promise`<`string`\>
+> **getTaskWorkRatingSecret**(`_id`, `_role`, `overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `_role` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_id
+
+`BigNumberish`
+
+##### \_role
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedIColony.getTaskWorkRatingSecret(uint256,uint8)
+`AugmentedIColony.getTaskWorkRatingSecret`
 
-___
+***
 
-### getTaskWorkRatingSecretsInfo
+### getTaskWorkRatingSecret(uint256,uint8)()
 
-▸ **getTaskWorkRatingSecretsInfo**(`_id`, `overrides?`): `Promise`<[`BigNumber`, `BigNumber`] & { `lastSubmittedAt`: `BigNumber` ; `nSecrets`: `BigNumber`  }\>
+> **getTaskWorkRatingSecret(uint256,uint8)**(`_id`, `_role`, `overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_id
+
+`BigNumberish`
+
+##### \_role
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<[`BigNumber`, `BigNumber`] & { `lastSubmittedAt`: `BigNumber` ; `nSecrets`: `BigNumber`  }\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedIColony.getTaskWorkRatingSecretsInfo
+`AugmentedIColony.getTaskWorkRatingSecret(uint256,uint8)`
 
-___
+***
 
-### getTaskWorkRatingSecretsInfo(uint256)
+### getTaskWorkRatingSecretsInfo()
 
-▸ **getTaskWorkRatingSecretsInfo(uint256)**(`_id`, `overrides?`): `Promise`<[`BigNumber`, `BigNumber`] & { `lastSubmittedAt`: `BigNumber` ; `nSecrets`: `BigNumber`  }\>
+> **getTaskWorkRatingSecretsInfo**(`_id`, `overrides`?): `Promise`\<\[`BigNumber`, `BigNumber`\] & `object`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<[`BigNumber`, `BigNumber`] & { `lastSubmittedAt`: `BigNumber` ; `nSecrets`: `BigNumber`  }\>
+`Promise`\<\[`BigNumber`, `BigNumber`\] & `object`\>
 
 #### Inherited from
 
-AugmentedIColony.getTaskWorkRatingSecretsInfo(uint256)
+`AugmentedIColony.getTaskWorkRatingSecretsInfo`
 
-___
+***
 
-### getToken
+### getTaskWorkRatingSecretsInfo(uint256)()
 
-▸ **getToken**(`overrides?`): `Promise`<`string`\>
+> **getTaskWorkRatingSecretsInfo(uint256)**(`_id`, `overrides`?): `Promise`\<\[`BigNumber`, `BigNumber`\] & `object`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<\[`BigNumber`, `BigNumber`\] & `object`\>
 
 #### Inherited from
 
-AugmentedIColony.getToken
+`AugmentedIColony.getTaskWorkRatingSecretsInfo(uint256)`
 
-___
+***
 
 ### getToken()
 
-▸ **getToken()**(`overrides?`): `Promise`<`string`\>
+> **getToken**(`overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedIColony.getToken()
+`AugmentedIColony.getToken`
 
-___
+***
 
-### getTokenApproval
+### getToken()()
 
-▸ **getTokenApproval**(`token`, `spender`, `overrides?`): `Promise`<`BigNumber`\>
+> **getToken()**(`overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `token` | `string` |
-| `spender` | `string` |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedIColony.getTokenApproval
+`AugmentedIColony.getToken()`
 
-___
+***
 
-### getTokenApproval(address,address)
+### getTokenApproval()
 
-▸ **getTokenApproval(address,address)**(`token`, `spender`, `overrides?`): `Promise`<`BigNumber`\>
+> **getTokenApproval**(`token`, `spender`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `token` | `string` |
-| `spender` | `string` |
-| `overrides?` | `CallOverrides` |
+##### token
+
+`string`
+
+##### spender
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getTokenApproval(address,address)
+`AugmentedIColony.getTokenApproval`
 
-___
+***
 
-### getTotalTokenApproval
+### getTokenApproval(address,address)()
 
-▸ **getTotalTokenApproval**(`token`, `overrides?`): `Promise`<`BigNumber`\>
+> **getTokenApproval(address,address)**(`token`, `spender`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `token` | `string` |
-| `overrides?` | `CallOverrides` |
+##### token
+
+`string`
+
+##### spender
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getTotalTokenApproval
+`AugmentedIColony.getTokenApproval(address,address)`
 
-___
+***
 
-### getTotalTokenApproval(address)
+### getTotalTokenApproval()
 
-▸ **getTotalTokenApproval(address)**(`token`, `overrides?`): `Promise`<`BigNumber`\>
+> **getTotalTokenApproval**(`token`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `token` | `string` |
-| `overrides?` | `CallOverrides` |
+##### token
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getTotalTokenApproval(address)
+`AugmentedIColony.getTotalTokenApproval`
 
-___
+***
 
-### getUserRoles
+### getTotalTokenApproval(address)()
 
-▸ **getUserRoles**(`_user`, `_domain`, `overrides?`): `Promise`<`string`\>
+> **getTotalTokenApproval(address)**(`token`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_domain` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### token
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.getUserRoles
+`AugmentedIColony.getTotalTokenApproval(address)`
 
-___
+***
 
-### getUserRoles(address,uint256)
+### getUserRoles()
 
-▸ **getUserRoles(address,uint256)**(`_user`, `_domain`, `overrides?`): `Promise`<`string`\>
+> **getUserRoles**(`_user`, `_domain`, `overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_domain` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_user
+
+`string`
+
+##### \_domain
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedIColony.getUserRoles(address,uint256)
+`AugmentedIColony.getUserRoles`
 
-___
+***
 
-### hasInheritedUserRole
+### getUserRoles(address,uint256)()
 
-▸ **hasInheritedUserRole**(`_user`, `_domainId`, `_role`, `_childSkillIndex`, `_childDomainId`, `overrides?`): `Promise`<`boolean`\>
+> **getUserRoles(address,uint256)**(`_user`, `_domain`, `overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_domainId` | `BigNumberish` |
-| `_role` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_childDomainId` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_user
+
+`string`
+
+##### \_domain
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`boolean`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedIColony.hasInheritedUserRole
+`AugmentedIColony.getUserRoles(address,uint256)`
 
-___
+***
 
-### hasInheritedUserRole(address,uint256,uint8,uint256,uint256)
+### hasInheritedUserRole()
 
-▸ **hasInheritedUserRole(address,uint256,uint8,uint256,uint256)**(`_user`, `_domainId`, `_role`, `_childSkillIndex`, `_childDomainId`, `overrides?`): `Promise`<`boolean`\>
+> **hasInheritedUserRole**(`_user`, `_domainId`, `_role`, `_childSkillIndex`, `_childDomainId`, `overrides`?): `Promise`\<`boolean`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_domainId` | `BigNumberish` |
-| `_role` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_childDomainId` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_user
+
+`string`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_role
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_childDomainId
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`boolean`\>
+`Promise`\<`boolean`\>
 
 #### Inherited from
 
-AugmentedIColony.hasInheritedUserRole(address,uint256,uint8,uint256,uint256)
+`AugmentedIColony.hasInheritedUserRole`
 
-___
+***
 
-### hasInheritedUserRoleWithProofs
+### hasInheritedUserRole(address,uint256,uint8,uint256,uint256)()
 
-▸ **hasInheritedUserRoleWithProofs**(`_user`, `_domainId`, `_role`, `overrides?`): `Promise`<`boolean`\>
+> **hasInheritedUserRole(address,uint256,uint8,uint256,uint256)**(`_user`, `_domainId`, `_role`, `_childSkillIndex`, `_childDomainId`, `overrides`?): `Promise`\<`boolean`\>
+
+#### Parameters
+
+##### \_user
+
+`string`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_role
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_childDomainId
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
+
+#### Returns
+
+`Promise`\<`boolean`\>
+
+#### Inherited from
+
+`AugmentedIColony.hasInheritedUserRole(address,uint256,uint8,uint256,uint256)`
+
+***
+
+### hasInheritedUserRoleWithProofs()
+
+> **hasInheritedUserRoleWithProofs**(`_user`, `_domainId`, `_role`, `overrides`?): `Promise`\<`boolean`\>
 
 Same as [hasInheritedUserRole](ColonyClientV16.md#hasinheriteduserrole), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_user` | `string` | The user whose role we want to check |
-| `_domainId` | `BigNumberish` | Domain in which the caller has the role |
-| `_role` | `BigNumberish` | The role we want to check for |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+##### \_user
+
+`string`
+
+The user whose role we want to check
+
+##### \_domainId
+
+`BigNumberish`
+
+Domain in which the caller has the role
+
+##### \_role
+
+`BigNumberish`
+
+The role we want to check for
+
+##### overrides?
+
+[`TxOverrides`](../type-aliases/TxOverrides.md)
 
 #### Returns
 
-`Promise`<`boolean`\>
+`Promise`\<`boolean`\>
 
 #### Inherited from
 
-ColonyAugmentsV4.hasInheritedUserRoleWithProofs
+`ColonyAugmentsV4.hasInheritedUserRoleWithProofs`
 
-___
+***
 
-### hasUserRole
+### hasUserRole()
 
-▸ **hasUserRole**(`_user`, `_domainId`, `_role`, `overrides?`): `Promise`<`boolean`\>
+> **hasUserRole**(`_user`, `_domainId`, `_role`, `overrides`?): `Promise`\<`boolean`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_domainId` | `BigNumberish` |
-| `_role` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_user
+
+`string`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_role
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`boolean`\>
+`Promise`\<`boolean`\>
 
 #### Inherited from
 
-AugmentedIColony.hasUserRole
+`AugmentedIColony.hasUserRole`
 
-___
+***
 
-### hasUserRole(address,uint256,uint8)
+### hasUserRole(address,uint256,uint8)()
 
-▸ **hasUserRole(address,uint256,uint8)**(`_user`, `_domainId`, `_role`, `overrides?`): `Promise`<`boolean`\>
+> **hasUserRole(address,uint256,uint8)**(`_user`, `_domainId`, `_role`, `overrides`?): `Promise`\<`boolean`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_domainId` | `BigNumberish` |
-| `_role` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_user
+
+`string`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_role
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`boolean`\>
+`Promise`\<`boolean`\>
 
 #### Inherited from
 
-AugmentedIColony.hasUserRole(address,uint256,uint8)
+`AugmentedIColony.hasUserRole(address,uint256,uint8)`
 
-___
+***
 
-### initialiseColony
+### initialiseColony()
 
-▸ **initialiseColony**(`_colonyNetworkAddress`, `_token`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **initialiseColony**(`_colonyNetworkAddress`, `_token`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_colonyNetworkAddress` | `string` |
-| `_token` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_colonyNetworkAddress
+
+`string`
+
+##### \_token
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.initialiseColony
+`AugmentedIColony.initialiseColony`
 
-___
+***
 
-### initialiseColony(address,address)
+### initialiseColony(address,address)()
 
-▸ **initialiseColony(address,address)**(`_colonyNetworkAddress`, `_token`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **initialiseColony(address,address)**(`_colonyNetworkAddress`, `_token`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_colonyNetworkAddress` | `string` |
-| `_token` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_colonyNetworkAddress
+
+`string`
+
+##### \_token
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.initialiseColony(address,address)
+`AugmentedIColony.initialiseColony(address,address)`
 
-___
-
-### initialiseRootLocalSkill
-
-▸ **initialiseRootLocalSkill**(`overrides?`): `Promise`<`ContractTransaction`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedIColony.initialiseRootLocalSkill
-
-___
+***
 
 ### initialiseRootLocalSkill()
 
-▸ **initialiseRootLocalSkill()**(`overrides?`): `Promise`<`ContractTransaction`\>
+> **initialiseRootLocalSkill**(`overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.initialiseRootLocalSkill()
+`AugmentedIColony.initialiseRootLocalSkill`
 
-___
+***
 
-### installExtension
+### initialiseRootLocalSkill()()
 
-▸ **installExtension**(`extensionId`, `version`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **initialiseRootLocalSkill()**(`overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `extensionId` | `BytesLike` |
-| `version` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.installExtension
+`AugmentedIColony.initialiseRootLocalSkill()`
 
-___
+***
 
-### installExtension(bytes32,uint256)
+### installExtension()
 
-▸ **installExtension(bytes32,uint256)**(`extensionId`, `version`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **installExtension**(`extensionId`, `version`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `extensionId` | `BytesLike` |
-| `version` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### extensionId
+
+`BytesLike`
+
+##### version
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.installExtension(bytes32,uint256)
+`AugmentedIColony.installExtension`
 
-___
+***
 
-### installExtensionChecked
+### installExtension(bytes32,uint256)()
 
-▸ **installExtensionChecked**(`extension`, `version?`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **installExtension(bytes32,uint256)**(`extensionId`, `version`, `overrides`?): `Promise`\<`ContractTransaction`\>
+
+#### Parameters
+
+##### extensionId
+
+`BytesLike`
+
+##### version
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
+
+#### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### Inherited from
+
+`AugmentedIColony.installExtension(bytes32,uint256)`
+
+***
+
+### installExtensionChecked()
+
+> **installExtensionChecked**(`extension`, `version`?, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 Similar to [installExtension](ColonyClientV16.md#installextension), but first check whether the desired extension can be installed in this Colony
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `extension` | [`Extension`](../enums/Extension.md) | A [Extension](../enums/Extension.md) name |
-| `version?` | `number` | The desired version number of the extension you wish to install |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+##### extension
+
+[`Extension`](../enumerations/Extension.md)
+
+A [Extension](../enumerations/Extension.md) name
+
+##### version?
+
+`number`
+
+The desired version number of the extension you wish to install
+
+##### overrides?
+
+[`TxOverrides`](../type-aliases/TxOverrides.md)
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-ColonyAugmentsV5.installExtensionChecked
+`ColonyAugmentsV5.installExtensionChecked`
 
-___
-
-### isInRecoveryMode
-
-▸ **isInRecoveryMode**(`overrides?`): `Promise`<`boolean`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
-
-#### Returns
-
-`Promise`<`boolean`\>
-
-#### Inherited from
-
-AugmentedIColony.isInRecoveryMode
-
-___
+***
 
 ### isInRecoveryMode()
 
-▸ **isInRecoveryMode()**(`overrides?`): `Promise`<`boolean`\>
+> **isInRecoveryMode**(`overrides`?): `Promise`\<`boolean`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`boolean`\>
+`Promise`\<`boolean`\>
 
 #### Inherited from
 
-AugmentedIColony.isInRecoveryMode()
+`AugmentedIColony.isInRecoveryMode`
 
-___
+***
 
-### listenerCount
+### isInRecoveryMode()()
 
-▸ **listenerCount**(`eventName?`): `number`
+> **isInRecoveryMode()**(`overrides`?): `Promise`\<`boolean`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `eventName?` | `string` \| `EventFilter` |
+##### overrides?
+
+`CallOverrides`
+
+#### Returns
+
+`Promise`\<`boolean`\>
+
+#### Inherited from
+
+`AugmentedIColony.isInRecoveryMode()`
+
+***
+
+### listenerCount()
+
+> **listenerCount**(`eventName`?): `number`
+
+#### Parameters
+
+##### eventName?
+
+`string` | `EventFilter`
 
 #### Returns
 
@@ -3923,2883 +6939,3995 @@ ___
 
 #### Inherited from
 
-AugmentedIColony.listenerCount
+`AugmentedIColony.listenerCount`
 
-___
+***
 
-### listeners
+### listeners()
 
-▸ **listeners**<`TEvent`\>(`eventFilter?`): `TypedListener`<`TEvent`\>[]
+#### Call Signature
 
-#### Type parameters
+> **listeners**\<`TEvent`\>(`eventFilter`?): `TypedListener`\<`TEvent`\>[]
 
-| Name | Type |
-| :------ | :------ |
-| `TEvent` | extends `TypedEvent`<`any`, `any`\> |
+##### Type Parameters
 
-#### Parameters
+• **TEvent** *extends* `TypedEvent`
 
-| Name | Type |
-| :------ | :------ |
-| `eventFilter?` | `TypedEventFilter`<`TEvent`\> |
+##### Parameters
 
-#### Returns
+###### eventFilter?
 
-`TypedListener`<`TEvent`\>[]
+`TypedEventFilter`\<`TEvent`\>
 
-#### Inherited from
+##### Returns
 
-AugmentedIColony.listeners
+`TypedListener`\<`TEvent`\>[]
 
-▸ **listeners**(`eventName?`): `Listener`[]
+##### Inherited from
 
-#### Parameters
+`AugmentedIColony.listeners`
 
-| Name | Type |
-| :------ | :------ |
-| `eventName?` | `string` |
+#### Call Signature
 
-#### Returns
+> **listeners**(`eventName`?): `Listener`[]
+
+##### Parameters
+
+###### eventName?
+
+`string`
+
+##### Returns
 
 `Listener`[]
 
-#### Inherited from
+##### Inherited from
 
-AugmentedIColony.listeners
+`AugmentedIColony.listeners`
 
-___
+***
 
-### lockExpenditure
+### lockExpenditure()
 
-▸ **lockExpenditure**(`_id`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedIColony.lockExpenditure
-
-___
-
-### lockExpenditure(uint256)
-
-▸ **lockExpenditure(uint256)**(`_id`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **lockExpenditure**(`_id`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.lockExpenditure(uint256)
+`AugmentedIColony.lockExpenditure`
 
-___
+***
 
-### lockToken
+### lockExpenditure(uint256)()
 
-▸ **lockToken**(`overrides?`): `Promise`<`ContractTransaction`\>
+> **lockExpenditure(uint256)**(`_id`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.lockToken
+`AugmentedIColony.lockExpenditure(uint256)`
 
-___
+***
 
 ### lockToken()
 
-▸ **lockToken()**(`overrides?`): `Promise`<`ContractTransaction`\>
+> **lockToken**(`overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.lockToken()
+`AugmentedIColony.lockToken`
 
-___
+***
 
-### makeArbitraryTransaction
+### lockToken()()
 
-▸ **makeArbitraryTransaction**(`_to`, `_action`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **lockToken()**(`overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_to` | `string` |
-| `_action` | `BytesLike` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.makeArbitraryTransaction
+`AugmentedIColony.lockToken()`
 
-___
+***
 
-### makeArbitraryTransaction(address,bytes)
+### makeArbitraryTransaction()
 
-▸ **makeArbitraryTransaction(address,bytes)**(`_to`, `_action`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **makeArbitraryTransaction**(`_to`, `_action`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_to` | `string` |
-| `_action` | `BytesLike` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_to
+
+`string`
+
+##### \_action
+
+`BytesLike`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.makeArbitraryTransaction(address,bytes)
+`AugmentedIColony.makeArbitraryTransaction`
 
-___
+***
 
-### makeArbitraryTransactions
+### makeArbitraryTransaction(address,bytes)()
 
-▸ **makeArbitraryTransactions**(`_targets`, `_actions`, `_strict`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **makeArbitraryTransaction(address,bytes)**(`_to`, `_action`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_targets` | `string`[] |
-| `_actions` | `BytesLike`[] |
-| `_strict` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_to
+
+`string`
+
+##### \_action
+
+`BytesLike`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.makeArbitraryTransactions
+`AugmentedIColony.makeArbitraryTransaction(address,bytes)`
 
-___
+***
 
-### makeArbitraryTransactions(address[],bytes[],bool)
+### makeArbitraryTransactions()
 
-▸ **makeArbitraryTransactions(address[],bytes[],bool)**(`_targets`, `_actions`, `_strict`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **makeArbitraryTransactions**(`_targets`, `_actions`, `_strict`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_targets` | `string`[] |
-| `_actions` | `BytesLike`[] |
-| `_strict` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_targets
+
+`string`[]
+
+##### \_actions
+
+`BytesLike`[]
+
+##### \_strict
+
+`boolean`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.makeArbitraryTransactions(address[],bytes[],bool)
+`AugmentedIColony.makeArbitraryTransactions`
 
-___
+***
 
-### makeExpenditure
+### makeArbitraryTransactions(address\[\],bytes\[\],bool)()
 
-▸ **makeExpenditure**(`_permissionDomainId`, `_childSkillIndex`, `_domainId`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **makeArbitraryTransactions(address\[\],bytes\[\],bool)**(`_targets`, `_actions`, `_strict`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_domainId` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_targets
+
+`string`[]
+
+##### \_actions
+
+`BytesLike`[]
+
+##### \_strict
+
+`boolean`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.makeExpenditure
+`AugmentedIColony.makeArbitraryTransactions(address[],bytes[],bool)`
 
-___
+***
 
-### makeExpenditure(uint256,uint256,uint256)
+### makeExpenditure()
 
-▸ **makeExpenditure(uint256,uint256,uint256)**(`_permissionDomainId`, `_childSkillIndex`, `_domainId`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **makeExpenditure**(`_permissionDomainId`, `_childSkillIndex`, `_domainId`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_domainId` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.makeExpenditure(uint256,uint256,uint256)
+`AugmentedIColony.makeExpenditure`
 
-___
+***
 
-### makeExpenditureWithProofs
+### makeExpenditure(uint256,uint256,uint256)()
 
-▸ **makeExpenditureWithProofs**(`_domainId`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **makeExpenditure(uint256,uint256,uint256)**(`_permissionDomainId`, `_childSkillIndex`, `_domainId`, `overrides`?): `Promise`\<`ContractTransaction`\>
+
+#### Parameters
+
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
+
+#### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### Inherited from
+
+`AugmentedIColony.makeExpenditure(uint256,uint256,uint256)`
+
+***
+
+### makeExpenditureWithProofs()
+
+> **makeExpenditureWithProofs**(`_domainId`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 Same as [makeExpenditure](ColonyClientV16.md#makeexpenditure), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_domainId` | `BigNumberish` | The domain where the expenditure belongs |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+##### \_domainId
+
+`BigNumberish`
+
+The domain where the expenditure belongs
+
+##### overrides?
+
+[`TxOverrides`](../type-aliases/TxOverrides.md)
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-ColonyAugmentsV4.makeExpenditureWithProofs
+`ColonyAugmentsV4.makeExpenditureWithProofs`
 
-___
+***
 
-### makeSingleArbitraryTransaction
+### makeSingleArbitraryTransaction()
 
-▸ **makeSingleArbitraryTransaction**(`_target`, `_action`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **makeSingleArbitraryTransaction**(`_target`, `_action`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_target` | `string` |
-| `_action` | `BytesLike` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_target
+
+`string`
+
+##### \_action
+
+`BytesLike`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.makeSingleArbitraryTransaction
+`AugmentedIColony.makeSingleArbitraryTransaction`
 
-___
+***
 
-### makeSingleArbitraryTransaction(address,bytes)
+### makeSingleArbitraryTransaction(address,bytes)()
 
-▸ **makeSingleArbitraryTransaction(address,bytes)**(`_target`, `_action`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **makeSingleArbitraryTransaction(address,bytes)**(`_target`, `_action`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_target` | `string` |
-| `_action` | `BytesLike` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_target
+
+`string`
+
+##### \_action
+
+`BytesLike`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.makeSingleArbitraryTransaction(address,bytes)
+`AugmentedIColony.makeSingleArbitraryTransaction(address,bytes)`
 
-___
+***
 
-### makeTaskWithProofs
+### makeTaskWithProofs()
 
-▸ **makeTaskWithProofs**(`_specificationHash`, `_domainId`, `_skillId`, `_dueDate`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **makeTaskWithProofs**(`_specificationHash`, `_domainId`, `_skillId`, `_dueDate`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 Same as makeTask, but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_specificationHash` | `BytesLike` | Database identifier where the task specification is stored |
-| `_domainId` | `BigNumberish` | The domain where the task belongs |
-| `_skillId` | `BigNumberish` | The skill associated with the task, can set to `0` for no-op |
-| `_dueDate` | `BigNumberish` | The due date of the task, can set to `0` for no-op |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+##### \_specificationHash
+
+`BytesLike`
+
+Database identifier where the task specification is stored
+
+##### \_domainId
+
+`BigNumberish`
+
+The domain where the task belongs
+
+##### \_skillId
+
+`BigNumberish`
+
+The skill associated with the task, can set to `0` for no-op
+
+##### \_dueDate
+
+`BigNumberish`
+
+The due date of the task, can set to `0` for no-op
+
+##### overrides?
+
+[`TxOverrides`](../type-aliases/TxOverrides.md)
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.makeTaskWithProofs
+`AugmentedIColony.makeTaskWithProofs`
 
-___
+***
 
-### mintTokens
+### mintTokens()
 
-▸ **mintTokens**(`_wad`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **mintTokens**(`_wad`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_wad` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_wad
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.mintTokens
+`AugmentedIColony.mintTokens`
 
-___
+***
 
-### mintTokens(uint256)
+### mintTokens(uint256)()
 
-▸ **mintTokens(uint256)**(`_wad`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **mintTokens(uint256)**(`_wad`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_wad` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_wad
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.mintTokens(uint256)
+`AugmentedIColony.mintTokens(uint256)`
 
-___
+***
 
-### mintTokensFor
+### mintTokensFor()
 
-▸ **mintTokensFor**(`_guy`, `_wad`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **mintTokensFor**(`_guy`, `_wad`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_guy` | `string` |
-| `_wad` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_guy
+
+`string`
+
+##### \_wad
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.mintTokensFor
+`AugmentedIColony.mintTokensFor`
 
-___
+***
 
-### mintTokensFor(address,uint256)
+### mintTokensFor(address,uint256)()
 
-▸ **mintTokensFor(address,uint256)**(`_guy`, `_wad`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **mintTokensFor(address,uint256)**(`_guy`, `_wad`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_guy` | `string` |
-| `_wad` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_guy
+
+`string`
+
+##### \_wad
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.mintTokensFor(address,uint256)
+`AugmentedIColony.mintTokensFor(address,uint256)`
 
-___
+***
 
-### moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)
+### moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)()
 
-▸ **moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)**(`_permissionDomainId`, `_fromChildSkillIndex`, `_toChildSkillIndex`, `_fromPot`, `_toPot`, `_amount`, `_token`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)**(`_permissionDomainId`, `_fromChildSkillIndex`, `_toChildSkillIndex`, `_fromPot`, `_toPot`, `_amount`, `_token`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_fromChildSkillIndex` | `BigNumberish` |
-| `_toChildSkillIndex` | `BigNumberish` |
-| `_fromPot` | `BigNumberish` |
-| `_toPot` | `BigNumberish` |
-| `_amount` | `BigNumberish` |
-| `_token` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_fromChildSkillIndex
+
+`BigNumberish`
+
+##### \_toChildSkillIndex
+
+`BigNumberish`
+
+##### \_fromPot
+
+`BigNumberish`
+
+##### \_toPot
+
+`BigNumberish`
+
+##### \_amount
+
+`BigNumberish`
+
+##### \_token
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)
+`AugmentedIColony.moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)`
 
-___
+***
 
-### moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)
+### moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)()
 
-▸ **moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)**(`_permissionDomainId`, `_childSkillIndex`, `_domainId`, `_fromChildSkillIndex`, `_toChildSkillIndex`, `_fromPot`, `_toPot`, `_amount`, `_token`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)**(`_permissionDomainId`, `_childSkillIndex`, `_domainId`, `_fromChildSkillIndex`, `_toChildSkillIndex`, `_fromPot`, `_toPot`, `_amount`, `_token`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_domainId` | `BigNumberish` |
-| `_fromChildSkillIndex` | `BigNumberish` |
-| `_toChildSkillIndex` | `BigNumberish` |
-| `_fromPot` | `BigNumberish` |
-| `_toPot` | `BigNumberish` |
-| `_amount` | `BigNumberish` |
-| `_token` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_fromChildSkillIndex
+
+`BigNumberish`
+
+##### \_toChildSkillIndex
+
+`BigNumberish`
+
+##### \_fromPot
+
+`BigNumberish`
+
+##### \_toPot
+
+`BigNumberish`
+
+##### \_amount
+
+`BigNumberish`
+
+##### \_token
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)
+`AugmentedIColony.moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)`
 
-___
+***
 
-### moveFundsBetweenPotsWithProofs(uint256,uint256,uint256,address)
+### ~~moveFundsBetweenPotsWithProofs(uint256,uint256,uint256,address)()~~
 
-▸ **moveFundsBetweenPotsWithProofs(uint256,uint256,uint256,address)**(`_fromPot`, `_toPot`, `_amount`, `_token`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **moveFundsBetweenPotsWithProofs(uint256,uint256,uint256,address)**(`_fromPot`, `_toPot`, `_amount`, `_token`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
-**`Deprecated`**
+#### Parameters
 
-Same as [moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)](ColonyClientV16.md#movefundsbetweenpots(uint256,uint256,uint256,uint256,uint256,uint256,address)), but let colonyJS figure out the permission proofs for you.
+##### \_fromPot
+
+`BigNumberish`
+
+Funding pot id providing the funds
+
+##### \_toPot
+
+`BigNumberish`
+
+Funding pot id receiving the funds
+
+##### \_amount
+
+`BigNumberish`
+
+Amount of funds
+
+##### \_token
+
+`string`
+
+Address of the token, `0x0` value indicates Ether
+
+##### overrides?
+
+[`TxOverrides`](../type-aliases/TxOverrides.md)
+
+#### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### Deprecated
+
+Same as ["moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)"](ColonyClientV16.md#movefundsbetweenpots(uint256,uint256,uint256,uint256,uint256,uint256,address)), but let colonyJS figure out the permission proofs for you.
+Always prefer this method, except when you have good reason not to.
+
+#### Inherited from
+
+`MoveFundsBetweenPotsAugmentsB.moveFundsBetweenPotsWithProofs(uint256,uint256,uint256,address)`
+
+***
+
+### moveFundsBetweenPotsWithProofs(uint256,uint256,uint256,uint256,address)()
+
+> **moveFundsBetweenPotsWithProofs(uint256,uint256,uint256,uint256,address)**(`_domainId`, `_fromPot`, `_toPot`, `_amount`, `_token`, `overrides`?): `Promise`\<`ContractTransaction`\>
+
+Same as ["moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)"](ColonyClientV16.md#movefundsbetweenpots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_fromPot` | `BigNumberish` | Funding pot id providing the funds |
-| `_toPot` | `BigNumberish` | Funding pot id receiving the funds |
-| `_amount` | `BigNumberish` | Amount of funds |
-| `_token` | `string` | Address of the token, `0x0` value indicates Ether |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+##### \_domainId
+
+`BigNumberish`
+
+The domain where I am taking this action, pointed to by _permissionDomainId and _childSkillIndex
+
+##### \_fromPot
+
+`BigNumberish`
+
+Funding pot id providing the funds
+
+##### \_toPot
+
+`BigNumberish`
+
+Funding pot id receiving the funds
+
+##### \_amount
+
+`BigNumberish`
+
+Amount of funds
+
+##### \_token
+
+`string`
+
+Address of the token, `0x0` value indicates Ether
+
+##### overrides?
+
+[`TxOverrides`](../type-aliases/TxOverrides.md)
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-MoveFundsBetweenPotsAugmentsB.moveFundsBetweenPotsWithProofs(uint256,uint256,uint256,address)
+`MoveFundsBetweenPotsAugmentsB.moveFundsBetweenPotsWithProofs(uint256,uint256,uint256,uint256,address)`
 
-___
+***
 
-### moveFundsBetweenPotsWithProofs(uint256,uint256,uint256,uint256,address)
+### multicall()
 
-▸ **moveFundsBetweenPotsWithProofs(uint256,uint256,uint256,uint256,address)**(`_domainId`, `_fromPot`, `_toPot`, `_amount`, `_token`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-Same as [moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)](ColonyClientV16.md#movefundsbetweenpots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)), but let colonyJS figure out the permission proofs for you.
-Always prefer this method, except when you have good reason not to.
+> **multicall**(`data`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_domainId` | `BigNumberish` | The domain where I am taking this action, pointed to by _permissionDomainId and _childSkillIndex |
-| `_fromPot` | `BigNumberish` | Funding pot id providing the funds |
-| `_toPot` | `BigNumberish` | Funding pot id receiving the funds |
-| `_amount` | `BigNumberish` | Amount of funds |
-| `_token` | `string` | Address of the token, `0x0` value indicates Ether |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+##### data
+
+`BytesLike`[]
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-MoveFundsBetweenPotsAugmentsB.moveFundsBetweenPotsWithProofs(uint256,uint256,uint256,uint256,address)
+`AugmentedIColony.multicall`
 
-___
+***
 
-### multicall
+### multicall(bytes\[\])()
 
-▸ **multicall**(`data`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **multicall(bytes\[\])**(`data`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `data` | `BytesLike`[] |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### data
+
+`BytesLike`[]
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.multicall
+`AugmentedIColony.multicall(bytes[])`
 
-___
-
-### multicall(bytes[])
-
-▸ **multicall(bytes[])**(`data`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `data` | `BytesLike`[] |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedIColony.multicall(bytes[])
-
-___
-
-### numRecoveryRoles
-
-▸ **numRecoveryRoles**(`overrides?`): `Promise`<`BigNumber`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
-
-#### Returns
-
-`Promise`<`BigNumber`\>
-
-#### Inherited from
-
-AugmentedIColony.numRecoveryRoles
-
-___
+***
 
 ### numRecoveryRoles()
 
-▸ **numRecoveryRoles()**(`overrides?`): `Promise`<`BigNumber`\>
+> **numRecoveryRoles**(`overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.numRecoveryRoles()
+`AugmentedIColony.numRecoveryRoles`
 
-___
+***
 
-### obligateStake
+### numRecoveryRoles()()
 
-▸ **obligateStake**(`_user`, `_domainId`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **numRecoveryRoles()**(`overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_domainId` | `BigNumberish` |
-| `_amount` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.obligateStake
+`AugmentedIColony.numRecoveryRoles()`
 
-___
+***
 
-### obligateStake(address,uint256,uint256)
+### obligateStake()
 
-▸ **obligateStake(address,uint256,uint256)**(`_user`, `_domainId`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **obligateStake**(`_user`, `_domainId`, `_amount`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_domainId` | `BigNumberish` |
-| `_amount` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_user
+
+`string`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_amount
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.obligateStake(address,uint256,uint256)
+`AugmentedIColony.obligateStake`
 
-___
+***
 
-### owner
+### obligateStake(address,uint256,uint256)()
 
-▸ **owner**(`overrides?`): `Promise`<`string`\>
+> **obligateStake(address,uint256,uint256)**(`_user`, `_domainId`, `_amount`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### \_user
+
+`string`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_amount
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.owner
+`AugmentedIColony.obligateStake(address,uint256,uint256)`
 
-___
+***
 
 ### owner()
 
-▸ **owner()**(`overrides?`): `Promise`<`string`\>
+> **owner**(`overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedIColony.owner()
+`AugmentedIColony.owner`
 
-___
+***
 
-### queryFilter
+### owner()()
 
-▸ **queryFilter**<`TEvent`\>(`event`, `fromBlockOrBlockhash?`, `toBlock?`): `Promise`<`TEvent`[]\>
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `TEvent` | extends `TypedEvent`<`any`, `any`\> |
+> **owner()**(`overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `event` | `TypedEventFilter`<`TEvent`\> |
-| `fromBlockOrBlockhash?` | `string` \| `number` |
-| `toBlock?` | `string` \| `number` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`TEvent`[]\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedIColony.queryFilter
+`AugmentedIColony.owner()`
 
-___
+***
 
-### registerColonyLabel
+### queryFilter()
 
-▸ **registerColonyLabel**(`colonyName`, `orbitdb`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **queryFilter**\<`TEvent`\>(`event`, `fromBlockOrBlockhash`?, `toBlock`?): `Promise`\<`TEvent`[]\>
+
+#### Type Parameters
+
+• **TEvent** *extends* `TypedEvent`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `colonyName` | `string` |
-| `orbitdb` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### event
+
+`TypedEventFilter`\<`TEvent`\>
+
+##### fromBlockOrBlockhash?
+
+`string` | `number`
+
+##### toBlock?
+
+`string` | `number`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`TEvent`[]\>
 
 #### Inherited from
 
-AugmentedIColony.registerColonyLabel
+`AugmentedIColony.queryFilter`
 
-___
+***
 
-### registerColonyLabel(string,string)
+### registerColonyLabel()
 
-▸ **registerColonyLabel(string,string)**(`colonyName`, `orbitdb`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **registerColonyLabel**(`colonyName`, `orbitdb`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `colonyName` | `string` |
-| `orbitdb` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### colonyName
+
+`string`
+
+##### orbitdb
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.registerColonyLabel(string,string)
+`AugmentedIColony.registerColonyLabel`
 
-___
+***
 
-### removeAllListeners
+### registerColonyLabel(string,string)()
 
-▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`ColonyClientV16`](ColonyClientV16.md)
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `TEvent` | extends `TypedEvent`<`any`, `any`\> |
+> **registerColonyLabel(string,string)**(`colonyName`, `orbitdb`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `eventFilter` | `TypedEventFilter`<`TEvent`\> |
+##### colonyName
+
+`string`
+
+##### orbitdb
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-[`ColonyClientV16`](ColonyClientV16.md)
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.removeAllListeners
+`AugmentedIColony.registerColonyLabel(string,string)`
 
-▸ **removeAllListeners**(`eventName?`): [`ColonyClientV16`](ColonyClientV16.md)
+***
+
+### removeAllListeners()
+
+#### Call Signature
+
+> **removeAllListeners**\<`TEvent`\>(`eventFilter`): `this`
+
+##### Type Parameters
+
+• **TEvent** *extends* `TypedEvent`
+
+##### Parameters
+
+###### eventFilter
+
+`TypedEventFilter`\<`TEvent`\>
+
+##### Returns
+
+`this`
+
+##### Inherited from
+
+`AugmentedIColony.removeAllListeners`
+
+#### Call Signature
+
+> **removeAllListeners**(`eventName`?): `this`
+
+##### Parameters
+
+###### eventName?
+
+`string`
+
+##### Returns
+
+`this`
+
+##### Inherited from
+
+`AugmentedIColony.removeAllListeners`
+
+***
+
+### removeRecoveryRole()
+
+> **removeRecoveryRole**(`_user`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `eventName?` | `string` |
+##### \_user
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-[`ColonyClientV16`](ColonyClientV16.md)
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.removeAllListeners
+`AugmentedIColony.removeRecoveryRole`
 
-___
+***
 
-### removeRecoveryRole
+### removeRecoveryRole(address)()
 
-▸ **removeRecoveryRole**(`_user`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **removeRecoveryRole(address)**(`_user`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_user
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.removeRecoveryRole
+`AugmentedIColony.removeRecoveryRole(address)`
 
-___
+***
 
-### removeRecoveryRole(address)
+### setAdministrationRole()
 
-▸ **removeRecoveryRole(address)**(`_user`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setAdministrationRole**(`_permissionDomainId`, `_childSkillIndex`, `_user`, `_domainId`, `_setTo`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_user
+
+`string`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_setTo
+
+`boolean`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.removeRecoveryRole(address)
+`AugmentedIColony.setAdministrationRole`
 
-___
+***
 
-### setAdministrationRole
+### setAdministrationRole(uint256,uint256,address,uint256,bool)()
 
-▸ **setAdministrationRole**(`_permissionDomainId`, `_childSkillIndex`, `_user`, `_domainId`, `_setTo`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setAdministrationRole(uint256,uint256,address,uint256,bool)**(`_permissionDomainId`, `_childSkillIndex`, `_user`, `_domainId`, `_setTo`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_user` | `string` |
-| `_domainId` | `BigNumberish` |
-| `_setTo` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_user
+
+`string`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_setTo
+
+`boolean`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setAdministrationRole
+`AugmentedIColony.setAdministrationRole(uint256,uint256,address,uint256,bool)`
 
-___
+***
 
-### setAdministrationRole(uint256,uint256,address,uint256,bool)
+### setAdministrationRoleWithProofs()
 
-▸ **setAdministrationRole(uint256,uint256,address,uint256,bool)**(`_permissionDomainId`, `_childSkillIndex`, `_user`, `_domainId`, `_setTo`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_user` | `string` |
-| `_domainId` | `BigNumberish` |
-| `_setTo` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedIColony.setAdministrationRole(uint256,uint256,address,uint256,bool)
-
-___
-
-### setAdministrationRoleWithProofs
-
-▸ **setAdministrationRoleWithProofs**(`_user`, `_domainId`, `_setTo`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setAdministrationRoleWithProofs**(`_user`, `_domainId`, `_setTo`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 Same as [setAdministrationRole](ColonyClientV16.md#setadministrationrole), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_user` | `string` | User we want to give an admin role to |
-| `_domainId` | `BigNumberish` | Domain in which we are giving user the role |
-| `_setTo` | `boolean` | The state of the role permission (true assign the permission, false revokes it) |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+##### \_user
+
+`string`
+
+User we want to give an admin role to
+
+##### \_domainId
+
+`BigNumberish`
+
+Domain in which we are giving user the role
+
+##### \_setTo
+
+`boolean`
+
+The state of the role permission (true assign the permission, false revokes it)
+
+##### overrides?
+
+[`TxOverrides`](../type-aliases/TxOverrides.md)
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setAdministrationRoleWithProofs
+`AugmentedIColony.setAdministrationRoleWithProofs`
 
-___
+***
 
-### setArbitrationRole
+### setArbitrationRole()
 
-▸ **setArbitrationRole**(`_permissionDomainId`, `_childSkillIndex`, `_user`, `_domainId`, `_setTo`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setArbitrationRole**(`_permissionDomainId`, `_childSkillIndex`, `_user`, `_domainId`, `_setTo`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_user` | `string` |
-| `_domainId` | `BigNumberish` |
-| `_setTo` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_user
+
+`string`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_setTo
+
+`boolean`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setArbitrationRole
+`AugmentedIColony.setArbitrationRole`
 
-___
+***
 
-### setArbitrationRole(uint256,uint256,address,uint256,bool)
+### setArbitrationRole(uint256,uint256,address,uint256,bool)()
 
-▸ **setArbitrationRole(uint256,uint256,address,uint256,bool)**(`_permissionDomainId`, `_childSkillIndex`, `_user`, `_domainId`, `_setTo`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setArbitrationRole(uint256,uint256,address,uint256,bool)**(`_permissionDomainId`, `_childSkillIndex`, `_user`, `_domainId`, `_setTo`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_user` | `string` |
-| `_domainId` | `BigNumberish` |
-| `_setTo` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_user
+
+`string`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_setTo
+
+`boolean`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setArbitrationRole(uint256,uint256,address,uint256,bool)
+`AugmentedIColony.setArbitrationRole(uint256,uint256,address,uint256,bool)`
 
-___
+***
 
-### setArbitrationRoleWithProofs
+### setArbitrationRoleWithProofs()
 
-▸ **setArbitrationRoleWithProofs**(`_user`, `_domainId`, `_setTo`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setArbitrationRoleWithProofs**(`_user`, `_domainId`, `_setTo`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 Same as [setArbitrationRole](ColonyClientV16.md#setarbitrationrole), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_user` | `string` | User we want to give an arbitration role to |
-| `_domainId` | `BigNumberish` | Domain in which we are giving user the role |
-| `_setTo` | `boolean` | The state of the role permission (true assign the permission, false revokes it) |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+##### \_user
+
+`string`
+
+User we want to give an arbitration role to
+
+##### \_domainId
+
+`BigNumberish`
+
+Domain in which we are giving user the role
+
+##### \_setTo
+
+`boolean`
+
+The state of the role permission (true assign the permission, false revokes it)
+
+##### overrides?
+
+[`TxOverrides`](../type-aliases/TxOverrides.md)
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-ColonyAugmentsV3.setArbitrationRoleWithProofs
+`ColonyAugmentsV3.setArbitrationRoleWithProofs`
 
-___
+***
 
-### setArchitectureRole
+### setArchitectureRole()
 
-▸ **setArchitectureRole**(`_permissionDomainId`, `_childSkillIndex`, `_user`, `_domainId`, `_setTo`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setArchitectureRole**(`_permissionDomainId`, `_childSkillIndex`, `_user`, `_domainId`, `_setTo`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_user` | `string` |
-| `_domainId` | `BigNumberish` |
-| `_setTo` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_user
+
+`string`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_setTo
+
+`boolean`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setArchitectureRole
+`AugmentedIColony.setArchitectureRole`
 
-___
+***
 
-### setArchitectureRole(uint256,uint256,address,uint256,bool)
+### setArchitectureRole(uint256,uint256,address,uint256,bool)()
 
-▸ **setArchitectureRole(uint256,uint256,address,uint256,bool)**(`_permissionDomainId`, `_childSkillIndex`, `_user`, `_domainId`, `_setTo`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setArchitectureRole(uint256,uint256,address,uint256,bool)**(`_permissionDomainId`, `_childSkillIndex`, `_user`, `_domainId`, `_setTo`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_user` | `string` |
-| `_domainId` | `BigNumberish` |
-| `_setTo` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_user
+
+`string`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_setTo
+
+`boolean`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setArchitectureRole(uint256,uint256,address,uint256,bool)
+`AugmentedIColony.setArchitectureRole(uint256,uint256,address,uint256,bool)`
 
-___
+***
 
-### setArchitectureRoleWithProofs
+### setArchitectureRoleWithProofs()
 
-▸ **setArchitectureRoleWithProofs**(`_user`, `_domainId`, `_setTo`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setArchitectureRoleWithProofs**(`_user`, `_domainId`, `_setTo`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 Same as [setArchitectureRole](ColonyClientV16.md#setarchitecturerole), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_user` | `string` | User we want to give an architecture role to |
-| `_domainId` | `BigNumberish` | Domain in which we are giving user the role |
-| `_setTo` | `boolean` | The state of the role permission (true assign the permission, false revokes it) |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+##### \_user
+
+`string`
+
+User we want to give an architecture role to
+
+##### \_domainId
+
+`BigNumberish`
+
+Domain in which we are giving user the role
+
+##### \_setTo
+
+`boolean`
+
+The state of the role permission (true assign the permission, false revokes it)
+
+##### overrides?
+
+[`TxOverrides`](../type-aliases/TxOverrides.md)
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setArchitectureRoleWithProofs
+`AugmentedIColony.setArchitectureRoleWithProofs`
 
-___
+***
 
-### setDefaultGlobalClaimDelay
+### setDefaultGlobalClaimDelay()
 
-▸ **setDefaultGlobalClaimDelay**(`_globalClaimDelay`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setDefaultGlobalClaimDelay**(`_globalClaimDelay`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_globalClaimDelay` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_globalClaimDelay
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setDefaultGlobalClaimDelay
+`AugmentedIColony.setDefaultGlobalClaimDelay`
 
-___
+***
 
-### setDefaultGlobalClaimDelay(uint256)
+### setDefaultGlobalClaimDelay(uint256)()
 
-▸ **setDefaultGlobalClaimDelay(uint256)**(`_globalClaimDelay`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setDefaultGlobalClaimDelay(uint256)**(`_globalClaimDelay`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_globalClaimDelay` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_globalClaimDelay
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setDefaultGlobalClaimDelay(uint256)
+`AugmentedIColony.setDefaultGlobalClaimDelay(uint256)`
 
-___
+***
 
-### setExpenditureClaimDelay
+### setExpenditureClaimDelay()
 
-▸ **setExpenditureClaimDelay**(`_id`, `_slot`, `_claimDelay`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setExpenditureClaimDelay**(`_id`, `_slot`, `_claimDelay`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `_slot` | `BigNumberish` |
-| `_claimDelay` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_id
+
+`BigNumberish`
+
+##### \_slot
+
+`BigNumberish`
+
+##### \_claimDelay
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setExpenditureClaimDelay
+`AugmentedIColony.setExpenditureClaimDelay`
 
-___
+***
 
-### setExpenditureClaimDelay(uint256,uint256,uint256)
+### setExpenditureClaimDelay(uint256,uint256,uint256)()
 
-▸ **setExpenditureClaimDelay(uint256,uint256,uint256)**(`_id`, `_slot`, `_claimDelay`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setExpenditureClaimDelay(uint256,uint256,uint256)**(`_id`, `_slot`, `_claimDelay`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `_slot` | `BigNumberish` |
-| `_claimDelay` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_id
+
+`BigNumberish`
+
+##### \_slot
+
+`BigNumberish`
+
+##### \_claimDelay
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setExpenditureClaimDelay(uint256,uint256,uint256)
+`AugmentedIColony.setExpenditureClaimDelay(uint256,uint256,uint256)`
 
-___
+***
 
-### setExpenditureClaimDelays
+### setExpenditureClaimDelays()
 
-▸ **setExpenditureClaimDelays**(`_id`, `_slots`, `_claimDelays`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setExpenditureClaimDelays**(`_id`, `_slots`, `_claimDelays`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `_slots` | `BigNumberish`[] |
-| `_claimDelays` | `BigNumberish`[] |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_id
+
+`BigNumberish`
+
+##### \_slots
+
+`BigNumberish`[]
+
+##### \_claimDelays
+
+`BigNumberish`[]
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setExpenditureClaimDelays
+`AugmentedIColony.setExpenditureClaimDelays`
 
-___
+***
 
-### setExpenditureClaimDelays(uint256,uint256[],uint256[])
+### setExpenditureClaimDelays(uint256,uint256\[\],uint256\[\])()
 
-▸ **setExpenditureClaimDelays(uint256,uint256[],uint256[])**(`_id`, `_slots`, `_claimDelays`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setExpenditureClaimDelays(uint256,uint256\[\],uint256\[\])**(`_id`, `_slots`, `_claimDelays`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `_slots` | `BigNumberish`[] |
-| `_claimDelays` | `BigNumberish`[] |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_id
+
+`BigNumberish`
+
+##### \_slots
+
+`BigNumberish`[]
+
+##### \_claimDelays
+
+`BigNumberish`[]
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setExpenditureClaimDelays(uint256,uint256[],uint256[])
+`AugmentedIColony.setExpenditureClaimDelays(uint256,uint256[],uint256[])`
 
-___
+***
 
-### setExpenditureMetadata(uint256,string)
+### setExpenditureMetadata(uint256,string)()
 
-▸ **setExpenditureMetadata(uint256,string)**(`_id`, `_metadata`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setExpenditureMetadata(uint256,string)**(`_id`, `_metadata`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `_metadata` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_id
+
+`BigNumberish`
+
+##### \_metadata
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setExpenditureMetadata(uint256,string)
+`AugmentedIColony.setExpenditureMetadata(uint256,string)`
 
-___
+***
 
-### setExpenditureMetadata(uint256,uint256,uint256,string)
+### setExpenditureMetadata(uint256,uint256,uint256,string)()
 
-▸ **setExpenditureMetadata(uint256,uint256,uint256,string)**(`_permissionDomainId`, `_childSkillIndex`, `_id`, `_metadata`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setExpenditureMetadata(uint256,uint256,uint256,string)**(`_permissionDomainId`, `_childSkillIndex`, `_id`, `_metadata`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_id` | `BigNumberish` |
-| `_metadata` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_id
+
+`BigNumberish`
+
+##### \_metadata
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setExpenditureMetadata(uint256,uint256,uint256,string)
+`AugmentedIColony.setExpenditureMetadata(uint256,uint256,uint256,string)`
 
-___
+***
 
-### setExpenditurePayout(uint256,uint256,address,uint256)
+### setExpenditurePayout(uint256,uint256,address,uint256)()
 
-▸ **setExpenditurePayout(uint256,uint256,address,uint256)**(`_id`, `_slot`, `_token`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setExpenditurePayout(uint256,uint256,address,uint256)**(`_id`, `_slot`, `_token`, `_amount`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `_slot` | `BigNumberish` |
-| `_token` | `string` |
-| `_amount` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_id
+
+`BigNumberish`
+
+##### \_slot
+
+`BigNumberish`
+
+##### \_token
+
+`string`
+
+##### \_amount
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setExpenditurePayout(uint256,uint256,address,uint256)
+`AugmentedIColony.setExpenditurePayout(uint256,uint256,address,uint256)`
 
-___
+***
 
-### setExpenditurePayout(uint256,uint256,uint256,uint256,address,uint256)
+### setExpenditurePayout(uint256,uint256,uint256,uint256,address,uint256)()
 
-▸ **setExpenditurePayout(uint256,uint256,uint256,uint256,address,uint256)**(`_permissionDomainId`, `_childSkillIndex`, `_id`, `_slot`, `_token`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setExpenditurePayout(uint256,uint256,uint256,uint256,address,uint256)**(`_permissionDomainId`, `_childSkillIndex`, `_id`, `_slot`, `_token`, `_amount`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_id` | `BigNumberish` |
-| `_slot` | `BigNumberish` |
-| `_token` | `string` |
-| `_amount` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_id
+
+`BigNumberish`
+
+##### \_slot
+
+`BigNumberish`
+
+##### \_token
+
+`string`
+
+##### \_amount
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setExpenditurePayout(uint256,uint256,uint256,uint256,address,uint256)
+`AugmentedIColony.setExpenditurePayout(uint256,uint256,uint256,uint256,address,uint256)`
 
-___
+***
 
-### setExpenditurePayoutModifiers
+### setExpenditurePayoutModifiers()
 
-▸ **setExpenditurePayoutModifiers**(`_id`, `_slots`, `_payoutModifiers`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setExpenditurePayoutModifiers**(`_id`, `_slots`, `_payoutModifiers`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `_slots` | `BigNumberish`[] |
-| `_payoutModifiers` | `BigNumberish`[] |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_id
+
+`BigNumberish`
+
+##### \_slots
+
+`BigNumberish`[]
+
+##### \_payoutModifiers
+
+`BigNumberish`[]
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setExpenditurePayoutModifiers
+`AugmentedIColony.setExpenditurePayoutModifiers`
 
-___
+***
 
-### setExpenditurePayoutModifiers(uint256,uint256[],int256[])
+### setExpenditurePayoutModifiers(uint256,uint256\[\],int256\[\])()
 
-▸ **setExpenditurePayoutModifiers(uint256,uint256[],int256[])**(`_id`, `_slots`, `_payoutModifiers`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setExpenditurePayoutModifiers(uint256,uint256\[\],int256\[\])**(`_id`, `_slots`, `_payoutModifiers`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `_slots` | `BigNumberish`[] |
-| `_payoutModifiers` | `BigNumberish`[] |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_id
+
+`BigNumberish`
+
+##### \_slots
+
+`BigNumberish`[]
+
+##### \_payoutModifiers
+
+`BigNumberish`[]
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setExpenditurePayoutModifiers(uint256,uint256[],int256[])
+`AugmentedIColony.setExpenditurePayoutModifiers(uint256,uint256[],int256[])`
 
-___
+***
 
-### setExpenditurePayoutWithProofs
+### setExpenditurePayouts()
 
-▸ **setExpenditurePayoutWithProofs**(`_id`, `_slot`, `_token`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setExpenditurePayouts**(`_id`, `_slots`, `_token`, `_amounts`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
-Same as the permissioned overload of [setExpenditurePayout(uint256,uint256,uint256,uint256,address,uint256)](ColonyClientV16.md#setexpenditurepayout(uint256,uint256,uint256,uint256,address,uint256)), but let colonyJS figure out the permission proofs for you.
+#### Parameters
+
+##### \_id
+
+`BigNumberish`
+
+##### \_slots
+
+`BigNumberish`[]
+
+##### \_token
+
+`string`
+
+##### \_amounts
+
+`BigNumberish`[]
+
+##### overrides?
+
+`Overrides` & `object`
+
+#### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### Inherited from
+
+`AugmentedIColony.setExpenditurePayouts`
+
+***
+
+### setExpenditurePayouts(uint256,uint256\[\],address,uint256\[\])()
+
+> **setExpenditurePayouts(uint256,uint256\[\],address,uint256\[\])**(`_id`, `_slots`, `_token`, `_amounts`, `overrides`?): `Promise`\<`ContractTransaction`\>
+
+#### Parameters
+
+##### \_id
+
+`BigNumberish`
+
+##### \_slots
+
+`BigNumberish`[]
+
+##### \_token
+
+`string`
+
+##### \_amounts
+
+`BigNumberish`[]
+
+##### overrides?
+
+`Overrides` & `object`
+
+#### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### Inherited from
+
+`AugmentedIColony.setExpenditurePayouts(uint256,uint256[],address,uint256[])`
+
+***
+
+### setExpenditurePayoutWithProofs()
+
+> **setExpenditurePayoutWithProofs**(`_id`, `_slot`, `_token`, `_amount`, `overrides`?): `Promise`\<`ContractTransaction`\>
+
+Same as the permissioned overload of ["setExpenditurePayout(uint256,uint256,uint256,uint256,address,uint256)"](ColonyClientV16.md#setexpenditurepayout(uint256,uint256,uint256,uint256,address,uint256)), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Id of the expenditure |
-| `_slot` | `BigNumberish` | Number of the slot |
-| `_token` | `string` | Address of the token, `0x0` value indicates Ether |
-| `_amount` | `BigNumberish` | Payout amount |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+##### \_id
+
+`BigNumberish`
+
+Id of the expenditure
+
+##### \_slot
+
+`BigNumberish`
+
+Number of the slot
+
+##### \_token
+
+`string`
+
+Address of the token, `0x0` value indicates Ether
+
+##### \_amount
+
+`BigNumberish`
+
+Payout amount
+
+##### overrides?
+
+[`TxOverrides`](../type-aliases/TxOverrides.md)
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-ColonyAugmentsV7.setExpenditurePayoutWithProofs
+`ColonyAugmentsV7.setExpenditurePayoutWithProofs`
 
-___
+***
 
-### setExpenditurePayouts
+### setExpenditureRecipient()
 
-▸ **setExpenditurePayouts**(`_id`, `_slots`, `_token`, `_amounts`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setExpenditureRecipient**(`_id`, `_slot`, `_recipient`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `_slots` | `BigNumberish`[] |
-| `_token` | `string` |
-| `_amounts` | `BigNumberish`[] |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_id
+
+`BigNumberish`
+
+##### \_slot
+
+`BigNumberish`
+
+##### \_recipient
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setExpenditurePayouts
+`AugmentedIColony.setExpenditureRecipient`
 
-___
+***
 
-### setExpenditurePayouts(uint256,uint256[],address,uint256[])
+### setExpenditureRecipient(uint256,uint256,address)()
 
-▸ **setExpenditurePayouts(uint256,uint256[],address,uint256[])**(`_id`, `_slots`, `_token`, `_amounts`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setExpenditureRecipient(uint256,uint256,address)**(`_id`, `_slot`, `_recipient`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `_slots` | `BigNumberish`[] |
-| `_token` | `string` |
-| `_amounts` | `BigNumberish`[] |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_id
+
+`BigNumberish`
+
+##### \_slot
+
+`BigNumberish`
+
+##### \_recipient
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setExpenditurePayouts(uint256,uint256[],address,uint256[])
+`AugmentedIColony.setExpenditureRecipient(uint256,uint256,address)`
 
-___
+***
 
-### setExpenditureRecipient
+### setExpenditureRecipients()
 
-▸ **setExpenditureRecipient**(`_id`, `_slot`, `_recipient`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setExpenditureRecipients**(`_id`, `_slots`, `_recipients`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `_slot` | `BigNumberish` |
-| `_recipient` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_id
+
+`BigNumberish`
+
+##### \_slots
+
+`BigNumberish`[]
+
+##### \_recipients
+
+`string`[]
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setExpenditureRecipient
+`AugmentedIColony.setExpenditureRecipients`
 
-___
+***
 
-### setExpenditureRecipient(uint256,uint256,address)
+### setExpenditureRecipients(uint256,uint256\[\],address\[\])()
 
-▸ **setExpenditureRecipient(uint256,uint256,address)**(`_id`, `_slot`, `_recipient`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setExpenditureRecipients(uint256,uint256\[\],address\[\])**(`_id`, `_slots`, `_recipients`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `_slot` | `BigNumberish` |
-| `_recipient` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_id
+
+`BigNumberish`
+
+##### \_slots
+
+`BigNumberish`[]
+
+##### \_recipients
+
+`string`[]
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setExpenditureRecipient(uint256,uint256,address)
+`AugmentedIColony.setExpenditureRecipients(uint256,uint256[],address[])`
 
-___
+***
 
-### setExpenditureRecipients
+### setExpenditureSkill()
 
-▸ **setExpenditureRecipients**(`_id`, `_slots`, `_recipients`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setExpenditureSkill**(`_id`, `_slot`, `_skillId`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `_slots` | `BigNumberish`[] |
-| `_recipients` | `string`[] |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_id
+
+`BigNumberish`
+
+##### \_slot
+
+`BigNumberish`
+
+##### \_skillId
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setExpenditureRecipients
+`AugmentedIColony.setExpenditureSkill`
 
-___
+***
 
-### setExpenditureRecipients(uint256,uint256[],address[])
+### setExpenditureSkill(uint256,uint256,uint256)()
 
-▸ **setExpenditureRecipients(uint256,uint256[],address[])**(`_id`, `_slots`, `_recipients`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setExpenditureSkill(uint256,uint256,uint256)**(`_id`, `_slot`, `_skillId`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `_slots` | `BigNumberish`[] |
-| `_recipients` | `string`[] |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_id
+
+`BigNumberish`
+
+##### \_slot
+
+`BigNumberish`
+
+##### \_skillId
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setExpenditureRecipients(uint256,uint256[],address[])
+`AugmentedIColony.setExpenditureSkill(uint256,uint256,uint256)`
 
-___
+***
 
-### setExpenditureSkill
+### setExpenditureSkills()
 
-▸ **setExpenditureSkill**(`_id`, `_slot`, `_skillId`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setExpenditureSkills**(`_id`, `_slots`, `_skillIds`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `_slot` | `BigNumberish` |
-| `_skillId` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_id
+
+`BigNumberish`
+
+##### \_slots
+
+`BigNumberish`[]
+
+##### \_skillIds
+
+`BigNumberish`[]
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setExpenditureSkill
+`AugmentedIColony.setExpenditureSkills`
 
-___
+***
 
-### setExpenditureSkill(uint256,uint256,uint256)
+### setExpenditureSkills(uint256,uint256\[\],uint256\[\])()
 
-▸ **setExpenditureSkill(uint256,uint256,uint256)**(`_id`, `_slot`, `_skillId`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setExpenditureSkills(uint256,uint256\[\],uint256\[\])**(`_id`, `_slots`, `_skillIds`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `_slot` | `BigNumberish` |
-| `_skillId` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_id
+
+`BigNumberish`
+
+##### \_slots
+
+`BigNumberish`[]
+
+##### \_skillIds
+
+`BigNumberish`[]
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setExpenditureSkill(uint256,uint256,uint256)
+`AugmentedIColony.setExpenditureSkills(uint256,uint256[],uint256[])`
 
-___
+***
 
-### setExpenditureSkills
+### setExpenditureState()
 
-▸ **setExpenditureSkills**(`_id`, `_slots`, `_skillIds`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setExpenditureState**(`_permissionDomainId`, `_childSkillIndex`, `_id`, `_storageSlot`, `_mask`, `_keys`, `_value`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `_slots` | `BigNumberish`[] |
-| `_skillIds` | `BigNumberish`[] |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_id
+
+`BigNumberish`
+
+##### \_storageSlot
+
+`BigNumberish`
+
+##### \_mask
+
+`boolean`[]
+
+##### \_keys
+
+`BytesLike`[]
+
+##### \_value
+
+`BytesLike`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setExpenditureSkills
+`AugmentedIColony.setExpenditureState`
 
-___
+***
 
-### setExpenditureSkills(uint256,uint256[],uint256[])
+### setExpenditureState(uint256,uint256,uint256,uint256,bool\[\],bytes32\[\],bytes32)()
 
-▸ **setExpenditureSkills(uint256,uint256[],uint256[])**(`_id`, `_slots`, `_skillIds`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setExpenditureState(uint256,uint256,uint256,uint256,bool\[\],bytes32\[\],bytes32)**(`_permissionDomainId`, `_childSkillIndex`, `_id`, `_storageSlot`, `_mask`, `_keys`, `_value`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `_slots` | `BigNumberish`[] |
-| `_skillIds` | `BigNumberish`[] |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_id
+
+`BigNumberish`
+
+##### \_storageSlot
+
+`BigNumberish`
+
+##### \_mask
+
+`boolean`[]
+
+##### \_keys
+
+`BytesLike`[]
+
+##### \_value
+
+`BytesLike`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setExpenditureSkills(uint256,uint256[],uint256[])
+`AugmentedIColony.setExpenditureState(uint256,uint256,uint256,uint256,bool[],bytes32[],bytes32)`
 
-___
+***
 
-### setExpenditureState
+### setExpenditureStateWithProofs()
 
-▸ **setExpenditureState**(`_permissionDomainId`, `_childSkillIndex`, `_id`, `_storageSlot`, `_mask`, `_keys`, `_value`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_id` | `BigNumberish` |
-| `_storageSlot` | `BigNumberish` |
-| `_mask` | `boolean`[] |
-| `_keys` | `BytesLike`[] |
-| `_value` | `BytesLike` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedIColony.setExpenditureState
-
-___
-
-### setExpenditureState(uint256,uint256,uint256,uint256,bool[],bytes32[],bytes32)
-
-▸ **setExpenditureState(uint256,uint256,uint256,uint256,bool[],bytes32[],bytes32)**(`_permissionDomainId`, `_childSkillIndex`, `_id`, `_storageSlot`, `_mask`, `_keys`, `_value`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_id` | `BigNumberish` |
-| `_storageSlot` | `BigNumberish` |
-| `_mask` | `boolean`[] |
-| `_keys` | `BytesLike`[] |
-| `_value` | `BytesLike` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedIColony.setExpenditureState(uint256,uint256,uint256,uint256,bool[],bytes32[],bytes32)
-
-___
-
-### setExpenditureStateWithProofs
-
-▸ **setExpenditureStateWithProofs**(`_id`, `_storageSlot`, `_mask`, `_keys`, `_value`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setExpenditureStateWithProofs**(`_id`, `_storageSlot`, `_mask`, `_keys`, `_value`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 Same as [editDomain](ColonyClientV16.md#editdomain), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Expenditure identifier |
-| `_storageSlot` | `BigNumberish` | Number of the top-level storage slot (25, 26, or 27) |
-| `_mask` | `boolean`[] | Array of booleans indicated whether a key is a mapping (F) or an array index (T). |
-| `_keys` | `BytesLike`[] | Array of additional keys (for mappings & arrays) |
-| `_value` | `BytesLike` | Value to set at location |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+##### \_id
+
+`BigNumberish`
+
+Expenditure identifier
+
+##### \_storageSlot
+
+`BigNumberish`
+
+Number of the top-level storage slot (25, 26, or 27)
+
+##### \_mask
+
+`boolean`[]
+
+Array of booleans indicated whether a key is a mapping (F) or an array index (T).
+
+##### \_keys
+
+`BytesLike`[]
+
+Array of additional keys (for mappings & arrays)
+
+##### \_value
+
+`BytesLike`
+
+Value to set at location
+
+##### overrides?
+
+[`TxOverrides`](../type-aliases/TxOverrides.md)
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-ColonyAugmentsV5.setExpenditureStateWithProofs
+`ColonyAugmentsV5.setExpenditureStateWithProofs`
 
-___
+***
 
-### setFundingRole
+### setFundingRole()
 
-▸ **setFundingRole**(`_permissionDomainId`, `_childSkillIndex`, `_user`, `_domainId`, `_setTo`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setFundingRole**(`_permissionDomainId`, `_childSkillIndex`, `_user`, `_domainId`, `_setTo`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_user` | `string` |
-| `_domainId` | `BigNumberish` |
-| `_setTo` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_user
+
+`string`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_setTo
+
+`boolean`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setFundingRole
+`AugmentedIColony.setFundingRole`
 
-___
+***
 
-### setFundingRole(uint256,uint256,address,uint256,bool)
+### setFundingRole(uint256,uint256,address,uint256,bool)()
 
-▸ **setFundingRole(uint256,uint256,address,uint256,bool)**(`_permissionDomainId`, `_childSkillIndex`, `_user`, `_domainId`, `_setTo`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setFundingRole(uint256,uint256,address,uint256,bool)**(`_permissionDomainId`, `_childSkillIndex`, `_user`, `_domainId`, `_setTo`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_user` | `string` |
-| `_domainId` | `BigNumberish` |
-| `_setTo` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_user
+
+`string`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_setTo
+
+`boolean`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setFundingRole(uint256,uint256,address,uint256,bool)
+`AugmentedIColony.setFundingRole(uint256,uint256,address,uint256,bool)`
 
-___
+***
 
-### setFundingRoleWithProofs
+### setFundingRoleWithProofs()
 
-▸ **setFundingRoleWithProofs**(`_user`, `_domainId`, `_setTo`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setFundingRoleWithProofs**(`_user`, `_domainId`, `_setTo`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 Same as [setFundingRole](ColonyClientV16.md#setfundingrole), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_user` | `string` | User we want to give an funding role to |
-| `_domainId` | `BigNumberish` | Domain in which we are giving user the role |
-| `_setTo` | `boolean` | The state of the role permission (true assign the permission, false revokes it) |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+##### \_user
+
+`string`
+
+User we want to give an funding role to
+
+##### \_domainId
+
+`BigNumberish`
+
+Domain in which we are giving user the role
+
+##### \_setTo
+
+`boolean`
+
+The state of the role permission (true assign the permission, false revokes it)
+
+##### overrides?
+
+[`TxOverrides`](../type-aliases/TxOverrides.md)
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setFundingRoleWithProofs
+`AugmentedIColony.setFundingRoleWithProofs`
 
-___
+***
 
-### setPaymentPayoutWithProofs
+### setPaymentPayoutWithProofs()
 
-▸ **setPaymentPayoutWithProofs**(`_id`, `_token`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setPaymentPayoutWithProofs**(`_id`, `_token`, `_amount`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 Same as setPaymentPayout, but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Payment identifier |
-| `_token` | `BigNumberish` | Address of the token, `0x0` value indicates Ether |
-| `_amount` | `BigNumberish` | Payout amount |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+##### \_id
+
+`BigNumberish`
+
+Payment identifier
+
+##### \_token
+
+`BigNumberish`
+
+Address of the token, `0x0` value indicates Ether
+
+##### \_amount
+
+`BigNumberish`
+
+Payout amount
+
+##### overrides?
+
+[`TxOverrides`](../type-aliases/TxOverrides.md)
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setPaymentPayoutWithProofs
+`AugmentedIColony.setPaymentPayoutWithProofs`
 
-___
+***
 
-### setPaymentRecipientWithProofs
+### setPaymentRecipientWithProofs()
 
-▸ **setPaymentRecipientWithProofs**(`_id`, `_recipient`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setPaymentRecipientWithProofs**(`_id`, `_recipient`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 Same as setPaymentRecipient, but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Payment identifier |
-| `_recipient` | `string` | Address of the payment recipient |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+##### \_id
+
+`BigNumberish`
+
+Payment identifier
+
+##### \_recipient
+
+`string`
+
+Address of the payment recipient
+
+##### overrides?
+
+[`TxOverrides`](../type-aliases/TxOverrides.md)
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setPaymentRecipientWithProofs
+`AugmentedIColony.setPaymentRecipientWithProofs`
 
-___
+***
 
-### setPaymentSkillWithProofs
+### setPaymentSkillWithProofs()
 
-▸ **setPaymentSkillWithProofs**(`_id`, `_skillId`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setPaymentSkillWithProofs**(`_id`, `_skillId`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 Same as setPaymentSkill, but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Payment identifier |
-| `_skillId` | `BigNumberish` | Id of the new skill to set |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+##### \_id
+
+`BigNumberish`
+
+Payment identifier
+
+##### \_skillId
+
+`BigNumberish`
+
+Id of the new skill to set
+
+##### overrides?
+
+[`TxOverrides`](../type-aliases/TxOverrides.md)
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setPaymentSkillWithProofs
+`AugmentedIColony.setPaymentSkillWithProofs`
 
-___
+***
 
-### setRecoveryRole
+### setRecoveryRole()
 
-▸ **setRecoveryRole**(`_user`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setRecoveryRole**(`_user`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_user
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setRecoveryRole
+`AugmentedIColony.setRecoveryRole`
 
-___
+***
 
-### setRecoveryRole(address)
+### setRecoveryRole(address)()
 
-▸ **setRecoveryRole(address)**(`_user`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setRecoveryRole(address)**(`_user`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_user
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setRecoveryRole(address)
+`AugmentedIColony.setRecoveryRole(address)`
 
-___
+***
 
-### setRewardInverse
+### setRewardInverse()
 
-▸ **setRewardInverse**(`_rewardInverse`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setRewardInverse**(`_rewardInverse`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_rewardInverse` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_rewardInverse
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setRewardInverse
+`AugmentedIColony.setRewardInverse`
 
-___
+***
 
-### setRewardInverse(uint256)
+### setRewardInverse(uint256)()
 
-▸ **setRewardInverse(uint256)**(`_rewardInverse`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setRewardInverse(uint256)**(`_rewardInverse`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_rewardInverse` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_rewardInverse
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setRewardInverse(uint256)
+`AugmentedIColony.setRewardInverse(uint256)`
 
-___
+***
 
-### setRootRole
+### setRootRole()
 
-▸ **setRootRole**(`_user`, `_setTo`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setRootRole**(`_user`, `_setTo`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_setTo` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_user
+
+`string`
+
+##### \_setTo
+
+`boolean`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setRootRole
+`AugmentedIColony.setRootRole`
 
-___
+***
 
-### setRootRole(address,bool)
+### setRootRole(address,bool)()
 
-▸ **setRootRole(address,bool)**(`_user`, `_setTo`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setRootRole(address,bool)**(`_user`, `_setTo`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_setTo` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_user
+
+`string`
+
+##### \_setTo
+
+`boolean`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setRootRole(address,bool)
+`AugmentedIColony.setRootRole(address,bool)`
 
-___
+***
 
-### setStorageSlotRecovery
+### setStorageSlotRecovery()
 
-▸ **setStorageSlotRecovery**(`_slot`, `_value`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setStorageSlotRecovery**(`_slot`, `_value`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_slot` | `BigNumberish` |
-| `_value` | `BytesLike` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_slot
+
+`BigNumberish`
+
+##### \_value
+
+`BytesLike`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setStorageSlotRecovery
+`AugmentedIColony.setStorageSlotRecovery`
 
-___
+***
 
-### setStorageSlotRecovery(uint256,bytes32)
+### setStorageSlotRecovery(uint256,bytes32)()
 
-▸ **setStorageSlotRecovery(uint256,bytes32)**(`_slot`, `_value`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setStorageSlotRecovery(uint256,bytes32)**(`_slot`, `_value`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_slot` | `BigNumberish` |
-| `_value` | `BytesLike` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_slot
+
+`BigNumberish`
+
+##### \_value
+
+`BytesLike`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setStorageSlotRecovery(uint256,bytes32)
+`AugmentedIColony.setStorageSlotRecovery(uint256,bytes32)`
 
-___
+***
 
-### setUserRoles
+### setUserRoles()
 
-▸ **setUserRoles**(`_permissionDomainId`, `_childSkillIndex`, `_user`, `_domainId`, `_roles`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setUserRoles**(`_permissionDomainId`, `_childSkillIndex`, `_user`, `_domainId`, `_roles`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_user` | `string` |
-| `_domainId` | `BigNumberish` |
-| `_roles` | `BytesLike` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_user
+
+`string`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_roles
+
+`BytesLike`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setUserRoles
+`AugmentedIColony.setUserRoles`
 
-___
+***
 
-### setUserRoles(uint256,uint256,address,uint256,bytes32)
+### setUserRoles(uint256,uint256,address,uint256,bytes32)()
 
-▸ **setUserRoles(uint256,uint256,address,uint256,bytes32)**(`_permissionDomainId`, `_childSkillIndex`, `_user`, `_domainId`, `_roles`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setUserRoles(uint256,uint256,address,uint256,bytes32)**(`_permissionDomainId`, `_childSkillIndex`, `_user`, `_domainId`, `_roles`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_user` | `string` |
-| `_domainId` | `BigNumberish` |
-| `_roles` | `BytesLike` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_user
+
+`string`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_roles
+
+`BytesLike`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.setUserRoles(uint256,uint256,address,uint256,bytes32)
+`AugmentedIColony.setUserRoles(uint256,uint256,address,uint256,bytes32)`
 
-___
+***
 
-### setUserRolesWithProofs
+### setUserRolesWithProofs()
 
-▸ **setUserRolesWithProofs**(`_user`, `_domainId`, `_roles`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setUserRolesWithProofs**(`_user`, `_domainId`, `_roles`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 Same as [setUserRoles](ColonyClientV16.md#setuserroles), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_user` | `string` | User we want to give a role to |
-| `_domainId` | `BigNumberish` | Domain in which we are giving user the role |
-| `_roles` | `BytesLike` | Byte array representing the desired role setting (1 for on, 0 for off) |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+##### \_user
+
+`string`
+
+User we want to give a role to
+
+##### \_domainId
+
+`BigNumberish`
+
+Domain in which we are giving user the role
+
+##### \_roles
+
+`BytesLike`
+
+Byte array representing the desired role setting (1 for on, 0 for off)
+
+##### overrides?
+
+[`TxOverrides`](../type-aliases/TxOverrides.md)
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-ColonyAugmentsV5.setUserRolesWithProofs
+`ColonyAugmentsV5.setUserRolesWithProofs`
 
-___
+***
 
-### startNextRewardPayout
+### startNextRewardPayout()
 
-▸ **startNextRewardPayout**(`_token`, `key`, `value`, `branchMask`, `siblings`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **startNextRewardPayout**(`_token`, `key`, `value`, `branchMask`, `siblings`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_token` | `string` |
-| `key` | `BytesLike` |
-| `value` | `BytesLike` |
-| `branchMask` | `BigNumberish` |
-| `siblings` | `BytesLike`[] |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_token
+
+`string`
+
+##### key
+
+`BytesLike`
+
+##### value
+
+`BytesLike`
+
+##### branchMask
+
+`BigNumberish`
+
+##### siblings
+
+`BytesLike`[]
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.startNextRewardPayout
+`AugmentedIColony.startNextRewardPayout`
 
-___
+***
 
-### startNextRewardPayout(address,bytes,bytes,uint256,bytes32[])
+### startNextRewardPayout(address,bytes,bytes,uint256,bytes32\[\])()
 
-▸ **startNextRewardPayout(address,bytes,bytes,uint256,bytes32[])**(`_token`, `key`, `value`, `branchMask`, `siblings`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **startNextRewardPayout(address,bytes,bytes,uint256,bytes32\[\])**(`_token`, `key`, `value`, `branchMask`, `siblings`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_token` | `string` |
-| `key` | `BytesLike` |
-| `value` | `BytesLike` |
-| `branchMask` | `BigNumberish` |
-| `siblings` | `BytesLike`[] |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_token
+
+`string`
+
+##### key
+
+`BytesLike`
+
+##### value
+
+`BytesLike`
+
+##### branchMask
+
+`BigNumberish`
+
+##### siblings
+
+`BytesLike`[]
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.startNextRewardPayout(address,bytes,bytes,uint256,bytes32[])
+`AugmentedIColony.startNextRewardPayout(address,bytes,bytes,uint256,bytes32[])`
 
-___
+***
 
-### transferExpenditure
+### transferExpenditure()
 
-▸ **transferExpenditure**(`_id`, `_newOwner`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **transferExpenditure**(`_id`, `_newOwner`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `_newOwner` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_id
+
+`BigNumberish`
+
+##### \_newOwner
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.transferExpenditure
+`AugmentedIColony.transferExpenditure`
 
-___
+***
 
-### transferExpenditure(uint256,address)
+### transferExpenditure(uint256,address)()
 
-▸ **transferExpenditure(uint256,address)**(`_id`, `_newOwner`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **transferExpenditure(uint256,address)**(`_id`, `_newOwner`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `_newOwner` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_id
+
+`BigNumberish`
+
+##### \_newOwner
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.transferExpenditure(uint256,address)
+`AugmentedIColony.transferExpenditure(uint256,address)`
 
-___
+***
 
-### transferExpenditureViaArbitration
+### transferExpenditureViaArbitration()
 
-▸ **transferExpenditureViaArbitration**(`_permissionDomainId`, `_childSkillIndex`, `_id`, `_newOwner`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **transferExpenditureViaArbitration**(`_permissionDomainId`, `_childSkillIndex`, `_id`, `_newOwner`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_id` | `BigNumberish` |
-| `_newOwner` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_id
+
+`BigNumberish`
+
+##### \_newOwner
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.transferExpenditureViaArbitration
+`AugmentedIColony.transferExpenditureViaArbitration`
 
-___
+***
 
-### transferExpenditureViaArbitration(uint256,uint256,uint256,address)
+### transferExpenditureViaArbitration(uint256,uint256,uint256,address)()
 
-▸ **transferExpenditureViaArbitration(uint256,uint256,uint256,address)**(`_permissionDomainId`, `_childSkillIndex`, `_id`, `_newOwner`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **transferExpenditureViaArbitration(uint256,uint256,uint256,address)**(`_permissionDomainId`, `_childSkillIndex`, `_id`, `_newOwner`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_id` | `BigNumberish` |
-| `_newOwner` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_id
+
+`BigNumberish`
+
+##### \_newOwner
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.transferExpenditureViaArbitration(uint256,uint256,uint256,address)
+`AugmentedIColony.transferExpenditureViaArbitration(uint256,uint256,uint256,address)`
 
-___
+***
 
-### transferExpenditureViaArbitrationWithProofs
+### ~~transferExpenditureViaArbitrationWithProofs()~~
 
-▸ **transferExpenditureViaArbitrationWithProofs**(`_id`, `_newOwner`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **transferExpenditureViaArbitrationWithProofs**(`_id`, `_newOwner`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
-**`Deprecated`**
+#### Parameters
+
+##### \_id
+
+`BigNumberish`
+
+Expenditure identifier
+
+##### \_newOwner
+
+`string`
+
+New owner of expenditure
+
+##### overrides?
+
+[`TxOverrides`](../type-aliases/TxOverrides.md)
+
+#### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### Deprecated
 
 Same as [transferExpenditureViaArbitration](ColonyClientV16.md#transferexpenditureviaarbitration), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_id` | `BigNumberish` | Expenditure identifier |
-| `_newOwner` | `string` | New owner of expenditure |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
 #### Inherited from
 
-ColonyAugmentsV4.transferExpenditureViaArbitrationWithProofs
+`ColonyAugmentsV4.transferExpenditureViaArbitrationWithProofs`
 
-___
+***
 
-### transferStake
+### transferStake()
 
-▸ **transferStake**(`_permissionDomainId`, `_childSkillIndex`, `_obligator`, `_user`, `_domainId`, `_amount`, `_recipient`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **transferStake**(`_permissionDomainId`, `_childSkillIndex`, `_obligator`, `_user`, `_domainId`, `_amount`, `_recipient`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_obligator` | `string` |
-| `_user` | `string` |
-| `_domainId` | `BigNumberish` |
-| `_amount` | `BigNumberish` |
-| `_recipient` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_obligator
+
+`string`
+
+##### \_user
+
+`string`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_amount
+
+`BigNumberish`
+
+##### \_recipient
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.transferStake
+`AugmentedIColony.transferStake`
 
-___
+***
 
-### transferStake(uint256,uint256,address,address,uint256,uint256,address)
+### transferStake(uint256,uint256,address,address,uint256,uint256,address)()
 
-▸ **transferStake(uint256,uint256,address,address,uint256,uint256,address)**(`_permissionDomainId`, `_childSkillIndex`, `_obligator`, `_user`, `_domainId`, `_amount`, `_recipient`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **transferStake(uint256,uint256,address,address,uint256,uint256,address)**(`_permissionDomainId`, `_childSkillIndex`, `_obligator`, `_user`, `_domainId`, `_amount`, `_recipient`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_obligator` | `string` |
-| `_user` | `string` |
-| `_domainId` | `BigNumberish` |
-| `_amount` | `BigNumberish` |
-| `_recipient` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_obligator
+
+`string`
+
+##### \_user
+
+`string`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_amount
+
+`BigNumberish`
+
+##### \_recipient
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.transferStake(uint256,uint256,address,address,uint256,uint256,address)
+`AugmentedIColony.transferStake(uint256,uint256,address,address,uint256,uint256,address)`
 
-___
+***
 
-### transferStakeWithProofs
+### transferStakeWithProofs()
 
-▸ **transferStakeWithProofs**(`_obligator`, `_user`, `_domainId`, `_amount`, `_recipient`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **transferStakeWithProofs**(`_obligator`, `_user`, `_domainId`, `_amount`, `_recipient`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 Same as [transferStake](ColonyClientV16.md#transferstake), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_obligator` | `string` | Address of the account who set the obligation. |
-| `_user` | `string` | Address of the account we are transferring. |
-| `_domainId` | `BigNumberish` | Domain in which we are transferring the tokens. |
-| `_amount` | `BigNumberish` | Amount of internal token we are transferring. |
-| `_recipient` | `string` | Recipient of the transferred tokens. |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+##### \_obligator
+
+`string`
+
+Address of the account who set the obligation.
+
+##### \_user
+
+`string`
+
+Address of the account we are transferring.
+
+##### \_domainId
+
+`BigNumberish`
+
+Domain in which we are transferring the tokens.
+
+##### \_amount
+
+`BigNumberish`
+
+Amount of internal token we are transferring.
+
+##### \_recipient
+
+`string`
+
+Recipient of the transferred tokens.
+
+##### overrides?
+
+[`TxOverrides`](../type-aliases/TxOverrides.md)
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-ColonyAugmentsV5.transferStakeWithProofs
+`ColonyAugmentsV5.transferStakeWithProofs`
 
-___
+***
 
-### uninstallExtension
+### uninstallExtension()
 
-▸ **uninstallExtension**(`extensionId`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **uninstallExtension**(`extensionId`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `extensionId` | `BytesLike` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### extensionId
+
+`BytesLike`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.uninstallExtension
+`AugmentedIColony.uninstallExtension`
 
-___
+***
 
-### uninstallExtension(bytes32)
+### uninstallExtension(bytes32)()
 
-▸ **uninstallExtension(bytes32)**(`extensionId`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **uninstallExtension(bytes32)**(`extensionId`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `extensionId` | `BytesLike` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### extensionId
+
+`BytesLike`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.uninstallExtension(bytes32)
+`AugmentedIColony.uninstallExtension(bytes32)`
 
-___
-
-### unlockToken
-
-▸ **unlockToken**(`overrides?`): `Promise`<`ContractTransaction`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedIColony.unlockToken
-
-___
+***
 
 ### unlockToken()
 
-▸ **unlockToken()**(`overrides?`): `Promise`<`ContractTransaction`\>
+> **unlockToken**(`overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.unlockToken()
+`AugmentedIColony.unlockToken`
 
-___
+***
 
-### unlockTokenForUser
+### unlockToken()()
 
-▸ **unlockTokenForUser**(`user`, `lockId`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **unlockToken()**(`overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `user` | `string` |
-| `lockId` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.unlockTokenForUser
+`AugmentedIColony.unlockToken()`
 
-___
+***
 
-### unlockTokenForUser(address,uint256)
+### unlockTokenForUser()
 
-▸ **unlockTokenForUser(address,uint256)**(`user`, `lockId`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **unlockTokenForUser**(`user`, `lockId`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `user` | `string` |
-| `lockId` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### user
+
+`string`
+
+##### lockId
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.unlockTokenForUser(address,uint256)
+`AugmentedIColony.unlockTokenForUser`
 
-___
+***
 
-### updateApprovalAmount
+### unlockTokenForUser(address,uint256)()
 
-▸ **updateApprovalAmount**(`token`, `spender`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **unlockTokenForUser(address,uint256)**(`user`, `lockId`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `token` | `string` |
-| `spender` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### user
+
+`string`
+
+##### lockId
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.updateApprovalAmount
+`AugmentedIColony.unlockTokenForUser(address,uint256)`
 
-___
+***
 
-### updateApprovalAmount(address,address)
+### updateApprovalAmount()
 
-▸ **updateApprovalAmount(address,address)**(`token`, `spender`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **updateApprovalAmount**(`token`, `spender`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `token` | `string` |
-| `spender` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### token
+
+`string`
+
+##### spender
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.updateApprovalAmount(address,address)
+`AugmentedIColony.updateApprovalAmount`
 
-___
+***
 
-### updateColonyOrbitDB
+### updateApprovalAmount(address,address)()
 
-▸ **updateColonyOrbitDB**(`orbitdb`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **updateApprovalAmount(address,address)**(`token`, `spender`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `orbitdb` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### token
+
+`string`
+
+##### spender
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.updateColonyOrbitDB
+`AugmentedIColony.updateApprovalAmount(address,address)`
 
-___
+***
 
-### updateColonyOrbitDB(string)
+### updateColonyOrbitDB()
 
-▸ **updateColonyOrbitDB(string)**(`orbitdb`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **updateColonyOrbitDB**(`orbitdb`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `orbitdb` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### orbitdb
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.updateColonyOrbitDB(string)
+`AugmentedIColony.updateColonyOrbitDB`
 
-___
+***
 
-### upgrade
+### updateColonyOrbitDB(string)()
 
-▸ **upgrade**(`_newVersion`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **updateColonyOrbitDB(string)**(`orbitdb`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_newVersion` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### orbitdb
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.upgrade
+`AugmentedIColony.updateColonyOrbitDB(string)`
 
-___
+***
 
-### upgrade(uint256)
+### upgrade()
 
-▸ **upgrade(uint256)**(`_newVersion`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **upgrade**(`_newVersion`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_newVersion` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_newVersion
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.upgrade(uint256)
+`AugmentedIColony.upgrade`
 
-___
+***
 
-### upgradeExtension
+### upgrade(uint256)()
 
-▸ **upgradeExtension**(`extensionId`, `newVersion`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **upgrade(uint256)**(`_newVersion`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `extensionId` | `BytesLike` |
-| `newVersion` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_newVersion
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.upgradeExtension
+`AugmentedIColony.upgrade(uint256)`
 
-___
+***
 
-### upgradeExtension(bytes32,uint256)
+### upgradeExtension()
 
-▸ **upgradeExtension(bytes32,uint256)**(`extensionId`, `newVersion`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **upgradeExtension**(`extensionId`, `newVersion`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `extensionId` | `BytesLike` |
-| `newVersion` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### extensionId
+
+`BytesLike`
+
+##### newVersion
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedIColony.upgradeExtension(bytes32,uint256)
+`AugmentedIColony.upgradeExtension`
 
-___
+***
 
-### upgradeExtensionChecked
+### upgradeExtension(bytes32,uint256)()
 
-▸ **upgradeExtensionChecked**(`extension`, `newVersion?`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **upgradeExtension(bytes32,uint256)**(`extensionId`, `newVersion`, `overrides`?): `Promise`\<`ContractTransaction`\>
+
+#### Parameters
+
+##### extensionId
+
+`BytesLike`
+
+##### newVersion
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
+
+#### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### Inherited from
+
+`AugmentedIColony.upgradeExtension(bytes32,uint256)`
+
+***
+
+### upgradeExtensionChecked()
+
+> **upgradeExtensionChecked**(`extension`, `newVersion`?, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 Similar to [upgradeExtension](ColonyClientV16.md#upgradeextension), but first check whether the desired extension can be upgraded to the desired version in this Colony
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `extension` | [`Extension`](../enums/Extension.md) | A [Extension](../enums/Extension.md) name |
-| `newVersion?` | `number` | The desired version number of the extension you wish to upgrade |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+##### extension
+
+[`Extension`](../enumerations/Extension.md)
+
+A [Extension](../enumerations/Extension.md) name
+
+##### newVersion?
+
+`number`
+
+The desired version number of the extension you wish to upgrade
+
+##### overrides?
+
+[`TxOverrides`](../type-aliases/TxOverrides.md)
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-ColonyAugmentsV5.upgradeExtensionChecked
+`ColonyAugmentsV5.upgradeExtensionChecked`
 
-___
+***
 
-### userCanSetRoles
+### userCanSetRoles()
 
-▸ **userCanSetRoles**(`_user`, `_domainId`, `_childSkillIndex`, `_childDomainId`, `overrides?`): `Promise`<`boolean`\>
+> **userCanSetRoles**(`_user`, `_domainId`, `_childSkillIndex`, `_childDomainId`, `overrides`?): `Promise`\<`boolean`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_domainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_childDomainId` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_user
+
+`string`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_childDomainId
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`boolean`\>
+`Promise`\<`boolean`\>
 
 #### Inherited from
 
-AugmentedIColony.userCanSetRoles
+`AugmentedIColony.userCanSetRoles`
 
-___
+***
 
-### userCanSetRoles(address,uint256,uint256,uint256)
+### userCanSetRoles(address,uint256,uint256,uint256)()
 
-▸ **userCanSetRoles(address,uint256,uint256,uint256)**(`_user`, `_domainId`, `_childSkillIndex`, `_childDomainId`, `overrides?`): `Promise`<`boolean`\>
+> **userCanSetRoles(address,uint256,uint256,uint256)**(`_user`, `_domainId`, `_childSkillIndex`, `_childDomainId`, `overrides`?): `Promise`\<`boolean`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_domainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_childDomainId` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_user
+
+`string`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_childDomainId
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`boolean`\>
+`Promise`\<`boolean`\>
 
 #### Inherited from
 
-AugmentedIColony.userCanSetRoles(address,uint256,uint256,uint256)
+`AugmentedIColony.userCanSetRoles(address,uint256,uint256,uint256)`
 
-___
+***
 
-### validateDomainInheritance
+### validateDomainInheritance()
 
-▸ **validateDomainInheritance**(`_permissionDomainId`, `_childSkillIndex`, `_childDomainId`, `overrides?`): `Promise`<`boolean`\>
+> **validateDomainInheritance**(`_permissionDomainId`, `_childSkillIndex`, `_childDomainId`, `overrides`?): `Promise`\<`boolean`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_childDomainId` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_childDomainId
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`boolean`\>
+`Promise`\<`boolean`\>
 
 #### Inherited from
 
-AugmentedIColony.validateDomainInheritance
+`AugmentedIColony.validateDomainInheritance`
 
-___
+***
 
-### validateDomainInheritance(uint256,uint256,uint256)
+### validateDomainInheritance(uint256,uint256,uint256)()
 
-▸ **validateDomainInheritance(uint256,uint256,uint256)**(`_permissionDomainId`, `_childSkillIndex`, `_childDomainId`, `overrides?`): `Promise`<`boolean`\>
+> **validateDomainInheritance(uint256,uint256,uint256)**(`_permissionDomainId`, `_childSkillIndex`, `_childDomainId`, `overrides`?): `Promise`\<`boolean`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_childDomainId` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_childDomainId
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`boolean`\>
+`Promise`\<`boolean`\>
 
 #### Inherited from
 
-AugmentedIColony.validateDomainInheritance(uint256,uint256,uint256)
+`AugmentedIColony.validateDomainInheritance(uint256,uint256,uint256)`
 
-___
+***
 
-### verifyReputationProof
+### verifyReputationProof()
 
-▸ **verifyReputationProof**(`key`, `value`, `branchMask`, `siblings`, `overrides?`): `Promise`<`boolean`\>
+> **verifyReputationProof**(`key`, `value`, `branchMask`, `siblings`, `overrides`?): `Promise`\<`boolean`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `key` | `BytesLike` |
-| `value` | `BytesLike` |
-| `branchMask` | `BigNumberish` |
-| `siblings` | `BytesLike`[] |
-| `overrides?` | `CallOverrides` |
+##### key
+
+`BytesLike`
+
+##### value
+
+`BytesLike`
+
+##### branchMask
+
+`BigNumberish`
+
+##### siblings
+
+`BytesLike`[]
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`boolean`\>
+`Promise`\<`boolean`\>
 
 #### Inherited from
 
-AugmentedIColony.verifyReputationProof
+`AugmentedIColony.verifyReputationProof`
 
-___
+***
 
-### verifyReputationProof(bytes,bytes,uint256,bytes32[])
+### verifyReputationProof(bytes,bytes,uint256,bytes32\[\])()
 
-▸ **verifyReputationProof(bytes,bytes,uint256,bytes32[])**(`key`, `value`, `branchMask`, `siblings`, `overrides?`): `Promise`<`boolean`\>
+> **verifyReputationProof(bytes,bytes,uint256,bytes32\[\])**(`key`, `value`, `branchMask`, `siblings`, `overrides`?): `Promise`\<`boolean`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `key` | `BytesLike` |
-| `value` | `BytesLike` |
-| `branchMask` | `BigNumberish` |
-| `siblings` | `BytesLike`[] |
-| `overrides?` | `CallOverrides` |
+##### key
+
+`BytesLike`
+
+##### value
+
+`BytesLike`
+
+##### branchMask
+
+`BigNumberish`
+
+##### siblings
+
+`BytesLike`[]
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`boolean`\>
+`Promise`\<`boolean`\>
 
 #### Inherited from
 
-AugmentedIColony.verifyReputationProof(bytes,bytes,uint256,bytes32[])
+`AugmentedIColony.verifyReputationProof(bytes,bytes,uint256,bytes32[])`
 
-___
-
-### version
-
-▸ **version**(`overrides?`): `Promise`<`BigNumber`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
-
-#### Returns
-
-`Promise`<`BigNumber`\>
-
-#### Inherited from
-
-AugmentedIColony.version
-
-___
+***
 
 ### version()
 
-▸ **version()**(`overrides?`): `Promise`<`BigNumber`\>
+> **version**(`overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedIColony.version()
+`AugmentedIColony.version`
+
+***
+
+### version()()
+
+> **version()**(`overrides`?): `Promise`\<`BigNumber`\>
+
+#### Parameters
+
+##### overrides?
+
+`CallOverrides`
+
+#### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### Inherited from
+
+`AugmentedIColony.version()`

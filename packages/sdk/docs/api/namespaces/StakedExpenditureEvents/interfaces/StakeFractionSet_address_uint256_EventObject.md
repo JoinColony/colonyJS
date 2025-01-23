@@ -1,0 +1,17 @@
+[**API**](../../../README.md)
+
+***
+
+# Interface: StakeFractionSet\_address\_uint256\_EventObject
+
+## Properties
+
+### agent
+
+> **agent**: `string`
+
+***
+
+### stakeFraction
+
+> **stakeFraction**: `BigNumber`

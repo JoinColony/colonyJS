@@ -1,25 +1,29 @@
+[**API**](../README.md)
+
+***
+
 # Interface: SafeInfo
 
 ## Properties
 
 ### chainId
 
-• **chainId**: `string`
+> **chainId**: `string`
 
-___
+***
 
 ### contractAddress
 
-• **contractAddress**: `string`
+> **contractAddress**: `string`
 
-___
+***
 
 ### moduleContractAddress
 
-• **moduleContractAddress**: `string`
+> **moduleContractAddress**: `string`
 
-___
+***
 
 ### safeName
 
-• **safeName**: `string`
+> **safeName**: `string`

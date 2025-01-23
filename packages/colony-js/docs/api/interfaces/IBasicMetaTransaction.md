@@ -1,253 +1,636 @@
+[**API**](../README.md)
+
+***
+
 # Interface: IBasicMetaTransaction
 
-## Hierarchy
+## Extends
 
 - `BaseContract`
-
-  ↳ **`IBasicMetaTransaction`**
 
 ## Properties
 
 ### \_deployedPromise
 
-• **\_deployedPromise**: `Promise`<`Contract`\>
+> **\_deployedPromise**: `Promise`\<`Contract`\>
 
 #### Inherited from
 
-BaseContract.\_deployedPromise
+`BaseContract._deployedPromise`
 
-___
+***
 
 ### \_runningEvents
 
-• **\_runningEvents**: `Object`
+> **\_runningEvents**: `object`
 
-#### Index signature
+#### Index Signature
 
-▪ [eventTag: `string`]: `RunningEvent`
+\[`eventTag`: `string`\]: `RunningEvent`
 
 #### Inherited from
 
-BaseContract.\_runningEvents
+`BaseContract._runningEvents`
 
-___
+***
 
 ### \_wrappedEmits
 
-• **\_wrappedEmits**: `Object`
+> **\_wrappedEmits**: `object`
 
-#### Index signature
+#### Index Signature
 
-▪ [eventTag: `string`]: (...`args`: `any`[]) => `void`
+\[`eventTag`: `string`\]: (...`args`) => `void`
 
 #### Inherited from
 
-BaseContract.\_wrappedEmits
+`BaseContract._wrappedEmits`
 
-___
+***
 
 ### address
 
-• `Readonly` **address**: `string`
+> `readonly` **address**: `string`
 
 #### Inherited from
 
-BaseContract.address
+`BaseContract.address`
 
-___
+***
 
 ### callStatic
 
-• **callStatic**: `Object`
+> **callStatic**: `object`
 
-#### Type declaration
+#### executeMetaTransaction()
 
-| Name | Type |
-| :------ | :------ |
-| `executeMetaTransaction` | (`userAddress`: `string`, `payload`: `BytesLike`, `sigR`: `BytesLike`, `sigS`: `BytesLike`, `sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)` | (`userAddress`: `string`, `payload`: `BytesLike`, `sigR`: `BytesLike`, `sigS`: `BytesLike`, `sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `getMetatransactionNonce` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getMetatransactionNonce(address)` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+##### Parameters
+
+###### userAddress
+
+`string`
+
+###### payload
+
+`BytesLike`
+
+###### sigR
+
+`BytesLike`
+
+###### sigS
+
+`BytesLike`
+
+###### sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)()
+
+##### Parameters
+
+###### userAddress
+
+`string`
+
+###### payload
+
+`BytesLike`
+
+###### sigR
+
+`BytesLike`
+
+###### sigS
+
+`BytesLike`
+
+###### sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### getMetatransactionNonce()
+
+##### Parameters
+
+###### userAddress
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getMetatransactionNonce(address)()
+
+##### Parameters
+
+###### userAddress
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
 
 #### Overrides
 
-BaseContract.callStatic
+`BaseContract.callStatic`
 
-___
+***
 
 ### deployTransaction
 
-• `Readonly` **deployTransaction**: `TransactionResponse`
+> `readonly` **deployTransaction**: `TransactionResponse`
 
 #### Inherited from
 
-BaseContract.deployTransaction
+`BaseContract.deployTransaction`
 
-___
+***
 
 ### estimateGas
 
-• **estimateGas**: `Object`
+> **estimateGas**: `object`
 
-#### Type declaration
+#### executeMetaTransaction()
 
-| Name | Type |
-| :------ | :------ |
-| `executeMetaTransaction` | (`userAddress`: `string`, `payload`: `BytesLike`, `sigR`: `BytesLike`, `sigS`: `BytesLike`, `sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)` | (`userAddress`: `string`, `payload`: `BytesLike`, `sigR`: `BytesLike`, `sigS`: `BytesLike`, `sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`BigNumber`\> |
-| `getMetatransactionNonce` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getMetatransactionNonce(address)` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+##### Parameters
+
+###### userAddress
+
+`string`
+
+###### payload
+
+`BytesLike`
+
+###### sigR
+
+`BytesLike`
+
+###### sigS
+
+`BytesLike`
+
+###### sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`PayableOverrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)()
+
+##### Parameters
+
+###### userAddress
+
+`string`
+
+###### payload
+
+`BytesLike`
+
+###### sigR
+
+`BytesLike`
+
+###### sigS
+
+`BytesLike`
+
+###### sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`PayableOverrides` & `object`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getMetatransactionNonce()
+
+##### Parameters
+
+###### userAddress
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getMetatransactionNonce(address)()
+
+##### Parameters
+
+###### userAddress
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
 
 #### Overrides
 
-BaseContract.estimateGas
+`BaseContract.estimateGas`
 
-___
+***
 
 ### filters
 
-• **filters**: `Object`
+> **filters**: `object`
 
-#### Type declaration
+#### MetaTransactionExecuted()
 
-| Name | Type |
-| :------ | :------ |
-| `MetaTransactionExecuted` | (`userAddress?`: ``null``, `relayerAddress?`: ``null``, `payload?`: ``null``) => `MetaTransactionExecutedEventFilter` |
-| `MetaTransactionExecuted(address,address,bytes)` | (`userAddress?`: ``null``, `relayerAddress?`: ``null``, `payload?`: ``null``) => `MetaTransactionExecutedEventFilter` |
+##### Parameters
+
+###### userAddress?
+
+`null`
+
+###### relayerAddress?
+
+`null`
+
+###### payload?
+
+`null`
+
+##### Returns
+
+`MetaTransactionExecutedEventFilter`
+
+#### MetaTransactionExecuted(address,address,bytes)()
+
+##### Parameters
+
+###### userAddress?
+
+`null`
+
+###### relayerAddress?
+
+`null`
+
+###### payload?
+
+`null`
+
+##### Returns
+
+`MetaTransactionExecutedEventFilter`
 
 #### Overrides
 
-BaseContract.filters
+`BaseContract.filters`
 
-___
+***
 
 ### functions
 
-• **functions**: `Object`
+> **functions**: `object`
 
-#### Type declaration
+#### executeMetaTransaction()
 
-| Name | Type |
-| :------ | :------ |
-| `executeMetaTransaction` | (`userAddress`: `string`, `payload`: `BytesLike`, `sigR`: `BytesLike`, `sigS`: `BytesLike`, `sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)` | (`userAddress`: `string`, `payload`: `BytesLike`, `sigR`: `BytesLike`, `sigS`: `BytesLike`, `sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `getMetatransactionNonce` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
-| `getMetatransactionNonce(address)` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
+##### Parameters
+
+###### userAddress
+
+`string`
+
+###### payload
+
+`BytesLike`
+
+###### sigR
+
+`BytesLike`
+
+###### sigS
+
+`BytesLike`
+
+###### sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`PayableOverrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)()
+
+##### Parameters
+
+###### userAddress
+
+`string`
+
+###### payload
+
+`BytesLike`
+
+###### sigR
+
+`BytesLike`
+
+###### sigS
+
+`BytesLike`
+
+###### sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`PayableOverrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### getMetatransactionNonce()
+
+##### Parameters
+
+###### userAddress
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\] & `object`\>
+
+#### getMetatransactionNonce(address)()
+
+##### Parameters
+
+###### userAddress
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\] & `object`\>
 
 #### Overrides
 
-BaseContract.functions
+`BaseContract.functions`
 
-___
+***
 
 ### interface
 
-• **interface**: `IBasicMetaTransactionInterface`
+> **interface**: `IBasicMetaTransactionInterface`
 
 #### Overrides
 
-BaseContract.interface
+`BaseContract.interface`
 
-___
+***
 
 ### off
 
-• **off**: `OnEvent`<[`IBasicMetaTransaction`](IBasicMetaTransaction.md)\>
+> **off**: `OnEvent`\<[`IBasicMetaTransaction`](IBasicMetaTransaction.md)\>
 
 #### Overrides
 
-BaseContract.off
+`BaseContract.off`
 
-___
+***
 
 ### on
 
-• **on**: `OnEvent`<[`IBasicMetaTransaction`](IBasicMetaTransaction.md)\>
+> **on**: `OnEvent`\<[`IBasicMetaTransaction`](IBasicMetaTransaction.md)\>
 
 #### Overrides
 
-BaseContract.on
+`BaseContract.on`
 
-___
+***
 
 ### once
 
-• **once**: `OnEvent`<[`IBasicMetaTransaction`](IBasicMetaTransaction.md)\>
+> **once**: `OnEvent`\<[`IBasicMetaTransaction`](IBasicMetaTransaction.md)\>
 
 #### Overrides
 
-BaseContract.once
+`BaseContract.once`
 
-___
+***
 
 ### populateTransaction
 
-• **populateTransaction**: `Object`
+> **populateTransaction**: `object`
 
-#### Type declaration
+#### executeMetaTransaction()
 
-| Name | Type |
-| :------ | :------ |
-| `executeMetaTransaction` | (`userAddress`: `string`, `payload`: `BytesLike`, `sigR`: `BytesLike`, `sigS`: `BytesLike`, `sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)` | (`userAddress`: `string`, `payload`: `BytesLike`, `sigR`: `BytesLike`, `sigS`: `BytesLike`, `sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `getMetatransactionNonce` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getMetatransactionNonce(address)` | (`userAddress`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+##### Parameters
+
+###### userAddress
+
+`string`
+
+###### payload
+
+`BytesLike`
+
+###### sigR
+
+`BytesLike`
+
+###### sigS
+
+`BytesLike`
+
+###### sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`PayableOverrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)()
+
+##### Parameters
+
+###### userAddress
+
+`string`
+
+###### payload
+
+`BytesLike`
+
+###### sigR
+
+`BytesLike`
+
+###### sigS
+
+`BytesLike`
+
+###### sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`PayableOverrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getMetatransactionNonce()
+
+##### Parameters
+
+###### userAddress
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getMetatransactionNonce(address)()
+
+##### Parameters
+
+###### userAddress
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
 
 #### Overrides
 
-BaseContract.populateTransaction
+`BaseContract.populateTransaction`
 
-___
+***
 
 ### provider
 
-• `Readonly` **provider**: `Provider`
+> `readonly` **provider**: `Provider`
 
 #### Inherited from
 
-BaseContract.provider
+`BaseContract.provider`
 
-___
+***
 
 ### removeListener
 
-• **removeListener**: `OnEvent`<[`IBasicMetaTransaction`](IBasicMetaTransaction.md)\>
+> **removeListener**: `OnEvent`\<[`IBasicMetaTransaction`](IBasicMetaTransaction.md)\>
 
 #### Overrides
 
-BaseContract.removeListener
+`BaseContract.removeListener`
 
-___
+***
 
 ### resolvedAddress
 
-• `Readonly` **resolvedAddress**: `Promise`<`string`\>
+> `readonly` **resolvedAddress**: `Promise`\<`string`\>
 
 #### Inherited from
 
-BaseContract.resolvedAddress
+`BaseContract.resolvedAddress`
 
-___
+***
 
 ### signer
 
-• `Readonly` **signer**: `Signer`
+> `readonly` **signer**: `Signer`
 
 #### Inherited from
 
-BaseContract.signer
+`BaseContract.signer`
 
 ## Methods
 
-### \_checkRunningEvents
+### \_checkRunningEvents()
 
-▸ **_checkRunningEvents**(`runningEvent`): `void`
+> **\_checkRunningEvents**(`runningEvent`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `runningEvent` | `RunningEvent` |
+##### runningEvent
+
+`RunningEvent`
 
 #### Returns
 
@@ -255,41 +638,47 @@ BaseContract.signer
 
 #### Inherited from
 
-BaseContract.\_checkRunningEvents
+`BaseContract._checkRunningEvents`
 
-___
+***
 
-### \_deployed
+### \_deployed()
 
-▸ **_deployed**(`blockTag?`): `Promise`<`Contract`\>
+> **\_deployed**(`blockTag`?): `Promise`\<`Contract`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `blockTag?` | `BlockTag` |
+##### blockTag?
+
+`BlockTag`
 
 #### Returns
 
-`Promise`<`Contract`\>
+`Promise`\<`Contract`\>
 
 #### Inherited from
 
-BaseContract.\_deployed
+`BaseContract._deployed`
 
-___
+***
 
-### \_wrapEvent
+### \_wrapEvent()
 
-▸ **_wrapEvent**(`runningEvent`, `log`, `listener`): `Event`
+> **\_wrapEvent**(`runningEvent`, `log`, `listener`): `Event`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `runningEvent` | `RunningEvent` |
-| `log` | `Log` |
-| `listener` | `Listener` |
+##### runningEvent
+
+`RunningEvent`
+
+##### log
+
+`Log`
+
+##### listener
+
+`Listener`
 
 #### Returns
 
@@ -297,74 +686,77 @@ ___
 
 #### Inherited from
 
-BaseContract.\_wrapEvent
+`BaseContract._wrapEvent`
 
-___
+***
 
-### attach
+### attach()
 
-▸ **attach**(`addressOrName`): [`IBasicMetaTransaction`](IBasicMetaTransaction.md)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `addressOrName` | `string` |
-
-#### Returns
-
-[`IBasicMetaTransaction`](IBasicMetaTransaction.md)
-
-#### Overrides
-
-BaseContract.attach
-
-___
-
-### connect
-
-▸ **connect**(`signerOrProvider`): [`IBasicMetaTransaction`](IBasicMetaTransaction.md)
+> **attach**(`addressOrName`): `this`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `signerOrProvider` | `string` \| `Signer` \| `Provider` |
+##### addressOrName
+
+`string`
 
 #### Returns
 
-[`IBasicMetaTransaction`](IBasicMetaTransaction.md)
+`this`
 
 #### Overrides
 
-BaseContract.connect
+`BaseContract.attach`
 
-___
+***
 
-### deployed
+### connect()
 
-▸ **deployed**(): `Promise`<[`IBasicMetaTransaction`](IBasicMetaTransaction.md)\>
-
-#### Returns
-
-`Promise`<[`IBasicMetaTransaction`](IBasicMetaTransaction.md)\>
-
-#### Overrides
-
-BaseContract.deployed
-
-___
-
-### emit
-
-▸ **emit**(`eventName`, `...args`): `boolean`
+> **connect**(`signerOrProvider`): `this`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `eventName` | `string` \| `EventFilter` |
-| `...args` | `any`[] |
+##### signerOrProvider
+
+`string` | `Signer` | `Provider`
+
+#### Returns
+
+`this`
+
+#### Overrides
+
+`BaseContract.connect`
+
+***
+
+### deployed()
+
+> **deployed**(): `Promise`\<[`IBasicMetaTransaction`](IBasicMetaTransaction.md)\>
+
+#### Returns
+
+`Promise`\<[`IBasicMetaTransaction`](IBasicMetaTransaction.md)\>
+
+#### Overrides
+
+`BaseContract.deployed`
+
+***
+
+### emit()
+
+> **emit**(`eventName`, ...`args`): `boolean`
+
+#### Parameters
+
+##### eventName
+
+`string` | `EventFilter`
+
+##### args
+
+...`any`[]
 
 #### Returns
 
@@ -372,115 +764,151 @@ ___
 
 #### Inherited from
 
-BaseContract.emit
+`BaseContract.emit`
 
-___
+***
 
-### executeMetaTransaction
+### executeMetaTransaction()
 
-▸ **executeMetaTransaction**(`userAddress`, `payload`, `sigR`, `sigS`, `sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `userAddress` | `string` |
-| `payload` | `BytesLike` |
-| `sigR` | `BytesLike` |
-| `sigS` | `BytesLike` |
-| `sigV` | `BigNumberish` |
-| `overrides?` | `PayableOverrides` & { `from?`: `string`  } |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-___
-
-### executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)
-
-▸ **executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)**(`userAddress`, `payload`, `sigR`, `sigS`, `sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **executeMetaTransaction**(`userAddress`, `payload`, `sigR`, `sigS`, `sigV`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `userAddress` | `string` |
-| `payload` | `BytesLike` |
-| `sigR` | `BytesLike` |
-| `sigS` | `BytesLike` |
-| `sigV` | `BigNumberish` |
-| `overrides?` | `PayableOverrides` & { `from?`: `string`  } |
+##### userAddress
+
+`string`
+
+##### payload
+
+`BytesLike`
+
+##### sigR
+
+`BytesLike`
+
+##### sigS
+
+`BytesLike`
+
+##### sigV
+
+`BigNumberish`
+
+##### overrides?
+
+`PayableOverrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
-___
+***
 
-### fallback
+### executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)()
 
-▸ **fallback**(`overrides?`): `Promise`<`TransactionResponse`\>
+> **executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)**(`userAddress`, `payload`, `sigR`, `sigS`, `sigV`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `TransactionRequest` |
+##### userAddress
+
+`string`
+
+##### payload
+
+`BytesLike`
+
+##### sigR
+
+`BytesLike`
+
+##### sigS
+
+`BytesLike`
+
+##### sigV
+
+`BigNumberish`
+
+##### overrides?
+
+`PayableOverrides` & `object`
 
 #### Returns
 
-`Promise`<`TransactionResponse`\>
+`Promise`\<`ContractTransaction`\>
+
+***
+
+### fallback()
+
+> **fallback**(`overrides`?): `Promise`\<`TransactionResponse`\>
+
+#### Parameters
+
+##### overrides?
+
+`TransactionRequest`
+
+#### Returns
+
+`Promise`\<`TransactionResponse`\>
 
 #### Inherited from
 
-BaseContract.fallback
+`BaseContract.fallback`
 
-___
+***
 
-### getMetatransactionNonce
+### getMetatransactionNonce()
 
-▸ **getMetatransactionNonce**(`userAddress`, `overrides?`): `Promise`<`BigNumber`\>
+> **getMetatransactionNonce**(`userAddress`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `userAddress` | `string` |
-| `overrides?` | `CallOverrides` |
+##### userAddress
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
-___
+***
 
-### getMetatransactionNonce(address)
+### getMetatransactionNonce(address)()
 
-▸ **getMetatransactionNonce(address)**(`userAddress`, `overrides?`): `Promise`<`BigNumber`\>
+> **getMetatransactionNonce(address)**(`userAddress`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `userAddress` | `string` |
-| `overrides?` | `CallOverrides` |
+##### userAddress
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
-___
+***
 
-### listenerCount
+### listenerCount()
 
-▸ **listenerCount**(`eventName?`): `number`
+> **listenerCount**(`eventName`?): `number`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `eventName?` | `string` \| `EventFilter` |
+##### eventName?
+
+`string` | `EventFilter`
 
 #### Returns
 
@@ -488,116 +916,124 @@ ___
 
 #### Inherited from
 
-BaseContract.listenerCount
+`BaseContract.listenerCount`
 
-___
+***
 
-### listeners
+### listeners()
 
-▸ **listeners**<`TEvent`\>(`eventFilter?`): `TypedListener`<`TEvent`\>[]
+#### Call Signature
 
-#### Type parameters
+> **listeners**\<`TEvent`\>(`eventFilter`?): `TypedListener`\<`TEvent`\>[]
 
-| Name | Type |
-| :------ | :------ |
-| `TEvent` | extends `TypedEvent`<`any`, `any`\> |
+##### Type Parameters
 
-#### Parameters
+• **TEvent** *extends* `TypedEvent`
 
-| Name | Type |
-| :------ | :------ |
-| `eventFilter?` | `TypedEventFilter`<`TEvent`\> |
+##### Parameters
 
-#### Returns
+###### eventFilter?
 
-`TypedListener`<`TEvent`\>[]
+`TypedEventFilter`\<`TEvent`\>
 
-#### Overrides
+##### Returns
 
-BaseContract.listeners
+`TypedListener`\<`TEvent`\>[]
 
-▸ **listeners**(`eventName?`): `Listener`[]
+##### Overrides
 
-#### Parameters
+`BaseContract.listeners`
 
-| Name | Type |
-| :------ | :------ |
-| `eventName?` | `string` |
+#### Call Signature
 
-#### Returns
+> **listeners**(`eventName`?): `Listener`[]
+
+##### Parameters
+
+###### eventName?
+
+`string`
+
+##### Returns
 
 `Listener`[]
 
-#### Overrides
+##### Overrides
 
-BaseContract.listeners
+`BaseContract.listeners`
 
-___
+***
 
-### queryFilter
+### queryFilter()
 
-▸ **queryFilter**<`TEvent`\>(`event`, `fromBlockOrBlockhash?`, `toBlock?`): `Promise`<`TEvent`[]\>
+> **queryFilter**\<`TEvent`\>(`event`, `fromBlockOrBlockhash`?, `toBlock`?): `Promise`\<`TEvent`[]\>
 
-#### Type parameters
+#### Type Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `TEvent` | extends `TypedEvent`<`any`, `any`\> |
+• **TEvent** *extends* `TypedEvent`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `event` | `TypedEventFilter`<`TEvent`\> |
-| `fromBlockOrBlockhash?` | `string` \| `number` |
-| `toBlock?` | `string` \| `number` |
+##### event
+
+`TypedEventFilter`\<`TEvent`\>
+
+##### fromBlockOrBlockhash?
+
+`string` | `number`
+
+##### toBlock?
+
+`string` | `number`
 
 #### Returns
 
-`Promise`<`TEvent`[]\>
+`Promise`\<`TEvent`[]\>
 
 #### Overrides
 
-BaseContract.queryFilter
+`BaseContract.queryFilter`
 
-___
+***
 
-### removeAllListeners
+### removeAllListeners()
 
-▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`IBasicMetaTransaction`](IBasicMetaTransaction.md)
+#### Call Signature
 
-#### Type parameters
+> **removeAllListeners**\<`TEvent`\>(`eventFilter`): `this`
 
-| Name | Type |
-| :------ | :------ |
-| `TEvent` | extends `TypedEvent`<`any`, `any`\> |
+##### Type Parameters
 
-#### Parameters
+• **TEvent** *extends* `TypedEvent`
 
-| Name | Type |
-| :------ | :------ |
-| `eventFilter` | `TypedEventFilter`<`TEvent`\> |
+##### Parameters
 
-#### Returns
+###### eventFilter
 
-[`IBasicMetaTransaction`](IBasicMetaTransaction.md)
+`TypedEventFilter`\<`TEvent`\>
 
-#### Overrides
+##### Returns
 
-BaseContract.removeAllListeners
+`this`
 
-▸ **removeAllListeners**(`eventName?`): [`IBasicMetaTransaction`](IBasicMetaTransaction.md)
+##### Overrides
 
-#### Parameters
+`BaseContract.removeAllListeners`
 
-| Name | Type |
-| :------ | :------ |
-| `eventName?` | `string` |
+#### Call Signature
 
-#### Returns
+> **removeAllListeners**(`eventName`?): `this`
 
-[`IBasicMetaTransaction`](IBasicMetaTransaction.md)
+##### Parameters
 
-#### Overrides
+###### eventName?
 
-BaseContract.removeAllListeners
+`string`
+
+##### Returns
+
+`this`
+
+##### Overrides
+
+`BaseContract.removeAllListeners`

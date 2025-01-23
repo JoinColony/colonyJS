@@ -1,43 +1,47 @@
+[**API**](../README.md)
+
+***
+
 # Interface: ContractOptions
 
 Additional options for instatiating Contracts within the Colony Network
 
 ## Properties
 
-### customNetworkAddress
+### customNetworkAddress?
 
-• `Optional` **customNetworkAddress**: `string`
+> `optional` **customNetworkAddress**: `string`
 
 A custom address for ColonyNetwork's EtherRouter contract. Useful only in manual deployments
 
-___
+***
 
-### ipfsAdapter
+### ipfsAdapter?
 
-• `Optional` **ipfsAdapter**: [`IpfsAdapter`](IpfsAdapter.md)
+> `optional` **ipfsAdapter**: [`IpfsAdapter`](IpfsAdapter.md)
 
 Provide a custom [IpfsAdapter](IpfsAdapter.md)
 
-___
+***
 
-### metaTxBroadcasterEndpoint
+### metaTxBroadcasterEndpoint?
 
-• `Optional` **metaTxBroadcasterEndpoint**: `string`
+> `optional` **metaTxBroadcasterEndpoint**: `string`
 
 Provide a custom metatransaction broadcaster endpoint
 
-___
+***
 
-### network
+### network?
 
-• `Optional` **network**: [`Network`](../enums/Network.md)
+> `optional` **network**: [`Network`](../enumerations/Network.md)
 
-The Network to connect to. See [Network](../enums/Network.md) for supported networks
+The Network to connect to. See [Network](../enumerations/Network.md) for supported networks
 
-___
+***
 
-### reputationOracleEndpoint
+### reputationOracleEndpoint?
 
-• `Optional` **reputationOracleEndpoint**: `string`
+> `optional` **reputationOracleEndpoint**: `string`
 
 A custom endpoiunt for ColonyNetwork's Reputation Oracle. Useful only in manual deployments

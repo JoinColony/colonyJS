@@ -1,40 +1,51 @@
+[**API**](../README.md)
+
+***
+
 # Class: TokenEvents\_\_factory
 
 ## Constructors
 
-### constructor
+### new TokenEvents\_\_factory()
 
-• **new TokenEvents__factory**()
+> **new TokenEvents\_\_factory**(): [`TokenEvents__factory`](TokenEvents__factory.md)
+
+#### Returns
+
+[`TokenEvents__factory`](TokenEvents__factory.md)
 
 ## Properties
 
 ### abi
 
-▪ `Static` `Readonly` **abi**: readonly [{ `anonymous`: ``false`` ; `inputs`: readonly [{ `indexed`: ``true`` ; `name`: ``"guy"`` ; `type`: ``"address"``  }, { `indexed`: ``false`` ; `name`: ``"wad"`` ; `type`: ``"uint256"``  }] ; `name`: ``"Mint"`` ; `type`: ``"event"``  }, { `anonymous`: ``false`` ; `inputs`: readonly [{ `indexed`: ``true`` ; `name`: ``"guy"`` ; `type`: ``"address"``  }, { `indexed`: ``false`` ; `name`: ``"wad"`` ; `type`: ``"uint256"``  }] ; `name`: ``"Burn"`` ; `type`: ``"event"``  }, { `anonymous`: ``false`` ; `inputs`: readonly [{ `indexed`: ``true`` ; `name`: ``"authority"`` ; `type`: ``"address"``  }] ; `name`: ``"LogSetAuthority"`` ; `type`: ``"event"``  }, { `anonymous`: ``false`` ; `inputs`: readonly [{ `indexed`: ``true`` ; `name`: ``"owner"`` ; `type`: ``"address"``  }] ; `name`: ``"LogSetOwner"`` ; `type`: ``"event"``  }, { `anonymous`: ``false`` ; `inputs`: readonly [{ `indexed`: ``true`` ; `name`: ``"src"`` ; `type`: ``"address"``  }, { `indexed`: ``true`` ; `name`: ``"guy"`` ; `type`: ``"address"``  }, { `indexed`: ``false`` ; `name`: ``"wad"`` ; `type`: ``"uint256"``  }] ; `name`: ``"Approval"`` ; `type`: ``"event"``  }, { `anonymous`: ``false`` ; `inputs`: readonly [{ `indexed`: ``true`` ; `name`: ``"src"`` ; `type`: ``"address"``  }, { `indexed`: ``true`` ; `name`: ``"dst"`` ; `type`: ``"address"``  }, { `indexed`: ``false`` ; `name`: ``"wad"`` ; `type`: ``"uint256"``  }] ; `name`: ``"Transfer"`` ; `type`: ``"event"``  }]
+> `readonly` `static` **abi**: readonly \[\{ `anonymous`: `false`; `inputs`: readonly \[\{ `indexed`: `true`; `name`: `"guy"`; `type`: `"address"`; \}, \{ `indexed`: `false`; `name`: `"wad"`; `type`: `"uint256"`; \}\]; `name`: `"Mint"`; `type`: `"event"`; \}, \{ `anonymous`: `false`; `inputs`: readonly \[\{ `indexed`: `true`; `name`: `"guy"`; `type`: `"address"`; \}, \{ `indexed`: `false`; `name`: `"wad"`; `type`: `"uint256"`; \}\]; `name`: `"Burn"`; `type`: `"event"`; \}, \{ `anonymous`: `false`; `inputs`: readonly \[\{ `indexed`: `true`; `name`: `"authority"`; `type`: `"address"`; \}\]; `name`: `"LogSetAuthority"`; `type`: `"event"`; \}, \{ `anonymous`: `false`; `inputs`: readonly \[\{ `indexed`: `true`; `name`: `"owner"`; `type`: `"address"`; \}\]; `name`: `"LogSetOwner"`; `type`: `"event"`; \}, \{ `anonymous`: `false`; `inputs`: readonly \[\{ `indexed`: `true`; `name`: `"src"`; `type`: `"address"`; \}, \{ `indexed`: `true`; `name`: `"guy"`; `type`: `"address"`; \}, \{ `indexed`: `false`; `name`: `"wad"`; `type`: `"uint256"`; \}\]; `name`: `"Approval"`; `type`: `"event"`; \}, \{ `anonymous`: `false`; `inputs`: readonly \[\{ `indexed`: `true`; `name`: `"src"`; `type`: `"address"`; \}, \{ `indexed`: `true`; `name`: `"dst"`; `type`: `"address"`; \}, \{ `indexed`: `false`; `name`: `"wad"`; `type`: `"uint256"`; \}\]; `name`: `"Transfer"`; `type`: `"event"`; \}\]
 
 ## Methods
 
-### connect
+### connect()
 
-▸ `Static` **connect**(`address`, `signerOrProvider`): [`TokenEvents`](../interfaces/TokenEvents.TokenEvents.md)
+> `static` **connect**(`address`, `signerOrProvider`): [`TokenEvents`](../namespaces/TokenEvents/interfaces/TokenEvents.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `address` | `string` |
-| `signerOrProvider` | `Signer` \| `Provider` |
+##### address
+
+`string`
+
+##### signerOrProvider
+
+`Signer` | `Provider`
 
 #### Returns
 
-[`TokenEvents`](../interfaces/TokenEvents.TokenEvents.md)
+[`TokenEvents`](../namespaces/TokenEvents/interfaces/TokenEvents.md)
 
-___
+***
 
-### createInterface
+### createInterface()
 
-▸ `Static` **createInterface**(): [`TokenEventsInterface`](../interfaces/TokenEvents.TokenEventsInterface.md)
+> `static` **createInterface**(): [`TokenEventsInterface`](../namespaces/TokenEvents/interfaces/TokenEventsInterface.md)
 
 #### Returns
 
-[`TokenEventsInterface`](../interfaces/TokenEvents.TokenEventsInterface.md)
+[`TokenEventsInterface`](../namespaces/TokenEvents/interfaces/TokenEventsInterface.md)

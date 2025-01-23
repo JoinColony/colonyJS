@@ -1,219 +1,219 @@
+[**API**](../README.md)
+
+***
+
 # Interface: TransactionResponse
 
-## Hierarchy
+## Extends
 
 - `Transaction`
 
-  ↳ **`TransactionResponse`**
+## Extended by
 
-  ↳↳ [`ContractTransaction`](ContractTransaction.md)
+- [`ContractTransaction`](ContractTransaction.md)
 
 ## Properties
 
-### accessList
+### accessList?
 
-• `Optional` **accessList**: `AccessList`
+> `optional` **accessList**: `AccessList`
 
 #### Inherited from
 
-Transaction.accessList
+`Transaction.accessList`
 
-___
+***
 
-### blockHash
+### blockHash?
 
-• `Optional` **blockHash**: `string`
+> `optional` **blockHash**: `string`
 
-___
+***
 
-### blockNumber
+### blockNumber?
 
-• `Optional` **blockNumber**: `number`
+> `optional` **blockNumber**: `number`
 
-___
+***
 
 ### chainId
 
-• **chainId**: `number`
+> **chainId**: `number`
 
 #### Inherited from
 
-Transaction.chainId
+`Transaction.chainId`
 
-___
+***
 
 ### confirmations
 
-• **confirmations**: `number`
+> **confirmations**: `number`
 
-___
+***
 
 ### data
 
-• **data**: `string`
+> **data**: `string`
 
 #### Inherited from
 
-Transaction.data
+`Transaction.data`
 
-___
+***
 
 ### from
 
-• **from**: `string`
+> **from**: `string`
 
 #### Overrides
 
-Transaction.from
+`Transaction.from`
 
-___
+***
 
 ### gasLimit
 
-• **gasLimit**: `BigNumber`
+> **gasLimit**: `BigNumber`
 
 #### Inherited from
 
-Transaction.gasLimit
+`Transaction.gasLimit`
 
-___
+***
 
-### gasPrice
+### gasPrice?
 
-• `Optional` **gasPrice**: `BigNumber`
+> `optional` **gasPrice**: `BigNumber`
 
 #### Inherited from
 
-Transaction.gasPrice
+`Transaction.gasPrice`
 
-___
+***
 
 ### hash
 
-• **hash**: `string`
+> **hash**: `string`
 
 #### Overrides
 
-Transaction.hash
+`Transaction.hash`
 
-___
+***
 
-### maxFeePerGas
+### maxFeePerGas?
 
-• `Optional` **maxFeePerGas**: `BigNumber`
-
-#### Inherited from
-
-Transaction.maxFeePerGas
-
-___
-
-### maxPriorityFeePerGas
-
-• `Optional` **maxPriorityFeePerGas**: `BigNumber`
+> `optional` **maxFeePerGas**: `BigNumber`
 
 #### Inherited from
 
-Transaction.maxPriorityFeePerGas
+`Transaction.maxFeePerGas`
 
-___
+***
+
+### maxPriorityFeePerGas?
+
+> `optional` **maxPriorityFeePerGas**: `BigNumber`
+
+#### Inherited from
+
+`Transaction.maxPriorityFeePerGas`
+
+***
 
 ### nonce
 
-• **nonce**: `number`
+> **nonce**: `number`
 
 #### Inherited from
 
-Transaction.nonce
+`Transaction.nonce`
 
-___
+***
 
-### r
+### r?
 
-• `Optional` **r**: `string`
-
-#### Inherited from
-
-Transaction.r
-
-___
-
-### raw
-
-• `Optional` **raw**: `string`
-
-___
-
-### s
-
-• `Optional` **s**: `string`
+> `optional` **r**: `string`
 
 #### Inherited from
 
-Transaction.s
+`Transaction.r`
 
-___
+***
 
-### timestamp
+### raw?
 
-• `Optional` **timestamp**: `number`
+> `optional` **raw**: `string`
 
-___
+***
 
-### to
+### s?
 
-• `Optional` **to**: `string`
-
-#### Inherited from
-
-Transaction.to
-
-___
-
-### type
-
-• `Optional` **type**: ``null`` \| `number`
+> `optional` **s**: `string`
 
 #### Inherited from
 
-Transaction.type
+`Transaction.s`
 
-___
+***
 
-### v
+### timestamp?
 
-• `Optional` **v**: `number`
+> `optional` **timestamp**: `number`
+
+***
+
+### to?
+
+> `optional` **to**: `string`
 
 #### Inherited from
 
-Transaction.v
+`Transaction.to`
 
-___
+***
+
+### type?
+
+> `optional` **type**: `null` \| `number`
+
+#### Inherited from
+
+`Transaction.type`
+
+***
+
+### v?
+
+> `optional` **v**: `number`
+
+#### Inherited from
+
+`Transaction.v`
+
+***
 
 ### value
 
-• **value**: `BigNumber`
+> **value**: `BigNumber`
 
 #### Inherited from
 
-Transaction.value
+`Transaction.value`
 
-___
+***
 
-### wait
+### wait()
 
-• **wait**: (`confirmations?`: `number`) => `Promise`<`TransactionReceipt`\>
+> **wait**: (`confirmations`?) => `Promise`\<`TransactionReceipt`\>
 
-#### Type declaration
+#### Parameters
 
-▸ (`confirmations?`): `Promise`<`TransactionReceipt`\>
+##### confirmations?
 
-##### Parameters
+`number`
 
-| Name | Type |
-| :------ | :------ |
-| `confirmations?` | `number` |
+#### Returns
 
-##### Returns
-
-`Promise`<`TransactionReceipt`\>
+`Promise`\<`TransactionReceipt`\>

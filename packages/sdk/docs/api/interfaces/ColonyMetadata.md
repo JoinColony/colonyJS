@@ -1,33 +1,35 @@
+[**API**](../README.md)
+
+***
+
 # Interface: ColonyMetadata
 
-## Hierarchy
+## Extends
 
 - `BaseMetadata`
-
-  ↳ **`ColonyMetadata`**
 
 ## Properties
 
 ### data
 
-• **data**: [`ColonyData`](ColonyData.md)
+> **data**: [`ColonyData`](ColonyData.md)
 
-___
+***
 
 ### name
 
-• **name**: [`Colony`](../enums/MetadataType.md#colony)
+> **name**: [`Colony`](../enumerations/MetadataType.md#colony)
 
 #### Overrides
 
-BaseMetadata.name
+`BaseMetadata.name`
 
-___
+***
 
 ### version
 
-• **version**: `number`
+> **version**: `number`
 
 #### Inherited from
 
-BaseMetadata.version
+`BaseMetadata.version`

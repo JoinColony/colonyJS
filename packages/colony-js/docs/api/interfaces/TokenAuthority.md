@@ -1,246 +1,500 @@
+[**API**](../README.md)
+
+***
+
 # Interface: TokenAuthority
 
-## Hierarchy
+## Extends
 
 - `BaseContract`
-
-  ↳ **`TokenAuthority`**
 
 ## Properties
 
 ### \_deployedPromise
 
-• **\_deployedPromise**: `Promise`<`Contract`\>
+> **\_deployedPromise**: `Promise`\<`Contract`\>
 
 #### Inherited from
 
-BaseContract.\_deployedPromise
+`BaseContract._deployedPromise`
 
-___
+***
 
 ### \_runningEvents
 
-• **\_runningEvents**: `Object`
+> **\_runningEvents**: `object`
 
-#### Index signature
+#### Index Signature
 
-▪ [eventTag: `string`]: `RunningEvent`
+\[`eventTag`: `string`\]: `RunningEvent`
 
 #### Inherited from
 
-BaseContract.\_runningEvents
+`BaseContract._runningEvents`
 
-___
+***
 
 ### \_wrappedEmits
 
-• **\_wrappedEmits**: `Object`
+> **\_wrappedEmits**: `object`
 
-#### Index signature
+#### Index Signature
 
-▪ [eventTag: `string`]: (...`args`: `any`[]) => `void`
+\[`eventTag`: `string`\]: (...`args`) => `void`
 
 #### Inherited from
 
-BaseContract.\_wrappedEmits
+`BaseContract._wrappedEmits`
 
-___
+***
 
 ### address
 
-• `Readonly` **address**: `string`
+> `readonly` **address**: `string`
 
 #### Inherited from
 
-BaseContract.address
+`BaseContract.address`
 
-___
+***
 
 ### callStatic
 
-• **callStatic**: `Object`
+> **callStatic**: `object`
 
-#### Type declaration
+#### canCall()
 
-| Name | Type |
-| :------ | :------ |
-| `canCall` | (`src`: `string`, `dst`: `string`, `sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
-| `canCall(address,address,bytes4)` | (`src`: `string`, `dst`: `string`, `sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
-| `token` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `token()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
+##### Parameters
+
+###### src
+
+`string`
+
+###### dst
+
+`string`
+
+###### sig
+
+`BytesLike`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`boolean`\>
+
+#### canCall(address,address,bytes4)()
+
+##### Parameters
+
+###### src
+
+`string`
+
+###### dst
+
+`string`
+
+###### sig
+
+`BytesLike`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`boolean`\>
+
+#### token()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### token()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
 
 #### Overrides
 
-BaseContract.callStatic
+`BaseContract.callStatic`
 
-___
+***
 
 ### deployTransaction
 
-• `Readonly` **deployTransaction**: `TransactionResponse`
+> `readonly` **deployTransaction**: `TransactionResponse`
 
 #### Inherited from
 
-BaseContract.deployTransaction
+`BaseContract.deployTransaction`
 
-___
+***
 
 ### estimateGas
 
-• **estimateGas**: `Object`
+> **estimateGas**: `object`
 
-#### Type declaration
+#### canCall()
 
-| Name | Type |
-| :------ | :------ |
-| `canCall` | (`src`: `string`, `dst`: `string`, `sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `canCall(address,address,bytes4)` | (`src`: `string`, `dst`: `string`, `sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `token` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `token()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+##### Parameters
+
+###### src
+
+`string`
+
+###### dst
+
+`string`
+
+###### sig
+
+`BytesLike`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### canCall(address,address,bytes4)()
+
+##### Parameters
+
+###### src
+
+`string`
+
+###### dst
+
+`string`
+
+###### sig
+
+`BytesLike`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### token()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### token()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
 
 #### Overrides
 
-BaseContract.estimateGas
+`BaseContract.estimateGas`
 
-___
+***
 
 ### filters
 
-• **filters**: `Object`
+> **filters**: `object`
 
 #### Overrides
 
-BaseContract.filters
+`BaseContract.filters`
 
-___
+***
 
 ### functions
 
-• **functions**: `Object`
+> **functions**: `object`
 
-#### Type declaration
+#### canCall()
 
-| Name | Type |
-| :------ | :------ |
-| `canCall` | (`src`: `string`, `dst`: `string`, `sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
-| `canCall(address,address,bytes4)` | (`src`: `string`, `dst`: `string`, `sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
-| `token` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `token()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
+##### Parameters
+
+###### src
+
+`string`
+
+###### dst
+
+`string`
+
+###### sig
+
+`BytesLike`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`boolean`\]\>
+
+#### canCall(address,address,bytes4)()
+
+##### Parameters
+
+###### src
+
+`string`
+
+###### dst
+
+`string`
+
+###### sig
+
+`BytesLike`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`boolean`\]\>
+
+#### token()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`string`\]\>
+
+#### token()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`string`\]\>
 
 #### Overrides
 
-BaseContract.functions
+`BaseContract.functions`
 
-___
+***
 
 ### interface
 
-• **interface**: `TokenAuthorityInterface`
+> **interface**: `TokenAuthorityInterface`
 
 #### Overrides
 
-BaseContract.interface
+`BaseContract.interface`
 
-___
+***
 
 ### off
 
-• **off**: `OnEvent`<[`TokenAuthority`](TokenAuthority.md)\>
+> **off**: `OnEvent`\<[`TokenAuthority`](TokenAuthority.md)\>
 
 #### Overrides
 
-BaseContract.off
+`BaseContract.off`
 
-___
+***
 
 ### on
 
-• **on**: `OnEvent`<[`TokenAuthority`](TokenAuthority.md)\>
+> **on**: `OnEvent`\<[`TokenAuthority`](TokenAuthority.md)\>
 
 #### Overrides
 
-BaseContract.on
+`BaseContract.on`
 
-___
+***
 
 ### once
 
-• **once**: `OnEvent`<[`TokenAuthority`](TokenAuthority.md)\>
+> **once**: `OnEvent`\<[`TokenAuthority`](TokenAuthority.md)\>
 
 #### Overrides
 
-BaseContract.once
+`BaseContract.once`
 
-___
+***
 
 ### populateTransaction
 
-• **populateTransaction**: `Object`
+> **populateTransaction**: `object`
 
-#### Type declaration
+#### canCall()
 
-| Name | Type |
-| :------ | :------ |
-| `canCall` | (`src`: `string`, `dst`: `string`, `sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `canCall(address,address,bytes4)` | (`src`: `string`, `dst`: `string`, `sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `token` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `token()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+##### Parameters
+
+###### src
+
+`string`
+
+###### dst
+
+`string`
+
+###### sig
+
+`BytesLike`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### canCall(address,address,bytes4)()
+
+##### Parameters
+
+###### src
+
+`string`
+
+###### dst
+
+`string`
+
+###### sig
+
+`BytesLike`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### token()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### token()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
 
 #### Overrides
 
-BaseContract.populateTransaction
+`BaseContract.populateTransaction`
 
-___
+***
 
 ### provider
 
-• `Readonly` **provider**: `Provider`
+> `readonly` **provider**: `Provider`
 
 #### Inherited from
 
-BaseContract.provider
+`BaseContract.provider`
 
-___
+***
 
 ### removeListener
 
-• **removeListener**: `OnEvent`<[`TokenAuthority`](TokenAuthority.md)\>
+> **removeListener**: `OnEvent`\<[`TokenAuthority`](TokenAuthority.md)\>
 
 #### Overrides
 
-BaseContract.removeListener
+`BaseContract.removeListener`
 
-___
+***
 
 ### resolvedAddress
 
-• `Readonly` **resolvedAddress**: `Promise`<`string`\>
+> `readonly` **resolvedAddress**: `Promise`\<`string`\>
 
 #### Inherited from
 
-BaseContract.resolvedAddress
+`BaseContract.resolvedAddress`
 
-___
+***
 
 ### signer
 
-• `Readonly` **signer**: `Signer`
+> `readonly` **signer**: `Signer`
 
 #### Inherited from
 
-BaseContract.signer
+`BaseContract.signer`
 
 ## Methods
 
-### \_checkRunningEvents
+### \_checkRunningEvents()
 
-▸ **_checkRunningEvents**(`runningEvent`): `void`
+> **\_checkRunningEvents**(`runningEvent`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `runningEvent` | `RunningEvent` |
+##### runningEvent
+
+`RunningEvent`
 
 #### Returns
 
@@ -248,41 +502,47 @@ BaseContract.signer
 
 #### Inherited from
 
-BaseContract.\_checkRunningEvents
+`BaseContract._checkRunningEvents`
 
-___
+***
 
-### \_deployed
+### \_deployed()
 
-▸ **_deployed**(`blockTag?`): `Promise`<`Contract`\>
+> **\_deployed**(`blockTag`?): `Promise`\<`Contract`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `blockTag?` | `BlockTag` |
+##### blockTag?
+
+`BlockTag`
 
 #### Returns
 
-`Promise`<`Contract`\>
+`Promise`\<`Contract`\>
 
 #### Inherited from
 
-BaseContract.\_deployed
+`BaseContract._deployed`
 
-___
+***
 
-### \_wrapEvent
+### \_wrapEvent()
 
-▸ **_wrapEvent**(`runningEvent`, `log`, `listener`): `Event`
+> **\_wrapEvent**(`runningEvent`, `log`, `listener`): `Event`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `runningEvent` | `RunningEvent` |
-| `log` | `Log` |
-| `listener` | `Listener` |
+##### runningEvent
+
+`RunningEvent`
+
+##### log
+
+`Log`
+
+##### listener
+
+`Listener`
 
 #### Returns
 
@@ -290,112 +550,133 @@ ___
 
 #### Inherited from
 
-BaseContract.\_wrapEvent
+`BaseContract._wrapEvent`
 
-___
+***
 
-### attach
+### attach()
 
-▸ **attach**(`addressOrName`): [`TokenAuthority`](TokenAuthority.md)
+> **attach**(`addressOrName`): `this`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `addressOrName` | `string` |
+##### addressOrName
+
+`string`
 
 #### Returns
 
-[`TokenAuthority`](TokenAuthority.md)
+`this`
 
 #### Overrides
 
-BaseContract.attach
+`BaseContract.attach`
 
-___
+***
 
-### canCall
+### canCall()
 
-▸ **canCall**(`src`, `dst`, `sig`, `overrides?`): `Promise`<`boolean`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `src` | `string` |
-| `dst` | `string` |
-| `sig` | `BytesLike` |
-| `overrides?` | `CallOverrides` |
-
-#### Returns
-
-`Promise`<`boolean`\>
-
-___
-
-### canCall(address,address,bytes4)
-
-▸ **canCall(address,address,bytes4)**(`src`, `dst`, `sig`, `overrides?`): `Promise`<`boolean`\>
+> **canCall**(`src`, `dst`, `sig`, `overrides`?): `Promise`\<`boolean`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `src` | `string` |
-| `dst` | `string` |
-| `sig` | `BytesLike` |
-| `overrides?` | `CallOverrides` |
+##### src
+
+`string`
+
+##### dst
+
+`string`
+
+##### sig
+
+`BytesLike`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`boolean`\>
+`Promise`\<`boolean`\>
 
-___
+***
 
-### connect
+### canCall(address,address,bytes4)()
 
-▸ **connect**(`signerOrProvider`): [`TokenAuthority`](TokenAuthority.md)
+> **canCall(address,address,bytes4)**(`src`, `dst`, `sig`, `overrides`?): `Promise`\<`boolean`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `signerOrProvider` | `string` \| `Signer` \| `Provider` |
+##### src
+
+`string`
+
+##### dst
+
+`string`
+
+##### sig
+
+`BytesLike`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-[`TokenAuthority`](TokenAuthority.md)
+`Promise`\<`boolean`\>
+
+***
+
+### connect()
+
+> **connect**(`signerOrProvider`): `this`
+
+#### Parameters
+
+##### signerOrProvider
+
+`string` | `Signer` | `Provider`
+
+#### Returns
+
+`this`
 
 #### Overrides
 
-BaseContract.connect
+`BaseContract.connect`
 
-___
+***
 
-### deployed
+### deployed()
 
-▸ **deployed**(): `Promise`<[`TokenAuthority`](TokenAuthority.md)\>
+> **deployed**(): `Promise`\<[`TokenAuthority`](TokenAuthority.md)\>
 
 #### Returns
 
-`Promise`<[`TokenAuthority`](TokenAuthority.md)\>
+`Promise`\<[`TokenAuthority`](TokenAuthority.md)\>
 
 #### Overrides
 
-BaseContract.deployed
+`BaseContract.deployed`
 
-___
+***
 
-### emit
+### emit()
 
-▸ **emit**(`eventName`, `...args`): `boolean`
+> **emit**(`eventName`, ...`args`): `boolean`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `eventName` | `string` \| `EventFilter` |
-| `...args` | `any`[] |
+##### eventName
+
+`string` | `EventFilter`
+
+##### args
+
+...`any`[]
 
 #### Returns
 
@@ -403,39 +684,39 @@ ___
 
 #### Inherited from
 
-BaseContract.emit
+`BaseContract.emit`
 
-___
+***
 
-### fallback
+### fallback()
 
-▸ **fallback**(`overrides?`): `Promise`<`TransactionResponse`\>
+> **fallback**(`overrides`?): `Promise`\<`TransactionResponse`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `TransactionRequest` |
+##### overrides?
+
+`TransactionRequest`
 
 #### Returns
 
-`Promise`<`TransactionResponse`\>
+`Promise`\<`TransactionResponse`\>
 
 #### Inherited from
 
-BaseContract.fallback
+`BaseContract.fallback`
 
-___
+***
 
-### listenerCount
+### listenerCount()
 
-▸ **listenerCount**(`eventName?`): `number`
+> **listenerCount**(`eventName`?): `number`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `eventName?` | `string` \| `EventFilter` |
+##### eventName?
+
+`string` | `EventFilter`
 
 #### Returns
 
@@ -443,148 +724,156 @@ ___
 
 #### Inherited from
 
-BaseContract.listenerCount
+`BaseContract.listenerCount`
 
-___
+***
 
-### listeners
+### listeners()
 
-▸ **listeners**<`TEvent`\>(`eventFilter?`): `TypedListener`<`TEvent`\>[]
+#### Call Signature
 
-#### Type parameters
+> **listeners**\<`TEvent`\>(`eventFilter`?): `TypedListener`\<`TEvent`\>[]
 
-| Name | Type |
-| :------ | :------ |
-| `TEvent` | extends `TypedEvent`<`any`, `any`\> |
+##### Type Parameters
 
-#### Parameters
+• **TEvent** *extends* `TypedEvent`
 
-| Name | Type |
-| :------ | :------ |
-| `eventFilter?` | `TypedEventFilter`<`TEvent`\> |
+##### Parameters
 
-#### Returns
+###### eventFilter?
 
-`TypedListener`<`TEvent`\>[]
+`TypedEventFilter`\<`TEvent`\>
 
-#### Overrides
+##### Returns
 
-BaseContract.listeners
+`TypedListener`\<`TEvent`\>[]
 
-▸ **listeners**(`eventName?`): `Listener`[]
+##### Overrides
 
-#### Parameters
+`BaseContract.listeners`
 
-| Name | Type |
-| :------ | :------ |
-| `eventName?` | `string` |
+#### Call Signature
 
-#### Returns
+> **listeners**(`eventName`?): `Listener`[]
+
+##### Parameters
+
+###### eventName?
+
+`string`
+
+##### Returns
 
 `Listener`[]
 
-#### Overrides
+##### Overrides
 
-BaseContract.listeners
+`BaseContract.listeners`
 
-___
+***
 
-### queryFilter
+### queryFilter()
 
-▸ **queryFilter**<`TEvent`\>(`event`, `fromBlockOrBlockhash?`, `toBlock?`): `Promise`<`TEvent`[]\>
+> **queryFilter**\<`TEvent`\>(`event`, `fromBlockOrBlockhash`?, `toBlock`?): `Promise`\<`TEvent`[]\>
 
-#### Type parameters
+#### Type Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `TEvent` | extends `TypedEvent`<`any`, `any`\> |
+• **TEvent** *extends* `TypedEvent`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `event` | `TypedEventFilter`<`TEvent`\> |
-| `fromBlockOrBlockhash?` | `string` \| `number` |
-| `toBlock?` | `string` \| `number` |
+##### event
+
+`TypedEventFilter`\<`TEvent`\>
+
+##### fromBlockOrBlockhash?
+
+`string` | `number`
+
+##### toBlock?
+
+`string` | `number`
 
 #### Returns
 
-`Promise`<`TEvent`[]\>
+`Promise`\<`TEvent`[]\>
 
 #### Overrides
 
-BaseContract.queryFilter
+`BaseContract.queryFilter`
 
-___
+***
 
-### removeAllListeners
+### removeAllListeners()
 
-▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`TokenAuthority`](TokenAuthority.md)
+#### Call Signature
 
-#### Type parameters
+> **removeAllListeners**\<`TEvent`\>(`eventFilter`): `this`
 
-| Name | Type |
-| :------ | :------ |
-| `TEvent` | extends `TypedEvent`<`any`, `any`\> |
+##### Type Parameters
 
-#### Parameters
+• **TEvent** *extends* `TypedEvent`
 
-| Name | Type |
-| :------ | :------ |
-| `eventFilter` | `TypedEventFilter`<`TEvent`\> |
+##### Parameters
 
-#### Returns
+###### eventFilter
 
-[`TokenAuthority`](TokenAuthority.md)
+`TypedEventFilter`\<`TEvent`\>
 
-#### Overrides
+##### Returns
 
-BaseContract.removeAllListeners
+`this`
 
-▸ **removeAllListeners**(`eventName?`): [`TokenAuthority`](TokenAuthority.md)
+##### Overrides
 
-#### Parameters
+`BaseContract.removeAllListeners`
 
-| Name | Type |
-| :------ | :------ |
-| `eventName?` | `string` |
+#### Call Signature
 
-#### Returns
+> **removeAllListeners**(`eventName`?): `this`
 
-[`TokenAuthority`](TokenAuthority.md)
+##### Parameters
 
-#### Overrides
+###### eventName?
 
-BaseContract.removeAllListeners
+`string`
 
-___
+##### Returns
 
-### token
+`this`
 
-▸ **token**(`overrides?`): `Promise`<`string`\>
+##### Overrides
 
-#### Parameters
+`BaseContract.removeAllListeners`
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
-
-#### Returns
-
-`Promise`<`string`\>
-
-___
+***
 
 ### token()
 
-▸ **token()**(`overrides?`): `Promise`<`string`\>
+> **token**(`overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
+
+***
+
+### token()()
+
+> **token()**(`overrides`?): `Promise`\<`string`\>
+
+#### Parameters
+
+##### overrides?
+
+`CallOverrides`
+
+#### Returns
+
+`Promise`\<`string`\>

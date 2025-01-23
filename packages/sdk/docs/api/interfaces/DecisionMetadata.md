@@ -1,33 +1,35 @@
+[**API**](../README.md)
+
+***
+
 # Interface: DecisionMetadata
 
-## Hierarchy
+## Extends
 
 - `BaseMetadata`
-
-  ↳ **`DecisionMetadata`**
 
 ## Properties
 
 ### data
 
-• **data**: [`DecisionData`](DecisionData.md)
+> **data**: [`DecisionData`](DecisionData.md)
 
-___
+***
 
 ### name
 
-• **name**: [`Decision`](../enums/MetadataType.md#decision)
+> **name**: [`Decision`](../enumerations/MetadataType.md#decision)
 
 #### Overrides
 
-BaseMetadata.name
+`BaseMetadata.name`
 
-___
+***
 
 ### version
 
-• **version**: `number`
+> **version**: `number`
 
 #### Inherited from
 
-BaseMetadata.version
+`BaseMetadata.version`

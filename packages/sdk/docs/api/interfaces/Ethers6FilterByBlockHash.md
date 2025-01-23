@@ -1,35 +1,37 @@
+[**API**](../README.md)
+
+***
+
 # Interface: Ethers6FilterByBlockHash
 
 Ethers 6 supports mulitple addresses in a filter. Until then we have this
 
-## Hierarchy
+## Extends
 
-- `Omit`<`FilterByBlockHash`, ``"address"``\>
-
-  ↳ **`Ethers6FilterByBlockHash`**
+- `Omit`\<`FilterByBlockHash`, `"address"`\>
 
 ## Properties
 
-### address
+### address?
 
-• `Optional` **address**: `string` \| `string`[]
+> `optional` **address**: `string` \| `string`[]
 
-___
+***
 
-### blockHash
+### blockHash?
 
-• `Optional` **blockHash**: `string`
-
-#### Inherited from
-
-Omit.blockHash
-
-___
-
-### topics
-
-• `Optional` **topics**: (``null`` \| `string` \| `string`[])[]
+> `optional` **blockHash**: `string`
 
 #### Inherited from
 
-Omit.topics
+`Omit.blockHash`
+
+***
+
+### topics?
+
+> `optional` **topics**: (`null` \| `string` \| `string`[])[]
+
+#### Inherited from
+
+`Omit.topics`

@@ -1,13 +1,15 @@
-# Interface: TxConfig<M\>
+[**API**](../README.md)
 
-## Type parameters
+***
 
-| Name | Type |
-| :------ | :------ |
-| `M` | [`DEFAULT`](../enums/MetadataType.md#default) |
+# Interface: TxConfig\<M\>
+
+## Type Parameters
+
+• **M** = [`DEFAULT`](../enumerations/MetadataType.md#default)
 
 ## Properties
 
-### metadataType
+### metadataType?
 
-• `Optional` **metadataType**: `M`
+> `optional` **metadataType**: `M`

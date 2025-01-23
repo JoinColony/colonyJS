@@ -1,4 +1,8 @@
-# Class: ColonyTxCreator<C, M, E, MD\>
+[**API**](../README.md)
+
+***
+
+# Class: ColonyTxCreator\<C, M, E, MD\>
 
 An umbrella API for all kinds of transactions within colonies
 
@@ -6,115 +10,109 @@ The `ColonyTxCreator` allows for a simple API to cover all the different cases o
 
 ## Create a standard transaction ("force" in dApp)
 
-- [tx](TxCreator.md#tx): force a Colony transaction, knowing you have the permissions to do so
-- [metaTx](MetaTxCreator.md#metatx): same as `tx()`, but send as a gasless metatransaction
+- [ColonyTxCreator.tx](ColonyTxCreator.md#tx): force a Colony transaction, knowing you have the permissions to do so
+- [ColonyTxCreator.metaTx](ColonyTxCreator.md#metatx): same as `tx()`, but send as a gasless metatransaction
 
 ## Create a motion to trigger an action once it passes
 
-- [motion](ColonyTxCreator.md#motion): create a motion (needs the motion's domain as a parameter)
-- [metaMotion](ColonyTxCreator.md#metamotion): same as `motion()`, but sends a gasless metatransaction
+- [ColonyTxCreator.motion](ColonyTxCreator.md#motion): create a motion (needs the motion's domain as a parameter)
+- [ColonyTxCreator.metaMotion](ColonyTxCreator.md#metamotion): same as `motion()`, but sends a gasless metatransaction
 
 Learn more about these functions in their individual documentation
 
-## Type parameters
+## Extends
 
-| Name | Type |
-| :------ | :------ |
-| `C` | extends [`MetaTxBaseContract`](../interfaces/MetaTxBaseContract.md) |
-| `M` | extends keyof `C`[``"functions"``] |
-| `E` | extends [`EventData`](../interfaces/EventData.md) |
-| `MD` | extends [`MetadataType`](../enums/MetadataType.md) |
+- [`MetaTxCreator`](MetaTxCreator.md)\<`C`, `M`, `E`, `MD`\>
 
-## Hierarchy
+## Type Parameters
 
-- [`MetaTxCreator`](MetaTxCreator.md)<`C`, `M`, `E`, `MD`\>
+• **C** *extends* [`MetaTxBaseContract`](../interfaces/MetaTxBaseContract.md)
 
-  ↳ **`ColonyTxCreator`**
+• **M** *extends* keyof `C`\[`"functions"`\]
+
+• **E** *extends* [`EventData`](../interfaces/EventData.md)
+
+• **MD** *extends* [`MetadataType`](../enumerations/MetadataType.md)
 
 ## Constructors
 
-### constructor
+### new ColonyTxCreator()
 
-• **new ColonyTxCreator**<`C`, `M`, `E`, `MD`\>(`config`)
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `C` | extends [`MetaTxBaseContract`](../interfaces/MetaTxBaseContract.md) |
-| `M` | extends `string` \| `number` \| `symbol` |
-| `E` | extends [`EventData`](../interfaces/EventData.md) |
-| `MD` | extends [`MetadataType`](../enums/MetadataType.md) |
+> **new ColonyTxCreator**\<`C`, `M`, `E`, `MD`\>(`config`): [`ColonyTxCreator`](ColonyTxCreator.md)\<`C`, `M`, `E`, `MD`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `config` | `MetaMotionsConfig`<`C`, `M`, `E`, `MD`\> |
+##### config
+
+`MetaMotionsConfig`\<`C`, `M`, `E`, `MD`\>
+
+#### Returns
+
+[`ColonyTxCreator`](ColonyTxCreator.md)\<`C`, `M`, `E`, `MD`\>
 
 #### Overrides
 
-[MetaTxCreator](MetaTxCreator.md).[constructor](MetaTxCreator.md#constructor)
+[`MetaTxCreator`](MetaTxCreator.md).[`constructor`](MetaTxCreator.md#constructors)
 
 ## Methods
 
-### metaMotion
+### metaMotion()
 
-▸ **metaMotion**(`motionDomain?`): [`ColonyMetaTransaction`](../interfaces/ColonyMetaTransaction.md)<[`TransactionResponse`](../interfaces/TransactionResponse.md), [`MotionCreatedEventObject`](../interfaces/VotingReputationEvents.MotionCreatedEventObject.md), [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md), `MD`\>
+> **metaMotion**(`motionDomain`): [`ColonyMetaTransaction`](../interfaces/ColonyMetaTransaction.md)\<[`TransactionResponse`](../interfaces/TransactionResponse.md), [`MotionCreatedEventObject`](../namespaces/VotingReputationEvents/interfaces/MotionCreatedEventObject.md), [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md), `MD`\>
 
 Creates a motion for an action, using a gasless transaction
 
 You can specify a team (domain) this motion should be created in. It will be created in the Root team by default.
 
 After creation, you can then `send` the transaction or wait for it to be `mined`.
-See also [tx](TxCreator.md#tx) and https://docs.colony.io/colonysdk/guides/transactions for more information
-
-**`Remarks`**
-
-This will only work if the [VotingReputation](VotingReputation.md) extension is installed for the Colony that's being acted on
+See also [TxCreator.tx](TxCreator.md#tx) and https://docs.colony.io/colonysdk/guides/transactions for more information
 
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `motionDomain` | `BigNumberish` | `Id.RootDomain` |
+##### motionDomain
+
+`BigNumberish` = `Id.RootDomain`
 
 #### Returns
 
-[`ColonyMetaTransaction`](../interfaces/ColonyMetaTransaction.md)<[`TransactionResponse`](../interfaces/TransactionResponse.md), [`MotionCreatedEventObject`](../interfaces/VotingReputationEvents.MotionCreatedEventObject.md), [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md), `MD`\>
+[`ColonyMetaTransaction`](../interfaces/ColonyMetaTransaction.md)\<[`TransactionResponse`](../interfaces/TransactionResponse.md), [`MotionCreatedEventObject`](../namespaces/VotingReputationEvents/interfaces/MotionCreatedEventObject.md), [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md), `MD`\>
 
 A motion transaction that can be `send` or `mined` or `encode`d.
 
-___
+#### Remarks
 
-### metaTx
+This will only work if the [VotingReputation](VotingReputation.md) extension is installed for the Colony that's being acted on
 
-▸ **metaTx**(): [`ColonyMetaTransaction`](../interfaces/ColonyMetaTransaction.md)<[`TransactionResponse`](../interfaces/TransactionResponse.md), `E`, [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md), `MD`\>
+***
+
+### metaTx()
+
+> **metaTx**(): [`ColonyMetaTransaction`](../interfaces/ColonyMetaTransaction.md)\<[`TransactionResponse`](../interfaces/TransactionResponse.md), `E`, [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md), `MD`\>
 
 Create a gasless MetaTransaction ("force" in dApp)
 
 After creation, you can then `send` the transaction or wait for it to be `mined`.
-See also [tx](TxCreator.md#tx) and https://docs.colony.io/colonysdk/guides/transactions for more information
-
-**`Remarks`**
-
-The user sending this transaction has to have the appropriate permissions to do so. Learn more about permissions in Colony [here](/develop/dev-learning/permissions).
+See also [TxCreator.tx](TxCreator.md#tx) and https://docs.colony.io/colonysdk/guides/transactions for more information
 
 #### Returns
 
-[`ColonyMetaTransaction`](../interfaces/ColonyMetaTransaction.md)<[`TransactionResponse`](../interfaces/TransactionResponse.md), `E`, [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md), `MD`\>
+[`ColonyMetaTransaction`](../interfaces/ColonyMetaTransaction.md)\<[`TransactionResponse`](../interfaces/TransactionResponse.md), `E`, [`ParsedLogTransactionReceipt`](../interfaces/ParsedLogTransactionReceipt.md), `MD`\>
 
 A transaction that can be `send` or `mined`.
 
+#### Remarks
+
+The user sending this transaction has to have the appropriate permissions to do so. Learn more about permissions in Colony [here](/develop/dev-learning/permissions).
+
 #### Inherited from
 
-[MetaTxCreator](MetaTxCreator.md).[metaTx](MetaTxCreator.md#metatx)
+[`MetaTxCreator`](MetaTxCreator.md).[`metaTx`](MetaTxCreator.md#metatx)
 
-___
+***
 
-### motion
+### motion()
 
-▸ **motion**(`motionDomain?`): [`ColonyTransaction`](../interfaces/ColonyTransaction.md)<[`ContractTransaction`](../interfaces/ContractTransaction.md), [`MotionCreatedEventObject`](../interfaces/VotingReputationEvents.MotionCreatedEventObject.md), [`ContractReceipt`](../interfaces/ContractReceipt.md), `MD`\>
+> **motion**(`motionDomain`): [`ColonyTransaction`](../interfaces/ColonyTransaction.md)\<[`ContractTransaction`](../interfaces/ContractTransaction.md), [`MotionCreatedEventObject`](../namespaces/VotingReputationEvents/interfaces/MotionCreatedEventObject.md), [`ContractReceipt`](../interfaces/ContractReceipt.md), `MD`\>
 
 Creates a motion for an action
 
@@ -123,42 +121,42 @@ You can specify a team (domain) this motion should be created in. It will be cre
 After creation, you can then `send` the transaction or wait for it to be `mined`.
 See also [ColonyTransaction](../interfaces/ColonyTransaction.md) and https://docs.colony.io/colonysdk/guides/transactions for more information
 
-**`Remarks`**
-
-This will only work if the [VotingReputation](VotingReputation.md) extension is installed for the Colony that's being acted on
-
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `motionDomain` | `BigNumberish` | `Id.RootDomain` |
+##### motionDomain
+
+`BigNumberish` = `Id.RootDomain`
 
 #### Returns
 
-[`ColonyTransaction`](../interfaces/ColonyTransaction.md)<[`ContractTransaction`](../interfaces/ContractTransaction.md), [`MotionCreatedEventObject`](../interfaces/VotingReputationEvents.MotionCreatedEventObject.md), [`ContractReceipt`](../interfaces/ContractReceipt.md), `MD`\>
+[`ColonyTransaction`](../interfaces/ColonyTransaction.md)\<[`ContractTransaction`](../interfaces/ContractTransaction.md), [`MotionCreatedEventObject`](../namespaces/VotingReputationEvents/interfaces/MotionCreatedEventObject.md), [`ContractReceipt`](../interfaces/ContractReceipt.md), `MD`\>
 
 A motion transaction that can be `send` or `mined` or `encode`d.
 
-___
+#### Remarks
 
-### tx
+This will only work if the [VotingReputation](VotingReputation.md) extension is installed for the Colony that's being acted on
 
-▸ **tx**(): [`ColonyTransaction`](../interfaces/ColonyTransaction.md)<[`ContractTransaction`](../interfaces/ContractTransaction.md), `E`, [`ContractReceipt`](../interfaces/ContractReceipt.md), `MD`\>
+***
+
+### tx()
+
+> **tx**(): [`ColonyTransaction`](../interfaces/ColonyTransaction.md)\<[`ContractTransaction`](../interfaces/ContractTransaction.md), `E`, [`ContractReceipt`](../interfaces/ContractReceipt.md), `MD`\>
 
 Create a standard transaction ("force" in dApp)
 
 See also [ColonyTransaction](../interfaces/ColonyTransaction.md) or https://docs.colony.io/colonysdk/guides/transactions for more information
 
-**`Remarks`**
-
-The user sending this transaction has to have the appropriate permissions to do so. Learn more about permissions in Colony [here](/develop/dev-learning/permissions).
-
 #### Returns
 
-[`ColonyTransaction`](../interfaces/ColonyTransaction.md)<[`ContractTransaction`](../interfaces/ContractTransaction.md), `E`, [`ContractReceipt`](../interfaces/ContractReceipt.md), `MD`\>
+[`ColonyTransaction`](../interfaces/ColonyTransaction.md)\<[`ContractTransaction`](../interfaces/ContractTransaction.md), `E`, [`ContractReceipt`](../interfaces/ContractReceipt.md), `MD`\>
 
 A transaction that can be `send`, `mined` or `encode`d.
 
+#### Remarks
+
+The user sending this transaction has to have the appropriate permissions to do so. Learn more about permissions in Colony [here](/develop/dev-learning/permissions).
+
 #### Inherited from
 
-[MetaTxCreator](MetaTxCreator.md).[tx](MetaTxCreator.md#tx)
+[`MetaTxCreator`](MetaTxCreator.md).[`tx`](MetaTxCreator.md#tx)

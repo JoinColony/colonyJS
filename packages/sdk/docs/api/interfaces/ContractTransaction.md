@@ -1,237 +1,239 @@
+[**API**](../README.md)
+
+***
+
 # Interface: ContractTransaction
 
-## Hierarchy
+## Extends
 
 - [`TransactionResponse`](TransactionResponse.md)
 
-  ↳ **`ContractTransaction`**
-
 ## Properties
 
-### accessList
+### accessList?
 
-• `Optional` **accessList**: `AccessList`
-
-#### Inherited from
-
-[TransactionResponse](TransactionResponse.md).[accessList](TransactionResponse.md#accesslist)
-
-___
-
-### blockHash
-
-• `Optional` **blockHash**: `string`
+> `optional` **accessList**: `AccessList`
 
 #### Inherited from
 
-[TransactionResponse](TransactionResponse.md).[blockHash](TransactionResponse.md#blockhash)
+[`TransactionResponse`](TransactionResponse.md).[`accessList`](TransactionResponse.md#accesslist)
 
-___
+***
 
-### blockNumber
+### blockHash?
 
-• `Optional` **blockNumber**: `number`
+> `optional` **blockHash**: `string`
 
 #### Inherited from
 
-[TransactionResponse](TransactionResponse.md).[blockNumber](TransactionResponse.md#blocknumber)
+[`TransactionResponse`](TransactionResponse.md).[`blockHash`](TransactionResponse.md#blockhash)
 
-___
+***
+
+### blockNumber?
+
+> `optional` **blockNumber**: `number`
+
+#### Inherited from
+
+[`TransactionResponse`](TransactionResponse.md).[`blockNumber`](TransactionResponse.md#blocknumber)
+
+***
 
 ### chainId
 
-• **chainId**: `number`
+> **chainId**: `number`
 
 #### Inherited from
 
-[TransactionResponse](TransactionResponse.md).[chainId](TransactionResponse.md#chainid)
+[`TransactionResponse`](TransactionResponse.md).[`chainId`](TransactionResponse.md#chainid)
 
-___
+***
 
 ### confirmations
 
-• **confirmations**: `number`
+> **confirmations**: `number`
 
 #### Inherited from
 
-[TransactionResponse](TransactionResponse.md).[confirmations](TransactionResponse.md#confirmations)
+[`TransactionResponse`](TransactionResponse.md).[`confirmations`](TransactionResponse.md#confirmations)
 
-___
+***
 
 ### data
 
-• **data**: `string`
+> **data**: `string`
 
 #### Inherited from
 
-[TransactionResponse](TransactionResponse.md).[data](TransactionResponse.md#data)
+[`TransactionResponse`](TransactionResponse.md).[`data`](TransactionResponse.md#data)
 
-___
+***
 
 ### from
 
-• **from**: `string`
+> **from**: `string`
 
 #### Inherited from
 
-[TransactionResponse](TransactionResponse.md).[from](TransactionResponse.md#from)
+[`TransactionResponse`](TransactionResponse.md).[`from`](TransactionResponse.md#from)
 
-___
+***
 
 ### gasLimit
 
-• **gasLimit**: `BigNumber`
+> **gasLimit**: `BigNumber`
 
 #### Inherited from
 
-[TransactionResponse](TransactionResponse.md).[gasLimit](TransactionResponse.md#gaslimit)
+[`TransactionResponse`](TransactionResponse.md).[`gasLimit`](TransactionResponse.md#gaslimit)
 
-___
+***
 
-### gasPrice
+### gasPrice?
 
-• `Optional` **gasPrice**: `BigNumber`
+> `optional` **gasPrice**: `BigNumber`
 
 #### Inherited from
 
-[TransactionResponse](TransactionResponse.md).[gasPrice](TransactionResponse.md#gasprice)
+[`TransactionResponse`](TransactionResponse.md).[`gasPrice`](TransactionResponse.md#gasprice)
 
-___
+***
 
 ### hash
 
-• **hash**: `string`
+> **hash**: `string`
 
 #### Inherited from
 
-[TransactionResponse](TransactionResponse.md).[hash](TransactionResponse.md#hash)
+[`TransactionResponse`](TransactionResponse.md).[`hash`](TransactionResponse.md#hash)
 
-___
+***
 
-### maxFeePerGas
+### maxFeePerGas?
 
-• `Optional` **maxFeePerGas**: `BigNumber`
-
-#### Inherited from
-
-[TransactionResponse](TransactionResponse.md).[maxFeePerGas](TransactionResponse.md#maxfeepergas)
-
-___
-
-### maxPriorityFeePerGas
-
-• `Optional` **maxPriorityFeePerGas**: `BigNumber`
+> `optional` **maxFeePerGas**: `BigNumber`
 
 #### Inherited from
 
-[TransactionResponse](TransactionResponse.md).[maxPriorityFeePerGas](TransactionResponse.md#maxpriorityfeepergas)
+[`TransactionResponse`](TransactionResponse.md).[`maxFeePerGas`](TransactionResponse.md#maxfeepergas)
 
-___
+***
+
+### maxPriorityFeePerGas?
+
+> `optional` **maxPriorityFeePerGas**: `BigNumber`
+
+#### Inherited from
+
+[`TransactionResponse`](TransactionResponse.md).[`maxPriorityFeePerGas`](TransactionResponse.md#maxpriorityfeepergas)
+
+***
 
 ### nonce
 
-• **nonce**: `number`
+> **nonce**: `number`
 
 #### Inherited from
 
-[TransactionResponse](TransactionResponse.md).[nonce](TransactionResponse.md#nonce)
+[`TransactionResponse`](TransactionResponse.md).[`nonce`](TransactionResponse.md#nonce)
 
-___
+***
 
-### r
+### r?
 
-• `Optional` **r**: `string`
-
-#### Inherited from
-
-[TransactionResponse](TransactionResponse.md).[r](TransactionResponse.md#r)
-
-___
-
-### raw
-
-• `Optional` **raw**: `string`
+> `optional` **r**: `string`
 
 #### Inherited from
 
-[TransactionResponse](TransactionResponse.md).[raw](TransactionResponse.md#raw)
+[`TransactionResponse`](TransactionResponse.md).[`r`](TransactionResponse.md#r)
 
-___
+***
 
-### s
+### raw?
 
-• `Optional` **s**: `string`
-
-#### Inherited from
-
-[TransactionResponse](TransactionResponse.md).[s](TransactionResponse.md#s)
-
-___
-
-### timestamp
-
-• `Optional` **timestamp**: `number`
+> `optional` **raw**: `string`
 
 #### Inherited from
 
-[TransactionResponse](TransactionResponse.md).[timestamp](TransactionResponse.md#timestamp)
+[`TransactionResponse`](TransactionResponse.md).[`raw`](TransactionResponse.md#raw)
 
-___
+***
 
-### to
+### s?
 
-• `Optional` **to**: `string`
-
-#### Inherited from
-
-[TransactionResponse](TransactionResponse.md).[to](TransactionResponse.md#to)
-
-___
-
-### type
-
-• `Optional` **type**: ``null`` \| `number`
+> `optional` **s**: `string`
 
 #### Inherited from
 
-[TransactionResponse](TransactionResponse.md).[type](TransactionResponse.md#type)
+[`TransactionResponse`](TransactionResponse.md).[`s`](TransactionResponse.md#s)
 
-___
+***
 
-### v
+### timestamp?
 
-• `Optional` **v**: `number`
+> `optional` **timestamp**: `number`
 
 #### Inherited from
 
-[TransactionResponse](TransactionResponse.md).[v](TransactionResponse.md#v)
+[`TransactionResponse`](TransactionResponse.md).[`timestamp`](TransactionResponse.md#timestamp)
 
-___
+***
+
+### to?
+
+> `optional` **to**: `string`
+
+#### Inherited from
+
+[`TransactionResponse`](TransactionResponse.md).[`to`](TransactionResponse.md#to)
+
+***
+
+### type?
+
+> `optional` **type**: `null` \| `number`
+
+#### Inherited from
+
+[`TransactionResponse`](TransactionResponse.md).[`type`](TransactionResponse.md#type)
+
+***
+
+### v?
+
+> `optional` **v**: `number`
+
+#### Inherited from
+
+[`TransactionResponse`](TransactionResponse.md).[`v`](TransactionResponse.md#v)
+
+***
 
 ### value
 
-• **value**: `BigNumber`
+> **value**: `BigNumber`
 
 #### Inherited from
 
-[TransactionResponse](TransactionResponse.md).[value](TransactionResponse.md#value)
+[`TransactionResponse`](TransactionResponse.md).[`value`](TransactionResponse.md#value)
 
 ## Methods
 
-### wait
+### wait()
 
-▸ **wait**(`confirmations?`): `Promise`<[`ContractReceipt`](ContractReceipt.md)\>
+> **wait**(`confirmations`?): `Promise`\<[`ContractReceipt`](ContractReceipt.md)\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `confirmations?` | `number` |
+##### confirmations?
+
+`number`
 
 #### Returns
 
-`Promise`<[`ContractReceipt`](ContractReceipt.md)\>
+`Promise`\<[`ContractReceipt`](ContractReceipt.md)\>
 
 #### Overrides
 
-TransactionResponse.wait
+`TransactionResponse.wait`

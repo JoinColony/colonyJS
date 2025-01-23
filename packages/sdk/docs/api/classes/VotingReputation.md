@@ -1,3 +1,7 @@
+[**API**](../README.md)
+
+***
+
 # Class: VotingReputation
 
 ## `VotingReputation` (Motions & Disputes)
@@ -7,7 +11,7 @@ The `VotingReputation` extension allows any member of a Colony to propose a Moti
 ### Extension parameters
 
 Before the `VotingReputation` extension can be used you need to initialize it using a few parameters that heavily influence the Motion lifecycle.
-For that please see the [initialize](VotingReputation.md#initialize) function and also [this document](https://docs.colony.io/learn/governance/parameters) for an in-depth explanation of the various parameters.
+For that please see the [VotingReputation.initialize](VotingReputation.md#initialize) function and also [this document](https://docs.colony.io/learn/governance/parameters) for an in-depth explanation of the various parameters.
 
 ### What is a Motion?
 
@@ -24,19 +28,19 @@ The exact lifecycle is determined by the parameters that were set when the `Voti
 
 #### Creating a Motion
 
-See [motion](ColonyTxCreator.md#motion) or [metaMotion](ColonyTxCreator.md#metamotion).
+See [ColonyTxCreator.motion](ColonyTxCreator.md#motion) or [ColonyTxCreator.metaMotion](ColonyTxCreator.md#metamotion).
 
 Anyone within a Colony can start a motion. In Colony SDK, this is as easy as sending a transaction of the same kind. There the `action` (the contract transaction) for the Motion will be defined. This is essentially nothing else than an encoded contract function string alongside its parameters (see for detailed info [here](https://medium.com/linum-labs/a-technical-primer-on-using-encoded-function-calls-50e2b9939223) - but don't worry. In Colony SDK this will all be taken care of by the [ColonyTxCreator](ColonyTxCreator.md)).
 
  #### Staking
 
-See [stakeMotion](VotingReputation.md#stakemotion).
+See [VotingReputation.stakeMotion](VotingReputation.md#stakemotion).
 
 Once a motion is created, native tokens can be staked to support either of its sides (_Yay_ or _Nay_). A user can only stake as many tokens for either side as they have reputation in the team the motion is created in. A side can be staked by the motion creator and an arbitrary number of additional users as long as they adhere to the minimum stake per user that was defined in the extensions parameters. The maximum amount a user can stake is also determined by the amount of reputation in the team in which the Motion takes place.
 
 :::caution Over-staking
 
-Once a side of a Motion is activated, further attempts to stake tokens for that side will revert. It is not necessary or sensible to stake more tokens than needed. Keep in mind that both sides can be activated at the same time (see below for what happens then). You can use the [getRemainingStakes](VotingReputation.md#getremainingstakes) method to see how many tokens need to be staked on each side for them to activate.
+Once a side of a Motion is activated, further attempts to stake tokens for that side will revert. It is not necessary or sensible to stake more tokens than needed. Keep in mind that both sides can be activated at the same time (see below for what happens then). You can use the [VotingReputation.getRemainingStakes](VotingReputation.md#getremainingstakes) method to see how many tokens need to be staked on each side for them to activate.
 
 :::
 
@@ -49,7 +53,7 @@ After the staking phase (which has a predetermined runtime) one of these four ca
 
 #### Voting
 
-See [submitVote](VotingReputation.md#submitvote).
+See [VotingReputation.submitVote](VotingReputation.md#submitvote).
 
 As soon as the voting phase starts, anyone with reputation in the team the Motion was created in can vote for a side. Votes are secret (i.e. they're encrypted using your private key), and weighted by reputation. Vote weight is proportional to the voter's reputation in the team in which the vote is occurring.
 
@@ -57,7 +61,7 @@ Voters receive a reward for voting proportional to their reputation in the team 
 
 #### Revealing the votes
 
-See [revealVote](VotingReputation.md#revealvote).
+See [VotingReputation.revealVote](VotingReputation.md#revealvote).
 
 After the voting period is complete, the Reveal phase starts. Votes must be Revealed in order to be counted, and for the voter to receive their voter reward. The Reveal phase ends when either the time runs out, or everyone who has voted reveals their vote, whichever comes first.
 
@@ -69,7 +73,7 @@ If you staked tokens for the side that eventually lost you will lose some of you
 
 ### The structure of a Motion
 
-You can - at any point in the lifecycle inspect the current state of a Motion. Using the [getMotion](VotingReputation.md#getmotion) method, the resulting object will have the following properties:
+You can - at any point in the lifecycle inspect the current state of a Motion. Using the [VotingReputation.getMotion](VotingReputation.md#getmotion) method, the resulting object will have the following properties:
 
 | Property | Types | Description |
 | :------ | :------ | :------ |
@@ -90,86 +94,79 @@ You can - at any point in the lifecycle inspect the current state of a Motion. U
 
 ## Constructors
 
-### constructor
+### new VotingReputation()
 
-• **new VotingReputation**(`colony`, `votingReputationContract`, `deployedVersion`)
+> **new VotingReputation**(`colony`, `votingReputationContract`, `deployedVersion`): [`VotingReputation`](VotingReputation.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `colony` | [`Colony`](Colony.md) |
-| `votingReputationContract` | `SupportedVotingReputationContract` |
-| `deployedVersion` | ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12`` \| ``13`` |
+##### colony
+
+[`Colony`](Colony.md)
+
+##### votingReputationContract
+
+`SupportedVotingReputationContract`
+
+##### deployedVersion
+
+`1` | `2` | `3` | `4` | `5` | `6` | `7` | `8` | `9` | `10` | `11` | `12` | `13`
+
+#### Returns
+
+[`VotingReputation`](VotingReputation.md)
 
 ## Properties
 
 ### address
 
-• **address**: `string`
+> **address**: `string`
 
-___
+***
 
 ### version
 
-• **version**: ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12`` \| ``13``
+> **version**: `1` \| `2` \| `3` \| `4` \| `5` \| `6` \| `7` \| `8` \| `9` \| `10` \| `11` \| `12` \| `13`
 
-___
+***
 
 ### extensionType
 
-▪ `Static` **extensionType**: [`VotingReputation`](../enums/Extension.md#votingreputation) = `Extension.VotingReputation`
+> `static` **extensionType**: [`VotingReputation`](../enumerations/Extension.md#votingreputation) = `Extension.VotingReputation`
 
-___
+***
 
 ### supportedVersions
 
-▪ `Static` **supportedVersions**: ({ `factory`: typeof `IVotingReputation__factory` = VotingReputationFactory11; `version`: `number` = 11 } \| { `factory`: typeof `IVotingReputation__factory` = VotingReputationFactory12; `version`: `number` = 12 } \| { `factory`: typeof `IVotingReputation__factory` = VotingReputationFactory13; `version`: `number` = 13 })[]
+> `static` **supportedVersions**: (\{ `factory`: *typeof* `IVotingReputation__factory`; `version`: `number`; \} \| \{ `factory`: *typeof* `IVotingReputation__factory`; `version`: `number`; \} \| \{ `factory`: *typeof* `IVotingReputation__factory`; `version`: `number`; \})[]
 
 ## Methods
 
-### annotateDecision
+### annotateDecision()
 
-▸ **annotateDecision**(`txHash`, `metadata`): [`MetaTxCreator`](MetaTxCreator.md)<[`SupportedColonyContract`](../README.md#supportedcolonycontract), ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, [`Decision`](../enums/MetadataType.md#decision)\>
+> **annotateDecision**(`txHash`, `metadata`): [`MetaTxCreator`](MetaTxCreator.md)\<[`SupportedColonyContract`](../type-aliases/SupportedColonyContract.md), `"annotateTransaction"`, \{ `agent`: `string`; `metadata`: `string`; `txHash`: `string`; \}, [`Decision`](../enumerations/MetadataType.md#decision)\>
 
 Annotate a decision with IPFS metadata to provide extra information
 
 This will annotate a decision with certain metadata (see below). This only really works for transactions that happened within this Colony. This will connect the decision to the (optionally generated) IPFS hash accordingly.
 
-**`Remarks`**
-
-If [DecisionData](../interfaces/DecisionData.md) is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
-
-**`Example`**
-
-```typescript
-// Immediately executing async function
-(async function() {
-
-  // Create a motion to pay 10 of the native token to some (maybe your own?) address
-  const [, { transactionHash }] = await colony.ext.motions.createDecision().tx().mined();
-  // Annotate the decision transaction with important data
-  // (forced transaction example)
-  await colony.ext.motions.annotateDecision(
-     transactionHash,
-     {
-       title: 'Should we make the naked-mole-rat our official mascot?',
-       description: 'I think it is time',
-     },
-  ).tx().mined();
-})();
-```
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `txHash` | `string` | Transaction hash of the transaction to annotate (within the Colony) |
-| `metadata` | `string` \| [`DecisionData`](../interfaces/DecisionData.md) | The annotation metadata you would like to annotate the transaction with (or an IPFS CID pointing to valid metadata) |
+##### txHash
+
+`string`
+
+Transaction hash of the transaction to annotate (within the Colony)
+
+##### metadata
+
+The annotation metadata you would like to annotate the transaction with (or an IPFS CID pointing to valid metadata)
+
+`string` | [`DecisionData`](../interfaces/DecisionData.md)
 
 #### Returns
 
-[`MetaTxCreator`](MetaTxCreator.md)<[`SupportedColonyContract`](../README.md#supportedcolonycontract), ``"annotateTransaction"``, { `agent?`: `string` ; `metadata?`: `string` ; `txHash?`: `string`  }, [`Decision`](../enums/MetadataType.md#decision)\>
+[`MetaTxCreator`](MetaTxCreator.md)\<[`SupportedColonyContract`](../type-aliases/SupportedColonyContract.md), `"annotateTransaction"`, \{ `agent`: `string`; `metadata`: `string`; `txHash`: `string`; \}, [`Decision`](../enumerations/MetadataType.md#decision)\>
 
 A transaction creator
 
@@ -191,29 +188,56 @@ A transaction creator
 | `description` | string | Longer description of the decision |
 | `motionDomainId` | number | Team the decision was created in |
 
-___
+#### Remarks
 
-### approveStake
+If [DecisionData](../interfaces/DecisionData.md) is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
 
-▸ **approveStake**(`amount`, `teamId?`): [`MetaTxCreator`](MetaTxCreator.md)<[`SupportedColonyContract`](../README.md#supportedcolonycontract), ``"approveStake"``, { `amount?`: `BigNumber` ; `approvedBy?`: `string` ; `token?`: `string` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+#### Example
+
+```typescript
+// Immediately executing async function
+(async function() {
+
+  // Create a motion to pay 10 of the native token to some (maybe your own?) address
+  const [, { transactionHash }] = await colony.ext.motions.createDecision().tx().mined();
+  // Annotate the decision transaction with important data
+  // (forced transaction example)
+  await colony.ext.motions.annotateDecision(
+     transactionHash,
+     {
+       title: 'Should we make the naked-mole-rat our official mascot?',
+       description: 'I think it is time',
+     },
+  ).tx().mined();
+})();
+```
+
+***
+
+### approveStake()
+
+> **approveStake**(`amount`, `teamId`): [`MetaTxCreator`](MetaTxCreator.md)\<[`SupportedColonyContract`](../type-aliases/SupportedColonyContract.md), `"approveStake"`, \{ `amount`: `BigNumber`; `approvedBy`: `string`; `token`: `string`; `user`: `string`; \}, [`MetadataType`](../enumerations/MetadataType.md)\>
 
 Approve `amount` of the "activated" native tokens of a user for staking in a specific team
-After a token was "activated" (approved and deposited via the native token interface) it can be used for staking motions. To stake a motion, the token amount for staking has to be approved for the domain the motion was created in. See also the example in [stakeMotion](VotingReputation.md#stakemotion)
-
-**`Remarks`**
-
-This method can't be executed as a motion
+After a token was "activated" (approved and deposited via the native token interface) it can be used for staking motions. To stake a motion, the token amount for staking has to be approved for the domain the motion was created in. See also the example in [VotingReputation.stakeMotion](VotingReputation.md#stakemotion)
 
 #### Parameters
 
-| Name | Type | Default value | Description |
-| :------ | :------ | :------ | :------ |
-| `amount` | `BigNumberish` | `undefined` | Amount of "activated" tokens to be approved for staking |
-| `teamId` | `BigNumberish` | `Id.RootDomain` | Team that the approved tokens can be used in for staking motions |
+##### amount
+
+`BigNumberish`
+
+Amount of "activated" tokens to be approved for staking
+
+##### teamId
+
+`BigNumberish` = `Id.RootDomain`
+
+Team that the approved tokens can be used in for staking motions
 
 #### Returns
 
-[`MetaTxCreator`](MetaTxCreator.md)<[`SupportedColonyContract`](../README.md#supportedcolonycontract), ``"approveStake"``, { `amount?`: `BigNumber` ; `approvedBy?`: `string` ; `token?`: `string` ; `user?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`MetaTxCreator`](MetaTxCreator.md)\<[`SupportedColonyContract`](../type-aliases/SupportedColonyContract.md), `"approveStake"`, \{ `amount`: `BigNumber`; `approvedBy`: `string`; `token`: `string`; `user`: `string`; \}, [`MetadataType`](../enumerations/MetadataType.md)\>
 
 A transaction creator
 
@@ -226,21 +250,47 @@ A transaction creator
 | `approvedBy` | string | The address of the Colony |
 | `amount` | BigNumber | Amount of the token that was approved for staking |
 
-___
+#### Remarks
 
-### createDecision
+This method can't be executed as a motion
 
-▸ **createDecision**(`team?`): [`MetaTxCreator`](MetaTxCreator.md)<`SupportedVotingReputationContract`, ``"createMotion"``, { `creator?`: `string` ; `domainId?`: `BigNumber` ; `motionId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+***
+
+### createDecision()
+
+> **createDecision**(`team`): [`MetaTxCreator`](MetaTxCreator.md)\<`SupportedVotingReputationContract`, `"createMotion"`, \{ `creator`: `string`; `domainId`: `BigNumber`; `motionId`: `BigNumber`; \}, [`MetadataType`](../enumerations/MetadataType.md)\>
 
 Annotate a decision with IPFS metadata to provide extra information
 
 Keep in mind that a decision is just a motion without an on-chain action that is being triggered once it finalizes
 
-**`Remarks`**
+#### Parameters
+
+##### team
+
+`BigNumberish` = `Id.RootDomain`
+
+Team id to create the decision in
+
+#### Returns
+
+[`MetaTxCreator`](MetaTxCreator.md)\<`SupportedVotingReputationContract`, `"createMotion"`, \{ `creator`: `string`; `domainId`: `BigNumber`; `motionId`: `BigNumber`; \}, [`MetadataType`](../enumerations/MetadataType.md)\>
+
+A transaction creator
+
+#### Event data
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `motionId` | BigNumber | Id of the decision (motion) |
+| `creator` | string | Address of the user who created the decision |
+| `domainId` | BigNumber | Team the decision was created in |
+
+#### Remarks
 
 If [DecisionData](../interfaces/DecisionData.md) is provided directly (as opposed to a [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file) this requires an [IpfsAdapter](../interfaces/IpfsAdapter.md) that can upload and pin to IPFS. See its documentation for more information. Keep in mind that **the annotation itself is a transaction**.
 
-**`Example`**
+#### Example
 
 ```typescript
 // Immediately executing async function
@@ -260,31 +310,11 @@ If [DecisionData](../interfaces/DecisionData.md) is provided directly (as oppose
 })();
 ```
 
-#### Parameters
+***
 
-| Name | Type | Default value | Description |
-| :------ | :------ | :------ | :------ |
-| `team` | `BigNumberish` | `Id.RootDomain` | Team id to create the decision in |
+### escalateMotion()
 
-#### Returns
-
-[`MetaTxCreator`](MetaTxCreator.md)<`SupportedVotingReputationContract`, ``"createMotion"``, { `creator?`: `string` ; `domainId?`: `BigNumber` ; `motionId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
-
-A transaction creator
-
-#### Event data
-
-| Property | Type | Description |
-| :------ | :------ | :------ |
-| `motionId` | BigNumber | Id of the decision (motion) |
-| `creator` | string | Address of the user who created the decision |
-| `domainId` | BigNumber | Team the decision was created in |
-
-___
-
-### escalateMotion
-
-▸ **escalateMotion**(`motionId`, `newTeamId`): [`MetaTxCreator`](MetaTxCreator.md)<`SupportedVotingReputationContract`, ``"escalateMotion"``, { `domainId?`: `BigNumber` ; `escalator?`: `string` ; `motionId?`: `BigNumber` ; `newDomainId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+> **escalateMotion**(`motionId`, `newTeamId`): [`MetaTxCreator`](MetaTxCreator.md)\<`SupportedVotingReputationContract`, `"escalateMotion"`, \{ `domainId`: `BigNumber`; `escalator`: `string`; `motionId`: `BigNumber`; `newDomainId`: `BigNumber`; \}, [`MetadataType`](../enumerations/MetadataType.md)\>
 
 Escalate a motion to a parent team
 
@@ -292,14 +322,21 @@ If all votes for a motion have been revealed but a user is not happy with the ou
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `motionId` | `BigNumberish` | The motionId of the motion to be escalated |
-| `newTeamId` | `BigNumberish` | The id of the team the motion should be escalated to |
+##### motionId
+
+`BigNumberish`
+
+The motionId of the motion to be escalated
+
+##### newTeamId
+
+`BigNumberish`
+
+The id of the team the motion should be escalated to
 
 #### Returns
 
-[`MetaTxCreator`](MetaTxCreator.md)<`SupportedVotingReputationContract`, ``"escalateMotion"``, { `domainId?`: `BigNumber` ; `escalator?`: `string` ; `motionId?`: `BigNumber` ; `newDomainId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`MetaTxCreator`](MetaTxCreator.md)\<`SupportedVotingReputationContract`, `"escalateMotion"`, \{ `domainId`: `BigNumber`; `escalator`: `string`; `motionId`: `BigNumber`; `newDomainId`: `BigNumber`; \}, [`MetadataType`](../enumerations/MetadataType.md)\>
 
 A transaction creator
 
@@ -310,32 +347,25 @@ A transaction creator
 | `motionId` | BigNumber | ID of the motion to be escalated |
 | `newTeamId` | string | The ID of the team the motion should be escalated to (has to be a direct parent of the previous team) |
 
-___
+***
 
-### finalizeMotion
+### finalizeMotion()
 
-▸ **finalizeMotion**(`motionId`): [`MetaTxCreator`](MetaTxCreator.md)<`SupportedVotingReputationContract`, ``"finalizeMotion"``, { `action?`: `string` ; `executed?`: `boolean` ; `motionId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+> **finalizeMotion**(`motionId`): [`MetaTxCreator`](MetaTxCreator.md)\<`SupportedVotingReputationContract`, `"finalizeMotion"`, \{ `action`: `string`; `executed`: `boolean`; `motionId`: `BigNumber`; \}, [`MetadataType`](../enumerations/MetadataType.md)\>
 
 Finalize a motion, executing its action
 
-**`Remarks`**
-
-* A motion cannot be finalized if:
-  - The required Yay or Nay stake amount has not been reached
-  - The staking period is not up yet
-  - Voting is still in progress
-  - The motion was already finalized
-* This method can't be executed as a motion
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `motionId` | `BigNumberish` | The motionId of the motion to be finalized |
+##### motionId
+
+`BigNumberish`
+
+The motionId of the motion to be finalized
 
 #### Returns
 
-[`MetaTxCreator`](MetaTxCreator.md)<`SupportedVotingReputationContract`, ``"finalizeMotion"``, { `action?`: `string` ; `executed?`: `boolean` ; `motionId?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`MetaTxCreator`](MetaTxCreator.md)\<`SupportedVotingReputationContract`, `"finalizeMotion"`, \{ `action`: `string`; `executed`: `boolean`; `motionId`: `BigNumber`; \}, [`MetadataType`](../enumerations/MetadataType.md)\>
 
 A transaction creator
 
@@ -347,11 +377,20 @@ A transaction creator
 | `action` | string | The action that was executed in case Yay won |
 | `exectued` | boolean | Whether the action was executed (Yay won)|
 
-___
+#### Remarks
 
-### getInitializationOptions
+* A motion cannot be finalized if:
+  - The required Yay or Nay stake amount has not been reached
+  - The staking period is not up yet
+  - Voting is still in progress
+  - The motion was already finalized
+* This method can't be executed as a motion
 
-▸ **getInitializationOptions**(): `Promise`<{ `endVoteThreshold`: `BigNumber` ; `escalationPhaseDuration`: `BigNumber` ; `minimumUserStake`: `BigNumber` ; `requiredStake`: `BigNumber` ; `revealPhaseDuration`: `BigNumber` ; `stakePhaseDuration`: `BigNumber` ; `voterReward`: `BigNumber` ; `votingPhaseDuration`: `BigNumber`  }\>
+***
+
+### getInitializationOptions()
+
+> **getInitializationOptions**(): `Promise`\<\{ `endVoteThreshold`: `BigNumber`; `escalationPhaseDuration`: `BigNumber`; `minimumUserStake`: `BigNumber`; `requiredStake`: `BigNumber`; `revealPhaseDuration`: `BigNumber`; `stakePhaseDuration`: `BigNumber`; `voterReward`: `BigNumber`; `votingPhaseDuration`: `BigNumber`; \}\>
 
 Get the initialized configuration options
 
@@ -360,88 +399,99 @@ For more information on the individual values see https://docs.colony.io/learn/g
 
 #### Returns
 
-`Promise`<{ `endVoteThreshold`: `BigNumber` ; `escalationPhaseDuration`: `BigNumber` ; `minimumUserStake`: `BigNumber` ; `requiredStake`: `BigNumber` ; `revealPhaseDuration`: `BigNumber` ; `stakePhaseDuration`: `BigNumber` ; `voterReward`: `BigNumber` ; `votingPhaseDuration`: `BigNumber`  }\>
+`Promise`\<\{ `endVoteThreshold`: `BigNumber`; `escalationPhaseDuration`: `BigNumber`; `minimumUserStake`: `BigNumber`; `requiredStake`: `BigNumber`; `revealPhaseDuration`: `BigNumber`; `stakePhaseDuration`: `BigNumber`; `voterReward`: `BigNumber`; `votingPhaseDuration`: `BigNumber`; \}\>
 
 The extensions configuration options
 
-___
+***
 
-### getMinStake
+### getMinStake()
 
-▸ **getMinStake**(`motion`, `vote`): `Promise`<`BigNumber`\>
+> **getMinStake**(`motion`, `vote`): `Promise`\<`BigNumber`\>
 
 Get the minimum stake that has to be supplied for a motion and a certain vote (NOT for activation)
 
-**`Remarks`**
-
-To get the missing amount for activation, call [getRemainingStakes](VotingReputation.md#getremainingstakes)
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `motion` | [`Motion`](../README.md#motion) | A Motion struct object |
-| `vote` | [`Vote`](../enums/Vote.md) | A vote for (Yay) or against (Nay) the motion |
+##### motion
+
+[`Motion`](../type-aliases/Motion.md)
+
+A Motion struct object
+
+##### vote
+
+[`Vote`](../enumerations/Vote.md)
+
+A vote for (Yay) or against (Nay) the motion
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 The minimum stake amount
 
-___
+#### Remarks
 
-### getMotion
+To get the missing amount for activation, call [getRemainingStakes](VotingReputation.md#getremainingstakes)
 
-▸ **getMotion**(`motionId`): `Promise`<[`Motion`](../README.md#motion)\>
+***
+
+### getMotion()
+
+> **getMotion**(`motionId`): `Promise`\<[`Motion`](../type-aliases/Motion.md)\>
 
 Get a motion by its id
 
-**`Remarks`**
-
-Will throw if motionId does not exist
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `motionId` | `BigNumberish` | The motionId to get the information for |
+##### motionId
+
+`BigNumberish`
+
+The motionId to get the information for
 
 #### Returns
 
-`Promise`<[`Motion`](../README.md#motion)\>
+`Promise`\<[`Motion`](../type-aliases/Motion.md)\>
 
 A Motion object
 
-___
+#### Remarks
 
-### getMotionResult
+Will throw if motionId does not exist
 
-▸ **getMotionResult**(`motionId`): `Promise`<``null`` \| [`Vote`](../enums/Vote.md)\>
+***
+
+### getMotionResult()
+
+> **getMotionResult**(`motionId`): `Promise`\<`null` \| [`Vote`](../enumerations/Vote.md)\>
 
 Get the result of a motion (if it is finalizeable or finalized)
 
-**`Remarks`**
-
-Will return null if the motion is not finalizeable yet
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `motionId` | `BigNumberish` | The motionId to get the result for |
+##### motionId
+
+`BigNumberish`
+
+The motionId to get the result for
 
 #### Returns
 
-`Promise`<``null`` \| [`Vote`](../enums/Vote.md)\>
+`Promise`\<`null` \| [`Vote`](../enumerations/Vote.md)\>
 
 The result of the motion (0 = Nay, 1 = Yay)
 
-___
+#### Remarks
 
-### getMotionState
+Will return null if the motion is not finalizeable yet
 
-▸ **getMotionState**(`motionId`): `Promise`<`number`\>
+***
+
+### getMotionState()
+
+> **getMotionState**(`motionId`): `Promise`\<`number`\>
 
 Get the motion state as a number
 
@@ -455,9 +505,22 @@ Will be one of the following:
 - `Finalized` (= 6)
 - `Failed` (= 7)
 
-**`Example`**
+#### Parameters
 
-You can show the state as a string like so
+##### motionId
+
+`BigNumberish`
+
+The motionId to get the state for
+
+#### Returns
+
+`Promise`\<`number`\>
+
+The motion state
+
+#### Example
+
 ```typescript
 import { MotionState } from '@colony/sdk';
 
@@ -469,58 +532,108 @@ import { MotionState } from '@colony/sdk';
 })();
 ```
 
-**`Remarks`**
+#### Remarks
 
 Will throw if motionId does not exist
 
-#### Parameters
+***
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `motionId` | `BigNumberish` | The motionId to get the state for |
+### getRemainingStakes()
 
-#### Returns
-
-`Promise`<`number`\>
-
-The motion state
-
-___
-
-### getRemainingStakes
-
-▸ **getRemainingStakes**(`motionId`): `Promise`<{ `remainingToFullyNayStaked`: `BigNumber` ; `remainingToFullyYayStaked`: `BigNumber`  }\>
+> **getRemainingStakes**(`motionId`): `Promise`\<\{ `remainingToFullyNayStaked`: `BigNumber`; `remainingToFullyYayStaked`: `BigNumber`; \}\>
 
 Get the amounts remaining for Yay/Nay sides to be activated
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `motionId` | `BigNumberish` | The motionId of the motion |
+##### motionId
+
+`BigNumberish`
+
+The motionId of the motion
 
 #### Returns
 
-`Promise`<{ `remainingToFullyNayStaked`: `BigNumber` ; `remainingToFullyYayStaked`: `BigNumber`  }\>
+`Promise`\<\{ `remainingToFullyNayStaked`: `BigNumber`; `remainingToFullyYayStaked`: `BigNumber`; \}\>
 
 An object containing the remaining amounts
 
-___
+***
 
-### initialize
+### initialize()
 
-▸ **initialize**(`totalStakeFraction`, `voterRewardFraction`, `userMinStakeFraction`, `maxVoteFraction`, `stakePeriod`, `submitPeriod`, `revealPeriod`, `escalationPeriod`): [`MetaTxCreator`](MetaTxCreator.md)<`SupportedVotingReputationContract`, ``"initialise"``, {}, [`MetadataType`](../enums/MetadataType.md)\>
+> **initialize**(`totalStakeFraction`, `voterRewardFraction`, `userMinStakeFraction`, `maxVoteFraction`, `stakePeriod`, `submitPeriod`, `revealPeriod`, `escalationPeriod`): [`MetaTxCreator`](MetaTxCreator.md)\<`SupportedVotingReputationContract`, `"initialise"`, \{\}, [`MetadataType`](../enumerations/MetadataType.md)\>
 
 Before you can use the extension you need to initialize it by calling this function.
 
-**`Remarks`**
+#### Parameters
+
+##### totalStakeFraction
+
+`BigNumber`
+
+The fraction of the domain's reputation we need to stake
+
+##### voterRewardFraction
+
+`BigNumber`
+
+The fraction of the total stake paid out to voters as rewards
+
+##### userMinStakeFraction
+
+`BigNumber`
+
+The minimum per-user stake as fraction of total stake
+
+##### maxVoteFraction
+
+`BigNumber`
+
+The fraction of the domain's reputation which must submit for quick-end
+
+##### stakePeriod
+
+`number`
+
+The length of the staking period in seconds
+
+##### submitPeriod
+
+`number`
+
+The length of the submit period in seconds
+
+##### revealPeriod
+
+`number`
+
+The length of the reveal period in seconds
+
+##### escalationPeriod
+
+`number`
+
+The length of the escalation period in seconds
+
+#### Returns
+
+[`MetaTxCreator`](MetaTxCreator.md)\<`SupportedVotingReputationContract`, `"initialise"`, \{\}, [`MetadataType`](../enumerations/MetadataType.md)\>
+
+A transaction creator
+
+#### Event data
+
+No event data attached
+
+#### Remarks
 
 - Fractions are in wei to allow for precise adjustments (you can use the `w` helper method to specify fractions - see example)
 - All periods values are given in seconds
 
 See also [this page](https://docs.colony.io/learn/governance/parameters) for a detailed explanation of the parameters.
 
-**`Example`**
+#### Example
 
 ```typescript
 import { w } from '@colony/sdk';
@@ -541,52 +654,31 @@ import { w } from '@colony/sdk';
 })();
 ```
 
-#### Parameters
+***
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `totalStakeFraction` | `BigNumber` | The fraction of the domain's reputation we need to stake |
-| `voterRewardFraction` | `BigNumber` | The fraction of the total stake paid out to voters as rewards |
-| `userMinStakeFraction` | `BigNumber` | The minimum per-user stake as fraction of total stake |
-| `maxVoteFraction` | `BigNumber` | The fraction of the domain's reputation which must submit for quick-end |
-| `stakePeriod` | `number` | The length of the staking period in seconds |
-| `submitPeriod` | `number` | The length of the submit period in seconds |
-| `revealPeriod` | `number` | The length of the reveal period in seconds |
-| `escalationPeriod` | `number` | The length of the escalation period in seconds |
+### revealVote()
 
-#### Returns
-
-[`MetaTxCreator`](MetaTxCreator.md)<`SupportedVotingReputationContract`, ``"initialise"``, {}, [`MetadataType`](../enums/MetadataType.md)\>
-
-A transaction creator
-
-#### Event data
-
-No event data attached
-
-___
-
-### revealVote
-
-▸ **revealVote**(`motionId`, `vote?`): [`MetaTxCreator`](MetaTxCreator.md)<`SupportedVotingReputationContract`, ``"revealVote"``, { `motionId?`: `BigNumber` ; `vote?`: `BigNumber` ; `voter?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+> **revealVote**(`motionId`, `vote`?): [`MetaTxCreator`](MetaTxCreator.md)\<`SupportedVotingReputationContract`, `"revealVote"`, \{ `motionId`: `BigNumber`; `vote`: `BigNumber`; `voter`: `string`; \}, [`MetadataType`](../enumerations/MetadataType.md)\>
 
 Reveal a vote for a motion
 
-**`Remarks`**
-
-* In order for a vote to count it has to be revealed within the reveal period. Only then rewards can be paid out to the voter.
-* This method can't be executed as a motion
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `motionId` | `BigNumberish` | The motionId of the motion to be finalized |
-| `vote?` | [`Vote`](../enums/Vote.md) | The vote that was cast. If not provided Colony SDK will try to find out which side was voted on (not recommended) |
+##### motionId
+
+`BigNumberish`
+
+The motionId of the motion to be finalized
+
+##### vote?
+
+[`Vote`](../enumerations/Vote.md)
+
+The vote that was cast. If not provided Colony SDK will try to find out which side was voted on (not recommended)
 
 #### Returns
 
-[`MetaTxCreator`](MetaTxCreator.md)<`SupportedVotingReputationContract`, ``"revealVote"``, { `motionId?`: `BigNumber` ; `vote?`: `BigNumber` ; `voter?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`MetaTxCreator`](MetaTxCreator.md)\<`SupportedVotingReputationContract`, `"revealVote"`, \{ `motionId`: `BigNumber`; `vote`: `BigNumber`; `voter`: `string`; \}, [`MetadataType`](../enumerations/MetadataType.md)\>
 
 A transaction creator
 
@@ -598,20 +690,57 @@ A transaction creator
 | `voter` | string | The address of the user who voted |
 | `vote` | BigNumber | The vote that was cast (0 = Nay, 1 = Yay) |
 
-___
+#### Remarks
 
-### stakeMotion
+* In order for a vote to count it has to be revealed within the reveal period. Only then rewards can be paid out to the voter.
+* This method can't be executed as a motion
 
-▸ **stakeMotion**(`motionId`, `vote`, `amount`): [`MetaTxCreator`](MetaTxCreator.md)<`SupportedVotingReputationContract`, ``"stakeMotion"``, { `amount?`: `BigNumber` ; `eventIndex?`: `BigNumber` ; `motionId?`: `BigNumber` ; `staker?`: `string` ; `vote?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+***
+
+### stakeMotion()
+
+> **stakeMotion**(`motionId`, `vote`, `amount`): [`MetaTxCreator`](MetaTxCreator.md)\<`SupportedVotingReputationContract`, `"stakeMotion"`, \{ `amount`: `BigNumber`; `eventIndex`: `BigNumber`; `motionId`: `BigNumber`; `staker`: `string`; `vote`: `BigNumber`; \}, [`MetadataType`](../enumerations/MetadataType.md)\>
 
 Stake `amount` to support a motion with your vote
 
-**`Remarks`**
+#### Parameters
+
+##### motionId
+
+`BigNumberish`
+
+##### vote
+
+[`Vote`](../enumerations/Vote.md)
+
+##### amount
+
+`BigNumberish`
+
+Amount of the token to be approved
+
+#### Returns
+
+[`MetaTxCreator`](MetaTxCreator.md)\<`SupportedVotingReputationContract`, `"stakeMotion"`, \{ `amount`: `BigNumber`; `eventIndex`: `BigNumber`; `motionId`: `BigNumber`; `staker`: `string`; `vote`: `BigNumber`; \}, [`MetadataType`](../enumerations/MetadataType.md)\>
+
+A transaction creator
+
+#### Event data
+
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `motionId` | BigNumber | ID of the motion to stake for |
+| `staker` | string | The address that staked the tokens |
+| `vote` | Vote | The vote that was staked for (Yay or Nay). See [Vote](../enumerations/Vote.md) |
+| `amount` | BigNumber | The amount that was staked for that vote |
+| `eventIndex` | BigNumber | If the stake triggered a motion event, this will contain its index |
+
+#### Remarks
 
 * In order to stake a motion the amount to stake (or any amount higher than that) needs to be "activated" and approved for staking in the motion's team first. See below for a full example. Usually you would have more tokens "activated" or even approved for a domain than you would stake, to make this process more seamless
 * This method can't be executed as a motion
 
-**`Example`**
+#### Example
 
 ```typescript
 import { Vote, w } from '@colony/sdk';
@@ -630,52 +759,31 @@ import { Vote, w } from '@colony/sdk';
 })();
 ```
 
-#### Parameters
+***
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `motionId` | `BigNumberish` | - |
-| `vote` | [`Vote`](../enums/Vote.md) | - |
-| `amount` | `BigNumberish` | Amount of the token to be approved |
+### submitVote()
 
-#### Returns
-
-[`MetaTxCreator`](MetaTxCreator.md)<`SupportedVotingReputationContract`, ``"stakeMotion"``, { `amount?`: `BigNumber` ; `eventIndex?`: `BigNumber` ; `motionId?`: `BigNumber` ; `staker?`: `string` ; `vote?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
-
-A transaction creator
-
-#### Event data
-
-| Property | Type | Description |
-| :------ | :------ | :------ |
-| `motionId` | BigNumber | ID of the motion to stake for |
-| `staker` | string | The address that staked the tokens |
-| `vote` | Vote | The vote that was staked for (Yay or Nay). See [Vote](../enums/Vote.md) |
-| `amount` | BigNumber | The amount that was staked for that vote |
-| `eventIndex` | BigNumber | If the stake triggered a motion event, this will contain its index |
-
-___
-
-### submitVote
-
-▸ **submitVote**(`motionId`, `vote`): [`MetaTxCreator`](MetaTxCreator.md)<`SupportedVotingReputationContract`, ``"submitVote"``, { `motionId?`: `BigNumber` ; `voter?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+> **submitVote**(`motionId`, `vote`): [`MetaTxCreator`](MetaTxCreator.md)\<`SupportedVotingReputationContract`, `"submitVote"`, \{ `motionId`: `BigNumber`; `voter`: `string`; \}, [`MetadataType`](../enumerations/MetadataType.md)\>
 
 Submit a vote for a motion
 
-**`Remarks`**
-
-This method can't be executed as a motion
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `motionId` | `BigNumberish` | The motionId of the motion to be finalized |
-| `vote` | [`Vote`](../enums/Vote.md) | A vote for (Yay) or against (Nay) the motion |
+##### motionId
+
+`BigNumberish`
+
+The motionId of the motion to be finalized
+
+##### vote
+
+[`Vote`](../enumerations/Vote.md)
+
+A vote for (Yay) or against (Nay) the motion
 
 #### Returns
 
-[`MetaTxCreator`](MetaTxCreator.md)<`SupportedVotingReputationContract`, ``"submitVote"``, { `motionId?`: `BigNumber` ; `voter?`: `string`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`MetaTxCreator`](MetaTxCreator.md)\<`SupportedVotingReputationContract`, `"submitVote"`, \{ `motionId`: `BigNumber`; `voter`: `string`; \}, [`MetadataType`](../enumerations/MetadataType.md)\>
 
 A transaction creator
 
@@ -686,30 +794,31 @@ A transaction creator
 | `motionId` | BigNumber | ID of the motion to submit a vote for |
 | `voter` | string | The address of the user who voted |
 
-___
+#### Remarks
 
-### upgrade
+This method can't be executed as a motion
 
-▸ **upgrade**(`toVersion?`): [`ColonyTxCreator`](ColonyTxCreator.md)<[`SupportedColonyContract`](../README.md#supportedcolonycontract), ``"upgradeExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+***
+
+### upgrade()
+
+> **upgrade**(`toVersion`?): [`ColonyTxCreator`](ColonyTxCreator.md)\<[`SupportedColonyContract`](../type-aliases/SupportedColonyContract.md), `"upgradeExtension"`, \{ `colony`: `string`; `extensionId`: `string`; `version`: `BigNumber`; \}, [`MetadataType`](../enumerations/MetadataType.md)\>
 
 Upgrade this extension to the next or a custom version
 
 This method upgrades this extension to a specified version or, if no version is provided to the next higher version.
 
-**`Remarks`**
-
-* Only users with *Root* role are allowed to upgrade an extension (or another extension with appropriate permissions)
-* Downgrading of extensions is not possible
-
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `toVersion?` | `BigNumberish` | Specify a custom version to upgrade the extension to |
+##### toVersion?
+
+`BigNumberish`
+
+Specify a custom version to upgrade the extension to
 
 #### Returns
 
-[`ColonyTxCreator`](ColonyTxCreator.md)<[`SupportedColonyContract`](../README.md#supportedcolonycontract), ``"upgradeExtension"``, { `colony?`: `string` ; `extensionId?`: `string` ; `version?`: `BigNumber`  }, [`MetadataType`](../enums/MetadataType.md)\>
+[`ColonyTxCreator`](ColonyTxCreator.md)\<[`SupportedColonyContract`](../type-aliases/SupportedColonyContract.md), `"upgradeExtension"`, \{ `colony`: `string`; `extensionId`: `string`; `version`: `BigNumber`; \}, [`MetadataType`](../enumerations/MetadataType.md)\>
 
 A transaction creator
 
@@ -721,28 +830,33 @@ A transaction creator
 | `oldVersion` | BigNumber | Version of the extension before the upgrade |
 | `newVersion` | BigNumber | Version of the extension after the upgrade |
 
-___
+#### Remarks
 
-### connect
+* Only users with *Root* role are allowed to upgrade an extension (or another extension with appropriate permissions)
+* Downgrading of extensions is not possible
 
-▸ `Static` **connect**(`colony`): `Promise`<[`VotingReputation`](VotingReputation.md)\>
+***
+
+### connect()
+
+> `static` **connect**(`colony`): `Promise`\<[`VotingReputation`](VotingReputation.md)\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `colony` | [`Colony`](Colony.md) |
+##### colony
+
+[`Colony`](Colony.md)
 
 #### Returns
 
-`Promise`<[`VotingReputation`](VotingReputation.md)\>
+`Promise`\<[`VotingReputation`](VotingReputation.md)\>
 
-___
+***
 
-### getLatestSupportedVersion
+### getLatestSupportedVersion()
 
-▸ `Static` **getLatestSupportedVersion**(): ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12`` \| ``13``
+> `static` **getLatestSupportedVersion**(): `1` \| `2` \| `3` \| `4` \| `5` \| `6` \| `7` \| `8` \| `9` \| `10` \| `11` \| `12` \| `13`
 
 #### Returns
 
-``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` \| ``10`` \| ``11`` \| ``12`` \| ``13``
+`1` \| `2` \| `3` \| `4` \| `5` \| `6` \| `7` \| `8` \| `9` \| `10` \| `11` \| `12` \| `13`

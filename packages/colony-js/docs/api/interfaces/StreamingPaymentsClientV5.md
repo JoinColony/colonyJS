@@ -1,450 +1,5252 @@
+[**API**](../README.md)
+
+***
+
 # Interface: StreamingPaymentsClientV5
 
-## Hierarchy
+## Extends
 
-- `AugmentedStreamingPayments`<`StreamingPayments`\>
-
-  ↳ **`StreamingPaymentsClientV5`**
+- `AugmentedStreamingPayments`\<`StreamingPayments`\>
 
 ## Properties
 
 ### \_deployedPromise
 
-• **\_deployedPromise**: `Promise`<`Contract`\>
+> **\_deployedPromise**: `Promise`\<`Contract`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.\_deployedPromise
+`AugmentedStreamingPayments._deployedPromise`
 
-___
+***
 
 ### \_runningEvents
 
-• **\_runningEvents**: `Object`
+> **\_runningEvents**: `object`
 
-#### Index signature
+#### Index Signature
 
-▪ [eventTag: `string`]: `RunningEvent`
+\[`eventTag`: `string`\]: `RunningEvent`
 
 #### Inherited from
 
-AugmentedStreamingPayments.\_runningEvents
+`AugmentedStreamingPayments._runningEvents`
 
-___
+***
 
 ### \_wrappedEmits
 
-• **\_wrappedEmits**: `Object`
+> **\_wrappedEmits**: `object`
 
-#### Index signature
+#### Index Signature
 
-▪ [eventTag: `string`]: (...`args`: `any`[]) => `void`
+\[`eventTag`: `string`\]: (...`args`) => `void`
 
 #### Inherited from
 
-AugmentedStreamingPayments.\_wrappedEmits
+`AugmentedStreamingPayments._wrappedEmits`
 
-___
+***
 
 ### address
 
-• `Readonly` **address**: `string`
+> `readonly` **address**: `string`
 
 #### Inherited from
 
-AugmentedStreamingPayments.address
+`AugmentedStreamingPayments.address`
 
-___
+***
 
 ### callStatic
 
-• **callStatic**: `Object`
+> **callStatic**: `object`
 
-#### Type declaration
+#### authority()
 
-| Name | Type |
-| :------ | :------ |
-| `authority` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `authority()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `cancel` | (`_adminPermissionDomainId`: `BigNumberish`, `_adminChildSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `cancel(uint256,uint256,uint256)` | (`_adminPermissionDomainId`: `BigNumberish`, `_adminChildSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `cancelAndWaive` | (`_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `cancelAndWaive(uint256)` | (`_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `claim` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_fromChildSkillIndex`: `BigNumberish`, `_toChildSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `claim(uint256,uint256,uint256,uint256,uint256)` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_fromChildSkillIndex`: `BigNumberish`, `_toChildSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `create` | (`_fundingPermissionDomainId`: `BigNumberish`, `_fundingChildSkillIndex`: `BigNumberish`, `_adminPermissionDomainId`: `BigNumberish`, `_adminChildSkillIndex`: `BigNumberish`, `_domainId`: `BigNumberish`, `_startTime`: `BigNumberish`, `_endTime`: `BigNumberish`, `_interval`: `BigNumberish`, `_recipient`: `string`, `_token`: `string`, `_amount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `create(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address,address,uint256)` | (`_fundingPermissionDomainId`: `BigNumberish`, `_fundingChildSkillIndex`: `BigNumberish`, `_adminPermissionDomainId`: `BigNumberish`, `_adminChildSkillIndex`: `BigNumberish`, `_domainId`: `BigNumberish`, `_startTime`: `BigNumberish`, `_endTime`: `BigNumberish`, `_interval`: `BigNumberish`, `_recipient`: `string`, `_token`: `string`, `_amount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `deprecate` | (`_deprecated`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `deprecate(bool)` | (`_deprecated`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `executeMetaTransaction` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `finishUpgrade` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `finishUpgrade()` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `getAmountClaimableLifetime` | (`_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getAmountClaimableLifetime(uint256)` | (`_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getAmountEntitledFromStart` | (`_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getAmountEntitledFromStart(uint256)` | (`_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getCapabilityRoles` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `getCapabilityRoles(bytes4)` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `getColony()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
-| `getDeprecated()` | (`overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
-| `getMetatransactionNonce` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getMetatransactionNonce(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getNUnresolvedStreamingPayments` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getNUnresolvedStreamingPayments()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getNumStreamingPayments` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getNumStreamingPayments()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `getStreamingPayment` | (`_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`StreamingPaymentStructOutput`\> |
-| `getStreamingPayment(uint256)` | (`_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`StreamingPaymentStructOutput`\> |
-| `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `identifier()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `install` | (`_colony`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `install(address)` | (`_colony`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `multicall` | (`data`: `BytesLike`[], `overrides?`: `CallOverrides`) => `Promise`<`string`[]\> |
-| `multicall(bytes[])` | (`data`: `BytesLike`[], `overrides?`: `CallOverrides`) => `Promise`<`string`[]\> |
-| `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `owner()` | (`overrides?`: `CallOverrides`) => `Promise`<`string`\> |
-| `setAuthority` | (`authority_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setAuthority(address)` | (`authority_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setEndTime` | (`_adminPermissionDomainId`: `BigNumberish`, `_adminChildSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `_endTime`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setEndTime(uint256,uint256,uint256,uint256)` | (`_adminPermissionDomainId`: `BigNumberish`, `_adminChildSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `_endTime`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setOwner` | (`owner_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setOwner(address)` | (`owner_`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setStartTime` | (`_adminPermissionDomainId`: `BigNumberish`, `_adminChildSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `_startTime`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setStartTime(uint256,uint256,uint256,uint256)` | (`_adminPermissionDomainId`: `BigNumberish`, `_adminChildSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `_startTime`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setTokenAmount` | (`_fundingPermissionDomainId`: `BigNumberish`, `_fundingChildSkillIndex`: `BigNumberish`, `_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_fromChildSkillIndex`: `BigNumberish`, `_toChildSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `_amount`: `BigNumberish`, `_interval`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `setTokenAmount(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256)` | (`_fundingPermissionDomainId`: `BigNumberish`, `_fundingChildSkillIndex`: `BigNumberish`, `_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_fromChildSkillIndex`: `BigNumberish`, `_toChildSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `_amount`: `BigNumberish`, `_interval`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `uninstall` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `uninstall()` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
-| `verify` | (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
-| `verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
-| `version` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
-| `version()` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### authority()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### cancel()
+
+##### Parameters
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### cancel(uint256,uint256,uint256)()
+
+##### Parameters
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### cancelAndWaive()
+
+##### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### cancelAndWaive(uint256)()
+
+##### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### claim()
+
+##### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_fromChildSkillIndex
+
+`BigNumberish`
+
+###### \_toChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### claim(uint256,uint256,uint256,uint256,uint256)()
+
+##### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_fromChildSkillIndex
+
+`BigNumberish`
+
+###### \_toChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### create()
+
+##### Parameters
+
+###### \_fundingPermissionDomainId
+
+`BigNumberish`
+
+###### \_fundingChildSkillIndex
+
+`BigNumberish`
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_domainId
+
+`BigNumberish`
+
+###### \_startTime
+
+`BigNumberish`
+
+###### \_endTime
+
+`BigNumberish`
+
+###### \_interval
+
+`BigNumberish`
+
+###### \_recipient
+
+`string`
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### create(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address,address,uint256)()
+
+##### Parameters
+
+###### \_fundingPermissionDomainId
+
+`BigNumberish`
+
+###### \_fundingChildSkillIndex
+
+`BigNumberish`
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_domainId
+
+`BigNumberish`
+
+###### \_startTime
+
+`BigNumberish`
+
+###### \_endTime
+
+`BigNumberish`
+
+###### \_interval
+
+`BigNumberish`
+
+###### \_recipient
+
+`string`
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### deprecate()
+
+##### Parameters
+
+###### \_deprecated
+
+`boolean`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### deprecate(bool)()
+
+##### Parameters
+
+###### \_deprecated
+
+`boolean`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### executeMetaTransaction()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### finishUpgrade()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### finishUpgrade()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### getAmountClaimableLifetime()
+
+##### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getAmountClaimableLifetime(uint256)()
+
+##### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getAmountEntitledFromStart()
+
+##### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getAmountEntitledFromStart(uint256)()
+
+##### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getCapabilityRoles()
+
+##### Parameters
+
+###### \_sig
+
+`BytesLike`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### getCapabilityRoles(bytes4)()
+
+##### Parameters
+
+###### \_sig
+
+`BytesLike`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### getColony()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### getColony()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### getDeprecated()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`boolean`\>
+
+#### getDeprecated()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`boolean`\>
+
+#### getMetatransactionNonce()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getMetatransactionNonce(address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getNumStreamingPayments()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getNumStreamingPayments()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getNUnresolvedStreamingPayments()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getNUnresolvedStreamingPayments()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### getStreamingPayment()
+
+##### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`StreamingPaymentStructOutput`\>
+
+#### getStreamingPayment(uint256)()
+
+##### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`StreamingPaymentStructOutput`\>
+
+#### identifier()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### identifier()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### install()
+
+##### Parameters
+
+###### \_colony
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### install(address)()
+
+##### Parameters
+
+###### \_colony
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### multicall()
+
+##### Parameters
+
+###### data
+
+`BytesLike`[]
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`[]\>
+
+#### multicall(bytes\[\])()
+
+##### Parameters
+
+###### data
+
+`BytesLike`[]
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`[]\>
+
+#### owner()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### owner()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### setAuthority()
+
+##### Parameters
+
+###### authority\_
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### setAuthority(address)()
+
+##### Parameters
+
+###### authority\_
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### setEndTime()
+
+##### Parameters
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### \_endTime
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### setEndTime(uint256,uint256,uint256,uint256)()
+
+##### Parameters
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### \_endTime
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### setOwner()
+
+##### Parameters
+
+###### owner\_
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### setOwner(address)()
+
+##### Parameters
+
+###### owner\_
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### setStartTime()
+
+##### Parameters
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### \_startTime
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### setStartTime(uint256,uint256,uint256,uint256)()
+
+##### Parameters
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### \_startTime
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### setTokenAmount()
+
+##### Parameters
+
+###### \_fundingPermissionDomainId
+
+`BigNumberish`
+
+###### \_fundingChildSkillIndex
+
+`BigNumberish`
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_fromChildSkillIndex
+
+`BigNumberish`
+
+###### \_toChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_interval
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### setTokenAmount(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256)()
+
+##### Parameters
+
+###### \_fundingPermissionDomainId
+
+`BigNumberish`
+
+###### \_fundingChildSkillIndex
+
+`BigNumberish`
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_fromChildSkillIndex
+
+`BigNumberish`
+
+###### \_toChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_interval
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### uninstall()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### uninstall()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`void`\>
+
+#### verify()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_nonce
+
+`BigNumberish`
+
+###### \_chainId
+
+`BigNumberish`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`boolean`\>
+
+#### verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_nonce
+
+`BigNumberish`
+
+###### \_chainId
+
+`BigNumberish`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`boolean`\>
+
+#### version()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### version()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.callStatic
+`AugmentedStreamingPayments.callStatic`
 
-___
+***
 
 ### clientType
 
-• **clientType**: [`StreamingPaymentsClient`](../enums/ClientType.md#streamingpaymentsclient)
+> **clientType**: [`StreamingPaymentsClient`](../enumerations/ClientType.md#streamingpaymentsclient)
 
 #### Inherited from
 
-AugmentedStreamingPayments.clientType
+`AugmentedStreamingPayments.clientType`
 
-___
+***
 
 ### clientVersion
 
-• **clientVersion**: ``5``
+> **clientVersion**: `5`
 
 #### Overrides
 
-AugmentedStreamingPayments.clientVersion
+`AugmentedStreamingPayments.clientVersion`
 
-___
+***
 
 ### colonyClient
 
-• **colonyClient**: `AugmentedIColony`<`ValidColony`\>
+> **colonyClient**: `AugmentedIColony`\<`ValidColony`\>
 
 An instance of the corresponding ColonyClient
 
 #### Inherited from
 
-AugmentedStreamingPayments.colonyClient
+`AugmentedStreamingPayments.colonyClient`
 
-___
+***
 
 ### deployTransaction
 
-• `Readonly` **deployTransaction**: `TransactionResponse`
+> `readonly` **deployTransaction**: `TransactionResponse`
 
 #### Inherited from
 
-AugmentedStreamingPayments.deployTransaction
+`AugmentedStreamingPayments.deployTransaction`
 
-___
+***
 
 ### estimateGas
 
-• **estimateGas**: `Object`
+> **estimateGas**: `object` & \{ authority(overrides?: CallOverrides \| undefined): Promise\<BigNumber\>; "authority()"(overrides?: CallOverrides \| undefined): Promise\<...\>; ... 55 more ...; "version()"(overrides?: CallOverrides \| undefined): Promise\<...\>; \} & AugmentedEstimate\<...\>
+
+#### Type declaration
+
+##### authority()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### authority()()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### cancel()
+
+###### Parameters
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### cancel(uint256,uint256,uint256)()
+
+###### Parameters
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### cancelAndWaive()
+
+###### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### cancelAndWaive(uint256)()
+
+###### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### claim()
+
+###### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_fromChildSkillIndex
+
+`BigNumberish`
+
+###### \_toChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### claim(uint256,uint256,uint256,uint256,uint256)()
+
+###### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_fromChildSkillIndex
+
+`BigNumberish`
+
+###### \_toChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### create()
+
+###### Parameters
+
+###### \_fundingPermissionDomainId
+
+`BigNumberish`
+
+###### \_fundingChildSkillIndex
+
+`BigNumberish`
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_domainId
+
+`BigNumberish`
+
+###### \_startTime
+
+`BigNumberish`
+
+###### \_endTime
+
+`BigNumberish`
+
+###### \_interval
+
+`BigNumberish`
+
+###### \_recipient
+
+`string`
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### create(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address,address,uint256)()
+
+###### Parameters
+
+###### \_fundingPermissionDomainId
+
+`BigNumberish`
+
+###### \_fundingChildSkillIndex
+
+`BigNumberish`
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_domainId
+
+`BigNumberish`
+
+###### \_startTime
+
+`BigNumberish`
+
+###### \_endTime
+
+`BigNumberish`
+
+###### \_interval
+
+`BigNumberish`
+
+###### \_recipient
+
+`string`
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### deprecate()
+
+###### Parameters
+
+###### \_deprecated
+
+`boolean`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### deprecate(bool)()
+
+###### Parameters
+
+###### \_deprecated
+
+`boolean`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### executeMetaTransaction()
+
+###### Parameters
+
+###### \_user
+
+`string`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`PayableOverrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)()
+
+###### Parameters
+
+###### \_user
+
+`string`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`PayableOverrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### finishUpgrade()
+
+###### Parameters
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### finishUpgrade()()
+
+###### Parameters
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getAmountClaimableLifetime()
+
+###### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getAmountClaimableLifetime(uint256)()
+
+###### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getAmountEntitledFromStart()
+
+###### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getAmountEntitledFromStart(uint256)()
+
+###### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getCapabilityRoles()
+
+###### Parameters
+
+###### \_sig
+
+`BytesLike`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getCapabilityRoles(bytes4)()
+
+###### Parameters
+
+###### \_sig
+
+`BytesLike`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getColony()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getColony()()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getDeprecated()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getDeprecated()()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getMetatransactionNonce()
+
+###### Parameters
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getMetatransactionNonce(address)()
+
+###### Parameters
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getNumStreamingPayments()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getNumStreamingPayments()()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getNUnresolvedStreamingPayments()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getNUnresolvedStreamingPayments()()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getStreamingPayment()
+
+###### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### getStreamingPayment(uint256)()
+
+###### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### identifier()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### identifier()()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### install()
+
+###### Parameters
+
+###### \_colony
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### install(address)()
+
+###### Parameters
+
+###### \_colony
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### multicall()
+
+###### Parameters
+
+###### data
+
+`BytesLike`[]
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### multicall(bytes\[\])()
+
+###### Parameters
+
+###### data
+
+`BytesLike`[]
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### owner()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### owner()()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### setAuthority()
+
+###### Parameters
+
+###### authority\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### setAuthority(address)()
+
+###### Parameters
+
+###### authority\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### setEndTime()
+
+###### Parameters
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### \_endTime
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### setEndTime(uint256,uint256,uint256,uint256)()
+
+###### Parameters
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### \_endTime
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### setOwner()
+
+###### Parameters
+
+###### owner\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### setOwner(address)()
+
+###### Parameters
+
+###### owner\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### setStartTime()
+
+###### Parameters
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### \_startTime
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### setStartTime(uint256,uint256,uint256,uint256)()
+
+###### Parameters
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### \_startTime
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### setTokenAmount()
+
+###### Parameters
+
+###### \_fundingPermissionDomainId
+
+`BigNumberish`
+
+###### \_fundingChildSkillIndex
+
+`BigNumberish`
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_fromChildSkillIndex
+
+`BigNumberish`
+
+###### \_toChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_interval
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### setTokenAmount(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256)()
+
+###### Parameters
+
+###### \_fundingPermissionDomainId
+
+`BigNumberish`
+
+###### \_fundingChildSkillIndex
+
+`BigNumberish`
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_fromChildSkillIndex
+
+`BigNumberish`
+
+###### \_toChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_interval
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### uninstall()
+
+###### Parameters
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### uninstall()()
+
+###### Parameters
+
+###### overrides?
+
+`Overrides` & `object`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### verify()
+
+###### Parameters
+
+###### \_user
+
+`string`
+
+###### \_nonce
+
+`BigNumberish`
+
+###### \_chainId
+
+`BigNumberish`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)()
+
+###### Parameters
+
+###### \_user
+
+`string`
+
+###### \_nonce
+
+`BigNumberish`
+
+###### \_chainId
+
+`BigNumberish`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### version()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
+
+##### version()()
+
+###### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+###### Returns
+
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.estimateGas
+`AugmentedStreamingPayments.estimateGas`
 
-___
+***
 
 ### filters
 
-• **filters**: `Object`
+> **filters**: `object`
 
-#### Type declaration
+#### ClaimWaived()
 
-| Name | Type |
-| :------ | :------ |
-| `ClaimWaived` | (`agent?`: ``null``, `streamingPaymentId?`: ``null`` \| `BigNumberish`) => `ClaimWaivedEventFilter` |
-| `ClaimWaived(address,uint256)` | (`agent?`: ``null``, `streamingPaymentId?`: ``null`` \| `BigNumberish`) => `ClaimWaivedEventFilter` |
-| `EndTimeSet` | (`agent?`: ``null``, `streamingPaymentId?`: ``null`` \| `BigNumberish`, `endTime?`: ``null``) => `EndTimeSetEventFilter` |
-| `EndTimeSet(address,uint256,uint256)` | (`agent?`: ``null``, `streamingPaymentId?`: ``null`` \| `BigNumberish`, `endTime?`: ``null``) => `EndTimeSetEventFilter` |
-| `ExtensionInitialised` | () => `ExtensionInitialisedEventFilter` |
-| `ExtensionInitialised()` | () => `ExtensionInitialisedEventFilter` |
-| `LogSetAuthority` | (`authority?`: ``null`` \| `string`) => `LogSetAuthorityEventFilter` |
-| `LogSetAuthority(address)` | (`authority?`: ``null`` \| `string`) => `LogSetAuthorityEventFilter` |
-| `LogSetOwner` | (`owner?`: ``null`` \| `string`) => `LogSetOwnerEventFilter` |
-| `LogSetOwner(address)` | (`owner?`: ``null`` \| `string`) => `LogSetOwnerEventFilter` |
-| `MetaTransactionExecuted` | (`user?`: ``null``, `relayerAddress?`: ``null``, `functionSignature?`: ``null``) => `MetaTransactionExecutedEventFilter` |
-| `MetaTransactionExecuted(address,address,bytes)` | (`user?`: ``null``, `relayerAddress?`: ``null``, `functionSignature?`: ``null``) => `MetaTransactionExecutedEventFilter` |
-| `PaymentTokenUpdated` | (`agent?`: ``null``, `streamingPaymentId?`: ``null`` \| `BigNumberish`, `amount?`: ``null``, `interval?`: ``null``) => `PaymentTokenUpdatedEventFilter` |
-| `PaymentTokenUpdated(address,uint256,uint256,uint256)` | (`agent?`: ``null``, `streamingPaymentId?`: ``null`` \| `BigNumberish`, `amount?`: ``null``, `interval?`: ``null``) => `PaymentTokenUpdatedEventFilter` |
-| `StartTimeSet` | (`agent?`: ``null``, `streamingPaymentId?`: ``null`` \| `BigNumberish`, `startTime?`: ``null``) => `StartTimeSetEventFilter` |
-| `StartTimeSet(address,uint256,uint256)` | (`agent?`: ``null``, `streamingPaymentId?`: ``null`` \| `BigNumberish`, `startTime?`: ``null``) => `StartTimeSetEventFilter` |
-| `StreamingPaymentClaimed` | (`agent?`: ``null``, `streamingPaymentId?`: ``null`` \| `BigNumberish`, `token?`: ``null``, `amount?`: ``null``) => `StreamingPaymentClaimedEventFilter` |
-| `StreamingPaymentClaimed(address,uint256,address,uint256)` | (`agent?`: ``null``, `streamingPaymentId?`: ``null`` \| `BigNumberish`, `token?`: ``null``, `amount?`: ``null``) => `StreamingPaymentClaimedEventFilter` |
-| `StreamingPaymentCreated` | (`agent?`: ``null``, `streamingPaymentId?`: ``null``) => `StreamingPaymentCreatedEventFilter` |
-| `StreamingPaymentCreated(address,uint256)` | (`agent?`: ``null``, `streamingPaymentId?`: ``null``) => `StreamingPaymentCreatedEventFilter` |
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### streamingPaymentId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`ClaimWaivedEventFilter`
+
+#### ClaimWaived(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### streamingPaymentId?
+
+`null` | `BigNumberish`
+
+##### Returns
+
+`ClaimWaivedEventFilter`
+
+#### EndTimeSet()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### streamingPaymentId?
+
+`null` | `BigNumberish`
+
+###### endTime?
+
+`null`
+
+##### Returns
+
+`EndTimeSetEventFilter`
+
+#### EndTimeSet(address,uint256,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### streamingPaymentId?
+
+`null` | `BigNumberish`
+
+###### endTime?
+
+`null`
+
+##### Returns
+
+`EndTimeSetEventFilter`
+
+#### ExtensionInitialised()
+
+##### Returns
+
+`ExtensionInitialisedEventFilter`
+
+#### ExtensionInitialised()()
+
+##### Returns
+
+`ExtensionInitialisedEventFilter`
+
+#### LogSetAuthority()
+
+##### Parameters
+
+###### authority?
+
+`null` | `string`
+
+##### Returns
+
+`LogSetAuthorityEventFilter`
+
+#### LogSetAuthority(address)()
+
+##### Parameters
+
+###### authority?
+
+`null` | `string`
+
+##### Returns
+
+`LogSetAuthorityEventFilter`
+
+#### LogSetOwner()
+
+##### Parameters
+
+###### owner?
+
+`null` | `string`
+
+##### Returns
+
+`LogSetOwnerEventFilter`
+
+#### LogSetOwner(address)()
+
+##### Parameters
+
+###### owner?
+
+`null` | `string`
+
+##### Returns
+
+`LogSetOwnerEventFilter`
+
+#### MetaTransactionExecuted()
+
+##### Parameters
+
+###### user?
+
+`null`
+
+###### relayerAddress?
+
+`null`
+
+###### functionSignature?
+
+`null`
+
+##### Returns
+
+`MetaTransactionExecutedEventFilter`
+
+#### MetaTransactionExecuted(address,address,bytes)()
+
+##### Parameters
+
+###### user?
+
+`null`
+
+###### relayerAddress?
+
+`null`
+
+###### functionSignature?
+
+`null`
+
+##### Returns
+
+`MetaTransactionExecutedEventFilter`
+
+#### PaymentTokenUpdated()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### streamingPaymentId?
+
+`null` | `BigNumberish`
+
+###### amount?
+
+`null`
+
+###### interval?
+
+`null`
+
+##### Returns
+
+`PaymentTokenUpdatedEventFilter`
+
+#### PaymentTokenUpdated(address,uint256,uint256,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### streamingPaymentId?
+
+`null` | `BigNumberish`
+
+###### amount?
+
+`null`
+
+###### interval?
+
+`null`
+
+##### Returns
+
+`PaymentTokenUpdatedEventFilter`
+
+#### StartTimeSet()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### streamingPaymentId?
+
+`null` | `BigNumberish`
+
+###### startTime?
+
+`null`
+
+##### Returns
+
+`StartTimeSetEventFilter`
+
+#### StartTimeSet(address,uint256,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### streamingPaymentId?
+
+`null` | `BigNumberish`
+
+###### startTime?
+
+`null`
+
+##### Returns
+
+`StartTimeSetEventFilter`
+
+#### StreamingPaymentClaimed()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### streamingPaymentId?
+
+`null` | `BigNumberish`
+
+###### token?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`StreamingPaymentClaimedEventFilter`
+
+#### StreamingPaymentClaimed(address,uint256,address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### streamingPaymentId?
+
+`null` | `BigNumberish`
+
+###### token?
+
+`null`
+
+###### amount?
+
+`null`
+
+##### Returns
+
+`StreamingPaymentClaimedEventFilter`
+
+#### StreamingPaymentCreated()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### streamingPaymentId?
+
+`null`
+
+##### Returns
+
+`StreamingPaymentCreatedEventFilter`
+
+#### StreamingPaymentCreated(address,uint256)()
+
+##### Parameters
+
+###### agent?
+
+`null`
+
+###### streamingPaymentId?
+
+`null`
+
+##### Returns
+
+`StreamingPaymentCreatedEventFilter`
 
 #### Inherited from
 
-AugmentedStreamingPayments.filters
+`AugmentedStreamingPayments.filters`
 
-___
+***
 
 ### functions
 
-• **functions**: `Object`
+> **functions**: `object`
 
-#### Type declaration
+#### authority()
 
-| Name | Type |
-| :------ | :------ |
-| `authority` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `authority()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `cancel` | (`_adminPermissionDomainId`: `BigNumberish`, `_adminChildSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `cancel(uint256,uint256,uint256)` | (`_adminPermissionDomainId`: `BigNumberish`, `_adminChildSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `cancelAndWaive` | (`_id`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `cancelAndWaive(uint256)` | (`_id`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `claim` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_fromChildSkillIndex`: `BigNumberish`, `_toChildSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `claim(uint256,uint256,uint256,uint256,uint256)` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_fromChildSkillIndex`: `BigNumberish`, `_toChildSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `create` | (`_fundingPermissionDomainId`: `BigNumberish`, `_fundingChildSkillIndex`: `BigNumberish`, `_adminPermissionDomainId`: `BigNumberish`, `_adminChildSkillIndex`: `BigNumberish`, `_domainId`: `BigNumberish`, `_startTime`: `BigNumberish`, `_endTime`: `BigNumberish`, `_interval`: `BigNumberish`, `_recipient`: `string`, `_token`: `string`, `_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `create(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address,address,uint256)` | (`_fundingPermissionDomainId`: `BigNumberish`, `_fundingChildSkillIndex`: `BigNumberish`, `_adminPermissionDomainId`: `BigNumberish`, `_adminChildSkillIndex`: `BigNumberish`, `_domainId`: `BigNumberish`, `_startTime`: `BigNumberish`, `_endTime`: `BigNumberish`, `_interval`: `BigNumberish`, `_recipient`: `string`, `_token`: `string`, `_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `deprecate` | (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `deprecate(bool)` | (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `executeMetaTransaction` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `finishUpgrade` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `finishUpgrade()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `getAmountClaimableLifetime` | (`_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `amount`: `BigNumber`  }\> |
-| `getAmountClaimableLifetime(uint256)` | (`_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `amount`: `BigNumber`  }\> |
-| `getAmountEntitledFromStart` | (`_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `amount`: `BigNumber`  }\> |
-| `getAmountEntitledFromStart(uint256)` | (`_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `amount`: `BigNumber`  }\> |
-| `getCapabilityRoles` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `getCapabilityRoles(bytes4)` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `getColony()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
-| `getDeprecated()` | (`overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
-| `getMetatransactionNonce` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
-| `getMetatransactionNonce(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nonce`: `BigNumber`  }\> |
-| `getNUnresolvedStreamingPayments` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nUnresolvedPayments`: `BigNumber`  }\> |
-| `getNUnresolvedStreamingPayments()` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `nUnresolvedPayments`: `BigNumber`  }\> |
-| `getNumStreamingPayments` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `numPayments`: `BigNumber`  }\> |
-| `getNumStreamingPayments()` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `numPayments`: `BigNumber`  }\> |
-| `getStreamingPayment` | (`_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`StreamingPaymentStructOutput`] & { `streamingPayment`: `StreamingPaymentStructOutput`  }\> |
-| `getStreamingPayment(uint256)` | (`_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`StreamingPaymentStructOutput`] & { `streamingPayment`: `StreamingPaymentStructOutput`  }\> |
-| `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_identifier`: `string`  }\> |
-| `identifier()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`] & { `_identifier`: `string`  }\> |
-| `install` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `install(address)` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `multicall` | (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `multicall(bytes[])` | (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `owner` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `owner()` | (`overrides?`: `CallOverrides`) => `Promise`<[`string`]\> |
-| `setAuthority` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `setAuthority(address)` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `setEndTime` | (`_adminPermissionDomainId`: `BigNumberish`, `_adminChildSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `_endTime`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `setEndTime(uint256,uint256,uint256,uint256)` | (`_adminPermissionDomainId`: `BigNumberish`, `_adminChildSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `_endTime`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `setOwner` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `setOwner(address)` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `setStartTime` | (`_adminPermissionDomainId`: `BigNumberish`, `_adminChildSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `_startTime`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `setStartTime(uint256,uint256,uint256,uint256)` | (`_adminPermissionDomainId`: `BigNumberish`, `_adminChildSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `_startTime`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `setTokenAmount` | (`_fundingPermissionDomainId`: `BigNumberish`, `_fundingChildSkillIndex`: `BigNumberish`, `_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_fromChildSkillIndex`: `BigNumberish`, `_toChildSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `_amount`: `BigNumberish`, `_interval`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `setTokenAmount(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256)` | (`_fundingPermissionDomainId`: `BigNumberish`, `_fundingChildSkillIndex`: `BigNumberish`, `_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_fromChildSkillIndex`: `BigNumberish`, `_toChildSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `_amount`: `BigNumberish`, `_interval`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `uninstall` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `uninstall()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`ContractTransaction`\> |
-| `verify` | (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
-| `verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
-| `version` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_version`: `BigNumber`  }\> |
-| `version()` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`] & { `_version`: `BigNumber`  }\> |
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`string`\]\>
+
+#### authority()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`string`\]\>
+
+#### cancel()
+
+##### Parameters
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### cancel(uint256,uint256,uint256)()
+
+##### Parameters
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### cancelAndWaive()
+
+##### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### cancelAndWaive(uint256)()
+
+##### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### claim()
+
+##### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_fromChildSkillIndex
+
+`BigNumberish`
+
+###### \_toChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### claim(uint256,uint256,uint256,uint256,uint256)()
+
+##### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_fromChildSkillIndex
+
+`BigNumberish`
+
+###### \_toChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### create()
+
+##### Parameters
+
+###### \_fundingPermissionDomainId
+
+`BigNumberish`
+
+###### \_fundingChildSkillIndex
+
+`BigNumberish`
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_domainId
+
+`BigNumberish`
+
+###### \_startTime
+
+`BigNumberish`
+
+###### \_endTime
+
+`BigNumberish`
+
+###### \_interval
+
+`BigNumberish`
+
+###### \_recipient
+
+`string`
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### create(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address,address,uint256)()
+
+##### Parameters
+
+###### \_fundingPermissionDomainId
+
+`BigNumberish`
+
+###### \_fundingChildSkillIndex
+
+`BigNumberish`
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_domainId
+
+`BigNumberish`
+
+###### \_startTime
+
+`BigNumberish`
+
+###### \_endTime
+
+`BigNumberish`
+
+###### \_interval
+
+`BigNumberish`
+
+###### \_recipient
+
+`string`
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### deprecate()
+
+##### Parameters
+
+###### \_deprecated
+
+`boolean`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### deprecate(bool)()
+
+##### Parameters
+
+###### \_deprecated
+
+`boolean`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### executeMetaTransaction()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`PayableOverrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`PayableOverrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### finishUpgrade()
+
+##### Parameters
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### finishUpgrade()()
+
+##### Parameters
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### getAmountClaimableLifetime()
+
+##### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\] & `object`\>
+
+#### getAmountClaimableLifetime(uint256)()
+
+##### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\] & `object`\>
+
+#### getAmountEntitledFromStart()
+
+##### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\] & `object`\>
+
+#### getAmountEntitledFromStart(uint256)()
+
+##### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\] & `object`\>
+
+#### getCapabilityRoles()
+
+##### Parameters
+
+###### \_sig
+
+`BytesLike`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`string`\]\>
+
+#### getCapabilityRoles(bytes4)()
+
+##### Parameters
+
+###### \_sig
+
+`BytesLike`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`string`\]\>
+
+#### getColony()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`string`\]\>
+
+#### getColony()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`string`\]\>
+
+#### getDeprecated()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`boolean`\]\>
+
+#### getDeprecated()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`boolean`\]\>
+
+#### getMetatransactionNonce()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\] & `object`\>
+
+#### getMetatransactionNonce(address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\] & `object`\>
+
+#### getNumStreamingPayments()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\] & `object`\>
+
+#### getNumStreamingPayments()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\] & `object`\>
+
+#### getNUnresolvedStreamingPayments()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\] & `object`\>
+
+#### getNUnresolvedStreamingPayments()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\] & `object`\>
+
+#### getStreamingPayment()
+
+##### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`StreamingPaymentStructOutput`\] & `object`\>
+
+#### getStreamingPayment(uint256)()
+
+##### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`StreamingPaymentStructOutput`\] & `object`\>
+
+#### identifier()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`string`\] & `object`\>
+
+#### identifier()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`string`\] & `object`\>
+
+#### install()
+
+##### Parameters
+
+###### \_colony
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### install(address)()
+
+##### Parameters
+
+###### \_colony
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### multicall()
+
+##### Parameters
+
+###### data
+
+`BytesLike`[]
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### multicall(bytes\[\])()
+
+##### Parameters
+
+###### data
+
+`BytesLike`[]
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### owner()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`string`\]\>
+
+#### owner()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`string`\]\>
+
+#### setAuthority()
+
+##### Parameters
+
+###### authority\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### setAuthority(address)()
+
+##### Parameters
+
+###### authority\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### setEndTime()
+
+##### Parameters
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### \_endTime
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### setEndTime(uint256,uint256,uint256,uint256)()
+
+##### Parameters
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### \_endTime
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### setOwner()
+
+##### Parameters
+
+###### owner\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### setOwner(address)()
+
+##### Parameters
+
+###### owner\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### setStartTime()
+
+##### Parameters
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### \_startTime
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### setStartTime(uint256,uint256,uint256,uint256)()
+
+##### Parameters
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### \_startTime
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### setTokenAmount()
+
+##### Parameters
+
+###### \_fundingPermissionDomainId
+
+`BigNumberish`
+
+###### \_fundingChildSkillIndex
+
+`BigNumberish`
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_fromChildSkillIndex
+
+`BigNumberish`
+
+###### \_toChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_interval
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### setTokenAmount(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256)()
+
+##### Parameters
+
+###### \_fundingPermissionDomainId
+
+`BigNumberish`
+
+###### \_fundingChildSkillIndex
+
+`BigNumberish`
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_fromChildSkillIndex
+
+`BigNumberish`
+
+###### \_toChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_interval
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### uninstall()
+
+##### Parameters
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### uninstall()()
+
+##### Parameters
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### verify()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_nonce
+
+`BigNumberish`
+
+###### \_chainId
+
+`BigNumberish`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`boolean`\]\>
+
+#### verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_nonce
+
+`BigNumberish`
+
+###### \_chainId
+
+`BigNumberish`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`boolean`\]\>
+
+#### version()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\] & `object`\>
+
+#### version()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<\[`BigNumber`\] & `object`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.functions
+`AugmentedStreamingPayments.functions`
 
-___
+***
 
 ### interface
 
-• **interface**: `StreamingPaymentsInterface`
+> **interface**: `StreamingPaymentsInterface`
 
 #### Inherited from
 
-AugmentedStreamingPayments.interface
+`AugmentedStreamingPayments.interface`
 
-___
+***
 
 ### off
 
-• **off**: `OnEvent`<[`StreamingPaymentsClientV5`](StreamingPaymentsClientV5.md)\>
+> **off**: `OnEvent`\<[`StreamingPaymentsClientV5`](StreamingPaymentsClientV5.md)\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.off
+`AugmentedStreamingPayments.off`
 
-___
+***
 
 ### on
 
-• **on**: `OnEvent`<[`StreamingPaymentsClientV5`](StreamingPaymentsClientV5.md)\>
+> **on**: `OnEvent`\<[`StreamingPaymentsClientV5`](StreamingPaymentsClientV5.md)\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.on
+`AugmentedStreamingPayments.on`
 
-___
+***
 
 ### once
 
-• **once**: `OnEvent`<[`StreamingPaymentsClientV5`](StreamingPaymentsClientV5.md)\>
+> **once**: `OnEvent`\<[`StreamingPaymentsClientV5`](StreamingPaymentsClientV5.md)\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.once
+`AugmentedStreamingPayments.once`
 
-___
+***
 
 ### populateTransaction
 
-• **populateTransaction**: `Object`
+> **populateTransaction**: `object`
 
-#### Type declaration
+#### authority()
 
-| Name | Type |
-| :------ | :------ |
-| `authority` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `authority()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `cancel` | (`_adminPermissionDomainId`: `BigNumberish`, `_adminChildSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `cancel(uint256,uint256,uint256)` | (`_adminPermissionDomainId`: `BigNumberish`, `_adminChildSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `cancelAndWaive` | (`_id`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `cancelAndWaive(uint256)` | (`_id`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `claim` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_fromChildSkillIndex`: `BigNumberish`, `_toChildSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `claim(uint256,uint256,uint256,uint256,uint256)` | (`_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_fromChildSkillIndex`: `BigNumberish`, `_toChildSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `create` | (`_fundingPermissionDomainId`: `BigNumberish`, `_fundingChildSkillIndex`: `BigNumberish`, `_adminPermissionDomainId`: `BigNumberish`, `_adminChildSkillIndex`: `BigNumberish`, `_domainId`: `BigNumberish`, `_startTime`: `BigNumberish`, `_endTime`: `BigNumberish`, `_interval`: `BigNumberish`, `_recipient`: `string`, `_token`: `string`, `_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `create(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address,address,uint256)` | (`_fundingPermissionDomainId`: `BigNumberish`, `_fundingChildSkillIndex`: `BigNumberish`, `_adminPermissionDomainId`: `BigNumberish`, `_adminChildSkillIndex`: `BigNumberish`, `_domainId`: `BigNumberish`, `_startTime`: `BigNumberish`, `_endTime`: `BigNumberish`, `_interval`: `BigNumberish`, `_recipient`: `string`, `_token`: `string`, `_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `deprecate` | (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `deprecate(bool)` | (`_deprecated`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `executeMetaTransaction` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `PayableOverrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `finishUpgrade` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `finishUpgrade()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `getAmountClaimableLifetime` | (`_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getAmountClaimableLifetime(uint256)` | (`_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getAmountEntitledFromStart` | (`_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getAmountEntitledFromStart(uint256)` | (`_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getCapabilityRoles` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getCapabilityRoles(bytes4)` | (`_sig`: `BytesLike`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getColony` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getColony()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getDeprecated` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getDeprecated()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getMetatransactionNonce` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getMetatransactionNonce(address)` | (`_user`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getNUnresolvedStreamingPayments` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getNUnresolvedStreamingPayments()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getNumStreamingPayments` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getNumStreamingPayments()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getStreamingPayment` | (`_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `getStreamingPayment(uint256)` | (`_id`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `identifier` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `identifier()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `install` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `install(address)` | (`_colony`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `multicall` | (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `multicall(bytes[])` | (`data`: `BytesLike`[], `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `owner` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `owner()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `setAuthority` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `setAuthority(address)` | (`authority_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `setEndTime` | (`_adminPermissionDomainId`: `BigNumberish`, `_adminChildSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `_endTime`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `setEndTime(uint256,uint256,uint256,uint256)` | (`_adminPermissionDomainId`: `BigNumberish`, `_adminChildSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `_endTime`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `setOwner` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `setOwner(address)` | (`owner_`: `string`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `setStartTime` | (`_adminPermissionDomainId`: `BigNumberish`, `_adminChildSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `_startTime`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `setStartTime(uint256,uint256,uint256,uint256)` | (`_adminPermissionDomainId`: `BigNumberish`, `_adminChildSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `_startTime`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `setTokenAmount` | (`_fundingPermissionDomainId`: `BigNumberish`, `_fundingChildSkillIndex`: `BigNumberish`, `_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_fromChildSkillIndex`: `BigNumberish`, `_toChildSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `_amount`: `BigNumberish`, `_interval`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `setTokenAmount(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256)` | (`_fundingPermissionDomainId`: `BigNumberish`, `_fundingChildSkillIndex`: `BigNumberish`, `_permissionDomainId`: `BigNumberish`, `_childSkillIndex`: `BigNumberish`, `_fromChildSkillIndex`: `BigNumberish`, `_toChildSkillIndex`: `BigNumberish`, `_id`: `BigNumberish`, `_amount`: `BigNumberish`, `_interval`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `uninstall` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `uninstall()` | (`overrides?`: `Overrides` & { `from?`: `string`  }) => `Promise`<`PopulatedTransaction`\> |
-| `verify` | (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)` | (`_user`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `version` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
-| `version()` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### authority()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### cancel()
+
+##### Parameters
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### cancel(uint256,uint256,uint256)()
+
+##### Parameters
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### cancelAndWaive()
+
+##### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### cancelAndWaive(uint256)()
+
+##### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### claim()
+
+##### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_fromChildSkillIndex
+
+`BigNumberish`
+
+###### \_toChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### claim(uint256,uint256,uint256,uint256,uint256)()
+
+##### Parameters
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_fromChildSkillIndex
+
+`BigNumberish`
+
+###### \_toChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### create()
+
+##### Parameters
+
+###### \_fundingPermissionDomainId
+
+`BigNumberish`
+
+###### \_fundingChildSkillIndex
+
+`BigNumberish`
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_domainId
+
+`BigNumberish`
+
+###### \_startTime
+
+`BigNumberish`
+
+###### \_endTime
+
+`BigNumberish`
+
+###### \_interval
+
+`BigNumberish`
+
+###### \_recipient
+
+`string`
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### create(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address,address,uint256)()
+
+##### Parameters
+
+###### \_fundingPermissionDomainId
+
+`BigNumberish`
+
+###### \_fundingChildSkillIndex
+
+`BigNumberish`
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_domainId
+
+`BigNumberish`
+
+###### \_startTime
+
+`BigNumberish`
+
+###### \_endTime
+
+`BigNumberish`
+
+###### \_interval
+
+`BigNumberish`
+
+###### \_recipient
+
+`string`
+
+###### \_token
+
+`string`
+
+###### \_amount
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### deprecate()
+
+##### Parameters
+
+###### \_deprecated
+
+`boolean`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### deprecate(bool)()
+
+##### Parameters
+
+###### \_deprecated
+
+`boolean`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### executeMetaTransaction()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`PayableOverrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`PayableOverrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### finishUpgrade()
+
+##### Parameters
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### finishUpgrade()()
+
+##### Parameters
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getAmountClaimableLifetime()
+
+##### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getAmountClaimableLifetime(uint256)()
+
+##### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getAmountEntitledFromStart()
+
+##### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getAmountEntitledFromStart(uint256)()
+
+##### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getCapabilityRoles()
+
+##### Parameters
+
+###### \_sig
+
+`BytesLike`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getCapabilityRoles(bytes4)()
+
+##### Parameters
+
+###### \_sig
+
+`BytesLike`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getColony()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getColony()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getDeprecated()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getDeprecated()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getMetatransactionNonce()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getMetatransactionNonce(address)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getNumStreamingPayments()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getNumStreamingPayments()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getNUnresolvedStreamingPayments()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getNUnresolvedStreamingPayments()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getStreamingPayment()
+
+##### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### getStreamingPayment(uint256)()
+
+##### Parameters
+
+###### \_id
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### identifier()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### identifier()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### install()
+
+##### Parameters
+
+###### \_colony
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### install(address)()
+
+##### Parameters
+
+###### \_colony
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### multicall()
+
+##### Parameters
+
+###### data
+
+`BytesLike`[]
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### multicall(bytes\[\])()
+
+##### Parameters
+
+###### data
+
+`BytesLike`[]
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### owner()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### owner()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### setAuthority()
+
+##### Parameters
+
+###### authority\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### setAuthority(address)()
+
+##### Parameters
+
+###### authority\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### setEndTime()
+
+##### Parameters
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### \_endTime
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### setEndTime(uint256,uint256,uint256,uint256)()
+
+##### Parameters
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### \_endTime
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### setOwner()
+
+##### Parameters
+
+###### owner\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### setOwner(address)()
+
+##### Parameters
+
+###### owner\_
+
+`string`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### setStartTime()
+
+##### Parameters
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### \_startTime
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### setStartTime(uint256,uint256,uint256,uint256)()
+
+##### Parameters
+
+###### \_adminPermissionDomainId
+
+`BigNumberish`
+
+###### \_adminChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### \_startTime
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### setTokenAmount()
+
+##### Parameters
+
+###### \_fundingPermissionDomainId
+
+`BigNumberish`
+
+###### \_fundingChildSkillIndex
+
+`BigNumberish`
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_fromChildSkillIndex
+
+`BigNumberish`
+
+###### \_toChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_interval
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### setTokenAmount(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256)()
+
+##### Parameters
+
+###### \_fundingPermissionDomainId
+
+`BigNumberish`
+
+###### \_fundingChildSkillIndex
+
+`BigNumberish`
+
+###### \_permissionDomainId
+
+`BigNumberish`
+
+###### \_childSkillIndex
+
+`BigNumberish`
+
+###### \_fromChildSkillIndex
+
+`BigNumberish`
+
+###### \_toChildSkillIndex
+
+`BigNumberish`
+
+###### \_id
+
+`BigNumberish`
+
+###### \_amount
+
+`BigNumberish`
+
+###### \_interval
+
+`BigNumberish`
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### uninstall()
+
+##### Parameters
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### uninstall()()
+
+##### Parameters
+
+###### overrides?
+
+`Overrides` & `object`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### verify()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_nonce
+
+`BigNumberish`
+
+###### \_chainId
+
+`BigNumberish`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)()
+
+##### Parameters
+
+###### \_user
+
+`string`
+
+###### \_nonce
+
+`BigNumberish`
+
+###### \_chainId
+
+`BigNumberish`
+
+###### \_payload
+
+`BytesLike`
+
+###### \_sigR
+
+`BytesLike`
+
+###### \_sigS
+
+`BytesLike`
+
+###### \_sigV
+
+`BigNumberish`
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### version()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
+
+#### version()()
+
+##### Parameters
+
+###### overrides?
+
+`CallOverrides`
+
+##### Returns
+
+`Promise`\<`PopulatedTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.populateTransaction
+`AugmentedStreamingPayments.populateTransaction`
 
-___
+***
 
 ### provider
 
-• `Readonly` **provider**: `Provider`
+> `readonly` **provider**: `Provider`
 
 #### Inherited from
 
-AugmentedStreamingPayments.provider
+`AugmentedStreamingPayments.provider`
 
-___
+***
 
 ### removeListener
 
-• **removeListener**: `OnEvent`<[`StreamingPaymentsClientV5`](StreamingPaymentsClientV5.md)\>
+> **removeListener**: `OnEvent`\<[`StreamingPaymentsClientV5`](StreamingPaymentsClientV5.md)\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.removeListener
+`AugmentedStreamingPayments.removeListener`
 
-___
+***
 
 ### resolvedAddress
 
-• `Readonly` **resolvedAddress**: `Promise`<`string`\>
+> `readonly` **resolvedAddress**: `Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.resolvedAddress
+`AugmentedStreamingPayments.resolvedAddress`
 
-___
+***
 
 ### signer
 
-• `Readonly` **signer**: `Signer`
+> `readonly` **signer**: `Signer`
 
 #### Inherited from
 
-AugmentedStreamingPayments.signer
+`AugmentedStreamingPayments.signer`
 
-___
+***
 
 ### streamingPaymentsEvents
 
-• **streamingPaymentsEvents**: `StreamingPaymentsEvents`
+> **streamingPaymentsEvents**: `StreamingPaymentsEvents`
 
 The streamingPaymentsEvents contract supports all events across all versions.
 Isn't that amazing?
@@ -452,19 +5254,19 @@ It's an ethers contract with only events to filter
 
 #### Inherited from
 
-AugmentedStreamingPayments.streamingPaymentsEvents
+`AugmentedStreamingPayments.streamingPaymentsEvents`
 
 ## Methods
 
-### \_checkRunningEvents
+### \_checkRunningEvents()
 
-▸ **_checkRunningEvents**(`runningEvent`): `void`
+> **\_checkRunningEvents**(`runningEvent`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `runningEvent` | `RunningEvent` |
+##### runningEvent
+
+`RunningEvent`
 
 #### Returns
 
@@ -472,41 +5274,47 @@ AugmentedStreamingPayments.streamingPaymentsEvents
 
 #### Inherited from
 
-AugmentedStreamingPayments.\_checkRunningEvents
+`AugmentedStreamingPayments._checkRunningEvents`
 
-___
+***
 
-### \_deployed
+### \_deployed()
 
-▸ **_deployed**(`blockTag?`): `Promise`<`Contract`\>
+> **\_deployed**(`blockTag`?): `Promise`\<`Contract`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `blockTag?` | `BlockTag` |
+##### blockTag?
+
+`BlockTag`
 
 #### Returns
 
-`Promise`<`Contract`\>
+`Promise`\<`Contract`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.\_deployed
+`AugmentedStreamingPayments._deployed`
 
-___
+***
 
-### \_wrapEvent
+### \_wrapEvent()
 
-▸ **_wrapEvent**(`runningEvent`, `log`, `listener`): `Event`
+> **\_wrapEvent**(`runningEvent`, `log`, `listener`): `Event`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `runningEvent` | `RunningEvent` |
-| `log` | `Log` |
-| `listener` | `Listener` |
+##### runningEvent
+
+`RunningEvent`
+
+##### log
+
+`Log`
+
+##### listener
+
+`Listener`
 
 #### Returns
 
@@ -514,434 +5322,604 @@ ___
 
 #### Inherited from
 
-AugmentedStreamingPayments.\_wrapEvent
+`AugmentedStreamingPayments._wrapEvent`
 
-___
+***
 
-### attach
+### attach()
 
-▸ **attach**(`addressOrName`): [`StreamingPaymentsClientV5`](StreamingPaymentsClientV5.md)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `addressOrName` | `string` |
-
-#### Returns
-
-[`StreamingPaymentsClientV5`](StreamingPaymentsClientV5.md)
-
-#### Inherited from
-
-AugmentedStreamingPayments.attach
-
-___
-
-### authority
-
-▸ **authority**(`overrides?`): `Promise`<`string`\>
+> **attach**(`addressOrName`): `this`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### addressOrName
+
+`string`
 
 #### Returns
 
-`Promise`<`string`\>
+`this`
 
 #### Inherited from
 
-AugmentedStreamingPayments.authority
+`AugmentedStreamingPayments.attach`
 
-___
+***
 
 ### authority()
 
-▸ **authority()**(`overrides?`): `Promise`<`string`\>
+> **authority**(`overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.authority()
+`AugmentedStreamingPayments.authority`
 
-___
+***
 
-### cancel
+### authority()()
 
-▸ **cancel**(`_adminPermissionDomainId`, `_adminChildSkillIndex`, `_id`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **authority()**(`overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_adminPermissionDomainId` | `BigNumberish` |
-| `_adminChildSkillIndex` | `BigNumberish` |
-| `_id` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.cancel
+`AugmentedStreamingPayments.authority()`
 
-___
+***
 
-### cancel(uint256,uint256,uint256)
+### cancel()
 
-▸ **cancel(uint256,uint256,uint256)**(`_adminPermissionDomainId`, `_adminChildSkillIndex`, `_id`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **cancel**(`_adminPermissionDomainId`, `_adminChildSkillIndex`, `_id`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_adminPermissionDomainId` | `BigNumberish` |
-| `_adminChildSkillIndex` | `BigNumberish` |
-| `_id` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_adminPermissionDomainId
+
+`BigNumberish`
+
+##### \_adminChildSkillIndex
+
+`BigNumberish`
+
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.cancel(uint256,uint256,uint256)
+`AugmentedStreamingPayments.cancel`
 
-___
+***
 
-### cancelAndWaive
+### cancel(uint256,uint256,uint256)()
 
-▸ **cancelAndWaive**(`_id`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **cancel(uint256,uint256,uint256)**(`_adminPermissionDomainId`, `_adminChildSkillIndex`, `_id`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_adminPermissionDomainId
+
+`BigNumberish`
+
+##### \_adminChildSkillIndex
+
+`BigNumberish`
+
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.cancelAndWaive
+`AugmentedStreamingPayments.cancel(uint256,uint256,uint256)`
 
-___
+***
 
-### cancelAndWaive(uint256)
+### cancelAndWaive()
 
-▸ **cancelAndWaive(uint256)**(`_id`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **cancelAndWaive**(`_id`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.cancelAndWaive(uint256)
+`AugmentedStreamingPayments.cancelAndWaive`
 
-___
+***
 
-### cancelWithProofs
+### cancelAndWaive(uint256)()
 
-▸ **cancelWithProofs**(`_id`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **cancelAndWaive(uint256)**(`_id`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
-Same as [cancel](StreamingPaymentsClientV5.md#cancel), but let colonyJS figure out the permission proofs for you.
+#### Parameters
+
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
+
+#### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### Inherited from
+
+`AugmentedStreamingPayments.cancelAndWaive(uint256)`
+
+***
+
+### cancelWithProofs()
+
+> **cancelWithProofs**(`_id`, `overrides`?): `Promise`\<`ContractTransaction`\>
+
+Same as [cancel](StreamingPaymentsClientV5.md#cancel-18), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_id` | `BigNumberish` | The id of the streaming payment |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+##### \_id
+
+`BigNumberish`
+
+The id of the streaming payment
+
+##### overrides?
+
+[`TxOverrides`](../type-aliases/TxOverrides.md)
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.cancelWithProofs
+`AugmentedStreamingPayments.cancelWithProofs`
 
-___
+***
 
-### claim
+### claim()
 
-▸ **claim**(`_permissionDomainId`, `_childSkillIndex`, `_fromChildSkillIndex`, `_toChildSkillIndex`, `_id`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **claim**(`_permissionDomainId`, `_childSkillIndex`, `_fromChildSkillIndex`, `_toChildSkillIndex`, `_id`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_fromChildSkillIndex` | `BigNumberish` |
-| `_toChildSkillIndex` | `BigNumberish` |
-| `_id` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_fromChildSkillIndex
+
+`BigNumberish`
+
+##### \_toChildSkillIndex
+
+`BigNumberish`
+
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.claim
+`AugmentedStreamingPayments.claim`
 
-___
+***
 
-### claim(uint256,uint256,uint256,uint256,uint256)
+### claim(uint256,uint256,uint256,uint256,uint256)()
 
-▸ **claim(uint256,uint256,uint256,uint256,uint256)**(`_permissionDomainId`, `_childSkillIndex`, `_fromChildSkillIndex`, `_toChildSkillIndex`, `_id`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **claim(uint256,uint256,uint256,uint256,uint256)**(`_permissionDomainId`, `_childSkillIndex`, `_fromChildSkillIndex`, `_toChildSkillIndex`, `_id`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_fromChildSkillIndex` | `BigNumberish` |
-| `_toChildSkillIndex` | `BigNumberish` |
-| `_id` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_fromChildSkillIndex
+
+`BigNumberish`
+
+##### \_toChildSkillIndex
+
+`BigNumberish`
+
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.claim(uint256,uint256,uint256,uint256,uint256)
+`AugmentedStreamingPayments.claim(uint256,uint256,uint256,uint256,uint256)`
 
-___
+***
 
-### claimWithProofs
+### claimWithProofs()
 
-▸ **claimWithProofs**(`_id`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **claimWithProofs**(`_id`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
-Same as [claim](StreamingPaymentsClientV5.md#claim), but let colonyJS figure out the permission proofs for you.
+Same as [claim](StreamingPaymentsClientV5.md#claim-18), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_id` | `BigNumberish` | The id of the streaming payment |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+##### \_id
+
+`BigNumberish`
+
+The id of the streaming payment
+
+##### overrides?
+
+[`TxOverrides`](../type-aliases/TxOverrides.md)
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.claimWithProofs
+`AugmentedStreamingPayments.claimWithProofs`
 
-___
+***
 
-### connect
+### connect()
 
-▸ **connect**(`signerOrProvider`): [`StreamingPaymentsClientV5`](StreamingPaymentsClientV5.md)
+> **connect**(`signerOrProvider`): `this`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `signerOrProvider` | `string` \| `Signer` \| `Provider` |
+##### signerOrProvider
+
+`string` | `Signer` | `Provider`
 
 #### Returns
 
-[`StreamingPaymentsClientV5`](StreamingPaymentsClientV5.md)
+`this`
 
 #### Inherited from
 
-AugmentedStreamingPayments.connect
+`AugmentedStreamingPayments.connect`
 
-___
+***
 
-### create
+### create()
 
-▸ **create**(`_fundingPermissionDomainId`, `_fundingChildSkillIndex`, `_adminPermissionDomainId`, `_adminChildSkillIndex`, `_domainId`, `_startTime`, `_endTime`, `_interval`, `_recipient`, `_token`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **create**(`_fundingPermissionDomainId`, `_fundingChildSkillIndex`, `_adminPermissionDomainId`, `_adminChildSkillIndex`, `_domainId`, `_startTime`, `_endTime`, `_interval`, `_recipient`, `_token`, `_amount`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_fundingPermissionDomainId` | `BigNumberish` |
-| `_fundingChildSkillIndex` | `BigNumberish` |
-| `_adminPermissionDomainId` | `BigNumberish` |
-| `_adminChildSkillIndex` | `BigNumberish` |
-| `_domainId` | `BigNumberish` |
-| `_startTime` | `BigNumberish` |
-| `_endTime` | `BigNumberish` |
-| `_interval` | `BigNumberish` |
-| `_recipient` | `string` |
-| `_token` | `string` |
-| `_amount` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_fundingPermissionDomainId
+
+`BigNumberish`
+
+##### \_fundingChildSkillIndex
+
+`BigNumberish`
+
+##### \_adminPermissionDomainId
+
+`BigNumberish`
+
+##### \_adminChildSkillIndex
+
+`BigNumberish`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_startTime
+
+`BigNumberish`
+
+##### \_endTime
+
+`BigNumberish`
+
+##### \_interval
+
+`BigNumberish`
+
+##### \_recipient
+
+`string`
+
+##### \_token
+
+`string`
+
+##### \_amount
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.create
+`AugmentedStreamingPayments.create`
 
-___
+***
 
-### create(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address,address,uint256)
+### create(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address,address,uint256)()
 
-▸ **create(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address,address,uint256)**(`_fundingPermissionDomainId`, `_fundingChildSkillIndex`, `_adminPermissionDomainId`, `_adminChildSkillIndex`, `_domainId`, `_startTime`, `_endTime`, `_interval`, `_recipient`, `_token`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **create(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address,address,uint256)**(`_fundingPermissionDomainId`, `_fundingChildSkillIndex`, `_adminPermissionDomainId`, `_adminChildSkillIndex`, `_domainId`, `_startTime`, `_endTime`, `_interval`, `_recipient`, `_token`, `_amount`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_fundingPermissionDomainId` | `BigNumberish` |
-| `_fundingChildSkillIndex` | `BigNumberish` |
-| `_adminPermissionDomainId` | `BigNumberish` |
-| `_adminChildSkillIndex` | `BigNumberish` |
-| `_domainId` | `BigNumberish` |
-| `_startTime` | `BigNumberish` |
-| `_endTime` | `BigNumberish` |
-| `_interval` | `BigNumberish` |
-| `_recipient` | `string` |
-| `_token` | `string` |
-| `_amount` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_fundingPermissionDomainId
+
+`BigNumberish`
+
+##### \_fundingChildSkillIndex
+
+`BigNumberish`
+
+##### \_adminPermissionDomainId
+
+`BigNumberish`
+
+##### \_adminChildSkillIndex
+
+`BigNumberish`
+
+##### \_domainId
+
+`BigNumberish`
+
+##### \_startTime
+
+`BigNumberish`
+
+##### \_endTime
+
+`BigNumberish`
+
+##### \_interval
+
+`BigNumberish`
+
+##### \_recipient
+
+`string`
+
+##### \_token
+
+`string`
+
+##### \_amount
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.create(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address,address,uint256)
+`AugmentedStreamingPayments.create(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address,address,uint256)`
 
-___
+***
 
-### createWithProofs
+### createWithProofs()
 
-▸ **createWithProofs**(`_domainId`, `_startTime`, `_endTime`, `_interval`, `_recipient`, `_token`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **createWithProofs**(`_domainId`, `_startTime`, `_endTime`, `_interval`, `_recipient`, `_token`, `_amount`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
-Same as [create](StreamingPaymentsClientV5.md#create), but let colonyJS figure out the permission proofs for you.
+Same as [create](StreamingPaymentsClientV5.md#create-18), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_domainId` | `BigNumberish` | The domain out of which the streaming payment will be paid |
-| `_startTime` | `BigNumberish` | The time at which the payment begins paying out |
-| `_endTime` | `BigNumberish` | The time at which the payment ends paying out |
-| `_interval` | `BigNumberish` | The period of time over which _amounts are paid out |
-| `_recipient` | `string` | The recipient of the streaming payment |
-| `_token` | `string` | - |
-| `_amount` | `BigNumberish` | - |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+##### \_domainId
+
+`BigNumberish`
+
+The domain out of which the streaming payment will be paid
+
+##### \_startTime
+
+`BigNumberish`
+
+The time at which the payment begins paying out
+
+##### \_endTime
+
+`BigNumberish`
+
+The time at which the payment ends paying out
+
+##### \_interval
+
+`BigNumberish`
+
+The period of time over which _amounts are paid out
+
+##### \_recipient
+
+`string`
+
+The recipient of the streaming payment
+
+##### \_token
+
+`string`
+
+##### \_amount
+
+`BigNumberish`
+
+##### overrides?
+
+[`TxOverrides`](../type-aliases/TxOverrides.md)
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.createWithProofs
+`AugmentedStreamingPayments.createWithProofs`
 
-___
+***
 
-### deployed
+### deployed()
 
-▸ **deployed**(): `Promise`<[`StreamingPaymentsClientV5`](StreamingPaymentsClientV5.md)\>
+> **deployed**(): `Promise`\<[`StreamingPaymentsClientV5`](StreamingPaymentsClientV5.md)\>
 
 #### Returns
 
-`Promise`<[`StreamingPaymentsClientV5`](StreamingPaymentsClientV5.md)\>
+`Promise`\<[`StreamingPaymentsClientV5`](StreamingPaymentsClientV5.md)\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.deployed
+`AugmentedStreamingPayments.deployed`
 
-___
+***
 
-### deprecate
+### deprecate()
 
-▸ **deprecate**(`_deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **deprecate**(`_deprecated`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_deprecated` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_deprecated
+
+`boolean`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.deprecate
+`AugmentedStreamingPayments.deprecate`
 
-___
+***
 
-### deprecate(bool)
+### deprecate(bool)()
 
-▸ **deprecate(bool)**(`_deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **deprecate(bool)**(`_deprecated`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_deprecated` | `boolean` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_deprecated
+
+`boolean`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.deprecate(bool)
+`AugmentedStreamingPayments.deprecate(bool)`
 
-___
+***
 
-### emit
+### emit()
 
-▸ **emit**(`eventName`, `...args`): `boolean`
+> **emit**(`eventName`, ...`args`): `boolean`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `eventName` | `string` \| `EventFilter` |
-| `...args` | `any`[] |
+##### eventName
+
+`string` | `EventFilter`
+
+##### args
+
+...`any`[]
 
 #### Returns
 
@@ -949,581 +5927,647 @@ ___
 
 #### Inherited from
 
-AugmentedStreamingPayments.emit
+`AugmentedStreamingPayments.emit`
 
-___
+***
 
-### executeMetaTransaction
+### executeMetaTransaction()
 
-▸ **executeMetaTransaction**(`_user`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_payload` | `BytesLike` |
-| `_sigR` | `BytesLike` |
-| `_sigS` | `BytesLike` |
-| `_sigV` | `BigNumberish` |
-| `overrides?` | `PayableOverrides` & { `from?`: `string`  } |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedStreamingPayments.executeMetaTransaction
-
-___
-
-### executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)
-
-▸ **executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)**(`_user`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **executeMetaTransaction**(`_user`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_payload` | `BytesLike` |
-| `_sigR` | `BytesLike` |
-| `_sigS` | `BytesLike` |
-| `_sigV` | `BigNumberish` |
-| `overrides?` | `PayableOverrides` & { `from?`: `string`  } |
+##### \_user
+
+`string`
+
+##### \_payload
+
+`BytesLike`
+
+##### \_sigR
+
+`BytesLike`
+
+##### \_sigS
+
+`BytesLike`
+
+##### \_sigV
+
+`BigNumberish`
+
+##### overrides?
+
+`PayableOverrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)
+`AugmentedStreamingPayments.executeMetaTransaction`
 
-___
+***
 
-### fallback
+### executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)()
 
-▸ **fallback**(`overrides?`): `Promise`<`TransactionResponse`\>
+> **executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)**(`_user`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `TransactionRequest` |
+##### \_user
+
+`string`
+
+##### \_payload
+
+`BytesLike`
+
+##### \_sigR
+
+`BytesLike`
+
+##### \_sigS
+
+`BytesLike`
+
+##### \_sigV
+
+`BigNumberish`
+
+##### overrides?
+
+`PayableOverrides` & `object`
 
 #### Returns
 
-`Promise`<`TransactionResponse`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.fallback
+`AugmentedStreamingPayments.executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)`
 
-___
+***
 
-### finishUpgrade
+### fallback()
 
-▸ **finishUpgrade**(`overrides?`): `Promise`<`ContractTransaction`\>
+> **fallback**(`overrides`?): `Promise`\<`TransactionResponse`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### overrides?
+
+`TransactionRequest`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`TransactionResponse`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.finishUpgrade
+`AugmentedStreamingPayments.fallback`
 
-___
+***
 
 ### finishUpgrade()
 
-▸ **finishUpgrade()**(`overrides?`): `Promise`<`ContractTransaction`\>
+> **finishUpgrade**(`overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.finishUpgrade()
+`AugmentedStreamingPayments.finishUpgrade`
 
-___
+***
 
-### getAmountClaimableLifetime
+### finishUpgrade()()
 
-▸ **getAmountClaimableLifetime**(`_id`, `overrides?`): `Promise`<`BigNumber`\>
+> **finishUpgrade()**(`overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.getAmountClaimableLifetime
+`AugmentedStreamingPayments.finishUpgrade()`
 
-___
+***
 
-### getAmountClaimableLifetime(uint256)
+### getAmountClaimableLifetime()
 
-▸ **getAmountClaimableLifetime(uint256)**(`_id`, `overrides?`): `Promise`<`BigNumber`\>
+> **getAmountClaimableLifetime**(`_id`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.getAmountClaimableLifetime(uint256)
+`AugmentedStreamingPayments.getAmountClaimableLifetime`
 
-___
+***
 
-### getAmountEntitledFromStart
+### getAmountClaimableLifetime(uint256)()
 
-▸ **getAmountEntitledFromStart**(`_id`, `overrides?`): `Promise`<`BigNumber`\>
+> **getAmountClaimableLifetime(uint256)**(`_id`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.getAmountEntitledFromStart
+`AugmentedStreamingPayments.getAmountClaimableLifetime(uint256)`
 
-___
+***
 
-### getAmountEntitledFromStart(uint256)
+### getAmountEntitledFromStart()
 
-▸ **getAmountEntitledFromStart(uint256)**(`_id`, `overrides?`): `Promise`<`BigNumber`\>
+> **getAmountEntitledFromStart**(`_id`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.getAmountEntitledFromStart(uint256)
+`AugmentedStreamingPayments.getAmountEntitledFromStart`
 
-___
+***
 
-### getCapabilityRoles
+### getAmountEntitledFromStart(uint256)()
 
-▸ **getCapabilityRoles**(`_sig`, `overrides?`): `Promise`<`string`\>
+> **getAmountEntitledFromStart(uint256)**(`_id`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_sig` | `BytesLike` |
-| `overrides?` | `CallOverrides` |
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.getCapabilityRoles
+`AugmentedStreamingPayments.getAmountEntitledFromStart(uint256)`
 
-___
+***
 
-### getCapabilityRoles(bytes4)
+### getCapabilityRoles()
 
-▸ **getCapabilityRoles(bytes4)**(`_sig`, `overrides?`): `Promise`<`string`\>
+> **getCapabilityRoles**(`_sig`, `overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_sig` | `BytesLike` |
-| `overrides?` | `CallOverrides` |
+##### \_sig
+
+`BytesLike`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.getCapabilityRoles(bytes4)
+`AugmentedStreamingPayments.getCapabilityRoles`
 
-___
+***
 
-### getColony
+### getCapabilityRoles(bytes4)()
 
-▸ **getColony**(`overrides?`): `Promise`<`string`\>
+> **getCapabilityRoles(bytes4)**(`_sig`, `overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### \_sig
+
+`BytesLike`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.getColony
+`AugmentedStreamingPayments.getCapabilityRoles(bytes4)`
 
-___
+***
 
 ### getColony()
 
-▸ **getColony()**(`overrides?`): `Promise`<`string`\>
+> **getColony**(`overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.getColony()
+`AugmentedStreamingPayments.getColony`
 
-___
+***
 
-### getDeprecated
+### getColony()()
 
-▸ **getDeprecated**(`overrides?`): `Promise`<`boolean`\>
+> **getColony()**(`overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`boolean`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.getDeprecated
+`AugmentedStreamingPayments.getColony()`
 
-___
+***
 
 ### getDeprecated()
 
-▸ **getDeprecated()**(`overrides?`): `Promise`<`boolean`\>
+> **getDeprecated**(`overrides`?): `Promise`\<`boolean`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`boolean`\>
+`Promise`\<`boolean`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.getDeprecated()
+`AugmentedStreamingPayments.getDeprecated`
 
-___
+***
 
-### getMetatransactionNonce
+### getDeprecated()()
 
-▸ **getMetatransactionNonce**(`_user`, `overrides?`): `Promise`<`BigNumber`\>
+> **getDeprecated()**(`overrides`?): `Promise`\<`boolean`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`boolean`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.getMetatransactionNonce
+`AugmentedStreamingPayments.getDeprecated()`
 
-___
+***
 
-### getMetatransactionNonce(address)
+### getMetatransactionNonce()
 
-▸ **getMetatransactionNonce(address)**(`_user`, `overrides?`): `Promise`<`BigNumber`\>
+> **getMetatransactionNonce**(`_user`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `overrides?` | `CallOverrides` |
+##### \_user
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.getMetatransactionNonce(address)
+`AugmentedStreamingPayments.getMetatransactionNonce`
 
-___
+***
 
-### getNUnresolvedStreamingPayments
+### getMetatransactionNonce(address)()
 
-▸ **getNUnresolvedStreamingPayments**(`overrides?`): `Promise`<`BigNumber`\>
+> **getMetatransactionNonce(address)**(`_user`, `overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### \_user
+
+`string`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.getNUnresolvedStreamingPayments
+`AugmentedStreamingPayments.getMetatransactionNonce(address)`
 
-___
-
-### getNUnresolvedStreamingPayments()
-
-▸ **getNUnresolvedStreamingPayments()**(`overrides?`): `Promise`<`BigNumber`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
-
-#### Returns
-
-`Promise`<`BigNumber`\>
-
-#### Inherited from
-
-AugmentedStreamingPayments.getNUnresolvedStreamingPayments()
-
-___
-
-### getNumStreamingPayments
-
-▸ **getNumStreamingPayments**(`overrides?`): `Promise`<`BigNumber`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
-
-#### Returns
-
-`Promise`<`BigNumber`\>
-
-#### Inherited from
-
-AugmentedStreamingPayments.getNumStreamingPayments
-
-___
+***
 
 ### getNumStreamingPayments()
 
-▸ **getNumStreamingPayments()**(`overrides?`): `Promise`<`BigNumber`\>
+> **getNumStreamingPayments**(`overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.getNumStreamingPayments()
+`AugmentedStreamingPayments.getNumStreamingPayments`
 
-___
+***
 
-### getStreamingPayment
+### getNumStreamingPayments()()
 
-▸ **getStreamingPayment**(`_id`, `overrides?`): `Promise`<`StreamingPaymentStructOutput`\>
+> **getNumStreamingPayments()**(`overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`StreamingPaymentStructOutput`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.getStreamingPayment
+`AugmentedStreamingPayments.getNumStreamingPayments()`
 
-___
+***
 
-### getStreamingPayment(uint256)
+### getNUnresolvedStreamingPayments()
 
-▸ **getStreamingPayment(uint256)**(`_id`, `overrides?`): `Promise`<`StreamingPaymentStructOutput`\>
+> **getNUnresolvedStreamingPayments**(`overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_id` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`StreamingPaymentStructOutput`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.getStreamingPayment(uint256)
+`AugmentedStreamingPayments.getNUnresolvedStreamingPayments`
 
-___
+***
 
-### identifier
+### getNUnresolvedStreamingPayments()()
 
-▸ **identifier**(`overrides?`): `Promise`<`string`\>
+> **getNUnresolvedStreamingPayments()**(`overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.identifier
+`AugmentedStreamingPayments.getNUnresolvedStreamingPayments()`
 
-___
+***
+
+### getStreamingPayment()
+
+> **getStreamingPayment**(`_id`, `overrides`?): `Promise`\<`StreamingPaymentStructOutput`\>
+
+#### Parameters
+
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
+
+#### Returns
+
+`Promise`\<`StreamingPaymentStructOutput`\>
+
+#### Inherited from
+
+`AugmentedStreamingPayments.getStreamingPayment`
+
+***
+
+### getStreamingPayment(uint256)()
+
+> **getStreamingPayment(uint256)**(`_id`, `overrides`?): `Promise`\<`StreamingPaymentStructOutput`\>
+
+#### Parameters
+
+##### \_id
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
+
+#### Returns
+
+`Promise`\<`StreamingPaymentStructOutput`\>
+
+#### Inherited from
+
+`AugmentedStreamingPayments.getStreamingPayment(uint256)`
+
+***
 
 ### identifier()
 
-▸ **identifier()**(`overrides?`): `Promise`<`string`\>
+> **identifier**(`overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.identifier()
+`AugmentedStreamingPayments.identifier`
 
-___
+***
 
-### install
+### identifier()()
 
-▸ **install**(`_colony`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **identifier()**(`overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_colony` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.install
+`AugmentedStreamingPayments.identifier()`
 
-___
+***
 
-### install(address)
+### install()
 
-▸ **install(address)**(`_colony`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **install**(`_colony`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_colony` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_colony
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.install(address)
+`AugmentedStreamingPayments.install`
 
-___
+***
 
-### listenerCount
+### install(address)()
 
-▸ **listenerCount**(`eventName?`): `number`
+> **install(address)**(`_colony`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `eventName?` | `string` \| `EventFilter` |
+##### \_colony
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
+
+#### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+#### Inherited from
+
+`AugmentedStreamingPayments.install(address)`
+
+***
+
+### listenerCount()
+
+> **listenerCount**(`eventName`?): `number`
+
+#### Parameters
+
+##### eventName?
+
+`string` | `EventFilter`
 
 #### Returns
 
@@ -1531,646 +6575,849 @@ ___
 
 #### Inherited from
 
-AugmentedStreamingPayments.listenerCount
+`AugmentedStreamingPayments.listenerCount`
 
-___
+***
 
-### listeners
+### listeners()
 
-▸ **listeners**<`TEvent`\>(`eventFilter?`): `TypedListener`<`TEvent`\>[]
+#### Call Signature
 
-#### Type parameters
+> **listeners**\<`TEvent`\>(`eventFilter`?): `TypedListener`\<`TEvent`\>[]
 
-| Name | Type |
-| :------ | :------ |
-| `TEvent` | extends `TypedEvent`<`any`, `any`\> |
+##### Type Parameters
 
-#### Parameters
+• **TEvent** *extends* `TypedEvent`
 
-| Name | Type |
-| :------ | :------ |
-| `eventFilter?` | `TypedEventFilter`<`TEvent`\> |
+##### Parameters
 
-#### Returns
+###### eventFilter?
 
-`TypedListener`<`TEvent`\>[]
+`TypedEventFilter`\<`TEvent`\>
 
-#### Inherited from
+##### Returns
 
-AugmentedStreamingPayments.listeners
+`TypedListener`\<`TEvent`\>[]
 
-▸ **listeners**(`eventName?`): `Listener`[]
+##### Inherited from
 
-#### Parameters
+`AugmentedStreamingPayments.listeners`
 
-| Name | Type |
-| :------ | :------ |
-| `eventName?` | `string` |
+#### Call Signature
 
-#### Returns
+> **listeners**(`eventName`?): `Listener`[]
+
+##### Parameters
+
+###### eventName?
+
+`string`
+
+##### Returns
 
 `Listener`[]
 
-#### Inherited from
+##### Inherited from
 
-AugmentedStreamingPayments.listeners
+`AugmentedStreamingPayments.listeners`
 
-___
+***
 
-### multicall
+### multicall()
 
-▸ **multicall**(`data`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `data` | `BytesLike`[] |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedStreamingPayments.multicall
-
-___
-
-### multicall(bytes[])
-
-▸ **multicall(bytes[])**(`data`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **multicall**(`data`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `data` | `BytesLike`[] |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### data
+
+`BytesLike`[]
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.multicall(bytes[])
+`AugmentedStreamingPayments.multicall`
 
-___
+***
 
-### owner
+### multicall(bytes\[\])()
 
-▸ **owner**(`overrides?`): `Promise`<`string`\>
+> **multicall(bytes\[\])**(`data`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### data
+
+`BytesLike`[]
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.owner
+`AugmentedStreamingPayments.multicall(bytes[])`
 
-___
+***
 
 ### owner()
 
-▸ **owner()**(`overrides?`): `Promise`<`string`\>
+> **owner**(`overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.owner()
+`AugmentedStreamingPayments.owner`
 
-___
+***
 
-### queryFilter
+### owner()()
 
-▸ **queryFilter**<`TEvent`\>(`event`, `fromBlockOrBlockhash?`, `toBlock?`): `Promise`<`TEvent`[]\>
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `TEvent` | extends `TypedEvent`<`any`, `any`\> |
+> **owner()**(`overrides`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `event` | `TypedEventFilter`<`TEvent`\> |
-| `fromBlockOrBlockhash?` | `string` \| `number` |
-| `toBlock?` | `string` \| `number` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`TEvent`[]\>
+`Promise`\<`string`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.queryFilter
+`AugmentedStreamingPayments.owner()`
 
-___
+***
 
-### removeAllListeners
+### queryFilter()
 
-▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`StreamingPaymentsClientV5`](StreamingPaymentsClientV5.md)
+> **queryFilter**\<`TEvent`\>(`event`, `fromBlockOrBlockhash`?, `toBlock`?): `Promise`\<`TEvent`[]\>
 
-#### Type parameters
+#### Type Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `TEvent` | extends `TypedEvent`<`any`, `any`\> |
+• **TEvent** *extends* `TypedEvent`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `eventFilter` | `TypedEventFilter`<`TEvent`\> |
+##### event
+
+`TypedEventFilter`\<`TEvent`\>
+
+##### fromBlockOrBlockhash?
+
+`string` | `number`
+
+##### toBlock?
+
+`string` | `number`
 
 #### Returns
 
-[`StreamingPaymentsClientV5`](StreamingPaymentsClientV5.md)
+`Promise`\<`TEvent`[]\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.removeAllListeners
+`AugmentedStreamingPayments.queryFilter`
 
-▸ **removeAllListeners**(`eventName?`): [`StreamingPaymentsClientV5`](StreamingPaymentsClientV5.md)
+***
+
+### removeAllListeners()
+
+#### Call Signature
+
+> **removeAllListeners**\<`TEvent`\>(`eventFilter`): `this`
+
+##### Type Parameters
+
+• **TEvent** *extends* `TypedEvent`
+
+##### Parameters
+
+###### eventFilter
+
+`TypedEventFilter`\<`TEvent`\>
+
+##### Returns
+
+`this`
+
+##### Inherited from
+
+`AugmentedStreamingPayments.removeAllListeners`
+
+#### Call Signature
+
+> **removeAllListeners**(`eventName`?): `this`
+
+##### Parameters
+
+###### eventName?
+
+`string`
+
+##### Returns
+
+`this`
+
+##### Inherited from
+
+`AugmentedStreamingPayments.removeAllListeners`
+
+***
+
+### setAuthority()
+
+> **setAuthority**(`authority_`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `eventName?` | `string` |
+##### authority\_
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-[`StreamingPaymentsClientV5`](StreamingPaymentsClientV5.md)
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.removeAllListeners
+`AugmentedStreamingPayments.setAuthority`
 
-___
+***
 
-### setAuthority
+### setAuthority(address)()
 
-▸ **setAuthority**(`authority_`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setAuthority(address)**(`authority_`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `authority_` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### authority\_
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.setAuthority
+`AugmentedStreamingPayments.setAuthority(address)`
 
-___
+***
 
-### setAuthority(address)
+### setEndTime()
 
-▸ **setAuthority(address)**(`authority_`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setEndTime**(`_adminPermissionDomainId`, `_adminChildSkillIndex`, `_id`, `_endTime`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `authority_` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_adminPermissionDomainId
+
+`BigNumberish`
+
+##### \_adminChildSkillIndex
+
+`BigNumberish`
+
+##### \_id
+
+`BigNumberish`
+
+##### \_endTime
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.setAuthority(address)
+`AugmentedStreamingPayments.setEndTime`
 
-___
+***
 
-### setEndTime
+### setEndTime(uint256,uint256,uint256,uint256)()
 
-▸ **setEndTime**(`_adminPermissionDomainId`, `_adminChildSkillIndex`, `_id`, `_endTime`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setEndTime(uint256,uint256,uint256,uint256)**(`_adminPermissionDomainId`, `_adminChildSkillIndex`, `_id`, `_endTime`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_adminPermissionDomainId` | `BigNumberish` |
-| `_adminChildSkillIndex` | `BigNumberish` |
-| `_id` | `BigNumberish` |
-| `_endTime` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_adminPermissionDomainId
+
+`BigNumberish`
+
+##### \_adminChildSkillIndex
+
+`BigNumberish`
+
+##### \_id
+
+`BigNumberish`
+
+##### \_endTime
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.setEndTime
+`AugmentedStreamingPayments.setEndTime(uint256,uint256,uint256,uint256)`
 
-___
+***
 
-### setEndTime(uint256,uint256,uint256,uint256)
+### setEndTimeWithProofs()
 
-▸ **setEndTime(uint256,uint256,uint256,uint256)**(`_adminPermissionDomainId`, `_adminChildSkillIndex`, `_id`, `_endTime`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setEndTimeWithProofs**(`_id`, `_endTime`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `_adminPermissionDomainId` | `BigNumberish` |
-| `_adminChildSkillIndex` | `BigNumberish` |
-| `_id` | `BigNumberish` |
-| `_endTime` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedStreamingPayments.setEndTime(uint256,uint256,uint256,uint256)
-
-___
-
-### setEndTimeWithProofs
-
-▸ **setEndTimeWithProofs**(`_id`, `_endTime`, `overrides?`): `Promise`<`ContractTransaction`\>
-
-Same as [setEndTime](StreamingPaymentsClientV5.md#setendtime), but let colonyJS figure out the permission proofs for you.
+Same as [setEndTime](StreamingPaymentsClientV5.md#setendtime-18), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_id` | `BigNumberish` | The id of the streaming payment |
-| `_endTime` | `BigNumberish` | The new endTime to set |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+##### \_id
+
+`BigNumberish`
+
+The id of the streaming payment
+
+##### \_endTime
+
+`BigNumberish`
+
+The new endTime to set
+
+##### overrides?
+
+[`TxOverrides`](../type-aliases/TxOverrides.md)
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.setEndTimeWithProofs
+`AugmentedStreamingPayments.setEndTimeWithProofs`
 
-___
+***
 
-### setOwner
+### setOwner()
 
-▸ **setOwner**(`owner_`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setOwner**(`owner_`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `owner_` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### owner\_
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.setOwner
+`AugmentedStreamingPayments.setOwner`
 
-___
+***
 
-### setOwner(address)
+### setOwner(address)()
 
-▸ **setOwner(address)**(`owner_`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setOwner(address)**(`owner_`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `owner_` | `string` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### owner\_
+
+`string`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.setOwner(address)
+`AugmentedStreamingPayments.setOwner(address)`
 
-___
+***
 
-### setStartTime
+### setStartTime()
 
-▸ **setStartTime**(`_adminPermissionDomainId`, `_adminChildSkillIndex`, `_id`, `_startTime`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setStartTime**(`_adminPermissionDomainId`, `_adminChildSkillIndex`, `_id`, `_startTime`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_adminPermissionDomainId` | `BigNumberish` |
-| `_adminChildSkillIndex` | `BigNumberish` |
-| `_id` | `BigNumberish` |
-| `_startTime` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_adminPermissionDomainId
+
+`BigNumberish`
+
+##### \_adminChildSkillIndex
+
+`BigNumberish`
+
+##### \_id
+
+`BigNumberish`
+
+##### \_startTime
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.setStartTime
+`AugmentedStreamingPayments.setStartTime`
 
-___
+***
 
-### setStartTime(uint256,uint256,uint256,uint256)
+### setStartTime(uint256,uint256,uint256,uint256)()
 
-▸ **setStartTime(uint256,uint256,uint256,uint256)**(`_adminPermissionDomainId`, `_adminChildSkillIndex`, `_id`, `_startTime`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setStartTime(uint256,uint256,uint256,uint256)**(`_adminPermissionDomainId`, `_adminChildSkillIndex`, `_id`, `_startTime`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_adminPermissionDomainId` | `BigNumberish` |
-| `_adminChildSkillIndex` | `BigNumberish` |
-| `_id` | `BigNumberish` |
-| `_startTime` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_adminPermissionDomainId
+
+`BigNumberish`
+
+##### \_adminChildSkillIndex
+
+`BigNumberish`
+
+##### \_id
+
+`BigNumberish`
+
+##### \_startTime
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.setStartTime(uint256,uint256,uint256,uint256)
+`AugmentedStreamingPayments.setStartTime(uint256,uint256,uint256,uint256)`
 
-___
+***
 
-### setStartTimeWithProofs
+### setStartTimeWithProofs()
 
-▸ **setStartTimeWithProofs**(`_id`, `_startTime`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setStartTimeWithProofs**(`_id`, `_startTime`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
-Same as [setStartTime](StreamingPaymentsClientV5.md#setstarttime), but let colonyJS figure out the permission proofs for you.
+Same as [setStartTime](StreamingPaymentsClientV5.md#setstarttime-18), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_id` | `BigNumberish` | The id of the streaming payment |
-| `_startTime` | `BigNumberish` | The new startTime to set |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+##### \_id
+
+`BigNumberish`
+
+The id of the streaming payment
+
+##### \_startTime
+
+`BigNumberish`
+
+The new startTime to set
+
+##### overrides?
+
+[`TxOverrides`](../type-aliases/TxOverrides.md)
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.setStartTimeWithProofs
+`AugmentedStreamingPayments.setStartTimeWithProofs`
 
-___
+***
 
-### setTokenAmount
+### setTokenAmount()
 
-▸ **setTokenAmount**(`_fundingPermissionDomainId`, `_fundingChildSkillIndex`, `_permissionDomainId`, `_childSkillIndex`, `_fromChildSkillIndex`, `_toChildSkillIndex`, `_id`, `_amount`, `_interval`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setTokenAmount**(`_fundingPermissionDomainId`, `_fundingChildSkillIndex`, `_permissionDomainId`, `_childSkillIndex`, `_fromChildSkillIndex`, `_toChildSkillIndex`, `_id`, `_amount`, `_interval`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_fundingPermissionDomainId` | `BigNumberish` |
-| `_fundingChildSkillIndex` | `BigNumberish` |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_fromChildSkillIndex` | `BigNumberish` |
-| `_toChildSkillIndex` | `BigNumberish` |
-| `_id` | `BigNumberish` |
-| `_amount` | `BigNumberish` |
-| `_interval` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_fundingPermissionDomainId
+
+`BigNumberish`
+
+##### \_fundingChildSkillIndex
+
+`BigNumberish`
+
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_fromChildSkillIndex
+
+`BigNumberish`
+
+##### \_toChildSkillIndex
+
+`BigNumberish`
+
+##### \_id
+
+`BigNumberish`
+
+##### \_amount
+
+`BigNumberish`
+
+##### \_interval
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.setTokenAmount
+`AugmentedStreamingPayments.setTokenAmount`
 
-___
+***
 
-### setTokenAmount(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256)
+### setTokenAmount(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256)()
 
-▸ **setTokenAmount(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256)**(`_fundingPermissionDomainId`, `_fundingChildSkillIndex`, `_permissionDomainId`, `_childSkillIndex`, `_fromChildSkillIndex`, `_toChildSkillIndex`, `_id`, `_amount`, `_interval`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setTokenAmount(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256)**(`_fundingPermissionDomainId`, `_fundingChildSkillIndex`, `_permissionDomainId`, `_childSkillIndex`, `_fromChildSkillIndex`, `_toChildSkillIndex`, `_id`, `_amount`, `_interval`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_fundingPermissionDomainId` | `BigNumberish` |
-| `_fundingChildSkillIndex` | `BigNumberish` |
-| `_permissionDomainId` | `BigNumberish` |
-| `_childSkillIndex` | `BigNumberish` |
-| `_fromChildSkillIndex` | `BigNumberish` |
-| `_toChildSkillIndex` | `BigNumberish` |
-| `_id` | `BigNumberish` |
-| `_amount` | `BigNumberish` |
-| `_interval` | `BigNumberish` |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### \_fundingPermissionDomainId
+
+`BigNumberish`
+
+##### \_fundingChildSkillIndex
+
+`BigNumberish`
+
+##### \_permissionDomainId
+
+`BigNumberish`
+
+##### \_childSkillIndex
+
+`BigNumberish`
+
+##### \_fromChildSkillIndex
+
+`BigNumberish`
+
+##### \_toChildSkillIndex
+
+`BigNumberish`
+
+##### \_id
+
+`BigNumberish`
+
+##### \_amount
+
+`BigNumberish`
+
+##### \_interval
+
+`BigNumberish`
+
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.setTokenAmount(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256)
+`AugmentedStreamingPayments.setTokenAmount(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256)`
 
-___
+***
 
-### setTokenAmountWithProofs
+### setTokenAmountWithProofs()
 
-▸ **setTokenAmountWithProofs**(`_id`, `_amount`, `_interval`, `overrides?`): `Promise`<`ContractTransaction`\>
+> **setTokenAmountWithProofs**(`_id`, `_amount`, `_interval`, `overrides`?): `Promise`\<`ContractTransaction`\>
 
-Same as [setTokenAmount](StreamingPaymentsClientV5.md#settokenamount), but let colonyJS figure out the permission proofs for you.
+Same as [setTokenAmount](StreamingPaymentsClientV5.md#settokenamount-18), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `_id` | `BigNumberish` | The id of the streaming payment |
-| `_amount` | `BigNumberish` | The new amount to pay out |
-| `_interval` | `BigNumberish` | - |
-| `overrides?` | [`TxOverrides`](../README.md#txoverrides) | - |
+##### \_id
+
+`BigNumberish`
+
+The id of the streaming payment
+
+##### \_amount
+
+`BigNumberish`
+
+The new amount to pay out
+
+##### \_interval
+
+`BigNumberish`
+
+##### overrides?
+
+[`TxOverrides`](../type-aliases/TxOverrides.md)
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.setTokenAmountWithProofs
+`AugmentedStreamingPayments.setTokenAmountWithProofs`
 
-___
-
-### uninstall
-
-▸ **uninstall**(`overrides?`): `Promise`<`ContractTransaction`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
-
-#### Returns
-
-`Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-AugmentedStreamingPayments.uninstall
-
-___
+***
 
 ### uninstall()
 
-▸ **uninstall()**(`overrides?`): `Promise`<`ContractTransaction`\>
+> **uninstall**(`overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `Overrides` & { `from?`: `string`  } |
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`ContractTransaction`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.uninstall()
+`AugmentedStreamingPayments.uninstall`
 
-___
+***
 
-### verify
+### uninstall()()
 
-▸ **verify**(`_user`, `_nonce`, `_chainId`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`boolean`\>
+> **uninstall()**(`overrides`?): `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_nonce` | `BigNumberish` |
-| `_chainId` | `BigNumberish` |
-| `_payload` | `BytesLike` |
-| `_sigR` | `BytesLike` |
-| `_sigS` | `BytesLike` |
-| `_sigV` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`Overrides` & `object`
 
 #### Returns
 
-`Promise`<`boolean`\>
+`Promise`\<`ContractTransaction`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.verify
+`AugmentedStreamingPayments.uninstall()`
 
-___
+***
 
-### verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)
+### verify()
 
-▸ **verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)**(`_user`, `_nonce`, `_chainId`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`boolean`\>
+> **verify**(`_user`, `_nonce`, `_chainId`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides`?): `Promise`\<`boolean`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_user` | `string` |
-| `_nonce` | `BigNumberish` |
-| `_chainId` | `BigNumberish` |
-| `_payload` | `BytesLike` |
-| `_sigR` | `BytesLike` |
-| `_sigS` | `BytesLike` |
-| `_sigV` | `BigNumberish` |
-| `overrides?` | `CallOverrides` |
+##### \_user
+
+`string`
+
+##### \_nonce
+
+`BigNumberish`
+
+##### \_chainId
+
+`BigNumberish`
+
+##### \_payload
+
+`BytesLike`
+
+##### \_sigR
+
+`BytesLike`
+
+##### \_sigS
+
+`BytesLike`
+
+##### \_sigV
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`boolean`\>
+`Promise`\<`boolean`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)
+`AugmentedStreamingPayments.verify`
 
-___
+***
 
-### version
+### verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)()
 
-▸ **version**(`overrides?`): `Promise`<`BigNumber`\>
+> **verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)**(`_user`, `_nonce`, `_chainId`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides`?): `Promise`\<`boolean`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### \_user
+
+`string`
+
+##### \_nonce
+
+`BigNumberish`
+
+##### \_chainId
+
+`BigNumberish`
+
+##### \_payload
+
+`BytesLike`
+
+##### \_sigR
+
+`BytesLike`
+
+##### \_sigS
+
+`BytesLike`
+
+##### \_sigV
+
+`BigNumberish`
+
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`boolean`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.version
+`AugmentedStreamingPayments.verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)`
 
-___
+***
 
 ### version()
 
-▸ **version()**(`overrides?`): `Promise`<`BigNumber`\>
+> **version**(`overrides`?): `Promise`\<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `overrides?` | `CallOverrides` |
+##### overrides?
+
+`CallOverrides`
 
 #### Returns
 
-`Promise`<`BigNumber`\>
+`Promise`\<`BigNumber`\>
 
 #### Inherited from
 
-AugmentedStreamingPayments.version()
+`AugmentedStreamingPayments.version`
+
+***
+
+### version()()
+
+> **version()**(`overrides`?): `Promise`\<`BigNumber`\>
+
+#### Parameters
+
+##### overrides?
+
+`CallOverrides`
+
+#### Returns
+
+`Promise`\<`BigNumber`\>
+
+#### Inherited from
+
+`AugmentedStreamingPayments.version()`

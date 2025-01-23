@@ -1,3 +1,7 @@
+[**API**](../README.md)
+
+***
+
 # Interface: ColonyMultiFilter
 
 ColonyFilter with support for multi-events
@@ -8,12 +12,12 @@ For the multi-event compatible filters the following assumptions prevail:
 
 ## Properties
 
-### address
+### address?
 
-• `Optional` **address**: `string`
+> `optional` **address**: `string`
 
-___
+***
 
 ### colonyTopics
 
-• **colonyTopics**: [`ColonyTopic`](ColonyTopic.md)[]
+> **colonyTopics**: [`ColonyTopic`](ColonyTopic.md)[]
