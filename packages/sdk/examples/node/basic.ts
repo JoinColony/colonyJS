@@ -1,7 +1,12 @@
 import { providers } from 'ethers';
 import 'cross-fetch/dist/node-polyfill.js';
 
-import { ColonyNetwork, ColonyRpcEndpoint, toEth } from '../../src/index.js';
+import {
+  ColonyNetwork,
+  ColonyRpcEndpoint,
+  Id,
+  toEth,
+} from '../../src/index.js';
 
 const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.ArbitrumOne);
 
@@ -9,12 +14,13 @@ const provider = new providers.JsonRpcProvider(ColonyRpcEndpoint.ArbitrumOne);
 const start = async () => {
   const colonyNetwork = new ColonyNetwork(provider);
   const metaColony = await colonyNetwork.getMetaColony();
-  const funding = await metaColony.getBalance();
-  const { address } = metaColony;
+  const { address, token } = metaColony;
+  const funding = await metaColony.getBalance(token.address, Id.RootTeam);
+  const symbol = await token.symbol();
   console.info(
-    `${toEth(
-      funding,
-    )} CLNY in root team of MetaColony with address: ${address}`,
+    `${toEth(funding)} ${symbol} (${
+      token.address
+    }) in root team of MetaColony with address: ${address}`,
   );
 };
 
