@@ -1,5 +1,11 @@
 # @colony/sdk
 
+## 3.1.2
+
+### Patch Changes
+
+- 6481618: Wait for Metatransaction to be created before trying to get it
+
 ## 3.1.1
 
 ### Patch Changes
