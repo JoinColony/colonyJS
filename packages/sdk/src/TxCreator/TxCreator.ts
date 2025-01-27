@@ -280,6 +280,7 @@ export class TxCreator<
         'Could not get transaction hash from broadcaster response',
       );
     }
+    await provider.waitForTransaction(parsed.data.txHash);
 
     return provider.getTransaction(parsed.data.txHash);
   }
