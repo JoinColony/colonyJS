@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Function: getCreateMotionProofs()
 
 > **getCreateMotionProofs**(`network`, `colony`, `reputation`, `votingReputation`, `domainId`, `altTarget`, `action`): `Promise`\<\{ `actionCid`: `BigNumber`; `branchMask`: `string`; `key`: `string`; `siblings`: `string`[]; `value`: `string`; \}\>

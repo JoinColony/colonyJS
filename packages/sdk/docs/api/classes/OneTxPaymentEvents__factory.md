@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Class: OneTxPaymentEvents\_\_factory
 
 ## Constructors

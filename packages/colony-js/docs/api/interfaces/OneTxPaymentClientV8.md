@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Interface: OneTxPaymentClientV8
 
 ## Extends

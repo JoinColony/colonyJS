@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Class: TokenLockingEvents\_\_factory
 
 ## Constructors

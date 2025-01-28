@@ -1,7 +1,3 @@
-[**API**](../../../README.md)
-
-***
-
 # Interface: ExpenditureMadeStaged\_address\_uint256\_bool\_EventObject
 
 ## Properties

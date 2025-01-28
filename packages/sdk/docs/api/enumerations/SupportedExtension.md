@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Enumeration: SupportedExtension
 
 Extensions that are supported by Colony SDK

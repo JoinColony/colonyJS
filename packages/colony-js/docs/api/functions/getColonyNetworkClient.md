@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Function: getColonyNetworkClient()
 
 > **getColonyNetworkClient**(`network`, `signerOrProvider`, `options`?): [`ColonyNetworkClient`](../interfaces/ColonyNetworkClient.md)

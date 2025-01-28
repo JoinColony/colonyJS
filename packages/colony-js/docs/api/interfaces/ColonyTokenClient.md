@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Interface: ColonyTokenClient
 
 A ColonyToken has special abilities that go beyond the capabilities of an ERC20 token

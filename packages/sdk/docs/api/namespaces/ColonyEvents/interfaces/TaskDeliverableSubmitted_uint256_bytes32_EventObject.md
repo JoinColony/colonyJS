@@ -1,7 +1,3 @@
-[**API**](../../../README.md)
-
-***
-
 # Interface: TaskDeliverableSubmitted\_uint256\_bytes32\_EventObject
 
 ## Properties

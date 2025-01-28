@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Interface: ContractOptions
 
 Additional options for instatiating Contracts within the Colony Network

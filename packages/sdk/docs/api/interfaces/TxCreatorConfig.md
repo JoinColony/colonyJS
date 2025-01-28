@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Interface: TxCreatorConfig\<C, M, E, MD\>
 
 ## Type Parameters

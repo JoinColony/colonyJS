@@ -1,7 +1,3 @@
-[**API**](../../../README.md)
-
-***
-
 # Interface: StagedPaymentReleased\_address\_uint256\_uint256\_EventObject
 
 ## Properties

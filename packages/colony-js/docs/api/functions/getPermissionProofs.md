@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Function: getPermissionProofs()
 
 > **getPermissionProofs**(`network`, `colony`, `domainId`, `roles`, `customAddress`?): `Promise`\<\[`BigNumber`, `BigNumber`, `string`\]\>

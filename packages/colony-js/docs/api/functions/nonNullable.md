@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Function: nonNullable()
 
 > **nonNullable**\<`T`\>(`value`): `value is NonNullable<T>`

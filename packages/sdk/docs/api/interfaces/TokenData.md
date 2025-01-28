@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Interface: TokenData
 
 ERC20 Token information

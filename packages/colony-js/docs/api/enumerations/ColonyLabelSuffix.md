@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Enumeration: ColonyLabelSuffix
 
 ENS label suffix for Colonies

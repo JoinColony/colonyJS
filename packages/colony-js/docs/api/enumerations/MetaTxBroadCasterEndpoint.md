@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Enumeration: MetaTxBroadCasterEndpoint
 
 HTTP endpoint of the official Colony MetaTransaction (gasless transaction) broadcaster

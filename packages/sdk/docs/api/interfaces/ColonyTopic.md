@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Interface: ColonyTopic
 
 A Colony specific topic that keeps track of which contract it belongs to

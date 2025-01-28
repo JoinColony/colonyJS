@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Enumeration: TeamColor
 
 The various team colors that the dApp supports

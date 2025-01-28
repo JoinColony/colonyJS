@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Class: IColonyNetworkEvents\_\_factory
 
 ## Constructors

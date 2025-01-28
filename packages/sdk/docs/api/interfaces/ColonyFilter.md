@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Interface: ColonyFilter
 
 A Colony extended ethers Filter to keep track of where events are coming from

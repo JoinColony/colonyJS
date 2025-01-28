@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Class: MultisigPermissionsEvents\_\_factory
 
 ## Constructors

@@ -1,7 +1,3 @@
-[**API**](../../../README.md)
-
-***
-
 # Interface: TaskWorkRatingRevealed\_uint256\_uint8\_uint8\_EventObject
 
 ## Properties

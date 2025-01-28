@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Enumeration: Extension
 
 Extension contract names

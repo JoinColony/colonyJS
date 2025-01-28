@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Class: ERC2612Token
 
 ## Extends

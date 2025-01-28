@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Function: parseEventMetadata()
 
 > **parseEventMetadata**\<`T`\>(`input`, `type`?): [`MetadataTypeMap`](../interfaces/MetadataTypeMap.md)\[`T`\]

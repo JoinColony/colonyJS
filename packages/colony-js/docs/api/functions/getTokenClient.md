@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Function: getTokenClient()
 
 > **getTokenClient**(`address`, `signerOrProvider`): `Promise`\<[`TokenClient`](../type-aliases/TokenClient.md)\>

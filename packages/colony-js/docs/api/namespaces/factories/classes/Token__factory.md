@@ -1,7 +1,3 @@
-[**API**](../../../README.md)
-
-***
-
 # Class: Token\_\_factory
 
 ## Constructors

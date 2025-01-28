@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Function: colonyRoles2Hex()
 
 > **colonyRoles2Hex**(`roles`): `string`

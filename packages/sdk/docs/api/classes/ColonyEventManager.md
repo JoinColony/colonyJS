@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Class: ColonyEventManager
 
 The ColonyEvents class is a wrapper around _ethers_'s event implementations to make it easier to track and fetch Colony related events.

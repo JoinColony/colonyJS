@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Interface: ColonyMetaTransaction\<C, E, R, MD\>
 
 A standard gasless MetaTransaction ("force" in dApp)

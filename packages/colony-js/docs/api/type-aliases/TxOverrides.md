@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Type Alias: TxOverrides
 
 > **TxOverrides**: `Overrides` & `object`

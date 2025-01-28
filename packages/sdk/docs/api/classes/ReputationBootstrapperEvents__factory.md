@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Class: ReputationBootstrapperEvents\_\_factory
 
 ## Constructors

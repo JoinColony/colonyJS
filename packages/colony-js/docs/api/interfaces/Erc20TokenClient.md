@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Interface: Erc20TokenClient
 
 A standard ERC20 token

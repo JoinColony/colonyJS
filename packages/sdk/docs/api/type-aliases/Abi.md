@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Type Alias: Abi
 
 > **Abi**: readonly (`AbiConstructor` \| `AbiError` \| `AbiEvent` \| `AbiFallback` \| `AbiFunction` \| `AbiReceive`)[]

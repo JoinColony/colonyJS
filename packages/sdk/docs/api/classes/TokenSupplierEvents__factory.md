@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Class: TokenSupplierEvents\_\_factory
 
 ## Constructors

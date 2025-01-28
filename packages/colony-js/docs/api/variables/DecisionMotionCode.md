@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Variable: DecisionMotionCode
 
 > `const` **DecisionMotionCode**: `"0x12345678"` = `"0x12345678"`

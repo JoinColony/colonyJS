@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Enumeration: ClientTypeTokens
 
 The type for a specific contract-client (extended ethers `Contract`).

@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Class: StakedExpenditureEvents\_\_factory
 
 ## Constructors

@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Function: parseLogs()
 
 > **parseLogs**(`logs`, `iface`): `LogDescription`[]

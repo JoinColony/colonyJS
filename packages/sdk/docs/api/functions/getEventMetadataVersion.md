@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Function: getEventMetadataVersion()
 
 > **getEventMetadataVersion**(`input`): `number`

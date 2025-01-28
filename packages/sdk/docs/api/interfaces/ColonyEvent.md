@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Interface: ColonyEvent\<M\>
 
 An Event that came from a contract within the Colony Network

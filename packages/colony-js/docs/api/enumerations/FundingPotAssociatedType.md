@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Enumeration: FundingPotAssociatedType
 
 Funding pots can have different types in a colony.

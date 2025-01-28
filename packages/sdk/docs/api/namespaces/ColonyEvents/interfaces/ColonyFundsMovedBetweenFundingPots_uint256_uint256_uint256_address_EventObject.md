@@ -1,7 +1,3 @@
-[**API**](../../../README.md)
-
-***
-
 # Interface: ColonyFundsMovedBetweenFundingPots\_uint256\_uint256\_uint256\_address\_EventObject
 
 ## Properties

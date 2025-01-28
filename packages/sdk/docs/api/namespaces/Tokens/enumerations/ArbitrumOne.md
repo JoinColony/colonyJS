@@ -1,7 +1,3 @@
-[**API**](../../../README.md)
-
-***
-
 # Enumeration: ArbitrumOne
 
 Tokens deployed on Arbitrum One

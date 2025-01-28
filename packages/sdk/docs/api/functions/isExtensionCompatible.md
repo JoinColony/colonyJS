@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Function: isExtensionCompatible()
 
 > **isExtensionCompatible**(`extension`, `extensionVersion`, `colonyVersion`): `boolean`

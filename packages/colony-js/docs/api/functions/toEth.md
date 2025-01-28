@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Function: toEth()
 
 > **toEth**(`num`): `string`

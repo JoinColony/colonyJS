@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Class: VotingReputation
 
 ## `VotingReputation` (Motions & Disputes)

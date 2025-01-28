@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Function: getColonyRoles()
 
 > **getColonyRoles**(`client`, `options`?): `Promise`\<[`ColonyRoles`](../type-aliases/ColonyRoles.md)\>

@@ -1,7 +1,3 @@
-[**API**](../../../README.md)
-
-***
-
 # Interface: ColonyInitialised\_address\_address\_EventObject
 
 ## Properties

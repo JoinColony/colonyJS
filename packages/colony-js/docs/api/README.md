@@ -1,7 +1,3 @@
-**API**
-
-***
-
 # API
 
 ## References
