@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Class: VotingReputationEvents\_\_factory
 
 ## Constructors

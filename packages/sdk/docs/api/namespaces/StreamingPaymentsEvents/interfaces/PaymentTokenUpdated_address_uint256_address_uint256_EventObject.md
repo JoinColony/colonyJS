@@ -1,7 +1,3 @@
-[**API**](../../../README.md)
-
-***
-
 # Interface: PaymentTokenUpdated\_address\_uint256\_address\_uint256\_EventObject
 
 ## Properties

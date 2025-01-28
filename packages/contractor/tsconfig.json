@@ -3,6 +3,10 @@
   "compilerOptions": {
     "noEmit": false
   },
+  "lib": [
+    "es2022",
+    "node"
+  ],
   "include": [
     "./src"
   ]

@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Interface: VotingReputationClientV9
 
 ## Extends

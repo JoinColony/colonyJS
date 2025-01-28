@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Interface: ColonyEventManagerOptions
 
 Additional options for the [ColonyEventManager](../classes/ColonyEventManager.md)

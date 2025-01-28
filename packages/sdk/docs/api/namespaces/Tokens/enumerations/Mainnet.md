@@ -1,7 +1,3 @@
-[**API**](../../../README.md)
-
-***
-
 # Enumeration: Mainnet
 
 Tokens deployed on Mainnet

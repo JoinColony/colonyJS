@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Class: MetaTxCreator\<C, M, E, MD\>
 
 An umbrella API for all kinds of transactions

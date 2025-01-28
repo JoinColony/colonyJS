@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Interface: StagedExpenditureClientV1
 
 ## Extends

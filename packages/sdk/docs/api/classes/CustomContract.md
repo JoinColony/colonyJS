@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Class: CustomContract\<A\>
 
 ## Type Parameters

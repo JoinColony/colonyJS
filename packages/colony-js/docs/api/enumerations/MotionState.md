@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Enumeration: MotionState
 
 These are the various states a Motion might find itself in

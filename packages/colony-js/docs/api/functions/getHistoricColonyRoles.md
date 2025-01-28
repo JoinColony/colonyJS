@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Function: getHistoricColonyRoles()
 
 > **getHistoricColonyRoles**(`client`, `fromBlock`?, `toBlock`?): `Promise`\<[`ColonyRoles`](../type-aliases/ColonyRoles.md)\>

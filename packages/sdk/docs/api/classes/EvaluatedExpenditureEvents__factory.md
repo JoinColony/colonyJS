@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Class: EvaluatedExpenditureEvents\_\_factory
 
 ## Constructors

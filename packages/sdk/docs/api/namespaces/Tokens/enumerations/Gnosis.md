@@ -1,7 +1,3 @@
-[**API**](../../../README.md)
-
-***
-
 # Enumeration: Gnosis
 
 Tokens deployed on Gnosis Chain

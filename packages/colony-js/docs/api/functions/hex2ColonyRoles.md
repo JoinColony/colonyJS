@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Function: hex2ColonyRoles()
 
 > **hex2ColonyRoles**(`hexStr`): [`ColonyRole`](../enumerations/ColonyRole.md)[]

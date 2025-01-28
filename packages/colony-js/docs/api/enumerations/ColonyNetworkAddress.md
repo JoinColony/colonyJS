@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Enumeration: ColonyNetworkAddress
 
 Addresses of the deployed ColonyNetwork EtherRouter contracts in all networks

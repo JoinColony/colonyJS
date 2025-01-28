@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Function: formatColonyRoles()
 
 > **formatColonyRoles**(`roleSetEvents`, `recoveryRoleSetEvents`): `Promise`\<[`ColonyRoles`](../type-aliases/ColonyRoles.md)\>

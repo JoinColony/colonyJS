@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Class: ColonyExtensionEvents\_\_factory
 
 ## Constructors

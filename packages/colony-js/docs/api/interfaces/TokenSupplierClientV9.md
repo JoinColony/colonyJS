@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Interface: TokenSupplierClientV9
 
 ## Extends

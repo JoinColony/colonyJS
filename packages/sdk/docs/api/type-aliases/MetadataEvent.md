@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Type Alias: MetadataEvent\<K\>
 
 > **MetadataEvent**\<`K`\>: *typeof* [`IpfsMetadataEvents`](../variables/IpfsMetadataEvents.md)\[`K`\]

@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Class: OneTxPayment
 
 ## `OneTxPayment` (One Transaction Payment)

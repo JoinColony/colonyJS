@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Class: CoinMachineEvents\_\_factory
 
 ## Constructors

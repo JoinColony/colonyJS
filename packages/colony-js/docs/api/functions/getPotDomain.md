@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Function: getPotDomain()
 
 > **getPotDomain**(`colony`, `potId`): `Promise`\<`BigNumberish`\>

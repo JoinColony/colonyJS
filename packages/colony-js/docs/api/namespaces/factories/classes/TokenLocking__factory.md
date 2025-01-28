@@ -1,7 +1,3 @@
-[**API**](../../../README.md)
-
-***
-
 # Class: TokenLocking\_\_factory
 
 ## Constructors

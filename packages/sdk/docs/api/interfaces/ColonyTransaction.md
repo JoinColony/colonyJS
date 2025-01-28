@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Interface: ColonyTransaction\<C, E, R, MD\>
 
 A standard transaction ("force" in dApp)

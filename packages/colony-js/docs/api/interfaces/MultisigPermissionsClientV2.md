@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Interface: MultisigPermissionsClientV2
 
 ## Extends

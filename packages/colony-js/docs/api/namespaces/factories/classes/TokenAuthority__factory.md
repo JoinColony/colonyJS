@@ -1,7 +1,3 @@
-[**API**](../../../README.md)
-
-***
-
 # Class: TokenAuthority\_\_factory
 
 ## Extends

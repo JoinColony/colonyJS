@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Function: getContractVersion()
 
 > **getContractVersion**(`address`, `signerOrProvider`): `Promise`\<[`ContractVersion`](../type-aliases/ContractVersion.md)\>

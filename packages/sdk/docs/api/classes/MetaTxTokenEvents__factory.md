@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Class: MetaTxTokenEvents\_\_factory
 
 ## Constructors

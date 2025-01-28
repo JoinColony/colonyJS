@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Enumeration: ColonyRole
 
 Available roles in the colonyNetwork. Find out more here: https://github.com/JoinColony/colonyNetwork/blob/develop/docs/_Docs_Permissions.md

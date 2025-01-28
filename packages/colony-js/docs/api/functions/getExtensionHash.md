@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Function: getExtensionHash()
 
 > **getExtensionHash**(`extension`): `string`

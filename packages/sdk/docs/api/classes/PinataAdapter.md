@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Class: PinataAdapter
 
 A Colony SDK IPFS adapter for Pinata (https://pinata.cloud)

@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Enumeration: ColonyRpcEndpoint
 
 Official Colony RPC2 endpoint (node)

@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Type Alias: UserRoles
 
 > **UserRoles**: `object`

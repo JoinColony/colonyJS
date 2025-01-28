@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Interface: ColonyClientV15
 
 ## Extends

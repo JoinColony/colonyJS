@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Enumeration: Id
 
 Shortcuts to certain IDs within Colony

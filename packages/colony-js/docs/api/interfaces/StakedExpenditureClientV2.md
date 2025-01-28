@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Interface: StakedExpenditureClientV2
 
 ## Extends

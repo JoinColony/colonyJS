@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Enumeration: Vote
 
 ## Enumeration Members

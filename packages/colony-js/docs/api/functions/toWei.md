@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Function: toWei()
 
 > **toWei**(`num`): `BigNumber`

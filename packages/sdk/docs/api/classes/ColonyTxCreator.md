@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Class: ColonyTxCreator\<C, M, E, MD\>
 
 An umbrella API for all kinds of transactions within colonies

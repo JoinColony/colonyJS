@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Function: getToken()
 
 > **getToken**(`colonyNetwork`, `address`): `Promise`\<[`ERC20Token`](../classes/ERC20Token.md)\>

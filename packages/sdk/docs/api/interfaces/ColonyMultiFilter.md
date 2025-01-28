@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Interface: ColonyMultiFilter
 
 ColonyFilter with support for multi-events

@@ -1,7 +1,3 @@
-[**API**](../../README.md)
-
-***
-
 # Tokens
 
 Shortcut to common token addresses

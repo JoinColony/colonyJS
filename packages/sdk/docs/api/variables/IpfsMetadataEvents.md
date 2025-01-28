@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Variable: IpfsMetadataEvents
 
 > `const` **IpfsMetadataEvents**: `object`

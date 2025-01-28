@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Variable: ExtensionVersions
 
 > `const` **ExtensionVersions**: `object`

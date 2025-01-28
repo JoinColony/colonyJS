@@ -1,7 +1,3 @@
-[**API**](../../../README.md)
-
-***
-
 # Interface: ArbitraryTransaction\_address\_bytes\_bool\_EventObject
 
 ## Properties

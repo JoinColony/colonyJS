@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Function: parsePermissionedAction()
 
 > **parsePermissionedAction**(`action`): `object`

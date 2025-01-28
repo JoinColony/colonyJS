@@ -1,7 +1,3 @@
-[**API**](../../README.md)
-
-***
-
 # StagedExpenditureEvents
 
 ## Interfaces

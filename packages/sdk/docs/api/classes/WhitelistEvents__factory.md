@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Class: WhitelistEvents\_\_factory
 
 ## Constructors

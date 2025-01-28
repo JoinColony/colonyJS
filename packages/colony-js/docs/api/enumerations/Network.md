@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Enumeration: Network
 
 Supported Ethereum networks. Use `Custom` if you'd like to bring your own deployment (e.g. local)

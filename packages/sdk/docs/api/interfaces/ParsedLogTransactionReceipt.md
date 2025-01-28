@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Interface: ParsedLogTransactionReceipt
 
 Custom Transaction receipt for when we manually have to parse logs (metatransactions)

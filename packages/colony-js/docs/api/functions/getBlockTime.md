@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Function: getBlockTime()
 
 > **getBlockTime**(`blockHash`, `provider`): `Promise`\<`number`\>

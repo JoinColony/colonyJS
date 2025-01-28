@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Function: addressesAreEqual()
 
 > **addressesAreEqual**(`a`, `b`): `boolean`

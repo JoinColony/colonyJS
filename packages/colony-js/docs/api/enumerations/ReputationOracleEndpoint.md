@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Enumeration: ReputationOracleEndpoint
 
 HTTP endpoint of the official Colony reputation oracle

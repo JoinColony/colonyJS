@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Function: getChildIndex()
 
 > **getChildIndex**(`network`, `colony`, `parentDomainId`, `domainId`): `Promise`\<`BigNumber`\>

@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Function: getEvents()
 
 > **getEvents**(`client`, `filter`, `options`?): `Promise`\<`LogDescription`[]\>

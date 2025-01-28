@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Function: createMetadataFor()
 
 > **createMetadataFor**\<`T`\>(`type`, `data`): [`MetadataTypeMap`](../interfaces/MetadataTypeMap.md)\[`T`\]

@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Class: StagedExpenditureEvents\_\_factory
 
 ## Constructors

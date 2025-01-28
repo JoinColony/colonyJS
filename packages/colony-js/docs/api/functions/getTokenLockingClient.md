@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Function: getTokenLockingClient()
 
 > **getTokenLockingClient**(`address`, `signerOrProvider`): [`TokenLockingClient`](../interfaces/TokenLockingClient.md)

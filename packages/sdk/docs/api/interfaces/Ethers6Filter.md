@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Interface: Ethers6Filter
 
 Ethers 6 supports mulitple addresses in a filter. Until then we have this

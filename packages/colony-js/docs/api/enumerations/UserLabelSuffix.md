@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Enumeration: UserLabelSuffix
 
 ENS label suffix for users

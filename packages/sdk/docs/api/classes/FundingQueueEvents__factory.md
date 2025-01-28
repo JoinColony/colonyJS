@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Class: FundingQueueEvents\_\_factory
 
 ## Constructors

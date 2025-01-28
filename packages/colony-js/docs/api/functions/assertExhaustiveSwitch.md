@@ -1,7 +1,3 @@
-[**API**](../README.md)
-
-***
-
 # Function: assertExhaustiveSwitch()
 
 > **assertExhaustiveSwitch**(`x`, `msg`): `never`
