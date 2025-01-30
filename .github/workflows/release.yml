@@ -23,7 +23,7 @@ jobs:
         id: cache
         with:
           path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - run: pnpm run bootstrap
       - name: Create Release Pull Request or Publish to npm
         id: changesets
