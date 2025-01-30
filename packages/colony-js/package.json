@@ -54,7 +54,7 @@
     "@colony/tokens": "workspace:*"
   },
   "devDependencies": {
-    "@colony/contractor": "^2.3.0",
+    "@colony/contractor": "workspace:*",
     "@ethersproject/abi": "^5.7.0",
     "@ethersproject/abstract-provider": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",
