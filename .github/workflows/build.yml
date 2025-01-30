@@ -17,6 +17,13 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
+        cache: 'pnpm'
+    - name: Cache NPM dependencies
+      uses: actions/cache@v4
+      id: cache
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
     - run: pnpm run bootstrap
     - run: pnpm run lint
     - run: pnpm run build

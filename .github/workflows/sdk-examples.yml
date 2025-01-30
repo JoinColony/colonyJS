@@ -26,7 +26,7 @@ jobs:
       id: cache
       with:
         path: node_modules
-        key: ${{ runner.os }}-node-${{ hashFiles('pnpm-lock.yaml') }}
+        key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
     - run: pnpm run bootstrap
     - run: pnpm --filter "!colony-js" run build
     - run: pnpm --filter "sdk" run build-examples
