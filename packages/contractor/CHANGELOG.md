@@ -1,5 +1,15 @@
 # @colony/contractor
 
+## 2.5.0
+
+### Minor Changes
+
+- de00a49: Update pnpm to version 10. Improve commonjs and old-node compatibility.
+
+### Patch Changes
+
+- 6f357dc: Remove page header from generated markdown docs
+
 ## 2.4.0
 
 ### Minor Changes
