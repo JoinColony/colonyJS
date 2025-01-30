@@ -1,5 +1,11 @@
 # @colony/tokens
 
+## 1.1.0
+
+### Minor Changes
+
+- de00a49: Update pnpm to version 10. Improve commonjs and old-node compatibility.
+
 ## 1.0.0
 
 ### Major Changes

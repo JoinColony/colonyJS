@@ -1,5 +1,20 @@
 # @colony/colony-js
 
+## 8.1.0
+
+### Minor Changes
+
+- de00a49: Update pnpm to version 10. Improve commonjs and old-node compatibility.
+
+### Patch Changes
+
+- 6f357dc: Remove page header from generated markdown docs
+- Updated dependencies [de00a49]
+- Updated dependencies [94c4cef]
+  - @colony/events@4.1.0
+  - @colony/tokens@1.1.0
+  - @colony/core@3.1.0
+
 ## 8.0.0
 
 ### Major Changes

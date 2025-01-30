@@ -1,5 +1,17 @@
 # @colony/wagmi-plugin
 
+## 0.2.0
+
+### Minor Changes
+
+- de00a49: Update pnpm to version 10. Improve commonjs and old-node compatibility.
+
+### Patch Changes
+
+- Updated dependencies [de00a49]
+- Updated dependencies [94c4cef]
+  - @colony/core@3.1.0
+
 ## 0.1.1
 
 ### Patch Changes

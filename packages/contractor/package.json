@@ -1,6 +1,6 @@
 {
   "name": "@colony/contractor",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "description": "✒️ A nifty tool that creates Colony Network TypeScript bindings",
   "type": "module",
   "scripts": {
