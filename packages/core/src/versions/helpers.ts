@@ -118,8 +118,14 @@ export const isExtensionCompatible = (
   colonyVersion: ColonyVersion,
 ): boolean => {
   const map = getExtensionIncompatibilityMap(extension, extensionVersion);
+  if (!map) {
+    console.warn(
+      `Version ${extensionVersion} of ${extension} is unknown. Compatibility check disabled`,
+    );
+    return true;
+  }
 
-  return !!map && !map.includes(colonyVersion);
+  return !map.includes(colonyVersion);
 };
 
 /**
