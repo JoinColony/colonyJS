@@ -16,8 +16,8 @@ Colony SDK also includes a variety of examples to get you up and building with C
 ## Quickstart
 
 ```javascript
-import { providers } from 'ethers';
-import { ColonyNetwork, toEth } from '@colony/sdk';
+import { providers } from "ethers";
+import { ColonyNetwork, toEth } from "@colony/sdk";
 
 // If MetaMask is installed there will be an `ethereum` object on the `window`
 // NOTE: Make sure MetaMask is connected to ArbitrumOne chain (use https://app.colony.io/public-rpc or see https://chainlist.org/chain/42161)
@@ -26,7 +26,7 @@ const provider = new providers.Web3Provider(window.ethereum);
 // Get the MetaColony's CLNY funding in the root team (id 1)
 const start = async () => {
   // This will try to connect the page to MetaMask
-  await provider.send('eth_requestAccounts', []);
+  await provider.send("eth_requestAccounts", []);
   // Create a new connection to the Colony Network contracts using the MetaMask "wallet"
   const colonyNetwork = new ColonyNetwork(provider.getSigner());
   // Connect to the MetaColony (this could be replaced with your own colony using `colonyNetwork.getColony(COLONY_ADDRESS)`)
@@ -34,7 +34,7 @@ const start = async () => {
   // Get the CLNY funding for the MetaColony (CLNY is it's native token)
   const funding = await metaColony.getBalance();
   // The funding will be in wei (x * 10^18), so we format into a readable string using the `toEth` function
-  alert('MetaColony balance is ' + toEth(funding) + ' CLNY');
+  alert("MetaColony balance is " + toEth(funding) + " CLNY");
 };
 
 start();
@@ -48,22 +48,34 @@ start();
 
 We are using the [pnpm](https://pnpm.io/installation) version manager for this project. Please make sure to have a current version of it installed on your system.
 
-First, clone this repo: 
+First, clone this repo:
+
 ```bash
 git clone https://github.com/JoinColony/colonyJS.git
+```
+
+Go to the `root` directory:
+
+```bash
+cd colonyJS
+```
+
+Run the bootstrap command to install dependencies, build the contractor package, and ensure frozen lockfile integrity:
+
+```bash
+pnpm bootstrap
+```
+
+Build the Colony packages (this will build all packages and also install [ethers.js](https://docs.ethers.io/v5/) along with some required development dependencies):
+
+```bash
+pnpm build
 ```
 
 Go to the `sdk` package directory:
 
 ```bash
-cd colonyJS/packages/sdk
-```
-
-Then install all the required dependencies (this will install [ethers.js](https://docs.ethers.io/v5/) and [colonyJS](https://github.com/JoinColony/colonyJS) as well as some required development dependencies):
-
-```bash
-pnpm bootstrap
-pnpm install
+cd packages/sdk
 ```
 
 Then you can run the examples:
