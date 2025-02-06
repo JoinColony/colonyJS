@@ -173,7 +173,7 @@ export namespace Tokens {
     /** ETH on Arbitrum One */
     ETH = '0x0000000000000000000000000000000000000000',
     /** CLNY on Arbitrum One */
-    CLNY = '0xcccccdcc0ccf6c708d860e19353c5f9a49accccc',
+    CLNY = '0xD611b29dc327723269Bd1e53Fe987Ee71A24B234',
     /** USDC on Arbitrum One */
     USDC = '0xaf88d065e77c8cC2239327C5EDb3A432268e5831',
   }
