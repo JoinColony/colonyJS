@@ -65,7 +65,7 @@
     "@types/ws": "^8.5.3",
     "@types/yargs": "^17.0.10",
     "cross-fetch": "^4.0.0",
-    "esbuild": "^0.14.27",
+    "esbuild": "^0.25.0",
     "ethers": "^5.7.1",
     "fast-glob": "^3.2.11",
     "inquirer": "^8.2.4",
